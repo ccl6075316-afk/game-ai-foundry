@@ -1,0 +1,19 @@
+{
+  "kind": "caudal_repair_preservation",
+  "schema_version": 1,
+  "species": "red_seabream",
+  "affected_anatomical_parts": [
+    "Caudal"
+  ],
+  "model_sha256": "6ac8710a55b84cd59729c0164a5f604d40811e41b0b1024a2a96edfdb00603e6",
+  "source_sha256": "2a905ebf75af47f3257189c608b6d850f4a989e281c9da16122f33729b266fef",
+  "editable_source_role": "editable_source",
+  "accepted_snapshot": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/red_seabream.json",
+    "sha256": "2d2d439f500b3c1687adf871d794883358fcaae4a154ec73a44df9e15317d687"
+  },
+  "accepted_material_bindings": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/red_seabream-material-bindings.json",
+    "sha256": "7a8739e59c0f18a62d6350a2d285eaeaa0f187be2a9a3272ddb50931c6f499e5"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "ok": true,
+  "kind": "explicit_entity_cap_tissue_tile_pixels",
+  "input_atlas_sha256": "ace3ebbe085cd5c9d87df7b11fb97d5a17cc1186ddb65ab20d28632165b5fbf9",
+  "output_atlas_sha256": "1ff4c7ebda90dbeefb12fbd4655b24d0e9be7df4d318e54d098ee08e86a9da65",
+  "mask_sha256": "ccdf928760fb234caa154ee72d496f7f8d5170aa59999578680df9bc9148e127",
+  "source_gap_mask_sha256": "47f27a8ef7d0fc6c238ebe8005dd7c66e7c3a21f63b6a5cf3321a358ddb9c528",
+  "original_size": [
+    285,
+    287
+  ],
+  "output_size": [
+    570,
+    287
+  ],
+  "source_crop": [
+    0,
+    100,
+    285,
+    109
+  ],
+  "new_tile": [
+    285,
+    0,
+    285,
+    109
+  ],
+  "source_entity_domain_alpha_gap_pixels_filled": 220,
+  "original_opaque_tissue_RGB_inside_new_tile_exact": true,
+  "outside_edit_mask_RGBA_exact": true,
+  "new_tile_other_UV_coverage": 0,
+  "all_other_parts_actual_nearest_pixel_RGBA_exact": [
+    {
+      "part": "Caudal",
+      "entire_UV_nearest_pixel_domain_samples": 36748,
+      "RGBA_exact": true
+    }
+  ],
+  "embedded_RGBA_exact": false,
+  "expected_change": "Only a new unreferenced tail cap donor tile changes embedded RGBA. Original occupied tissue RGB retained byte-exact; transparent pixels solely in explicit entity cap domain get closest same-tail opaque tissue.",
+  "new_face_UV_blender": {
+    "72": [
+      [
+        0.9964210391044617,
+        0.7863657093421923
+      ],
+      [
+        0.5043859649122807,
+        0.8763066202090593
+      ],
+      [
+        0.7114035087719298,
+        0.6289198606271778
+      ]
+    ],
+    "74": [
+      [
+        0.506140350877193,
+        0.8937282229965157
+      ],
+      [
+        0.9868421052631579,
+        0.9912891986062718
+      ],
+      [
+        0.9964210689067841,
+        0.9596707737819659
+      ]
+    ],
+    "68": [
+      [
+        0.9964210689067841,
+        0.9596707737819659
+      ],
+      [
+        0.9868421052631579,
+        0.9912891986062718
+      ],
+      [
+        0.506140350877193,
+        0.8937282229965157
+      ]
+    ],
+    "78": [
+      [
+        0.7114035087719298,
+        0.6289198606271778
+      ],
+      [
+        0.5043859649122807,
+        0.8763066202090593
+      ],
+      [
+        0.9964210391044617,
+        0.7863657093421923
+      ]
+    ]
+  },
+  "input_atlas_is_original_accepted_glb": true,
+  "input_original_glb_sha256": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730"
+}

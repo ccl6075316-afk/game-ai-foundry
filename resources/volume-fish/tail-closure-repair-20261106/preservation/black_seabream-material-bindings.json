@@ -1,0 +1,77 @@
+{
+  "kind": "accepted_caudal_repair_material_bindings",
+  "species": "black_seabream",
+  "baseline_model_sha256": "36922aa0769d17749e926a35bcb731f7d17a8236836b222c5c9a8d21011c4c43",
+  "part_material_bindings": [
+    {
+      "key": [
+        "Anal_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Caudal_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Closed_body",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Closed_body",
+        1
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Closed_body",
+        2
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Dorsal_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pectoral_left_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pectoral_right_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pelvic_left_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pelvic_right_mesh",
+        0
+      ],
+      "material": 0
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "ok": true,
+  "current_canonical_hashes_verified": true,
+  "domains": [
+    {
+      "species": "atlantic_salmon",
+      "path": "resources/volume-fish/tail-closure-repair-20261106/atlantic_salmon/complete-root-domains.json",
+      "sha256": "dd3211186e52e73c43d645b933db02ba0d9156bc4076585eb767e2c1b7e88ed5",
+      "roots": 188,
+      "bytes": 246963
+    },
+    {
+      "species": "red_emperor",
+      "path": "resources/volume-fish/tail-closure-repair-20261106/red_emperor/complete-root-domains.json",
+      "sha256": "8eab69f808ba308bfd8258fc2e99194a082bde210001d0c0ce7a27c69d93742c",
+      "roots": 193,
+      "bytes": 251673
+    },
+    {
+      "species": "sea_bass",
+      "path": "resources/volume-fish/tail-closure-repair-20261106/sea_bass/complete-root-domains.json",
+      "sha256": "2fea70704f76b9b55bc1bbbfbe29c0c29abbc33d5690468251e7c246dfbca76e",
+      "roots": 161,
+      "bytes": 208792
+    },
+    {
+      "species": "rainbow_trout",
+      "path": "resources/volume-fish/tail-closure-repair-20261106/rainbow_trout/complete-root-domains.json",
+      "sha256": "0b767581ad1a6246dc327c24edc114977becce2df542777dcc274be9c45908df",
+      "roots": 224,
+      "bytes": 255402
+    },
+    {
+      "species": "carp",
+      "path": "resources/volume-fish/tail-closure-repair-20261106/carp/complete-root-domains.json",
+      "sha256": "e6e6064786245c62e7a3e974bd29fb92afac0e944b0aa28ef8517e7d4e5f51cb",
+      "roots": 228,
+      "bytes": 323336
+    },
+    {
+      "species": "mahi_mahi",
+      "path": "resources/volume-fish/tail-closure-repair-20261106/mahi_mahi/complete-root-domains.json",
+      "sha256": "98237e19a851a8388bd3511bb44ec1fac9d272d6578358fd52841afe9f1d072c",
+      "roots": 416,
+      "bytes": 406777
+    },
+    {
+      "species": "silver_arowana",
+      "path": "resources/volume-fish/tail-closure-repair-20261106/silver_arowana/complete-root-domains.json",
+      "sha256": "86b2b930f59081acf6028a827fb2114dcb3256435eddb792a908e2f498bcae3e",
+      "roots": 172,
+      "bytes": 203893
+    },
+    {
+      "species": "african_catfish",
+      "path": "resources/volume-fish/tail-closure-repair-20261106/african_catfish/complete-root-domains.json",
+      "sha256": "1c09a0137999137982a0edb8b3d48835735e8c394c8b32e8df9318de1001445a",
+      "roots": 182,
+      "bytes": 304804
+    }
+  ],
+  "domain_bytes": 2201640,
+  "scope": "Input maintenance and actual source identity proof only. Physical results remain in the final current-gates manifest."
+}

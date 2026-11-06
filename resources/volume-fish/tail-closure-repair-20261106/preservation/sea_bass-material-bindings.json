@@ -1,0 +1,84 @@
+{
+  "kind": "accepted_caudal_repair_material_bindings",
+  "species": "sea_bass",
+  "baseline_model_sha256": "4683886f983b60b6f216a4d77ce15157dbb584317047c5bba6f8612a49fadcef",
+  "part_material_bindings": [
+    {
+      "key": [
+        "Anal_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Caudal_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Closed_body",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Closed_body",
+        1
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Closed_body",
+        2
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Dorsal_soft_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Dorsal_spiny_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pectoral_left_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pectoral_right_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pelvic_left_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pelvic_right_mesh",
+        0
+      ],
+      "material": 0
+    }
+  ]
+}

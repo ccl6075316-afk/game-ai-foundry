@@ -31,8 +31,15 @@ def check_native_lip_report(report,candidates,species,fail,label):
     if not(lip.get('protected_texels',0)>0 and lip.get('maximum_front_weight_inside_complete_lip')==0 and lip.get('maximum_central_weight_inside_complete_lip')==0 and all(domain.get(k,0)>0 for k in['upper_width_px','lower_width_px','outer_fade_px'])and rim.get('upper_edges',0)>0 and rim.get('lower_edges',0)>0 and report.get('geometry_weights_triangles_unchanged')is True):fail('incomplete_native_lip_domain',label)
 
 
-def check_fin_volume_report(report, candidates, species, fail, label, profile):
+def check_fin_volume_report(report, candidates, species, fail, label, profile, preservation=None):
     """Reject generic passed JSON, constant shells, wrong fish/model or old negatives."""
+    if report.get('kind') == 'caudal_repair_current_volume':
+        from volume_repair_preservation import validate_tail_volume
+        try:
+            validate_tail_volume(report, candidates, species, preservation)
+        except (ValueError, KeyError, OSError, TypeError, IndexError) as exc:
+            fail('invalid_repair_tail_volume', label + ': ' + str(exc))
+        return
     if report.get('kind')=='actual_packed_source_fin_volume_and_tail_section':
         from volume_packed_acceptance import check_packed_volume
         check_packed_volume(report,candidates,species,fail,label,profile);return
@@ -109,7 +116,8 @@ def standard_snapshot():
              'source-surface-repair.md', 'final-asset-export.md', 'mouth-first-review.md',
              'production-workflow-gates.md')]
     paths += [Path(__file__), Path(__file__).with_name('volume_finalization.py'),
-              Path(__file__).with_name('volume_packed_acceptance.py')]
+              Path(__file__).with_name('volume_packed_acceptance.py'),
+              Path(__file__).with_name('volume_repair_preservation.py')]
     return {'version': STANDARD_VERSION, 'files': {str(p.relative_to(root)): sha(p) for p in paths},
             'criteria': json.loads(json.dumps(STAGES))}
 
@@ -163,16 +171,36 @@ def check(review: Path, output: Path | None=None):
     for role,row in candidates.items():
         if role not in INPUT_ROLES:artifact(row,role)
     frozen={k:v.get('sha256') for k,v in candidates.items() if isinstance(v,dict)}
+    preservation = None
+    if data.get('repair_preservation'):
+        from volume_repair_preservation import validate_preservation
+        try:
+            absolute = {key: {**row, 'path': str(resolve(row['path']))}
+                        for key, row in candidates.items()}
+            preservation = validate_preservation(data['repair_preservation'], absolute,
+                                                 data['species'], data['task_type'])
+        except (ValueError, KeyError, OSError, TypeError, IndexError) as exc:
+            fail('invalid_repair_preservation', str(exc))
     used=set()
     for stage,checks in STAGES.items():
         start=len(failures);entry=data.get('stages',{}).get(stage,{})
         if not isinstance(entry,dict) or not isinstance(entry.get('checks',{}),dict):
             raise ValueError('Stage and checks must be objects: '+stage)
-        if entry.get('result')!='passed':fail('stage_incomplete',stage)
+        if entry.get('result') not in ('passed', 'accepted_exact_preserved'):fail('stage_incomplete',stage)
         if stage == 'mouth':check_mouth_implementation(entry,candidates,artifact,fail)
         if stage == 'runtime':check_finalization(data,entry,candidates,artifact,fail)
         for key in ['method','reviewer','observations']:
             if not isinstance(entry.get(key),str) or not entry[key].strip():fail('missing_review',stage+'.'+key)
+        if entry.get('result') == 'accepted_exact_preserved':
+            from volume_repair_preservation import PRESERVED_STAGES
+            if preservation is None or stage not in PRESERVED_STAGES:
+                fail('invalid_preserved_stage', stage)
+            # Acceptance is inherited only after actual protected GLB data passes;
+            # retired images are neither relabelled nor required to exist again.
+            rows.append({'stage': stage, 'ok': len(failures) == start,
+                         'preserved_accepted_scope': preservation,
+                         'failures': failures[start:]})
+            continue
         for criterion,kind in checks.items():
             ids=entry.get('checks',{}).get(criterion)
             if not isinstance(ids,list) or not ids:
@@ -203,7 +231,7 @@ def check(review: Path, output: Path | None=None):
                         if content.get('ok') is not True:fail('failed_report',label)
                         if stage=='fins'and criterion=='actual_normal_thickness_and_tail_section':
                             profile=read(resolve(candidates['species_profile']['path']))
-                            check_fin_volume_report(content,candidates,data['species'],fail,label,profile)
+                            check_fin_volume_report(content,candidates,data['species'],fail,label,profile,preservation)
                         if stage=='mouth'and criterion=='complete_native_lip_domain_and_front_exclusion':check_native_lip_report(content,candidates,data['species'],fail,label)
                     except (ValueError,AttributeError,OSError,KeyError,TypeError):fail('invalid_report',label)
                 elif kind=='image':

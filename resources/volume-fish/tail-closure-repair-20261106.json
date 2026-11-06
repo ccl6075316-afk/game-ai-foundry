@@ -1,0 +1,602 @@
+{
+  "kind": "finished_tail_closure_and_peduncle_repair",
+  "date": "2026-11-06",
+  "status": "finished",
+  "user_acceptance": true,
+  "acceptance_basis": "User explicitly requested direct repair and finished cleanup/commit/push without another showing; actual technical+visual review completed by agents. No new user visual review claimed.",
+  "fish": [
+    {
+      "species": "black_seabream",
+      "label": "黑鲷",
+      "model": {
+        "path": "game/assets/models/fish/black_seabream.glb",
+        "sha256": "bbeb71166d9deab84557865204fc81f0e913f8290d5dec90a2526620dd1053bd",
+        "bytes": 9166568
+      },
+      "source": {
+        "path": "assets/source/fish/black_seabream/fish.blend",
+        "sha256": "6828dac864d8603d5b205012c81f4e8ab81a29916e5a4c08075d6ad6388e239d",
+        "bytes": 9028002
+      },
+      "baseline_sha256_historical": {
+        "model_sha256": "36922aa0769d17749e926a35bcb731f7d17a8236836b222c5c9a8d21011c4c43",
+        "source_sha256": "f8e84b15b3521f7b8765d25335db403b5a6fb853d1cb3f634556a2c623820cd2"
+      },
+      "static": {
+        "geometry_uv_skin_sha256": "2c7c3487ee9d75eb8448b78b33d2dccf7da207539808fe37f350b46e10001c6e",
+        "material_pixels_sha256": "00316db8e83ca70b9c3786fc4f5da96080646be13f9fff407259355c9ed08bc7",
+        "skeleton_rest_bind_sha256": "8fef87601f397cd0b1338c78ccc87319cbf69d06cd5351e5cb24a0ecb78d483f",
+        "triangles": 1952,
+        "bones": 18
+      },
+      "sop": {
+        "path": "plans/reviews/tail-repair-20261106/black_seabream/sop.validation.json",
+        "sha256": "b3bc8bf924db0de4c5f6bd7b3f713842c494d29f85435405a3497933a6cf0841"
+      },
+      "current_root_domains": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/black_seabream/complete-root-domains.json",
+        "sha256": "0098456d6b861555f2077dc14fb0f0da706046957f99289b0b0277870162d926"
+      }
+    },
+    {
+      "species": "red_seabream",
+      "label": "真鲷",
+      "model": {
+        "path": "game/assets/models/fish/red_seabream.glb",
+        "sha256": "6ac8710a55b84cd59729c0164a5f604d40811e41b0b1024a2a96edfdb00603e6",
+        "bytes": 8898768
+      },
+      "source": {
+        "path": "assets/source/fish/red_seabream/fish.blend",
+        "sha256": "2a905ebf75af47f3257189c608b6d850f4a989e281c9da16122f33729b266fef",
+        "bytes": 8787451
+      },
+      "baseline_sha256_historical": {
+        "model_sha256": "86e10fcaae8f3a0268f3afa7ca73caf550746fdf50d9c5d40467df59fd1d18f1",
+        "source_sha256": "7b381777fb5f1be3fc436ad22e9fd1057781b90fb3ff486e43f4c98a4d22ebee"
+      },
+      "static": {
+        "geometry_uv_skin_sha256": "fbb38e9ce58f4053c64ccaeed0131a9eed4b16ac459c69ca4f0544fe49d17d59",
+        "material_pixels_sha256": "af1470e8aa23d6020e3ad71288c41dea5e29d6dcc3b9a99f772c44d764cbb9c0",
+        "skeleton_rest_bind_sha256": "a1b5aaca4606d82d6e68e3c3530fefdcf551b126047bdafa1f86b44ed33a694f",
+        "triangles": 1904,
+        "bones": 18
+      },
+      "sop": {
+        "path": "plans/reviews/tail-repair-20261106/red_seabream/sop.validation.json",
+        "sha256": "e677336d3d5796fa62b9defbf747f31e6b0eb9af9e177a44ba6662be56e49586"
+      },
+      "current_root_domains": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/red_seabream/complete-root-domains.json",
+        "sha256": "8f749fb9bab57427080a62f167305cfcefbb60e13f7efb0d6e9b9bb5ce852a93"
+      }
+    },
+    {
+      "species": "piranha",
+      "label": "食人鱼",
+      "model": {
+        "path": "game/assets/models/fish/piranha.glb",
+        "sha256": "80be233cef987ac695fff661986fa307542a9f5738415680c26e4f8c9149d532",
+        "bytes": 7496908
+      },
+      "source": {
+        "path": "assets/source/fish/piranha/fish.blend",
+        "sha256": "25dd210d0d74404ca2ab4c6247832cff0ec1188e673e49cf2fa81e59cb6ee998",
+        "bytes": 7420998
+      },
+      "baseline_sha256_historical": {
+        "model_sha256": "fb2ab1899686f70b99056b9776b5e4184dd929926e7a4bf8d9e488c8e98b7438",
+        "source_sha256": "285fe85139fc6868776c3745006badb353e5f6b3fc12e7f48672c92d0961c666"
+      },
+      "static": {
+        "geometry_uv_skin_sha256": "3b1a39c5719704ef35ee0a4da612cff997486a375eb275271c09c59dae55a1ca",
+        "material_pixels_sha256": "77013b83e4990a3abdd49cc35970f60317a6fbadf452affd52e65b1cc0f0dbc1",
+        "skeleton_rest_bind_sha256": "164afb6067683bade6360d9dc4e8e3b05501758b9a09379751954e4f6d6e53f3",
+        "triangles": 1992,
+        "bones": 19
+      },
+      "sop": {
+        "path": "plans/reviews/tail-repair-20261106/piranha/sop.validation.json",
+        "sha256": "611a961c327832f53ba36e90cae49e65dbeaf2bb21041b46b94d035b89fdd19f"
+      },
+      "current_root_domains": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/piranha/complete-root-domains.json",
+        "sha256": "b705de83db7eaee06741b74c0a003d8153caeca345621ce177d01d333fc00357"
+      }
+    },
+    {
+      "species": "mahi_mahi",
+      "label": "鬼头刀",
+      "model": {
+        "path": "game/assets/models/fish/mahi_mahi.glb",
+        "sha256": "fffa338ffa38050388eee3435c143b36a0c4b07834b99ac9c21c1cef4e0338c5",
+        "bytes": 11332980
+      },
+      "source": {
+        "path": "assets/source/fish/mahi_mahi/fish.blend",
+        "sha256": "e8cbdef5c1b8765dc0c063794670db1523d0137bf2e9f6d4751682cdb0040383",
+        "bytes": 11390959
+      },
+      "baseline_sha256_historical": {
+        "model_sha256": "3fc100704119caf59ce4f15450f52527e663c2f9d5541d8a6dcf5db3ddcb763b",
+        "source_sha256": "5a2155ce0d567caa69d15b15a7afe13d491975ed11352a38dda3e220c7d70f55"
+      },
+      "static": {
+        "geometry_uv_skin_sha256": "2123f4fbc5bc8a8b04f4dd4a457906cad903770748bcf89e49ba94835819a372",
+        "material_pixels_sha256": "5c0b65a802cec3460f75576e5335718db8e014e13d2e319fa479c072a50c612d",
+        "skeleton_rest_bind_sha256": "e818d20d27bc2c42a856211da933ef0070c5aa57710b0d8cbf42be4da206f14e",
+        "triangles": 1990,
+        "bones": 18
+      },
+      "sop": {
+        "path": "plans/reviews/tail-repair-20261106/mahi_mahi/sop.validation.json",
+        "sha256": "9bd90767b1c3f0805bcf5663b139018b85ad2996b283ae6ca424385457dd4fe8"
+      },
+      "current_root_domains": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/mahi_mahi/complete-root-domains.json",
+        "sha256": "98237e19a851a8388bd3511bb44ec1fac9d272d6578358fd52841afe9f1d072c"
+      }
+    },
+    {
+      "species": "yellow_croaker",
+      "label": "大黄鱼",
+      "model": {
+        "path": "game/assets/models/fish/yellow_croaker.glb",
+        "sha256": "8846cb7bd8736407f80b5b0436889f07e7e5df2e1c95f57d077b97e24dd2dec4",
+        "bytes": 6865808
+      },
+      "source": {
+        "path": "assets/source/fish/yellow_croaker/fish.blend",
+        "sha256": "ae1e42c1b29276e64ba975954610f81c98efe2d57ef1490ec4cb423a1022f311",
+        "bytes": 6684854
+      },
+      "baseline_sha256_historical": {
+        "model_sha256": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "source_sha256": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38"
+      },
+      "static": {
+        "geometry_uv_skin_sha256": "1beb3604e0d8313b5c37d3a3463afd1134fea698aa87fe5c3b8a49c10b552eef",
+        "material_pixels_sha256": "4a1869ff98b85207829da993dc6d31e544e296bf32bbacbd385a6e76b92391ef",
+        "skeleton_rest_bind_sha256": "bd44684b945a66d3001352fd910eb6aa1380ea9aa23b366db8c442be95c588b0",
+        "triangles": 2000,
+        "bones": 18
+      },
+      "sop": {
+        "path": "plans/reviews/tail-repair-20261106/yellow_croaker/sop.validation.json",
+        "sha256": "97a906eeebbdc6e98b40da2de270ddbaa19ad2dd16ffb3267804ecb199153fae"
+      },
+      "current_root_domains": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/yellow_croaker/complete-root-domains.json",
+        "sha256": "386b200fd549ca09adbc7713a63b1d7f7003c489e52daee511724703add6ca2b"
+      }
+    },
+    {
+      "species": "atlantic_salmon",
+      "label": "大西洋鲑",
+      "model": {
+        "path": "game/assets/models/fish/atlantic_salmon.glb",
+        "sha256": "837fcc31a3aaabe36524473030925f7cadb4522d63602f69d0cf075c8fb30a4b",
+        "bytes": 4633740
+      },
+      "source": {
+        "path": "assets/source/fish/atlantic_salmon/fish.blend",
+        "sha256": "6db3d60c2db0aca045217c5483aaa7b82a23a846022dae769a4f7cada271333e",
+        "bytes": 4600369
+      },
+      "baseline_sha256_historical": {
+        "model_sha256": "535657192a3517290f5bf96f9abe740cc0e120b1a82eee72c686f7bb4141d466",
+        "source_sha256": "321e12925299eee714db9a6c4b30ada3eafb008a777e31a63fbe8d5b35adda4a"
+      },
+      "static": {
+        "geometry_uv_skin_sha256": "e0211f6d6c988e9ba25ee1ace2d0a1551469ea8a996c511cdc3266fce0556fa2",
+        "material_pixels_sha256": "f6a30443114ec87e594c5b8007c348e009cd0e4ad0fc4f6706222ed5d213d22f",
+        "skeleton_rest_bind_sha256": "0a49b854669e9cc23e7e8a316933866c32dcd4309b752e7dbda31dd9d2bf997e",
+        "triangles": 1952,
+        "bones": 19
+      },
+      "sop": {
+        "path": "plans/reviews/tail-repair-20261106/atlantic_salmon/sop.validation.json",
+        "sha256": "15bf1094e7369e6dfc2b94d1f60c7f394685907f6748e5faa3d2cb6355ac3439"
+      },
+      "current_root_domains": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/atlantic_salmon/complete-root-domains.json",
+        "sha256": "dd3211186e52e73c43d645b933db02ba0d9156bc4076585eb767e2c1b7e88ed5"
+      }
+    },
+    {
+      "species": "red_emperor",
+      "label": "红皇帝鱼",
+      "model": {
+        "path": "game/assets/models/fish/red_emperor.glb",
+        "sha256": "317f10ee1a1fb1eb3f1e76667af5904efd3586d052495eca85b3ad6f52e0f072",
+        "bytes": 7262872
+      },
+      "source": {
+        "path": "assets/source/fish/red_emperor/fish.blend",
+        "sha256": "3db7de905e510f41c1813d4e248b26c2ef1dac276545fd7fd3288ca8eab68d47",
+        "bytes": 7160490
+      },
+      "baseline_sha256_historical": {
+        "model_sha256": "0b7a766d7490715cd4245405e1951ddc8ade738da4997dde890c0373d88d9084",
+        "source_sha256": "71911119ee86ebf0d34b5bef64f99f35ff7c851fbad801beb007b792d89d7020"
+      },
+      "static": {
+        "geometry_uv_skin_sha256": "db59f0e181cb438b4b7120dd5ab6cfa584bb666875fc681bcebc8c3ff3394dbd",
+        "material_pixels_sha256": "0298fb13ccc591456370072dcf6f47e5a25a247562db3b85bd2bfa3a261ab575",
+        "skeleton_rest_bind_sha256": "dd9f10462d840e31ad615b4628b3dc1910f147f8a07647a06feb426c517f7916",
+        "triangles": 1742,
+        "bones": 18
+      },
+      "sop": {
+        "path": "plans/reviews/tail-repair-20261106/red_emperor/sop.validation.json",
+        "sha256": "f05b22ad31632df00dd19b013c74372f07bf8da82e7f11f7fd043b0f707da240"
+      },
+      "current_root_domains": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/red_emperor/complete-root-domains.json",
+        "sha256": "8eab69f808ba308bfd8258fc2e99194a082bde210001d0c0ce7a27c69d93742c"
+      }
+    },
+    {
+      "species": "silver_arowana",
+      "label": "银龙鱼",
+      "model": {
+        "path": "game/assets/models/fish/silver_arowana.glb",
+        "sha256": "cf008adeaded905704861a232006a51c00dcffa0edc817fdc41858f7aa9b7a02",
+        "bytes": 5429496
+      },
+      "source": {
+        "path": "assets/source/fish/silver_arowana/fish.blend",
+        "sha256": "3de66d12937aa00209d7c651d29d109a10edc657ac9159c8e69baa836ba3bdb2",
+        "bytes": 5416597
+      },
+      "baseline_sha256_historical": {
+        "model_sha256": "c40dd8db8d18db24a9d3b6c8672d8a9bf34bdefb309a8e7f9874a928478f0a71",
+        "source_sha256": "06c4bf27846cdbc634be1953590b5a865a4c602d0e68f63a26d7f8cc1151b936"
+      },
+      "static": {
+        "geometry_uv_skin_sha256": "f7f4adc70f5657f75e915619ad5e32c3ccaf9c663a2f65e90d6a3f08cb26c4ef",
+        "material_pixels_sha256": "baea3d85d7b1848cedeb817f6e84873174a8200b8f39212c42e6e4e33528c3f0",
+        "skeleton_rest_bind_sha256": "90773d11fb76ef43384a4283823adc8a34b99a1e44d926c0ff3c14537ab7a5e3",
+        "triangles": 1984,
+        "bones": 35
+      },
+      "sop": {
+        "path": "plans/reviews/tail-repair-20261106/silver_arowana/sop.validation.json",
+        "sha256": "8be29c668ca9309c09b5984d0a6606392d6728df96f0c3dc210f88f07769fcd5"
+      },
+      "current_root_domains": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/silver_arowana/complete-root-domains.json",
+        "sha256": "86b2b930f59081acf6028a827fb2114dcb3256435eddb792a908e2f498bcae3e"
+      }
+    },
+    {
+      "species": "arapaima",
+      "label": "巨骨舌鱼",
+      "model": {
+        "path": "game/assets/models/fish/arapaima.glb",
+        "sha256": "d4a52b0e4ea989e5f40088004677919619adfb1194e71e97b8fa5fbd320f8818",
+        "bytes": 6613440
+      },
+      "source": {
+        "path": "assets/source/fish/arapaima/fish.blend",
+        "sha256": "879f82a1c6b84efdf81024afc012fc44716f77097d9a484f5320f7568cefba7c",
+        "bytes": 6496284
+      },
+      "baseline_sha256_historical": {
+        "model_sha256": "e540c264bf6d784504a3e098a92881a7b562602c5256f3c3e333f3371432e37a",
+        "source_sha256": "b18ab48156d092383b8638961235ff938c0e9cbf1ae426460525bdf81c97c5cd"
+      },
+      "static": {
+        "geometry_uv_skin_sha256": "60d9b46e45eadeb4619ea60426c509dbed470c430122281ab8898d2838340e0d",
+        "material_pixels_sha256": "16f0e3a162c7148932fe54cb0cbebf98b443c09d4c7eb1244b829bc9ade4574b",
+        "skeleton_rest_bind_sha256": "f5c603dedfcf48701134b159d484136443dfa26b51a0decab46610e27deb84c9",
+        "triangles": 3742,
+        "bones": 32
+      },
+      "sop": {
+        "path": "plans/reviews/tail-repair-20261106/arapaima/sop.validation.json",
+        "sha256": "088424722e02d8ff15f750811789f7152bddd0747869fdc385f111c4154989c0"
+      },
+      "current_root_domains": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/arapaima/complete-root-domains.json",
+        "sha256": "9fd82675e9757c537ca6011c58b74afc1e0f79ee209a827f27209230608ba112"
+      }
+    },
+    {
+      "species": "peacock_bass",
+      "label": "孔雀鲈",
+      "model": {
+        "path": "game/assets/models/fish/peacock_bass.glb",
+        "sha256": "e703122fde5667bef8de396a002bf07daf75094d97040003807a1dc0c69f956d",
+        "bytes": 5255204
+      },
+      "source": {
+        "path": "assets/source/fish/peacock_bass/fish.blend",
+        "sha256": "b5a71eb8d29fabb06a2ee7f3ddf2892be4ee42fdabaecd0bf53dfb3b2d43af19",
+        "bytes": 6244113
+      },
+      "baseline_sha256_historical": {
+        "model_sha256": "02ee71055093b5d9ebc3b041603f5d808cf8de39266071a4be71d38079425bdd",
+        "source_sha256": "82c8bf589f29c38287af91d34b1dab0dc90238ea967f14f5b5a489978e2f4f7e"
+      },
+      "static": {
+        "geometry_uv_skin_sha256": "53d1fb1e99acb55e36e4f4f97c3722333a6310cb8715ab491a9db1fbfff6b177",
+        "material_pixels_sha256": "9e0bb6264548871407a11cdfd19b85e4557eff4cf42bb600682ce344729d6898",
+        "skeleton_rest_bind_sha256": "c326f8e4e2b738b1f66f71b33b9e88578f74f92560ecd1c5468a824bdbcde750",
+        "triangles": 1842,
+        "bones": 18
+      },
+      "sop": {
+        "path": "plans/reviews/tail-repair-20261106/peacock_bass/sop.validation.json",
+        "sha256": "bd252a6ef41982bb98fd699526f0b252d9943a0e129580451ffb9d9b1b954e4b"
+      },
+      "current_root_domains": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/peacock_bass/complete-root-domains.json",
+        "sha256": "5dc2e2707f39e0130ee628160215b62ed5e5989bf60509d718595f6e228ff817"
+      }
+    },
+    {
+      "species": "carp",
+      "label": "鲤鱼",
+      "model": {
+        "path": "game/assets/models/fish/carp.glb",
+        "sha256": "35e414db4be52b26b991ceccbc0b3a1e82db1183c373778e3e53d6f2d3f145d1",
+        "bytes": 7383316
+      },
+      "source": {
+        "path": "assets/source/fish/carp/fish.blend",
+        "sha256": "dae5bbba861b5e4c92d736ff28213d1c4d65db6717b0b14adca2c5eb0884c04b",
+        "bytes": 7298990
+      },
+      "baseline_sha256_historical": {
+        "model_sha256": "cc6739b60ac82d4118a567e989b97e3bd31ef2a1e1a54ca7abbdbe21d61d1ce3",
+        "source_sha256": "ab5880faa264a4bd439af9ab526db425e144eede883e48e58838645848f21ee9"
+      },
+      "static": {
+        "geometry_uv_skin_sha256": "922a267b7bc38d2b9540152306db27e36dee3c1897b7d6b701faccad9daabfcb",
+        "material_pixels_sha256": "21db9952715813bcc0464c1a3fd7cc07231b2cc10eded102e18fbc8dd1545d4f",
+        "skeleton_rest_bind_sha256": "91ef15df00cb7c3d709cb30db38039f99f3296acc19add19f41d8fdde5035b58",
+        "triangles": 1494,
+        "bones": 18
+      },
+      "sop": {
+        "path": "plans/reviews/tail-repair-20261106/carp/sop.validation.json",
+        "sha256": "f11cd26c5be1f4afd8c69f99baaf36a680fcb1de391c3d69d721e945cf8dda7e"
+      },
+      "current_root_domains": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/carp/complete-root-domains.json",
+        "sha256": "e6e6064786245c62e7a3e974bd29fb92afac0e944b0aa28ef8517e7d4e5f51cb"
+      }
+    },
+    {
+      "species": "nile_tilapia",
+      "label": "尼罗罗非鱼",
+      "model": {
+        "path": "game/assets/models/fish/nile_tilapia.glb",
+        "sha256": "4804f52ddf45862e44607fe8fd4df33d890a0034a9fd41daa9087eee04346676",
+        "bytes": 3763196
+      },
+      "source": {
+        "path": "assets/source/fish/nile_tilapia/fish.blend",
+        "sha256": "dedea5fe26707645432dde4440ca2edf9201444e45de599ceec6198140ee252c",
+        "bytes": 4969328
+      },
+      "baseline_sha256_historical": {
+        "model_sha256": "7b861cf5c2c154a3c6d5e693cf8e1e14fae9230b88fd229acbfc77c5ed5005c6",
+        "source_sha256": "b1339d45cf3c8e0bbd64d16f49532bf8b55b613106875c8b82e054108e1bd4be"
+      },
+      "static": {
+        "geometry_uv_skin_sha256": "3049dd40ff284dfb2e39b44c233bcb97782a3d25f051ec0b86c6a273d1fe4683",
+        "material_pixels_sha256": "9a036bcb3f63b54831301c0320d5eba3313d19c4ede12c5a628daf2a9822d915",
+        "skeleton_rest_bind_sha256": "d6656955a7111e7e78ab69d5a845f8b56a8b7dd02266c6114b8747267cec0f5c",
+        "triangles": 1602,
+        "bones": 18
+      },
+      "sop": {
+        "path": "plans/reviews/tail-repair-20261106/nile_tilapia/sop.validation.json",
+        "sha256": "d18b956384a118148ce4a271e7ee7a0f521a38669110fe8b5aaf2b3c98950235"
+      },
+      "current_root_domains": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/nile_tilapia/complete-root-domains.json",
+        "sha256": "0bb355891253bf1d4815521984e0d9e78ef7a7f28b2c27271d03871e342bc672"
+      }
+    },
+    {
+      "species": "sea_bass",
+      "label": "海鲈",
+      "model": {
+        "path": "game/assets/models/fish/sea_bass.glb",
+        "sha256": "1c908b8875e655559438ebe7797cc3f87d1658df93d6b0dacb86a69c75e4a631",
+        "bytes": 7140148
+      },
+      "source": {
+        "path": "assets/source/fish/sea_bass/fish.blend",
+        "sha256": "ddd6d46f6c326bb6c0342db533c03cd645e9379a6835308b4025c5cc1f7b4af0",
+        "bytes": 7030668
+      },
+      "baseline_sha256_historical": {
+        "model_sha256": "4683886f983b60b6f216a4d77ce15157dbb584317047c5bba6f8612a49fadcef",
+        "source_sha256": "80c23443f1b2afa9bafa2b81bb37f3069df2fe7d60eebb0d2e0d402fc7b6ae19"
+      },
+      "static": {
+        "geometry_uv_skin_sha256": "b6a99ccb1ddd4ba245220080ca181829a969c8932e02ce3a27708fedb5b7b5a4",
+        "material_pixels_sha256": "bc884a882641500cc41d9d12b4e6d5b807e5d5658e3868a5b75c822dd062f1fd",
+        "skeleton_rest_bind_sha256": "3d40c8736dbc823d1597fa665b4dbbee582a7b85fb28062855aab8145aca94b8",
+        "triangles": 1958,
+        "bones": 19
+      },
+      "sop": {
+        "path": "plans/reviews/tail-repair-20261106/sea_bass/sop.validation.json",
+        "sha256": "bf6b97a96bbfa30efff310253f9d7cb552153d61548b479d78a27e0dbcb8a8ce"
+      },
+      "current_root_domains": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/sea_bass/complete-root-domains.json",
+        "sha256": "2fea70704f76b9b55bc1bbbfbe29c0c29abbc33d5690468251e7c246dfbca76e"
+      }
+    },
+    {
+      "species": "rainbow_trout",
+      "label": "虹鳟",
+      "model": {
+        "path": "game/assets/models/fish/rainbow_trout.glb",
+        "sha256": "752c06f309c1e9127f6b8c0893ea96bb446c6b826cf255520292d471f09f1ae9",
+        "bytes": 6362544
+      },
+      "source": {
+        "path": "assets/source/fish/rainbow_trout/fish.blend",
+        "sha256": "494fc08922723ce8664f8db207651ff024dab4728b9b00d4363057174692500d",
+        "bytes": 6257219
+      },
+      "baseline_sha256_historical": {
+        "model_sha256": "21ada1433018b188f418695a1fa2b6106463395f0b2b1540c00b1b6774661554",
+        "source_sha256": "ef2b79c971dab6b9c9eaf85060819ee39ec4f544948eb09a74916c2985b98d03"
+      },
+      "static": {
+        "geometry_uv_skin_sha256": "d4feebf06c3ec0ccd246214d65a20df3386545409d6c069bb387f8364491e120",
+        "material_pixels_sha256": "767ec29ae9d9a5de1d22fab090de75ccb17bf0676b2a73e90f2a4e32c08ccc2d",
+        "skeleton_rest_bind_sha256": "35aee81b37a9d058c4b6f4fbf86a262cc782f1249ea1817fcc784022642d9193",
+        "triangles": 1860,
+        "bones": 19
+      },
+      "sop": {
+        "path": "plans/reviews/tail-repair-20261106/rainbow_trout/sop.validation.json",
+        "sha256": "b9cfaf0cbe8bd52d7e66d65f7cf1c2cf0d98d1abcc66b18fa69821dc23facffa"
+      },
+      "current_root_domains": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/rainbow_trout/complete-root-domains.json",
+        "sha256": "0b767581ad1a6246dc327c24edc114977becce2df542777dcc274be9c45908df"
+      }
+    },
+    {
+      "species": "pacific_bluefin_tuna",
+      "label": "太平洋蓝鳍金枪鱼",
+      "model": {
+        "path": "game/assets/models/fish/pacific_bluefin_tuna.glb",
+        "sha256": "21a541bfad43b97d6d8f4a5acea78c4caaf55f8f2266dc12119be705b703fc02",
+        "bytes": 7887392
+      },
+      "source": {
+        "path": "assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "f916416706ef3a481c731de8a44e8dac815f6675bcfc3b78be7ee680f84a938d",
+        "bytes": 7905801
+      },
+      "baseline_sha256_historical": {
+        "model_sha256": "1cd673adbd16fdf8bffc1252093a5a9fbb09891144228cc4cb67c83fa8adadfc",
+        "source_sha256": "c250664c8700472d4d6d424a7e7d2e3b9119fcf553345ec30134feffc01f9115"
+      },
+      "static": {
+        "geometry_uv_skin_sha256": "a841954bda413f06a357e53b388b23294aa6805d364411b3e84aaec94963ca21",
+        "material_pixels_sha256": "33e54b1e5a445499c95b15bb0147db1ba376a66d83d4c7fa7280ae9b33acf6f6",
+        "skeleton_rest_bind_sha256": "cb9e1083e90d2630bda8bbe0decede17b30d8a67eb2306fac2f96aa20b30c0f7",
+        "triangles": 3976,
+        "bones": 35
+      },
+      "sop": {
+        "path": "plans/reviews/tail-repair-20261106/pacific_bluefin_tuna/sop.validation.json",
+        "sha256": "cbc9e1bb803ef3f43e2888082855ee3ded3e3c8662ff5d5b280680217cd1d7dd"
+      },
+      "current_root_domains": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/pacific_bluefin_tuna/complete-root-domains.json",
+        "sha256": "e42eeb062c725f44a704a3ada4043dc1124b9136e3555e3d3413fd7f3fca88da"
+      }
+    },
+    {
+      "species": "zander",
+      "label": "梭鲈",
+      "model": {
+        "path": "game/assets/models/fish/zander.glb",
+        "sha256": "bf1137b96464ab2e395437e9bee9e0da16b9bbad2a508cabdfa87b43baef9c67",
+        "bytes": 7376072
+      },
+      "source": {
+        "path": "assets/source/fish/zander/fish.blend",
+        "sha256": "0612118f307f9ad6870af3db541f7981a552d34a853c6e13a04bfe27d7691f79",
+        "bytes": 7268288
+      },
+      "baseline_sha256_historical": {
+        "model_sha256": "7f169be9a2e3ebeeeed35a4883ee1f92dc41fbd3d1d14e51e8117616c4a9ccb5",
+        "source_sha256": "a3486d9be217b4cc68ffc24c0d246c11d48fa0edaf809f1699508b0bc5ae1965"
+      },
+      "static": {
+        "geometry_uv_skin_sha256": "6eaa598d2548311619d13c0ab95a770e26a5c96d3b003f2187e6d8de99d645fa",
+        "material_pixels_sha256": "723d2ee90f10cff92240386f28dd9bb1841fa1ce26fc7601d5192448aaeb1d96",
+        "skeleton_rest_bind_sha256": "39f4ce17a2a77f9c345a4079d6d3e379308ee49e6530c8ad1beb9aa891ee4608",
+        "triangles": 2000,
+        "bones": 19
+      },
+      "sop": {
+        "path": "plans/reviews/tail-repair-20261106/zander/sop.validation.json",
+        "sha256": "d8a3338c3ea7fec42264e3cca7be19fc7d914ffd770804f0b49db12d56be0661"
+      },
+      "current_root_domains": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/zander/complete-root-domains.json",
+        "sha256": "16a40ab5326119139e8e7dcb61c74f9d785aa62e9b6b51b8e9a8984d8ba21cca"
+      }
+    },
+    {
+      "species": "african_catfish",
+      "label": "非洲鲶鱼",
+      "model": {
+        "path": "game/assets/models/fish/african_catfish.glb",
+        "sha256": "62b26e865ba68f09fafbb7b2bf73a7439736101806f66ac7a35b63cb232aac04",
+        "bytes": 8382416
+      },
+      "source": {
+        "path": "assets/source/fish/african_catfish/fish.blend",
+        "sha256": "d807fb550386990b9ad21fc544f3538cbf54ae0dfe895a2611ae9b890b77001f",
+        "bytes": 9239658
+      },
+      "baseline_sha256_historical": {
+        "model_sha256": "0be4ad46a8d9102631a9ffc5819c4e0e0c3df5afdf3776741b1466b16d351d02",
+        "source_sha256": "17c2e025d8667720428f3a144571db13f6204a75ffbfdf24a507b68f8b130f9d"
+      },
+      "static": {
+        "geometry_uv_skin_sha256": "faabf4aaa6f5055ee63f54d3d42d3e7be412c32925b70c4e5ab5be6a550824a2",
+        "material_pixels_sha256": "f70b543d7ea3b795c782f344ef3b069e9989ecb070566632be03803d46ffd380",
+        "skeleton_rest_bind_sha256": "cdf598cdbf1c51bc41d25060528bcb4367c05831cae6e989196a1a06c9a498d4",
+        "triangles": 2000,
+        "bones": 18
+      },
+      "sop": {
+        "path": "plans/reviews/tail-repair-20261106/african_catfish/sop.validation.json",
+        "sha256": "72745dd22aa7f13a900c8e3ab114c1e46449691f1bef0673f6e33eafe794fbba"
+      },
+      "current_root_domains": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/african_catfish/complete-root-domains.json",
+        "sha256": "1c09a0137999137982a0edb8b3d48835735e8c394c8b32e8df9318de1001445a"
+      }
+    }
+  ],
+  "unchanged_scope": "No material AB candidate or withdrawn salmon head shape adopted; non-tail shape, native artwork, rig/native motion protected. Ordinary two-fish tiny stock weight encoding differences explicitly proven, not byte-exact claim. Nile unintended UV rounding restored exactly.",
+  "validation": {
+    "fish": 17,
+    "full_fin_poses_per_fish": 490,
+    "root072": true,
+    "body077": true,
+    "source_cold_export": true,
+    "sop": true,
+    "actual_canonical_checks": 545,
+    "actual_canonical_ok": true,
+    "main_evidence": "plans/reviews/tail-repair-20261106/HANDOFF.md"
+  },
+  "assets_bytes": 244450937,
+  "static_frozen": true,
+  "future_scope": "Motion-only by default; another static change needs explicit user reopening. Historical accepted manifests retain historical SHA, not current byte identity.",
+  "cleanup": "Experimental models/media/dense data/temporary plans retired after current evidence and source-domain data retained. Current source, model, artwork, icons, shared fish database and29-page reference PDF retained.",
+  "cleanup_summary": {
+    "ok": true,
+    "kind": "verified_minimum_cleanup_summary",
+    "verified_minimum_removed_bytes": 6704469129,
+    "final_experiment_tree_removed_bytes": 731733258,
+    "unique_prior_dense_removed_bytes": 5940448366,
+    "withdrawn_head_removed_bytes": 10500538,
+    "audit_scratch_removed_bytes": 21786967,
+    "source_model_bytes": 244450937,
+    "remaining_experimental_tree_exists": false,
+    "scope": "Conservative sum of disjoint verified receipts; excludes other earlier intermediate cleanup. No source artwork, shared fish database, icons or reference PDF deleted."
+  },
+  "production_sop_index": {
+    "path": "plans/reviews/tail-repair-20261106/production-sop.validation.json",
+    "sha256": "fa576c2517b3e7bae5ea034d02fc997e5a2b69cfe378eea1f984a71f4c12b899"
+  }
+}

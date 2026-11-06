@@ -1,0 +1,23 @@
+{
+  "kind": "caudal_repair_preservation",
+  "schema_version": 1,
+  "species": "zander",
+  "affected_anatomical_parts": [
+    "Caudal"
+  ],
+  "model_sha256": "bf1137b96464ab2e395437e9bee9e0da16b9bbad2a508cabdfa87b43baef9c67",
+  "source_sha256": "0612118f307f9ad6870af3db541f7981a552d34a853c6e13a04bfe27d7691f79",
+  "editable_source_role": "editable_source",
+  "accepted_snapshot": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/zander.json",
+    "sha256": "357dc21c118be4bcd31bf202f53ee5c32c22a78a352b6d1189066dbcce01bb5c"
+  },
+  "source_preserved_export_serialization": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/ordinary-nontail-weight-serialization.validation.json",
+    "sha256": "13b7762ef1ca619566b38832c35fb3b35d0185697d1803ecd225fba101f23bf5"
+  },
+  "accepted_material_bindings": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/zander-material-bindings.json",
+    "sha256": "926294be66cdac86ee03bd97b5b784f5b31d067a84d0c901bd14398dc4157021"
+  }
+}

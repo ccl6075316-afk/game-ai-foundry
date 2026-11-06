@@ -1,0 +1,932 @@
+{
+  "ok": true,
+  "schema_version": 1,
+  "kind": "ordinary_source_preserved_export_serialization",
+  "producer_script": {
+    "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/bindings/prove_ordinary_nontail_weight_serialization.py",
+    "sha256": "74d2e826e1c84b4246b1197e676755974097ab0840ddd2429fd94d8a6a81011a"
+  },
+  "records": [
+    {
+      "species": "zander",
+      "baseline_source_sha": "a3486d9be217b4cc68ffc24c0d246c11d48fa0edaf809f1699508b0bc5ae1965",
+      "current_source_sha": "0612118f307f9ad6870af3db541f7981a552d34a853c6e13a04bfe27d7691f79",
+      "current_model_sha": "bf1137b96464ab2e395437e9bee9e0da16b9bbad2a508cabdfa87b43baef9c67",
+      "all_noncaudal_source_groups_exact": true,
+      "expected_encoded_part_signatures": [
+        {
+          "name": "Anal",
+          "surface": 0,
+          "sha256": "1a215d87ccbf1d840e570dc234ab3a8bec6bbb3f5ba50ca4cedfeb59158aab87"
+        },
+        {
+          "name": "Closed_body",
+          "surface": 0,
+          "sha256": "3fa3d3cb6e2e2aef9eeda9df83a3db171b267265e3141b02d83db55bebb14269"
+        },
+        {
+          "name": "Closed_body",
+          "surface": 1,
+          "sha256": "0c7bd78762f5194f3dcb27fba6cd536aa9e16d3ae3481f2710b126fe19b9fd2b"
+        },
+        {
+          "name": "Closed_body",
+          "surface": 2,
+          "sha256": "d09818c1160fa77e5b1a909ef92b7711c8f60d1e9eca9fdd31f12b61045837b3"
+        },
+        {
+          "name": "Closed_body",
+          "surface": 3,
+          "sha256": "98ab0e2ea31f0891255ae9a7f9264cd523b038f11825d7a7b785268b4c4362b7"
+        },
+        {
+          "name": "Dorsal_soft",
+          "surface": 0,
+          "sha256": "3c29a6532af5346cde2a95c4c372c37fb483517f85a5ff785c45f17bfdca3b1b"
+        },
+        {
+          "name": "Dorsal_spiny",
+          "surface": 0,
+          "sha256": "316688469768e52917c9492001651bd311f675543c7c279b1764ed5c44ae8bbd"
+        },
+        {
+          "name": "Eye_relief112_-1_0",
+          "surface": 0,
+          "sha256": "6c0f3030c8ae91198015d809f561663013a626ce87e3facbc13ce93b7752dafa"
+        },
+        {
+          "name": "Eye_relief112_1_0",
+          "surface": 0,
+          "sha256": "adb923d3e6c37c2713db22945309f96c5c9ab65547586b7c81853c1013329fef"
+        },
+        {
+          "name": "Pectoral_left",
+          "surface": 0,
+          "sha256": "e3a5269cd0b4cab48c87bbaef80cb2c274b301035a76a0f7c1d6e017e14689fb"
+        },
+        {
+          "name": "Pectoral_right",
+          "surface": 0,
+          "sha256": "405a9e8f020bac67dc6bf34e91a049da427eaf2bf736c7a32f562e8109a8e4c6"
+        },
+        {
+          "name": "Pelvic_left",
+          "surface": 0,
+          "sha256": "03415ea5b09dcc251e72b203ed90aec832637186c9330d958fc03498d3c61a57"
+        },
+        {
+          "name": "Pelvic_right",
+          "surface": 0,
+          "sha256": "e54926e3938dbf5d43c28f746bbba8325971f9945b10e2b51685fa369bd6db3f"
+        }
+      ],
+      "baseline_model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/zander.glb",
+        "sha256": "7f169be9a2e3ebeeeed35a4883ee1f92dc41fbd3d1d14e51e8117616c4a9ccb5"
+      },
+      "candidate_model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/junctions/zander/r2/fish.glb",
+        "sha256": "bf1137b96464ab2e395437e9bee9e0da16b9bbad2a508cabdfa87b43baef9c67"
+      },
+      "source_identity": {
+        "species": "zander",
+        "baseline_source": {
+          "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/checks/zander/baseline.blend",
+          "sha256": "a3486d9be217b4cc68ffc24c0d246c11d48fa0edaf809f1699508b0bc5ae1965"
+        },
+        "current_source": {
+          "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/junctions/zander/r2/fish.blend",
+          "sha256": "0612118f307f9ad6870af3db541f7981a552d34a853c6e13a04bfe27d7691f79"
+        },
+        "all_body_and_eye_source_vertex_groups_and_positions_exact": true,
+        "baseline_mesh_signatures": {
+          "Anal": {
+            "vertices": 54,
+            "raw_indexed_position_and_named_groups_sha256": "bf9947c2b0ce441b81dff3a1c528927e6722f7c3530a0400397e9af994834a48",
+            "semantic_position_and_named_groups_sha256": "805b8dc3319c518397e6d64cbaddedee5b53a72c29705b20279fb2202d5c8f1c",
+            "source_polygon_ids_sha256": "5d448e2935284ed66bca87ed474762280067faaa49baf85a219a2bc62157956f"
+          },
+          "Closed_body": {
+            "vertices": 613,
+            "raw_indexed_position_and_named_groups_sha256": "8bbe2caccf896fbcb23300787ccb031bc2e0f07603f36da54d5a1b82486c8245",
+            "semantic_position_and_named_groups_sha256": "f0e114a78b254fc5d10cb4c71a2612e138a8c95408f6ba0d480ad805a2c4b7f8",
+            "source_polygon_ids_sha256": "9962e4e1e649760e32d3a603f2fca4faea6a560c89caa4b68a3f5b0712e80a85"
+          },
+          "Dorsal_soft": {
+            "vertices": 70,
+            "raw_indexed_position_and_named_groups_sha256": "8ba287e8aa9db90b96dcf34bfe2a0810eb690f1900b4e74c2be7fcb763a93d2c",
+            "semantic_position_and_named_groups_sha256": "2fd7c3e4b63b0a9f81cc296ff78be7bba04797ad35f8742ba23f413508a97665",
+            "source_polygon_ids_sha256": "b39840622afc6f20c9e55bc4bd80f5f9d4ca8922258d19f1c4f2f0f2fc63c18d"
+          },
+          "Dorsal_spiny": {
+            "vertices": 83,
+            "raw_indexed_position_and_named_groups_sha256": "1f9ba80d7d4bdf360933ccf4f56441c6ca1c61e6801c789fd4739918c83d75a8",
+            "semantic_position_and_named_groups_sha256": "161c93943911979390a1c682d5f6297e7090b41c8f0f56fb36f54141e5e47b44",
+            "source_polygon_ids_sha256": "d53d77f20125255d24bb7d6e98e5bedf056087929ce151991de502b5e915e2e3"
+          },
+          "Eye_relief112_-1_0": {
+            "vertices": 15,
+            "raw_indexed_position_and_named_groups_sha256": "a2e4220fbd1a67cfb3a35eb4dd008f260d7503e5cddd513e6a0b49a3db2478a2",
+            "semantic_position_and_named_groups_sha256": "c0180c80320a4bed51ff5df6f021d980d91dd3e19a1bb89fc40f0dbd955722b9",
+            "source_polygon_ids_sha256": "19f820b3a17b388563ac224a72b88e9b3e717770e2b2bb5151c6f4c93fddf73f"
+          },
+          "Eye_relief112_1_0": {
+            "vertices": 15,
+            "raw_indexed_position_and_named_groups_sha256": "91bafb0a38288ee2639fc73c32a3bc02d2921543f30f13952567b312ce0ffd14",
+            "semantic_position_and_named_groups_sha256": "a14769d883cf8861aa436d38cc9e9d9387d969cc12c647ac87025294f40ce9cf",
+            "source_polygon_ids_sha256": "b9cb9be1699a7d36c946f4eaaa5084176056602e0c7d69219f5d4ca0ae9bb982"
+          },
+          "Pectoral_left": {
+            "vertices": 30,
+            "raw_indexed_position_and_named_groups_sha256": "273eae387b9202f875003345f2ad18811d3a8b0df49e3c0b28ed7d1ca1ffc927",
+            "semantic_position_and_named_groups_sha256": "7278e76c47c48a1a198ffe532bbc464418d3553973a9b7a7593f95bb33ef3e66",
+            "source_polygon_ids_sha256": "c167103df3e8ef32c271ea2432bf2cf175e580101f1a6c5990f556e529aeb1a1"
+          },
+          "Pectoral_right": {
+            "vertices": 30,
+            "raw_indexed_position_and_named_groups_sha256": "2e6dd71e5807a3579ff402400ed213fa3a3088cda6fa155d4734d48946f02a8b",
+            "semantic_position_and_named_groups_sha256": "c1e37e6e70da94e61b5903fc41ed1204bde8a1249643b0a9e5c05f0425bcb87e",
+            "source_polygon_ids_sha256": "c167103df3e8ef32c271ea2432bf2cf175e580101f1a6c5990f556e529aeb1a1"
+          },
+          "Pelvic_left": {
+            "vertices": 34,
+            "raw_indexed_position_and_named_groups_sha256": "82c3d34e59f8f7102684c75e9e1b5f84a2a79d73b393d63b579bdf75ee5fcde5",
+            "semantic_position_and_named_groups_sha256": "da80637ed6e90253d877e5bece4a62954b648160681894f82e3bcc53c2e820ca",
+            "source_polygon_ids_sha256": "a1c6fac9597ef44e9a6711370f276954c73e9093a5fd72cf40112f10f7cda59e"
+          },
+          "Pelvic_right": {
+            "vertices": 34,
+            "raw_indexed_position_and_named_groups_sha256": "b1a5021c790d7259e60dba8f7209e1d84cdcae086aac88d21fbcbdb67a43a9ac",
+            "semantic_position_and_named_groups_sha256": "de6424b37c2b800e7f17991ac8c68a3f07b4b127a37bee31449c8270ed71b155",
+            "source_polygon_ids_sha256": "251f9bdea8b2073b77317dfd19ca0dfb4da6405262ad22b46f73ed5f6a56081b"
+          }
+        },
+        "current_mesh_signatures": {
+          "Anal": {
+            "vertices": 54,
+            "raw_indexed_position_and_named_groups_sha256": "bf9947c2b0ce441b81dff3a1c528927e6722f7c3530a0400397e9af994834a48",
+            "semantic_position_and_named_groups_sha256": "805b8dc3319c518397e6d64cbaddedee5b53a72c29705b20279fb2202d5c8f1c",
+            "source_polygon_ids_sha256": "5d448e2935284ed66bca87ed474762280067faaa49baf85a219a2bc62157956f"
+          },
+          "Closed_body": {
+            "vertices": 613,
+            "raw_indexed_position_and_named_groups_sha256": "8bbe2caccf896fbcb23300787ccb031bc2e0f07603f36da54d5a1b82486c8245",
+            "semantic_position_and_named_groups_sha256": "f0e114a78b254fc5d10cb4c71a2612e138a8c95408f6ba0d480ad805a2c4b7f8",
+            "source_polygon_ids_sha256": "9962e4e1e649760e32d3a603f2fca4faea6a560c89caa4b68a3f5b0712e80a85"
+          },
+          "Dorsal_soft": {
+            "vertices": 70,
+            "raw_indexed_position_and_named_groups_sha256": "8ba287e8aa9db90b96dcf34bfe2a0810eb690f1900b4e74c2be7fcb763a93d2c",
+            "semantic_position_and_named_groups_sha256": "2fd7c3e4b63b0a9f81cc296ff78be7bba04797ad35f8742ba23f413508a97665",
+            "source_polygon_ids_sha256": "b39840622afc6f20c9e55bc4bd80f5f9d4ca8922258d19f1c4f2f0f2fc63c18d"
+          },
+          "Dorsal_spiny": {
+            "vertices": 83,
+            "raw_indexed_position_and_named_groups_sha256": "1f9ba80d7d4bdf360933ccf4f56441c6ca1c61e6801c789fd4739918c83d75a8",
+            "semantic_position_and_named_groups_sha256": "161c93943911979390a1c682d5f6297e7090b41c8f0f56fb36f54141e5e47b44",
+            "source_polygon_ids_sha256": "d53d77f20125255d24bb7d6e98e5bedf056087929ce151991de502b5e915e2e3"
+          },
+          "Eye_relief112_-1_0": {
+            "vertices": 15,
+            "raw_indexed_position_and_named_groups_sha256": "a2e4220fbd1a67cfb3a35eb4dd008f260d7503e5cddd513e6a0b49a3db2478a2",
+            "semantic_position_and_named_groups_sha256": "c0180c80320a4bed51ff5df6f021d980d91dd3e19a1bb89fc40f0dbd955722b9",
+            "source_polygon_ids_sha256": "19f820b3a17b388563ac224a72b88e9b3e717770e2b2bb5151c6f4c93fddf73f"
+          },
+          "Eye_relief112_1_0": {
+            "vertices": 15,
+            "raw_indexed_position_and_named_groups_sha256": "91bafb0a38288ee2639fc73c32a3bc02d2921543f30f13952567b312ce0ffd14",
+            "semantic_position_and_named_groups_sha256": "a14769d883cf8861aa436d38cc9e9d9387d969cc12c647ac87025294f40ce9cf",
+            "source_polygon_ids_sha256": "b9cb9be1699a7d36c946f4eaaa5084176056602e0c7d69219f5d4ca0ae9bb982"
+          },
+          "Pectoral_left": {
+            "vertices": 30,
+            "raw_indexed_position_and_named_groups_sha256": "273eae387b9202f875003345f2ad18811d3a8b0df49e3c0b28ed7d1ca1ffc927",
+            "semantic_position_and_named_groups_sha256": "7278e76c47c48a1a198ffe532bbc464418d3553973a9b7a7593f95bb33ef3e66",
+            "source_polygon_ids_sha256": "c167103df3e8ef32c271ea2432bf2cf175e580101f1a6c5990f556e529aeb1a1"
+          },
+          "Pectoral_right": {
+            "vertices": 30,
+            "raw_indexed_position_and_named_groups_sha256": "2e6dd71e5807a3579ff402400ed213fa3a3088cda6fa155d4734d48946f02a8b",
+            "semantic_position_and_named_groups_sha256": "c1e37e6e70da94e61b5903fc41ed1204bde8a1249643b0a9e5c05f0425bcb87e",
+            "source_polygon_ids_sha256": "c167103df3e8ef32c271ea2432bf2cf175e580101f1a6c5990f556e529aeb1a1"
+          },
+          "Pelvic_left": {
+            "vertices": 34,
+            "raw_indexed_position_and_named_groups_sha256": "82c3d34e59f8f7102684c75e9e1b5f84a2a79d73b393d63b579bdf75ee5fcde5",
+            "semantic_position_and_named_groups_sha256": "da80637ed6e90253d877e5bece4a62954b648160681894f82e3bcc53c2e820ca",
+            "source_polygon_ids_sha256": "a1c6fac9597ef44e9a6711370f276954c73e9093a5fd72cf40112f10f7cda59e"
+          },
+          "Pelvic_right": {
+            "vertices": 34,
+            "raw_indexed_position_and_named_groups_sha256": "b1a5021c790d7259e60dba8f7209e1d84cdcae086aac88d21fbcbdb67a43a9ac",
+            "semantic_position_and_named_groups_sha256": "de6424b37c2b800e7f17991ac8c68a3f07b4b127a37bee31449c8270ed71b155",
+            "source_polygon_ids_sha256": "251f9bdea8b2073b77317dfd19ca0dfb4da6405262ad22b46f73ed5f6a56081b"
+          }
+        }
+      },
+      "source_identity_report": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/bindings/ordinary-nontail-source-weight-identity.validation.json",
+        "sha256": "0171af28dc793eff30aa232b9c19d1f93dba8fbfb33ee03636e13b49727926ec"
+      },
+      "stock_exporter_dependencies": {
+        "/Users/czl/.gamefactory/toolchain/blender5/Blender.app/Contents/Resources/5.0/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_extract.py": "08a626f52765c8edb87ed08eae414df902a9f25a1add6f29335d6e31980bea98",
+        "/Users/czl/.gamefactory/toolchain/blender5/Blender.app/Contents/Resources/5.0/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_attributes.py": "56f4338728d0baf17a68a696fbe4300026e1e7690afc986ea6357ac63fa2d0c4"
+      },
+      "serialization": "Unchanged source named groups; Blender 5 stock weights <=0.0001 omitted, remaining weights sorted descending, padded to 4, float32 sum and division. Every actual body/eye GLTF named weight exactly predicted, without weight-error tolerance.",
+      "candidate_weights_exactly_predicted": true,
+      "source_weight_encoding_vertices": [
+        {
+          "name": "Anal",
+          "source_vertices": 54,
+          "actual_GLTF_attribute_vertices_verified": 254
+        },
+        {
+          "name": "Closed_body",
+          "source_vertices": 613,
+          "actual_GLTF_attribute_vertices_verified": 3622
+        },
+        {
+          "name": "Dorsal_soft",
+          "source_vertices": 70,
+          "actual_GLTF_attribute_vertices_verified": 260
+        },
+        {
+          "name": "Dorsal_spiny",
+          "source_vertices": 83,
+          "actual_GLTF_attribute_vertices_verified": 245
+        },
+        {
+          "name": "Eye_relief112_-1_0",
+          "source_vertices": 15,
+          "actual_GLTF_attribute_vertices_verified": 78
+        },
+        {
+          "name": "Eye_relief112_1_0",
+          "source_vertices": 15,
+          "actual_GLTF_attribute_vertices_verified": 78
+        },
+        {
+          "name": "Pectoral_left",
+          "source_vertices": 30,
+          "actual_GLTF_attribute_vertices_verified": 168
+        },
+        {
+          "name": "Pectoral_right",
+          "source_vertices": 30,
+          "actual_GLTF_attribute_vertices_verified": 96
+        },
+        {
+          "name": "Pelvic_left",
+          "source_vertices": 34,
+          "actual_GLTF_attribute_vertices_verified": 66
+        },
+        {
+          "name": "Pelvic_right",
+          "source_vertices": 34,
+          "actual_GLTF_attribute_vertices_verified": 73
+        }
+      ],
+      "maximum_source_dropped_sum": 5.664814307237975e-05,
+      "float32_unit_roundoff": 5.960464477539063e-08,
+      "normalization_roundoff_gamma5": 2.9802331269482156e-07,
+      "gamma5_scope": "Conservative standard five-operation float32 normalization bound after explicitly accounting for discarded source influence sum; not an arbitrary old/new weights tolerance.",
+      "parts": [
+        {
+          "name": "Anal",
+          "surface": 0,
+          "expected_encoded_part_signature": "1a215d87ccbf1d840e570dc234ab3a8bec6bbb3f5ba50ca4cedfeb59158aab87",
+          "triangles": 104,
+          "original_weighted_directed_signature": "e6f2ef70918ea0b08946bbb03f1c4578f9c5746ae65e94a1aa79b4f3bde0ce0d",
+          "candidate_weighted_directed_signature": "1a215d87ccbf1d840e570dc234ab3a8bec6bbb3f5ba50ca4cedfeb59158aab87",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 79,
+          "maximum_named_weight_delta": 1.706592047412414e-05,
+          "dropped_influence_count": 62,
+          "maximum_dropped_accepted_influence": 1.706592047412414e-05
+        },
+        {
+          "name": "Closed_body",
+          "surface": 0,
+          "expected_encoded_part_signature": "3fa3d3cb6e2e2aef9eeda9df83a3db171b267265e3141b02d83db55bebb14269",
+          "triangles": 226,
+          "original_weighted_directed_signature": "434d2860372b57a79346e005ff19ad2e5062f8bf5bb293d4d4850fe349be6fd5",
+          "candidate_weighted_directed_signature": "3fa3d3cb6e2e2aef9eeda9df83a3db171b267265e3141b02d83db55bebb14269",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 70,
+          "maximum_named_weight_delta": 5.960464477539063e-08,
+          "dropped_influence_count": 4,
+          "maximum_dropped_accepted_influence": 1.3651514585433233e-08
+        },
+        {
+          "name": "Closed_body",
+          "surface": 1,
+          "expected_encoded_part_signature": "0c7bd78762f5194f3dcb27fba6cd536aa9e16d3ae3481f2710b126fe19b9fd2b",
+          "triangles": 684,
+          "original_weighted_directed_signature": "0c7bd78762f5194f3dcb27fba6cd536aa9e16d3ae3481f2710b126fe19b9fd2b",
+          "candidate_weighted_directed_signature": "0c7bd78762f5194f3dcb27fba6cd536aa9e16d3ae3481f2710b126fe19b9fd2b",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": true,
+          "changed_unique_attribute_vertices": 0,
+          "maximum_named_weight_delta": 0.0,
+          "dropped_influence_count": 0,
+          "maximum_dropped_accepted_influence": 0.0
+        },
+        {
+          "name": "Closed_body",
+          "surface": 2,
+          "expected_encoded_part_signature": "d09818c1160fa77e5b1a909ef92b7711c8f60d1e9eca9fdd31f12b61045837b3",
+          "triangles": 264,
+          "original_weighted_directed_signature": "d09818c1160fa77e5b1a909ef92b7711c8f60d1e9eca9fdd31f12b61045837b3",
+          "candidate_weighted_directed_signature": "d09818c1160fa77e5b1a909ef92b7711c8f60d1e9eca9fdd31f12b61045837b3",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": true,
+          "changed_unique_attribute_vertices": 0,
+          "maximum_named_weight_delta": 0.0,
+          "dropped_influence_count": 0,
+          "maximum_dropped_accepted_influence": 0.0
+        },
+        {
+          "name": "Closed_body",
+          "surface": 3,
+          "expected_encoded_part_signature": "98ab0e2ea31f0891255ae9a7f9264cd523b038f11825d7a7b785268b4c4362b7",
+          "triangles": 48,
+          "original_weighted_directed_signature": "98ab0e2ea31f0891255ae9a7f9264cd523b038f11825d7a7b785268b4c4362b7",
+          "candidate_weighted_directed_signature": "98ab0e2ea31f0891255ae9a7f9264cd523b038f11825d7a7b785268b4c4362b7",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": true,
+          "changed_unique_attribute_vertices": 0,
+          "maximum_named_weight_delta": 0.0,
+          "dropped_influence_count": 0,
+          "maximum_dropped_accepted_influence": 0.0
+        },
+        {
+          "name": "Dorsal_soft",
+          "surface": 0,
+          "expected_encoded_part_signature": "3c29a6532af5346cde2a95c4c372c37fb483517f85a5ff785c45f17bfdca3b1b",
+          "triangles": 136,
+          "original_weighted_directed_signature": "852bbeb20872231f776032f025638442bec3d22123fe141ec4ff60dff5592f1d",
+          "candidate_weighted_directed_signature": "3c29a6532af5346cde2a95c4c372c37fb483517f85a5ff785c45f17bfdca3b1b",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 87,
+          "maximum_named_weight_delta": 5.664814307237975e-05,
+          "dropped_influence_count": 63,
+          "maximum_dropped_accepted_influence": 5.664814307237975e-05
+        },
+        {
+          "name": "Dorsal_spiny",
+          "surface": 0,
+          "expected_encoded_part_signature": "316688469768e52917c9492001651bd311f675543c7c279b1764ed5c44ae8bbd",
+          "triangles": 162,
+          "original_weighted_directed_signature": "ea32fc83a641605b16790d32af9189d0048f0273d58062e619c8ef11cbd5bce0",
+          "candidate_weighted_directed_signature": "316688469768e52917c9492001651bd311f675543c7c279b1764ed5c44ae8bbd",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 75,
+          "maximum_named_weight_delta": 1.1920928955078125e-07,
+          "dropped_influence_count": 56,
+          "maximum_dropped_accepted_influence": 1.0069379641208798e-07
+        },
+        {
+          "name": "Eye_relief112_-1_0",
+          "surface": 0,
+          "expected_encoded_part_signature": "6c0f3030c8ae91198015d809f561663013a626ce87e3facbc13ce93b7752dafa",
+          "triangles": 26,
+          "original_weighted_directed_signature": "6c0f3030c8ae91198015d809f561663013a626ce87e3facbc13ce93b7752dafa",
+          "candidate_weighted_directed_signature": "6c0f3030c8ae91198015d809f561663013a626ce87e3facbc13ce93b7752dafa",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": true,
+          "changed_unique_attribute_vertices": 0,
+          "maximum_named_weight_delta": 0.0,
+          "dropped_influence_count": 0,
+          "maximum_dropped_accepted_influence": 0.0
+        },
+        {
+          "name": "Eye_relief112_1_0",
+          "surface": 0,
+          "expected_encoded_part_signature": "adb923d3e6c37c2713db22945309f96c5c9ab65547586b7c81853c1013329fef",
+          "triangles": 26,
+          "original_weighted_directed_signature": "7f0f67900cd1dd9e255b5c33709717e1e61e60f331274f7d75b17cbded67f522",
+          "candidate_weighted_directed_signature": "adb923d3e6c37c2713db22945309f96c5c9ab65547586b7c81853c1013329fef",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 10,
+          "maximum_named_weight_delta": 5.960464477539063e-08,
+          "dropped_influence_count": 0,
+          "maximum_dropped_accepted_influence": 0.0
+        },
+        {
+          "name": "Pectoral_left",
+          "surface": 0,
+          "expected_encoded_part_signature": "e3a5269cd0b4cab48c87bbaef80cb2c274b301035a76a0f7c1d6e017e14689fb",
+          "triangles": 56,
+          "original_weighted_directed_signature": "4f8582062751c4e5e96804dcc2267126b074d6e7054913cee00a77cdafc4c441",
+          "candidate_weighted_directed_signature": "e3a5269cd0b4cab48c87bbaef80cb2c274b301035a76a0f7c1d6e017e14689fb",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 53,
+          "maximum_named_weight_delta": 5.960464477539063e-08,
+          "dropped_influence_count": 0,
+          "maximum_dropped_accepted_influence": 0.0
+        },
+        {
+          "name": "Pectoral_right",
+          "surface": 0,
+          "expected_encoded_part_signature": "405a9e8f020bac67dc6bf34e91a049da427eaf2bf736c7a32f562e8109a8e4c6",
+          "triangles": 56,
+          "original_weighted_directed_signature": "25c140e583e5380a5d803c158b4e611096a0756d1b211164d1004d20ab977cb8",
+          "candidate_weighted_directed_signature": "405a9e8f020bac67dc6bf34e91a049da427eaf2bf736c7a32f562e8109a8e4c6",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 14,
+          "maximum_named_weight_delta": 5.960464477539063e-08,
+          "dropped_influence_count": 0,
+          "maximum_dropped_accepted_influence": 0.0
+        },
+        {
+          "name": "Pelvic_left",
+          "surface": 0,
+          "expected_encoded_part_signature": "03415ea5b09dcc251e72b203ed90aec832637186c9330d958fc03498d3c61a57",
+          "triangles": 64,
+          "original_weighted_directed_signature": "ab777dcc14aea95b9acc85355b41f3552fc9925d560ba9e041f7cb2964861449",
+          "candidate_weighted_directed_signature": "03415ea5b09dcc251e72b203ed90aec832637186c9330d958fc03498d3c61a57",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 8,
+          "maximum_named_weight_delta": 5.960464477539063e-08,
+          "dropped_influence_count": 0,
+          "maximum_dropped_accepted_influence": 0.0
+        },
+        {
+          "name": "Pelvic_right",
+          "surface": 0,
+          "expected_encoded_part_signature": "e54926e3938dbf5d43c28f746bbba8325971f9945b10e2b51685fa369bd6db3f",
+          "triangles": 64,
+          "original_weighted_directed_signature": "7a577e7b36349eea786334494d65f580aa641380d18c91e7b3da300667e15091",
+          "candidate_weighted_directed_signature": "e54926e3938dbf5d43c28f746bbba8325971f9945b10e2b51685fa369bd6db3f",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 8,
+          "maximum_named_weight_delta": 5.960464477539063e-08,
+          "dropped_influence_count": 0,
+          "maximum_dropped_accepted_influence": 0.0
+        }
+      ],
+      "scope": "Two frozen SHA pairs only. Body/eye source groups exactly preserved; emitted GLTF weights explicitly not byte exact. Current physical/GPU checks remain required."
+    },
+    {
+      "species": "yellow_croaker",
+      "baseline_source_sha": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+      "current_source_sha": "ae1e42c1b29276e64ba975954610f81c98efe2d57ef1490ec4cb423a1022f311",
+      "current_model_sha": "8846cb7bd8736407f80b5b0436889f07e7e5df2e1c95f57d077b97e24dd2dec4",
+      "all_noncaudal_source_groups_exact": true,
+      "expected_encoded_part_signatures": [
+        {
+          "name": "Anal",
+          "surface": 0,
+          "sha256": "72054d44a5a3f8e42b24cfdc78df25b0daec78344afbe289e16407c6f8365071"
+        },
+        {
+          "name": "Closed_body",
+          "surface": 0,
+          "sha256": "f6c95f766c010ab2332bb0a4ffb5e0f16e32f4d98498cf09211a25dcba7d79a3"
+        },
+        {
+          "name": "Closed_body",
+          "surface": 1,
+          "sha256": "d13fc9ab9ffe97d85afacc5f37a9dfd9a730ec785f9d363e06c71c60a4ef9b97"
+        },
+        {
+          "name": "Closed_body",
+          "surface": 2,
+          "sha256": "29e6a92b5d5bf3e53adc043cb6e656d2dc5a30997e407e6437c760f26fa04544"
+        },
+        {
+          "name": "Closed_body",
+          "surface": 3,
+          "sha256": "24d9d8cfeb1087013b949514cc3572f4b6cecac8630eec6abaa05681bddec2ce"
+        },
+        {
+          "name": "Closed_body",
+          "surface": 4,
+          "sha256": "2643f8620c94cce40de0afbe3004e2dd15f3f2bc6c858395e97c546f89c347d8"
+        },
+        {
+          "name": "Dorsal",
+          "surface": 0,
+          "sha256": "f1a6a853eff6e4c92288ac1422135a0d7f97512414eaafb353eefd43223d16de"
+        },
+        {
+          "name": "Native_eye_-1",
+          "surface": 0,
+          "sha256": "22526258d5c5b16f70905124ff4205bdeb1cd5ffe6b5abfbd597b8c8a74bef80"
+        },
+        {
+          "name": "Native_eye_1",
+          "surface": 0,
+          "sha256": "fc2db9e76555584dbbfbc6ca0fab7bdb5c69b1c9cff46ec97f45a94a0ae9e6ec"
+        },
+        {
+          "name": "Pectoral_left",
+          "surface": 0,
+          "sha256": "33e6c4efa03a704082822f083e5a4638c579ac4b6b846fc4f9d58b1400ccd109"
+        },
+        {
+          "name": "Pectoral_right",
+          "surface": 0,
+          "sha256": "7f750feb36376a4c01acd4a887c2d7d67d36cb01716c5273a93e422672d12f7a"
+        },
+        {
+          "name": "Pelvic_left",
+          "surface": 0,
+          "sha256": "2327462efc7ac39e607ae1735cb25a5b2f089926cc91e8849c377d694b2e379c"
+        },
+        {
+          "name": "Pelvic_right",
+          "surface": 0,
+          "sha256": "e7daacaf3716699219caf202a13f462d36f70df4b896ce862e2d18d5be06afda"
+        }
+      ],
+      "baseline_model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/yellow_croaker.glb",
+        "sha256": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730"
+      },
+      "candidate_model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/junctions/yellow_croaker/r3/fish.glb",
+        "sha256": "8846cb7bd8736407f80b5b0436889f07e7e5df2e1c95f57d077b97e24dd2dec4"
+      },
+      "source_identity": {
+        "species": "yellow_croaker",
+        "baseline_source": {
+          "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/checks/yellow_croaker/baseline.blend",
+          "sha256": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38"
+        },
+        "current_source": {
+          "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/junctions/yellow_croaker/r3/fish.blend",
+          "sha256": "ae1e42c1b29276e64ba975954610f81c98efe2d57ef1490ec4cb423a1022f311"
+        },
+        "all_body_and_eye_source_vertex_groups_and_positions_exact": true,
+        "baseline_mesh_signatures": {
+          "Anal": {
+            "vertices": 60,
+            "raw_indexed_position_and_named_groups_sha256": "1590f78f49df0c785bca59c3486cbdfcd224a883719985fe925f7605800f29c7",
+            "semantic_position_and_named_groups_sha256": "56bcf6e0eacad502bf40a750cf283aa0710b8ba457e4cd09951ef81a93fedad7",
+            "source_polygon_ids_sha256": "81fa9806f63375eec0214363fa1ac350a70edb722326d5168e89158da42c6a2a"
+          },
+          "Closed_body": {
+            "vertices": 530,
+            "raw_indexed_position_and_named_groups_sha256": "2b419a89e4644a82c7008bad655aafa5163c85ca39248df31ee8b1f2a2763470",
+            "semantic_position_and_named_groups_sha256": "6f44b91a30b935d5ad5917520a4201a51d5413c9bb45d8e6a01c9f56da292b8b",
+            "source_polygon_ids_sha256": "68dfa7fa2ed9ead7e4818c21fff8b4ff7538c8221c4731f4cdecea6a5d27ba77"
+          },
+          "Dorsal": {
+            "vertices": 120,
+            "raw_indexed_position_and_named_groups_sha256": "57daee5a936dea992e789398af7bd7d0d7359c36c0022f05903c171fa8b9715a",
+            "semantic_position_and_named_groups_sha256": "03a8e9c741c17fab20f4732084eee2fb2715f495d53df9836a6f68bd02f74888",
+            "source_polygon_ids_sha256": "2a8311db49fc468dfc31148e7df0181144c236671e417608cc322e406364ef31"
+          },
+          "Native_eye_-1": {
+            "vertices": 25,
+            "raw_indexed_position_and_named_groups_sha256": "589b27a2db4a0f7f8f293c85c1a1c88a5d10035bf5fc06aeb7956c5857949456",
+            "semantic_position_and_named_groups_sha256": "be768dffb38d854b8a2286f84db0d2fa27fe6015bff2ea15d254b59e5468e4e8",
+            "source_polygon_ids_sha256": "baa9e4150a49fafbc0740aca7f7aa6dd341422c0f2a1911a6b5740ecda432a3a"
+          },
+          "Native_eye_1": {
+            "vertices": 25,
+            "raw_indexed_position_and_named_groups_sha256": "5ee90b122f1e792a9baf30fc846172946faab06327ebe7426017fb9ee472dcbe",
+            "semantic_position_and_named_groups_sha256": "58e18e6b51e62a67056473d94428a85c64b9f6113c0be7bafdffc8ea4a2ee723",
+            "source_polygon_ids_sha256": "9b2424cdc0a6fb02acd45d425455f8e128e24f681ecc91f0345d95f5ff59ed3f"
+          },
+          "Pectoral_left": {
+            "vertices": 62,
+            "raw_indexed_position_and_named_groups_sha256": "f0c28efc7e7f2d373e36713a85d9f47ecd8054b51980f9e0029ec3f8a4d0c37f",
+            "semantic_position_and_named_groups_sha256": "c2f983c70588d7a2602c24864b597580a533e3cd15c831fcb4e9103828be474a",
+            "source_polygon_ids_sha256": "9e41c2125668aa29ab3b1fa90437406320f2d72782970dfe6f90ac4f7c1bc1a1"
+          },
+          "Pectoral_right": {
+            "vertices": 62,
+            "raw_indexed_position_and_named_groups_sha256": "56af72a9bf75e74191004252d3611c27d06d8028d33153361253926dae9e5028",
+            "semantic_position_and_named_groups_sha256": "a308d6e061b413dc65fcc9ff5647ea467c00f89e8d8cdd6fde68c65e00b469d5",
+            "source_polygon_ids_sha256": "9e41c2125668aa29ab3b1fa90437406320f2d72782970dfe6f90ac4f7c1bc1a1"
+          },
+          "Pelvic_left": {
+            "vertices": 52,
+            "raw_indexed_position_and_named_groups_sha256": "e092304be1a11df0eb8dac47919288ca60b0888fcebf8f801a9e8292b3d220a3",
+            "semantic_position_and_named_groups_sha256": "6729ef0d027f0f8ae0452269bc2b39df6e430f3b47606987956cebcec46c80cc",
+            "source_polygon_ids_sha256": "c0fdb1d2e237b684beb597e5798291816d9b1b4d4294450fc85ff39fac83c306"
+          },
+          "Pelvic_right": {
+            "vertices": 52,
+            "raw_indexed_position_and_named_groups_sha256": "47f52e543960d243d53502618c4ef25d0245bee6933b291bd38a2c633dac6edc",
+            "semantic_position_and_named_groups_sha256": "260a8ee0c86f8777cc7a2f913bbd50a5faae1813c793490f14267b0e89df2346",
+            "source_polygon_ids_sha256": "c0fdb1d2e237b684beb597e5798291816d9b1b4d4294450fc85ff39fac83c306"
+          }
+        },
+        "current_mesh_signatures": {
+          "Anal": {
+            "vertices": 60,
+            "raw_indexed_position_and_named_groups_sha256": "1590f78f49df0c785bca59c3486cbdfcd224a883719985fe925f7605800f29c7",
+            "semantic_position_and_named_groups_sha256": "56bcf6e0eacad502bf40a750cf283aa0710b8ba457e4cd09951ef81a93fedad7",
+            "source_polygon_ids_sha256": "81fa9806f63375eec0214363fa1ac350a70edb722326d5168e89158da42c6a2a"
+          },
+          "Closed_body": {
+            "vertices": 530,
+            "raw_indexed_position_and_named_groups_sha256": "2b419a89e4644a82c7008bad655aafa5163c85ca39248df31ee8b1f2a2763470",
+            "semantic_position_and_named_groups_sha256": "6f44b91a30b935d5ad5917520a4201a51d5413c9bb45d8e6a01c9f56da292b8b",
+            "source_polygon_ids_sha256": "68dfa7fa2ed9ead7e4818c21fff8b4ff7538c8221c4731f4cdecea6a5d27ba77"
+          },
+          "Dorsal": {
+            "vertices": 120,
+            "raw_indexed_position_and_named_groups_sha256": "57daee5a936dea992e789398af7bd7d0d7359c36c0022f05903c171fa8b9715a",
+            "semantic_position_and_named_groups_sha256": "03a8e9c741c17fab20f4732084eee2fb2715f495d53df9836a6f68bd02f74888",
+            "source_polygon_ids_sha256": "2a8311db49fc468dfc31148e7df0181144c236671e417608cc322e406364ef31"
+          },
+          "Native_eye_-1": {
+            "vertices": 25,
+            "raw_indexed_position_and_named_groups_sha256": "589b27a2db4a0f7f8f293c85c1a1c88a5d10035bf5fc06aeb7956c5857949456",
+            "semantic_position_and_named_groups_sha256": "be768dffb38d854b8a2286f84db0d2fa27fe6015bff2ea15d254b59e5468e4e8",
+            "source_polygon_ids_sha256": "baa9e4150a49fafbc0740aca7f7aa6dd341422c0f2a1911a6b5740ecda432a3a"
+          },
+          "Native_eye_1": {
+            "vertices": 25,
+            "raw_indexed_position_and_named_groups_sha256": "5ee90b122f1e792a9baf30fc846172946faab06327ebe7426017fb9ee472dcbe",
+            "semantic_position_and_named_groups_sha256": "58e18e6b51e62a67056473d94428a85c64b9f6113c0be7bafdffc8ea4a2ee723",
+            "source_polygon_ids_sha256": "9b2424cdc0a6fb02acd45d425455f8e128e24f681ecc91f0345d95f5ff59ed3f"
+          },
+          "Pectoral_left": {
+            "vertices": 62,
+            "raw_indexed_position_and_named_groups_sha256": "f0c28efc7e7f2d373e36713a85d9f47ecd8054b51980f9e0029ec3f8a4d0c37f",
+            "semantic_position_and_named_groups_sha256": "c2f983c70588d7a2602c24864b597580a533e3cd15c831fcb4e9103828be474a",
+            "source_polygon_ids_sha256": "9e41c2125668aa29ab3b1fa90437406320f2d72782970dfe6f90ac4f7c1bc1a1"
+          },
+          "Pectoral_right": {
+            "vertices": 62,
+            "raw_indexed_position_and_named_groups_sha256": "56af72a9bf75e74191004252d3611c27d06d8028d33153361253926dae9e5028",
+            "semantic_position_and_named_groups_sha256": "a308d6e061b413dc65fcc9ff5647ea467c00f89e8d8cdd6fde68c65e00b469d5",
+            "source_polygon_ids_sha256": "9e41c2125668aa29ab3b1fa90437406320f2d72782970dfe6f90ac4f7c1bc1a1"
+          },
+          "Pelvic_left": {
+            "vertices": 52,
+            "raw_indexed_position_and_named_groups_sha256": "e092304be1a11df0eb8dac47919288ca60b0888fcebf8f801a9e8292b3d220a3",
+            "semantic_position_and_named_groups_sha256": "6729ef0d027f0f8ae0452269bc2b39df6e430f3b47606987956cebcec46c80cc",
+            "source_polygon_ids_sha256": "c0fdb1d2e237b684beb597e5798291816d9b1b4d4294450fc85ff39fac83c306"
+          },
+          "Pelvic_right": {
+            "vertices": 52,
+            "raw_indexed_position_and_named_groups_sha256": "47f52e543960d243d53502618c4ef25d0245bee6933b291bd38a2c633dac6edc",
+            "semantic_position_and_named_groups_sha256": "260a8ee0c86f8777cc7a2f913bbd50a5faae1813c793490f14267b0e89df2346",
+            "source_polygon_ids_sha256": "c0fdb1d2e237b684beb597e5798291816d9b1b4d4294450fc85ff39fac83c306"
+          }
+        }
+      },
+      "source_identity_report": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/bindings/ordinary-nontail-source-weight-identity.validation.json",
+        "sha256": "0171af28dc793eff30aa232b9c19d1f93dba8fbfb33ee03636e13b49727926ec"
+      },
+      "stock_exporter_dependencies": {
+        "/Users/czl/.gamefactory/toolchain/blender5/Blender.app/Contents/Resources/5.0/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_extract.py": "08a626f52765c8edb87ed08eae414df902a9f25a1add6f29335d6e31980bea98",
+        "/Users/czl/.gamefactory/toolchain/blender5/Blender.app/Contents/Resources/5.0/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_attributes.py": "56f4338728d0baf17a68a696fbe4300026e1e7690afc986ea6357ac63fa2d0c4"
+      },
+      "serialization": "Unchanged source named groups; Blender 5 stock weights <=0.0001 omitted, remaining weights sorted descending, padded to 4, float32 sum and division. Every actual body/eye GLTF named weight exactly predicted, without weight-error tolerance.",
+      "candidate_weights_exactly_predicted": true,
+      "source_weight_encoding_vertices": [
+        {
+          "name": "Anal",
+          "source_vertices": 60,
+          "actual_GLTF_attribute_vertices_verified": 232
+        },
+        {
+          "name": "Closed_body",
+          "source_vertices": 530,
+          "actual_GLTF_attribute_vertices_verified": 2874
+        },
+        {
+          "name": "Dorsal",
+          "source_vertices": 120,
+          "actual_GLTF_attribute_vertices_verified": 691
+        },
+        {
+          "name": "Native_eye_-1",
+          "source_vertices": 25,
+          "actual_GLTF_attribute_vertices_verified": 108
+        },
+        {
+          "name": "Native_eye_1",
+          "source_vertices": 25,
+          "actual_GLTF_attribute_vertices_verified": 108
+        },
+        {
+          "name": "Pectoral_left",
+          "source_vertices": 62,
+          "actual_GLTF_attribute_vertices_verified": 302
+        },
+        {
+          "name": "Pectoral_right",
+          "source_vertices": 62,
+          "actual_GLTF_attribute_vertices_verified": 301
+        },
+        {
+          "name": "Pelvic_left",
+          "source_vertices": 52,
+          "actual_GLTF_attribute_vertices_verified": 202
+        },
+        {
+          "name": "Pelvic_right",
+          "source_vertices": 52,
+          "actual_GLTF_attribute_vertices_verified": 203
+        }
+      ],
+      "maximum_source_dropped_sum": 7.126398122636601e-05,
+      "float32_unit_roundoff": 5.960464477539063e-08,
+      "normalization_roundoff_gamma5": 2.9802331269482156e-07,
+      "gamma5_scope": "Conservative standard five-operation float32 normalization bound after explicitly accounting for discarded source influence sum; not an arbitrary old/new weights tolerance.",
+      "parts": [
+        {
+          "name": "Anal",
+          "surface": 0,
+          "expected_encoded_part_signature": "72054d44a5a3f8e42b24cfdc78df25b0daec78344afbe289e16407c6f8365071",
+          "triangles": 116,
+          "original_weighted_directed_signature": "0bc2bfb3053a6c68bd83c9c65e64c715f69fbae2f796e058af21e1d02d76b7e0",
+          "candidate_weighted_directed_signature": "72054d44a5a3f8e42b24cfdc78df25b0daec78344afbe289e16407c6f8365071",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 2,
+          "maximum_named_weight_delta": 5.960464477539063e-08,
+          "dropped_influence_count": 0,
+          "maximum_dropped_accepted_influence": 0.0
+        },
+        {
+          "name": "Closed_body",
+          "surface": 0,
+          "expected_encoded_part_signature": "f6c95f766c010ab2332bb0a4ffb5e0f16e32f4d98498cf09211a25dcba7d79a3",
+          "triangles": 144,
+          "original_weighted_directed_signature": "e10c6684591e25e10767bff4346726a1eeb3b8e7e7b290a56b16ff61e3347182",
+          "candidate_weighted_directed_signature": "f6c95f766c010ab2332bb0a4ffb5e0f16e32f4d98498cf09211a25dcba7d79a3",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 12,
+          "maximum_named_weight_delta": 1.1920928955078125e-07,
+          "dropped_influence_count": 12,
+          "maximum_dropped_accepted_influence": 1.1293511903431863e-07
+        },
+        {
+          "name": "Closed_body",
+          "surface": 1,
+          "expected_encoded_part_signature": "d13fc9ab9ffe97d85afacc5f37a9dfd9a730ec785f9d363e06c71c60a4ef9b97",
+          "triangles": 740,
+          "original_weighted_directed_signature": "e64684d2355ba660dba1e64ee96423ebad9014f3d3f641cdd50eedec62e650ef",
+          "candidate_weighted_directed_signature": "d13fc9ab9ffe97d85afacc5f37a9dfd9a730ec785f9d363e06c71c60a4ef9b97",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 124,
+          "maximum_named_weight_delta": 1.3444656588035286e-07,
+          "dropped_influence_count": 120,
+          "maximum_dropped_accepted_influence": 1.3444656588035286e-07
+        },
+        {
+          "name": "Closed_body",
+          "surface": 2,
+          "expected_encoded_part_signature": "29e6a92b5d5bf3e53adc043cb6e656d2dc5a30997e407e6437c760f26fa04544",
+          "triangles": 102,
+          "original_weighted_directed_signature": "0c6a34d0a23978701a2f00b43edcb878422cf7275f51a60a1b61eb698339d780",
+          "candidate_weighted_directed_signature": "29e6a92b5d5bf3e53adc043cb6e656d2dc5a30997e407e6437c760f26fa04544",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 12,
+          "maximum_named_weight_delta": 1.3444656588035286e-07,
+          "dropped_influence_count": 12,
+          "maximum_dropped_accepted_influence": 1.3444656588035286e-07
+        },
+        {
+          "name": "Closed_body",
+          "surface": 3,
+          "expected_encoded_part_signature": "24d9d8cfeb1087013b949514cc3572f4b6cecac8630eec6abaa05681bddec2ce",
+          "triangles": 62,
+          "original_weighted_directed_signature": "74cc836fa18b42b03e24a0ed9229ed13b1feae08d97642a529ac78de76a4f8e0",
+          "candidate_weighted_directed_signature": "24d9d8cfeb1087013b949514cc3572f4b6cecac8630eec6abaa05681bddec2ce",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 2,
+          "maximum_named_weight_delta": 4.6445349788371004e-09,
+          "dropped_influence_count": 2,
+          "maximum_dropped_accepted_influence": 4.6445349788371004e-09
+        },
+        {
+          "name": "Closed_body",
+          "surface": 4,
+          "expected_encoded_part_signature": "2643f8620c94cce40de0afbe3004e2dd15f3f2bc6c858395e97c546f89c347d8",
+          "triangles": 8,
+          "original_weighted_directed_signature": "2643f8620c94cce40de0afbe3004e2dd15f3f2bc6c858395e97c546f89c347d8",
+          "candidate_weighted_directed_signature": "2643f8620c94cce40de0afbe3004e2dd15f3f2bc6c858395e97c546f89c347d8",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": true,
+          "changed_unique_attribute_vertices": 0,
+          "maximum_named_weight_delta": 0.0,
+          "dropped_influence_count": 0,
+          "maximum_dropped_accepted_influence": 0.0
+        },
+        {
+          "name": "Dorsal",
+          "surface": 0,
+          "expected_encoded_part_signature": "f1a6a853eff6e4c92288ac1422135a0d7f97512414eaafb353eefd43223d16de",
+          "triangles": 236,
+          "original_weighted_directed_signature": "0012251798efb644bef38c95d9920ae3b86e070c2a972eaf9206fc4c4d3d5641",
+          "candidate_weighted_directed_signature": "f1a6a853eff6e4c92288ac1422135a0d7f97512414eaafb353eefd43223d16de",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 82,
+          "maximum_named_weight_delta": 7.126398122636601e-05,
+          "dropped_influence_count": 67,
+          "maximum_dropped_accepted_influence": 7.126398122636601e-05
+        },
+        {
+          "name": "Native_eye_-1",
+          "surface": 0,
+          "expected_encoded_part_signature": "22526258d5c5b16f70905124ff4205bdeb1cd5ffe6b5abfbd597b8c8a74bef80",
+          "triangles": 36,
+          "original_weighted_directed_signature": "4dbcfdf60e2966a736cdf21e5fc627c8760bf95bec827159ea629aea11d96ea6",
+          "candidate_weighted_directed_signature": "22526258d5c5b16f70905124ff4205bdeb1cd5ffe6b5abfbd597b8c8a74bef80",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 6,
+          "maximum_named_weight_delta": 1.1920928955078125e-07,
+          "dropped_influence_count": 3,
+          "maximum_dropped_accepted_influence": 1.1390308429781726e-07
+        },
+        {
+          "name": "Native_eye_1",
+          "surface": 0,
+          "expected_encoded_part_signature": "fc2db9e76555584dbbfbc6ca0fab7bdb5c69b1c9cff46ec97f45a94a0ae9e6ec",
+          "triangles": 36,
+          "original_weighted_directed_signature": "99efa102a0f0a291fb221545d83f14fe3a34b69aeb5fa259e2f9ca058aeee138",
+          "candidate_weighted_directed_signature": "fc2db9e76555584dbbfbc6ca0fab7bdb5c69b1c9cff46ec97f45a94a0ae9e6ec",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 6,
+          "maximum_named_weight_delta": 1.1920928955078125e-07,
+          "dropped_influence_count": 3,
+          "maximum_dropped_accepted_influence": 1.1390402221422846e-07
+        },
+        {
+          "name": "Pectoral_left",
+          "surface": 0,
+          "expected_encoded_part_signature": "33e6c4efa03a704082822f083e5a4638c579ac4b6b846fc4f9d58b1400ccd109",
+          "triangles": 120,
+          "original_weighted_directed_signature": "d5785de085c5ab805a05f24b86bd61d61d2fdcde3f0448d449ec2bbafb1bf4ff",
+          "candidate_weighted_directed_signature": "33e6c4efa03a704082822f083e5a4638c579ac4b6b846fc4f9d58b1400ccd109",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 14,
+          "maximum_named_weight_delta": 5.960464477539063e-08,
+          "dropped_influence_count": 0,
+          "maximum_dropped_accepted_influence": 0.0
+        },
+        {
+          "name": "Pectoral_right",
+          "surface": 0,
+          "expected_encoded_part_signature": "7f750feb36376a4c01acd4a887c2d7d67d36cb01716c5273a93e422672d12f7a",
+          "triangles": 120,
+          "original_weighted_directed_signature": "474711c5d3a9dd5020b49116df97ecd3543ff67c72a0f8a4e021e20fc5afb3ac",
+          "candidate_weighted_directed_signature": "7f750feb36376a4c01acd4a887c2d7d67d36cb01716c5273a93e422672d12f7a",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 14,
+          "maximum_named_weight_delta": 5.960464477539063e-08,
+          "dropped_influence_count": 0,
+          "maximum_dropped_accepted_influence": 0.0
+        },
+        {
+          "name": "Pelvic_left",
+          "surface": 0,
+          "expected_encoded_part_signature": "2327462efc7ac39e607ae1735cb25a5b2f089926cc91e8849c377d694b2e379c",
+          "triangles": 100,
+          "original_weighted_directed_signature": "4c1a01ebf79ee055eb8f3f0af6f064b4d7bbda955ef9dc3e51cdf6a597e333f8",
+          "candidate_weighted_directed_signature": "2327462efc7ac39e607ae1735cb25a5b2f089926cc91e8849c377d694b2e379c",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 6,
+          "maximum_named_weight_delta": 2.9802322387695312e-08,
+          "dropped_influence_count": 0,
+          "maximum_dropped_accepted_influence": 0.0
+        },
+        {
+          "name": "Pelvic_right",
+          "surface": 0,
+          "expected_encoded_part_signature": "e7daacaf3716699219caf202a13f462d36f70df4b896ce862e2d18d5be06afda",
+          "triangles": 100,
+          "original_weighted_directed_signature": "6ef5c5837387d75b305f5cfb4fedb2a531c9e7faca2c5baafd965eba3f945e17",
+          "candidate_weighted_directed_signature": "e7daacaf3716699219caf202a13f462d36f70df4b896ce862e2d18d5be06afda",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 6,
+          "maximum_named_weight_delta": 2.9802322387695312e-08,
+          "dropped_influence_count": 0,
+          "maximum_dropped_accepted_influence": 0.0
+        }
+      ],
+      "scope": "Two frozen SHA pairs only. Body/eye source groups exactly preserved; emitted GLTF weights explicitly not byte exact. Current physical/GPU checks remain required."
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "kind": "accepted_caudal_repair_material_bindings",
+  "species": "african_catfish",
+  "baseline_model_sha256": "0be4ad46a8d9102631a9ffc5819c4e0e0c3df5afdf3776741b1466b16d351d02",
+  "part_material_bindings": [
+    {
+      "key": [
+        "Anal",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Barbel_0_-1",
+        0
+      ],
+      "material": 1
+    },
+    {
+      "key": [
+        "Barbel_0_1",
+        0
+      ],
+      "material": 2
+    },
+    {
+      "key": [
+        "Barbel_1_-1",
+        0
+      ],
+      "material": 3
+    },
+    {
+      "key": [
+        "Barbel_1_1",
+        0
+      ],
+      "material": 4
+    },
+    {
+      "key": [
+        "Barbel_2_-1",
+        0
+      ],
+      "material": 5
+    },
+    {
+      "key": [
+        "Barbel_2_1",
+        0
+      ],
+      "material": 6
+    },
+    {
+      "key": [
+        "Barbel_3_-1",
+        0
+      ],
+      "material": 7
+    },
+    {
+      "key": [
+        "Barbel_3_1",
+        0
+      ],
+      "material": 8
+    },
+    {
+      "key": [
+        "Caudal",
+        0
+      ],
+      "material": 9
+    },
+    {
+      "key": [
+        "Closed_body",
+        0
+      ],
+      "material": 10
+    },
+    {
+      "key": [
+        "Closed_body",
+        1
+      ],
+      "material": 11
+    },
+    {
+      "key": [
+        "Closed_body",
+        2
+      ],
+      "material": 12
+    },
+    {
+      "key": [
+        "Dorsal",
+        0
+      ],
+      "material": 13
+    },
+    {
+      "key": [
+        "Native_eye_-1",
+        0
+      ],
+      "material": 14
+    },
+    {
+      "key": [
+        "Native_eye_1",
+        0
+      ],
+      "material": 14
+    },
+    {
+      "key": [
+        "Pectoral_left",
+        0
+      ],
+      "material": 15
+    },
+    {
+      "key": [
+        "Pectoral_right",
+        0
+      ],
+      "material": 15
+    },
+    {
+      "key": [
+        "Pelvic_left",
+        0
+      ],
+      "material": 16
+    },
+    {
+      "key": [
+        "Pelvic_right",
+        0
+      ],
+      "material": 16
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "kind": "formal_accepted_protected_snapshots",
+  "fish": [
+    {
+      "species": "black_seabream",
+      "snapshot": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/black_seabream.json",
+        "sha256": "ae1ab55b7a4bd88068fe62d2ad71671ba6e1744f28a4b081381f4e3fb844710d"
+      }
+    },
+    {
+      "species": "red_seabream",
+      "snapshot": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/red_seabream.json",
+        "sha256": "2d2d439f500b3c1687adf871d794883358fcaae4a154ec73a44df9e15317d687"
+      }
+    },
+    {
+      "species": "piranha",
+      "snapshot": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/piranha.json",
+        "sha256": "f1df639055ce639f4ebacd50019d0f66db9f2800115f9efc4ee282092c630a90"
+      }
+    },
+    {
+      "species": "mahi_mahi",
+      "snapshot": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/mahi_mahi.json",
+        "sha256": "013d612303adf3715c0ef7921b6fa3b489391deb3b38a6bfe74259601954a0e5"
+      }
+    },
+    {
+      "species": "yellow_croaker",
+      "snapshot": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/yellow_croaker.json",
+        "sha256": "9e024b28f5c521d2a2805cbc32a2b7dfa60af282e4e25922d9320705ace93904"
+      }
+    },
+    {
+      "species": "atlantic_salmon",
+      "snapshot": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/atlantic_salmon.json",
+        "sha256": "560daf8926a0c3e88d25b71cfcc26064e48f48415824f8148d2cc07cbcd87ee0"
+      }
+    },
+    {
+      "species": "red_emperor",
+      "snapshot": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/red_emperor.json",
+        "sha256": "1d464e1f4504bc82f15dccb2458f94da5ec58865a6f925dbc28f3ee36695a19b"
+      }
+    },
+    {
+      "species": "silver_arowana",
+      "snapshot": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/silver_arowana.json",
+        "sha256": "e150d903720ab7b0128218dda23a021204a32e9e7e1cd37e2ba4354005c4d0ea"
+      }
+    },
+    {
+      "species": "arapaima",
+      "snapshot": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/arapaima.json",
+        "sha256": "bd7aa8920c3c99cda1af4fbe27003b090213edcf94fa44d0949a0a1401dbdbc0"
+      }
+    },
+    {
+      "species": "peacock_bass",
+      "snapshot": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/peacock_bass.json",
+        "sha256": "0a9f72439377cb4a530ff355665e26b85db0d9f92888de5bd15a460c6672f465"
+      }
+    },
+    {
+      "species": "carp",
+      "snapshot": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/carp.json",
+        "sha256": "f1bc2ba1aa168c9520f61b71cb97fe7aeb493317a9e120b4d97ac998ff03a3c8"
+      }
+    },
+    {
+      "species": "nile_tilapia",
+      "snapshot": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/nile_tilapia.json",
+        "sha256": "ccce82cf5f493008397a1b59d0ac31eb0774c578ad18c0d036dd56f228312645"
+      }
+    },
+    {
+      "species": "sea_bass",
+      "snapshot": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/sea_bass.json",
+        "sha256": "bc86e35e0627852c03400f8170c09972c8ea691522e7f756f270a0f8305fd5aa"
+      }
+    },
+    {
+      "species": "rainbow_trout",
+      "snapshot": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/rainbow_trout.json",
+        "sha256": "eba22f2a380510564cc92a3f44bbdd5af0ce4f423f9b994d67bcf7b2cfee3bfa"
+      }
+    },
+    {
+      "species": "pacific_bluefin_tuna",
+      "snapshot": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/pacific_bluefin_tuna.json",
+        "sha256": "94dae8c1a60f61eeec4c5479ddb46446b0f6c63eb1d3c53186d18d5c20371843"
+      }
+    },
+    {
+      "species": "zander",
+      "snapshot": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/zander.json",
+        "sha256": "357dc21c118be4bcd31bf202f53ee5c32c22a78a352b6d1189066dbcce01bb5c"
+      }
+    },
+    {
+      "species": "african_catfish",
+      "snapshot": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/african_catfish.json",
+        "sha256": "6ffa2dadbda361e27b35954258ee5900bf8dea3c02a6b3382ec14c970aa74f89"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1678 @@
+{
+  "kind": "accepted_caudal_repair_protected_snapshot",
+  "schema_version": 1,
+  "species": "african_catfish",
+  "baseline_model_sha256": "0be4ad46a8d9102631a9ffc5819c4e0e0c3df5afdf3776741b1466b16d351d02",
+  "accepted_release": {
+    "path": "resources/volume-fish/final-eleven-fish-20261105.json",
+    "sha256": "a9d4da9ced582805bd1133790b951d5e454a520c3d022fa92ea6dcd66755301c"
+  },
+  "source_inventory": {
+    "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/release-inputs.json",
+    "sha256": "19a146043e6c65f241217aada6b9552eb70828e81aa09ddd5f34d50ff189e541",
+    "historical_capture_only_not_live_dependency": true
+  },
+  "part_inventory": [
+    {
+      "key": [
+        "Anal",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "df9344c5471a9c18646d2c413ccee68a48948b66d64786fafd96d7fea9cfc69c",
+      "triangles": 120,
+      "canonical_directed_triangle_signature": "df9344c5471a9c18646d2c413ccee68a48948b66d64786fafd96d7fea9cfc69c",
+      "geometry_uv_normal_signature": "080aa75c5fb34da2838faea828f6d2ebf7a76b961926f488fae7551e67a198ca"
+    },
+    {
+      "key": [
+        "Barbel_0_-1",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "a83a826b18b2b91c04502316321a04ac642c3933538cd896033d55aa1144b2e4",
+      "triangles": 20,
+      "canonical_directed_triangle_signature": "a83a826b18b2b91c04502316321a04ac642c3933538cd896033d55aa1144b2e4",
+      "geometry_uv_normal_signature": "c3d2e15c76a1fb8da31b485db454166a4f6c8c19d3e5de44b08fa6cf92b467f1"
+    },
+    {
+      "key": [
+        "Barbel_0_1",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "4d31361da55734a327cebcb4ead47f4d05382648de306bc69428b44ca5caeab0",
+      "triangles": 20,
+      "canonical_directed_triangle_signature": "4d31361da55734a327cebcb4ead47f4d05382648de306bc69428b44ca5caeab0",
+      "geometry_uv_normal_signature": "6f6e80693b466a8c96be005a41f373f62e34b2f5ccd6822135f674f5c9351ae1"
+    },
+    {
+      "key": [
+        "Barbel_1_-1",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "51b1d830b65ff699f2a892a3928f7c0f575a48cd975a747b636ca4d45a3705f3",
+      "triangles": 20,
+      "canonical_directed_triangle_signature": "51b1d830b65ff699f2a892a3928f7c0f575a48cd975a747b636ca4d45a3705f3",
+      "geometry_uv_normal_signature": "852d50cdc5636390964a3e54b60d85f1748bd0dfa088a902ad436ce5fe9cea91"
+    },
+    {
+      "key": [
+        "Barbel_1_1",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "094e53001b7772f918dd57eb1c8eff99402834041e1c8df9328d8715ad01a1fc",
+      "triangles": 20,
+      "canonical_directed_triangle_signature": "094e53001b7772f918dd57eb1c8eff99402834041e1c8df9328d8715ad01a1fc",
+      "geometry_uv_normal_signature": "7fcef98813e568d998b3338bfda986fb85ab4b6d16e005e9dbf21fbfecf2fa6f"
+    },
+    {
+      "key": [
+        "Barbel_2_-1",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "d64698d93712f4e3a97bc4f268ebb45fbc8668bf2e82422cbd04cf2531567005",
+      "triangles": 20,
+      "canonical_directed_triangle_signature": "d64698d93712f4e3a97bc4f268ebb45fbc8668bf2e82422cbd04cf2531567005",
+      "geometry_uv_normal_signature": "c0bcad91bcf49443494bb5d40cb925a35410cac45434af01ce90a5fb3111c356"
+    },
+    {
+      "key": [
+        "Barbel_2_1",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "027256845c5836903cff00331f9ab718eb634be632b34ff1c66d0eed220fb467",
+      "triangles": 20,
+      "canonical_directed_triangle_signature": "027256845c5836903cff00331f9ab718eb634be632b34ff1c66d0eed220fb467",
+      "geometry_uv_normal_signature": "43f42809f69315b71f273fe0b0faff24d44944a70903cc1b1c057a6309d57cc4"
+    },
+    {
+      "key": [
+        "Barbel_3_-1",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "47cd95acc0c245a6e68892e917f0ea292b9dac6b8458f7f18fabc6cd2b1361f9",
+      "triangles": 20,
+      "canonical_directed_triangle_signature": "47cd95acc0c245a6e68892e917f0ea292b9dac6b8458f7f18fabc6cd2b1361f9",
+      "geometry_uv_normal_signature": "2d75c38cebed30b721521d1b0085bee631d69df8e8a22c41155c36c2a80eb5ed"
+    },
+    {
+      "key": [
+        "Barbel_3_1",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "b8e115a77387a586ae0f43553b963e5c897d129220fe13bcb68c16df4aaec7c9",
+      "triangles": 20,
+      "canonical_directed_triangle_signature": "b8e115a77387a586ae0f43553b963e5c897d129220fe13bcb68c16df4aaec7c9",
+      "geometry_uv_normal_signature": "658aab2e3c4ff9368192bb0a256c6f0eb54f1e641e1e233816443c4bae4e34a1"
+    },
+    {
+      "key": [
+        "Caudal",
+        0
+      ],
+      "affected_caudal": true,
+      "directed_triangle_signature": "e168a8d39f6f369ea58f46183633e846184da6969054ec69b750ea66c45499bc",
+      "triangles": 192,
+      "canonical_directed_triangle_signature": "e61fae561d1c9f5beeff42afbabb3941712604dee61b81b750db47b33085f345",
+      "geometry_uv_normal_signature": "61c1f180535a2d1c80765efc738675495924956a32a5b6558370ba5215f45120"
+    },
+    {
+      "key": [
+        "Closed_body",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "93f93f2b58c315fdf7211d49fa15377288ee2b999681075689ae06c7e87201f6",
+      "triangles": 692,
+      "canonical_directed_triangle_signature": "349a77fa1ca9f16d6f6f4c28bd2e67984b148ee84367c1bca26edf9bf69c2708",
+      "geometry_uv_normal_signature": "792920a98f3a696c18ec946534ac199aa69000cfa376ef473d757176e8d83bec"
+    },
+    {
+      "key": [
+        "Closed_body",
+        1
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "e0a154106d56e683e69be0dad10313cf86a586d13a55f56bcc5a9f6253c2c6f3",
+      "triangles": 79,
+      "canonical_directed_triangle_signature": "e0a154106d56e683e69be0dad10313cf86a586d13a55f56bcc5a9f6253c2c6f3",
+      "geometry_uv_normal_signature": "db31885198358ec47140e7c68332aaeb15af561363367e9ebf5f90b7c64beffe"
+    },
+    {
+      "key": [
+        "Closed_body",
+        2
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "655b94bcd2b21e798d93a3cf0d4faf126b37e7957514f33c9330f239fcfe8560",
+      "triangles": 65,
+      "canonical_directed_triangle_signature": "655b94bcd2b21e798d93a3cf0d4faf126b37e7957514f33c9330f239fcfe8560",
+      "geometry_uv_normal_signature": "64b6ae79b971651af6c73c898217ae12363801717489a9a6af8e46a40e440424"
+    },
+    {
+      "key": [
+        "Dorsal",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "3917e5b14fa455193a487687a2e8f21945b7fcafb7f6df3cb2fca94199e20ae1",
+      "triangles": 236,
+      "canonical_directed_triangle_signature": "3917e5b14fa455193a487687a2e8f21945b7fcafb7f6df3cb2fca94199e20ae1",
+      "geometry_uv_normal_signature": "edb3da1f80c3a0fc69b2ef9b75d8f8ee6f4379137cc3a37cb2420b2945eda0d5"
+    },
+    {
+      "key": [
+        "Native_eye_-1",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "ce9d30ed66523cdd3e4bd50885f135506b5971d5986f23aabe2a45e3575063f2",
+      "triangles": 32,
+      "canonical_directed_triangle_signature": "ce9d30ed66523cdd3e4bd50885f135506b5971d5986f23aabe2a45e3575063f2",
+      "geometry_uv_normal_signature": "e9f15a3a2c74a58d9660d4f1b8e732087ebaa98261150fca645c1ae7ce7b957c"
+    },
+    {
+      "key": [
+        "Native_eye_1",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "d5187d3231e2a2a459fcc78165b7e6e4c66c3795f8ebbbfdb4083b110bb6e513",
+      "triangles": 32,
+      "canonical_directed_triangle_signature": "d5187d3231e2a2a459fcc78165b7e6e4c66c3795f8ebbbfdb4083b110bb6e513",
+      "geometry_uv_normal_signature": "292e23be22bfb4cad3e6ef578cfdf4673ea89db3ffec590d47dae6f645d4ebd5"
+    },
+    {
+      "key": [
+        "Pectoral_left",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "90a1f61dd19c287d32585b8f2e4ccc62f8161cbd61b609c2c4261fc15307558e",
+      "triangles": 116,
+      "canonical_directed_triangle_signature": "90a1f61dd19c287d32585b8f2e4ccc62f8161cbd61b609c2c4261fc15307558e",
+      "geometry_uv_normal_signature": "21d1bd2e79f263eab986d936ea276c04b1c4699e74f73c5b62b0e37c5d3304d7"
+    },
+    {
+      "key": [
+        "Pectoral_right",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "635036713a4d8986c0a275e83e6742fee5d8d934aa0aa3b03335367f5b76387f",
+      "triangles": 116,
+      "canonical_directed_triangle_signature": "635036713a4d8986c0a275e83e6742fee5d8d934aa0aa3b03335367f5b76387f",
+      "geometry_uv_normal_signature": "4013c7adc89f73b71901c9c3a9c57a8afe2594c81b573ec7b71d4be2b53559f7"
+    },
+    {
+      "key": [
+        "Pelvic_left",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "2aa8596cbd7239613afa20cf3f2a5d4127596e950326a2069d76330c915236f2",
+      "triangles": 80,
+      "canonical_directed_triangle_signature": "2aa8596cbd7239613afa20cf3f2a5d4127596e950326a2069d76330c915236f2",
+      "geometry_uv_normal_signature": "6ede90f4f069ff7f9d051d7872fd797dfa64b7da5433999bf28713a8aafa5ec6"
+    },
+    {
+      "key": [
+        "Pelvic_right",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "faa9b9876c1e4922c974b413f0387a86ae85d240b51a1d2f8b2959fb517fb02e",
+      "triangles": 80,
+      "canonical_directed_triangle_signature": "faa9b9876c1e4922c974b413f0387a86ae85d240b51a1d2f8b2959fb517fb02e",
+      "geometry_uv_normal_signature": "e3e4983c40adf6ae0a5a10b27d135891e749c1a67af5f690b5cd5010f136dfad"
+    }
+  ],
+  "rig_rest_bind_signature": "d06d12d0b35f9ce6903a0e0ab0f115488dca8a32824f9fdc4d092f32129e0912",
+  "native_animation_signature": "e23ada156c6675ee4edb092ad7b9d2f04ec266e64734b4f4f681070d2707976c",
+  "node_graph": [
+    {
+      "name": "Anal",
+      "parent": "body_06",
+      "mesh": false,
+      "translation": [
+        -0.0002729506231844425,
+        0.04518415778875351,
+        -0.059242505580186844
+      ],
+      "rotation": [
+        -0.19014377892017365,
+        0.18511512875556946,
+        -0.9634982347488403,
+        0.035338785499334335
+      ],
+      "scale": [
+        1,
+        1,
+        1.0000001192092896
+      ]
+    },
+    {
+      "name": "Anal",
+      "parent": "african_catfish_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Barbel_0_-1",
+      "parent": "african_catfish_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Barbel_0_1",
+      "parent": "african_catfish_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Barbel_1_-1",
+      "parent": "african_catfish_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Barbel_1_1",
+      "parent": "african_catfish_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Barbel_2_-1",
+      "parent": "african_catfish_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Barbel_2_1",
+      "parent": "african_catfish_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Barbel_3_-1",
+      "parent": "african_catfish_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Barbel_3_1",
+      "parent": "african_catfish_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Caudal",
+      "parent": "body_09",
+      "mesh": false,
+      "translation": [
+        3.316638630401769e-11,
+        0.012000024318695068,
+        0.002446382073685527
+      ],
+      "rotation": [
+        -0.3885686993598938,
+        0.3885686993598938,
+        -0.18533451855182648,
+        0.8146655559539795
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Caudal",
+      "parent": "african_catfish_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Closed_body",
+      "parent": "african_catfish_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal",
+      "parent": "body_05",
+      "mesh": false,
+      "translation": [
+        0.0008745503146201372,
+        0.045502837747335434,
+        0.06583782285451889
+      ],
+      "rotation": [
+        0.24390330910682678,
+        -0.2567134499549866,
+        -0.9324970245361328,
+        0.07112465053796768
+      ],
+      "scale": [
+        1,
+        0.9999998807907104,
+        0.9999996423721313
+      ]
+    },
+    {
+      "name": "Dorsal",
+      "parent": "african_catfish_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Native_eye_-1",
+      "parent": "african_catfish_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Native_eye_1",
+      "parent": "african_catfish_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_left",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        -0.06343238055706024,
+        -0.0016621103277429938,
+        -0.042095839977264404
+      ],
+      "rotation": [
+        -0.3663385808467865,
+        0.37012287974357605,
+        0.15678904950618744,
+        0.8391795754432678
+      ],
+      "scale": [
+        1,
+        1.0000001192092896,
+        1.0000001192092896
+      ]
+    },
+    {
+      "name": "Pectoral_left",
+      "parent": "african_catfish_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_right",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        0.06126164272427559,
+        -0.0016621336108073592,
+        -0.04519667103886604
+      ],
+      "rotation": [
+        -0.21588139235973358,
+        0.2074882686138153,
+        -0.3349357545375824,
+        0.8933990597724915
+      ],
+      "scale": [
+        0.9999999403953552,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_right",
+      "parent": "african_catfish_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pelvic_left",
+      "parent": "body_04",
+      "mesh": false,
+      "translation": [
+        -0.03585841506719589,
+        0.02329724282026291,
+        -0.060993462800979614
+      ],
+      "rotation": [
+        -0.4505588412284851,
+        0.4512830376625061,
+        0.06562506407499313,
+        0.7674853801727295
+      ],
+      "scale": [
+        1,
+        0.9999998807907104,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "Pelvic_left",
+      "parent": "african_catfish_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pelvic_right",
+      "parent": "body_04",
+      "mesh": false,
+      "translation": [
+        0.034447405487298965,
+        0.02329724282026291,
+        -0.06180133298039436
+      ],
+      "rotation": [
+        -0.2647897005081177,
+        0.26051631569862366,
+        -0.37040024995803833,
+        0.8513643741607666
+      ],
+      "scale": [
+        0.9999999403953552,
+        0.9999998807907104,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "Pelvic_right",
+      "parent": "african_catfish_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "african_catfish_Rig",
+      "parent": null,
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_00",
+      "parent": "root",
+      "mesh": false,
+      "translation": [
+        0.44999998807907104,
+        -0.0012830737978219986,
+        0
+      ],
+      "rotation": [
+        -0.46867793798446655,
+        0.49901798367500305,
+        0.49901798367500305,
+        0.5313221216201782
+      ],
+      "scale": [
+        0.9999998807907104,
+        0.9999999403953552,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "body_01",
+      "parent": "body_00",
+      "mesh": false,
+      "translation": [
+        2.9103830456733704e-11,
+        0.09273774921894073,
+        9.313225746154785e-10
+      ],
+      "rotation": [
+        -0.004739945288747549,
+        0.004747847095131874,
+        0.0002749276754911989,
+        0.9999774694442749
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_02",
+      "parent": "body_01",
+      "mesh": false,
+      "translation": [
+        2.5883004073357085e-11,
+        0.09268662333488464,
+        1.7209497715775512e-12
+      ],
+      "rotation": [
+        -0.01415228471159935,
+        0.014161640778183937,
+        0.0005525852320715785,
+        0.9997994303703308
+      ],
+      "scale": [
+        0.9999999403953552,
+        1,
+        0.9999998807907104
+      ]
+    },
+    {
+      "name": "body_03",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        7.796388534764276e-12,
+        0.09258414804935455,
+        9.323952721018713e-10
+      ],
+      "rotation": [
+        -0.01076709944754839,
+        0.010767543688416481,
+        0.00015176071610767394,
+        0.9998840093612671
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_04",
+      "parent": "body_03",
+      "mesh": false,
+      "translation": [
+        3.93646920615609e-13,
+        0.09255604445934296,
+        -9.311790782895457e-10
+      ],
+      "rotation": [
+        0.004082196392118931,
+        -0.004082272760570049,
+        -3.0240938940551132e-05,
+        0.9999833703041077
+      ],
+      "scale": [
+        0.9999999403953552,
+        0.9999999403953552,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "body_05",
+      "parent": "body_04",
+      "mesh": false,
+      "translation": [
+        1.3511875646132765e-11,
+        0.09256167709827423,
+        1.314494763038354e-10
+      ],
+      "rotation": [
+        0.0011361303040757775,
+        -0.0011362205259501934,
+        -1.4345998351927847e-05,
+        0.9999986886978149
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_06",
+      "parent": "body_05",
+      "mesh": false,
+      "translation": [
+        -6.2597357852745006e-12,
+        0.09256432950496674,
+        -1.1582845099722405e-10
+      ],
+      "rotation": [
+        -0.004272882826626301,
+        0.004273036029189825,
+        4.0548922697780654e-05,
+        0.9999817609786987
+      ],
+      "scale": [
+        0.9999998807907104,
+        0.9999998807907104,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "body_07",
+      "parent": "body_06",
+      "mesh": false,
+      "translation": [
+        7.940800794692393e-13,
+        0.09255681931972504,
+        -1.1618936368584798e-10
+      ],
+      "rotation": [
+        -0.004430165980011225,
+        0.004430124070495367,
+        3.4833167319447966e-06,
+        0.9999803900718689
+      ],
+      "scale": [
+        0.9999998807907104,
+        0.9999998807907104,
+        0.9999998807907104
+      ]
+    },
+    {
+      "name": "body_08",
+      "parent": "body_07",
+      "mesh": false,
+      "translation": [
+        -2.0527433919337312e-12,
+        0.0925561785697937,
+        -1.16571932662346e-10
+      ],
+      "rotation": [
+        -0.015048601664602757,
+        0.015049523673951626,
+        -0.0002813769970089197,
+        0.9997735023498535
+      ],
+      "scale": [
+        1,
+        1,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "body_09",
+      "parent": "body_08",
+      "mesh": false,
+      "translation": [
+        -7.812052393862956e-11,
+        0.09260832518339157,
+        2.7923128254059293e-09
+      ],
+      "rotation": [
+        0.016870560124516487,
+        -0.01687055639922619,
+        0.0002846964343916625,
+        0.9997153282165527
+      ],
+      "scale": [
+        0.9999999403953552,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "root",
+      "parent": "african_catfish_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "alphaMode": "MASK",
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 0
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Anal native independent pixel cutout.002",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 2
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Own complete native curve Barbel_0_-1",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 3
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 4
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Own complete native curve Barbel_0_1",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 5
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 6
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Own complete native curve Barbel_1_-1",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 7
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 8
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Own complete native curve Barbel_1_1",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 9
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 10
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Own complete native curve Barbel_2_-1",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 11
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 12
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Own complete native curve Barbel_2_1",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 13
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 14
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Own complete native curve Barbel_3_-1",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 15
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 16
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Own complete native curve Barbel_3_1",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 17
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "alphaMode": "MASK",
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 18
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Caudal native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 19
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 20
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Front skin source chart",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 21
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 22
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Front mouth oral chart",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 23
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 24
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Native exact projected sidebody budget field",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 25
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "alphaMode": "MASK",
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 26
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Dorsal native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 27
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 28
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Native pixel art \u00b7 nearest \u00b7 matte",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 29
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "alphaMode": "MASK",
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 30
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Pectoral native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 31
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "alphaMode": "MASK",
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 32
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Pelvic native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 33
+        },
+        "metallicFactor": 0
+      }
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 6
+    },
+    {
+      "sampler": 0,
+      "source": 6
+    },
+    {
+      "sampler": 0,
+      "source": 6
+    },
+    {
+      "sampler": 0,
+      "source": 6
+    },
+    {
+      "sampler": 0,
+      "source": 7
+    },
+    {
+      "sampler": 0,
+      "source": 7
+    },
+    {
+      "sampler": 0,
+      "source": 8
+    },
+    {
+      "sampler": 0,
+      "source": 8
+    },
+    {
+      "sampler": 0,
+      "source": 9
+    },
+    {
+      "sampler": 0,
+      "source": 9
+    },
+    {
+      "sampler": 0,
+      "source": 10
+    },
+    {
+      "sampler": 0,
+      "source": 10
+    },
+    {
+      "sampler": 0,
+      "source": 11
+    },
+    {
+      "sampler": 0,
+      "source": 11
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9728,
+      "minFilter": 9984,
+      "wrapS": 33071,
+      "wrapT": 33071
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "size": [
+        673,
+        119
+      ],
+      "rgba_sha256": "ed812bb632b43322aa8257aff263b9f1dfe7cbfbb7d4e6fbea97ad44f305f310",
+      "embedded_sha256": "b0c322af556337c9ca3581a81d7b21842c9d651a79c4fa0f7e7eb7c2ddc84e72"
+    },
+    {
+      "index": 1,
+      "size": [
+        8,
+        256
+      ],
+      "rgba_sha256": "3c5f7d8747d422ed98c4391fef5f9f521d32b32dbe12959b16bb0477feaaf428",
+      "embedded_sha256": "22d36321deb35b9ba3ea6e091aedef8a5b60ec99b006dae8a54cafd6003f2a72"
+    },
+    {
+      "index": 2,
+      "size": [
+        8,
+        256
+      ],
+      "rgba_sha256": "05f51e7f25bc21efa275ef2cb2244c51b4bac0202daf9e9640455aafb16c8d0a",
+      "embedded_sha256": "27ac39065259c789ef8f048394a6d90a6fbf801b4c20011fee978d3352d9e132"
+    },
+    {
+      "index": 3,
+      "size": [
+        8,
+        256
+      ],
+      "rgba_sha256": "83c3ec4185dd593dae760b91a2c260480d4ac6b8f90b706f494c0b8ab33e6090",
+      "embedded_sha256": "c20bc5d97405fc7178c249f5c6da5570bd95f9cee7578f9b09c81807feafdf51"
+    },
+    {
+      "index": 4,
+      "size": [
+        8,
+        256
+      ],
+      "rgba_sha256": "2af8ec7d784ed4bcf3b67a2d96aa990c029a9d28ee16023741dee0565a23198b",
+      "embedded_sha256": "26d4c2e829d608ae3d7e15b74942bda7c4763e53bf4893f52647c979b1f8861e"
+    },
+    {
+      "index": 5,
+      "size": [
+        258,
+        260
+      ],
+      "rgba_sha256": "b1168c897e8a5d31d7002ff2bc8d8df69adeda3f73e6954ff49355f3c3925061",
+      "embedded_sha256": "4e443913b3c14de6582be52fc94e0dfb6f1ef69d601b416578318c77422fb571"
+    },
+    {
+      "index": 6,
+      "size": [
+        1024,
+        8192
+      ],
+      "rgba_sha256": "a5ca5fdf248b5757a3c4967df60fb6c19590dfd53b96df191d3e4f6753056ba3",
+      "embedded_sha256": "ea0fab54714323cca3095aaebd40a49d96fc2412cd659274621a769cf4a6cb74"
+    },
+    {
+      "index": 7,
+      "size": [
+        1024,
+        2048
+      ],
+      "rgba_sha256": "763bd5386d3db35f79ada6021c1d88775f67474179290b19bc57c1e93e538a54",
+      "embedded_sha256": "46ca6991a8af0e0483e55d1c9b3b0ccd5e43673665fb61e3f2cf890d3ed4e5fe"
+    },
+    {
+      "index": 8,
+      "size": [
+        1123,
+        157
+      ],
+      "rgba_sha256": "5f7f69d9cd1b1eaa942f47e47d0241e2b426bb0da2960a7d8c566b3e7e5ccfc7",
+      "embedded_sha256": "c49317e7fdf7bae6c73e03aa74d63f08767686854b47356f257c2ce7638f7188"
+    },
+    {
+      "index": 9,
+      "size": [
+        2003,
+        514
+      ],
+      "rgba_sha256": "ec805db7e29a3574e0a79240a54f13d9a8b4bbc239f2f17add36d02e76f550b4",
+      "embedded_sha256": "b8992e2a9613ef9a1049b80853e3151ed47bce8343b6baae6c22f620e213736f"
+    },
+    {
+      "index": 10,
+      "size": [
+        223,
+        123
+      ],
+      "rgba_sha256": "ec461feefe05181d488e0fd3a9b82adb31463cb557138a28fda1a317da4e50f3",
+      "embedded_sha256": "da956bcfeb60f6ab837ae40a8d7db8cf031f79b7412e21876817e78dbd4de95c"
+    },
+    {
+      "index": 11,
+      "size": [
+        145,
+        117
+      ],
+      "rgba_sha256": "585f4355db2cc0c4a79a37e44c7879df5cfa6f3e54d03925daf150d46f3e5f28",
+      "embedded_sha256": "6f48c7af068fda0e2a83445f7536df9369aceaacdaf4045b12d69020f4888a52"
+    }
+  ],
+  "authorized_caudal_pixel_patch": null,
+  "protected_scope": "Every actual canonical partition except exact Caudal/Caudal_mesh fin ownership. Complete inventory computed from actual GLB; no self-reported omissions.",
+  "provenance": "Actual canonical bytes matched root release-inputs baseline and accepted release metadata before replacement; no retired historical model restored.",
+  "baseline_source_sha256": "17c2e025d8667720428f3a144571db13f6204a75ffbfdf24a507b68f8b130f9d",
+  "rig_semantic_signature": "d093c1e175d8be8eb841ee769764d524932212165a5364fd22968eb3b76ab186",
+  "native_animation_semantic_signature": "1d6e7ed587b5bccf5f5a301b7aa1c0de4d7e8a0027701aaf3e5c98f1bc84f5cc"
+}

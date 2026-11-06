@@ -1,0 +1,368 @@
+{
+  "ok": true,
+  "records": [
+    {
+      "species": "zander",
+      "baseline_model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/zander.glb",
+        "sha256": "7f169be9a2e3ebeeeed35a4883ee1f92dc41fbd3d1d14e51e8117616c4a9ccb5"
+      },
+      "candidate_model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/junctions/zander/r2/fish.glb",
+        "sha256": "bf1137b96464ab2e395437e9bee9e0da16b9bbad2a508cabdfa87b43baef9c67"
+      },
+      "source_identity": {
+        "species": "zander",
+        "baseline_source": {
+          "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/zander/fish.blend",
+          "sha256": "a3486d9be217b4cc68ffc24c0d246c11d48fa0edaf809f1699508b0bc5ae1965"
+        },
+        "current_source": {
+          "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/junctions/zander/r2/fish.blend",
+          "sha256": "0612118f307f9ad6870af3db541f7981a552d34a853c6e13a04bfe27d7691f79"
+        },
+        "all_body_and_eye_source_vertex_groups_and_positions_exact": true,
+        "baseline_mesh_signatures": {
+          "Closed_body": {
+            "vertices": 613,
+            "raw_indexed_position_and_named_groups_sha256": "8bbe2caccf896fbcb23300787ccb031bc2e0f07603f36da54d5a1b82486c8245",
+            "semantic_position_and_named_groups_sha256": "f0e114a78b254fc5d10cb4c71a2612e138a8c95408f6ba0d480ad805a2c4b7f8",
+            "source_polygon_ids_sha256": "9962e4e1e649760e32d3a603f2fca4faea6a560c89caa4b68a3f5b0712e80a85"
+          },
+          "Eye_relief112_-1_0": {
+            "vertices": 15,
+            "raw_indexed_position_and_named_groups_sha256": "a2e4220fbd1a67cfb3a35eb4dd008f260d7503e5cddd513e6a0b49a3db2478a2",
+            "semantic_position_and_named_groups_sha256": "c0180c80320a4bed51ff5df6f021d980d91dd3e19a1bb89fc40f0dbd955722b9",
+            "source_polygon_ids_sha256": "19f820b3a17b388563ac224a72b88e9b3e717770e2b2bb5151c6f4c93fddf73f"
+          },
+          "Eye_relief112_1_0": {
+            "vertices": 15,
+            "raw_indexed_position_and_named_groups_sha256": "91bafb0a38288ee2639fc73c32a3bc02d2921543f30f13952567b312ce0ffd14",
+            "semantic_position_and_named_groups_sha256": "a14769d883cf8861aa436d38cc9e9d9387d969cc12c647ac87025294f40ce9cf",
+            "source_polygon_ids_sha256": "b9cb9be1699a7d36c946f4eaaa5084176056602e0c7d69219f5d4ca0ae9bb982"
+          }
+        },
+        "current_mesh_signatures": {
+          "Closed_body": {
+            "vertices": 613,
+            "raw_indexed_position_and_named_groups_sha256": "8bbe2caccf896fbcb23300787ccb031bc2e0f07603f36da54d5a1b82486c8245",
+            "semantic_position_and_named_groups_sha256": "f0e114a78b254fc5d10cb4c71a2612e138a8c95408f6ba0d480ad805a2c4b7f8",
+            "source_polygon_ids_sha256": "9962e4e1e649760e32d3a603f2fca4faea6a560c89caa4b68a3f5b0712e80a85"
+          },
+          "Eye_relief112_-1_0": {
+            "vertices": 15,
+            "raw_indexed_position_and_named_groups_sha256": "a2e4220fbd1a67cfb3a35eb4dd008f260d7503e5cddd513e6a0b49a3db2478a2",
+            "semantic_position_and_named_groups_sha256": "c0180c80320a4bed51ff5df6f021d980d91dd3e19a1bb89fc40f0dbd955722b9",
+            "source_polygon_ids_sha256": "19f820b3a17b388563ac224a72b88e9b3e717770e2b2bb5151c6f4c93fddf73f"
+          },
+          "Eye_relief112_1_0": {
+            "vertices": 15,
+            "raw_indexed_position_and_named_groups_sha256": "91bafb0a38288ee2639fc73c32a3bc02d2921543f30f13952567b312ce0ffd14",
+            "semantic_position_and_named_groups_sha256": "a14769d883cf8861aa436d38cc9e9d9387d969cc12c647ac87025294f40ce9cf",
+            "source_polygon_ids_sha256": "b9cb9be1699a7d36c946f4eaaa5084176056602e0c7d69219f5d4ca0ae9bb982"
+          }
+        }
+      },
+      "source_identity_report": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/bindings/ordinary-source-weight-identity.validation.json",
+        "sha256": "4185c379181e17c818892f5fc92d60a52a39b8a6ded70d8770669a9ef17df1da"
+      },
+      "stock_exporter_dependencies": {
+        "/Users/czl/.gamefactory/toolchain/blender5/Blender.app/Contents/Resources/5.0/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_extract.py": "08a626f52765c8edb87ed08eae414df902a9f25a1add6f29335d6e31980bea98",
+        "/Users/czl/.gamefactory/toolchain/blender5/Blender.app/Contents/Resources/5.0/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_attributes.py": "56f4338728d0baf17a68a696fbe4300026e1e7690afc986ea6357ac63fa2d0c4"
+      },
+      "serialization": "Unchanged source named groups; Blender 5 stock weights <=0.0001 omitted, remaining weights sorted descending, padded to 4, float32 sum and division. Every actual body/eye GLTF named weight exactly predicted, without weight-error tolerance.",
+      "candidate_weights_exactly_predicted": true,
+      "source_weight_encoding_vertices": [
+        {
+          "name": "Closed_body",
+          "source_vertices": 613,
+          "actual_GLTF_attribute_vertices_verified": 3622
+        },
+        {
+          "name": "Eye_relief112_-1_0",
+          "source_vertices": 15,
+          "actual_GLTF_attribute_vertices_verified": 78
+        },
+        {
+          "name": "Eye_relief112_1_0",
+          "source_vertices": 15,
+          "actual_GLTF_attribute_vertices_verified": 78
+        }
+      ],
+      "maximum_source_dropped_sum": 1.3651514585433233e-08,
+      "float32_unit_roundoff": 5.960464477539063e-08,
+      "normalization_roundoff_gamma5": 2.9802331269482156e-07,
+      "gamma5_scope": "Conservative standard five-operation float32 normalization bound after explicitly accounting for discarded source influence sum; not an arbitrary old/new weights tolerance.",
+      "parts": [
+        {
+          "name": "Closed_body",
+          "surface": 0,
+          "triangles": 226,
+          "original_weighted_directed_signature": "434d2860372b57a79346e005ff19ad2e5062f8bf5bb293d4d4850fe349be6fd5",
+          "candidate_weighted_directed_signature": "3fa3d3cb6e2e2aef9eeda9df83a3db171b267265e3141b02d83db55bebb14269",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 70,
+          "maximum_named_weight_delta": 5.960464477539063e-08,
+          "dropped_influence_count": 4,
+          "maximum_dropped_accepted_influence": 1.3651514585433233e-08
+        },
+        {
+          "name": "Closed_body",
+          "surface": 1,
+          "triangles": 684,
+          "original_weighted_directed_signature": "0c7bd78762f5194f3dcb27fba6cd536aa9e16d3ae3481f2710b126fe19b9fd2b",
+          "candidate_weighted_directed_signature": "0c7bd78762f5194f3dcb27fba6cd536aa9e16d3ae3481f2710b126fe19b9fd2b",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": true,
+          "changed_unique_attribute_vertices": 0,
+          "maximum_named_weight_delta": 0.0,
+          "dropped_influence_count": 0,
+          "maximum_dropped_accepted_influence": 0.0
+        },
+        {
+          "name": "Closed_body",
+          "surface": 2,
+          "triangles": 264,
+          "original_weighted_directed_signature": "d09818c1160fa77e5b1a909ef92b7711c8f60d1e9eca9fdd31f12b61045837b3",
+          "candidate_weighted_directed_signature": "d09818c1160fa77e5b1a909ef92b7711c8f60d1e9eca9fdd31f12b61045837b3",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": true,
+          "changed_unique_attribute_vertices": 0,
+          "maximum_named_weight_delta": 0.0,
+          "dropped_influence_count": 0,
+          "maximum_dropped_accepted_influence": 0.0
+        },
+        {
+          "name": "Closed_body",
+          "surface": 3,
+          "triangles": 48,
+          "original_weighted_directed_signature": "98ab0e2ea31f0891255ae9a7f9264cd523b038f11825d7a7b785268b4c4362b7",
+          "candidate_weighted_directed_signature": "98ab0e2ea31f0891255ae9a7f9264cd523b038f11825d7a7b785268b4c4362b7",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": true,
+          "changed_unique_attribute_vertices": 0,
+          "maximum_named_weight_delta": 0.0,
+          "dropped_influence_count": 0,
+          "maximum_dropped_accepted_influence": 0.0
+        },
+        {
+          "name": "Eye_relief112_-1_0",
+          "surface": 0,
+          "triangles": 26,
+          "original_weighted_directed_signature": "6c0f3030c8ae91198015d809f561663013a626ce87e3facbc13ce93b7752dafa",
+          "candidate_weighted_directed_signature": "6c0f3030c8ae91198015d809f561663013a626ce87e3facbc13ce93b7752dafa",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": true,
+          "changed_unique_attribute_vertices": 0,
+          "maximum_named_weight_delta": 0.0,
+          "dropped_influence_count": 0,
+          "maximum_dropped_accepted_influence": 0.0
+        },
+        {
+          "name": "Eye_relief112_1_0",
+          "surface": 0,
+          "triangles": 26,
+          "original_weighted_directed_signature": "7f0f67900cd1dd9e255b5c33709717e1e61e60f331274f7d75b17cbded67f522",
+          "candidate_weighted_directed_signature": "adb923d3e6c37c2713db22945309f96c5c9ab65547586b7c81853c1013329fef",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 10,
+          "maximum_named_weight_delta": 5.960464477539063e-08,
+          "dropped_influence_count": 0,
+          "maximum_dropped_accepted_influence": 0.0
+        }
+      ],
+      "scope": "Two frozen SHA pairs only. Body/eye source groups exactly preserved; emitted GLTF weights explicitly not byte exact. Current physical/GPU checks remain required."
+    },
+    {
+      "species": "yellow_croaker",
+      "baseline_model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/yellow_croaker.glb",
+        "sha256": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730"
+      },
+      "candidate_model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/junctions/yellow_croaker/r3/fish.glb",
+        "sha256": "8846cb7bd8736407f80b5b0436889f07e7e5df2e1c95f57d077b97e24dd2dec4"
+      },
+      "source_identity": {
+        "species": "yellow_croaker",
+        "baseline_source": {
+          "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/yellow_croaker/fish.blend",
+          "sha256": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38"
+        },
+        "current_source": {
+          "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/junctions/yellow_croaker/r3/fish.blend",
+          "sha256": "ae1e42c1b29276e64ba975954610f81c98efe2d57ef1490ec4cb423a1022f311"
+        },
+        "all_body_and_eye_source_vertex_groups_and_positions_exact": true,
+        "baseline_mesh_signatures": {
+          "Closed_body": {
+            "vertices": 530,
+            "raw_indexed_position_and_named_groups_sha256": "2b419a89e4644a82c7008bad655aafa5163c85ca39248df31ee8b1f2a2763470",
+            "semantic_position_and_named_groups_sha256": "6f44b91a30b935d5ad5917520a4201a51d5413c9bb45d8e6a01c9f56da292b8b",
+            "source_polygon_ids_sha256": "68dfa7fa2ed9ead7e4818c21fff8b4ff7538c8221c4731f4cdecea6a5d27ba77"
+          },
+          "Native_eye_-1": {
+            "vertices": 25,
+            "raw_indexed_position_and_named_groups_sha256": "589b27a2db4a0f7f8f293c85c1a1c88a5d10035bf5fc06aeb7956c5857949456",
+            "semantic_position_and_named_groups_sha256": "be768dffb38d854b8a2286f84db0d2fa27fe6015bff2ea15d254b59e5468e4e8",
+            "source_polygon_ids_sha256": "baa9e4150a49fafbc0740aca7f7aa6dd341422c0f2a1911a6b5740ecda432a3a"
+          },
+          "Native_eye_1": {
+            "vertices": 25,
+            "raw_indexed_position_and_named_groups_sha256": "5ee90b122f1e792a9baf30fc846172946faab06327ebe7426017fb9ee472dcbe",
+            "semantic_position_and_named_groups_sha256": "58e18e6b51e62a67056473d94428a85c64b9f6113c0be7bafdffc8ea4a2ee723",
+            "source_polygon_ids_sha256": "9b2424cdc0a6fb02acd45d425455f8e128e24f681ecc91f0345d95f5ff59ed3f"
+          }
+        },
+        "current_mesh_signatures": {
+          "Closed_body": {
+            "vertices": 530,
+            "raw_indexed_position_and_named_groups_sha256": "2b419a89e4644a82c7008bad655aafa5163c85ca39248df31ee8b1f2a2763470",
+            "semantic_position_and_named_groups_sha256": "6f44b91a30b935d5ad5917520a4201a51d5413c9bb45d8e6a01c9f56da292b8b",
+            "source_polygon_ids_sha256": "68dfa7fa2ed9ead7e4818c21fff8b4ff7538c8221c4731f4cdecea6a5d27ba77"
+          },
+          "Native_eye_-1": {
+            "vertices": 25,
+            "raw_indexed_position_and_named_groups_sha256": "589b27a2db4a0f7f8f293c85c1a1c88a5d10035bf5fc06aeb7956c5857949456",
+            "semantic_position_and_named_groups_sha256": "be768dffb38d854b8a2286f84db0d2fa27fe6015bff2ea15d254b59e5468e4e8",
+            "source_polygon_ids_sha256": "baa9e4150a49fafbc0740aca7f7aa6dd341422c0f2a1911a6b5740ecda432a3a"
+          },
+          "Native_eye_1": {
+            "vertices": 25,
+            "raw_indexed_position_and_named_groups_sha256": "5ee90b122f1e792a9baf30fc846172946faab06327ebe7426017fb9ee472dcbe",
+            "semantic_position_and_named_groups_sha256": "58e18e6b51e62a67056473d94428a85c64b9f6113c0be7bafdffc8ea4a2ee723",
+            "source_polygon_ids_sha256": "9b2424cdc0a6fb02acd45d425455f8e128e24f681ecc91f0345d95f5ff59ed3f"
+          }
+        }
+      },
+      "source_identity_report": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/bindings/ordinary-source-weight-identity.validation.json",
+        "sha256": "4185c379181e17c818892f5fc92d60a52a39b8a6ded70d8770669a9ef17df1da"
+      },
+      "stock_exporter_dependencies": {
+        "/Users/czl/.gamefactory/toolchain/blender5/Blender.app/Contents/Resources/5.0/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_extract.py": "08a626f52765c8edb87ed08eae414df902a9f25a1add6f29335d6e31980bea98",
+        "/Users/czl/.gamefactory/toolchain/blender5/Blender.app/Contents/Resources/5.0/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_attributes.py": "56f4338728d0baf17a68a696fbe4300026e1e7690afc986ea6357ac63fa2d0c4"
+      },
+      "serialization": "Unchanged source named groups; Blender 5 stock weights <=0.0001 omitted, remaining weights sorted descending, padded to 4, float32 sum and division. Every actual body/eye GLTF named weight exactly predicted, without weight-error tolerance.",
+      "candidate_weights_exactly_predicted": true,
+      "source_weight_encoding_vertices": [
+        {
+          "name": "Closed_body",
+          "source_vertices": 530,
+          "actual_GLTF_attribute_vertices_verified": 2874
+        },
+        {
+          "name": "Native_eye_-1",
+          "source_vertices": 25,
+          "actual_GLTF_attribute_vertices_verified": 108
+        },
+        {
+          "name": "Native_eye_1",
+          "source_vertices": 25,
+          "actual_GLTF_attribute_vertices_verified": 108
+        }
+      ],
+      "maximum_source_dropped_sum": 1.3444656588035286e-07,
+      "float32_unit_roundoff": 5.960464477539063e-08,
+      "normalization_roundoff_gamma5": 2.9802331269482156e-07,
+      "gamma5_scope": "Conservative standard five-operation float32 normalization bound after explicitly accounting for discarded source influence sum; not an arbitrary old/new weights tolerance.",
+      "parts": [
+        {
+          "name": "Closed_body",
+          "surface": 0,
+          "triangles": 144,
+          "original_weighted_directed_signature": "e10c6684591e25e10767bff4346726a1eeb3b8e7e7b290a56b16ff61e3347182",
+          "candidate_weighted_directed_signature": "f6c95f766c010ab2332bb0a4ffb5e0f16e32f4d98498cf09211a25dcba7d79a3",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 12,
+          "maximum_named_weight_delta": 1.1920928955078125e-07,
+          "dropped_influence_count": 12,
+          "maximum_dropped_accepted_influence": 1.1293511903431863e-07
+        },
+        {
+          "name": "Closed_body",
+          "surface": 1,
+          "triangles": 740,
+          "original_weighted_directed_signature": "e64684d2355ba660dba1e64ee96423ebad9014f3d3f641cdd50eedec62e650ef",
+          "candidate_weighted_directed_signature": "d13fc9ab9ffe97d85afacc5f37a9dfd9a730ec785f9d363e06c71c60a4ef9b97",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 124,
+          "maximum_named_weight_delta": 1.3444656588035286e-07,
+          "dropped_influence_count": 120,
+          "maximum_dropped_accepted_influence": 1.3444656588035286e-07
+        },
+        {
+          "name": "Closed_body",
+          "surface": 2,
+          "triangles": 102,
+          "original_weighted_directed_signature": "0c6a34d0a23978701a2f00b43edcb878422cf7275f51a60a1b61eb698339d780",
+          "candidate_weighted_directed_signature": "29e6a92b5d5bf3e53adc043cb6e656d2dc5a30997e407e6437c760f26fa04544",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 12,
+          "maximum_named_weight_delta": 1.3444656588035286e-07,
+          "dropped_influence_count": 12,
+          "maximum_dropped_accepted_influence": 1.3444656588035286e-07
+        },
+        {
+          "name": "Closed_body",
+          "surface": 3,
+          "triangles": 62,
+          "original_weighted_directed_signature": "74cc836fa18b42b03e24a0ed9229ed13b1feae08d97642a529ac78de76a4f8e0",
+          "candidate_weighted_directed_signature": "24d9d8cfeb1087013b949514cc3572f4b6cecac8630eec6abaa05681bddec2ce",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 2,
+          "maximum_named_weight_delta": 4.6445349788371004e-09,
+          "dropped_influence_count": 2,
+          "maximum_dropped_accepted_influence": 4.6445349788371004e-09
+        },
+        {
+          "name": "Closed_body",
+          "surface": 4,
+          "triangles": 8,
+          "original_weighted_directed_signature": "2643f8620c94cce40de0afbe3004e2dd15f3f2bc6c858395e97c546f89c347d8",
+          "candidate_weighted_directed_signature": "2643f8620c94cce40de0afbe3004e2dd15f3f2bc6c858395e97c546f89c347d8",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": true,
+          "changed_unique_attribute_vertices": 0,
+          "maximum_named_weight_delta": 0.0,
+          "dropped_influence_count": 0,
+          "maximum_dropped_accepted_influence": 0.0
+        },
+        {
+          "name": "Native_eye_-1",
+          "surface": 0,
+          "triangles": 36,
+          "original_weighted_directed_signature": "4dbcfdf60e2966a736cdf21e5fc627c8760bf95bec827159ea629aea11d96ea6",
+          "candidate_weighted_directed_signature": "22526258d5c5b16f70905124ff4205bdeb1cd5ffe6b5abfbd597b8c8a74bef80",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 6,
+          "maximum_named_weight_delta": 1.1920928955078125e-07,
+          "dropped_influence_count": 3,
+          "maximum_dropped_accepted_influence": 1.1390308429781726e-07
+        },
+        {
+          "name": "Native_eye_1",
+          "surface": 0,
+          "triangles": 36,
+          "original_weighted_directed_signature": "99efa102a0f0a291fb221545d83f14fe3a34b69aeb5fa259e2f9ca058aeee138",
+          "candidate_weighted_directed_signature": "fc2db9e76555584dbbfbc6ca0fab7bdb5c69b1c9cff46ec97f45a94a0ae9e6ec",
+          "geometry_normal_UV_directed_incidence_exact": true,
+          "weights_byte_exact": false,
+          "changed_unique_attribute_vertices": 6,
+          "maximum_named_weight_delta": 1.1920928955078125e-07,
+          "dropped_influence_count": 3,
+          "maximum_dropped_accepted_influence": 1.1390402221422846e-07
+        }
+      ],
+      "scope": "Two frozen SHA pairs only. Body/eye source groups exactly preserved; emitted GLTF weights explicitly not byte exact. Current physical/GPU checks remain required."
+    }
+  ]
+}

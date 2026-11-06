@@ -1,0 +1,19 @@
+{
+  "kind": "caudal_repair_preservation",
+  "schema_version": 1,
+  "species": "black_seabream",
+  "affected_anatomical_parts": [
+    "Caudal"
+  ],
+  "model_sha256": "bbeb71166d9deab84557865204fc81f0e913f8290d5dec90a2526620dd1053bd",
+  "source_sha256": "6828dac864d8603d5b205012c81f4e8ab81a29916e5a4c08075d6ad6388e239d",
+  "editable_source_role": "editable_source",
+  "accepted_snapshot": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/black_seabream.json",
+    "sha256": "ae1ab55b7a4bd88068fe62d2ad71671ba6e1744f28a4b081381f4e3fb844710d"
+  },
+  "accepted_material_bindings": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/black_seabream-material-bindings.json",
+    "sha256": "5eb896be16fd227277f25c5713559689f132a579ad392a7c3f4e4a19a216aed6"
+  }
+}

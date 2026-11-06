@@ -1,0 +1,19 @@
+{
+  "kind": "caudal_repair_preservation",
+  "schema_version": 1,
+  "species": "nile_tilapia",
+  "affected_anatomical_parts": [
+    "Caudal"
+  ],
+  "model_sha256": "4804f52ddf45862e44607fe8fd4df33d890a0034a9fd41daa9087eee04346676",
+  "source_sha256": "dedea5fe26707645432dde4440ca2edf9201444e45de599ceec6198140ee252c",
+  "editable_source_role": "editable_source",
+  "accepted_snapshot": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/nile_tilapia.json",
+    "sha256": "ccce82cf5f493008397a1b59d0ac31eb0774c578ad18c0d036dd56f228312645"
+  },
+  "accepted_material_bindings": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/nile_tilapia-material-bindings.json",
+    "sha256": "a0cbdb9de35f5a37077a15b075409ce9e7f0b3a98277d8b2ad971e1a5fc7f9e8"
+  }
+}

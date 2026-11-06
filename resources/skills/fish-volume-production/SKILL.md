@@ -28,6 +28,7 @@ description: Build or repair rigged, source-art-based 3D fish in Game AI Foundry
 | 原画整鳍边界、余边/白边、实际蒙皮根带 | [完整源鳍](references/fin-source-shape.md)、[精确切鳍](references/precise-native-fin-cutouts.md)、[有限根带](references/native-fin-detail-lessons-20261031.md) |
 | 鳍厚、尾柄、有限自由鳍面穿体 | [鳍型/厚度/尾柄](references/fin-types-thickness-tail.md)、[有限接触返修](references/finite-fin-contact-repair.md) |
 | 眼、中央额部、背腹/头底、贴图滑动 | [眼睛](references/eye-volume.md)、[部位供体](references/source-zone-review.md)、[源表面返修](references/source-surface-repair.md) |
+| 逐鱼换材质、白模多视图生色、原UV重烘焙及黑边取样 | [多视图材质烘焙](references/whale-shark-multiview-color.md#现有成品逐鱼换材质保留原-uv-的制作方法)：部位遮挡、真实生成边界、image-only候选及正式源固化 |
 | 控制笼低面 B 新建、无聊天重建交接 | [控制笼](references/reference-cage-body.md)、[完整重建 SOP](references/reference-cage-rebuild-sop.md) |
 | 配置驱动源/部位/冷导出或单 surface | [通用工具及 capabilities](references/portable-finalization-tools.md)、[单材质源固化](references/single-material-source-finalization.md) |
 | 鲨鱼、同族双髻鲨与项目原画来源 | [鲨鱼主线](references/shark-production-lessons.md)、[双髻鲨边界](references/hammerhead-family.md) |

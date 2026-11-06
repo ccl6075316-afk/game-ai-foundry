@@ -1,0 +1,19 @@
+{
+  "kind": "caudal_repair_preservation",
+  "schema_version": 1,
+  "species": "rainbow_trout",
+  "affected_anatomical_parts": [
+    "Caudal"
+  ],
+  "model_sha256": "752c06f309c1e9127f6b8c0893ea96bb446c6b826cf255520292d471f09f1ae9",
+  "source_sha256": "494fc08922723ce8664f8db207651ff024dab4728b9b00d4363057174692500d",
+  "editable_source_role": "editable_source",
+  "accepted_snapshot": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/rainbow_trout.json",
+    "sha256": "eba22f2a380510564cc92a3f44bbdd5af0ce4f423f9b994d67bcf7b2cfee3bfa"
+  },
+  "accepted_material_bindings": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/rainbow_trout-material-bindings.json",
+    "sha256": "afea847e503ac17553f0509c53368e9f9783b0274a42f292058bac17f99b92db"
+  }
+}

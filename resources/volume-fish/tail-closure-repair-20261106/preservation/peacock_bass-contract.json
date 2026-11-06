@@ -1,0 +1,19 @@
+{
+  "kind": "caudal_repair_preservation",
+  "schema_version": 1,
+  "species": "peacock_bass",
+  "affected_anatomical_parts": [
+    "Caudal"
+  ],
+  "model_sha256": "e703122fde5667bef8de396a002bf07daf75094d97040003807a1dc0c69f956d",
+  "source_sha256": "b5a71eb8d29fabb06a2ee7f3ddf2892be4ee42fdabaecd0bf53dfb3b2d43af19",
+  "editable_source_role": "editable_source",
+  "accepted_snapshot": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/peacock_bass.json",
+    "sha256": "0a9f72439377cb4a530ff355665e26b85db0d9f92888de5bd15a460c6672f465"
+  },
+  "accepted_material_bindings": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/peacock_bass-material-bindings.json",
+    "sha256": "ced02347a127c0e94d8794747ce25caa05ce4ccd721f8cdb9a3b66f851f84d4b"
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "kind": "accepted_caudal_repair_material_bindings",
+  "species": "piranha",
+  "baseline_model_sha256": "fb2ab1899686f70b99056b9776b5e4184dd929926e7a4bf8d9e488c8e98b7438",
+  "part_material_bindings": [
+    {
+      "key": [
+        "Adipose_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Adipose_mesh",
+        1
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Anal_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Anal_mesh",
+        1
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Caudal_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Caudal_mesh",
+        1
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Closed_body",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Closed_body",
+        1
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Closed_body",
+        2
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Dorsal_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Dorsal_mesh",
+        1
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pectoral_left_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pectoral_left_mesh",
+        1
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pectoral_right_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pectoral_right_mesh",
+        1
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pelvic_left_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pelvic_left_mesh",
+        1
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pelvic_right_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pelvic_right_mesh",
+        1
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Eye_relief_-1",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Eye_relief_1",
+        0
+      ],
+      "material": 0
+    }
+  ]
+}

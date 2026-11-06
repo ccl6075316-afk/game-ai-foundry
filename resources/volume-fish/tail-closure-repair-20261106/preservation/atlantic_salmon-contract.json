@@ -1,0 +1,19 @@
+{
+  "kind": "caudal_repair_preservation",
+  "schema_version": 1,
+  "species": "atlantic_salmon",
+  "affected_anatomical_parts": [
+    "Caudal"
+  ],
+  "model_sha256": "837fcc31a3aaabe36524473030925f7cadb4522d63602f69d0cf075c8fb30a4b",
+  "source_sha256": "6db3d60c2db0aca045217c5483aaa7b82a23a846022dae769a4f7cada271333e",
+  "editable_source_role": "editable_source",
+  "accepted_snapshot": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/atlantic_salmon.json",
+    "sha256": "560daf8926a0c3e88d25b71cfcc26064e48f48415824f8148d2cc07cbcd87ee0"
+  },
+  "accepted_material_bindings": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/atlantic_salmon-material-bindings.json",
+    "sha256": "94581c5c9d58d21f2d4ca141735b118280ea38ee53d339e012790338da93cc76"
+  }
+}

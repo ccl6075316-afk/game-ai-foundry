@@ -1,0 +1,19 @@
+{
+  "kind": "caudal_repair_preservation",
+  "schema_version": 1,
+  "species": "red_emperor",
+  "affected_anatomical_parts": [
+    "Caudal"
+  ],
+  "model_sha256": "317f10ee1a1fb1eb3f1e76667af5904efd3586d052495eca85b3ad6f52e0f072",
+  "source_sha256": "3db7de905e510f41c1813d4e248b26c2ef1dac276545fd7fd3288ca8eab68d47",
+  "editable_source_role": "editable_source",
+  "accepted_snapshot": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/red_emperor.json",
+    "sha256": "1d464e1f4504bc82f15dccb2458f94da5ec58865a6f925dbc28f3ee36695a19b"
+  },
+  "accepted_material_bindings": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/red_emperor-material-bindings.json",
+    "sha256": "8bfaf3a061dd02318b3f6fd2ad480da14768bb7abc06a1d2b1399f3651b33708"
+  }
+}

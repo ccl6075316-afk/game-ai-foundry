@@ -1,0 +1,19 @@
+{
+  "kind": "caudal_repair_preservation",
+  "schema_version": 1,
+  "species": "carp",
+  "affected_anatomical_parts": [
+    "Caudal"
+  ],
+  "model_sha256": "35e414db4be52b26b991ceccbc0b3a1e82db1183c373778e3e53d6f2d3f145d1",
+  "source_sha256": "dae5bbba861b5e4c92d736ff28213d1c4d65db6717b0b14adca2c5eb0884c04b",
+  "editable_source_role": "editable_source",
+  "accepted_snapshot": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/carp.json",
+    "sha256": "f1bc2ba1aa168c9520f61b71cb97fe7aeb493317a9e120b4d97ac998ff03a3c8"
+  },
+  "accepted_material_bindings": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/carp-material-bindings.json",
+    "sha256": "51fc14f25a8cf1bec8fe45867636fd4579b0d42c8cef73f4e9fea94effd22a1d"
+  }
+}

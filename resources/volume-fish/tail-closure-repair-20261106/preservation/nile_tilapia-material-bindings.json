@@ -1,0 +1,70 @@
+{
+  "kind": "accepted_caudal_repair_material_bindings",
+  "species": "nile_tilapia",
+  "baseline_model_sha256": "7b861cf5c2c154a3c6d5e693cf8e1e14fae9230b88fd229acbfc77c5ed5005c6",
+  "part_material_bindings": [
+    {
+      "key": [
+        "Anal",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Caudal",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Closed_body_B",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Closed_body_B",
+        1
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Dorsal",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pectoral_left",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pectoral_right",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pelvic_left",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pelvic_right",
+        0
+      ],
+      "material": 0
+    }
+  ]
+}

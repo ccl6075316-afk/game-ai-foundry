@@ -1,0 +1,105 @@
+{
+  "kind": "accepted_caudal_repair_material_bindings",
+  "species": "arapaima",
+  "baseline_model_sha256": "e540c264bf6d784504a3e098a92881a7b562602c5256f3c3e333f3371432e37a",
+  "part_material_bindings": [
+    {
+      "key": [
+        "Anal",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Caudal",
+        0
+      ],
+      "material": 1
+    },
+    {
+      "key": [
+        "Closed_body",
+        0
+      ],
+      "material": 2
+    },
+    {
+      "key": [
+        "Closed_body",
+        1
+      ],
+      "material": 3
+    },
+    {
+      "key": [
+        "Closed_body",
+        2
+      ],
+      "material": 4
+    },
+    {
+      "key": [
+        "Closed_body",
+        3
+      ],
+      "material": 5
+    },
+    {
+      "key": [
+        "Closed_body",
+        4
+      ],
+      "material": 6
+    },
+    {
+      "key": [
+        "Dorsal",
+        0
+      ],
+      "material": 7
+    },
+    {
+      "key": [
+        "Eye_support_left",
+        0
+      ],
+      "material": 8
+    },
+    {
+      "key": [
+        "Eye_support_right",
+        0
+      ],
+      "material": 8
+    },
+    {
+      "key": [
+        "Pectoral_left",
+        0
+      ],
+      "material": 9
+    },
+    {
+      "key": [
+        "Pectoral_right",
+        0
+      ],
+      "material": 9
+    },
+    {
+      "key": [
+        "Pelvic_left",
+        0
+      ],
+      "material": 10
+    },
+    {
+      "key": [
+        "Pelvic_right",
+        0
+      ],
+      "material": 10
+    }
+  ]
+}

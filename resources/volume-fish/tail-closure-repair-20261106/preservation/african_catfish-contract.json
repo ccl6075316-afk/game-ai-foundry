@@ -1,0 +1,19 @@
+{
+  "kind": "caudal_repair_preservation",
+  "schema_version": 1,
+  "species": "african_catfish",
+  "affected_anatomical_parts": [
+    "Caudal"
+  ],
+  "model_sha256": "62b26e865ba68f09fafbb7b2bf73a7439736101806f66ac7a35b63cb232aac04",
+  "source_sha256": "d807fb550386990b9ad21fc544f3538cbf54ae0dfe895a2611ae9b890b77001f",
+  "editable_source_role": "editable_source",
+  "accepted_snapshot": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/african_catfish.json",
+    "sha256": "6ffa2dadbda361e27b35954258ee5900bf8dea3c02a6b3382ec14c970aa74f89"
+  },
+  "accepted_material_bindings": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/african_catfish-material-bindings.json",
+    "sha256": "ff2f36497331b0144c2926cbff75a65bbe08f74f39e74b46d04264a8fa769158"
+  }
+}

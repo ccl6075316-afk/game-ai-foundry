@@ -1,0 +1,105 @@
+{
+  "kind": "accepted_caudal_repair_material_bindings",
+  "species": "carp",
+  "baseline_model_sha256": "cc6739b60ac82d4118a567e989b97e3bd31ef2a1e1a54ca7abbdbe21d61d1ce3",
+  "part_material_bindings": [
+    {
+      "key": [
+        "Anal_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Barbel_0_-1",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Barbel_0_1",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Barbel_1_-1",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Barbel_1_1",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Caudal_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Closed_body",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Closed_body",
+        1
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Closed_body",
+        2
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Dorsal_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pectoral_left_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pectoral_right_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pelvic_left_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pelvic_right_mesh",
+        0
+      ],
+      "material": 0
+    }
+  ]
+}

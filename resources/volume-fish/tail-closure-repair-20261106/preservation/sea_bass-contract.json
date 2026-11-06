@@ -1,0 +1,19 @@
+{
+  "kind": "caudal_repair_preservation",
+  "schema_version": 1,
+  "species": "sea_bass",
+  "affected_anatomical_parts": [
+    "Caudal"
+  ],
+  "model_sha256": "1c908b8875e655559438ebe7797cc3f87d1658df93d6b0dacb86a69c75e4a631",
+  "source_sha256": "ddd6d46f6c326bb6c0342db533c03cd645e9379a6835308b4025c5cc1f7b4af0",
+  "editable_source_role": "editable_source",
+  "accepted_snapshot": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/sea_bass.json",
+    "sha256": "bc86e35e0627852c03400f8170c09972c8ea691522e7f756f270a0f8305fd5aa"
+  },
+  "accepted_material_bindings": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/sea_bass-material-bindings.json",
+    "sha256": "ae5403c9e56dcc6d7ee45236927cbfbb626b1d0136ae74f6ea6be63eabe86f5c"
+  }
+}

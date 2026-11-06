@@ -1,0 +1,19 @@
+{
+  "kind": "caudal_repair_preservation",
+  "schema_version": 1,
+  "species": "pacific_bluefin_tuna",
+  "affected_anatomical_parts": [
+    "Caudal"
+  ],
+  "model_sha256": "21a541bfad43b97d6d8f4a5acea78c4caaf55f8f2266dc12119be705b703fc02",
+  "source_sha256": "f916416706ef3a481c731de8a44e8dac815f6675bcfc3b78be7ee680f84a938d",
+  "editable_source_role": "editable_source",
+  "accepted_snapshot": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/pacific_bluefin_tuna.json",
+    "sha256": "94dae8c1a60f61eeec4c5479ddb46446b0f6c63eb1d3c53186d18d5c20371843"
+  },
+  "accepted_material_bindings": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/pacific_bluefin_tuna-material-bindings.json",
+    "sha256": "07519aa48d2e89bb60bf371d232cdf751b17380bc2adf42cefb16d19d9811791"
+  }
+}

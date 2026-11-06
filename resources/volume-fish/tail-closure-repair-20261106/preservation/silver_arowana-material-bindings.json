@@ -1,0 +1,105 @@
+{
+  "kind": "accepted_caudal_repair_material_bindings",
+  "species": "silver_arowana",
+  "baseline_model_sha256": "c40dd8db8d18db24a9d3b6c8672d8a9bf34bdefb309a8e7f9874a928478f0a71",
+  "part_material_bindings": [
+    {
+      "key": [
+        "Anal",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "barbel_-1",
+        0
+      ],
+      "material": 1
+    },
+    {
+      "key": [
+        "barbel_1",
+        0
+      ],
+      "material": 1
+    },
+    {
+      "key": [
+        "Caudal",
+        0
+      ],
+      "material": 2
+    },
+    {
+      "key": [
+        "Closed_body",
+        0
+      ],
+      "material": 1
+    },
+    {
+      "key": [
+        "Closed_body",
+        1
+      ],
+      "material": 3
+    },
+    {
+      "key": [
+        "Closed_body",
+        2
+      ],
+      "material": 4
+    },
+    {
+      "key": [
+        "Dorsal",
+        0
+      ],
+      "material": 5
+    },
+    {
+      "key": [
+        "Native_eye_-1",
+        0
+      ],
+      "material": 1
+    },
+    {
+      "key": [
+        "Native_eye_1",
+        0
+      ],
+      "material": 1
+    },
+    {
+      "key": [
+        "Pectoral_left",
+        0
+      ],
+      "material": 6
+    },
+    {
+      "key": [
+        "Pectoral_right",
+        0
+      ],
+      "material": 6
+    },
+    {
+      "key": [
+        "Pelvic_left",
+        0
+      ],
+      "material": 7
+    },
+    {
+      "key": [
+        "Pelvic_right",
+        0
+      ],
+      "material": 7
+    }
+  ]
+}

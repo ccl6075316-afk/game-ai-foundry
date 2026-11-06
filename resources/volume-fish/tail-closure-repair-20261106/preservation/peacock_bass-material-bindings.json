@@ -1,0 +1,77 @@
+{
+  "kind": "accepted_caudal_repair_material_bindings",
+  "species": "peacock_bass",
+  "baseline_model_sha256": "02ee71055093b5d9ebc3b041603f5d808cf8de39266071a4be71d38079425bdd",
+  "part_material_bindings": [
+    {
+      "key": [
+        "Anal",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Caudal",
+        0
+      ],
+      "material": 1
+    },
+    {
+      "key": [
+        "Closed_body",
+        0
+      ],
+      "material": 2
+    },
+    {
+      "key": [
+        "Closed_body",
+        1
+      ],
+      "material": 3
+    },
+    {
+      "key": [
+        "Dorsal_soft",
+        0
+      ],
+      "material": 4
+    },
+    {
+      "key": [
+        "Dorsal_spiny",
+        0
+      ],
+      "material": 5
+    },
+    {
+      "key": [
+        "Pectoral_left",
+        0
+      ],
+      "material": 6
+    },
+    {
+      "key": [
+        "Pectoral_right",
+        0
+      ],
+      "material": 6
+    },
+    {
+      "key": [
+        "Pelvic_left",
+        0
+      ],
+      "material": 7
+    },
+    {
+      "key": [
+        "Pelvic_right",
+        0
+      ],
+      "material": 7
+    }
+  ]
+}

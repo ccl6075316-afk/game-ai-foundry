@@ -1,0 +1,19 @@
+{
+  "kind": "caudal_repair_preservation",
+  "schema_version": 1,
+  "species": "mahi_mahi",
+  "affected_anatomical_parts": [
+    "Caudal"
+  ],
+  "model_sha256": "fffa338ffa38050388eee3435c143b36a0c4b07834b99ac9c21c1cef4e0338c5",
+  "source_sha256": "e8cbdef5c1b8765dc0c063794670db1523d0137bf2e9f6d4751682cdb0040383",
+  "editable_source_role": "editable_source",
+  "accepted_snapshot": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/mahi_mahi.json",
+    "sha256": "013d612303adf3715c0ef7921b6fa3b489391deb3b38a6bfe74259601954a0e5"
+  },
+  "accepted_material_bindings": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/mahi_mahi-material-bindings.json",
+    "sha256": "065a3fd600d40e3c8131cfcdf4dce9245c5981b6878ca911e673dc893397728e"
+  }
+}

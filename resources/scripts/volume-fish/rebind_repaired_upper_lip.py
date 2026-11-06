@@ -128,6 +128,11 @@ def main():
     surface, index, primitive, position, uv, weights, joints, raw_weights = matches[0]
     oral_materials = set()
     identity = recipe.get('identity_evidence', {})
+    # The rebinder's own emitted recipes store the reviewed set in plural form.
+    for material in identity.get('oral_materials', []):
+        if not isinstance(material, str) or not material:
+            raise ValueError('Invalid explicit original oral material identity')
+        oral_materials.add(material)
     if identity.get('oral_material'):
         oral_materials.add(identity['oral_material'])
     if identity.get('oral_surface') is not None:

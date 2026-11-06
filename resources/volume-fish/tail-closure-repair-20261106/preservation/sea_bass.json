@@ -1,0 +1,802 @@
+{
+  "kind": "accepted_caudal_repair_protected_snapshot",
+  "schema_version": 1,
+  "species": "sea_bass",
+  "baseline_model_sha256": "4683886f983b60b6f216a4d77ce15157dbb584317047c5bba6f8612a49fadcef",
+  "accepted_release": {
+    "path": "resources/volume-fish/final-five-fish-20261104.json",
+    "sha256": "6b3ef75bd3d71e410b989300bb5ad4d24c04990b3e1693be81b26bcef960b94d"
+  },
+  "source_inventory": {
+    "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/release-inputs.json",
+    "sha256": "19a146043e6c65f241217aada6b9552eb70828e81aa09ddd5f34d50ff189e541",
+    "historical_capture_only_not_live_dependency": true
+  },
+  "part_inventory": [
+    {
+      "key": [
+        "Anal_mesh",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "d8b92677216a16f8a747a2214d90a18fd3e2ae976c6fe51d848b5c1de8512b27",
+      "triangles": 58,
+      "canonical_directed_triangle_signature": "d8b92677216a16f8a747a2214d90a18fd3e2ae976c6fe51d848b5c1de8512b27",
+      "geometry_uv_normal_signature": "4859ded344b18d12fcc36a2229666b6207a547825b46d63a59ea8600b5c18874"
+    },
+    {
+      "key": [
+        "Caudal_mesh",
+        0
+      ],
+      "affected_caudal": true,
+      "directed_triangle_signature": "c337417d6dd5eeac5e5ad92d5c98e3229b25c5216d9eac0dc6b1ecff098f6a05",
+      "triangles": 60,
+      "canonical_directed_triangle_signature": "c337417d6dd5eeac5e5ad92d5c98e3229b25c5216d9eac0dc6b1ecff098f6a05",
+      "geometry_uv_normal_signature": "526ae903e5868b3ac4cef94a62168222dde34ce3057ee9481001a343abfddf8c"
+    },
+    {
+      "key": [
+        "Closed_body",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "7a081cf49aa42522256348365034d2357540da21b450e059e33d21d26a6f2d0f",
+      "triangles": 282,
+      "canonical_directed_triangle_signature": "2ec13ec5fb2c032140be898f7256fdcf8c6dd354344e14216bc266dd10241491",
+      "geometry_uv_normal_signature": "15c0875f0e6b9c689bacd18ce3df4aa562bc982846bde4d0cde4aaafeb7ae946"
+    },
+    {
+      "key": [
+        "Closed_body",
+        1
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "a3fd3020b0539cd99fa7a677fcbada357fb845ab3b1719efd0c90f8e54b511bc",
+      "triangles": 1126,
+      "canonical_directed_triangle_signature": "98b490ca7306825cb3e3532ab4bfa3bdb966e1d7e040b5a52ee4c4a447760746",
+      "geometry_uv_normal_signature": "fa10d2084550f74581c394821fd15e7aaee2304a239911568e611cb850b2476e"
+    },
+    {
+      "key": [
+        "Closed_body",
+        2
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "b1dec989453d781ca765912a11c9d71da5f78bb5d7b07e75ba26df296e4736b2",
+      "triangles": 130,
+      "canonical_directed_triangle_signature": "de000ad313589590aadcec0be2e6d894889fa37c23d57abf093ca60f8b501d39",
+      "geometry_uv_normal_signature": "d63d88c12527453730e3ff39a0f2f4b6e5a983a727b737ffd1b4fd7d1cca6404"
+    },
+    {
+      "key": [
+        "Dorsal_soft_mesh",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "23074e1ea033a2474fa7ac9fdaa4d1bd15ecd74fd963127b2c4623f67edc758a",
+      "triangles": 50,
+      "canonical_directed_triangle_signature": "23074e1ea033a2474fa7ac9fdaa4d1bd15ecd74fd963127b2c4623f67edc758a",
+      "geometry_uv_normal_signature": "70b837a3a46b851362ca5008620797a0759d4d3f13c28652f1fc8be865d78580"
+    },
+    {
+      "key": [
+        "Dorsal_spiny_mesh",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "3248309965baff56aeecfa3bd05f3641225244a0af9557108a89d945bc6c2006",
+      "triangles": 62,
+      "canonical_directed_triangle_signature": "3248309965baff56aeecfa3bd05f3641225244a0af9557108a89d945bc6c2006",
+      "geometry_uv_normal_signature": "629783b5f37aa9503fd0d82600ff72f91284865eee6edeb389ed523e58b2d888"
+    },
+    {
+      "key": [
+        "Pectoral_left_mesh",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "590d547d7258e4bfa0688f55302c625f08937911f30190a3d1e1adf6a781b03f",
+      "triangles": 44,
+      "canonical_directed_triangle_signature": "590d547d7258e4bfa0688f55302c625f08937911f30190a3d1e1adf6a781b03f",
+      "geometry_uv_normal_signature": "0c1f31210520390eb5eee6fa80c4556b077b5aad7ac05ccfd823972177bba244"
+    },
+    {
+      "key": [
+        "Pectoral_right_mesh",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "3059a0f2d4efc36cb680b69c59300d820c816ae645d701a84e72d2bfa0be27d0",
+      "triangles": 44,
+      "canonical_directed_triangle_signature": "3059a0f2d4efc36cb680b69c59300d820c816ae645d701a84e72d2bfa0be27d0",
+      "geometry_uv_normal_signature": "2ea5d8ff646a1581d7b282fe4c410f8a747b14eb919d4f9ad5ec33fd3d9f9ccf"
+    },
+    {
+      "key": [
+        "Pelvic_left_mesh",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "76b53385b9f420a5bc018bb997c1b5d3f274f911ebe09d3232a7666584644485",
+      "triangles": 50,
+      "canonical_directed_triangle_signature": "76b53385b9f420a5bc018bb997c1b5d3f274f911ebe09d3232a7666584644485",
+      "geometry_uv_normal_signature": "5e4660ddecd973939fa61cecf32655e518aad6650edb8aea8801d83784c29081"
+    },
+    {
+      "key": [
+        "Pelvic_right_mesh",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "6acb1c6ba7605ca2c08d9a883b263da83bf6d90f898ef306d373e4d2ffb50698",
+      "triangles": 52,
+      "canonical_directed_triangle_signature": "6acb1c6ba7605ca2c08d9a883b263da83bf6d90f898ef306d373e4d2ffb50698",
+      "geometry_uv_normal_signature": "051f2998684c15bad429e4068783affe95b6de2e929551a4811e46a68815fbae"
+    }
+  ],
+  "rig_rest_bind_signature": "d756f45685703bdf8581caea1e39b424f95ef5863d5fa595a8ca88b7e2399344",
+  "native_animation_signature": "7751f465489cd367ab9ee88b6491054a7182a7f970752ea1f20a329d5f5583f3",
+  "node_graph": [
+    {
+      "name": "Anal",
+      "parent": "body_07",
+      "mesh": false,
+      "translation": [
+        -0.0034019681625068188,
+        -0.015161363407969475,
+        -0.0801013931632042
+      ],
+      "rotation": [
+        -0.47748512029647827,
+        0.464684396982193,
+        -0.29631519317626953,
+        0.6843052506446838
+      ],
+      "scale": [
+        0.9999999403953552,
+        0.9999997615814209,
+        0.9999998211860657
+      ]
+    },
+    {
+      "name": "Anal_mesh",
+      "parent": "sea_bass_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Caudal",
+      "parent": "body_09",
+      "mesh": false,
+      "translation": [
+        1.6996701355381783e-13,
+        0.011999964714050293,
+        -0.00018250069115310907
+      ],
+      "rotation": [
+        -0.35459253191947937,
+        0.35459262132644653,
+        -0.14748886227607727,
+        0.8525111079216003
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "Caudal_mesh",
+      "parent": "sea_bass_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Closed_body",
+      "parent": "sea_bass_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal_soft",
+      "parent": "body_07",
+      "mesh": false,
+      "translation": [
+        0.0035141659900546074,
+        -0.025652406737208366,
+        0.08524660766124725
+      ],
+      "rotation": [
+        0.4774080812931061,
+        -0.4962286353111267,
+        -0.4603215157985687,
+        0.5603060722351074
+      ],
+      "scale": [
+        1.000000238418579,
+        1.000000238418579,
+        1.0000003576278687
+      ]
+    },
+    {
+      "name": "Dorsal_soft_mesh",
+      "parent": "sea_bass_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal_spiny",
+      "parent": "body_04",
+      "mesh": false,
+      "translation": [
+        -0.0005717622116208076,
+        0.01642405427992344,
+        0.11311081051826477
+      ],
+      "rotation": [
+        0.4966302812099457,
+        -0.49341532588005066,
+        -0.5788572430610657,
+        0.4181196093559265
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal_spiny_mesh",
+      "parent": "sea_bass_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_left",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        -0.03655937314033508,
+        0.02341512031853199,
+        -0.040272414684295654
+      ],
+      "rotation": [
+        0.11626797914505005,
+        -0.11875703185796738,
+        0.1402861475944519,
+        0.9760626554489136
+      ],
+      "scale": [
+        1,
+        1,
+        0.9999998211860657
+      ]
+    },
+    {
+      "name": "Pectoral_left_mesh",
+      "parent": "sea_bass_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_right",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        0.037975482642650604,
+        0.023415111005306244,
+        -0.03894002363085747
+      ],
+      "rotation": [
+        0.09018374234437943,
+        -0.08733942359685898,
+        -0.1583206206560135,
+        0.9793739318847656
+      ],
+      "scale": [
+        1,
+        1,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "Pectoral_right_mesh",
+      "parent": "sea_bass_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pelvic_left",
+      "parent": "body_03",
+      "mesh": false,
+      "translation": [
+        -0.020566044375300407,
+        0.012346139177680016,
+        -0.10052064061164856
+      ],
+      "rotation": [
+        -0.5230302810668945,
+        0.5239834785461426,
+        -0.09723085910081863,
+        0.6651517748832703
+      ],
+      "scale": [
+        1.0000001192092896,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pelvic_left_mesh",
+      "parent": "sea_bass_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pelvic_right",
+      "parent": "body_03",
+      "mesh": false,
+      "translation": [
+        0.022587263956665993,
+        0.012346141040325165,
+        -0.10008584707975388
+      ],
+      "rotation": [
+        -0.32791662216186523,
+        0.33212053775787354,
+        -0.4189094603061676,
+        0.7788976430892944
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pelvic_right_mesh",
+      "parent": "sea_bass_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_00",
+      "parent": "root",
+      "mesh": false,
+      "translation": [
+        0.44999998807907104,
+        -0.009471030905842781,
+        0
+      ],
+      "rotation": [
+        -0.48567649722099304,
+        0.4997948110103607,
+        0.4997948110103607,
+        0.5143235325813293
+      ],
+      "scale": [
+        0.9999999403953552,
+        0.9999997615814209,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "body_01",
+      "parent": "body_00",
+      "mesh": false,
+      "translation": [
+        -7.275957614183426e-12,
+        0.09014807641506195,
+        0
+      ],
+      "rotation": [
+        -0.02420337125658989,
+        0.024196498095989227,
+        0.0001075847540050745,
+        0.9994142055511475
+      ],
+      "scale": [
+        0.9999998807907104,
+        0.9999997615814209,
+        0.9999998807907104
+      ]
+    },
+    {
+      "name": "body_02",
+      "parent": "body_01",
+      "mesh": false,
+      "translation": [
+        3.8746911928955186e-11,
+        0.09012871980667114,
+        6.219764286941043e-13
+      ],
+      "rotation": [
+        0.0009424609015695751,
+        -0.000942620390560478,
+        1.7737775124260224e-05,
+        0.9999991059303284
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_03",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        -2.9407795643088264e-12,
+        0.09012553095817566,
+        6.990897305492183e-10
+      ],
+      "rotation": [
+        0.003899848088622093,
+        -0.003900199430063367,
+        5.45057664567139e-05,
+        0.9999848008155823
+      ],
+      "scale": [
+        0.9999999403953552,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "body_04",
+      "parent": "body_03",
+      "mesh": false,
+      "translation": [
+        1.3941469506617565e-11,
+        0.09011569619178772,
+        -6.399605290141608e-10
+      ],
+      "rotation": [
+        0.002267095260322094,
+        -0.0022671609185636044,
+        1.770195012795739e-05,
+        0.9999948740005493
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_05",
+      "parent": "body_04",
+      "mesh": false,
+      "translation": [
+        -3.5995512126518747e-12,
+        0.09011254459619522,
+        5.640462055755968e-12
+      ],
+      "rotation": [
+        0.004894854500889778,
+        -0.004894797690212727,
+        3.162144139423617e-06,
+        0.9999760389328003
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "body_06",
+      "parent": "body_05",
+      "mesh": false,
+      "translation": [
+        -6.674213265389639e-12,
+        0.09011196345090866,
+        1.453784453930851e-10
+      ],
+      "rotation": [
+        0.0029885151889175177,
+        -0.0029885817784816027,
+        -2.1629643015330657e-05,
+        0.9999911189079285
+      ],
+      "scale": [
+        0.9999999403953552,
+        0.9999999403953552,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "body_07",
+      "parent": "body_06",
+      "mesh": false,
+      "translation": [
+        3.683095495254918e-12,
+        0.09011588245630264,
+        3.4891067812736765e-10
+      ],
+      "rotation": [
+        0.015783080831170082,
+        -0.015786463394761086,
+        -0.00041069171857088804,
+        0.9997507333755493
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_08",
+      "parent": "body_07",
+      "mesh": false,
+      "translation": [
+        -1.5889980303773754e-12,
+        0.09018996357917786,
+        1.3958330047358913e-09
+      ],
+      "rotation": [
+        -0.013374240137636662,
+        0.013378456234931946,
+        0.000380254234187305,
+        0.9998210072517395
+      ],
+      "scale": [
+        0.9999999403953552,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "body_09",
+      "parent": "body_08",
+      "mesh": false,
+      "translation": [
+        5.7079046350549945e-12,
+        0.0901213213801384,
+        4.652470075861004e-10
+      ],
+      "rotation": [
+        -0.007521777879446745,
+        0.0075217802077531815,
+        5.658035661326721e-05,
+        0.9999434351921082
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "root",
+      "parent": "sea_bass_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "sea_bass_Rig",
+      "parent": null,
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "alphaMode": "MASK",
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Packed fish native pixels.001",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 1
+      },
+      "alphaCutoff": 0.5,
+      "doubleSided": false
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9728,
+      "minFilter": 9728,
+      "wrapS": 33071,
+      "wrapT": 33071
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "size": [
+        4096,
+        8192
+      ],
+      "rgba_sha256": "2331d02fcac4ed2b17846cdc95d5220af45e1926631fe55a42042f94461caf0e",
+      "embedded_sha256": "7f269b6a97d0414d839cfbc80e802019d54aa769e073aa0052f2af202474bf78"
+    }
+  ],
+  "authorized_caudal_pixel_patch": null,
+  "protected_scope": "Every actual canonical partition except exact Caudal/Caudal_mesh fin ownership. Complete inventory computed from actual GLB; no self-reported omissions.",
+  "provenance": "Actual canonical bytes matched root release-inputs baseline and accepted release metadata before replacement; no retired historical model restored.",
+  "baseline_source_sha256": "80c23443f1b2afa9bafa2b81bb37f3069df2fe7d60eebb0d2e0d402fc7b6ae19",
+  "rig_semantic_signature": "44ce3cfad4790c212196f99bd40761223b279d964ae865ea88687120a3ba69c7",
+  "native_animation_semantic_signature": "8d9d2c084d580db9f01d92ab98aee063f6d6bc063bd08dde1a21c12690d427d4"
+}

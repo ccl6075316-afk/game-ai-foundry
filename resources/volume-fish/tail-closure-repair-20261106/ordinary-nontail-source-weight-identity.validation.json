@@ -1,0 +1,265 @@
+{
+  "records": [
+    {
+      "species": "zander",
+      "baseline_source": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/checks/zander/baseline.blend",
+        "sha256": "a3486d9be217b4cc68ffc24c0d246c11d48fa0edaf809f1699508b0bc5ae1965"
+      },
+      "current_source": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/junctions/zander/r2/fish.blend",
+        "sha256": "0612118f307f9ad6870af3db541f7981a552d34a853c6e13a04bfe27d7691f79"
+      },
+      "all_body_and_eye_source_vertex_groups_and_positions_exact": true,
+      "baseline_mesh_signatures": {
+        "Anal": {
+          "vertices": 54,
+          "raw_indexed_position_and_named_groups_sha256": "bf9947c2b0ce441b81dff3a1c528927e6722f7c3530a0400397e9af994834a48",
+          "semantic_position_and_named_groups_sha256": "805b8dc3319c518397e6d64cbaddedee5b53a72c29705b20279fb2202d5c8f1c",
+          "source_polygon_ids_sha256": "5d448e2935284ed66bca87ed474762280067faaa49baf85a219a2bc62157956f"
+        },
+        "Closed_body": {
+          "vertices": 613,
+          "raw_indexed_position_and_named_groups_sha256": "8bbe2caccf896fbcb23300787ccb031bc2e0f07603f36da54d5a1b82486c8245",
+          "semantic_position_and_named_groups_sha256": "f0e114a78b254fc5d10cb4c71a2612e138a8c95408f6ba0d480ad805a2c4b7f8",
+          "source_polygon_ids_sha256": "9962e4e1e649760e32d3a603f2fca4faea6a560c89caa4b68a3f5b0712e80a85"
+        },
+        "Dorsal_soft": {
+          "vertices": 70,
+          "raw_indexed_position_and_named_groups_sha256": "8ba287e8aa9db90b96dcf34bfe2a0810eb690f1900b4e74c2be7fcb763a93d2c",
+          "semantic_position_and_named_groups_sha256": "2fd7c3e4b63b0a9f81cc296ff78be7bba04797ad35f8742ba23f413508a97665",
+          "source_polygon_ids_sha256": "b39840622afc6f20c9e55bc4bd80f5f9d4ca8922258d19f1c4f2f0f2fc63c18d"
+        },
+        "Dorsal_spiny": {
+          "vertices": 83,
+          "raw_indexed_position_and_named_groups_sha256": "1f9ba80d7d4bdf360933ccf4f56441c6ca1c61e6801c789fd4739918c83d75a8",
+          "semantic_position_and_named_groups_sha256": "161c93943911979390a1c682d5f6297e7090b41c8f0f56fb36f54141e5e47b44",
+          "source_polygon_ids_sha256": "d53d77f20125255d24bb7d6e98e5bedf056087929ce151991de502b5e915e2e3"
+        },
+        "Eye_relief112_-1_0": {
+          "vertices": 15,
+          "raw_indexed_position_and_named_groups_sha256": "a2e4220fbd1a67cfb3a35eb4dd008f260d7503e5cddd513e6a0b49a3db2478a2",
+          "semantic_position_and_named_groups_sha256": "c0180c80320a4bed51ff5df6f021d980d91dd3e19a1bb89fc40f0dbd955722b9",
+          "source_polygon_ids_sha256": "19f820b3a17b388563ac224a72b88e9b3e717770e2b2bb5151c6f4c93fddf73f"
+        },
+        "Eye_relief112_1_0": {
+          "vertices": 15,
+          "raw_indexed_position_and_named_groups_sha256": "91bafb0a38288ee2639fc73c32a3bc02d2921543f30f13952567b312ce0ffd14",
+          "semantic_position_and_named_groups_sha256": "a14769d883cf8861aa436d38cc9e9d9387d969cc12c647ac87025294f40ce9cf",
+          "source_polygon_ids_sha256": "b9cb9be1699a7d36c946f4eaaa5084176056602e0c7d69219f5d4ca0ae9bb982"
+        },
+        "Pectoral_left": {
+          "vertices": 30,
+          "raw_indexed_position_and_named_groups_sha256": "273eae387b9202f875003345f2ad18811d3a8b0df49e3c0b28ed7d1ca1ffc927",
+          "semantic_position_and_named_groups_sha256": "7278e76c47c48a1a198ffe532bbc464418d3553973a9b7a7593f95bb33ef3e66",
+          "source_polygon_ids_sha256": "c167103df3e8ef32c271ea2432bf2cf175e580101f1a6c5990f556e529aeb1a1"
+        },
+        "Pectoral_right": {
+          "vertices": 30,
+          "raw_indexed_position_and_named_groups_sha256": "2e6dd71e5807a3579ff402400ed213fa3a3088cda6fa155d4734d48946f02a8b",
+          "semantic_position_and_named_groups_sha256": "c1e37e6e70da94e61b5903fc41ed1204bde8a1249643b0a9e5c05f0425bcb87e",
+          "source_polygon_ids_sha256": "c167103df3e8ef32c271ea2432bf2cf175e580101f1a6c5990f556e529aeb1a1"
+        },
+        "Pelvic_left": {
+          "vertices": 34,
+          "raw_indexed_position_and_named_groups_sha256": "82c3d34e59f8f7102684c75e9e1b5f84a2a79d73b393d63b579bdf75ee5fcde5",
+          "semantic_position_and_named_groups_sha256": "da80637ed6e90253d877e5bece4a62954b648160681894f82e3bcc53c2e820ca",
+          "source_polygon_ids_sha256": "a1c6fac9597ef44e9a6711370f276954c73e9093a5fd72cf40112f10f7cda59e"
+        },
+        "Pelvic_right": {
+          "vertices": 34,
+          "raw_indexed_position_and_named_groups_sha256": "b1a5021c790d7259e60dba8f7209e1d84cdcae086aac88d21fbcbdb67a43a9ac",
+          "semantic_position_and_named_groups_sha256": "de6424b37c2b800e7f17991ac8c68a3f07b4b127a37bee31449c8270ed71b155",
+          "source_polygon_ids_sha256": "251f9bdea8b2073b77317dfd19ca0dfb4da6405262ad22b46f73ed5f6a56081b"
+        }
+      },
+      "current_mesh_signatures": {
+        "Anal": {
+          "vertices": 54,
+          "raw_indexed_position_and_named_groups_sha256": "bf9947c2b0ce441b81dff3a1c528927e6722f7c3530a0400397e9af994834a48",
+          "semantic_position_and_named_groups_sha256": "805b8dc3319c518397e6d64cbaddedee5b53a72c29705b20279fb2202d5c8f1c",
+          "source_polygon_ids_sha256": "5d448e2935284ed66bca87ed474762280067faaa49baf85a219a2bc62157956f"
+        },
+        "Closed_body": {
+          "vertices": 613,
+          "raw_indexed_position_and_named_groups_sha256": "8bbe2caccf896fbcb23300787ccb031bc2e0f07603f36da54d5a1b82486c8245",
+          "semantic_position_and_named_groups_sha256": "f0e114a78b254fc5d10cb4c71a2612e138a8c95408f6ba0d480ad805a2c4b7f8",
+          "source_polygon_ids_sha256": "9962e4e1e649760e32d3a603f2fca4faea6a560c89caa4b68a3f5b0712e80a85"
+        },
+        "Dorsal_soft": {
+          "vertices": 70,
+          "raw_indexed_position_and_named_groups_sha256": "8ba287e8aa9db90b96dcf34bfe2a0810eb690f1900b4e74c2be7fcb763a93d2c",
+          "semantic_position_and_named_groups_sha256": "2fd7c3e4b63b0a9f81cc296ff78be7bba04797ad35f8742ba23f413508a97665",
+          "source_polygon_ids_sha256": "b39840622afc6f20c9e55bc4bd80f5f9d4ca8922258d19f1c4f2f0f2fc63c18d"
+        },
+        "Dorsal_spiny": {
+          "vertices": 83,
+          "raw_indexed_position_and_named_groups_sha256": "1f9ba80d7d4bdf360933ccf4f56441c6ca1c61e6801c789fd4739918c83d75a8",
+          "semantic_position_and_named_groups_sha256": "161c93943911979390a1c682d5f6297e7090b41c8f0f56fb36f54141e5e47b44",
+          "source_polygon_ids_sha256": "d53d77f20125255d24bb7d6e98e5bedf056087929ce151991de502b5e915e2e3"
+        },
+        "Eye_relief112_-1_0": {
+          "vertices": 15,
+          "raw_indexed_position_and_named_groups_sha256": "a2e4220fbd1a67cfb3a35eb4dd008f260d7503e5cddd513e6a0b49a3db2478a2",
+          "semantic_position_and_named_groups_sha256": "c0180c80320a4bed51ff5df6f021d980d91dd3e19a1bb89fc40f0dbd955722b9",
+          "source_polygon_ids_sha256": "19f820b3a17b388563ac224a72b88e9b3e717770e2b2bb5151c6f4c93fddf73f"
+        },
+        "Eye_relief112_1_0": {
+          "vertices": 15,
+          "raw_indexed_position_and_named_groups_sha256": "91bafb0a38288ee2639fc73c32a3bc02d2921543f30f13952567b312ce0ffd14",
+          "semantic_position_and_named_groups_sha256": "a14769d883cf8861aa436d38cc9e9d9387d969cc12c647ac87025294f40ce9cf",
+          "source_polygon_ids_sha256": "b9cb9be1699a7d36c946f4eaaa5084176056602e0c7d69219f5d4ca0ae9bb982"
+        },
+        "Pectoral_left": {
+          "vertices": 30,
+          "raw_indexed_position_and_named_groups_sha256": "273eae387b9202f875003345f2ad18811d3a8b0df49e3c0b28ed7d1ca1ffc927",
+          "semantic_position_and_named_groups_sha256": "7278e76c47c48a1a198ffe532bbc464418d3553973a9b7a7593f95bb33ef3e66",
+          "source_polygon_ids_sha256": "c167103df3e8ef32c271ea2432bf2cf175e580101f1a6c5990f556e529aeb1a1"
+        },
+        "Pectoral_right": {
+          "vertices": 30,
+          "raw_indexed_position_and_named_groups_sha256": "2e6dd71e5807a3579ff402400ed213fa3a3088cda6fa155d4734d48946f02a8b",
+          "semantic_position_and_named_groups_sha256": "c1e37e6e70da94e61b5903fc41ed1204bde8a1249643b0a9e5c05f0425bcb87e",
+          "source_polygon_ids_sha256": "c167103df3e8ef32c271ea2432bf2cf175e580101f1a6c5990f556e529aeb1a1"
+        },
+        "Pelvic_left": {
+          "vertices": 34,
+          "raw_indexed_position_and_named_groups_sha256": "82c3d34e59f8f7102684c75e9e1b5f84a2a79d73b393d63b579bdf75ee5fcde5",
+          "semantic_position_and_named_groups_sha256": "da80637ed6e90253d877e5bece4a62954b648160681894f82e3bcc53c2e820ca",
+          "source_polygon_ids_sha256": "a1c6fac9597ef44e9a6711370f276954c73e9093a5fd72cf40112f10f7cda59e"
+        },
+        "Pelvic_right": {
+          "vertices": 34,
+          "raw_indexed_position_and_named_groups_sha256": "b1a5021c790d7259e60dba8f7209e1d84cdcae086aac88d21fbcbdb67a43a9ac",
+          "semantic_position_and_named_groups_sha256": "de6424b37c2b800e7f17991ac8c68a3f07b4b127a37bee31449c8270ed71b155",
+          "source_polygon_ids_sha256": "251f9bdea8b2073b77317dfd19ca0dfb4da6405262ad22b46f73ed5f6a56081b"
+        }
+      }
+    },
+    {
+      "species": "yellow_croaker",
+      "baseline_source": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/checks/yellow_croaker/baseline.blend",
+        "sha256": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38"
+      },
+      "current_source": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/junctions/yellow_croaker/r3/fish.blend",
+        "sha256": "ae1e42c1b29276e64ba975954610f81c98efe2d57ef1490ec4cb423a1022f311"
+      },
+      "all_body_and_eye_source_vertex_groups_and_positions_exact": true,
+      "baseline_mesh_signatures": {
+        "Anal": {
+          "vertices": 60,
+          "raw_indexed_position_and_named_groups_sha256": "1590f78f49df0c785bca59c3486cbdfcd224a883719985fe925f7605800f29c7",
+          "semantic_position_and_named_groups_sha256": "56bcf6e0eacad502bf40a750cf283aa0710b8ba457e4cd09951ef81a93fedad7",
+          "source_polygon_ids_sha256": "81fa9806f63375eec0214363fa1ac350a70edb722326d5168e89158da42c6a2a"
+        },
+        "Closed_body": {
+          "vertices": 530,
+          "raw_indexed_position_and_named_groups_sha256": "2b419a89e4644a82c7008bad655aafa5163c85ca39248df31ee8b1f2a2763470",
+          "semantic_position_and_named_groups_sha256": "6f44b91a30b935d5ad5917520a4201a51d5413c9bb45d8e6a01c9f56da292b8b",
+          "source_polygon_ids_sha256": "68dfa7fa2ed9ead7e4818c21fff8b4ff7538c8221c4731f4cdecea6a5d27ba77"
+        },
+        "Dorsal": {
+          "vertices": 120,
+          "raw_indexed_position_and_named_groups_sha256": "57daee5a936dea992e789398af7bd7d0d7359c36c0022f05903c171fa8b9715a",
+          "semantic_position_and_named_groups_sha256": "03a8e9c741c17fab20f4732084eee2fb2715f495d53df9836a6f68bd02f74888",
+          "source_polygon_ids_sha256": "2a8311db49fc468dfc31148e7df0181144c236671e417608cc322e406364ef31"
+        },
+        "Native_eye_-1": {
+          "vertices": 25,
+          "raw_indexed_position_and_named_groups_sha256": "589b27a2db4a0f7f8f293c85c1a1c88a5d10035bf5fc06aeb7956c5857949456",
+          "semantic_position_and_named_groups_sha256": "be768dffb38d854b8a2286f84db0d2fa27fe6015bff2ea15d254b59e5468e4e8",
+          "source_polygon_ids_sha256": "baa9e4150a49fafbc0740aca7f7aa6dd341422c0f2a1911a6b5740ecda432a3a"
+        },
+        "Native_eye_1": {
+          "vertices": 25,
+          "raw_indexed_position_and_named_groups_sha256": "5ee90b122f1e792a9baf30fc846172946faab06327ebe7426017fb9ee472dcbe",
+          "semantic_position_and_named_groups_sha256": "58e18e6b51e62a67056473d94428a85c64b9f6113c0be7bafdffc8ea4a2ee723",
+          "source_polygon_ids_sha256": "9b2424cdc0a6fb02acd45d425455f8e128e24f681ecc91f0345d95f5ff59ed3f"
+        },
+        "Pectoral_left": {
+          "vertices": 62,
+          "raw_indexed_position_and_named_groups_sha256": "f0c28efc7e7f2d373e36713a85d9f47ecd8054b51980f9e0029ec3f8a4d0c37f",
+          "semantic_position_and_named_groups_sha256": "c2f983c70588d7a2602c24864b597580a533e3cd15c831fcb4e9103828be474a",
+          "source_polygon_ids_sha256": "9e41c2125668aa29ab3b1fa90437406320f2d72782970dfe6f90ac4f7c1bc1a1"
+        },
+        "Pectoral_right": {
+          "vertices": 62,
+          "raw_indexed_position_and_named_groups_sha256": "56af72a9bf75e74191004252d3611c27d06d8028d33153361253926dae9e5028",
+          "semantic_position_and_named_groups_sha256": "a308d6e061b413dc65fcc9ff5647ea467c00f89e8d8cdd6fde68c65e00b469d5",
+          "source_polygon_ids_sha256": "9e41c2125668aa29ab3b1fa90437406320f2d72782970dfe6f90ac4f7c1bc1a1"
+        },
+        "Pelvic_left": {
+          "vertices": 52,
+          "raw_indexed_position_and_named_groups_sha256": "e092304be1a11df0eb8dac47919288ca60b0888fcebf8f801a9e8292b3d220a3",
+          "semantic_position_and_named_groups_sha256": "6729ef0d027f0f8ae0452269bc2b39df6e430f3b47606987956cebcec46c80cc",
+          "source_polygon_ids_sha256": "c0fdb1d2e237b684beb597e5798291816d9b1b4d4294450fc85ff39fac83c306"
+        },
+        "Pelvic_right": {
+          "vertices": 52,
+          "raw_indexed_position_and_named_groups_sha256": "47f52e543960d243d53502618c4ef25d0245bee6933b291bd38a2c633dac6edc",
+          "semantic_position_and_named_groups_sha256": "260a8ee0c86f8777cc7a2f913bbd50a5faae1813c793490f14267b0e89df2346",
+          "source_polygon_ids_sha256": "c0fdb1d2e237b684beb597e5798291816d9b1b4d4294450fc85ff39fac83c306"
+        }
+      },
+      "current_mesh_signatures": {
+        "Anal": {
+          "vertices": 60,
+          "raw_indexed_position_and_named_groups_sha256": "1590f78f49df0c785bca59c3486cbdfcd224a883719985fe925f7605800f29c7",
+          "semantic_position_and_named_groups_sha256": "56bcf6e0eacad502bf40a750cf283aa0710b8ba457e4cd09951ef81a93fedad7",
+          "source_polygon_ids_sha256": "81fa9806f63375eec0214363fa1ac350a70edb722326d5168e89158da42c6a2a"
+        },
+        "Closed_body": {
+          "vertices": 530,
+          "raw_indexed_position_and_named_groups_sha256": "2b419a89e4644a82c7008bad655aafa5163c85ca39248df31ee8b1f2a2763470",
+          "semantic_position_and_named_groups_sha256": "6f44b91a30b935d5ad5917520a4201a51d5413c9bb45d8e6a01c9f56da292b8b",
+          "source_polygon_ids_sha256": "68dfa7fa2ed9ead7e4818c21fff8b4ff7538c8221c4731f4cdecea6a5d27ba77"
+        },
+        "Dorsal": {
+          "vertices": 120,
+          "raw_indexed_position_and_named_groups_sha256": "57daee5a936dea992e789398af7bd7d0d7359c36c0022f05903c171fa8b9715a",
+          "semantic_position_and_named_groups_sha256": "03a8e9c741c17fab20f4732084eee2fb2715f495d53df9836a6f68bd02f74888",
+          "source_polygon_ids_sha256": "2a8311db49fc468dfc31148e7df0181144c236671e417608cc322e406364ef31"
+        },
+        "Native_eye_-1": {
+          "vertices": 25,
+          "raw_indexed_position_and_named_groups_sha256": "589b27a2db4a0f7f8f293c85c1a1c88a5d10035bf5fc06aeb7956c5857949456",
+          "semantic_position_and_named_groups_sha256": "be768dffb38d854b8a2286f84db0d2fa27fe6015bff2ea15d254b59e5468e4e8",
+          "source_polygon_ids_sha256": "baa9e4150a49fafbc0740aca7f7aa6dd341422c0f2a1911a6b5740ecda432a3a"
+        },
+        "Native_eye_1": {
+          "vertices": 25,
+          "raw_indexed_position_and_named_groups_sha256": "5ee90b122f1e792a9baf30fc846172946faab06327ebe7426017fb9ee472dcbe",
+          "semantic_position_and_named_groups_sha256": "58e18e6b51e62a67056473d94428a85c64b9f6113c0be7bafdffc8ea4a2ee723",
+          "source_polygon_ids_sha256": "9b2424cdc0a6fb02acd45d425455f8e128e24f681ecc91f0345d95f5ff59ed3f"
+        },
+        "Pectoral_left": {
+          "vertices": 62,
+          "raw_indexed_position_and_named_groups_sha256": "f0c28efc7e7f2d373e36713a85d9f47ecd8054b51980f9e0029ec3f8a4d0c37f",
+          "semantic_position_and_named_groups_sha256": "c2f983c70588d7a2602c24864b597580a533e3cd15c831fcb4e9103828be474a",
+          "source_polygon_ids_sha256": "9e41c2125668aa29ab3b1fa90437406320f2d72782970dfe6f90ac4f7c1bc1a1"
+        },
+        "Pectoral_right": {
+          "vertices": 62,
+          "raw_indexed_position_and_named_groups_sha256": "56af72a9bf75e74191004252d3611c27d06d8028d33153361253926dae9e5028",
+          "semantic_position_and_named_groups_sha256": "a308d6e061b413dc65fcc9ff5647ea467c00f89e8d8cdd6fde68c65e00b469d5",
+          "source_polygon_ids_sha256": "9e41c2125668aa29ab3b1fa90437406320f2d72782970dfe6f90ac4f7c1bc1a1"
+        },
+        "Pelvic_left": {
+          "vertices": 52,
+          "raw_indexed_position_and_named_groups_sha256": "e092304be1a11df0eb8dac47919288ca60b0888fcebf8f801a9e8292b3d220a3",
+          "semantic_position_and_named_groups_sha256": "6729ef0d027f0f8ae0452269bc2b39df6e430f3b47606987956cebcec46c80cc",
+          "source_polygon_ids_sha256": "c0fdb1d2e237b684beb597e5798291816d9b1b4d4294450fc85ff39fac83c306"
+        },
+        "Pelvic_right": {
+          "vertices": 52,
+          "raw_indexed_position_and_named_groups_sha256": "47f52e543960d243d53502618c4ef25d0245bee6933b291bd38a2c633dac6edc",
+          "semantic_position_and_named_groups_sha256": "260a8ee0c86f8777cc7a2f913bbd50a5faae1813c793490f14267b0e89df2346",
+          "source_polygon_ids_sha256": "c0fdb1d2e237b684beb597e5798291816d9b1b4d4294450fc85ff39fac83c306"
+        }
+      }
+    }
+  ],
+  "scope": "Read-only source identities; no old/new GLB byte equivalence inferred."
+}

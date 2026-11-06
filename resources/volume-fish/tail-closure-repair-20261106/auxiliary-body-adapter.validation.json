@@ -1,0 +1,69 @@
+{
+  "ok": true,
+  "base_body_kernel_identical": true,
+  "base_missing_pixel_function_identical": true,
+  "base_gpu_validation_block_identical": true,
+  "current_positive_inventory_inspection": {
+    "species": "zander",
+    "model_sha256": "bf1137b96464ab2e395437e9bee9e0da16b9bbad2a508cabdfa87b43baef9c67",
+    "triangles": 2000,
+    "body_surfaces": 4
+  },
+  "negative_controls": [
+    {
+      "injection": "Wrong auxiliary identity",
+      "rejected": true,
+      "error": "Incorrect auxiliary baseline identity or unsupported declaration"
+    },
+    {
+      "injection": "Missing actual body surface",
+      "rejected": true,
+      "error": ""
+    },
+    {
+      "injection": "Extra unpredicted weight ULP",
+      "rejected": true,
+      "error": "Different weight bytes from the independently explained frozen export"
+    }
+  ],
+  "actual_gpu_examples": [
+    {
+      "species": "mahi_mahi",
+      "model_sha256": "fffa338ffa38050388eee3435c143b36a0c4b07834b99ac9c21c1cef4e0338c5",
+      "gpu_views": 16,
+      "total_missing_pixels": 0,
+      "transparent_negative_pixels": 23407,
+      "report_sha256": "7d85bf450cb96e622b0d97ad2056898c858c9e8da84bd452da9d050c3c596d48",
+      "original_checker_sha256": "87ae80007a5b16463802014b32117f5276ca8e0cd53abb7b5eef94206cf271d4",
+      "role": "Historical actual GPU evidence for the identical body/capture kernels; old baseline paths may have been replaced and dense captures retired."
+    },
+    {
+      "species": "silver_arowana",
+      "model_sha256": "cf008adeaded905704861a232006a51c00dcffa0edc817fdc41858f7aa9b7a02",
+      "gpu_views": 16,
+      "total_missing_pixels": 0,
+      "transparent_negative_pixels": 26253,
+      "report_sha256": "6357932170e82b52e1d9ed6b9a8ffa0eda7e0b4050cc15575889436514dc223d",
+      "original_checker_sha256": "87ae80007a5b16463802014b32117f5276ca8e0cd53abb7b5eef94206cf271d4",
+      "role": "Historical actual GPU evidence for the identical body/capture kernels; old baseline paths may have been replaced and dense captures retired."
+    },
+    {
+      "species": "african_catfish",
+      "model_sha256": "62b26e865ba68f09fafbb7b2bf73a7439736101806f66ac7a35b63cb232aac04",
+      "gpu_views": 16,
+      "total_missing_pixels": 0,
+      "transparent_negative_pixels": 22137,
+      "report_sha256": "08f55e3baa041201a6e050b784bbfc405297efd6471a3d4b565ae5f3b016ff16",
+      "original_checker_sha256": "87ae80007a5b16463802014b32117f5276ca8e0cd53abb7b5eef94206cf271d4",
+      "role": "Historical actual GPU evidence for the identical body/capture kernels; old baseline paths may have been replaced and dense captures retired."
+    }
+  ],
+  "dependencies": {
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/validate_preserved_auxiliary_body.py": "7d62f38977a1e72a9ac831303b90816081cd5e186591382a67db774769da9089",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/preserved_auxiliary_inventory.py": "ab4df3dfebaef9d759c31deb4f634345f712d37454a9a458bf74b86a90a366fa",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/preserved_part_signatures.py": "73b911d1cc31a58e12f43e8a297b523bef46f6e7d460f9a55b6553b476dd5e39",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/validate_standalone_body.py": "1a73badcd756005eb10e5e70530ea3bcc084c5db2f084d0cb16843cb65ab4fd7",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/capture_standalone_body.gd": "ac77115bcc72afc23e039f21e2c4ddcaa8f52ed2e783b3c2c7ec6a69902cdb8c"
+  },
+  "scope": "Only auxiliary and baseline inventory adapter; original physical/GPU kernels unchanged. Serialized weights require exact frozen stock-source proof, never a generic tolerance."
+}

@@ -1,0 +1,23 @@
+{
+  "kind": "caudal_repair_preservation",
+  "schema_version": 1,
+  "species": "yellow_croaker",
+  "affected_anatomical_parts": [
+    "Caudal"
+  ],
+  "model_sha256": "8846cb7bd8736407f80b5b0436889f07e7e5df2e1c95f57d077b97e24dd2dec4",
+  "source_sha256": "ae1e42c1b29276e64ba975954610f81c98efe2d57ef1490ec4cb423a1022f311",
+  "editable_source_role": "editable_source",
+  "accepted_snapshot": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/yellow_croaker.json",
+    "sha256": "9e024b28f5c521d2a2805cbc32a2b7dfa60af282e4e25922d9320705ace93904"
+  },
+  "source_preserved_export_serialization": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/ordinary-nontail-weight-serialization.validation.json",
+    "sha256": "13b7762ef1ca619566b38832c35fb3b35d0185697d1803ecd225fba101f23bf5"
+  },
+  "accepted_material_bindings": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/yellow_croaker-material-bindings.json",
+    "sha256": "07b18937fdfcb015c783e5486d3d8996f92b1d739997c992df3d5ee55033b086"
+  }
+}

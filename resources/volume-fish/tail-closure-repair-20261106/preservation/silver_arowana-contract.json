@@ -1,0 +1,19 @@
+{
+  "kind": "caudal_repair_preservation",
+  "schema_version": 1,
+  "species": "silver_arowana",
+  "affected_anatomical_parts": [
+    "Caudal"
+  ],
+  "model_sha256": "cf008adeaded905704861a232006a51c00dcffa0edc817fdc41858f7aa9b7a02",
+  "source_sha256": "3de66d12937aa00209d7c651d29d109a10edc657ac9159c8e69baa836ba3bdb2",
+  "editable_source_role": "editable_source",
+  "accepted_snapshot": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/silver_arowana.json",
+    "sha256": "e150d903720ab7b0128218dda23a021204a32e9e7e1cd37e2ba4354005c4d0ea"
+  },
+  "accepted_material_bindings": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/silver_arowana-material-bindings.json",
+    "sha256": "c70267bf07d0db5d66d4378f9acd6f771c87b8f565a4447cccdbc98402ae122e"
+  }
+}

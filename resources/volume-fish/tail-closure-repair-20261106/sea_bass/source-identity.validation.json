@@ -1,0 +1,106 @@
+{
+  "ok": true,
+  "scope": "Current canonical source/model identity and complete-domain input proof; no new physical gate or appearance acceptance.",
+  "species": "sea_bass",
+  "source": {
+    "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/sea_bass/fish.blend",
+    "sha256": "ddd6d46f6c326bb6c0342db533c03cd645e9379a6835308b4025c5cc1f7b4af0"
+  },
+  "model": {
+    "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/sea_bass.glb",
+    "sha256": "1c908b8875e655559438ebe7797cc3f87d1658df93d6b0dacb86a69c75e4a631"
+  },
+  "domain_sha256": "2fea70704f76b9b55bc1bbbfbe29c0c29abbc33d5690468251e7c246dfbca76e",
+  "fins": [
+    {
+      "name": "Anal_mesh",
+      "source_vertices": 31,
+      "triangles": 58,
+      "complete_root_vertices": 21,
+      "all_current_source_fin_vertices_included": true,
+      "all_original_root_members_preserved": true,
+      "maximum_source_to_current_glb_error_native": 0.0,
+      "maximum_frozen_plan_to_current_root_error_native": 0.0,
+      "source_parameter_domain_not_inferred_from_current_color_uv": true
+    },
+    {
+      "name": "Caudal_mesh",
+      "source_vertices": 96,
+      "triangles": 60,
+      "complete_root_vertices": 54,
+      "all_current_source_fin_vertices_included": true,
+      "all_original_root_members_preserved": true,
+      "maximum_source_to_current_glb_error_native": 0.0,
+      "maximum_frozen_plan_to_current_root_error_native": 0.0,
+      "source_parameter_domain_not_inferred_from_current_color_uv": true
+    },
+    {
+      "name": "Dorsal_soft_mesh",
+      "source_vertices": 27,
+      "triangles": 50,
+      "complete_root_vertices": 15,
+      "all_current_source_fin_vertices_included": true,
+      "all_original_root_members_preserved": true,
+      "maximum_source_to_current_glb_error_native": 0.0,
+      "maximum_frozen_plan_to_current_root_error_native": 0.0,
+      "source_parameter_domain_not_inferred_from_current_color_uv": true
+    },
+    {
+      "name": "Dorsal_spiny_mesh",
+      "source_vertices": 33,
+      "triangles": 62,
+      "complete_root_vertices": 20,
+      "all_current_source_fin_vertices_included": true,
+      "all_original_root_members_preserved": true,
+      "maximum_source_to_current_glb_error_native": 0.0,
+      "maximum_frozen_plan_to_current_root_error_native": 0.0,
+      "source_parameter_domain_not_inferred_from_current_color_uv": true
+    },
+    {
+      "name": "Pectoral_left_mesh",
+      "source_vertices": 24,
+      "triangles": 44,
+      "complete_root_vertices": 10,
+      "all_current_source_fin_vertices_included": true,
+      "all_original_root_members_preserved": true,
+      "maximum_source_to_current_glb_error_native": 0.0,
+      "maximum_frozen_plan_to_current_root_error_native": 0.0,
+      "source_parameter_domain_not_inferred_from_current_color_uv": true
+    },
+    {
+      "name": "Pectoral_right_mesh",
+      "source_vertices": 24,
+      "triangles": 44,
+      "complete_root_vertices": 10,
+      "all_current_source_fin_vertices_included": true,
+      "all_original_root_members_preserved": true,
+      "maximum_source_to_current_glb_error_native": 0.0,
+      "maximum_frozen_plan_to_current_root_error_native": 0.0,
+      "source_parameter_domain_not_inferred_from_current_color_uv": true
+    },
+    {
+      "name": "Pelvic_left_mesh",
+      "source_vertices": 27,
+      "triangles": 50,
+      "complete_root_vertices": 15,
+      "all_current_source_fin_vertices_included": true,
+      "all_original_root_members_preserved": true,
+      "maximum_source_to_current_glb_error_native": 0.0,
+      "maximum_frozen_plan_to_current_root_error_native": 0.0,
+      "source_parameter_domain_not_inferred_from_current_color_uv": true
+    },
+    {
+      "name": "Pelvic_right_mesh",
+      "source_vertices": 28,
+      "triangles": 52,
+      "complete_root_vertices": 16,
+      "all_current_source_fin_vertices_included": true,
+      "all_original_root_members_preserved": true,
+      "maximum_source_to_current_glb_error_native": 0.0,
+      "maximum_frozen_plan_to_current_root_error_native": 0.0,
+      "source_parameter_domain_not_inferred_from_current_color_uv": true
+    }
+  ],
+  "original_unknowns_preserved": "Unknown original UV/baseline remains null (notably silver arowana). Existing native source t is authoritative.",
+  "producer_sha256": "6205134a7093049774fd29c125346d55c912296b52bdf58d81d25ef3173f10b0"
+}

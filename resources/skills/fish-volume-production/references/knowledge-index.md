@@ -27,6 +27,7 @@
 | 新建/返修嘴 | [嘴部执行卡](mouth-execution.md)、[嘴优先检查](mouth-first-review.md) | [完整颌部返修](mouth-repair.md)、[原生二维唇色接续](mouth-material-continuity.md) |
 | 眼纹归属、浅凸眼、实际支持面 | [眼睛执行卡](eye-volume.md) | [源表面返修](source-surface-repair.md)、游戏 `docs/3d-fish/MOTION-AND-SURFACES.md` |
 | 背腹、中央、下巴、补色或贴图滑动 | [部位供体卡](source-zone-review.md)、[源表面返修](source-surface-repair.md) | [材质方法](portable-material-lessons-20261030.md)、[嘴部接续](mouth-material-continuity.md) |
+| 逐鱼材质替换、白模多视图生色与原UV重烘焙 | [多视图材质烘焙](whale-shark-multiview-color.md#现有成品逐鱼换材质保留原-uv-的制作方法) | 原画控画风/白模控投影，完整部位归属及真实生成边界；image-only隔离变量，正式替换仍回源冷导出 |
 | 鳍原图边界、余边/白边/漏抠 | [原图整鳍分离](fin-source-shape.md)、[精确原像素切鳍](precise-native-fin-cutouts.md) | [鳍精修与有限根带](native-fin-detail-lessons-20261031.md) |
 | 鳍型、组织厚度、尾柄/尾根 | [鳍型厚度与尾柄](fin-types-thickness-tail.md) | [有限鳍面接触返修](finite-fin-contact-repair.md)、[鳍壳静态与动态自交](fin-shell-self-intersection.md) |
 | 体表根、自由鳍膜、运动控制与身体透明缺块 | [部位质量守卫](component-quality-rules.md) | 游戏 `VALIDATION.md`、`MOTION-AND-SURFACES.md`、`BODY-INTEGRITY.md`；原生/实际引擎均验 |
@@ -74,3 +75,5 @@
 | 任意旧报告批量换哈希，或清理后报告路径存在于文本就算可复验 | 原报告不改写；当前依赖重新审核，按归档映射恢复真实输入后验证 |
 
 新增经验优先修订上述对应专题；只有出现新的稳定分支才增文档并接入此索引，避免每轮只在文件尾追加一条“已提交”。
+
+- 2026-11-06 尾部透明封边/尾柄维护：`resources/volume-fish/tail-closure-repair-20261106.json` 与游戏 `plans/reviews/tail-repair-20261106/HANDOFF.md`。保留原鳍基解剖坐标、有限端盖、新增domain后代、严格未改部位继承、单鱼不可变验证输入与EXACT_UV授权域等方法；不恢复退休实验链。

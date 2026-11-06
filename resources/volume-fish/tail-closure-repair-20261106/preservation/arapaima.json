@@ -1,0 +1,1538 @@
+{
+  "kind": "accepted_caudal_repair_protected_snapshot",
+  "schema_version": 1,
+  "species": "arapaima",
+  "baseline_model_sha256": "e540c264bf6d784504a3e098a92881a7b562602c5256f3c3e333f3371432e37a",
+  "accepted_release": {
+    "path": "resources/volume-fish/fish-shape-repair-20261105.json",
+    "sha256": "b9f645de48c540d14acdf2819d66626c47384a1ba972faf5c7546f1c0bc11893"
+  },
+  "source_inventory": {
+    "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/release-inputs.json",
+    "sha256": "19a146043e6c65f241217aada6b9552eb70828e81aa09ddd5f34d50ff189e541",
+    "historical_capture_only_not_live_dependency": true
+  },
+  "part_inventory": [
+    {
+      "key": [
+        "Anal",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "0f62795273a3cb963f902a44ff655d5d5c6fbbea94bd7f62db32e9560eb8d999",
+      "triangles": 524,
+      "canonical_directed_triangle_signature": "0f62795273a3cb963f902a44ff655d5d5c6fbbea94bd7f62db32e9560eb8d999",
+      "geometry_uv_normal_signature": "8851f40a21441010051e09af4e98420b76c2dcfb7d59a039e2ec14c26f30738b"
+    },
+    {
+      "key": [
+        "Caudal",
+        0
+      ],
+      "affected_caudal": true,
+      "directed_triangle_signature": "9cd4f7acf4bbe5f14043f437d2737a77693d675ff87cc69b91eaf70f5fbc20ad",
+      "triangles": 72,
+      "canonical_directed_triangle_signature": "9cd4f7acf4bbe5f14043f437d2737a77693d675ff87cc69b91eaf70f5fbc20ad",
+      "geometry_uv_normal_signature": "10411ccb9f3a281e7ce4d62139203acdade76b686ea2eba8dea39910936585b4"
+    },
+    {
+      "key": [
+        "Closed_body",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "ff3ff99bdd6ececfd431e99c8de3c2470ad0a7d27ea205173ef7b9745e2c6d97",
+      "triangles": 126,
+      "canonical_directed_triangle_signature": "c9cff3392489c8336ce93be2e93f0e077bd5e9b08d34b5d7d284e6eb8fe83e3d",
+      "geometry_uv_normal_signature": "631f9c58928df965a2e82a90f6f640194cd459cd36a7f8cf8c2a2690526664e1"
+    },
+    {
+      "key": [
+        "Closed_body",
+        1
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "b103ffbc00b132cb82465eb2325a8e0f67761c7863c1c36fcf2323dbc86460c0",
+      "triangles": 1063,
+      "canonical_directed_triangle_signature": "30c2234e5d849b04a3fb7a8f9cb0a57f0aa4b82cbf2fcb0462c09993be0aff67",
+      "geometry_uv_normal_signature": "6e4cc1c613dfa9e1c8ca3f5853b383d28de27c2b9009e5c2c79bb70cafb70596"
+    },
+    {
+      "key": [
+        "Closed_body",
+        2
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "221617d292c533234026fe700743e82ce6be4b0b6a5aaf1bab07f0f66a6409cf",
+      "triangles": 149,
+      "canonical_directed_triangle_signature": "221617d292c533234026fe700743e82ce6be4b0b6a5aaf1bab07f0f66a6409cf",
+      "geometry_uv_normal_signature": "33b1433b407e202c7f1cfa65b9aacbf081b780a360608a4c6bce37a87b543618"
+    },
+    {
+      "key": [
+        "Closed_body",
+        3
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "c48a28787b8fcc5949077115ec1a4e6c99b94d7848d054bea56ebfb9a0b7f6d4",
+      "triangles": 162,
+      "canonical_directed_triangle_signature": "8a205d24b3a27551316921fda87cd4963d83c7d7d5c160d892c913f9314dd2bd",
+      "geometry_uv_normal_signature": "1c6215538ba83753729ba911b92bc328f9fed458277f4aafe389a70e9bc08322"
+    },
+    {
+      "key": [
+        "Closed_body",
+        4
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "8b23b30b489f0a5c450f3e746022bc0a46c4b05f93331641d8b885ead4a18590",
+      "triangles": 162,
+      "canonical_directed_triangle_signature": "8b23b30b489f0a5c450f3e746022bc0a46c4b05f93331641d8b885ead4a18590",
+      "geometry_uv_normal_signature": "120fa00cf45fc9666318c9845b6a79b095eb511b36ffd85d8facd694f5a1b7af"
+    },
+    {
+      "key": [
+        "Dorsal",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "405c685713f50f799a7abc1dd695f8879b96c46a8a57f1879ca45343cefed78a",
+      "triangles": 604,
+      "canonical_directed_triangle_signature": "405c685713f50f799a7abc1dd695f8879b96c46a8a57f1879ca45343cefed78a",
+      "geometry_uv_normal_signature": "c1c33cee40b9bac987d25c3583e331a98da6911a45933e52edb34cff67229f3f"
+    },
+    {
+      "key": [
+        "Eye_support_left",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "24b2ef93383fc8589a0a1eb97f09617dcf339103d5de60ed4389871ef6ca273e",
+      "triangles": 96,
+      "canonical_directed_triangle_signature": "24b2ef93383fc8589a0a1eb97f09617dcf339103d5de60ed4389871ef6ca273e",
+      "geometry_uv_normal_signature": "506b1a01058c88cc3a36964aa3d81675def4e77a31b4cd0d7871385ac428387a"
+    },
+    {
+      "key": [
+        "Eye_support_right",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "30f37b82b9a5e4097748714523c74d3d67e28053dd3f54e16440d274c4b2bf82",
+      "triangles": 96,
+      "canonical_directed_triangle_signature": "30f37b82b9a5e4097748714523c74d3d67e28053dd3f54e16440d274c4b2bf82",
+      "geometry_uv_normal_signature": "18a0423ec88347c67b8600a8597f0761c23cf3dcdb5466754ff283f56fddecb5"
+    },
+    {
+      "key": [
+        "Pectoral_left",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "1168b9245fceb98fe8d4e0033738cc9f65ae23b1c88ee2e7e30e6638310d667c",
+      "triangles": 172,
+      "canonical_directed_triangle_signature": "1168b9245fceb98fe8d4e0033738cc9f65ae23b1c88ee2e7e30e6638310d667c",
+      "geometry_uv_normal_signature": "db885110fec209f5fb31b32b8bdefc93a68c5b897b0d74620d5293d66ff6c0da"
+    },
+    {
+      "key": [
+        "Pectoral_right",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "56795d33f0470985f611b3a653cfcbb72946644cb2bdcd3cc537f73797101b1d",
+      "triangles": 172,
+      "canonical_directed_triangle_signature": "56795d33f0470985f611b3a653cfcbb72946644cb2bdcd3cc537f73797101b1d",
+      "geometry_uv_normal_signature": "43e3357f36a919047e2fbfe4ca1bb57bbfef884d717a1902202b26b2424e95bd"
+    },
+    {
+      "key": [
+        "Pelvic_left",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "c0c6254170ac98a9b882453f2233dfa5964bc6ff08c47a07685fe2bb5ef8785f",
+      "triangles": 168,
+      "canonical_directed_triangle_signature": "c0c6254170ac98a9b882453f2233dfa5964bc6ff08c47a07685fe2bb5ef8785f",
+      "geometry_uv_normal_signature": "e7d654c3424b3ad125408ba6908dfd49804000232408e33db5e19fd88ee6193f"
+    },
+    {
+      "key": [
+        "Pelvic_right",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "6d4fbb76e753be6953e9483426d6e87d87d5052bc00052dae344ac3ecd3941b4",
+      "triangles": 168,
+      "canonical_directed_triangle_signature": "6d4fbb76e753be6953e9483426d6e87d87d5052bc00052dae344ac3ecd3941b4",
+      "geometry_uv_normal_signature": "5dbae1a7bf1a3c406e38cb2c21e7461d662059c919218450670a9e5bd03c5d46"
+    }
+  ],
+  "rig_rest_bind_signature": "5e57db8d736db2f54711dcffa998ccc73f5493724775d82a1034435a58a80d87",
+  "native_animation_signature": "3b8a4a42c3a8cf9dbf57b256490f2719431a8428bd3c1dff5f5835d2bc7042c4",
+  "node_graph": [
+    {
+      "name": "Anal",
+      "parent": "body_07",
+      "mesh": false,
+      "translation": [
+        0,
+        0.01719200611114502,
+        -0.06704869866371155
+      ],
+      "rotation": [
+        -0.28976163268089294,
+        0.28976163268089294,
+        -0.09252216666936874,
+        0.907477855682373
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "Anal",
+      "parent": "arapaima_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "AuxP_L_01",
+      "parent": "body_01",
+      "mesh": false,
+      "translation": [
+        -0.029960475862026215,
+        0.1100451648235321,
+        -0.051215969026088715
+      ],
+      "rotation": [
+        -0.1826976090669632,
+        0.18269751965999603,
+        -0.7338613867759705,
+        0.628244161605835
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "AuxP_L_02",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        -0.029960475862026215,
+        0.012623965740203857,
+        -0.051215969026088715
+      ],
+      "rotation": [
+        -0.1826975792646408,
+        0.18269753456115723,
+        -0.7338613271713257,
+        0.6282442212104797
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "AuxP_L_03",
+      "parent": "body_03",
+      "mesh": false,
+      "translation": [
+        -0.029960475862026215,
+        -0.08479724824428558,
+        -0.051215969026088715
+      ],
+      "rotation": [
+        -0.1826975792646408,
+        0.18269753456115723,
+        -0.7338613271713257,
+        0.6282442212104797
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "AuxP_R_01",
+      "parent": "body_01",
+      "mesh": false,
+      "translation": [
+        0.029960477724671364,
+        0.1100451648235321,
+        -0.051215969026088715
+      ],
+      "rotation": [
+        -0.6542690992355347,
+        0.6542690992355347,
+        -0.37929248809814453,
+        0.0010620226385071874
+      ],
+      "scale": [
+        1.0000001192092896,
+        1.0000004768371582,
+        1.0000001192092896
+      ]
+    },
+    {
+      "name": "AuxP_R_02",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        0.029960477724671364,
+        0.012623965740203857,
+        -0.051215969026088715
+      ],
+      "rotation": [
+        -0.6542690992355347,
+        0.6542690992355347,
+        -0.37929248809814453,
+        0.0010620226385071874
+      ],
+      "scale": [
+        1.0000001192092896,
+        1.0000004768371582,
+        1.0000001192092896
+      ]
+    },
+    {
+      "name": "AuxP_R_03",
+      "parent": "body_03",
+      "mesh": false,
+      "translation": [
+        0.029960477724671364,
+        -0.08479724824428558,
+        -0.051215969026088715
+      ],
+      "rotation": [
+        -0.6542690992355347,
+        0.6542690992355347,
+        -0.37929248809814453,
+        0.0010620226385071874
+      ],
+      "scale": [
+        1.0000001192092896,
+        1.0000004768371582,
+        1.0000001192092896
+      ]
+    },
+    {
+      "name": "Caudal",
+      "parent": "body_09",
+      "mesh": false,
+      "translation": [
+        4.505369815888116e-06,
+        0.017223238945007324,
+        -0.00401146337389946
+      ],
+      "rotation": [
+        0.041788648813962936,
+        -0.041788648813962936,
+        -0.0017493516206741333,
+        0.9982506632804871
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Caudal",
+      "parent": "arapaima_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Closed_body",
+      "parent": "arapaima_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal",
+      "parent": "body_07",
+      "mesh": false,
+      "translation": [
+        0,
+        0.0051576197147369385,
+        0.06246419996023178
+      ],
+      "rotation": [
+        0.21457916498184204,
+        -0.21457919478416443,
+        -0.048385363072156906,
+        0.9516146183013916
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal",
+      "parent": "arapaima_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Eye_support_left",
+      "parent": "arapaima_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Eye_support_right",
+      "parent": "arapaima_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_left",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        -0.029960475862026215,
+        0.012623965740203857,
+        -0.051215969026088715
+      ],
+      "rotation": [
+        -0.1826975792646408,
+        0.18269753456115723,
+        -0.7338613271713257,
+        0.6282442212104797
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_left",
+      "parent": "arapaima_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_left_bodyframe_body_01",
+      "parent": "body_01",
+      "mesh": false,
+      "translation": [
+        -0.029960475862026215,
+        0.1100451648235321,
+        -0.051215969026088715
+      ],
+      "rotation": [
+        -0.1826976090669632,
+        0.18269751965999603,
+        -0.7338613867759705,
+        0.628244161605835
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "Pectoral_left_bodyframe_body_03",
+      "parent": "body_03",
+      "mesh": false,
+      "translation": [
+        -0.029960475862026215,
+        -0.08479724824428558,
+        -0.051215969026088715
+      ],
+      "rotation": [
+        -0.1826975792646408,
+        0.18269753456115723,
+        -0.7338613271713257,
+        0.6282442212104797
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_right",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        0.029960477724671364,
+        0.012623965740203857,
+        -0.051215969026088715
+      ],
+      "rotation": [
+        -0.6542690992355347,
+        0.6542690992355347,
+        -0.37929248809814453,
+        0.0010620226385071874
+      ],
+      "scale": [
+        1.0000001192092896,
+        1.0000004768371582,
+        1.0000001192092896
+      ]
+    },
+    {
+      "name": "Pectoral_right",
+      "parent": "arapaima_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_right_bodyframe_body_01",
+      "parent": "body_01",
+      "mesh": false,
+      "translation": [
+        0.029960477724671364,
+        0.1100451648235321,
+        -0.051215969026088715
+      ],
+      "rotation": [
+        -0.6542690992355347,
+        0.6542690992355347,
+        -0.37929248809814453,
+        0.0010620226385071874
+      ],
+      "scale": [
+        1.0000001192092896,
+        1.0000004768371582,
+        1.0000001192092896
+      ]
+    },
+    {
+      "name": "Pectoral_right_bodyframe_body_03",
+      "parent": "body_03",
+      "mesh": false,
+      "translation": [
+        0.029960477724671364,
+        -0.08479724824428558,
+        -0.051215969026088715
+      ],
+      "rotation": [
+        -0.6542690992355347,
+        0.6542690992355347,
+        -0.37929248809814453,
+        0.0010620226385071874
+      ],
+      "scale": [
+        1.0000001192092896,
+        1.0000004768371582,
+        1.0000001192092896
+      ]
+    },
+    {
+      "name": "Pelvic_left",
+      "parent": "body_06",
+      "mesh": false,
+      "translation": [
+        -0.009202600456774235,
+        -0.028753727674484253,
+        -0.0665760263800621
+      ],
+      "rotation": [
+        -0.01938391849398613,
+        0.019381288439035416,
+        -0.9975621700286865,
+        0.06417487561702728
+      ],
+      "scale": [
+        0.9999845027923584,
+        0.9999998807907104,
+        0.9999983310699463
+      ]
+    },
+    {
+      "name": "Pelvic_left",
+      "parent": "arapaima_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pelvic_left_bodyframe_body_05",
+      "parent": "body_05",
+      "mesh": false,
+      "translation": [
+        -0.009202600456774235,
+        0.06866748631000519,
+        -0.0665760263800621
+      ],
+      "rotation": [
+        -0.019382115453481674,
+        0.019381413236260414,
+        -0.9975622296333313,
+        0.06417439132928848
+      ],
+      "scale": [
+        0.9999958872795105,
+        1,
+        0.999999463558197
+      ]
+    },
+    {
+      "name": "Pelvic_left_bodyframe_body_07",
+      "parent": "body_07",
+      "mesh": false,
+      "translation": [
+        -0.009202600456774235,
+        -0.1261749565601349,
+        -0.0665760263800621
+      ],
+      "rotation": [
+        -0.01938391849398613,
+        0.019381288439035416,
+        -0.9975621700286865,
+        0.06417487561702728
+      ],
+      "scale": [
+        0.9999845027923584,
+        0.9999998807907104,
+        0.9999983310699463
+      ]
+    },
+    {
+      "name": "Pelvic_right",
+      "parent": "body_06",
+      "mesh": false,
+      "translation": [
+        0.00920259952545166,
+        -0.028753727674484253,
+        -0.0665760338306427
+      ],
+      "rotation": [
+        0.022025009617209435,
+        -0.022027401253581047,
+        0.9975073337554932,
+        0.06331543624401093
+      ],
+      "scale": [
+        0.9999836087226868,
+        0.9999998807907104,
+        0.9999982118606567
+      ]
+    },
+    {
+      "name": "Pelvic_right",
+      "parent": "arapaima_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pelvic_right_bodyframe_body_05",
+      "parent": "body_05",
+      "mesh": false,
+      "translation": [
+        0.00920259952545166,
+        0.06866748631000519,
+        -0.0665760338306427
+      ],
+      "rotation": [
+        0.022025009617209435,
+        -0.022027401253581047,
+        0.9975073337554932,
+        0.06331543624401093
+      ],
+      "scale": [
+        0.9999836087226868,
+        0.9999998807907104,
+        0.9999982118606567
+      ]
+    },
+    {
+      "name": "Pelvic_right_bodyframe_body_07",
+      "parent": "body_07",
+      "mesh": false,
+      "translation": [
+        0.00920259952545166,
+        -0.1261749565601349,
+        -0.0665760338306427
+      ],
+      "rotation": [
+        0.022025009617209435,
+        -0.022027401253581047,
+        0.9975073337554932,
+        0.06331543624401093
+      ],
+      "scale": [
+        0.9999836087226868,
+        0.9999998807907104,
+        0.9999982118606567
+      ]
+    },
+    {
+      "name": "arapaima_Rig",
+      "parent": null,
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_00",
+      "parent": "root",
+      "mesh": false,
+      "translation": [
+        0.4684813916683197,
+        -0.0040114689618349075,
+        0
+      ],
+      "rotation": [
+        -0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "body_01",
+      "parent": "body_00",
+      "mesh": false,
+      "translation": [
+        0,
+        0.09742119908332825,
+        0
+      ],
+      "rotation": [
+        0,
+        -2.1855694143368964e-08,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_02",
+      "parent": "body_01",
+      "mesh": false,
+      "translation": [
+        0,
+        0.09742119908332825,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_03",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        0,
+        0.09742121398448944,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_04",
+      "parent": "body_03",
+      "mesh": false,
+      "translation": [
+        0,
+        0.09742120653390884,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_05",
+      "parent": "body_04",
+      "mesh": false,
+      "translation": [
+        0,
+        0.09742121398448944,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_06",
+      "parent": "body_05",
+      "mesh": false,
+      "translation": [
+        0,
+        0.09742122143507004,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_07",
+      "parent": "body_06",
+      "mesh": false,
+      "translation": [
+        0,
+        0.09742123633623123,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_08",
+      "parent": "body_07",
+      "mesh": false,
+      "translation": [
+        0,
+        0.0888253003358841,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_09",
+      "parent": "body_08",
+      "mesh": false,
+      "translation": [
+        0,
+        0.080229252576828,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "root",
+      "parent": "arapaima_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "alphaMode": "MASK",
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 0
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Anal native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "alphaMode": "MASK",
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 2
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Caudal native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 3
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 4
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Arapaima original body with finite fin-footprint restoration body opaque donor.002",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 5
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 6
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Front skin source chart body opaque donor.002",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 7
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 8
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Front mouth oral chart body opaque donor.002",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 9
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 10
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Arapaima original red posterior dorsal chart.001",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 11
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 12
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Arapaima original red posterior ventral chart",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 13
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "alphaMode": "MASK",
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 14
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Dorsal native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 15
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 16
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Arapaima original accepted eye pixels shallow support.001",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 17
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "alphaMode": "MASK",
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 18
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Pectoral native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 19
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "alphaMode": "MASK",
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 20
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Pelvic native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 21
+        },
+        "metallicFactor": 0
+      }
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 6
+    },
+    {
+      "sampler": 0,
+      "source": 6
+    },
+    {
+      "sampler": 1,
+      "source": 7
+    },
+    {
+      "sampler": 1,
+      "source": 7
+    },
+    {
+      "sampler": 0,
+      "source": 8
+    },
+    {
+      "sampler": 0,
+      "source": 8
+    },
+    {
+      "sampler": 0,
+      "source": 9
+    },
+    {
+      "sampler": 0,
+      "source": 9
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9728,
+      "minFilter": 9728,
+      "wrapS": 33071,
+      "wrapT": 33071
+    },
+    {
+      "magFilter": 9728,
+      "minFilter": 9728
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "size": [
+        459,
+        114
+      ],
+      "rgba_sha256": "e3234ad114528daa9b4dcc5e9685f4665e6a279a11d7b4ae50079d9066ee2bd2",
+      "embedded_sha256": "6b476e9270d3f2e8627397a821da7a0e2fb373dadc8a9371c59040f8e38837ac"
+    },
+    {
+      "index": 1,
+      "size": [
+        191,
+        239
+      ],
+      "rgba_sha256": "f85a9156e032e235862ce6c38a1c6f380f02c5c806cf1276aa3db108b290f8c7",
+      "embedded_sha256": "579d4c8b039a8d49d336518ab9dc4869afec00d84abc1d377c91d6f4c0bfab93"
+    },
+    {
+      "index": 2,
+      "size": [
+        1745,
+        396
+      ],
+      "rgba_sha256": "d56f9d257c9c9ca8b7c9d2ba4404686db52cefdf46faabf0c21d46677ec66554",
+      "embedded_sha256": "75c9231a43f8eaf876c1029ffae9ce88a69c6554e15ee2af608d6bf1377f234d"
+    },
+    {
+      "index": 3,
+      "size": [
+        1024,
+        8192
+      ],
+      "rgba_sha256": "723782e4ddbf757fe457d69fe6f8ed25953ffbee5a9ff81c14762de66ed3c0d4",
+      "embedded_sha256": "83c990f6c4e953d4111d18ee662dcf3a067056e4390a27d5f9039f1e6daf9a88"
+    },
+    {
+      "index": 4,
+      "size": [
+        512,
+        2048
+      ],
+      "rgba_sha256": "6ee94b6744afc7cb7641e5403d8b587716ce4cb82a188612e48f3f5dbce2f0f0",
+      "embedded_sha256": "9fa9a37d60cdbee12a44eb8a4c7623d73bfaa869c5b134e93d385f0338df53d1"
+    },
+    {
+      "index": 5,
+      "size": [
+        512,
+        2048
+      ],
+      "rgba_sha256": "af348f4b39f31fd68e7b2b0163d759561a5959375c22f1c5fee22581bd232540",
+      "embedded_sha256": "f5af316211bd769d28d194ea49b40f101a18ff69a3ed74104b50784febf1323a"
+    },
+    {
+      "index": 6,
+      "size": [
+        553,
+        129
+      ],
+      "rgba_sha256": "f2df30a1e0d7f23fe651937caa8742c1c6353e093cf5120210d0346d1506a2bc",
+      "embedded_sha256": "729a1af14f5b64428161b02c45b75ee06723840b0e006336bf81fe27d37466f1"
+    },
+    {
+      "index": 7,
+      "size": [
+        1745,
+        396
+      ],
+      "rgba_sha256": "59a25868c4be862ee2690cd37679ed152afed4ed988666c10bcfe1ce24ef7844",
+      "embedded_sha256": "3255e62f66dc9644a84e6eb570bd5af8bc9a2f03ddd08ade795b13c35a4d56e7"
+    },
+    {
+      "index": 8,
+      "size": [
+        163,
+        119
+      ],
+      "rgba_sha256": "2563d39556f1129d4d23734a16eb0e9f2716358c15bc079239d99f7c2523407c",
+      "embedded_sha256": "cdff8c5c91bca7bdec44e567679c103852c0e3067c48f0b2fd7a5d2b15751f70"
+    },
+    {
+      "index": 9,
+      "size": [
+        104,
+        41
+      ],
+      "rgba_sha256": "1b48037483cf0d3f946281ea1cf81073450edd52ea102ada14bdfd48adb4ffe2",
+      "embedded_sha256": "4740e8e9fed2d12c9ad1c99f7995ec6f012e7a44e038aa2dc5c896cb7126419d"
+    }
+  ],
+  "authorized_caudal_pixel_patch": null,
+  "protected_scope": "Every actual canonical partition except exact Caudal/Caudal_mesh fin ownership. Complete inventory computed from actual GLB; no self-reported omissions.",
+  "provenance": "Actual canonical bytes matched root release-inputs baseline and accepted release metadata before replacement; no retired historical model restored.",
+  "baseline_source_sha256": "b18ab48156d092383b8638961235ff938c0e9cbf1ae426460525bdf81c97c5cd",
+  "rig_semantic_signature": "ea4955877c666aa37d9dc83b0c1b2a14984d82363548d198849baa5bba19af58",
+  "native_animation_semantic_signature": "252c47789727f099f9453e8a9f4ba669b14f9bb9d03f0224827245fbb0432c2d"
+}

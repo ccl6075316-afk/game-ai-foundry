@@ -1,0 +1,95 @@
+{
+  "ok": true,
+  "scope": "Current canonical source/model identity and complete-domain input proof; no new physical gate or appearance acceptance.",
+  "species": "silver_arowana",
+  "source": {
+    "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/silver_arowana/fish.blend",
+    "sha256": "3de66d12937aa00209d7c651d29d109a10edc657ac9159c8e69baa836ba3bdb2"
+  },
+  "model": {
+    "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/silver_arowana.glb",
+    "sha256": "cf008adeaded905704861a232006a51c00dcffa0edc817fdc41858f7aa9b7a02"
+  },
+  "domain_sha256": "86b2b930f59081acf6028a827fb2114dcb3256435eddb792a908e2f498bcae3e",
+  "fins": [
+    {
+      "name": "Anal",
+      "source_vertices": 130,
+      "triangles": 256,
+      "complete_root_vertices": 72,
+      "all_current_source_fin_vertices_included": true,
+      "all_original_root_members_preserved": true,
+      "maximum_source_to_current_glb_error_native": 0.0,
+      "maximum_frozen_plan_to_current_root_error_native": 0.0,
+      "source_parameter_domain_not_inferred_from_current_color_uv": true
+    },
+    {
+      "name": "Caudal",
+      "source_vertices": 78,
+      "triangles": 152,
+      "complete_root_vertices": 14,
+      "all_current_source_fin_vertices_included": true,
+      "all_original_root_members_preserved": true,
+      "maximum_source_to_current_glb_error_native": 0.0,
+      "maximum_frozen_plan_to_current_root_error_native": 0.0,
+      "source_parameter_domain_not_inferred_from_current_color_uv": true
+    },
+    {
+      "name": "Dorsal",
+      "source_vertices": 120,
+      "triangles": 236,
+      "complete_root_vertices": 62,
+      "all_current_source_fin_vertices_included": true,
+      "all_original_root_members_preserved": true,
+      "maximum_source_to_current_glb_error_native": 0.0,
+      "maximum_frozen_plan_to_current_root_error_native": 0.0,
+      "source_parameter_domain_not_inferred_from_current_color_uv": true
+    },
+    {
+      "name": "Pectoral_left",
+      "source_vertices": 28,
+      "triangles": 52,
+      "complete_root_vertices": 6,
+      "all_current_source_fin_vertices_included": true,
+      "all_original_root_members_preserved": true,
+      "maximum_source_to_current_glb_error_native": 0.0,
+      "maximum_frozen_plan_to_current_root_error_native": 0.0,
+      "source_parameter_domain_not_inferred_from_current_color_uv": true
+    },
+    {
+      "name": "Pectoral_right",
+      "source_vertices": 28,
+      "triangles": 52,
+      "complete_root_vertices": 6,
+      "all_current_source_fin_vertices_included": true,
+      "all_original_root_members_preserved": true,
+      "maximum_source_to_current_glb_error_native": 0.0,
+      "maximum_frozen_plan_to_current_root_error_native": 0.0,
+      "source_parameter_domain_not_inferred_from_current_color_uv": true
+    },
+    {
+      "name": "Pelvic_left",
+      "source_vertices": 24,
+      "triangles": 44,
+      "complete_root_vertices": 6,
+      "all_current_source_fin_vertices_included": true,
+      "all_original_root_members_preserved": true,
+      "maximum_source_to_current_glb_error_native": 0.0,
+      "maximum_frozen_plan_to_current_root_error_native": 0.0,
+      "source_parameter_domain_not_inferred_from_current_color_uv": true
+    },
+    {
+      "name": "Pelvic_right",
+      "source_vertices": 24,
+      "triangles": 44,
+      "complete_root_vertices": 6,
+      "all_current_source_fin_vertices_included": true,
+      "all_original_root_members_preserved": true,
+      "maximum_source_to_current_glb_error_native": 0.0,
+      "maximum_frozen_plan_to_current_root_error_native": 0.0,
+      "source_parameter_domain_not_inferred_from_current_color_uv": true
+    }
+  ],
+  "original_unknowns_preserved": "Unknown original UV/baseline remains null (notably silver arowana). Existing native source t is authoritative.",
+  "producer_sha256": "58f3f94d432f12b857a7f37dc28ce7b04dda175b4c5ba4df7bd63c784debabe7"
+}

@@ -1,0 +1,84 @@
+{
+  "kind": "accepted_caudal_repair_material_bindings",
+  "species": "rainbow_trout",
+  "baseline_model_sha256": "21ada1433018b188f418695a1fa2b6106463395f0b2b1540c00b1b6774661554",
+  "part_material_bindings": [
+    {
+      "key": [
+        "Adipose_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Anal_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Caudal_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Closed_body",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Closed_body",
+        1
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Closed_body",
+        2
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Dorsal_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pectoral_left_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pectoral_right_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pelvic_left_mesh",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Pelvic_right_mesh",
+        0
+      ],
+      "material": 0
+    }
+  ]
+}

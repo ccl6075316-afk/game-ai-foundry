@@ -1,0 +1,79 @@
+{
+  "ok": true,
+  "kind": "scoped_caudal_contract_independent_adversarial_review",
+  "reviewer": "astra_root_binding_audit",
+  "implementation": [
+    {
+      "path": "cli/volume_repair_preservation.py",
+      "sha256": "fc3fcd8cd3bdd57ede655c0dca0740167627ed68afcfd6a3bccbe843180dfcda"
+    },
+    {
+      "path": "cli/volume_sop.py",
+      "sha256": "c52595ee4bfd3bc531a7dead7ea5c00d3b57a71612fcb87812a2c0c78d1a235b"
+    }
+  ],
+  "unit_test": {
+    "path": "cli/test_volume_repair_preservation.py",
+    "sha256": "4e8b69699c73be8c89c2c6882d9aee4002b84b1941582ccdb1fac739244c69be"
+  },
+  "unit_test_result": "test_actual_partition_material_swap_rejected (test_volume_repair_preservation.RepairPreservationTests.test_actual_partition_material_swap_rejected) ... ok\ntest_arbitrary_weight_exception_is_not_a_tolerance (test_volume_repair_preservation.RepairPreservationTests.test_arbitrary_weight_exception_is_not_a_tolerance) ... ok\ntest_complete_nearest_footprint_includes_triangle_interior (test_volume_repair_preservation.RepairPreservationTests.test_complete_nearest_footprint_includes_triangle_interior) ... ok\ntest_expanded_anatomical_scope_rejected (test_volume_repair_preservation.RepairPreservationTests.test_expanded_anatomical_scope_rejected) ... ok\ntest_helper_is_standard_bound (test_volume_repair_preservation.RepairPreservationTests.test_helper_is_standard_bound) ... ok\ntest_literal_material_defaults_are_semantically_equal (test_volume_repair_preservation.RepairPreservationTests.test_literal_material_defaults_are_semantically_equal) ... ok\ntest_new_asset_cannot_inherit (test_volume_repair_preservation.RepairPreservationTests.test_new_asset_cannot_inherit) ... ok\ntest_non_tail_normal_rebinding_rejected (test_volume_repair_preservation.RepairPreservationTests.test_non_tail_normal_rebinding_rejected) ... ok\ntest_non_tail_position_rebinding_rejected (test_volume_repair_preservation.RepairPreservationTests.test_non_tail_position_rebinding_rejected) ... ok\ntest_non_tail_uv_rebinding_rejected (test_volume_repair_preservation.RepairPreservationTests.test_non_tail_uv_rebinding_rejected) ... ok\ntest_omitted_protected_part_rejected (test_volume_repair_preservation.RepairPreservationTests.test_omitted_protected_part_rejected) ... ok\ntest_real_stream_baseline_passes (test_volume_repair_preservation.RepairPreservationTests.test_real_stream_baseline_passes) ... ok\ntest_semantic_sampler_change_rejected (test_volume_repair_preservation.RepairPreservationTests.test_semantic_sampler_change_rejected) ... ok\ntest_snapshot_cannot_self_omit_protected_part (test_volume_repair_preservation.RepairPreservationTests.test_snapshot_cannot_self_omit_protected_part) ... ok\ntest_unreviewed_extra_drawing_stream_rejected (test_volume_repair_preservation.RepairPreservationTests.test_unreviewed_extra_drawing_stream_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 15 tests in 0.061s\n\nOK",
+  "actual_positive": {
+    "report": {
+      "path": "projects/fishing-2d/plans/reviews/tail-repair-20261106/black_seabream/tail-volume.validation.json",
+      "sha256": "9999a5b9e8529c37f5380cc1934ab9a0d698bf2bdd67b79b0602e1fe0e1f1617"
+    },
+    "ledger": {
+      "path": "projects/fishing-2d/plans/reviews/tail-repair-20261106/black_seabream/production-review.json",
+      "sha256": "d9bbffcc14c2a3b7c3b6544c80b69b5c220b751f87ea5a2584e77d1453e4557c"
+    },
+    "preservation": {
+      "protected_parts": 9,
+      "exact_source_serialization_exception_parts": 0,
+      "actual_fin_inventory": [
+        "Anal_mesh",
+        "Caudal_mesh",
+        "Dorsal_mesh",
+        "Pectoral_left_mesh",
+        "Pectoral_right_mesh",
+        "Pelvic_left_mesh",
+        "Pelvic_right_mesh"
+      ],
+      "model_sha256": "bbeb71166d9deab84557865204fc81f0e913f8290d5dec90a2526620dd1053bd",
+      "baseline_model_sha256": "36922aa0769d17749e926a35bcb731f7d17a8236836b222c5c9a8d21011c4c43"
+    },
+    "tail_volume": {
+      "raw_extra_static_contact_pass": true,
+      "scope": "Affected tail only; original .5mm diagnostic retained"
+    }
+  },
+  "negative_controls": [
+    {
+      "case": "omit_fin_everywhere",
+      "rejected": true,
+      "reason": "Incomplete complete-fin physical pass"
+    },
+    {
+      "case": "omit_root_pose_fin",
+      "rejected": true,
+      "reason": "Root poses omit an actual fin"
+    },
+    {
+      "case": "relax_root_limit",
+      "rejected": true,
+      "reason": "Changed physical coverage/limits"
+    },
+    {
+      "case": "omit_membrane_pose_fin",
+      "rejected": true,
+      "reason": "Membrane poses omit an actual fin"
+    }
+  ],
+  "method": "Positive actual installed GLB first. Each negative independently deep-copies already hash-verified parsed reports and changes only the stated semantic field in memory, so rejection is by inventory/limits rather than stale file hash. No model, source, physical report or kernel was changed.",
+  "resolved_findings": [
+    "Protected primitive material bindings are independently bound to original accepted GLB material-index snapshots.",
+    "Unsupported extra vertex streams, primitive extensions and morph targets are rejected.",
+    "Changed shared-image protected UV footprints reject unsupported UV boundary/wrap domains.",
+    "Actual complete-fin inventory is required in both summaries and all 490 root and membrane poses."
+  ],
+  "scope": "Current 17-species Caudal repair contracts only; does not replace actual whole-fin or body physical gates."
+}

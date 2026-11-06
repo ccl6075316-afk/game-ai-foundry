@@ -1,0 +1,789 @@
+{
+  "kind": "accepted_caudal_repair_protected_snapshot",
+  "schema_version": 1,
+  "species": "nile_tilapia",
+  "baseline_model_sha256": "7b861cf5c2c154a3c6d5e693cf8e1e14fae9230b88fd229acbfc77c5ed5005c6",
+  "accepted_release": {
+    "path": "resources/volume-fish/nile-tilapia-final-20261103.json",
+    "sha256": "3d7aa5752ff56789551030a6b6553b9e92c39b4fdb04a20baa110581e918aca2"
+  },
+  "source_inventory": {
+    "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/release-inputs.json",
+    "sha256": "19a146043e6c65f241217aada6b9552eb70828e81aa09ddd5f34d50ff189e541",
+    "historical_capture_only_not_live_dependency": true
+  },
+  "part_inventory": [
+    {
+      "key": [
+        "Anal",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "72827865e00d84242b487a96fb05593e1e96e73885f3763af858e18616ed50ef",
+      "triangles": 106,
+      "canonical_directed_triangle_signature": "72827865e00d84242b487a96fb05593e1e96e73885f3763af858e18616ed50ef",
+      "geometry_uv_normal_signature": "a256fcf721e7ee99f13aa6ee017eb5258fa72b53e6844d68825e78151f96877e"
+    },
+    {
+      "key": [
+        "Caudal",
+        0
+      ],
+      "affected_caudal": true,
+      "directed_triangle_signature": "79d208510d6377bc869d2589ca18f5b8f0449e0a48db2dc7161f9c917c876fec",
+      "triangles": 206,
+      "canonical_directed_triangle_signature": "79d208510d6377bc869d2589ca18f5b8f0449e0a48db2dc7161f9c917c876fec",
+      "geometry_uv_normal_signature": "89f736fae07c8772c140a1d34ac48189e8877c3481e3bf191ee0178d8e08e269"
+    },
+    {
+      "key": [
+        "Closed_body_B",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "0b20cbf356404f1f4f125930abbd185e3162a14535c74f732791149776395a67",
+      "triangles": 840,
+      "canonical_directed_triangle_signature": "bbea1a432b0b7ce08a252786b1c840fcd683aab6519bfeb908f9cd9407379551",
+      "geometry_uv_normal_signature": "c6a0f5e5438722daa46f0d8e4cdd16020239aef6a99353e75eea633e7d4e2f4a"
+    },
+    {
+      "key": [
+        "Closed_body_B",
+        1
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "fdd7972953b57f41a4de8dc86b6ba2745efad701aab8cd1b4b5ad49ee65795d1",
+      "triangles": 64,
+      "canonical_directed_triangle_signature": "163c03ce3074b702f4cf714426d604a868323cece7f20a778032f5f1b0326d9b",
+      "geometry_uv_normal_signature": "6d0d1ffd838646ee6d956b22aeee83b9b1d2e97806acbe99c8152d043e60a949"
+    },
+    {
+      "key": [
+        "Dorsal",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "cad15eab46d0d4fee99134da943897fc2b6fb6997dafd8fc309a984a4b929f7b",
+      "triangles": 194,
+      "canonical_directed_triangle_signature": "cad15eab46d0d4fee99134da943897fc2b6fb6997dafd8fc309a984a4b929f7b",
+      "geometry_uv_normal_signature": "0ad6d05c0bbeffbac68135438c9ebe976f34d01dda6b6c7641e10a596408f2d0"
+    },
+    {
+      "key": [
+        "Pectoral_left",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "5d01b8f9735170a62ceef50436f01484414f6a71ef2259c8a9def1954b918312",
+      "triangles": 52,
+      "canonical_directed_triangle_signature": "5d01b8f9735170a62ceef50436f01484414f6a71ef2259c8a9def1954b918312",
+      "geometry_uv_normal_signature": "456c28ffe8a12d28dd9f81a80e83517a4de0bbc00c75e8f2a3d504227f0c289f"
+    },
+    {
+      "key": [
+        "Pectoral_right",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "9948623fba7b676ad9100a28cd2b8dedc5cbaccc495154d6c86d642c11f6b8ea",
+      "triangles": 52,
+      "canonical_directed_triangle_signature": "9948623fba7b676ad9100a28cd2b8dedc5cbaccc495154d6c86d642c11f6b8ea",
+      "geometry_uv_normal_signature": "7494f89dea4e21e8c6c524e3f2565ccdc039447528d29d41cf9fdf3ba4d46613"
+    },
+    {
+      "key": [
+        "Pelvic_left",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "a26586c61306a27669ecf8931038e88f3212142110884ab1fe8fa44cf5806556",
+      "triangles": 44,
+      "canonical_directed_triangle_signature": "a26586c61306a27669ecf8931038e88f3212142110884ab1fe8fa44cf5806556",
+      "geometry_uv_normal_signature": "f4053e6e1e6d6d0c93f998e5998db4759875c3dcccdec9b5fda300de1c7b4e74"
+    },
+    {
+      "key": [
+        "Pelvic_right",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "f37f0599aa26ce5212db2327fa715bcf12bb634928d2d9de5807c5588dadbee2",
+      "triangles": 44,
+      "canonical_directed_triangle_signature": "f37f0599aa26ce5212db2327fa715bcf12bb634928d2d9de5807c5588dadbee2",
+      "geometry_uv_normal_signature": "c893cf4ba7bc992f2f7b8ede226d25238268849cc840766ddac3179ea60b4bdc"
+    }
+  ],
+  "rig_rest_bind_signature": "442ee036666e195d09285c1c83d3f40b5c593191ebfe34650299604ef5e4ff36",
+  "native_animation_signature": "5cd80dd78f99445f107646b50f8d67a7ea57c6b399e41f2b1c066e2da59f748b",
+  "node_graph": [
+    {
+      "name": "Anal",
+      "parent": "nile_tilapia_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Anal_2",
+      "parent": "body_07",
+      "mesh": false,
+      "translation": [
+        0.005006047431379557,
+        0.01573461852967739,
+        -0.10775309801101685
+      ],
+      "rotation": [
+        -0.17904476821422577,
+        0.18081922829151154,
+        -0.04227579012513161,
+        0.9661574363708496
+      ],
+      "scale": [
+        0.9999999403953552,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "Body-only side reference",
+      "parent": null,
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0.7071068286895752,
+        0,
+        0,
+        0.7071068286895752
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Caudal",
+      "parent": "nile_tilapia_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Caudal_2",
+      "parent": "body_09",
+      "mesh": false,
+      "translation": [
+        7.964295889451023e-09,
+        0.012000054121017456,
+        -0.0003498938458506018
+      ],
+      "rotation": [
+        0.32932138442993164,
+        -0.32932141423225403,
+        -0.1237720400094986,
+        0.8762279152870178
+      ],
+      "scale": [
+        1.0000001192092896,
+        1,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "Closed_body_B",
+      "parent": "nile_tilapia_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal",
+      "parent": "nile_tilapia_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal_2",
+      "parent": "body_06",
+      "mesh": false,
+      "translation": [
+        0.00891233142465353,
+        -0.01715479977428913,
+        0.1483190357685089
+      ],
+      "rotation": [
+        0.001158547936938703,
+        -0.0011589210480451584,
+        -4.0069939132081345e-05,
+        0.9999986290931702
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_left",
+      "parent": "nile_tilapia_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_left_2",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        -0.044875986874103546,
+        0.0016520103672519326,
+        -0.0694003775715828
+      ],
+      "rotation": [
+        0.09144443273544312,
+        -0.08998806029558182,
+        0.08571779727935791,
+        0.9880245327949524
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_right",
+      "parent": "nile_tilapia_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_right_2",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        0.04251370579004288,
+        0.0016520218923687935,
+        -0.07087209075689316
+      ],
+      "rotation": [
+        0.0726412758231163,
+        -0.07435085624456406,
+        -0.10214129835367203,
+        0.989324152469635
+      ],
+      "scale": [
+        1,
+        1.0000001192092896,
+        1
+      ]
+    },
+    {
+      "name": "Pelvic_left",
+      "parent": "nile_tilapia_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pelvic_left_2",
+      "parent": "body_03",
+      "mesh": false,
+      "translation": [
+        -0.02385365031659603,
+        0.021086135879158974,
+        -0.1512736827135086
+      ],
+      "rotation": [
+        -0.4297943413257599,
+        0.42983531951904297,
+        -0.017879879102110863,
+        0.7938506007194519
+      ],
+      "scale": [
+        0.9999999403953552,
+        1,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "Pelvic_right",
+      "parent": "nile_tilapia_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pelvic_right_2",
+      "parent": "body_03",
+      "mesh": false,
+      "translation": [
+        0.02456611953675747,
+        0.021086186170578003,
+        -0.15115965902805328
+      ],
+      "rotation": [
+        -0.30000439286231995,
+        0.30072978138923645,
+        -0.30828601121902466,
+        0.8511866331100464
+      ],
+      "scale": [
+        0.9999998807907104,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_00",
+      "parent": "root",
+      "mesh": false,
+      "translation": [
+        0.4500000774860382,
+        -0.003717482089996338,
+        2.221255357426344e-08
+      ],
+      "rotation": [
+        -0.4660605788230896,
+        0.49884679913520813,
+        0.4988468587398529,
+        0.5339393615722656
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_01",
+      "parent": "body_00",
+      "mesh": false,
+      "translation": [
+        5.975913097699959e-10,
+        0.08786942809820175,
+        -1.3743008953071012e-09
+      ],
+      "rotation": [
+        0.0009358061361126602,
+        -0.0009378865943290293,
+        -6.454622780438513e-05,
+        0.9999991059303284
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "body_02",
+      "parent": "body_01",
+      "mesh": false,
+      "translation": [
+        1.3437073675959255e-10,
+        0.0878807008266449,
+        -2.630369255740561e-09
+      ],
+      "rotation": [
+        -0.026456082239747047,
+        0.02647162787616253,
+        0.0011468802113085985,
+        0.9992987513542175
+      ],
+      "scale": [
+        0.9999998807907104,
+        0.9999999403953552,
+        1.0000001192092896
+      ]
+    },
+    {
+      "name": "body_03",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        3.717559593496844e-11,
+        0.08767910301685333,
+        6.412633757335584e-10
+      ],
+      "rotation": [
+        -0.009597097523510456,
+        0.00959691870957613,
+        6.950018723728135e-05,
+        0.999907910823822
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_04",
+      "parent": "body_03",
+      "mesh": false,
+      "translation": [
+        -3.54489770870714e-11,
+        0.08766697347164154,
+        -3.7153810583667735e-10
+      ],
+      "rotation": [
+        -0.009279606863856316,
+        0.009279881604015827,
+        -0.00010798595030792058,
+        0.9999138712882996
+      ],
+      "scale": [
+        1,
+        1,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "body_05",
+      "parent": "body_04",
+      "mesh": false,
+      "translation": [
+        8.704148513061227e-12,
+        0.08768585324287415,
+        -7.281668601422098e-10
+      ],
+      "rotation": [
+        0.027073761448264122,
+        -0.02706436812877655,
+        -0.00016680163389537483,
+        0.9992669820785522
+      ],
+      "scale": [
+        0.9999999403953552,
+        0.9999998807907104,
+        1
+      ]
+    },
+    {
+      "name": "body_06",
+      "parent": "body_05",
+      "mesh": false,
+      "translation": [
+        -1.3535839116229909e-10,
+        0.08771508187055588,
+        -3.386175784214629e-10
+      ],
+      "rotation": [
+        0.013316341675817966,
+        -0.013329564593732357,
+        -0.0006205838872119784,
+        0.9998223185539246
+      ],
+      "scale": [
+        0.9999999403953552,
+        1,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "body_07",
+      "parent": "body_06",
+      "mesh": false,
+      "translation": [
+        -3.0475177936750697e-10,
+        0.08782428503036499,
+        -5.370338840293698e-09
+      ],
+      "rotation": [
+        -0.053214170038700104,
+        0.05313992500305176,
+        0.0003544286300893873,
+        0.9971681237220764
+      ],
+      "scale": [
+        1,
+        1.0000001192092896,
+        1
+      ]
+    },
+    {
+      "name": "body_08",
+      "parent": "body_07",
+      "mesh": false,
+      "translation": [
+        2.5481483589828713e-10,
+        0.08776172995567322,
+        7.402158885838617e-10
+      ],
+      "rotation": [
+        -0.02539202943444252,
+        0.025449853390455246,
+        -0.0018324385164305568,
+        0.9993518590927124
+      ],
+      "scale": [
+        0.9999998807907104,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "body_09",
+      "parent": "body_08",
+      "mesh": false,
+      "translation": [
+        -6.14363671047613e-10,
+        0.08808506280183792,
+        2.0110704213038844e-09
+      ],
+      "rotation": [
+        0.048673707991838455,
+        -0.04867367073893547,
+        0.002374771051108837,
+        0.9976252317428589
+      ],
+      "scale": [
+        0.9999998807907104,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "nile_tilapia_Rig",
+      "parent": null,
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "root",
+      "parent": "nile_tilapia_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        -8.557136332854043e-09,
+        2.4203238524478365e-08,
+        -4.1422081642662626e-16,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "alphaMode": "MASK",
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Packed fish native pixels",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 1
+      },
+      "alphaCutoff": 0.5,
+      "doubleSided": false
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9728,
+      "minFilter": 9728,
+      "wrapS": 33071,
+      "wrapT": 33071
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "size": [
+        2048,
+        2048
+      ],
+      "rgba_sha256": "3fbccd287418a341a69a6fb70e08b6290898e13bc4d3aca2c2fbec233d7f8b4f",
+      "embedded_sha256": "b1bf5462c1ceadd10e98df0c661b27e2fc25588406cdaf3ffad9804c4d3c8eff",
+      "baseline_pixels": {
+        "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/images/b1bf5462c1ceadd10e98df0c661b27e2fc25588406cdaf3ffad9804c4d3c8eff.png",
+        "sha256": "b1bf5462c1ceadd10e98df0c661b27e2fc25588406cdaf3ffad9804c4d3c8eff"
+      }
+    }
+  ],
+  "authorized_caudal_pixel_patch": {
+    "image_index": 0,
+    "baseline_size": [
+      2048,
+      2048
+    ],
+    "permitted_size": [
+      2048,
+      2048
+    ],
+    "allowed_rectangle": [
+      1374,
+      1485,
+      142,
+      507
+    ],
+    "mask": {
+      "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/nile_tilapia-tissue-edit-mask.png",
+      "sha256": "4af0992452dba2e10574330197a9f33f2e53878072e279f1320048f5b88ecf5e"
+    },
+    "measured_authorization": {
+      "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/nile_tilapia-tissue-authority.json",
+      "sha256": "a92d703b3b51fef8f01fa08e75d2e544bf7dd872c6a1a21123f9a65523e65db8"
+    },
+    "historical_paths_inside_authority_are_provenance_only": true,
+    "expected_patched_rgba_sha256": "523fafa24bb05badc681d735f03b7b68492b78721b54088199951d25f2843360"
+  },
+  "protected_scope": "Every actual canonical partition except exact Caudal/Caudal_mesh fin ownership. Complete inventory computed from actual GLB; no self-reported omissions.",
+  "provenance": "Actual canonical bytes matched root release-inputs baseline and accepted release metadata before replacement; no retired historical model restored.",
+  "baseline_source_sha256": "b1339d45cf3c8e0bbd64d16f49532bf8b55b613106875c8b82e054108e1bd4be",
+  "rig_semantic_signature": "76a03fd3b56ec824379492de3f471210ec03bdf23fb7c79257e8efc989d0776e",
+  "native_animation_semantic_signature": "dd2fdf1bd78c255e47d887dcd052b542046a7e4b4cf03b424d5c49ee01003159"
+}

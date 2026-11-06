@@ -1,0 +1,193 @@
+{
+  "kind": "historical_canonical_identity_inventory",
+  "scope": "Identity only: original canonical paths now contain installed current fish. Old hashes identify historical baselines; no claim that old bytes remain at those paths.",
+  "fish": [
+    {
+      "species": "black_seabream",
+      "source": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/black_seabream/fish.blend",
+        "sha256": "f8e84b15b3521f7b8765d25335db403b5a6fb853d1cb3f634556a2c623820cd2"
+      },
+      "model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/black_seabream.glb",
+        "sha256": "36922aa0769d17749e926a35bcb731f7d17a8236836b222c5c9a8d21011c4c43"
+      }
+    },
+    {
+      "species": "red_seabream",
+      "source": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/red_seabream/fish.blend",
+        "sha256": "7b381777fb5f1be3fc436ad22e9fd1057781b90fb3ff486e43f4c98a4d22ebee"
+      },
+      "model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/red_seabream.glb",
+        "sha256": "86e10fcaae8f3a0268f3afa7ca73caf550746fdf50d9c5d40467df59fd1d18f1"
+      }
+    },
+    {
+      "species": "piranha",
+      "source": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/piranha/fish.blend",
+        "sha256": "285fe85139fc6868776c3745006badb353e5f6b3fc12e7f48672c92d0961c666"
+      },
+      "model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/piranha.glb",
+        "sha256": "fb2ab1899686f70b99056b9776b5e4184dd929926e7a4bf8d9e488c8e98b7438"
+      }
+    },
+    {
+      "species": "mahi_mahi",
+      "source": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/mahi_mahi/fish.blend",
+        "sha256": "5a2155ce0d567caa69d15b15a7afe13d491975ed11352a38dda3e220c7d70f55"
+      },
+      "model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/mahi_mahi.glb",
+        "sha256": "3fc100704119caf59ce4f15450f52527e663c2f9d5541d8a6dcf5db3ddcb763b"
+      }
+    },
+    {
+      "species": "yellow_croaker",
+      "source": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/yellow_croaker/fish.blend",
+        "sha256": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38"
+      },
+      "model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/yellow_croaker.glb",
+        "sha256": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730"
+      }
+    },
+    {
+      "species": "atlantic_salmon",
+      "source": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/atlantic_salmon/fish.blend",
+        "sha256": "321e12925299eee714db9a6c4b30ada3eafb008a777e31a63fbe8d5b35adda4a"
+      },
+      "model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/atlantic_salmon.glb",
+        "sha256": "535657192a3517290f5bf96f9abe740cc0e120b1a82eee72c686f7bb4141d466"
+      }
+    },
+    {
+      "species": "red_emperor",
+      "source": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/red_emperor/fish.blend",
+        "sha256": "71911119ee86ebf0d34b5bef64f99f35ff7c851fbad801beb007b792d89d7020"
+      },
+      "model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/red_emperor.glb",
+        "sha256": "0b7a766d7490715cd4245405e1951ddc8ade738da4997dde890c0373d88d9084"
+      }
+    },
+    {
+      "species": "silver_arowana",
+      "source": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/silver_arowana/fish.blend",
+        "sha256": "06c4bf27846cdbc634be1953590b5a865a4c602d0e68f63a26d7f8cc1151b936"
+      },
+      "model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/silver_arowana.glb",
+        "sha256": "c40dd8db8d18db24a9d3b6c8672d8a9bf34bdefb309a8e7f9874a928478f0a71"
+      }
+    },
+    {
+      "species": "arapaima",
+      "source": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/arapaima/fish.blend",
+        "sha256": "b18ab48156d092383b8638961235ff938c0e9cbf1ae426460525bdf81c97c5cd"
+      },
+      "model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/arapaima.glb",
+        "sha256": "e540c264bf6d784504a3e098a92881a7b562602c5256f3c3e333f3371432e37a"
+      }
+    },
+    {
+      "species": "peacock_bass",
+      "source": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/peacock_bass/fish.blend",
+        "sha256": "82c8bf589f29c38287af91d34b1dab0dc90238ea967f14f5b5a489978e2f4f7e"
+      },
+      "model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/peacock_bass.glb",
+        "sha256": "02ee71055093b5d9ebc3b041603f5d808cf8de39266071a4be71d38079425bdd"
+      }
+    },
+    {
+      "species": "carp",
+      "source": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/carp/fish.blend",
+        "sha256": "ab5880faa264a4bd439af9ab526db425e144eede883e48e58838645848f21ee9"
+      },
+      "model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/carp.glb",
+        "sha256": "cc6739b60ac82d4118a567e989b97e3bd31ef2a1e1a54ca7abbdbe21d61d1ce3"
+      }
+    },
+    {
+      "species": "nile_tilapia",
+      "source": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/nile_tilapia/fish.blend",
+        "sha256": "b1339d45cf3c8e0bbd64d16f49532bf8b55b613106875c8b82e054108e1bd4be"
+      },
+      "model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/nile_tilapia.glb",
+        "sha256": "7b861cf5c2c154a3c6d5e693cf8e1e14fae9230b88fd229acbfc77c5ed5005c6"
+      }
+    },
+    {
+      "species": "sea_bass",
+      "source": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/sea_bass/fish.blend",
+        "sha256": "80c23443f1b2afa9bafa2b81bb37f3069df2fe7d60eebb0d2e0d402fc7b6ae19"
+      },
+      "model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/sea_bass.glb",
+        "sha256": "4683886f983b60b6f216a4d77ce15157dbb584317047c5bba6f8612a49fadcef"
+      }
+    },
+    {
+      "species": "rainbow_trout",
+      "source": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/rainbow_trout/fish.blend",
+        "sha256": "ef2b79c971dab6b9c9eaf85060819ee39ec4f544948eb09a74916c2985b98d03"
+      },
+      "model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/rainbow_trout.glb",
+        "sha256": "21ada1433018b188f418695a1fa2b6106463395f0b2b1540c00b1b6774661554"
+      }
+    },
+    {
+      "species": "pacific_bluefin_tuna",
+      "source": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "c250664c8700472d4d6d424a7e7d2e3b9119fcf553345ec30134feffc01f9115"
+      },
+      "model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/pacific_bluefin_tuna.glb",
+        "sha256": "1cd673adbd16fdf8bffc1252093a5a9fbb09891144228cc4cb67c83fa8adadfc"
+      }
+    },
+    {
+      "species": "zander",
+      "source": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/zander/fish.blend",
+        "sha256": "a3486d9be217b4cc68ffc24c0d246c11d48fa0edaf809f1699508b0bc5ae1965"
+      },
+      "model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/zander.glb",
+        "sha256": "7f169be9a2e3ebeeeed35a4883ee1f92dc41fbd3d1d14e51e8117616c4a9ccb5"
+      }
+    },
+    {
+      "species": "african_catfish",
+      "source": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/african_catfish/fish.blend",
+        "sha256": "17c2e025d8667720428f3a144571db13f6204a75ffbfdf24a507b68f8b130f9d"
+      },
+      "model": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/african_catfish.glb",
+        "sha256": "0be4ad46a8d9102631a9ffc5819c4e0e0c3df5afdf3776741b1466b16d351d02"
+      }
+    }
+  ]
+}

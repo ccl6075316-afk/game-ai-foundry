@@ -1,0 +1,210 @@
+{
+  "kind": "accepted_caudal_repair_material_bindings",
+  "species": "pacific_bluefin_tuna",
+  "baseline_model_sha256": "1cd673adbd16fdf8bffc1252093a5a9fbb09891144228cc4cb67c83fa8adadfc",
+  "part_material_bindings": [
+    {
+      "key": [
+        "Anal",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Anal_finlet_01",
+        0
+      ],
+      "material": 1
+    },
+    {
+      "key": [
+        "Anal_finlet_02",
+        0
+      ],
+      "material": 2
+    },
+    {
+      "key": [
+        "Anal_finlet_03",
+        0
+      ],
+      "material": 3
+    },
+    {
+      "key": [
+        "Anal_finlet_04",
+        0
+      ],
+      "material": 4
+    },
+    {
+      "key": [
+        "Anal_finlet_05",
+        0
+      ],
+      "material": 5
+    },
+    {
+      "key": [
+        "Anal_finlet_06",
+        0
+      ],
+      "material": 6
+    },
+    {
+      "key": [
+        "Anal_finlet_07",
+        0
+      ],
+      "material": 7
+    },
+    {
+      "key": [
+        "Anal_finlet_08",
+        0
+      ],
+      "material": 8
+    },
+    {
+      "key": [
+        "Caudal",
+        0
+      ],
+      "material": 9
+    },
+    {
+      "key": [
+        "Closed_body",
+        0
+      ],
+      "material": 10
+    },
+    {
+      "key": [
+        "Closed_body",
+        1
+      ],
+      "material": 11
+    },
+    {
+      "key": [
+        "Closed_body",
+        2
+      ],
+      "material": 12
+    },
+    {
+      "key": [
+        "Dorsal_finlet_01",
+        0
+      ],
+      "material": 13
+    },
+    {
+      "key": [
+        "Dorsal_finlet_02",
+        0
+      ],
+      "material": 14
+    },
+    {
+      "key": [
+        "Dorsal_finlet_03",
+        0
+      ],
+      "material": 15
+    },
+    {
+      "key": [
+        "Dorsal_finlet_04",
+        0
+      ],
+      "material": 16
+    },
+    {
+      "key": [
+        "Dorsal_finlet_05",
+        0
+      ],
+      "material": 17
+    },
+    {
+      "key": [
+        "Dorsal_finlet_06",
+        0
+      ],
+      "material": 18
+    },
+    {
+      "key": [
+        "Dorsal_finlet_07",
+        0
+      ],
+      "material": 19
+    },
+    {
+      "key": [
+        "Dorsal_finlet_08",
+        0
+      ],
+      "material": 20
+    },
+    {
+      "key": [
+        "Dorsal_first",
+        0
+      ],
+      "material": 21
+    },
+    {
+      "key": [
+        "Dorsal_second",
+        0
+      ],
+      "material": 22
+    },
+    {
+      "key": [
+        "Eye_relief112_-1_0",
+        0
+      ],
+      "material": 23
+    },
+    {
+      "key": [
+        "Eye_relief112_1_0",
+        0
+      ],
+      "material": 24
+    },
+    {
+      "key": [
+        "Pectoral_left",
+        0
+      ],
+      "material": 25
+    },
+    {
+      "key": [
+        "Pectoral_right",
+        0
+      ],
+      "material": 25
+    },
+    {
+      "key": [
+        "Pelvic_left",
+        0
+      ],
+      "material": 26
+    },
+    {
+      "key": [
+        "Pelvic_right",
+        0
+      ],
+      "material": 26
+    }
+  ]
+}

@@ -1,0 +1,2739 @@
+{
+  "kind": "accepted_caudal_repair_protected_snapshot",
+  "schema_version": 1,
+  "species": "pacific_bluefin_tuna",
+  "baseline_model_sha256": "1cd673adbd16fdf8bffc1252093a5a9fbb09891144228cc4cb67c83fa8adadfc",
+  "accepted_release": {
+    "path": "resources/volume-fish/fish-shape-repair-20261105.json",
+    "sha256": "b9f645de48c540d14acdf2819d66626c47384a1ba972faf5c7546f1c0bc11893"
+  },
+  "source_inventory": {
+    "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/release-inputs.json",
+    "sha256": "19a146043e6c65f241217aada6b9552eb70828e81aa09ddd5f34d50ff189e541",
+    "historical_capture_only_not_live_dependency": true
+  },
+  "part_inventory": [
+    {
+      "key": [
+        "Anal",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "668a35bb7d7facc09bbdfc40b35ad50e068105790206e01736267a6fd615fe72",
+      "triangles": 116,
+      "canonical_directed_triangle_signature": "668a35bb7d7facc09bbdfc40b35ad50e068105790206e01736267a6fd615fe72",
+      "geometry_uv_normal_signature": "ffeda123a95f4a51e2fd820a9ca08260b1d940b854533ae6177e6ab7ecf467b2"
+    },
+    {
+      "key": [
+        "Anal_finlet_01",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "e20e0728660b4f36f94a577edf093ae39f2f4dd27b4e71c27047ad2a80a01728",
+      "triangles": 64,
+      "canonical_directed_triangle_signature": "e20e0728660b4f36f94a577edf093ae39f2f4dd27b4e71c27047ad2a80a01728",
+      "geometry_uv_normal_signature": "4a71e5e890e9ce2bb7d3f2bfd54b7e8d1deb3f93ee48d8360d9e9894c535cc61"
+    },
+    {
+      "key": [
+        "Anal_finlet_02",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "ad279366fffb7a830a86cd3cae18dd7775e4c288a330aabf604167960b741c5d",
+      "triangles": 88,
+      "canonical_directed_triangle_signature": "ad279366fffb7a830a86cd3cae18dd7775e4c288a330aabf604167960b741c5d",
+      "geometry_uv_normal_signature": "e148865534a987aa0ae4560c9584f4ca64e602d49b778bcf6db85e73667672c0"
+    },
+    {
+      "key": [
+        "Anal_finlet_03",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "98f988732d57c284e961e476478b7012e392a951d05b61784c903757456650db",
+      "triangles": 90,
+      "canonical_directed_triangle_signature": "98f988732d57c284e961e476478b7012e392a951d05b61784c903757456650db",
+      "geometry_uv_normal_signature": "f7de91319130ad68814a0155d25693c3eb16db66c134b801ffbd3bc2674d4b9f"
+    },
+    {
+      "key": [
+        "Anal_finlet_04",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "9b3bd319eca6ce5d3d722387ce1e0759c27649dda3a640f4b67ef2570cdf411f",
+      "triangles": 80,
+      "canonical_directed_triangle_signature": "9b3bd319eca6ce5d3d722387ce1e0759c27649dda3a640f4b67ef2570cdf411f",
+      "geometry_uv_normal_signature": "598115763360d7820f244e425b5217603df398139d2503c5231b4a11548f84ba"
+    },
+    {
+      "key": [
+        "Anal_finlet_05",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "61362bfe010b89bd4e81b96f6ab743c8d938ffcfd5d246fe38d2d2d4b402304e",
+      "triangles": 72,
+      "canonical_directed_triangle_signature": "61362bfe010b89bd4e81b96f6ab743c8d938ffcfd5d246fe38d2d2d4b402304e",
+      "geometry_uv_normal_signature": "afccb341a8e8be46433f354a12e2f36c36571e24a81294d21236511a292283e6"
+    },
+    {
+      "key": [
+        "Anal_finlet_06",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "6c4e66f868dc02879994a4f037d3a19e4f6fd218e48c66e158539c9c0ba2aa16",
+      "triangles": 108,
+      "canonical_directed_triangle_signature": "6c4e66f868dc02879994a4f037d3a19e4f6fd218e48c66e158539c9c0ba2aa16",
+      "geometry_uv_normal_signature": "909c21eff9b6ea373648550d13657b8051cf2eb55114f0c389bbd7d970256219"
+    },
+    {
+      "key": [
+        "Anal_finlet_07",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "bcc46ffb6400bbdf1cd901988326f0e88a3ff4ca8aaea0bfcfe5dfa8cbc58d0b",
+      "triangles": 84,
+      "canonical_directed_triangle_signature": "bcc46ffb6400bbdf1cd901988326f0e88a3ff4ca8aaea0bfcfe5dfa8cbc58d0b",
+      "geometry_uv_normal_signature": "099c6c6765b162a7ef01d583f1e430e3c892d0978d8ae3cf093bf28a90bdf2ec"
+    },
+    {
+      "key": [
+        "Anal_finlet_08",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "764813b3d88918a54d97c126213c0065542c62dfc082a71856ec4a95d95eba69",
+      "triangles": 100,
+      "canonical_directed_triangle_signature": "764813b3d88918a54d97c126213c0065542c62dfc082a71856ec4a95d95eba69",
+      "geometry_uv_normal_signature": "7810c0da399b9dc2cf60047a9eb87a8bfd12d097da2f34759729eca565a757b5"
+    },
+    {
+      "key": [
+        "Caudal",
+        0
+      ],
+      "affected_caudal": true,
+      "directed_triangle_signature": "8c0ff772c272e5f3088cad7a7d28f0e55e7c41ffafc42ace54bed92d25a81b8b",
+      "triangles": 96,
+      "canonical_directed_triangle_signature": "8c0ff772c272e5f3088cad7a7d28f0e55e7c41ffafc42ace54bed92d25a81b8b",
+      "geometry_uv_normal_signature": "9383ee379a35cbf59c75a1ba580be70da9e1fd71379ecd0694eaf86ebf7204cc"
+    },
+    {
+      "key": [
+        "Closed_body",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "5c958cf9c523c7febbe227a19e2b9f5f33d671b79eed019a2451855f3ec08bb3",
+      "triangles": 98,
+      "canonical_directed_triangle_signature": "5c958cf9c523c7febbe227a19e2b9f5f33d671b79eed019a2451855f3ec08bb3",
+      "geometry_uv_normal_signature": "b00eb8142be5bcfab736f724a8cf1b14949ff53aa3e1d925a453d50792305056"
+    },
+    {
+      "key": [
+        "Closed_body",
+        1
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "e0f2b4e2d1427ea49fdd7397900260d9b86a4351a8535af3d7617c4fc2b8750e",
+      "triangles": 1584,
+      "canonical_directed_triangle_signature": "4d2025017ef134bae0a600705b585860ae9b007a7caca2a027b94ed98ce3a238",
+      "geometry_uv_normal_signature": "3a0c41c80ddf2bf95c33ec15e60dd7f7bb4ae4118fad31933405f999feb273bf"
+    },
+    {
+      "key": [
+        "Closed_body",
+        2
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "a3a26d28473e83972dd476a2ee785a5d3e70868482310a391a18231f0ad010ca",
+      "triangles": 52,
+      "canonical_directed_triangle_signature": "9a0293e11f817a78967ba8bb10d9a219c5fa701fee1973a741bd5bcffda83b7c",
+      "geometry_uv_normal_signature": "d33548a2552b06152638d0b35845e93f30346e198b92e9ae03d8cf7297e87c48"
+    },
+    {
+      "key": [
+        "Dorsal_finlet_01",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "051ffa35788dd4c1505eda58be64db5a42cfbf9977f10a39cf15ad9bca7a57a8",
+      "triangles": 64,
+      "canonical_directed_triangle_signature": "051ffa35788dd4c1505eda58be64db5a42cfbf9977f10a39cf15ad9bca7a57a8",
+      "geometry_uv_normal_signature": "874d09270709a638c6241227223fd19dbc37808e5ea550e52677ac4468d96c71"
+    },
+    {
+      "key": [
+        "Dorsal_finlet_02",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "8f1ffa8efc750d4666f1ac7b82d9cad6503284847c669b1eabac0750a6b4b83b",
+      "triangles": 104,
+      "canonical_directed_triangle_signature": "8f1ffa8efc750d4666f1ac7b82d9cad6503284847c669b1eabac0750a6b4b83b",
+      "geometry_uv_normal_signature": "4795e412caebfc84c6f5814adef76f9a656b2ef7fd91c251da0eb3b9aa60f02e"
+    },
+    {
+      "key": [
+        "Dorsal_finlet_03",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "1af0e9e65ec418d2f1ed6ad4805d9daa01f58692d892bc84f02970cf44988853",
+      "triangles": 128,
+      "canonical_directed_triangle_signature": "1af0e9e65ec418d2f1ed6ad4805d9daa01f58692d892bc84f02970cf44988853",
+      "geometry_uv_normal_signature": "ea5161d33574ff70618ef54d74ab3811c42427cd0b3b12c7260dd562e09fe9be"
+    },
+    {
+      "key": [
+        "Dorsal_finlet_04",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "812123f7d31265e4c50668798ba16a8fc4ab73335dc2ec00ff9750d78d8cea74",
+      "triangles": 98,
+      "canonical_directed_triangle_signature": "812123f7d31265e4c50668798ba16a8fc4ab73335dc2ec00ff9750d78d8cea74",
+      "geometry_uv_normal_signature": "724a8a49052c3c0a8273ddde6ab40e43e53ceb39255bbc17bc86ea7c8f9366c8"
+    },
+    {
+      "key": [
+        "Dorsal_finlet_05",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "1b43577c5bc0e4c504d76b7a23b468a7fe56a3bae9b63bcda5a934fdaf0da975",
+      "triangles": 92,
+      "canonical_directed_triangle_signature": "1b43577c5bc0e4c504d76b7a23b468a7fe56a3bae9b63bcda5a934fdaf0da975",
+      "geometry_uv_normal_signature": "b963dff3fda70067c8cdae98625110f37f1b6567d50fddf10eda4237f80a5f66"
+    },
+    {
+      "key": [
+        "Dorsal_finlet_06",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "a27858ab59c1d0ef7c8ec35ac031c4cf9bd964874a847c64806a9df90adfa58f",
+      "triangles": 84,
+      "canonical_directed_triangle_signature": "a27858ab59c1d0ef7c8ec35ac031c4cf9bd964874a847c64806a9df90adfa58f",
+      "geometry_uv_normal_signature": "26ba9fbd4179a5009ecd152948230d11f7906427f8d7e8dcf2355d95c2707b33"
+    },
+    {
+      "key": [
+        "Dorsal_finlet_07",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "b180c6ade989128c83cd4cca96f75b077da68a13cdf8846c2ba9672abaaae865",
+      "triangles": 92,
+      "canonical_directed_triangle_signature": "b180c6ade989128c83cd4cca96f75b077da68a13cdf8846c2ba9672abaaae865",
+      "geometry_uv_normal_signature": "21285fa04ae5f807b74bcdae3ac4d999be8b8928103320337b2e3b5e35941e5e"
+    },
+    {
+      "key": [
+        "Dorsal_finlet_08",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "07f38273a0a947ea4ccdc943af3cf64c992fb85b44c81dcfb3cced424fa9eef2",
+      "triangles": 88,
+      "canonical_directed_triangle_signature": "07f38273a0a947ea4ccdc943af3cf64c992fb85b44c81dcfb3cced424fa9eef2",
+      "geometry_uv_normal_signature": "8e5c42446ee55e9d6e817f1a52c12bdb65c7b4f8a70fdd660e192ad020129986"
+    },
+    {
+      "key": [
+        "Dorsal_first",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "b7e4b647c6e6f271f5640596352ed0f5b9f186eb9731f9138b771ed11aa1881b",
+      "triangles": 60,
+      "canonical_directed_triangle_signature": "b7e4b647c6e6f271f5640596352ed0f5b9f186eb9731f9138b771ed11aa1881b",
+      "geometry_uv_normal_signature": "de1e542d3ebe835e1d33459ec738aafa575612906fcea9005ee880bef2bf815e"
+    },
+    {
+      "key": [
+        "Dorsal_second",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "7d9228abd7d3d9d08b93b6b7f4b66e2bff1dc908613d8218737f1a41ebd065e9",
+      "triangles": 86,
+      "canonical_directed_triangle_signature": "7d9228abd7d3d9d08b93b6b7f4b66e2bff1dc908613d8218737f1a41ebd065e9",
+      "geometry_uv_normal_signature": "3de3bad0c07a86cf3ad74550f885da0f8282ab819743036a25106c3735111436"
+    },
+    {
+      "key": [
+        "Eye_relief112_-1_0",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "00b893a37de1bb18af42cc8254a62de7782f87b2f8840902b2a565caa495fcb0",
+      "triangles": 88,
+      "canonical_directed_triangle_signature": "00b893a37de1bb18af42cc8254a62de7782f87b2f8840902b2a565caa495fcb0",
+      "geometry_uv_normal_signature": "e88c7310cca98490448a44654ce477790701ab24d783635a027862a8e85b9c59"
+    },
+    {
+      "key": [
+        "Eye_relief112_1_0",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "9c9ceeb8708962cb8bff9e8b78fcc627921b456452050f13d88c60ba6b453626",
+      "triangles": 88,
+      "canonical_directed_triangle_signature": "9c9ceeb8708962cb8bff9e8b78fcc627921b456452050f13d88c60ba6b453626",
+      "geometry_uv_normal_signature": "f3d0906b19a767c64e913f0ac12850b8ee772000b77d1eddb652ce59aca20fe3"
+    },
+    {
+      "key": [
+        "Pectoral_left",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "f2795e8b6b7ba395952d9b60f598fcdc7cc58956849a66d3dd7ebdc989e340c0",
+      "triangles": 94,
+      "canonical_directed_triangle_signature": "f2795e8b6b7ba395952d9b60f598fcdc7cc58956849a66d3dd7ebdc989e340c0",
+      "geometry_uv_normal_signature": "00d688efb8196a39ae9c7fd888cd54ac8bad089264ea3c10fe35c75db6252aa7"
+    },
+    {
+      "key": [
+        "Pectoral_right",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "a1cece1b1f90ef36dbd788d667caf5a345beceae82f688d2d46128b53e669ab0",
+      "triangles": 94,
+      "canonical_directed_triangle_signature": "a1cece1b1f90ef36dbd788d667caf5a345beceae82f688d2d46128b53e669ab0",
+      "geometry_uv_normal_signature": "6a10f3c223f82a61d8fa13bd787b9fca0584c8e060f43fa7f89e9fc1af85dcf3"
+    },
+    {
+      "key": [
+        "Pelvic_left",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "85178ab4ef22fb68fd551686b524bf8b5b47b78bea7bdfcd00d2430113274994",
+      "triangles": 42,
+      "canonical_directed_triangle_signature": "85178ab4ef22fb68fd551686b524bf8b5b47b78bea7bdfcd00d2430113274994",
+      "geometry_uv_normal_signature": "106f57ab2794e6550b8a958035514e0f68da6c06cd95424af9c6ea7badc3a9dc"
+    },
+    {
+      "key": [
+        "Pelvic_right",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "12c5066f7a3ef44fbf4acc0ac25fcac87f59d313d11331432a7987b2252b1e06",
+      "triangles": 42,
+      "canonical_directed_triangle_signature": "12c5066f7a3ef44fbf4acc0ac25fcac87f59d313d11331432a7987b2252b1e06",
+      "geometry_uv_normal_signature": "8c570cedfb102b9da25c934c5314cf1506ca7029b8bf32e99c78379be8ee7054"
+    }
+  ],
+  "rig_rest_bind_signature": "94196c5a3117b44b1a39675736918318a92a50dbd0720420b38e4302e64fbdd3",
+  "native_animation_signature": "de9b2ac15a80b225bbca6044bb2d5a62a47f0585c87463b559eadeebbb679639",
+  "node_graph": [
+    {
+      "name": "Anal",
+      "parent": "body_06",
+      "mesh": false,
+      "translation": [
+        -0.0029413967858999968,
+        -0.028745528310537338,
+        -0.08845559507608414
+      ],
+      "rotation": [
+        -0.4206289052963257,
+        0.4136517643928528,
+        -0.20576263964176178,
+        0.780785083770752
+      ],
+      "scale": [
+        1.0000001192092896,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "Anal",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Anal_finlet_01",
+      "parent": "body_09",
+      "mesh": false,
+      "translation": [
+        3.510335955070332e-05,
+        -0.01831841468811035,
+        -0.013500239700078964
+      ],
+      "rotation": [
+        -0.5015507936477661,
+        0.5015507936477661,
+        -0.5011057257652283,
+        0.49576878547668457
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Anal_finlet_01",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Anal_finlet_02",
+      "parent": "body_08",
+      "mesh": false,
+      "translation": [
+        0.0006030343938618898,
+        0.044834885746240616,
+        -0.0182978305965662
+      ],
+      "rotation": [
+        -0.4857982099056244,
+        0.5005420446395874,
+        -0.4975157678127289,
+        0.5156896710395813
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Anal_finlet_02",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Anal_finlet_03",
+      "parent": "body_08",
+      "mesh": false,
+      "translation": [
+        0.0007671431521885097,
+        0.012789704836905003,
+        -0.024614227935671806
+      ],
+      "rotation": [
+        -0.4856768250465393,
+        0.5004401206970215,
+        -0.4981538653373718,
+        0.5152868032455444
+      ],
+      "scale": [
+        1.0000001192092896,
+        1.0000001192092896,
+        1.000000238418579
+      ]
+    },
+    {
+      "name": "Anal_finlet_03",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Anal_finlet_04",
+      "parent": "body_08",
+      "mesh": false,
+      "translation": [
+        0.0010949032148346305,
+        -0.020910782739520073,
+        -0.035246290266513824
+      ],
+      "rotation": [
+        -0.48559293150901794,
+        0.5003349184989929,
+        -0.4974439740180969,
+        0.5161531567573547
+      ],
+      "scale": [
+        1,
+        1.0000001192092896,
+        1.0000001192092896
+      ]
+    },
+    {
+      "name": "Anal_finlet_04",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Anal_finlet_05",
+      "parent": "body_07",
+      "mesh": false,
+      "translation": [
+        -0.0012420028215274215,
+        0.033201541751623154,
+        -0.04676634073257446
+      ],
+      "rotation": [
+        -0.5144608020782471,
+        0.5006911754608154,
+        -0.4965139329433441,
+        0.4879675805568695
+      ],
+      "scale": [
+        1,
+        1.0000001192092896,
+        1
+      ]
+    },
+    {
+      "name": "Anal_finlet_05",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Anal_finlet_06",
+      "parent": "body_07",
+      "mesh": false,
+      "translation": [
+        -0.0015110443346202374,
+        -5.389505531638861e-05,
+        -0.05629638954997063
+      ],
+      "rotation": [
+        -0.5144397020339966,
+        0.5006590485572815,
+        -0.49691057205200195,
+        0.48761892318725586
+      ],
+      "scale": [
+        0.9999999403953552,
+        1.0000001192092896,
+        1
+      ]
+    },
+    {
+      "name": "Anal_finlet_06",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Anal_finlet_07",
+      "parent": "body_07",
+      "mesh": false,
+      "translation": [
+        -0.0018391149351373315,
+        -0.03456554561853409,
+        -0.06606805324554443
+      ],
+      "rotation": [
+        -0.5129776000976562,
+        0.49916210770606995,
+        -0.49824315309524536,
+        0.48933133482933044
+      ],
+      "scale": [
+        0.9999999403953552,
+        0.9999995827674866,
+        0.9999998807907104
+      ]
+    },
+    {
+      "name": "Anal_finlet_07",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Anal_finlet_08",
+      "parent": "body_06",
+      "mesh": false,
+      "translation": [
+        -0.0025442573241889477,
+        0.02120138332247734,
+        -0.07639758288860321
+      ],
+      "rotation": [
+        -0.5156006813049316,
+        0.49898263812065125,
+        -0.49806180596351624,
+        0.48693612217903137
+      ],
+      "scale": [
+        1,
+        0.9999997615814209,
+        0.9999998211860657
+      ]
+    },
+    {
+      "name": "Anal_finlet_08",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Caudal",
+      "parent": "body_09",
+      "mesh": false,
+      "translation": [
+        5.927425661411689e-09,
+        -0.0001463296212023124,
+        -0.001735985977575183
+      ],
+      "rotation": [
+        -0.39033401012420654,
+        0.39033403992652893,
+        -0.18752700090408325,
+        0.8124729990959167
+      ],
+      "scale": [
+        1,
+        1.0000001192092896,
+        1.0000001192092896
+      ]
+    },
+    {
+      "name": "Caudal",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Closed_body",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal_finlet_01",
+      "parent": "body_09",
+      "mesh": false,
+      "translation": [
+        4.174389687250368e-05,
+        -0.018326520919799805,
+        0.01466421503573656
+      ],
+      "rotation": [
+        0.5012879371643066,
+        -0.5012879371643066,
+        -0.5001785755157471,
+        0.4972345530986786
+      ],
+      "scale": [
+        1,
+        1.0000001192092896,
+        1.0000001192092896
+      ]
+    },
+    {
+      "name": "Dorsal_finlet_01",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal_finlet_02",
+      "parent": "body_08",
+      "mesh": false,
+      "translation": [
+        -0.0005363881937228143,
+        0.04295891523361206,
+        0.019071809947490692
+      ],
+      "rotation": [
+        0.5158171653747559,
+        -0.5006377696990967,
+        -0.49692288041114807,
+        0.48617082834243774
+      ],
+      "scale": [
+        1.0000001192092896,
+        1.000000238418579,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal_finlet_02",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal_finlet_03",
+      "parent": "body_08",
+      "mesh": false,
+      "translation": [
+        -0.0006603660294786096,
+        0.012573872692883015,
+        0.023442285135388374
+      ],
+      "rotation": [
+        0.5156522393226624,
+        -0.5004243850708008,
+        -0.4985395669937134,
+        0.4849087595939636
+      ],
+      "scale": [
+        1,
+        1.0000001192092896,
+        1.0000001192092896
+      ]
+    },
+    {
+      "name": "Dorsal_finlet_03",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal_finlet_04",
+      "parent": "body_08",
+      "mesh": false,
+      "translation": [
+        -0.0008904794813133776,
+        -0.022882286459207535,
+        0.030756648629903793
+      ],
+      "rotation": [
+        0.515612006187439,
+        -0.5004081726074219,
+        -0.4977532625198364,
+        0.4857754707336426
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        0.9999998211860657
+      ]
+    },
+    {
+      "name": "Dorsal_finlet_04",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal_finlet_05",
+      "parent": "body_07",
+      "mesh": false,
+      "translation": [
+        0.0012386910384520888,
+        0.03644602373242378,
+        0.04453271999955177
+      ],
+      "rotation": [
+        0.4870510399341583,
+        -0.5004616975784302,
+        -0.4970882534980774,
+        0.5149977207183838
+      ],
+      "scale": [
+        1,
+        1.000000238418579,
+        1.0000001192092896
+      ]
+    },
+    {
+      "name": "Dorsal_finlet_05",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal_finlet_06",
+      "parent": "body_07",
+      "mesh": false,
+      "translation": [
+        0.0015470328507944942,
+        0.0035046550910919905,
+        0.055563800036907196
+      ],
+      "rotation": [
+        0.4870395362377167,
+        -0.5004549026489258,
+        -0.49726611375808716,
+        0.5148434042930603
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal_finlet_06",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal_finlet_07",
+      "parent": "body_07",
+      "mesh": false,
+      "translation": [
+        0.0018049597274512053,
+        -0.03289436176419258,
+        0.06726950407028198
+      ],
+      "rotation": [
+        0.4855917692184448,
+        -0.49904558062553406,
+        -0.4986386299133301,
+        0.5162495374679565
+      ],
+      "scale": [
+        1,
+        1.000000238418579,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal_finlet_07",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal_finlet_08",
+      "parent": "body_06",
+      "mesh": false,
+      "translation": [
+        0.002471070270985365,
+        0.022015398368239403,
+        0.07633856683969498
+      ],
+      "rotation": [
+        0.4829287528991699,
+        -0.4990503787994385,
+        -0.4993181526660919,
+        0.5180829763412476
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal_finlet_08",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal_first",
+      "parent": "body_03",
+      "mesh": false,
+      "translation": [
+        0.0008772480068728328,
+        -0.030957840383052826,
+        0.11514751613140106
+      ],
+      "rotation": [
+        0.39468371868133545,
+        -0.3963035047054291,
+        -0.19902554154396057,
+        0.8047093749046326
+      ],
+      "scale": [
+        1,
+        0.9999998807907104,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal_first",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal_second",
+      "parent": "body_05",
+      "mesh": false,
+      "translation": [
+        0.002685649087652564,
+        0.030844271183013916,
+        0.09783708304166794
+      ],
+      "rotation": [
+        0.44844844937324524,
+        -0.456603467464447,
+        -0.3081771731376648,
+        0.7038708329200745
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal_second",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Eye_relief112_-1_0",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Eye_relief112_1_0",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_left",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        -0.10320635139942169,
+        0.004358573816716671,
+        -0.012690341100096703
+      ],
+      "rotation": [
+        0.04311926290392876,
+        -0.045687686651945114,
+        0.1568620651960373,
+        0.9856204390525818
+      ],
+      "scale": [
+        1,
+        1.0000001192092896,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_left",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_right",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        0.10356715321540833,
+        0.004338946659117937,
+        -0.009290228597819805
+      ],
+      "rotation": [
+        0.03569590672850609,
+        -0.033086445182561874,
+        -0.15871602296829224,
+        0.9861239194869995
+      ],
+      "scale": [
+        1.0000001192092896,
+        1,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "Pectoral_right",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pelvic_left",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        -0.06193716451525688,
+        0.021500328555703163,
+        -0.09265787154436111
+      ],
+      "rotation": [
+        -0.5976004004478455,
+        0.5977123975753784,
+        -0.011730463244020939,
+        0.5342994928359985
+      ],
+      "scale": [
+        1.0000001192092896,
+        1.0000001192092896,
+        1.0000001192092896
+      ]
+    },
+    {
+      "name": "Pelvic_left",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pelvic_right",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        0.06494458019733429,
+        0.021500330418348312,
+        -0.09057536721229553
+      ],
+      "rotation": [
+        -0.23594006896018982,
+        0.24492071568965912,
+        -0.5491777658462524,
+        0.7633806467056274
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        0.9999998807907104
+      ]
+    },
+    {
+      "name": "Pelvic_right",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_00",
+      "parent": "root",
+      "mesh": false,
+      "translation": [
+        0.4399999976158142,
+        -0.01736111380159855,
+        0
+      ],
+      "rotation": [
+        -0.5030879974365234,
+        0.49999046325683594,
+        0.49999046325683594,
+        0.49691200256347656
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_01",
+      "parent": "body_00",
+      "mesh": false,
+      "translation": [
+        4.547473508864641e-12,
+        0.09066750854253769,
+        -1.862645149230957e-09
+      ],
+      "rotation": [
+        0.004808313678950071,
+        -0.004808259196579456,
+        6.576363375643268e-06,
+        0.9999768733978271
+      ],
+      "scale": [
+        0.9999999403953552,
+        0.9999999403953552,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "body_02",
+      "parent": "body_01",
+      "mesh": false,
+      "translation": [
+        4.217633187142411e-12,
+        0.09066632390022278,
+        5.238700584442313e-10
+      ],
+      "rotation": [
+        -0.009925692342221737,
+        0.009925412945449352,
+        -6.437335832742974e-05,
+        0.9999014735221863
+      ],
+      "scale": [
+        1,
+        1,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "body_03",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        1.917945663398868e-11,
+        0.09067796170711517,
+        6.985081957289196e-10
+      ],
+      "rotation": [
+        0.012308481149375439,
+        -0.012307653203606606,
+        5.049710671301e-05,
+        0.999848484992981
+      ],
+      "scale": [
+        1,
+        1.0000001192092896,
+        1
+      ]
+    },
+    {
+      "name": "body_04",
+      "parent": "body_03",
+      "mesh": false,
+      "translation": [
+        1.0084610230221003e-11,
+        0.09066886454820633,
+        1.8626370446028773e-09
+      ],
+      "rotation": [
+        -0.0025590648874640465,
+        0.0025590979494154453,
+        1.4451661627390422e-05,
+        0.9999934434890747
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        0.9999998807907104
+      ]
+    },
+    {
+      "name": "body_05",
+      "parent": "body_04",
+      "mesh": false,
+      "translation": [
+        9.867010637362728e-13,
+        0.09066621214151382,
+        2.0954737944833823e-09
+      ],
+      "rotation": [
+        0.011952238157391548,
+        -0.011952735483646393,
+        -0.00017979845870286226,
+        0.9998571276664734
+      ],
+      "scale": [
+        0.9999999403953552,
+        0.9999998211860657,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "body_06",
+      "parent": "body_05",
+      "mesh": false,
+      "translation": [
+        4.8952595449458514e-11,
+        0.09069884568452835,
+        4.65714744546375e-10
+      ],
+      "rotation": [
+        0.0029078673105686903,
+        -0.0029091546311974525,
+        -8.698560850461945e-05,
+        0.9999915361404419
+      ],
+      "scale": [
+        0.9999999403953552,
+        1,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "body_07",
+      "parent": "body_06",
+      "mesh": false,
+      "translation": [
+        3.771889744985657e-11,
+        0.09071464091539383,
+        1.8628401043940812e-09
+      ],
+      "rotation": [
+        -0.00273177120834589,
+        0.002732994966208935,
+        8.219957089750096e-05,
+        0.9999925494194031
+      ],
+      "scale": [
+        0.9999999403953552,
+        0.9999998807907104,
+        1
+      ]
+    },
+    {
+      "name": "body_08",
+      "parent": "body_07",
+      "mesh": false,
+      "translation": [
+        8.800941919684391e-11,
+        0.09069971740245819,
+        9.317016047560855e-10
+      ],
+      "rotation": [
+        -0.028710784390568733,
+        0.028698977082967758,
+        -3.923648546333425e-05,
+        0.9991756677627563
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        0.9999998807907104
+      ]
+    },
+    {
+      "name": "body_09",
+      "parent": "body_08",
+      "mesh": false,
+      "translation": [
+        1.560997338334591e-11,
+        0.09070686995983124,
+        1.0470034839116238e-09
+      ],
+      "rotation": [
+        0.01503841858357191,
+        -0.015038419514894485,
+        0.00022620502568315715,
+        0.9997738003730774
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "pacific_bluefin_tuna_Rig",
+      "parent": null,
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "root",
+      "parent": "pacific_bluefin_tuna_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 0
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Anal native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicFactor": 0
+      },
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 2
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Anal_finlet_01 native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 3
+        },
+        "metallicFactor": 0
+      },
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 4
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Anal_finlet_02 native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 5
+        },
+        "metallicFactor": 0
+      },
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 6
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Anal_finlet_03 native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 7
+        },
+        "metallicFactor": 0
+      },
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 8
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Anal_finlet_04 native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 9
+        },
+        "metallicFactor": 0
+      },
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 10
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Anal_finlet_05 native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 11
+        },
+        "metallicFactor": 0
+      },
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 12
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Anal_finlet_06 native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 13
+        },
+        "metallicFactor": 0
+      },
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 14
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Anal_finlet_07 native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 15
+        },
+        "metallicFactor": 0
+      },
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 16
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Anal_finlet_08 native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 17
+        },
+        "metallicFactor": 0
+      },
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 18
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Caudal native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 19
+        },
+        "metallicFactor": 0
+      },
+      "doubleSided": false
+    },
+    {
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 20
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Native pixel art \u00b7 nearest \u00b7 matte.002",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 21
+        },
+        "metallicFactor": 0
+      },
+      "alphaMode": "OPAQUE",
+      "doubleSided": false
+    },
+    {
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 22
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Front skin source chart.001",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 23
+        },
+        "metallicFactor": 0
+      },
+      "alphaMode": "OPAQUE",
+      "doubleSided": false
+    },
+    {
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 24
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Front mouth oral chart.001",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 25
+        },
+        "metallicFactor": 0
+      },
+      "alphaMode": "OPAQUE",
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 26
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Dorsal_finlet_01 native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 27
+        },
+        "metallicFactor": 0
+      },
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 28
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Dorsal_finlet_02 native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 29
+        },
+        "metallicFactor": 0
+      },
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 30
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Dorsal_finlet_03 native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 31
+        },
+        "metallicFactor": 0
+      },
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 32
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Dorsal_finlet_04 native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 33
+        },
+        "metallicFactor": 0
+      },
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 34
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Dorsal_finlet_05 native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 35
+        },
+        "metallicFactor": 0
+      },
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 36
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Dorsal_finlet_06 native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 37
+        },
+        "metallicFactor": 0
+      },
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 38
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Dorsal_finlet_07 native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 39
+        },
+        "metallicFactor": 0
+      },
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 40
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Dorsal_finlet_08 native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 41
+        },
+        "metallicFactor": 0
+      },
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 42
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Dorsal_first native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 43
+        },
+        "metallicFactor": 0
+      },
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 44
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Dorsal_second native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 45
+        },
+        "metallicFactor": 0
+      },
+      "doubleSided": false
+    },
+    {
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Eye_relief112_-1_0_native_opaque_eye.001",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 46
+        },
+        "metallicFactor": 0
+      },
+      "alphaMode": "OPAQUE",
+      "doubleSided": false
+    },
+    {
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Eye_relief112_1_0_native_opaque_eye.001",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 47
+        },
+        "metallicFactor": 0
+      },
+      "alphaMode": "OPAQUE",
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 48
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Pectoral native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 49
+        },
+        "metallicFactor": 0
+      },
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 50
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Pelvic native independent pixel cutout",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 51
+        },
+        "metallicFactor": 0
+      },
+      "doubleSided": false
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 6
+    },
+    {
+      "sampler": 0,
+      "source": 6
+    },
+    {
+      "sampler": 0,
+      "source": 7
+    },
+    {
+      "sampler": 0,
+      "source": 7
+    },
+    {
+      "sampler": 0,
+      "source": 8
+    },
+    {
+      "sampler": 0,
+      "source": 8
+    },
+    {
+      "sampler": 0,
+      "source": 9
+    },
+    {
+      "sampler": 0,
+      "source": 9
+    },
+    {
+      "sampler": 0,
+      "source": 10
+    },
+    {
+      "sampler": 0,
+      "source": 10
+    },
+    {
+      "sampler": 0,
+      "source": 11
+    },
+    {
+      "sampler": 0,
+      "source": 11
+    },
+    {
+      "sampler": 0,
+      "source": 11
+    },
+    {
+      "sampler": 0,
+      "source": 11
+    },
+    {
+      "sampler": 0,
+      "source": 12
+    },
+    {
+      "sampler": 0,
+      "source": 12
+    },
+    {
+      "sampler": 0,
+      "source": 13
+    },
+    {
+      "sampler": 0,
+      "source": 13
+    },
+    {
+      "sampler": 0,
+      "source": 14
+    },
+    {
+      "sampler": 0,
+      "source": 14
+    },
+    {
+      "sampler": 0,
+      "source": 15
+    },
+    {
+      "sampler": 0,
+      "source": 15
+    },
+    {
+      "sampler": 0,
+      "source": 16
+    },
+    {
+      "sampler": 0,
+      "source": 16
+    },
+    {
+      "sampler": 0,
+      "source": 17
+    },
+    {
+      "sampler": 0,
+      "source": 17
+    },
+    {
+      "sampler": 0,
+      "source": 18
+    },
+    {
+      "sampler": 0,
+      "source": 18
+    },
+    {
+      "sampler": 0,
+      "source": 19
+    },
+    {
+      "sampler": 0,
+      "source": 19
+    },
+    {
+      "sampler": 0,
+      "source": 20
+    },
+    {
+      "sampler": 0,
+      "source": 20
+    },
+    {
+      "sampler": 0,
+      "source": 21
+    },
+    {
+      "sampler": 0,
+      "source": 21
+    },
+    {
+      "sampler": 0,
+      "source": 10
+    },
+    {
+      "sampler": 0,
+      "source": 10
+    },
+    {
+      "sampler": 0,
+      "source": 22
+    },
+    {
+      "sampler": 0,
+      "source": 22
+    },
+    {
+      "sampler": 0,
+      "source": 23
+    },
+    {
+      "sampler": 0,
+      "source": 23
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9728,
+      "minFilter": 9728,
+      "wrapS": 33071,
+      "wrapT": 33071
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "size": [
+        168,
+        149
+      ],
+      "rgba_sha256": "9c1a847d8c2d1e123b987d487d5adb39355fa7d74083115febc365ed204b62fa",
+      "embedded_sha256": "e574b2cc9453c30e5046e0c631acb7d1787bfa9ad8dff251209a74a29c441dec"
+    },
+    {
+      "index": 1,
+      "size": [
+        29,
+        24
+      ],
+      "rgba_sha256": "696aca8b7e4c3a02add70ebca37c1a8356fa297bf9fdca13d76eecebd51698bd",
+      "embedded_sha256": "4858e515886a79bb6258da80646029033d2101c2d2783a2c247cc741333b2155"
+    },
+    {
+      "index": 2,
+      "size": [
+        36,
+        31
+      ],
+      "rgba_sha256": "1c07334d4307b5b9a109556d51650942f3c0cc07a7e7d3fd97a03c7a4aab144a",
+      "embedded_sha256": "21d986f9b9dfb509ba3ce37091ea58641b845f2cda8b44a21253486405418dbb"
+    },
+    {
+      "index": 3,
+      "size": [
+        36,
+        31
+      ],
+      "rgba_sha256": "5ab4c04bac28a76af4219ab30e43110340c6a0ca4854216c486e2810155313f6",
+      "embedded_sha256": "f7ae6a2bee4f5eac23f4c5cb539bdff664b48e2ecb324028e1e52c000b978d7f"
+    },
+    {
+      "index": 4,
+      "size": [
+        37,
+        31
+      ],
+      "rgba_sha256": "fbed3e969f14415ab2fac2c5bc8fdd3598729255cd2f13683dafb869b35859a3",
+      "embedded_sha256": "23e64658d6f846707f1def32af24561f10cdd41d0e8628eb85d9bfc7cd5494f1"
+    },
+    {
+      "index": 5,
+      "size": [
+        36,
+        27
+      ],
+      "rgba_sha256": "b261cbcee26fc882bb9b81224979d92edb430e167bc089bc6b1115bf862b812f",
+      "embedded_sha256": "0516db802f5772335e8882d3703033bf4117e4d4cf7b8fbf4b8e8d75661437c0"
+    },
+    {
+      "index": 6,
+      "size": [
+        38,
+        33
+      ],
+      "rgba_sha256": "b39042f5850c0881845d2188a8c5716dbd75eb3f71d471959ccd10ad0f529822",
+      "embedded_sha256": "85e3983cc5f065d1b6a4518ae76e38d667edfdbb41ac1b486ff41990f49ccecf"
+    },
+    {
+      "index": 7,
+      "size": [
+        40,
+        35
+      ],
+      "rgba_sha256": "499a536db6ab7248e138b200d153a713d0267616378eaae2281b242641af1a17",
+      "embedded_sha256": "2be82d31a115b675108be316a7049aaf0566ee6c3f185a96595f978211225f56"
+    },
+    {
+      "index": 8,
+      "size": [
+        38,
+        29
+      ],
+      "rgba_sha256": "655c67fa6b81eb26c0c98a4ac9b1ba7a90b82d5ac31efe12b310f9f648ebc3b1",
+      "embedded_sha256": "2d535d806150a6e44951dc8117290446e07bcb0a11ab21fdfc16eaa83656a4c0"
+    },
+    {
+      "index": 9,
+      "size": [
+        250,
+        630
+      ],
+      "rgba_sha256": "282182ae39dd375676b214741009509e3206d0496b15abb2f7958b1d897f007c",
+      "embedded_sha256": "8536a92ff1a885e46ed0edbe8ec01c9e6a499ce0788ec5f94ea4503d38c5dd43"
+    },
+    {
+      "index": 10,
+      "size": [
+        2016,
+        747
+      ],
+      "rgba_sha256": "c884cb35157a6501c3e31d5a0507a146555e83d68639e425449336f97298226c",
+      "embedded_sha256": "1f61ed9cb92795bfbcc3e5f7aa415a85a0b10b605eb1a2e110f60991266f191a"
+    },
+    {
+      "index": 11,
+      "size": [
+        1024,
+        8192
+      ],
+      "rgba_sha256": "01f2e2723dbad8173026e56dc36d909fd0d77cce169f7702e8d913f9949115c0",
+      "embedded_sha256": "d6d71f8bfea6332b92359c3e30337cb01e959829b5aea23053cdb6c3d6cc63d1"
+    },
+    {
+      "index": 12,
+      "size": [
+        29,
+        26
+      ],
+      "rgba_sha256": "c16a80d2de23a7d2d2aaf2ce9b2fb7c16e5a72e088d15e572b157a0718d4a6f3",
+      "embedded_sha256": "41a190a9476e1fdac306caf55aad7ef82abc9cd63f768d94da15e299c42490cf"
+    },
+    {
+      "index": 13,
+      "size": [
+        39,
+        30
+      ],
+      "rgba_sha256": "986260b066994a67926110964ce90e7f7a78c0457cefd0b8a333cc850ea072e6",
+      "embedded_sha256": "e50353236f8c7ec6d7cc4b100fbf891f9ed92896a913704313928cbaae65940e"
+    },
+    {
+      "index": 14,
+      "size": [
+        46,
+        34
+      ],
+      "rgba_sha256": "eca284d1d19be9611be0ab2e380dbd2ed6e2213d06647cee508fb15a4cc0b62d",
+      "embedded_sha256": "45db28b40c7cada873e11f55436ef5a58b87a4a07fcab85bff893e270836cb5b"
+    },
+    {
+      "index": 15,
+      "size": [
+        45,
+        33
+      ],
+      "rgba_sha256": "0d857f83f028739f7f7b61e41372b6105cecfa26c0bf6c5342ba9827ffb447b1",
+      "embedded_sha256": "335d5e215ed966e0e260fe0151215909ef2a3b1056826dbcf0cc9f775e1dd4dc"
+    },
+    {
+      "index": 16,
+      "size": [
+        45,
+        32
+      ],
+      "rgba_sha256": "565512a1ff28505d2fd84ce67464a3659d82c39968014c26c7857a48a43046a5",
+      "embedded_sha256": "ed6968d482bf06306078f4950f6da102bc51729383cf7c0fbc7618674c599107"
+    },
+    {
+      "index": 17,
+      "size": [
+        40,
+        32
+      ],
+      "rgba_sha256": "23537837dbaaf7397091f20469d3efe8f3d3c9cf8c544a371e3bf7e8471bce6d",
+      "embedded_sha256": "bfb4ccfa9f0a1135978e85449660a4fca90303305d908a50e6d0514b752fba05"
+    },
+    {
+      "index": 18,
+      "size": [
+        41,
+        32
+      ],
+      "rgba_sha256": "8cb5e873b46d61d52d869f5befb2e76616bcbf85923cef60c4a9ca978ae7cd03",
+      "embedded_sha256": "ac9767d3d2bc2b21192ac6b766aef2545067a5e005a3202a2f347423972541c3"
+    },
+    {
+      "index": 19,
+      "size": [
+        42,
+        31
+      ],
+      "rgba_sha256": "d00ad43c350512d71c56e18d33956fb970481c5580f8b82273f2e9e2c320d7f9",
+      "embedded_sha256": "e33930e4d71bdadc435b4be55efde8611990c2e63f9c36f2950486881bc4fdc9"
+    },
+    {
+      "index": 20,
+      "size": [
+        181,
+        68
+      ],
+      "rgba_sha256": "07b4cd65d08fafde0dac021717a3b4263c855096d3477ea26cfca741da851074",
+      "embedded_sha256": "c334a14fd9f1773561e625b69cf43e58fcde9451215772b90002530ad6707738"
+    },
+    {
+      "index": 21,
+      "size": [
+        237,
+        238
+      ],
+      "rgba_sha256": "5cf8d6b30c4b694fa7671b6b29e2eba7940bd85283822e56d94d1e1dee6e0e91",
+      "embedded_sha256": "791912ca2c53200d081f54044ee65261e08cf8a094602ed1538df984855d30cd"
+    },
+    {
+      "index": 22,
+      "size": [
+        363,
+        108
+      ],
+      "rgba_sha256": "7e525adbf37b08ca70b803953d632e09fece97128dd001e4d4dadde80f676807",
+      "embedded_sha256": "d7ca2685aa368e933ff754ea6eaab1b49c53c8e0f36d923f5c0b031e4f9d314d"
+    },
+    {
+      "index": 23,
+      "size": [
+        117,
+        118
+      ],
+      "rgba_sha256": "b0e19b3f639a5570caa5d866ff47ef97ef8c6dd5ea330222a8e958ac82a19af0",
+      "embedded_sha256": "a34546b79c776ee41a7218cef026a7b669832c0a6e0e3ef6bc354da06c88e593"
+    }
+  ],
+  "authorized_caudal_pixel_patch": null,
+  "protected_scope": "Every actual canonical partition except exact Caudal/Caudal_mesh fin ownership. Complete inventory computed from actual GLB; no self-reported omissions.",
+  "provenance": "Actual canonical bytes matched root release-inputs baseline and accepted release metadata before replacement; no retired historical model restored.",
+  "baseline_source_sha256": "c250664c8700472d4d6d424a7e7d2e3b9119fcf553345ec30134feffc01f9115",
+  "rig_semantic_signature": "aa1194b41e509377c38020a851c9d3145bea62f360a18d97b571737abc621220",
+  "native_animation_semantic_signature": "e392cb2e94d78180a20ae2515ca7d98ad28a2b2e618b6477778c2d7f42f5087c"
+}

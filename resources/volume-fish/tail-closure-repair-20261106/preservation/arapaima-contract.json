@@ -1,0 +1,19 @@
+{
+  "kind": "caudal_repair_preservation",
+  "schema_version": 1,
+  "species": "arapaima",
+  "affected_anatomical_parts": [
+    "Caudal"
+  ],
+  "model_sha256": "d4a52b0e4ea989e5f40088004677919619adfb1194e71e97b8fa5fbd320f8818",
+  "source_sha256": "879f82a1c6b84efdf81024afc012fc44716f77097d9a484f5320f7568cefba7c",
+  "editable_source_role": "editable_source",
+  "accepted_snapshot": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/arapaima.json",
+    "sha256": "bd7aa8920c3c99cda1af4fbe27003b090213edcf94fa44d0949a0a1401dbdbc0"
+  },
+  "accepted_material_bindings": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/arapaima-material-bindings.json",
+    "sha256": "08bf6a0e0073e67af7b5ea589d48320129cd1f8b9a347c15ea23ece9459e3677"
+  }
+}

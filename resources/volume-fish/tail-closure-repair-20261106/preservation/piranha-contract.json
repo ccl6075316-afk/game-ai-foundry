@@ -1,0 +1,19 @@
+{
+  "kind": "caudal_repair_preservation",
+  "schema_version": 1,
+  "species": "piranha",
+  "affected_anatomical_parts": [
+    "Caudal"
+  ],
+  "model_sha256": "80be233cef987ac695fff661986fa307542a9f5738415680c26e4f8c9149d532",
+  "source_sha256": "25dd210d0d74404ca2ab4c6247832cff0ec1188e673e49cf2fa81e59cb6ee998",
+  "editable_source_role": "editable_source",
+  "accepted_snapshot": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/piranha.json",
+    "sha256": "f1df639055ce639f4ebacd50019d0f66db9f2800115f9efc4ee282092c630a90"
+  },
+  "accepted_material_bindings": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/preservation/piranha-material-bindings.json",
+    "sha256": "00790778923f30e032dc2f0cd5344a33d1ec1042e908410b94c920ffb75e76f7"
+  }
+}

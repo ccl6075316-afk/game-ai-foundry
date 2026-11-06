@@ -1,0 +1,153 @@
+{
+  "ok": true,
+  "kind": "explicit_entity_cap_tissue_tile_pixels",
+  "input_atlas_sha256": "b1bf5462c1ceadd10e98df0c661b27e2fc25588406cdaf3ffad9804c4d3c8eff",
+  "output_atlas_sha256": "eabf47ae1efe8606ed8b1d8510ebe8fa3892cc84431f6e94d7e6f26ae87925af",
+  "mask_sha256": "4af0992452dba2e10574330197a9f33f2e53878072e279f1320048f5b88ecf5e",
+  "source_gap_mask_sha256": "0b4e4287b23b419cff55cf42424d3bd2898f3a1bba404687c126c2a31f3b7649",
+  "original_size": [
+    2048,
+    2048
+  ],
+  "output_size": [
+    2048,
+    2048
+  ],
+  "source_crop": [
+    2,
+    1306,
+    142,
+    507
+  ],
+  "new_tile": [
+    1374,
+    1485,
+    142,
+    507
+  ],
+  "source_entity_domain_alpha_gap_pixels_filled": 366,
+  "original_opaque_tissue_RGB_inside_new_tile_exact": true,
+  "outside_edit_mask_RGBA_exact": true,
+  "new_tile_other_UV_coverage": 0,
+  "all_other_parts_actual_nearest_pixel_RGBA_exact": [
+    {
+      "part": "Anal#1",
+      "entire_UV_nearest_pixel_domain_samples": 76501,
+      "RGBA_exact": true
+    },
+    {
+      "part": "Caudal#2",
+      "entire_UV_nearest_pixel_domain_samples": 125235,
+      "RGBA_exact": true
+    },
+    {
+      "part": "Closed_body_B#3",
+      "entire_UV_nearest_pixel_domain_samples": 1660705,
+      "RGBA_exact": true
+    },
+    {
+      "part": "Closed_body_B#4",
+      "entire_UV_nearest_pixel_domain_samples": 1,
+      "RGBA_exact": true
+    },
+    {
+      "part": "Dorsal#5",
+      "entire_UV_nearest_pixel_domain_samples": 147063,
+      "RGBA_exact": true
+    },
+    {
+      "part": "Pectoral_left#6",
+      "entire_UV_nearest_pixel_domain_samples": 48857,
+      "RGBA_exact": true
+    },
+    {
+      "part": "Pectoral_right#7",
+      "entire_UV_nearest_pixel_domain_samples": 48857,
+      "RGBA_exact": true
+    },
+    {
+      "part": "Pelvic_left#8",
+      "entire_UV_nearest_pixel_domain_samples": 26392,
+      "RGBA_exact": true
+    },
+    {
+      "part": "Pelvic_right#9",
+      "entire_UV_nearest_pixel_domain_samples": 26392,
+      "RGBA_exact": true
+    }
+  ],
+  "embedded_RGBA_exact": false,
+  "expected_change": "Only a new unreferenced tail cap donor tile changes embedded RGBA. Original occupied tissue RGB retained byte-exact; transparent pixels solely in explicit entity cap domain get closest same-tail opaque tissue.",
+  "new_face_UV_blender": {
+    "137": [
+      [
+        0.671630859375,
+        0.239013671875
+      ],
+      [
+        0.677490234375,
+        0.267333984375
+      ],
+      [
+        0.723876953125,
+        0.273681640625
+      ]
+    ],
+    "107": [
+      [
+        0.693115234375,
+        0.028564453125
+      ],
+      [
+        0.686279296875,
+        0.031494140625
+      ],
+      [
+        0.674560546875,
+        0.048095703125
+      ]
+    ],
+    "108": [
+      [
+        0.674560546875,
+        0.168212890625
+      ],
+      [
+        0.674560546875,
+        0.185302734375
+      ],
+      [
+        0.679931640625,
+        0.161376953125
+      ]
+    ],
+    "141": [
+      [
+        0.674560546875,
+        0.185302734375
+      ],
+      [
+        0.671630859375,
+        0.194580078125
+      ],
+      [
+        0.7385602742433548,
+        0.150634765625
+      ]
+    ],
+    "149": [
+      [
+        0.674560546875,
+        0.048095703125
+      ],
+      [
+        0.671630859375,
+        0.061767578125
+      ],
+      [
+        0.723876953125,
+        0.034912109375
+      ]
+    ]
+  }
+}

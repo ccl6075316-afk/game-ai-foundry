@@ -1,0 +1,749 @@
+{
+  "kind": "accepted_caudal_repair_protected_snapshot",
+  "schema_version": 1,
+  "species": "red_emperor",
+  "baseline_model_sha256": "0b7a766d7490715cd4245405e1951ddc8ade738da4997dde890c0373d88d9084",
+  "accepted_release": {
+    "path": "resources/volume-fish/final-five-fish-20261104.json",
+    "sha256": "6b3ef75bd3d71e410b989300bb5ad4d24c04990b3e1693be81b26bcef960b94d"
+  },
+  "source_inventory": {
+    "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/release-inputs.json",
+    "sha256": "19a146043e6c65f241217aada6b9552eb70828e81aa09ddd5f34d50ff189e541",
+    "historical_capture_only_not_live_dependency": true
+  },
+  "part_inventory": [
+    {
+      "key": [
+        "Anal_mesh",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "adca7c0a75eb02d30770663907e1b50aa7ea67930a7090a076fdb860821de104",
+      "triangles": 90,
+      "canonical_directed_triangle_signature": "adca7c0a75eb02d30770663907e1b50aa7ea67930a7090a076fdb860821de104",
+      "geometry_uv_normal_signature": "194a9d6269f8f0b3629bc710f8d5c2500173ec759ddb0df30c11c1047f8ead70"
+    },
+    {
+      "key": [
+        "Caudal_mesh",
+        0
+      ],
+      "affected_caudal": true,
+      "directed_triangle_signature": "5decd2eec7e3ff01ffbe879d88ae25ce907afaa50598b5fbfb6684d440303089",
+      "triangles": 88,
+      "canonical_directed_triangle_signature": "5decd2eec7e3ff01ffbe879d88ae25ce907afaa50598b5fbfb6684d440303089",
+      "geometry_uv_normal_signature": "44ccee539b76e36681f93a97528409848002720ccb89e59a49cde3f0a49a13b4"
+    },
+    {
+      "key": [
+        "Closed_body",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "132e43fbaa90fe03d133d27a5726a4af65e00121149d3782d368d126bc631a3e",
+      "triangles": 166,
+      "canonical_directed_triangle_signature": "045af17ea6d3d34a59ac7b6bd0ae4f04e602a9f4504532aeecedc8068dfa688f",
+      "geometry_uv_normal_signature": "50c924a8f69ed29e751dc5c7388efeff60a5ab0bb16a32c0369584221e4d85cf"
+    },
+    {
+      "key": [
+        "Closed_body",
+        1
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "ae03626a0780705ac471df0ce4ce5667559151029921c2fd5ffe7beb15dea3d6",
+      "triangles": 916,
+      "canonical_directed_triangle_signature": "061820f4756ce590104adf5174fe324ffe78c19cc1628d2879c7f3de9272beed",
+      "geometry_uv_normal_signature": "8106f7f395802ff373f4807e1d303d2abc2d2b7e2bbc3dbe1bc77296cf21824a"
+    },
+    {
+      "key": [
+        "Closed_body",
+        2
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "00004465794542407ebee84518480ad4a553b19e1584f7ac625fac50ba51c776",
+      "triangles": 150,
+      "canonical_directed_triangle_signature": "992b783e2193b3679f98e459adf7103cff4afd07ea4e32895561e4d858d7e596",
+      "geometry_uv_normal_signature": "77dc169914e2b7f95035e7aad0007b2cf8d591ecb93d3e2f13e6d87d82bc4c59"
+    },
+    {
+      "key": [
+        "Dorsal_mesh",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "040d89f8c5c963a687e0c85ec10cd09c270ca3c868544c1c2752d295d998f274",
+      "triangles": 76,
+      "canonical_directed_triangle_signature": "040d89f8c5c963a687e0c85ec10cd09c270ca3c868544c1c2752d295d998f274",
+      "geometry_uv_normal_signature": "6bd36fdd55d951381b262c7283d85df92ca5bfcce93bb9822e5419415dc9b098"
+    },
+    {
+      "key": [
+        "Pectoral_left_mesh",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "9553eb967aad64b844c550d726d3f77d3afc7dc90d7051679d3a419420a069b7",
+      "triangles": 72,
+      "canonical_directed_triangle_signature": "9553eb967aad64b844c550d726d3f77d3afc7dc90d7051679d3a419420a069b7",
+      "geometry_uv_normal_signature": "573ca25b1b31b913225b1c3f06260e1e4101d6e042b3007ad2ca61f96dbbff84"
+    },
+    {
+      "key": [
+        "Pectoral_right_mesh",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "7a7499139196240aaca602d114328541b0bdaeb83d05269b8054e590f6567dba",
+      "triangles": 68,
+      "canonical_directed_triangle_signature": "7a7499139196240aaca602d114328541b0bdaeb83d05269b8054e590f6567dba",
+      "geometry_uv_normal_signature": "5cc8829e1eb8852f40ef4c1442e03a8a4596265e7a70c44d30ec14a6eba9a331"
+    },
+    {
+      "key": [
+        "Pelvic_left_mesh",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "9fa3422d1861faf1d09626dc4c5058910667933784d5923ddb5c6202e0e8fed2",
+      "triangles": 60,
+      "canonical_directed_triangle_signature": "9fa3422d1861faf1d09626dc4c5058910667933784d5923ddb5c6202e0e8fed2",
+      "geometry_uv_normal_signature": "a3f4f238bd3daef739b160f9c0d445cf36d7c9ba7de5303f7c5f608ccb407557"
+    },
+    {
+      "key": [
+        "Pelvic_right_mesh",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "f7a5a326fda180e19565b7d660ecfb7d4b1d6ea73ff22d661d362b08ea27fe74",
+      "triangles": 60,
+      "canonical_directed_triangle_signature": "f7a5a326fda180e19565b7d660ecfb7d4b1d6ea73ff22d661d362b08ea27fe74",
+      "geometry_uv_normal_signature": "88697de8b87bcddf4f6f67c061a7fe3b02f289cec69b8daa514c623aee500cb8"
+    }
+  ],
+  "rig_rest_bind_signature": "c40ec65c15e03a0b746c773304539ee38274e6be02dd7a4c1c7f6b5615c9ca2f",
+  "native_animation_signature": "027df708dff3b517571c4af42f15b7ac9a7175aee3be92349235142925c8f313",
+  "node_graph": [
+    {
+      "name": "Anal",
+      "parent": "body_07",
+      "mesh": false,
+      "translation": [
+        0.0075532193295657635,
+        -0.00339909503236413,
+        -0.11778853088617325
+      ],
+      "rotation": [
+        -0.46403586864471436,
+        0.49901700019836426,
+        -0.5630966424942017,
+        0.4675199091434479
+      ],
+      "scale": [
+        0.9999999403953552,
+        0.9999998807907104,
+        0.9999998807907104
+      ]
+    },
+    {
+      "name": "Anal_mesh",
+      "parent": "red_emperor_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Caudal",
+      "parent": "body_09",
+      "mesh": false,
+      "translation": [
+        3.741558451952898e-11,
+        -3.9964863390196115e-05,
+        0.0014029169688001275
+      ],
+      "rotation": [
+        3.3889510642204357e-10,
+        3.3838405411046324e-09,
+        2.328305881427184e-10,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Caudal_mesh",
+      "parent": "red_emperor_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Closed_body",
+      "parent": "red_emperor_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal",
+      "parent": "body_05",
+      "mesh": false,
+      "translation": [
+        -0.0006883805617690086,
+        0.022402020171284676,
+        0.15982797741889954
+      ],
+      "rotation": [
+        0.3666151165962219,
+        -0.3631090223789215,
+        -0.8421928882598877,
+        0.15638554096221924
+      ],
+      "scale": [
+        0.9999999403953552,
+        0.9999998211860657,
+        0.9999997615814209
+      ]
+    },
+    {
+      "name": "Dorsal_mesh",
+      "parent": "red_emperor_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_left",
+      "parent": "body_03",
+      "mesh": false,
+      "translation": [
+        -0.0526650995016098,
+        0.019826829433441162,
+        -0.0587320551276207
+      ],
+      "rotation": [
+        0.19351494312286377,
+        -0.1933548003435135,
+        0.0340864434838295,
+        0.9612513184547424
+      ],
+      "scale": [
+        0.9999999403953552,
+        1,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "Pectoral_left_mesh",
+      "parent": "red_emperor_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_right",
+      "parent": "body_03",
+      "mesh": false,
+      "translation": [
+        0.05211807042360306,
+        0.019826842471957207,
+        -0.05921808257699013
+      ],
+      "rotation": [
+        0.1671144962310791,
+        -0.16759201884269714,
+        -0.10335726290941238,
+        0.9660760760307312
+      ],
+      "scale": [
+        1,
+        0.9999998807907104,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "Pectoral_right_mesh",
+      "parent": "red_emperor_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pelvic_left",
+      "parent": "body_04",
+      "mesh": false,
+      "translation": [
+        -0.008989287540316582,
+        -0.013271133415400982,
+        -0.15741421282291412
+      ],
+      "rotation": [
+        -0.47282710671424866,
+        0.4736783504486084,
+        -0.07653374969959259,
+        0.7390574812889099
+      ],
+      "scale": [
+        0.9999999403953552,
+        0.9999998211860657,
+        0.9999998211860657
+      ]
+    },
+    {
+      "name": "Pelvic_left_mesh",
+      "parent": "red_emperor_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pelvic_right",
+      "parent": "body_04",
+      "mesh": false,
+      "translation": [
+        0.012617910280823708,
+        -0.013271133415400982,
+        -0.15716500580310822
+      ],
+      "rotation": [
+        -0.32703325152397156,
+        0.3310478925704956,
+        -0.34996023774147034,
+        0.8130094408988953
+      ],
+      "scale": [
+        1.0000001192092896,
+        0.9999999403953552,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "Pelvic_right_mesh",
+      "parent": "red_emperor_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_00",
+      "parent": "root",
+      "mesh": false,
+      "translation": [
+        0.4820426404476166,
+        -0.03815937042236328,
+        0
+      ],
+      "rotation": [
+        -0.35519275069236755,
+        0.47857168316841125,
+        0.47857168316841125,
+        0.6448072791099548
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_01",
+      "parent": "body_00",
+      "mesh": false,
+      "translation": [
+        1.1641532182693481e-09,
+        0.09250418841838837,
+        7.450580596923828e-09
+      ],
+      "rotation": [
+        -0.04620712623000145,
+        0.047589194029569626,
+        0.01160992681980133,
+        0.9977301359176636
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_02",
+      "parent": "body_01",
+      "mesh": false,
+      "translation": [
+        -2.0373780440507971e-10,
+        0.0903131514787674,
+        5.022754212546943e-09
+      ],
+      "rotation": [
+        -0.057054176926612854,
+        0.0575290285050869,
+        0.008089334703981876,
+        0.996679425239563
+      ],
+      "scale": [
+        0.9999999403953552,
+        0.9999998807907104,
+        1
+      ]
+    },
+    {
+      "name": "body_03",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        -3.065492304443751e-11,
+        0.08884690701961517,
+        8.756381175700767e-10
+      ],
+      "rotation": [
+        -0.03922708332538605,
+        0.03923467919230461,
+        0.001723681460134685,
+        0.9984582662582397
+      ],
+      "scale": [
+        1,
+        1,
+        0.9999998211860657
+      ]
+    },
+    {
+      "name": "body_04",
+      "parent": "body_03",
+      "mesh": false,
+      "translation": [
+        5.38152855611429e-12,
+        0.08854067325592041,
+        -3.299230680320342e-12
+      ],
+      "rotation": [
+        -0.008085924200713634,
+        0.008085697889328003,
+        -2.7882389986189082e-05,
+        0.9999346137046814
+      ],
+      "scale": [
+        1,
+        0.9999998807907104,
+        0.9999998807907104
+      ]
+    },
+    {
+      "name": "body_05",
+      "parent": "body_04",
+      "mesh": false,
+      "translation": [
+        -1.4439671680577248e-11,
+        0.08854561299085617,
+        -2.537293153359599e-10
+      ],
+      "rotation": [
+        0.0036873905919492245,
+        -0.0036874806974083185,
+        2.8934857255080715e-05,
+        0.9999864101409912
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_06",
+      "parent": "body_05",
+      "mesh": false,
+      "translation": [
+        5.970390848375473e-12,
+        0.08854050934314728,
+        -2.614230186492872e-11
+      ],
+      "rotation": [
+        -0.01286673080176115,
+        0.012867528013885021,
+        -0.00021911904332228005,
+        0.999834418296814
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "body_07",
+      "parent": "body_06",
+      "mesh": false,
+      "translation": [
+        -3.236982903942476e-11,
+        0.08857931941747665,
+        -4.444346002330235e-10
+      ],
+      "rotation": [
+        -0.016954457387328148,
+        0.016970649361610413,
+        -0.0007952566957101226,
+        0.9997119307518005
+      ],
+      "scale": [
+        0.9999999403953552,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_08",
+      "parent": "body_07",
+      "mesh": false,
+      "translation": [
+        -6.866596180543638e-11,
+        0.08872053027153015,
+        1.4409711202034714e-09
+      ],
+      "rotation": [
+        -0.007849719375371933,
+        0.007869692519307137,
+        -0.0005639102892018855,
+        0.9999380707740784
+      ],
+      "scale": [
+        1,
+        0.9999998807907104,
+        1
+      ]
+    },
+    {
+      "name": "body_09",
+      "parent": "body_08",
+      "mesh": false,
+      "translation": [
+        5.121630897164664e-11,
+        0.08882088959217072,
+        -4.116722518432425e-10
+      ],
+      "rotation": [
+        0.03975054994225502,
+        -0.03975054249167442,
+        0.00158261030446738,
+        0.9984173774719238
+      ],
+      "scale": [
+        0.9999998807907104,
+        0.9999998807907104,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "red_emperor_Rig",
+      "parent": null,
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "root",
+      "parent": "red_emperor_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "alphaMode": "MASK",
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Packed fish native pixels.001",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 1
+      },
+      "alphaCutoff": 0.5,
+      "doubleSided": false
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9728,
+      "minFilter": 9728,
+      "wrapS": 33071,
+      "wrapT": 33071
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "size": [
+        4096,
+        8192
+      ],
+      "rgba_sha256": "2870d116303f531e33b3cf97b4865c52ea7e557db0040e10673299df9199d1c2",
+      "embedded_sha256": "5f4b97b1a587f1d3e77ba5aa198260593d8a6be8f23eaf3eacb55c44881784cc"
+    }
+  ],
+  "authorized_caudal_pixel_patch": null,
+  "protected_scope": "Every actual canonical partition except exact Caudal/Caudal_mesh fin ownership. Complete inventory computed from actual GLB; no self-reported omissions.",
+  "provenance": "Actual canonical bytes matched root release-inputs baseline and accepted release metadata before replacement; no retired historical model restored.",
+  "baseline_source_sha256": "71911119ee86ebf0d34b5bef64f99f35ff7c851fbad801beb007b792d89d7020",
+  "rig_semantic_signature": "9a132e045473c8d012aa7c1101de9634b8aae68b6ca333a0394439845d9949ca",
+  "native_animation_semantic_signature": "49da4cd992018be8935ffd02b5a59491063f4c1c3b3dcb75ee5b963443d73cd1"
+}

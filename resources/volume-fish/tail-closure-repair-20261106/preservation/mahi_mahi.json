@@ -1,0 +1,1149 @@
+{
+  "kind": "accepted_caudal_repair_protected_snapshot",
+  "schema_version": 1,
+  "species": "mahi_mahi",
+  "baseline_model_sha256": "3fc100704119caf59ce4f15450f52527e663c2f9d5541d8a6dcf5db3ddcb763b",
+  "accepted_release": {
+    "path": "resources/volume-fish/final-eleven-fish-20261105.json",
+    "sha256": "a9d4da9ced582805bd1133790b951d5e454a520c3d022fa92ea6dcd66755301c"
+  },
+  "source_inventory": {
+    "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/tail-repair-20261106/release-inputs.json",
+    "sha256": "19a146043e6c65f241217aada6b9552eb70828e81aa09ddd5f34d50ff189e541",
+    "historical_capture_only_not_live_dependency": true
+  },
+  "part_inventory": [
+    {
+      "key": [
+        "Anal",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "c6a11009aa01734c71fd2de1811236f5aab4779f145b2ae6b61dbe904afd84db",
+      "triangles": 212,
+      "canonical_directed_triangle_signature": "c6a11009aa01734c71fd2de1811236f5aab4779f145b2ae6b61dbe904afd84db",
+      "geometry_uv_normal_signature": "d3846220b3d6b66af2c86a0b8f4e1ab3cf0b50fa28d98a78305871143a50e3b3"
+    },
+    {
+      "key": [
+        "Caudal",
+        0
+      ],
+      "affected_caudal": true,
+      "directed_triangle_signature": "581ff942291d99fec738b9d65ad08745d2836b44e7ba2d44fb95ca6cdc1b67c5",
+      "triangles": 48,
+      "canonical_directed_triangle_signature": "581ff942291d99fec738b9d65ad08745d2836b44e7ba2d44fb95ca6cdc1b67c5",
+      "geometry_uv_normal_signature": "2e532ec98a79f6e2ce0296d0fa719900c989c133b250ab29c7c154fb1d7293a6"
+    },
+    {
+      "key": [
+        "Closed_body",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "e2aeef25ac2d54d4eb3660777b7000f89a833f22462d2cf385792c082fb5dd70",
+      "triangles": 478,
+      "canonical_directed_triangle_signature": "320b9b44cf417bca0fd3f44a0f185d14be8790a8e70af9321b717a2da55af473",
+      "geometry_uv_normal_signature": "27410033d029a60060bab0ffa9d18e46314e26d622b65ab1ea498034b813af91"
+    },
+    {
+      "key": [
+        "Closed_body",
+        1
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "053dc24451be575c73328cd74372b7d7aef0aff00ec8d3a940f4525e301e8888",
+      "triangles": 315,
+      "canonical_directed_triangle_signature": "19ce0418d9f4ffd137728b1f0c152dbd83ac098a8edb5417a672c5c177d0c14f",
+      "geometry_uv_normal_signature": "4c8976a72a657745eba3dfc0da6f2eeda5b5df62428b2f69457a94289ade3b2c"
+    },
+    {
+      "key": [
+        "Closed_body",
+        2
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "3db35d80befc2655169b2937b386bcfb670a30e873df2e25608a511b8b9dfb69",
+      "triangles": 81,
+      "canonical_directed_triangle_signature": "3db35d80befc2655169b2937b386bcfb670a30e873df2e25608a511b8b9dfb69",
+      "geometry_uv_normal_signature": "b81d6a0486c9e2ece2a5ad11c93ec9e7898ccd3955ee35839d86649700741381"
+    },
+    {
+      "key": [
+        "Dorsal",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "323c77ce3550053b7daab2a674bdba7f0bd5cf04dbd6586c04e48035c89e4c6b",
+      "triangles": 396,
+      "canonical_directed_triangle_signature": "8f3eebf81a259aaba7c442c30849c2492818d60cc1c03f21c388d794610ee819",
+      "geometry_uv_normal_signature": "44a4fce9cce9cb80fcef09e0c03a8be0e787e7ce830a7c27a3805a725c08160e"
+    },
+    {
+      "key": [
+        "Native_eye_-1",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "fede42d75819d84daeca0b4d080ef4d9b157a1f6001e8210d771bbf24e8ec062",
+      "triangles": 36,
+      "canonical_directed_triangle_signature": "fede42d75819d84daeca0b4d080ef4d9b157a1f6001e8210d771bbf24e8ec062",
+      "geometry_uv_normal_signature": "750b1137c0391e641098c66670057b787fdd6db006c51ec47d465477aa83f6c4"
+    },
+    {
+      "key": [
+        "Native_eye_1",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "2f29ec11599faf3810b729ea038c69a574b46f25bbb5bebedf37760f9e62dacd",
+      "triangles": 36,
+      "canonical_directed_triangle_signature": "2f29ec11599faf3810b729ea038c69a574b46f25bbb5bebedf37760f9e62dacd",
+      "geometry_uv_normal_signature": "7d76b92822ac37a21e6c7cca0bc56351cb4927e036a4277390a82a13acff904d"
+    },
+    {
+      "key": [
+        "Pectoral_left",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "3e769fa4bc0f2fb412845fbce686b1ebd9d35b63cce7b8f95d507c9964676c9e",
+      "triangles": 140,
+      "canonical_directed_triangle_signature": "3e769fa4bc0f2fb412845fbce686b1ebd9d35b63cce7b8f95d507c9964676c9e",
+      "geometry_uv_normal_signature": "f913ad1cbdbdc34541d82270a1077a52ad980ab932e4b765c434645b0c763ecb"
+    },
+    {
+      "key": [
+        "Pectoral_right",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "72656e9191bd29d0c334eaa14b2db8b3aac1d81a151bf6044a1d026fa1a7aa1b",
+      "triangles": 140,
+      "canonical_directed_triangle_signature": "72656e9191bd29d0c334eaa14b2db8b3aac1d81a151bf6044a1d026fa1a7aa1b",
+      "geometry_uv_normal_signature": "957eae4913d2d81dc0f67434c81bd5b5d5e415c6236a954d06518b02b65fd795"
+    },
+    {
+      "key": [
+        "Pelvic_left",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "991ababcb75f1f197c1168bbcd9ceb093656b21b8d9e938cb63bf913e820732f",
+      "triangles": 56,
+      "canonical_directed_triangle_signature": "991ababcb75f1f197c1168bbcd9ceb093656b21b8d9e938cb63bf913e820732f",
+      "geometry_uv_normal_signature": "b5d6167e543b06db0e3e152d17e6ee7f37ddb41022306e759a252c09e6f0f95c"
+    },
+    {
+      "key": [
+        "Pelvic_right",
+        0
+      ],
+      "affected_caudal": false,
+      "directed_triangle_signature": "6e73bffb2d0c0f12427bca1897a21c8b713c8a187f08433c74ea606ba508a3f8",
+      "triangles": 32,
+      "canonical_directed_triangle_signature": "6e73bffb2d0c0f12427bca1897a21c8b713c8a187f08433c74ea606ba508a3f8",
+      "geometry_uv_normal_signature": "2992bc8f16997996fe910093ba8df7c500b60fedd4c3f7e439676369ea5c284b"
+    }
+  ],
+  "rig_rest_bind_signature": "3462ffb1f85df72e8ae7d0e794bbc0e6425e4e7ac79c0760baf25c824119fb3a",
+  "native_animation_signature": "f356cbfb588e722230aebf3c30887e8dabf8348f3161f760da415fa3da63b62e",
+  "node_graph": [
+    {
+      "name": "Anal",
+      "parent": "mahi_mahi_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Anal_2",
+      "parent": "body_06",
+      "mesh": false,
+      "translation": [
+        5.551115123125783e-17,
+        0.01536981575191021,
+        -0.05913374200463295
+      ],
+      "rotation": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "Caudal",
+      "parent": "mahi_mahi_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Caudal_2",
+      "parent": "body_09",
+      "mesh": false,
+      "translation": [
+        0,
+        0.002695053583011031,
+        0.00144883431494236
+      ],
+      "rotation": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "Closed_body",
+      "parent": "mahi_mahi_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal",
+      "parent": "mahi_mahi_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal_2",
+      "parent": "body_04",
+      "mesh": false,
+      "translation": [
+        5.551115123125783e-17,
+        0.03370566666126251,
+        0.06440982967615128
+      ],
+      "rotation": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5000000596046448
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "Native_eye_-1",
+      "parent": "mahi_mahi_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Native_eye_1",
+      "parent": "mahi_mahi_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_left",
+      "parent": "mahi_mahi_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_left_2",
+      "parent": "body_01",
+      "mesh": false,
+      "translation": [
+        -2.5796129121680167e-11,
+        0.03460314869880676,
+        -0.041909828782081604
+      ],
+      "rotation": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_right",
+      "parent": "mahi_mahi_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral_right_2",
+      "parent": "body_01",
+      "mesh": false,
+      "translation": [
+        -2.5796129121680167e-11,
+        0.03460314869880676,
+        -0.041909828782081604
+      ],
+      "rotation": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "Pelvic_left",
+      "parent": "mahi_mahi_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pelvic_left_2",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        5.551115123125783e-17,
+        -0.010141851380467415,
+        -0.09079534560441971
+      ],
+      "rotation": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "Pelvic_right",
+      "parent": "mahi_mahi_Rig",
+      "mesh": true,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Pelvic_right_2",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        5.551115123125783e-17,
+        -0.022806497290730476,
+        -0.09104863554239273
+      ],
+      "rotation": [
+        0.5,
+        -0.5,
+        -0.5,
+        0.5
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        1
+      ]
+    },
+    {
+      "name": "body_00",
+      "parent": "root",
+      "mesh": false,
+      "translation": [
+        0.45500001311302185,
+        -0.016691995784640312,
+        0
+      ],
+      "rotation": [
+        -0.4649454951286316,
+        0.49876970052719116,
+        0.49876970052719116,
+        0.5350545644760132
+      ],
+      "scale": [
+        0.9999999403953552,
+        0.9999999403953552,
+        0.9999999403953552
+      ]
+    },
+    {
+      "name": "body_01",
+      "parent": "body_00",
+      "mesh": false,
+      "translation": [
+        -2.235173712783478e-10,
+        0.09523434937000275,
+        -2.84371370895542e-09
+      ],
+      "rotation": [
+        -0.03505455702543259,
+        0.03505454957485199,
+        0.0012303391704335809,
+        0.9987696409225464
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_02",
+      "parent": "body_01",
+      "mesh": false,
+      "translation": [
+        2.765133431483498e-17,
+        0.0899999737739563,
+        -9.313225746154785e-10
+      ],
+      "rotation": [
+        4.44956571588051e-16,
+        0,
+        -2.3283247552186026e-10,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_03",
+      "parent": "body_02",
+      "mesh": false,
+      "translation": [
+        5.551115123125783e-17,
+        0.08999998867511749,
+        -9.313225746154785e-10
+      ],
+      "rotation": [
+        4.440892098500626e-16,
+        0,
+        -1.817990202823694e-15,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_04",
+      "parent": "body_03",
+      "mesh": false,
+      "translation": [
+        5.551115123125783e-17,
+        0.08999998867511749,
+        -9.313225746154785e-10
+      ],
+      "rotation": [
+        4.440892098500626e-16,
+        0,
+        -1.817990202823694e-15,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_05",
+      "parent": "body_04",
+      "mesh": false,
+      "translation": [
+        5.551115123125783e-17,
+        0.08999999612569809,
+        -9.313225746154785e-10
+      ],
+      "rotation": [
+        4.440892098500626e-16,
+        0,
+        -1.817990202823694e-15,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_06",
+      "parent": "body_05",
+      "mesh": false,
+      "translation": [
+        5.551115123125783e-17,
+        0.09000000357627869,
+        -9.313225746154785e-10
+      ],
+      "rotation": [
+        4.440892098500626e-16,
+        0,
+        -1.817990202823694e-15,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_07",
+      "parent": "body_06",
+      "mesh": false,
+      "translation": [
+        5.551115123125783e-17,
+        0.09000001102685928,
+        -9.313225746154785e-10
+      ],
+      "rotation": [
+        -0.02084685117006302,
+        0.02084685117006302,
+        -0.00043478026054799557,
+        0.9995652437210083
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_08",
+      "parent": "body_07",
+      "mesh": false,
+      "translation": [
+        2.9116709043819355e-12,
+        0.08006962388753891,
+        -6.710441091684061e-10
+      ],
+      "rotation": [
+        0.02084684744477272,
+        -0.02084684744477272,
+        0.0004347801150288433,
+        0.9995652437210083
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "body_09",
+      "parent": "body_08",
+      "mesh": false,
+      "translation": [
+        -4.163336342344337e-17,
+        0.06000000238418579,
+        2.6077018322467893e-10
+      ],
+      "rotation": [
+        1.862645149230957e-09,
+        -1.862645149230957e-09,
+        5.8207622749550936e-11,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "mahi_mahi_Rig",
+      "parent": null,
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "root",
+      "parent": "mahi_mahi_Rig",
+      "mesh": false,
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "alphaMode": "MASK",
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "fin_Anal.001",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0
+      },
+      "alphaCutoff": 0.5,
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "fin_Caudal.001",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicFactor": 0
+      },
+      "alphaCutoff": 0.5,
+      "doubleSided": false
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 2
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Opaque native body alpha-domain extension",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 3
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 4
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Front skin source chart",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 5
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 6
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Front mouth oral chart",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 7
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "alphaMode": "MASK",
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "fin_Dorsal.001",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 8
+        },
+        "metallicFactor": 0
+      },
+      "alphaCutoff": 0.5,
+      "doubleSided": false
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.3499999940395355
+      ],
+      "emissiveTexture": {
+        "index": 9
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "Native pixel art \u00b7 nearest \u00b7 matte",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 10
+        },
+        "metallicFactor": 0
+      }
+    },
+    {
+      "alphaMode": "MASK",
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "fin_Pectoral_left.001",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 11
+        },
+        "metallicFactor": 0
+      },
+      "alphaCutoff": 0.5,
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "fin_Pectoral_right.001",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 12
+        },
+        "metallicFactor": 0
+      },
+      "alphaCutoff": 0.5,
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "fin_Pelvic_left.001",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 13
+        },
+        "metallicFactor": 0
+      },
+      "alphaCutoff": 0.5,
+      "doubleSided": false
+    },
+    {
+      "alphaMode": "MASK",
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0
+        }
+      },
+      "name": "fin_Pelvic_right.001",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 14
+        },
+        "metallicFactor": 0
+      },
+      "alphaCutoff": 0.5,
+      "doubleSided": false
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 1,
+      "source": 2
+    },
+    {
+      "sampler": 1,
+      "source": 2
+    },
+    {
+      "sampler": 1,
+      "source": 3
+    },
+    {
+      "sampler": 1,
+      "source": 3
+    },
+    {
+      "sampler": 1,
+      "source": 3
+    },
+    {
+      "sampler": 1,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 1,
+      "source": 5
+    },
+    {
+      "sampler": 1,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 6
+    },
+    {
+      "sampler": 0,
+      "source": 7
+    },
+    {
+      "sampler": 0,
+      "source": 8
+    },
+    {
+      "sampler": 0,
+      "source": 9
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9728,
+      "minFilter": 9728,
+      "wrapS": 33071,
+      "wrapT": 33071
+    },
+    {
+      "magFilter": 9728,
+      "minFilter": 9728,
+      "wrapS": 33071,
+      "wrapT": 33071
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "size": [
+        1974,
+        659
+      ],
+      "rgba_sha256": "181f2232635599d7cf730e998a4d42f2fc922a16f08b1b0746060a0034688935",
+      "embedded_sha256": "e022d49b751af525e42a9c50f8f852234011d98bff7192064fd3ea7133a6a562"
+    },
+    {
+      "index": 1,
+      "size": [
+        1974,
+        659
+      ],
+      "rgba_sha256": "7b7f21090587e3aa8f47884f9f45b854e3d23d5cf1392f1d2c0767fca35dbf96",
+      "embedded_sha256": "876611a8d6ec24b4e48ade989774950a6493996a346d09d1b0523457784d9b65"
+    },
+    {
+      "index": 2,
+      "size": [
+        1974,
+        659
+      ],
+      "rgba_sha256": "916170b922d5145fecd479afd5ecfb5c3e7fc6a7b9a13bf66f105b562dde605d",
+      "embedded_sha256": "d8da60855f9650d4d7e0a8f172fe01aac260ee26d7caf512b72e4cd1137ad9c1"
+    },
+    {
+      "index": 3,
+      "size": [
+        1024,
+        2048
+      ],
+      "rgba_sha256": "c547340693dcb62ffd4d67d47c3c9c97a07ef191b1ef7c18c01605e87d96f47c",
+      "embedded_sha256": "b5d8b8604b858e39a421b4ae345a0f75fa6d81e2e387f69cfbb21a0b5bbf1298"
+    },
+    {
+      "index": 4,
+      "size": [
+        1974,
+        659
+      ],
+      "rgba_sha256": "30f2ebc771e3f4feda1953777786bf57f6cb423efb178384ad36cc194719c488",
+      "embedded_sha256": "72f9a37ed753248c25296fe062a4b314882aa08c3a6fed4a1d7c94b25a67efa3"
+    },
+    {
+      "index": 5,
+      "size": [
+        1974,
+        659
+      ],
+      "rgba_sha256": "17c1f8555fbc702ac091052b7a1ede428fd9fb666a3033cae423ea62f3ed3c58",
+      "embedded_sha256": "fd9e6eeb1ef3c2f02d96cb66b1ae69d596f692c58ad8e312d74057334d0bebde"
+    },
+    {
+      "index": 6,
+      "size": [
+        1974,
+        659
+      ],
+      "rgba_sha256": "dd19d767fc1997d4391c3f18ae2ca2d07fa3bc557eef81fe76854a4fb5d1955b",
+      "embedded_sha256": "d2c8663dbdd899c69e65c29256e860042f82c2090e06d3d4d629c02020d317ba"
+    },
+    {
+      "index": 7,
+      "size": [
+        1974,
+        659
+      ],
+      "rgba_sha256": "dd19d767fc1997d4391c3f18ae2ca2d07fa3bc557eef81fe76854a4fb5d1955b",
+      "embedded_sha256": "d2c8663dbdd899c69e65c29256e860042f82c2090e06d3d4d629c02020d317ba"
+    },
+    {
+      "index": 8,
+      "size": [
+        1974,
+        659
+      ],
+      "rgba_sha256": "0b5cce1e4fe0089bc98cc2d16769f569a1e0a85acb151f740048ed46de970f3f",
+      "embedded_sha256": "5d933abe6a78c3c4853b74adf356cf5abf766ca8bbd0f4b8d0350dfefe15ca4b"
+    },
+    {
+      "index": 9,
+      "size": [
+        1974,
+        659
+      ],
+      "rgba_sha256": "50abd98ef839006388df7c711ba42663bf04552c77375991598157abc3433c14",
+      "embedded_sha256": "58a9e9c174fdad4014d8202f3370890b2e7fa6821f35540c82b7f580fd54eba8"
+    }
+  ],
+  "authorized_caudal_pixel_patch": null,
+  "protected_scope": "Every actual canonical partition except exact Caudal/Caudal_mesh fin ownership. Complete inventory computed from actual GLB; no self-reported omissions.",
+  "provenance": "Actual canonical bytes matched root release-inputs baseline and accepted release metadata before replacement; no retired historical model restored.",
+  "baseline_source_sha256": "5a2155ce0d567caa69d15b15a7afe13d491975ed11352a38dda3e220c7d70f55",
+  "rig_semantic_signature": "5725fc0c42cd695d654936c9d67d416fe3a715287c4e0edc9d67f10e93d6f006",
+  "native_animation_semantic_signature": "f4d38d8d2edeb1721f80a1b1d554eef526708fa0d0c8b9c76c8f081f1b918457"
+}

@@ -1,0 +1,91 @@
+{
+  "kind": "accepted_caudal_repair_material_bindings",
+  "species": "mahi_mahi",
+  "baseline_model_sha256": "3fc100704119caf59ce4f15450f52527e663c2f9d5541d8a6dcf5db3ddcb763b",
+  "part_material_bindings": [
+    {
+      "key": [
+        "Anal",
+        0
+      ],
+      "material": 0
+    },
+    {
+      "key": [
+        "Caudal",
+        0
+      ],
+      "material": 1
+    },
+    {
+      "key": [
+        "Closed_body",
+        0
+      ],
+      "material": 2
+    },
+    {
+      "key": [
+        "Closed_body",
+        1
+      ],
+      "material": 3
+    },
+    {
+      "key": [
+        "Closed_body",
+        2
+      ],
+      "material": 4
+    },
+    {
+      "key": [
+        "Dorsal",
+        0
+      ],
+      "material": 5
+    },
+    {
+      "key": [
+        "Native_eye_-1",
+        0
+      ],
+      "material": 6
+    },
+    {
+      "key": [
+        "Native_eye_1",
+        0
+      ],
+      "material": 6
+    },
+    {
+      "key": [
+        "Pectoral_left",
+        0
+      ],
+      "material": 7
+    },
+    {
+      "key": [
+        "Pectoral_right",
+        0
+      ],
+      "material": 8
+    },
+    {
+      "key": [
+        "Pelvic_left",
+        0
+      ],
+      "material": 9
+    },
+    {
+      "key": [
+        "Pelvic_right",
+        0
+      ],
+      "material": 10
+    }
+  ]
+}
