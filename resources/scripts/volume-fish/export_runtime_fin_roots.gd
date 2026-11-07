@@ -7,6 +7,8 @@ var surfaces: Array
 var faces: Array
 var samples: Array
 var export_membranes := false
+var local_phase := 0.0
+var local_native_phase := 0.0
 const PACKED_PARTS = preload("PackedFishValidation.gd")
 func _initialize() -> void:call_deferred("run")
 func save_json(path: String, value: Variant) -> void:
@@ -58,11 +60,21 @@ func prepare(entry: Dictionary, spec: Dictionary) -> void:
                     var key="%d:%d"%[mini(pair[0],pair[1]),maxi(pair[0],pair[1])]
                     if selected.has(pair[0]) and selected.has(pair[1]) and not seen.has(key):edges.append(pair);seen[key]=true
             assert(not ids.is_empty(),"Unmapped basal selection: "+spec.species+"/"+name)
-        surfaces.append({"name":name,"body":is_body,"mesh":node,"vertices":vertices,"joints":joints,"weights":weights,"triangles":triangles,"bindings":bindings,"count":count,"ids":ids,"edges":edges})
+        var basal_faces: Array=[]
+        if not is_body and bool(spec.get("finite_root_face_samples",false)):
+            var selected_roots: Dictionary={}
+            for id in ids:selected_roots[id]=true
+            for i in range(0,triangles.size(),3):
+                if selected_roots.has(triangles[i]) and selected_roots.has(triangles[i+1]) and selected_roots.has(triangles[i+2]):basal_faces.append([triangles[i],triangles[i+1],triangles[i+2]])
+        surfaces.append({"name":name,"body":is_body,"mesh":node,"vertices":vertices,"joints":joints,"weights":weights,"triangles":triangles,"bindings":bindings,"count":count,"ids":ids,"edges":edges,"basal_faces":basal_faces})
     assert(found.size()==spec.fins.size()+1,"Incomplete fin inventory "+spec.species)
 
 func sample(entry: Dictionary, label: String, seconds: float) -> void:
     if variant=="diagnostic" and label!="Static" and not (label in ["Native","Range:WideFast","Clearance:Independent"] and is_equal_approx(seconds,3.75)):return
+    if variant=="local" and label!="Static":
+        if label=="Native":
+            if not is_equal_approx(seconds,local_native_phase):return
+        elif not (label in ["Swim","Turn","Ascend","Dive","Range:WideFast","Range:FinsOnly","Range:BodyOnly","Clearance:Independent"] and is_equal_approx(seconds,local_phase)):return
     var s: Skeleton3D=entry.skeleton;s.force_update_all_bone_transforms();var relative: Transform3D=entry.carrier.global_transform.affine_inverse()*s.global_transform;var body: Array=[];var roots={};var membranes={}
     for surface in surfaces:
         var transforms: Array[Transform3D]=[]
@@ -88,7 +100,10 @@ func sample(entry: Dictionary, label: String, seconds: float) -> void:
             for edge in surface.edges:
                 for k in [1,2,3,4,5,6,7]:
                     var p: Vector3=coords[edge[0]].lerp(coords[edge[1]],float(k)/8.);points.append([p.x,p.y,p.z])
-            roots[surface.name]={"vertex_count":surface.ids.size(),"edge_count":surface.edges.size(),"points_m":points}
+            for face in surface.basal_faces:
+                for bary in [Vector3(1./3.,1./3.,1./3.),Vector3(.6,.2,.2),Vector3(.2,.6,.2),Vector3(.2,.2,.6)]:
+                    var p:Vector3=coords[face[0]]*bary.x+coords[face[1]]*bary.y+coords[face[2]]*bary.z;points.append([p.x,p.y,p.z])
+            roots[surface.name]={"vertex_count":surface.ids.size(),"edge_count":surface.edges.size(),"finite_basal_faces":surface.basal_faces.size(),"points_m":points}
     var filename=out+"/sample-%03d.json"%samples.size();var data={"body_vertices_m":body,"body_triangles":faces,"roots":roots}
     if export_membranes:data["membranes"]=membranes
     save_json(filename,data);samples.append({"action":label,"seconds":seconds,"posed_mesh_json":filename,"sha256":FileAccess.get_sha256(filename)})
@@ -109,12 +124,13 @@ func run() -> void:
         carrier.add_child(model)
         var skeleton: Skeleton3D=model.find_children("*","Skeleton3D",true,false)[0];var player=model.find_children("*","AnimationPlayer",true,false)[0];player.stop();skeleton.reset_bone_poses();skeleton.force_update_all_bone_transforms()
         var entry={"carrier":carrier,"model":model,"skeleton":skeleton,"player":player};prepare(entry,spec)
-        var profile: Dictionary=profiles[spec.species];model.scale=Vector3.ONE*float(profile.real_length_cm)/100./float(spec.length_native)
+        var profile: Dictionary=profiles[spec.species];local_phase=float(profile.period_seconds)/4.;model.scale=Vector3.ONE*float(profile.real_length_cm)/100./float(spec.length_native)
         sample(entry,"Static",0.)
         if export_membranes:
             player.callback_mode_process=AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
             player.play(profile.base_clip)
             var native_clip: Animation=player.get_animation(profile.base_clip)
+            local_native_phase=native_clip.length*6./25.
             for phase in 25:
                 var native_time:=native_clip.length*float(phase)/25.
                 player.seek(native_time,true);player.advance(0.);sample(entry,"Native",native_time)
@@ -161,5 +177,9 @@ func run() -> void:
             report["sample_limit"]="490 discrete poses: original 177, native clip 25, four dense independent control mixes 256, control sweep 32. Full fin surfaces exported; not continuous proof."
         if not export_membranes:report["sample_limit"]="81 baseline poses plus 80 independent amplitude/frequency range poses and 16 range transitions; 177 discrete poses, not continuous proof."
         if variant=="diagnostic":report["sample_limit"]="Diagnostic subset only; not a delivery gate.";report["diagnostic_only"]=true
+        if variant=="local":report["sample_limit"]="Local rest/native/four-action and independent-control quarter-cycle probes; not a delivery gate.";report["diagnostic_only"]=true
+        if bool(spec.get("finite_root_face_samples",false)):
+            report["finite_root_face_sampling_revision"]=1
+            report["selection"]+="; complete all-root triangle centroids and three interior barycentric points"
         save_json(out+"/export.validation.json",report);print("FIN_EXPORT_DONE ",spec.species," ",samples.size());carrier.queue_free();await process_frame
     quit()

@@ -8,7 +8,7 @@ from volume_finalization import check_finalization, pending_finalization
 # Each key names an observation/evidence obligation, not a generic success score.
 STAGES = {
     'preparation': {'research_and_measurements':'data','source_views_and_purposes':'data','accepted_source_provenance':'data','landmarks_and_part_inventory':'image','native_fin_cutouts_and_part_ownership':'data'},
-    'head': {'source_pose_comparison':'image','clay_side':'image','clay_front':'image','clay_top':'image','clay_bottom':'image','clay_oblique':'image','transverse_constraints':'data'},
+    'head': {'reference_side_comparison':'image','reference_top_comparison':'image','reference_shape_verdict':'report','source_pose_comparison':'image','clay_side':'image','clay_front':'image','clay_top':'image','clay_bottom':'image','clay_oblique':'image','transverse_constraints':'data'},
     'mouth': {'structure_branch_and_constraints':'data','whole_snout_and_chin':'image','integrated_upper_lower_jaws_and_cut':'image','misplaced_outline_ownership':'image','native_pixel_cover_and_actual_uv_joins':'image','source_donors_and_mouth_gap':'data','complete_native_lip_domain_and_front_exclusion':'report'},
     'eyes': {'source_eye_and_ownership_domains':'image','opposite_and_top_views':'image','overlay_attachment_and_lod':'data'},
     'skin': {'dorsal_material':'image','ventral_material':'image','hidden_fin_skin':'image','native_2d_donors_and_exclusions':'data','surface_opacity_inventory':'data','body_owned_fin_base_marks':'image'},
@@ -105,7 +105,26 @@ def check_mouth_implementation(entry, candidates, artifact, fail):
         if not isinstance(impl.get(key), str) or not impl[key].strip():
             fail('missing_integrated_jaw_detail', 'mouth.implementation.' + key)
 
-STANDARD_VERSION = '2026-10-31-complete-production-v1'
+def check_reference_shape(report, candidates, species, artifact, fail, label):
+    # Auxiliary sources may inform a design, but looking at one is not a verdict.
+    if (report.get('kind') != 'fish_reference_shape_review' or report.get('species') != species
+            or not candidates.get('model', {}).get('sha256')
+            or report.get('model_sha256') != candidates['model']['sha256']
+            or report.get('unresolved_differences') != []):
+        fail('unresolved_reference_shape', label)
+    for key in ('side', 'top'):
+        view = report.get(key)
+        if not isinstance(view, dict):
+            fail('missing_shape_view', label + '.' + key)
+            continue
+        artifact(view.get('reference'), label + '.' + key + '.reference')
+        if (view.get('result') != 'passed' or
+                any(not isinstance(view.get(k), str) or not view[k].strip()
+                    for k in ('landmarks','reference_scope','observed_difference','basis_for_pass'))):
+            fail('unreviewed_reference_shape', label + '.' + key)
+
+
+STANDARD_VERSION = '2026-11-05-reference-shape-v2'
 TASK_TYPES = ('new', 'rebuild', 'repair', 'local_godot_static_merge')
 
 
@@ -118,7 +137,7 @@ def standard_snapshot():
     paths += [Path(__file__), Path(__file__).with_name('volume_finalization.py'),
               Path(__file__).with_name('volume_packed_acceptance.py'),
               Path(__file__).with_name('volume_repair_preservation.py')]
-    return {'version': STANDARD_VERSION, 'files': {str(p.relative_to(root)): sha(p) for p in paths},
+    return {'version': STANDARD_VERSION, 'files': {p.relative_to(root).as_posix(): sha(p) for p in paths},
             'criteria': json.loads(json.dumps(STAGES))}
 
 
@@ -229,6 +248,7 @@ def check(review: Path, output: Path | None=None):
                     try:
                         content=read(path)
                         if content.get('ok') is not True:fail('failed_report',label)
+                        if stage=='head' and criterion=='reference_shape_verdict':check_reference_shape(content,candidates,data['species'],artifact,fail,label)
                         if stage=='fins'and criterion=='actual_normal_thickness_and_tail_section':
                             profile=read(resolve(candidates['species_profile']['path']))
                             check_fin_volume_report(content,candidates,data['species'],fail,label,profile,preservation)

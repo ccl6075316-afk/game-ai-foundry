@@ -1,0 +1,484 @@
+{
+  "count": 28,
+  "new_style_confirmed": 3,
+  "rebake_remaining": 25,
+  "fish": [
+    {
+      "species": "african_catfish",
+      "model": "game\\assets\\models\\fish\\african_catfish.glb",
+      "model_sha256": "62b26e865ba68f09fafbb7b2bf73a7439736101806f66ac7a35b63cb232aac04",
+      "source": "assets\\source\\fish\\african_catfish\\fish.blend",
+      "source_sha256": "d807fb550386990b9ad21fc544f3538cbf54ae0dfe895a2611ae9b890b77001f",
+      "static": {
+        "geometry_uv_skin_sha256": "faabf4aaa6f5055ee63f54d3d42d3e7be412c32925b70c4e5ab5be6a550824a2",
+        "material_pixels_sha256": "f70b543d7ea3b795c782f344ef3b069e9989ecb070566632be03803d46ffd380",
+        "skeleton_rest_bind_sha256": "cdf598cdbf1c51bc41d25060528bcb4367c05831cae6e989196a1a06c9a498d4",
+        "triangles": 2000,
+        "bones": 18
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "arapaima",
+      "model": "game\\assets\\models\\fish\\arapaima.glb",
+      "model_sha256": "d4a52b0e4ea989e5f40088004677919619adfb1194e71e97b8fa5fbd320f8818",
+      "source": "assets\\source\\fish\\arapaima\\fish.blend",
+      "source_sha256": "879f82a1c6b84efdf81024afc012fc44716f77097d9a484f5320f7568cefba7c",
+      "static": {
+        "geometry_uv_skin_sha256": "60d9b46e45eadeb4619ea60426c509dbed470c430122281ab8898d2838340e0d",
+        "material_pixels_sha256": "16f0e3a162c7148932fe54cb0cbebf98b443c09d4c7eb1244b829bc9ade4574b",
+        "skeleton_rest_bind_sha256": "f5c603dedfcf48701134b159d484136443dfa26b51a0decab46610e27deb84c9",
+        "triangles": 3742,
+        "bones": 32
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "atlantic_sailfish",
+      "model": "game\\assets\\models\\fish\\atlantic_sailfish.glb",
+      "model_sha256": "d39cf6ecd0862d0307d5c6cec4c3e645fb3c5d2c4ba7e78588791d7fb2cd4758",
+      "source": "assets\\source\\fish\\atlantic_sailfish\\fish.blend",
+      "source_sha256": "722cca2a7cc2fa49fa1d0fcaf5aa83eef325f8957a369eabfb36a32e131cb85d",
+      "static": {
+        "geometry_uv_skin_sha256": "18aa68bc0b107a7235617ca9c7cb7ea6444177e078e1b21dc219db45a2886dd6",
+        "material_pixels_sha256": "8b1fe6427ed7355ac18bad5aa06ab22455bbc2e50ed40e6fa100023d8be6b20a",
+        "skeleton_rest_bind_sha256": "81555e9356333d9a052612aa8e5ac885c672ec2d43362cf2ed1a6fd612acf4a0",
+        "triangles": 3982,
+        "bones": 20
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "atlantic_salmon",
+      "model": "game\\assets\\models\\fish\\atlantic_salmon.glb",
+      "model_sha256": "837fcc31a3aaabe36524473030925f7cadb4522d63602f69d0cf075c8fb30a4b",
+      "source": "assets\\source\\fish\\atlantic_salmon\\fish.blend",
+      "source_sha256": "6db3d60c2db0aca045217c5483aaa7b82a23a846022dae769a4f7cada271333e",
+      "static": {
+        "geometry_uv_skin_sha256": "e0211f6d6c988e9ba25ee1ace2d0a1551469ea8a996c511cdc3266fce0556fa2",
+        "material_pixels_sha256": "f6a30443114ec87e594c5b8007c348e009cd0e4ad0fc4f6706222ed5d213d22f",
+        "skeleton_rest_bind_sha256": "0a49b854669e9cc23e7e8a316933866c32dcd4309b752e7dbda31dd9d2bf997e",
+        "triangles": 1952,
+        "bones": 19
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "black_seabream",
+      "model": "game\\assets\\models\\fish\\black_seabream.glb",
+      "model_sha256": "bbeb71166d9deab84557865204fc81f0e913f8290d5dec90a2526620dd1053bd",
+      "source": "assets\\source\\fish\\black_seabream\\fish.blend",
+      "source_sha256": "6828dac864d8603d5b205012c81f4e8ab81a29916e5a4c08075d6ad6388e239d",
+      "static": {
+        "geometry_uv_skin_sha256": "2c7c3487ee9d75eb8448b78b33d2dccf7da207539808fe37f350b46e10001c6e",
+        "material_pixels_sha256": "00316db8e83ca70b9c3786fc4f5da96080646be13f9fff407259355c9ed08bc7",
+        "skeleton_rest_bind_sha256": "8fef87601f397cd0b1338c78ccc87319cbf69d06cd5351e5cb24a0ecb78d483f",
+        "triangles": 1952,
+        "bones": 18
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "blacktip_reef_shark",
+      "model": "game\\assets\\models\\fish\\blacktip_reef_shark.glb",
+      "model_sha256": "f9ffc6f9c71155cdf126cd82bf3b1c88d634d61963b64896796fd59e88428e43",
+      "source": "assets\\source\\fish\\blacktip_reef_shark\\fish.blend",
+      "source_sha256": "c663b9a4347c5327ad01c561d9cbe5da93d93ba292855712b28c1cdb863217bd",
+      "static": {
+        "geometry_uv_skin_sha256": "adb3efe166d1bfb0da271ebcb36b8437eb36bf883230e06220e1f982db7037fd",
+        "material_pixels_sha256": "6efb68a643e3ec0ec13772596a5ddfc340df5d364bacfae702983a49d09f9680",
+        "skeleton_rest_bind_sha256": "29a4de3d9c568253e0a756245b39f149b8008ded32466b3edca0fbf0c0293b50",
+        "triangles": 3930,
+        "bones": 18
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "bluegill",
+      "model": "game\\assets\\models\\fish\\bluegill.glb",
+      "model_sha256": "4e666881650fdca7e2f51b70d44e01cc17bc77fa69a23e6a2ec1ad47c11df396",
+      "source": "assets\\source\\fish\\bluegill\\fish.blend",
+      "source_sha256": "b0b7579aec931b34c281ff9cacfad099ec901db8f3ee110e30e0880a106e3f5c",
+      "static": {
+        "geometry_uv_skin_sha256": "4a710d8c511a2db269483c71eab1df8dabcca22012a43558133a8208f56793e3",
+        "material_pixels_sha256": "1c04f2a096d5303df391d871d5fb6c4bbe7ef5364e5a76629fb2674862b51972",
+        "skeleton_rest_bind_sha256": "352c56e782b154bfe09c2478e12403de99ca3ec0933a7c9ba1178ad5d8667233",
+        "triangles": 1520,
+        "bones": 18
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "brown_trout",
+      "model": "game\\assets\\models\\fish\\brown_trout.glb",
+      "model_sha256": "4962904703412f912c0990d4899d1956442110a57a32c5c175d397d426895204",
+      "source": "assets\\source\\fish\\brown_trout\\fish.blend",
+      "source_sha256": "bd33fb605b638752e01ab46ef537967cfb4e75220fdd63426a7a6e3e079a8390",
+      "static": {
+        "geometry_uv_skin_sha256": "3d19fd7654903e6eae929393b91836499dc58f18e028f76417a7804fcff21b0e",
+        "material_pixels_sha256": "4a0e9b66fef7c7469b2a09af1192434c18534a7089db2ec688ef7e7690754797",
+        "skeleton_rest_bind_sha256": "4c643f4738c80ceffba6568140171781423600f248c5b771c0a87df7366b8af7",
+        "triangles": 1896,
+        "bones": 19
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "carp",
+      "model": "game\\assets\\models\\fish\\carp.glb",
+      "model_sha256": "35e414db4be52b26b991ceccbc0b3a1e82db1183c373778e3e53d6f2d3f145d1",
+      "source": "assets\\source\\fish\\carp\\fish.blend",
+      "source_sha256": "dae5bbba861b5e4c92d736ff28213d1c4d65db6717b0b14adca2c5eb0884c04b",
+      "static": {
+        "geometry_uv_skin_sha256": "922a267b7bc38d2b9540152306db27e36dee3c1897b7d6b701faccad9daabfcb",
+        "material_pixels_sha256": "21db9952715813bcc0464c1a3fd7cc07231b2cc10eded102e18fbc8dd1545d4f",
+        "skeleton_rest_bind_sha256": "91ef15df00cb7c3d709cb30db38039f99f3296acc19add19f41d8fdde5035b58",
+        "triangles": 1494,
+        "bones": 18
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "crucian",
+      "model": "game\\assets\\models\\fish\\crucian.glb",
+      "model_sha256": "b5b3a0ce35eb65092bb710e741f26e7131f889d12af7ed55c746ff0e9b74e83b",
+      "source": "assets\\source\\fish\\crucian\\fish.blend",
+      "source_sha256": "2ee178a44a9f09592a7d4d15c170b3756b55c15100832da5eefcdaa5f197ea60",
+      "static": {
+        "geometry_uv_skin_sha256": "05e81660199f185e1ce0246fb8ca6cc27766590dc413074704670ef0048a5293",
+        "material_pixels_sha256": "2f8b8725027cc57d650c21b7c7017899691a356260ebc98a1a346c4cf4bd40eb",
+        "skeleton_rest_bind_sha256": "9ad4a1abe31230cc49f5c4a6dcd8f9209f5d5f85ea8fee4949798d947e7637b3",
+        "triangles": 1748,
+        "bones": 18
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review",
+      "note": "User recalls adjustment; current repository has no evidence of this clean-pixel rebake. Preserve existing accepted model and verify first."
+    },
+    {
+      "species": "grass_carp",
+      "model": "game\\assets\\models\\fish\\grass_carp.glb",
+      "model_sha256": "6e0d5d2cc04e8bfe63386839533e81e0dbd58630ce81ea4c366ac26f50e1e970",
+      "source": "assets\\source\\fish\\grass_carp\\fish.blend",
+      "source_sha256": "c73fe13153c5145467afbfc84c56b36be7770840a31c3bb8ba12fb1774570264",
+      "static": {
+        "geometry_uv_skin_sha256": "e26642296709b2300b60974e9829a85c9ac9f2c26421e2c22155b608198ae6cc",
+        "material_pixels_sha256": "10cb40f6635d8c13165d0ea5f2a20efe37b8fe6ec98dec0e262584b4885db2ee",
+        "skeleton_rest_bind_sha256": "03d7a328454066c85f64410bd87a09ab4ceb4b5ba6bd78fa015621d61d64a20d",
+        "triangles": 1950,
+        "bones": 18
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "great_hammerhead",
+      "model": "game\\assets\\models\\fish\\great_hammerhead.glb",
+      "model_sha256": "9c11e27caf2ac6029b6a0b473594049a592dd6648453a450efaa435cef24046f",
+      "source": "assets\\source\\fish\\great_hammerhead\\fish.blend",
+      "source_sha256": "367235fe442ba970a5c9816b83be00382d914b3d41578f30eaf3da26e03af980",
+      "static": {
+        "geometry_uv_skin_sha256": "6d1cbfdcd9ef73ff3b1341961275bb3e7da9de60780b416b1fe16695f5f3d6ec",
+        "material_pixels_sha256": "f916e0af1b0cac40e24c5d2fc07a5f723287ddf38efc38accf86b234d88d4df0",
+        "skeleton_rest_bind_sha256": "246d1894d1b8960d9082f31143e7dc350f0011fc9feb7479d3086b3542b8d906",
+        "triangles": 4524,
+        "bones": 18
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "hairtail",
+      "model": "game\\assets\\models\\fish\\hairtail.glb",
+      "model_sha256": "a5ae53ae77b395b63bfa248142cd859059ab1253b6849ac4b6847d38cb3651ee",
+      "source": "assets\\source\\fish\\hairtail\\fish.blend",
+      "source_sha256": "0fbfde27751a4a00f90df0c2eced0507e68dc07547d7b5483df3e37523d48b02",
+      "static": {
+        "geometry_uv_skin_sha256": "347697d0eadfa2b4bc715068523206795bc93a7bf1a7bfd20e3a27b255e6cf7b",
+        "material_pixels_sha256": "68e336d00f97779ce96fff9cd0f86ef9a03c9e9a7e90953cf8494043fec062c9",
+        "skeleton_rest_bind_sha256": "58cc426ed44ed8e3c29f2bfb3c5e6aca863b01998a6bdb60a8315ea125d415f6",
+        "triangles": 2000,
+        "bones": 67
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "mahi_mahi",
+      "model": "game\\assets\\models\\fish\\mahi_mahi.glb",
+      "model_sha256": "fffa338ffa38050388eee3435c143b36a0c4b07834b99ac9c21c1cef4e0338c5",
+      "source": "assets\\source\\fish\\mahi_mahi\\fish.blend",
+      "source_sha256": "e8cbdef5c1b8765dc0c063794670db1523d0137bf2e9f6d4751682cdb0040383",
+      "static": {
+        "geometry_uv_skin_sha256": "2123f4fbc5bc8a8b04f4dd4a457906cad903770748bcf89e49ba94835819a372",
+        "material_pixels_sha256": "5c0b65a802cec3460f75576e5335718db8e014e13d2e319fa479c072a50c612d",
+        "skeleton_rest_bind_sha256": "e818d20d27bc2c42a856211da933ef0070c5aa57710b0d8cbf42be4da206f14e",
+        "triangles": 1990,
+        "bones": 18
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "nile_tilapia",
+      "model": "game\\assets\\models\\fish\\nile_tilapia.glb",
+      "model_sha256": "f24528ccb29685741577fedfaf28afc627de1dc53593a43e0f3854e7fa3cba63",
+      "source": "assets\\source\\fish\\nile_tilapia\\fish.blend",
+      "source_sha256": "9b676a1c44e06bb490a31e25a8b246be3b1cce8947df461b4bd56a91e5d0af41",
+      "static": {
+        "geometry_uv_skin_sha256": "3049dd40ff284dfb2e39b44c233bcb97782a3d25f051ec0b86c6a273d1fe4683",
+        "material_pixels_sha256": "fdadc5916a58ab6651061172ffc08effb777609283a68adb1809d1c57f54b236",
+        "skeleton_rest_bind_sha256": "d6656955a7111e7e78ab69d5a845f8b56a8b7dd02266c6114b8747267cec0f5c",
+        "triangles": 1602,
+        "bones": 18
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "pacific_bluefin_tuna",
+      "model": "game\\assets\\models\\fish\\pacific_bluefin_tuna.glb",
+      "model_sha256": "21a541bfad43b97d6d8f4a5acea78c4caaf55f8f2266dc12119be705b703fc02",
+      "source": "assets\\source\\fish\\pacific_bluefin_tuna\\fish.blend",
+      "source_sha256": "f916416706ef3a481c731de8a44e8dac815f6675bcfc3b78be7ee680f84a938d",
+      "static": {
+        "geometry_uv_skin_sha256": "a841954bda413f06a357e53b388b23294aa6805d364411b3e84aaec94963ca21",
+        "material_pixels_sha256": "33e54b1e5a445499c95b15bb0147db1ba376a66d83d4c7fa7280ae9b33acf6f6",
+        "skeleton_rest_bind_sha256": "cb9e1083e90d2630bda8bbe0decede17b30d8a67eb2306fac2f96aa20b30c0f7",
+        "triangles": 3976,
+        "bones": 35
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "peacock_bass",
+      "model": "game\\assets\\models\\fish\\peacock_bass.glb",
+      "model_sha256": "e703122fde5667bef8de396a002bf07daf75094d97040003807a1dc0c69f956d",
+      "source": "assets\\source\\fish\\peacock_bass\\fish.blend",
+      "source_sha256": "b5a71eb8d29fabb06a2ee7f3ddf2892be4ee42fdabaecd0bf53dfb3b2d43af19",
+      "static": {
+        "geometry_uv_skin_sha256": "53d1fb1e99acb55e36e4f4f97c3722333a6310cb8715ab491a9db1fbfff6b177",
+        "material_pixels_sha256": "9e0bb6264548871407a11cdfd19b85e4557eff4cf42bb600682ce344729d6898",
+        "skeleton_rest_bind_sha256": "c326f8e4e2b738b1f66f71b33b9e88578f74f92560ecd1c5468a824bdbcde750",
+        "triangles": 1842,
+        "bones": 18
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "piranha",
+      "model": "game\\assets\\models\\fish\\piranha.glb",
+      "model_sha256": "80be233cef987ac695fff661986fa307542a9f5738415680c26e4f8c9149d532",
+      "source": "assets\\source\\fish\\piranha\\fish.blend",
+      "source_sha256": "25dd210d0d74404ca2ab4c6247832cff0ec1188e673e49cf2fa81e59cb6ee998",
+      "static": {
+        "geometry_uv_skin_sha256": "3b1a39c5719704ef35ee0a4da612cff997486a375eb275271c09c59dae55a1ca",
+        "material_pixels_sha256": "77013b83e4990a3abdd49cc35970f60317a6fbadf452affd52e65b1cc0f0dbc1",
+        "skeleton_rest_bind_sha256": "164afb6067683bade6360d9dc4e8e3b05501758b9a09379751954e4f6d6e53f3",
+        "triangles": 1992,
+        "bones": 19
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "rainbow_trout",
+      "model": "game\\assets\\models\\fish\\rainbow_trout.glb",
+      "model_sha256": "752c06f309c1e9127f6b8c0893ea96bb446c6b826cf255520292d471f09f1ae9",
+      "source": "assets\\source\\fish\\rainbow_trout\\fish.blend",
+      "source_sha256": "494fc08922723ce8664f8db207651ff024dab4728b9b00d4363057174692500d",
+      "static": {
+        "geometry_uv_skin_sha256": "d4feebf06c3ec0ccd246214d65a20df3386545409d6c069bb387f8364491e120",
+        "material_pixels_sha256": "767ec29ae9d9a5de1d22fab090de75ccb17bf0676b2a73e90f2a4e32c08ccc2d",
+        "skeleton_rest_bind_sha256": "35aee81b37a9d058c4b6f4fbf86a262cc782f1249ea1817fcc784022642d9193",
+        "triangles": 1860,
+        "bones": 19
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "red_emperor",
+      "model": "game\\assets\\models\\fish\\red_emperor.glb",
+      "model_sha256": "317f10ee1a1fb1eb3f1e76667af5904efd3586d052495eca85b3ad6f52e0f072",
+      "source": "assets\\source\\fish\\red_emperor\\fish.blend",
+      "source_sha256": "3db7de905e510f41c1813d4e248b26c2ef1dac276545fd7fd3288ca8eab68d47",
+      "static": {
+        "geometry_uv_skin_sha256": "db59f0e181cb438b4b7120dd5ab6cfa584bb666875fc681bcebc8c3ff3394dbd",
+        "material_pixels_sha256": "0298fb13ccc591456370072dcf6f47e5a25a247562db3b85bd2bfa3a261ab575",
+        "skeleton_rest_bind_sha256": "dd9f10462d840e31ad615b4628b3dc1910f147f8a07647a06feb426c517f7916",
+        "triangles": 1742,
+        "bones": 18
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "red_seabream",
+      "model": "game\\assets\\models\\fish\\red_seabream.glb",
+      "model_sha256": "6ac8710a55b84cd59729c0164a5f604d40811e41b0b1024a2a96edfdb00603e6",
+      "source": "assets\\source\\fish\\red_seabream\\fish.blend",
+      "source_sha256": "2a905ebf75af47f3257189c608b6d850f4a989e281c9da16122f33729b266fef",
+      "static": {
+        "geometry_uv_skin_sha256": "fbb38e9ce58f4053c64ccaeed0131a9eed4b16ac459c69ca4f0544fe49d17d59",
+        "material_pixels_sha256": "af1470e8aa23d6020e3ad71288c41dea5e29d6dcc3b9a99f772c44d764cbb9c0",
+        "skeleton_rest_bind_sha256": "a1b5aaca4606d82d6e68e3c3530fefdcf551b126047bdafa1f86b44ed33a694f",
+        "triangles": 1904,
+        "bones": 18
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "scalloped_hammerhead",
+      "model": "game\\assets\\models\\fish\\scalloped_hammerhead.glb",
+      "model_sha256": "06f07e304dd2b702f0d12043bc1153d257c7172691d4d31c038535c92cebbfad",
+      "source": "assets\\source\\fish\\scalloped_hammerhead\\fish.blend",
+      "source_sha256": "fcf342cc60c02b9b544633d31a977547b80228186a759370045c20c8dad03504",
+      "static": {
+        "geometry_uv_skin_sha256": "08d7a967319d70366b22e5e1febc865d66dce8d76d1915c6e0d007531d518744",
+        "material_pixels_sha256": "102adbb98230f3b49578ff0f2b822639ea7170008c6bbd3c98021b58369959ad",
+        "skeleton_rest_bind_sha256": "3aa6161d72937b862882c647a39de939229fd40ff1589ca8e1d322fbd655ffa9",
+        "triangles": 3994,
+        "bones": 18
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "sea_bass",
+      "model": "game\\assets\\models\\fish\\sea_bass.glb",
+      "model_sha256": "1c908b8875e655559438ebe7797cc3f87d1658df93d6b0dacb86a69c75e4a631",
+      "source": "assets\\source\\fish\\sea_bass\\fish.blend",
+      "source_sha256": "ddd6d46f6c326bb6c0342db533c03cd645e9379a6835308b4025c5cc1f7b4af0",
+      "static": {
+        "geometry_uv_skin_sha256": "b6a99ccb1ddd4ba245220080ca181829a969c8932e02ce3a27708fedb5b7b5a4",
+        "material_pixels_sha256": "bc884a882641500cc41d9d12b4e6d5b807e5d5658e3868a5b75c822dd062f1fd",
+        "skeleton_rest_bind_sha256": "3d40c8736dbc823d1597fa665b4dbbee582a7b85fb28062855aab8145aca94b8",
+        "triangles": 1958,
+        "bones": 19
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "silver_arowana",
+      "model": "game\\assets\\models\\fish\\silver_arowana.glb",
+      "model_sha256": "cf008adeaded905704861a232006a51c00dcffa0edc817fdc41858f7aa9b7a02",
+      "source": "assets\\source\\fish\\silver_arowana\\fish.blend",
+      "source_sha256": "3de66d12937aa00209d7c651d29d109a10edc657ac9159c8e69baa836ba3bdb2",
+      "static": {
+        "geometry_uv_skin_sha256": "f7f4adc70f5657f75e915619ad5e32c3ccaf9c663a2f65e90d6a3f08cb26c4ef",
+        "material_pixels_sha256": "baea3d85d7b1848cedeb817f6e84873174a8200b8f39212c42e6e4e33528c3f0",
+        "skeleton_rest_bind_sha256": "90773d11fb76ef43384a4283823adc8a34b99a1e44d926c0ff3c14537ab7a5e3",
+        "triangles": 1984,
+        "bones": 35
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "smooth_hammerhead",
+      "model": "game\\assets\\models\\fish\\smooth_hammerhead.glb",
+      "model_sha256": "e581b46799bfdeb353633ede8e4228261d6ccc9416f4bc175f61346c5267a2af",
+      "source": "assets\\source\\fish\\smooth_hammerhead\\fish.blend",
+      "source_sha256": "f322e532b0e538ffe6d28241e1703655c40074b453231f6e5af1654f80c30f84",
+      "static": {
+        "geometry_uv_skin_sha256": "a1245bbba62e54e63718524e99cf50eca1782be31cbc995b2eba0433e6fd9d97",
+        "material_pixels_sha256": "7ea029f9055dfba2a14e7dba9c4569b331e8fda15418e8638dd332a10a20bd72",
+        "skeleton_rest_bind_sha256": "51e1e50ecbb750a462e73577a3418f6d3528863edc67757969d8290cffe7c32c",
+        "triangles": 3970,
+        "bones": 18
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "whale_shark",
+      "model": "game\\assets\\models\\fish\\whale_shark.glb",
+      "model_sha256": "5df93fddbc48359edae4f59573f6834d20c5dd49bdd4952537c8e1f640319905",
+      "source": "assets\\source\\fish\\whale_shark\\fish.blend",
+      "source_sha256": "9902e18aed7913d66c07edd464de09982236d33f47abdcb58756d3f571d6af95",
+      "static": {
+        "geometry_uv_skin_sha256": "22c4a98031bf97e456b278ecfcf37fcb3809348bf4464ed7af8abea27a2bc84a",
+        "material_pixels_sha256": "973fb29199b36603328b09a829ecff6fce54e2fc0d2c50affde7c6fb0f42f068",
+        "skeleton_rest_bind_sha256": "9eae9198dc614ad18f8c4dd065f45957c8e20daa6690aabf302e4b5352ab3353",
+        "triangles": 9990,
+        "bones": 7
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "yellow_croaker",
+      "model": "game\\assets\\models\\fish\\yellow_croaker.glb",
+      "model_sha256": "8846cb7bd8736407f80b5b0436889f07e7e5df2e1c95f57d077b97e24dd2dec4",
+      "source": "assets\\source\\fish\\yellow_croaker\\fish.blend",
+      "source_sha256": "ae1e42c1b29276e64ba975954610f81c98efe2d57ef1490ec4cb423a1022f311",
+      "static": {
+        "geometry_uv_skin_sha256": "1beb3604e0d8313b5c37d3a3463afd1134fea698aa87fe5c3b8a49c10b552eef",
+        "material_pixels_sha256": "4a1869ff98b85207829da993dc6d31e544e296bf32bbacbd385a6e76b92391ef",
+        "skeleton_rest_bind_sha256": "bd44684b945a66d3001352fd910eb6aa1380ea9aa23b366db8c442be95c588b0",
+        "triangles": 2000,
+        "bones": 18
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    },
+    {
+      "species": "zander",
+      "model": "game\\assets\\models\\fish\\zander.glb",
+      "model_sha256": "bf1137b96464ab2e395437e9bee9e0da16b9bbad2a508cabdfa87b43baef9c67",
+      "source": "assets\\source\\fish\\zander\\fish.blend",
+      "source_sha256": "0612118f307f9ad6870af3db541f7981a552d34a853c6e13a04bfe27d7691f79",
+      "static": {
+        "geometry_uv_skin_sha256": "6eaa598d2548311619d13c0ab95a770e26a5c96d3b003f2187e6d8de99d645fa",
+        "material_pixels_sha256": "723d2ee90f10cff92240386f28dd9bb1841fa1ce26fc7601d5192448aaeb1d96",
+        "skeleton_rest_bind_sha256": "39f4ce17a2a77f9c345a4079d6d3e379308ee49e6530c8ad1beb9aa891ee4608",
+        "triangles": 2000,
+        "bones": 19
+      },
+      "model_status": "user_accepted_static_baseline",
+      "new_style_status": "rebake_pending",
+      "animation_quality": "separate_future_review"
+    }
+  ]
+}

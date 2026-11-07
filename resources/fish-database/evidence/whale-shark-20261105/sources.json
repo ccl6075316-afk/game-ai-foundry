@@ -1,0 +1,44 @@
+{
+  "species": "Rhincodon typus",
+  "species_gallery": "https://www.inaturalist.org/taxa/52188-Rhincodon-typus/browse_photos",
+  "observed_photos": {
+    "11193947": "lateral whole body, useful for dorsal origin and tall asymmetric tail",
+    "229381770": "wide terminal mouth in feeding pose; unsuitable for neutral proportions",
+    "151593991": "dorsal-oblique swimming, one pectoral foreshortened"
+  },
+  "preferred_mesh": {
+    "title": "DigitalLife3D Model 99B — Mosi, TZ 209",
+    "url": "https://sketchfab.com/3d-models/model-99b-whale-shark-mesh-only-6e84eb7b4a474271a96ec721c219e570",
+    "source_scope": "TZ 209 Mosi, a subadult male reconstructed from multiple views. Shape reference only.",
+    "provider_stats": {
+      "faceCount": 157312,
+      "vertexCount": 78642,
+      "isDownloadable": true
+    },
+    "author": "DigitalLife3D",
+    "official_metadata": "https://api.sketchfab.com/v3/models/6e84eb7b4a474271a96ec721c219e570",
+    "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+    "download_status": "User downloaded official GLB. Source UID and embedded attribution verified; archived unchanged.",
+    "checked_local_date": "2026-11-06",
+    "filename": "model_99b_-_whale_shark_-_mesh_only.glb",
+    "sha256": "e85c6a211354077ea1a6d1d79ec2e1d45d8158aa54a4987f8326ada555c1f567",
+    "bytes": 5343860,
+    "local_triangles": 157312,
+    "embedded_attribution": {
+      "author": "DigitalLife3D (https://sketchfab.com/DigitalLife3D)",
+      "license": "CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)",
+      "source": "https://sketchfab.com/3d-models/model-99b-whale-shark-mesh-only-6e84eb7b4a474271a96ec721c219e570",
+      "title": "Model 99B - Whale Shark - Mesh Only"
+    }
+  },
+  "secondary_mesh": {
+    "title": "3DAssets.dev artwork 5864",
+    "source": "https://3dassets.dev/assets/open-ocean-and-deep-sea-life-whale-shark-4fb7587f",
+    "download": "https://cdn.3dassets.dev/assets/5864/v1/model.glb",
+    "filename": "3dassets-5864.glb",
+    "sha256": "e465990623fc92958f2c2f01bd858a6eb0a9aedbcf97df0b1d20f1fa9019d437",
+    "bytes": 80012,
+    "mesh_count": 3,
+    "scope": "External static artist model, no identified measured animal; not a width standard. Not used as game asset."
+  }
+}

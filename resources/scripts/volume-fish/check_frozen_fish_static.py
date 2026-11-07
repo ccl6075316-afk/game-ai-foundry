@@ -8,7 +8,11 @@ def fingerprint(model):
  for mesh in d['meshes']:
   for p in mesh['primitives']:
    for k in ['POSITION','NORMAL','TEXCOORD_0','JOINTS_0','WEIGHTS_0']:
-    geometry.update(k.encode());geometry.update(arrays(d,b,p['attributes'][k]).tobytes())
+    geometry.update(k.encode())
+    # Constant oral/eye materials can legitimately omit UVs. Hash absence
+    # explicitly; all geometric and skin attributes remain mandatory.
+    if k=='TEXCOORD_0' and k not in p['attributes']:geometry.update(b'absent')
+    else:geometry.update(arrays(d,b,p['attributes'][k]).tobytes())
    geometry.update(arrays(d,b,p['indices']).tobytes())
  material.update(json.dumps(d['materials'],sort_keys=True).encode())
  for im in d['images']:

@@ -192,3 +192,9 @@ cli/fish_budget.py -text
 /resources/volume-fish/great-hammerhead-rebuild-20261105.profile.json -text whitespace=cr-at-eol
 /resources/volume-fish/smooth-hammerhead-rebuild-20261105.profile.json -text whitespace=cr-at-eol
 /resources/scripts/volume-fish/rebuild_finite_pectoral_caps.py -text whitespace=cr-at-eol
+
+/resources/volume-fish/styles/clean-pixel-20261108/*.png filter=lfs diff=lfs merge=lfs -text
+
+/resources/scripts/maintenance/clear_accepted_static_release_20261108.ps1 -text whitespace=cr-at-eol
+/resources/fish-database/evidence/whale-shark-20261105/*.glb binary
+/resources/fish-database/evidence/whale-shark-20261105/*.json -text whitespace=cr-at-eol

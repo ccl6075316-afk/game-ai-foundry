@@ -1,5 +1,7 @@
 # 3D 鱼、水草与布景：知识维护入口
 
+**2026-11-08 静态成品与动作分开接受**：用户明确接受当前大西洋旗鱼 R4、鲸鲨 R8 材质模型以及罗非鱼 C，并要求本地成品改动提交推送、清理实验；游动不满意不否定静态模型。当前共 28 条静态基线，入口 `resources/volume-fish/static-fish-release-20261108.json`、`resources/volume-fish/accepted-fish-inventory-20261108.json`，游戏交接 `plans/reviews/static-fish-release-20261108/HANDOFF.md`。旗鱼/鲸鲨正式源和 GLB 已安装、冷导逐字节相同；当前三鱼正式/缓存/挂钩 91 项通过，旗鱼当前 490/072 通过。鲸鲨完整动作专项及完整生产 SOP 未伪称通过，动作质量另做。只确认这三条已采用本轮新风格；其余 25 条授权材质重烘焙，保持静态几何/UV/骨权，不能把“28 条模型接受”写成“28 条新材质完成”。B/C 清爽像素风格样板、当前源/模型、必要原图、共享资料库和 PDF 保留；旧实验图片/模型/日志退休，不恢复旧实验链。
+
 2026-11-06 双髻鲨 R42 已获用户整鱼成品接受并静态冻结：[正式入口](../resources/volume-fish/final-hammer-pair-20261106.json)。大双髻鲨4524面、无沟双髻鲨3970面，完整8鳍/18骨，正式首读、缓存及垂钓入口直接读取源固化GLB；当前维护看游戏 `plans/reviews/hammer-pair-release-20261106/HANDOFF.md`。尾根端盖法线、共享二维供体接缝方法与逐鱼限制已回写，不恢复旧实验链。
 
 2026-11-05：新11鱼获用户成品接受，共24条成品；安装与参数入口为[十一鱼正式入口](../resources/volume-fish/final-eleven-fish-20261105.json)。用户要求相关旧实验图/模型/密集重放数据退休，仅保留重要文字；[成品保留规则](../resources/skills/fish-volume-production/references/accepted-fish-retention-20261105.md)覆盖旧历史图片保留要求。[完整29页对照PDF](reviews/fish-reference-comparison-20261105.pdf)作为明确要求的交付保留，逐鱼参照角色、差异与未知见[对照文字记录](reviews/fish-reference-comparison-20261105/README.md)。历史删除不代表重新验收，也不修改当前24条成品静态字节。
@@ -87,6 +89,8 @@
 这张卡用于本轮结束时自检，不把所有旧资产追补成全绿，也不要求每次写新的总结文章。确认方法已经回到可发现的维护入口，再进行用户授权的提交。
 
 ## 本轮验证记录
+
+2026-11-06旗鱼资料库双视/头嘴与有限鳍根返修：方法见[实际方法记录](../resources/skills/fish-volume-production/references/library-aligned-head-finite-roots-20261106.md)与[眼位/眼片执行卡](../resources/skills/fish-volume-production/references/eye-volume.md)，参数与当前源见[旗鱼候选索引](../resources/volume-fish/atlantic-sailfish-library-aligned-20261106.json)。当前眼位修正后3982面，眼片106/身体GPU/冷导出通过；原3968面完整490根/鳍面按实际身体与9鳍全属性/rig/runtime精确保留证明沿用，没有重写旧报告或声称新跑490。仍为外观待审候选，完整SOP与游戏安装未完成，不能当成成品冻结入口。
 
 [知识梳理 validation report](validation/2026-11-02-3d-asset-knowledge.json)记录技能格式、维护入口链接、参考覆盖、本机同步和改动范围；不充当鱼、草或布景的模型验收报告。
 

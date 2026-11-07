@@ -8,6 +8,17 @@ from pathlib import Path
 from mathutils import Vector
 from mathutils.bvhtree import BVHTree
 from mathutils.kdtree import KDTree
+from mathutils.geometry import intersect_point_line
+
+def basal_edge_distance(point, edges):
+    """Distance to the complete actual basal segments, never a sampled collar proxy."""
+    result=float('inf')
+    for a,b in edges:
+        if (a-b).length_squared<1e-24:
+            result=min(result,(point-a).length);continue
+        foot,u=intersect_point_line(point,a,b)
+        result=min(result,(point-(a if u<0 else b if u>1 else foot)).length)
+    return result
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--export',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
@@ -35,6 +46,7 @@ def main():
                 for aa,bb in zip(ids,ids[1:]+ids[:1]):edges.add(tuple(sorted([aa,bb])))
             for aa,bb in edges:
                 for fraction in [.25,.5,.75]:points.append(vs[aa].lerp(vs[bb],fraction))
+            basal_edges=[(vs[aa],vs[bb]) for aa,bb in edges if aa in root_ids and bb in root_ids]
             min_dist=1e9;count=0;worst=None;checked=0;exempt=0
             for pt in points:
                 near,normal,_,dist=bvh.find_nearest(pt)
@@ -49,6 +61,8 @@ def main():
                 signed=-dist if inside else dist
                 root_distance=kd.find(pt)[2]
                 if root_surface:root_distance=min(root_distance,root_surface.find_nearest(pt)[3])
+                if signed<0 and signed>=-a.root_collar_mm/1000 and root_distance>a.root_collar_mm/1000:
+                    root_distance=min(root_distance,basal_edge_distance(pt,basal_edges))
                 # Exempt the complete frozen basal surface, but never allow it
                 # to hide a penetration deeper than the frozen seam collar.
                 if root_distance<=a.root_collar_mm/1000 and signed>=-a.root_collar_mm/1000:exempt+=1;continue
@@ -56,7 +70,7 @@ def main():
                 if signed<min_dist:min_dist=signed;worst=list(pt)
                 if signed < -a.penetration_tolerance_mm/1000:count+=1
             assert checked>0,'Root collar excludes entire fin: '+name
-            result={'samples':checked,'root_seam_samples':exempt,'inside_samples':count,'min_signed_distance_mm':min_dist*1000,'worst_point_m':worst};row['fins'][name]=result
+            result={'samples':checked,'root_seam_samples':exempt,'actual_basal_edges':len(basal_edges),'inside_samples':count,'min_signed_distance_mm':min_dist*1000,'worst_point_m':worst};row['fins'][name]=result
             v=summary.setdefault(name,{'failed_poses':0,'worst_penetration_mm':0.,'worst_pose':None})
             if count:v['failed_poses']+=1
             if min_dist*1000<v['worst_penetration_mm']:v['worst_penetration_mm']=min_dist*1000;v['worst_pose']={'action':sample['action'],'seconds':sample['seconds'],'point_m':worst}

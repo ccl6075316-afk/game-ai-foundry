@@ -8,6 +8,11 @@ class DisplayBudgetTests(unittest.TestCase):
     with self.subTest(species=species,cm=cm):
      p=triangle_policy(cm,species=species);self.assertEqual((p['preferred_triangles'],p['hard_triangles']),(preferred,hard));self.assertTrue(check_triangle_budget(hard,cm,species=species)['ok'])
      with self.assertRaisesRegex(ValueError,'exceeded'):check_triangle_budget(hard+1,cm,species=species)
+ def test_eight_metre_whale_shark_exception(self):
+  self.assertTrue(check_triangle_budget(10000,800,species='whale_shark')['ok'])
+  with self.assertRaises(ValueError):check_triangle_budget(10001,800,species='whale_shark')
+  self.assertEqual(triangle_policy(800,species='great_hammerhead')['hard_triangles'],8000)
+
  def test_new_shark_can_declare_taxonomic_group_without_name_guessing(self):
   self.assertEqual(triangle_policy(80,species='new_species',anatomical_group='shark')['hard_triangles'],4000)
   self.assertEqual(triangle_policy(80,species='shark_named_nonshark')['hard_triangles'],2000)

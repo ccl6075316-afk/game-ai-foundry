@@ -59,6 +59,12 @@ class SopTests(unittest.TestCase):
                 'tail_cross_section':{'ok':True,'sections':[{'fixture':True}],'maximum_width_error_mm':.1,'tolerance_mm':.4}},'rejected_original':{'ok':False}}
         write(self.fin_volume_path,self.fin_volume)
         self.lip_path=self.root/'native-lip.json';self.lip={'ok':True,'kind':'complete_anterior_semantic_color_chart','species':'fixture_only','source_sha256':frozen['source_image'],'model_sha256':frozen['material_author_model'],'geometry_weights_triangles_unchanged':True,'actual_3d_rim_transport':{'upper_edges':2,'lower_edges':2},'complete_native_lip_ownership':{'protected_texels':20,'maximum_front_weight_inside_complete_lip':0,'maximum_central_weight_inside_complete_lip':0,'domain':{'upper_width_px':8,'lower_width_px':10,'outer_fade_px':3}}};write(self.lip_path,self.lip)
+        shape_path=self.root/'shape.json'
+        view={'reference':{'path':paths['image'].name,'sha256':sha(paths['image'])},
+              'result':'passed','landmarks':'Fixture stations','reference_scope':'Fixture',
+              'observed_difference':'Fixture only','basis_for_pass':'Fixture assessment'}
+        write(shape_path,{'ok':True,'kind':'fish_reference_shape_review','species':'fixture_only',
+              'model_sha256':frozen['model'],'unresolved_differences':[],'side':view,'top':view})
         for stage, criteria in STAGES.items():
             entry = self.data['stages'][stage]
             entry.update(result='passed', method='Fixture method', reviewer='Test', observations='Fixture only')
@@ -66,11 +72,22 @@ class SopTests(unittest.TestCase):
                 eid = stage + '.' + criterion
                 entry['checks'][criterion] = [eid]
                 path = self.cold_path if criterion == 'final_asset_cold_load' else paths[kind]
+                if criterion=='reference_shape_verdict':path=shape_path
                 if criterion=='actual_normal_thickness_and_tail_section':path=self.fin_volume_path
                 if criterion=='complete_native_lip_domain_and_front_exclusion':path=self.lip_path
                 self.data['evidence'][eid] = {'path': path.name, 'sha256': sha(path),
                     'kind': kind, 'bound_inputs': dict(frozen), 'observation': 'Fixture only'}
         write(self.review, self.data)
+
+    def test_shape_difference_blocks_even_if_technical_checks_pass(self):
+        self.populated_fixture()
+        path=self.root/'shape.json'
+        report=json.loads(path.read_text())
+        report['unresolved_differences']=['posterior body visibly wider']
+        write(path,report)
+        self.data['evidence']['head.reference_shape_verdict']['sha256']=sha(path)
+        write(self.review,self.data)
+        self.assertIn('unresolved_reference_shape',[f['code'] for f in check(self.review)['failures']])
 
     def test_empty_review_fails_via_cli_with_structured_reasons(self):
         result = CliRunner().invoke(volume_group, ['sop-check', '--review', str(self.review),
@@ -368,6 +385,10 @@ def attach_complete_fixture(handoff):
     d['candidate_files']['material_author_model']=dict(d['candidate_files']['model'])
     frozen={k:r['sha256'] for k,r in d['candidate_files'].items()}
     fixture.cold.update(species=species,bound_inputs=frozen)
+    shape_path=fixture.root/'shape.json'
+    shape_report=json.loads(shape_path.read_text())
+    shape_report.update(species=species,model_sha256=frozen['model'])
+    write(shape_path,shape_report)
     write(fixture.cold_path,fixture.cold)
     fins=v.read_json(Path(h['profile']))['fins']
     rows=[]

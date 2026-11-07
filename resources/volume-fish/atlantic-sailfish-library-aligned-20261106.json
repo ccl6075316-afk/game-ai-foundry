@@ -1,0 +1,75 @@
+{
+  "state": "historical_candidate_superseded_by_user_accepted_R4",
+  "species": "atlantic_sailfish",
+  "display_length_cm": 240,
+  "triangles": 3982,
+  "preferred_triangles": 3500,
+  "hard_triangles": 4000,
+  "candidate": {
+    "path": "E:\\game-ai-foundry\\work\\sailfish-shape-20261105\\eye-review\\adjusted\\fish.glb",
+    "sha256": "b490f2827df85a66c7f392ab349f4466ef37a33bcafeba8a501159393a7252a0"
+  },
+  "editable_source": {
+    "path": "E:\\game-ai-foundry\\work\\sailfish-shape-20261105\\eye-review\\adjusted\\fish.blend",
+    "sha256": "a2e81db3caa978a0e160228aaf1ed189d55d648d98767c5027180d5c6d43cd2a"
+  },
+  "root_contract": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\sailfish-whale-shape-20261105\\sailfish\\eye-current-fin-plan.json",
+    "sha256": "66f76d28066df3a528fd8b3d91613d4ad7b99c4dfa17d826b95841151ebca91b"
+  },
+  "chart": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\sailfish-whale-shape-20261105\\sailfish\\final-review-chart.json",
+    "sha256": "caacf7ecc49b3f6cf8b90ed26e8e929ebf5679b12084666a8a4cbeaed8af6100"
+  },
+  "review": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\sailfish-whale-shape-20261105\\sailfish\\eye-review.validation.json",
+    "sha256": "a44d15fd5fd09d192ac1cd9fdb8799d8b0f0df798a4066925ba0852ed152e29d"
+  },
+  "handoff": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\sailfish-whale-shape-20261105\\sailfish\\HANDOFF.md",
+  "generic_method": "resources/skills/fish-volume-production/references/library-aligned-head-finite-roots-20261106.md",
+  "head_stations_native": [
+    0.224,
+    0.249,
+    0.274,
+    0.292,
+    0.301,
+    0.316,
+    0.336,
+    0.351,
+    0.3575,
+    0.359719366,
+    0.374,
+    0.408,
+    0.452,
+    0.482,
+    0.4973
+  ],
+  "library_mesh_sha256": "1e1822efa056ec132174a5b413ef61621465aac70ec5d98fc25e959aa0468403",
+  "generated_skin_sha256": "6f66758e1754829a026db7976637524356a8152f45aeb5b9b0c1b438b7fcd7d4",
+  "generated_skin_scope": "Only feature-free auxiliary head skin; native lip/eye/gill provenance retained separately. Generic art reference not species metrology.",
+  "root_collar_mm": 0.5,
+  "penetration_tolerance_mm": 0.02,
+  "animation_controls_unchanged": true,
+  "full490": {
+    "path": "E:\\game-ai-foundry\\work\\sailfish-shape-20261105\\final-review\\final490\\completion.validation.json",
+    "sha256": "2119a58ca9e837ee9fc8a2f09b6badfea6e78906a1567bdd542f9aade16e9406"
+  },
+  "original3936_full490_repeated": false,
+  "previous_head_candidate": {
+    "path": "E:\\game-ai-foundry\\work\\sailfish-shape-20261105\\final-review\\fish.glb",
+    "sha256": "5cddb858443c0f9d3e0b47285f80e94f61bd70bfb709fdf1bf4fa15e8738de34"
+  },
+  "eye_repair": {
+    "author": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\sailfish-whale-shape-20261105\\sailfish\\eye-adjusted-author.json",
+    "reference_audit": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\sailfish-whale-shape-20261105\\sailfish\\eye-placement-audit.json",
+    "retained_fin490_proof": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\sailfish-whale-shape-20261105\\sailfish\\eye-only-preservation.json"
+  },
+  "material_trial": {
+    "state": "independent_unaccepted_experiment",
+    "report": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\sailfish-whale-shape-20261105\\sailfish\\multiview-bake-review.json",
+    "sha256": "05b4a988a64ad1595c53a342d7fe3ec9a04c71601cbfeba988b7ae53675b872e",
+    "base_candidate_unchanged": true
+  },
+  "current_release": "resources/volume-fish/static-fish-release-20261108.json",
+  "historical_paths": "Old work candidates/evidence retired per user; historical hashes are not current verification."
+}

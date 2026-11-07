@@ -1,0 +1,94 @@
+{
+  "species": "nile_tilapia",
+  "date": "2026-11-08",
+  "user_acceptance": {
+    "quote": "涓嶉敊 杩欎釜缃楅潪瀹氫笅鏉ュ惂",
+    "scope": "C baked material appearance accepted"
+  },
+  "model": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\nile_tilapia.glb",
+    "sha256": "f24528ccb29685741577fedfaf28afc627de1dc53593a43e0f3854e7fa3cba63"
+  },
+  "source": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\nile_tilapia\\fish.blend",
+    "sha256": "9b676a1c44e06bb490a31e25a8b246be3b1cce8947df461b4bd56a91e5d0af41"
+  },
+  "style": "resources/skills/fish-volume-production/references/clean-pixel-fish-style-20261108.md",
+  "prior_model_sha256": "4804f52ddf45862e44607fe8fd4df33d890a0034a9fd41daa9087eee04346676",
+  "static_preservation": {
+    "before": {
+      "geometry_uv_skin_sha256": "3049dd40ff284dfb2e39b44c233bcb97782a3d25f051ec0b86c6a273d1fe4683",
+      "material_pixels_sha256": "9a036bcb3f63b54831301c0320d5eba3313d19c4ede12c5a628daf2a9822d915",
+      "skeleton_rest_bind_sha256": "d6656955a7111e7e78ab69d5a845f8b56a8b7dd02266c6114b8747267cec0f5c",
+      "triangles": 1602,
+      "bones": 18
+    },
+    "after": {
+      "geometry_uv_skin_sha256": "3049dd40ff284dfb2e39b44c233bcb97782a3d25f051ec0b86c6a273d1fe4683",
+      "material_pixels_sha256": "fdadc5916a58ab6651061172ffc08effb777609283a68adb1809d1c57f54b236",
+      "skeleton_rest_bind_sha256": "d6656955a7111e7e78ab69d5a845f8b56a8b7dd02266c6114b8747267cec0f5c",
+      "triangles": 1602,
+      "bones": 18
+    }
+  },
+  "source_cold_export": {
+    "ok": true,
+    "accepted_candidate_sha256": "8e3cbaa3faa79944213aca50881a93934d494fc9221503c976eac993cab6e537",
+    "source_export_sha256": "f24528ccb29685741577fedfaf28afc627de1dc53593a43e0f3854e7fa3cba63",
+    "geometry_UV_normals_weights_indices_exact": true,
+    "nodes_rest_rig_exact": true,
+    "animation_channels_and_decoded_arrays_exact": true,
+    "materials_samplers_exact": true,
+    "embedded_RGBA_exact": true
+  },
+  "status": "user_accepted_material_installed_scoped_checks_passed",
+  "remaining": [
+    "Full production SOP ledger is incomplete; retained geometry was not reopened for a fresh full anatomical acceptance."
+  ],
+  "commit_push_requested": true,
+  "checks": {
+    "full490": {
+      "original_path": "E:\\game-ai-foundry\\work\\fish-expression-study-20261108\\bake-C\\final490\\completion.validation.json",
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\nile-clean-pixel-20261108\\full490.validation.json",
+      "sha256": "1d2481890625e5aeaac63ac2fbdfdd94f7834cd598e527fe514555dbd89d5044",
+      "ok": true
+    },
+    "roots": {
+      "original_path": "E:\\game-ai-foundry\\work\\fish-expression-study-20261108\\bake-C\\final490\\nile_tilapia\\roots.validation.json",
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\nile-clean-pixel-20261108\\roots.validation.json",
+      "sha256": "ada54f05c94358264d07233eced463ed07ca037d3544e727e2db44e727181d8a",
+      "ok": true
+    },
+    "membranes": {
+      "original_path": "E:\\game-ai-foundry\\work\\fish-expression-study-20261108\\bake-C\\final490\\nile_tilapia\\membranes.validation.json",
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\nile-clean-pixel-20261108\\membranes.validation.json",
+      "sha256": "67d03efc7d2d4151e9ff3333e52b0ac86222642bf26db6b2a440a29e20b4c7be",
+      "ok": true
+    },
+    "root072": {
+      "original_path": "E:\\game-ai-foundry\\work\\fish-expression-study-20261108\\bake-C\\root072\\completion.validation.json",
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\nile-clean-pixel-20261108\\root072.validation.json",
+      "sha256": "c21cfeb720556a216d7a3749890ab04aad7624523a1218cd278ab32ed783b4c6",
+      "ok": true
+    },
+    "body077": {
+      "original_path": "E:\\game-ai-foundry\\work\\fish-expression-study-20261108\\bake-C\\body077-r3\\completion.validation.json",
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\nile-clean-pixel-20261108\\body077.validation.json",
+      "sha256": "9c425010db23b0661f93f689814d88f4424cab1660a0637082e7505bf6330379",
+      "ok": true
+    },
+    "canonical": {
+      "original_path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\nile-clean-pixel-20261108\\canonical-load.validation.json",
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\nile-clean-pixel-20261108\\canonical-load.validation.json",
+      "sha256": "0b8c145eff3d3100a66a57c71391f7a25d84c5208199f0529cc1b9f99b0b4b4c",
+      "ok": true
+    }
+  },
+  "pixel_pairs_exact": true,
+  "sop_status": "incomplete_full_production_evidence",
+  "cleanup": {
+    "deleted_bytes": 134330125,
+    "retained_trial_bytes": 35226816
+  },
+  "release_manifest": "resources/volume-fish/static-fish-release-20261108.json"
+}

@@ -1,0 +1,48 @@
+{
+  "date": "2026-11-08",
+  "kind": "user_accepted_static_fish_release",
+  "user_quote": "鲸鲨也好，这条鱼也好，在我看来都是成品鱼。只是它们的游动动画我不满意，但不代表它的模型有问题。",
+  "scope": "Model and material accepted; swimming quality explicitly deferred. No claim of new full production/animation SOP passing.",
+  "fish": {
+    "atlantic_sailfish": {
+      "model": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\atlantic_sailfish.glb",
+        "sha256": "d39cf6ecd0862d0307d5c6cec4c3e645fb3c5d2c4ba7e78588791d7fb2cd4758"
+      },
+      "source": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\atlantic_sailfish\\fish.blend",
+        "sha256": "722cca2a7cc2fa49fa1d0fcaf5aa83eef325f8957a369eabfb36a32e131cb85d"
+      },
+      "static": {
+        "geometry_uv_skin_sha256": "18aa68bc0b107a7235617ca9c7cb7ea6444177e078e1b21dc219db45a2886dd6",
+        "material_pixels_sha256": "8b1fe6427ed7355ac18bad5aa06ab22455bbc2e50ed40e6fa100023d8be6b20a",
+        "skeleton_rest_bind_sha256": "81555e9356333d9a052612aa8e5ac885c672ec2d43362cf2ed1a6fd612acf4a0",
+        "triangles": 3982,
+        "bones": 20
+      },
+      "source_cold_export": "byte_exact",
+      "animation_quality": "user_not_satisfied_deferred",
+      "full_animation_gate": "not_claimed_for_current_candidate"
+    },
+    "whale_shark": {
+      "model": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\whale_shark.glb",
+        "sha256": "5df93fddbc48359edae4f59573f6834d20c5dd49bdd4952537c8e1f640319905"
+      },
+      "source": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\whale_shark\\fish.blend",
+        "sha256": "9902e18aed7913d66c07edd464de09982236d33f47abdcb58756d3f571d6af95"
+      },
+      "static": {
+        "geometry_uv_skin_sha256": "22c4a98031bf97e456b278ecfcf37fcb3809348bf4464ed7af8abea27a2bc84a",
+        "material_pixels_sha256": "973fb29199b36603328b09a829ecff6fce54e2fc0d2c50affde7c6fb0f42f068",
+        "skeleton_rest_bind_sha256": "9eae9198dc614ad18f8c4dd065f45957c8e20daa6690aabf302e4b5352ab3353",
+        "triangles": 9990,
+        "bones": 7
+      },
+      "source_cold_export": "byte_exact",
+      "animation_quality": "user_not_satisfied_deferred",
+      "full_animation_gate": "not_claimed_for_current_candidate"
+    }
+  }
+}
