@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "records": [
+    {
+      "path": "E:\\game-ai-foundry\\projects\\pelagic-fish-145\\references\\sailfish-noaa.jpg",
+      "url": "https://www.floridamuseum.ufl.edu/wp-content/uploads/sites/66/2017/05/Istiophorus-platypterus-05.jpg",
+      "sha256": "7a6abcb7f7f1e8cdbbb230b98e723efd7fcbe8828d494ab01491a2101cb16886",
+      "role": "Biological research only, not game texture or pixel-style anchor"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\projects\\pelagic-fish-145\\references\\sailfish-fao.jpg",
+      "url": "https://www.floridamuseum.ufl.edu/wp-content/uploads/sites/66/2017/05/Istiophorus-platypterus-02.jpg",
+      "sha256": "74463d7554d6e2f085b672f0d1a7d267a197b12784e7e25f41233b7910e2af8d",
+      "role": "Biological research only, not game texture or pixel-style anchor"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\projects\\pelagic-fish-145\\references\\pacific-bluefin-smithsonian.jpg",
+      "url": "https://biogeodb.stri.si.edu/sftep/resources/img/images/species/2237_11855.jpg",
+      "sha256": "1a52e88058c225ba47c717d9e33de02c86786a982f8ee8eeac4e40bea377f6a7",
+      "role": "Biological research only, not game texture or pixel-style anchor"
+    }
+  ]
+}

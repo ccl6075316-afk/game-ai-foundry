@@ -1,0 +1,73 @@
+{
+  "ok": true,
+  "source_gallery": "Smithsonian STRI Rhincodon typus species gallery",
+  "items": [
+    {
+      "path": "26_5741.jpg",
+      "url": "https://biogeodb.stri.si.edu/caribbean/resources/img/images/species/26_5741.jpg",
+      "sha256": "ba300b06538729392078842fa8b20773a853d74a596c4d48c06dd63748c443ab",
+      "role": "Same-species anatomy reference only; no pixels used in game textures. Copyright remains with credited gallery contributors."
+    },
+    {
+      "path": "26_5742.jpg",
+      "url": "https://biogeodb.stri.si.edu/caribbean/resources/img/images/species/26_5742.jpg",
+      "sha256": "9743bf9e6f9a35b690e17cb81f6d26c51f2559dee02a3e7d2c506a2f4468df2e",
+      "role": "Same-species anatomy reference only; no pixels used in game textures. Copyright remains with credited gallery contributors."
+    },
+    {
+      "path": "26_5743.jpg",
+      "url": "https://biogeodb.stri.si.edu/caribbean/resources/img/images/species/26_5743.jpg",
+      "sha256": "744987f8c7f91ca2957db2624ae6702f9267457e6d5dcd5e33d11a5c22fc96bc",
+      "role": "Same-species anatomy reference only; no pixels used in game textures. Copyright remains with credited gallery contributors."
+    },
+    {
+      "path": "26_5744.jpg",
+      "url": "https://biogeodb.stri.si.edu/caribbean/resources/img/images/species/26_5744.jpg",
+      "sha256": "e7595588d7d1f5c4658212c3e418758008c8d3654c5381912dedb75c5d789e12",
+      "role": "Same-species anatomy reference only; no pixels used in game textures. Copyright remains with credited gallery contributors."
+    },
+    {
+      "path": "26_5745.jpg",
+      "url": "https://biogeodb.stri.si.edu/caribbean/resources/img/images/species/26_5745.jpg",
+      "sha256": "33def2fcb84bdedf25b2227a8c6d363bcd4c8f0557451b6f5ab31c9b84e41354",
+      "role": "Same-species anatomy reference only; no pixels used in game textures. Copyright remains with credited gallery contributors."
+    },
+    {
+      "path": "26_5746.jpg",
+      "url": "https://biogeodb.stri.si.edu/caribbean/resources/img/images/species/26_5746.jpg",
+      "sha256": "d813b4efab31c8888278c34a6e1c0a45e1bc47f2d0211e491ac66762873888da",
+      "role": "Same-species anatomy reference only; no pixels used in game textures. Copyright remains with credited gallery contributors."
+    },
+    {
+      "path": "26_5747.jpg",
+      "url": "https://biogeodb.stri.si.edu/caribbean/resources/img/images/species/26_5747.jpg",
+      "sha256": "bd7117e84d0eab98158ed771b8d8b84a26dea21e57fb4623eeef2d04321dd6e1",
+      "role": "Same-species anatomy reference only; no pixels used in game textures. Copyright remains with credited gallery contributors."
+    },
+    {
+      "path": "26_5750.jpg",
+      "url": "https://biogeodb.stri.si.edu/caribbean/resources/img/images/species/26_5750.jpg",
+      "sha256": "ae6a0e4c4fea847a47b643b74d730c2710f3201beeaf31aff3c2026f2944c5da",
+      "role": "Same-species anatomy reference only; no pixels used in game textures. Copyright remains with credited gallery contributors."
+    },
+    {
+      "path": "26_10548.jpg",
+      "url": "https://biogeodb.stri.si.edu/caribbean/resources/img/images/species/26_10548.jpg",
+      "sha256": "ee5b592600f0dec7140a0e9ce9b1db46f6d38a04cd058984a947a97596e949aa",
+      "role": "Same-species anatomy reference only; no pixels used in game textures. Copyright remains with credited gallery contributors."
+    },
+    {
+      "path": "26_10549.jpg",
+      "url": "https://biogeodb.stri.si.edu/caribbean/resources/img/images/species/26_10549.jpg",
+      "sha256": "1e90c0c51cf5cc1af6792a628a46262b84900d116018ba4dfbf077139c22f456",
+      "role": "Same-species anatomy reference only; no pixels used in game textures. Copyright remains with credited gallery contributors."
+    },
+    {
+      "path": "26_14828.jpg",
+      "url": "https://biogeodb.stri.si.edu/caribbean/resources/img/images/species/26_14828.jpg",
+      "sha256": "ee4f8bab8bf19d331080dd342114344511ec3a2642d653a639a16fda0404933c",
+      "role": "Same-species anatomy reference only; no pixels used in game textures. Copyright remains with credited gallery contributors."
+    }
+  ],
+  "scope": "Research inputs, not production texture donors or redistribution license."
+}

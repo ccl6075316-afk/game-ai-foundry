@@ -1,0 +1,1391 @@
+{
+  "id": "https://openalex.org/W2766675363",
+  "doi": "https://doi.org/10.1111/jfb.13491",
+  "title": "Consistent melanophore spot patterns allow long\u2010term individual recognition of Atlantic salmon Salmo salar",
+  "display_name": "Consistent melanophore spot patterns allow long\u2010term individual recognition of Atlantic salmon Salmo salar",
+  "publication_year": 2017,
+  "publication_date": "2017-11-02",
+  "ids": {
+    "openalex": "https://openalex.org/W2766675363",
+    "doi": "https://doi.org/10.1111/jfb.13491",
+    "mag": "2766675363",
+    "pmid": "https://pubmed.ncbi.nlm.nih.gov/29094766"
+  },
+  "language": "en",
+  "primary_location": {
+    "id": "doi:10.1111/jfb.13491",
+    "doi": "https://doi.org/10.1111/jfb.13491",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.1111/jfb.13491",
+    "pdf_url": "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/jfb.13491",
+    "source": {
+      "id": "https://openalex.org/S9351502",
+      "display_name": "Journal of Fish Biology",
+      "issn_l": "0022-1112",
+      "issn": [
+        "0022-1112",
+        "1095-8649"
+      ],
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": true,
+      "listed_in": [
+        "anvur-scientific",
+        "cwts-core",
+        "dongbi-b",
+        "jufo-1",
+        "medline",
+        "norway-1",
+        "poland-70",
+        "russia-white-list-2",
+        "vabb-shw"
+      ],
+      "host_organization": "https://openalex.org/P4310320595",
+      "host_organization_name": "Wiley",
+      "host_organization_lineage": [
+        "https://openalex.org/P4310320595"
+      ],
+      "host_organization_lineage_names": [
+        "Wiley"
+      ],
+      "type": "journal"
+    },
+    "license": "cc-by",
+    "license_id": "https://openalex.org/licenses/cc-by",
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "Journal of Fish Biology",
+    "raw_type": "journal-article"
+  },
+  "volume": null,
+  "type": "article",
+  "indexed_in": [
+    "crossref",
+    "pubmed"
+  ],
+  "open_access": {
+    "is_oa": true,
+    "oa_status": "hybrid",
+    "oa_url": "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/jfb.13491",
+    "any_repository_has_fulltext": true
+  },
+  "authorships": [
+    {
+      "author_position": "first",
+      "author": {
+        "id": "https://openalex.org/A5077114539",
+        "display_name": "Lars Helge Stien",
+        "orcid": "https://orcid.org/0000-0002-8533-8478",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-8533-8478"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I2802153510",
+          "display_name": "Norwegian Institute of Marine Research",
+          "ror": "https://ror.org/05vg74d16",
+          "country_code": "NO",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I2802153510",
+            "https://openalex.org/I4210116418",
+            "https://openalex.org/I4210149801"
+          ]
+        }
+      ],
+      "countries": [
+        "NO"
+      ],
+      "is_corresponding": true,
+      "raw_author_name": "L. H. Stien",
+      "raw_affiliation_strings": [
+        "Institute of Marine Research (IMR) Austevoll Research Station  5392 Storeb\u00f8 Norway"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Institute of Marine Research (IMR) Austevoll Research Station  5392 Storeb\u00f8 Norway",
+          "institution_ids": [
+            "https://openalex.org/I2802153510"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5058528864",
+        "display_name": "Jonatan Nilsson",
+        "orcid": "https://orcid.org/0000-0002-1466-9181",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-1466-9181"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I2802153510",
+          "display_name": "Norwegian Institute of Marine Research",
+          "ror": "https://ror.org/05vg74d16",
+          "country_code": "NO",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I2802153510",
+            "https://openalex.org/I4210116418",
+            "https://openalex.org/I4210149801"
+          ]
+        }
+      ],
+      "countries": [
+        "NO"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "J. Nilsson",
+      "raw_affiliation_strings": [
+        "Institute of Marine Research (IMR) Austevoll Research Station  5392 Storeb\u00f8 Norway"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Institute of Marine Research (IMR) Austevoll Research Station  5392 Storeb\u00f8 Norway",
+          "institution_ids": [
+            "https://openalex.org/I2802153510"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5015899536",
+        "display_name": "Samantha Bui",
+        "orcid": "https://orcid.org/0000-0002-7885-2989",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-7885-2989"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I2802153510",
+          "display_name": "Norwegian Institute of Marine Research",
+          "ror": "https://ror.org/05vg74d16",
+          "country_code": "NO",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I2802153510",
+            "https://openalex.org/I4210116418",
+            "https://openalex.org/I4210149801"
+          ]
+        }
+      ],
+      "countries": [
+        "NO"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "S. Bui",
+      "raw_affiliation_strings": [
+        "Institute of Marine Research (IMR) Austevoll Research Station  5392 Storeb\u00f8 Norway"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Institute of Marine Research (IMR) Austevoll Research Station  5392 Storeb\u00f8 Norway",
+          "institution_ids": [
+            "https://openalex.org/I2802153510"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5053944763",
+        "display_name": "Jan Erik Fosseidengen",
+        "orcid": null,
+        "observed_orcids": []
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I2802153510",
+          "display_name": "Norwegian Institute of Marine Research",
+          "ror": "https://ror.org/05vg74d16",
+          "country_code": "NO",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I2802153510",
+            "https://openalex.org/I4210116418",
+            "https://openalex.org/I4210149801"
+          ]
+        }
+      ],
+      "countries": [
+        "NO"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "J. E. Fosseidengen",
+      "raw_affiliation_strings": [
+        "Institute of Marine Research (IMR) Austevoll Research Station  5392 Storeb\u00f8 Norway"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Institute of Marine Research (IMR) Austevoll Research Station  5392 Storeb\u00f8 Norway",
+          "institution_ids": [
+            "https://openalex.org/I2802153510"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5056171957",
+        "display_name": "Tore Kristiansen",
+        "orcid": "https://orcid.org/0000-0001-5904-0224",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-5904-0224"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I2802153510",
+          "display_name": "Norwegian Institute of Marine Research",
+          "ror": "https://ror.org/05vg74d16",
+          "country_code": "NO",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I2802153510",
+            "https://openalex.org/I4210116418",
+            "https://openalex.org/I4210149801"
+          ]
+        }
+      ],
+      "countries": [
+        "NO"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "T. S. Kristiansen",
+      "raw_affiliation_strings": [
+        "Institute of Marine Research (IMR) Austevoll Research Station  5392 Storeb\u00f8 Norway"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Institute of Marine Research (IMR) Austevoll Research Station  5392 Storeb\u00f8 Norway",
+          "institution_ids": [
+            "https://openalex.org/I2802153510"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5045725012",
+        "display_name": "\u00d8yvind \u00d8verli A",
+        "orcid": "https://orcid.org/0000-0002-7448-6424",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-7448-6424"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I54108979",
+          "display_name": "Norwegian University of Life Sciences",
+          "ror": "https://ror.org/04a1mvv97",
+          "country_code": "NO",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I54108979"
+          ]
+        }
+      ],
+      "countries": [
+        "NO"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "\u00d8. \u00d8verli",
+      "raw_affiliation_strings": [
+        "Department of Food Safety and Infection Biology, Faculty of Veterinary Medicine and Biosciences, Norwegian University of Life Sciences, P.O. Box 8146 Dep, N-0033 Oslo, Norway"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Department of Food Safety and Infection Biology, Faculty of Veterinary Medicine and Biosciences, Norwegian University of Life Sciences, P.O. Box 8146 Dep, N-0033 Oslo, Norway",
+          "institution_ids": [
+            "https://openalex.org/I54108979"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "last",
+      "author": {
+        "id": "https://openalex.org/A5044824863",
+        "display_name": "Ole Folkedal",
+        "orcid": "https://orcid.org/0000-0001-6823-4143",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-6823-4143",
+          "https://orcid.org/0000-0002-8312-197X"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I2802153510",
+          "display_name": "Norwegian Institute of Marine Research",
+          "ror": "https://ror.org/05vg74d16",
+          "country_code": "NO",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I2802153510",
+            "https://openalex.org/I4210116418",
+            "https://openalex.org/I4210149801"
+          ]
+        }
+      ],
+      "countries": [
+        "NO"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "O. Folkedal",
+      "raw_affiliation_strings": [
+        "Institute of Marine Research (IMR) Austevoll Research Station  5392 Storeb\u00f8 Norway"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Institute of Marine Research (IMR) Austevoll Research Station  5392 Storeb\u00f8 Norway",
+          "institution_ids": [
+            "https://openalex.org/I2802153510"
+          ]
+        }
+      ]
+    }
+  ],
+  "institutions": [],
+  "countries_distinct_count": 1,
+  "institutions_distinct_count": 2,
+  "corresponding_author_ids": [
+    "https://openalex.org/A5077114539"
+  ],
+  "corresponding_institution_ids": [
+    "https://openalex.org/I2802153510"
+  ],
+  "apc_list": {
+    "value": 4480,
+    "currency": "USD",
+    "value_usd": 4480
+  },
+  "apc_paid": {
+    "value": 4480,
+    "currency": "USD",
+    "value_usd": 4480
+  },
+  "fwci": 0.7297,
+  "has_fulltext": true,
+  "cited_by_count": 25,
+  "citation_normalized_percentile": {
+    "value": 0.72664986,
+    "is_in_top_1_percent": false,
+    "is_in_top_10_percent": false
+  },
+  "cited_by_percentile_year": {
+    "min": 89,
+    "max": 99
+  },
+  "biblio": {
+    "volume": "91",
+    "issue": "6",
+    "first_page": "1699",
+    "last_page": "1712"
+  },
+  "is_retracted": false,
+  "is_paratext": false,
+  "is_xpac": false,
+  "primary_topic": {
+    "id": "https://openalex.org/T12697",
+    "display_name": "Water Quality Monitoring Technologies",
+    "score": 0.4503999948501587,
+    "subfield": {
+      "id": "https://openalex.org/subfields/2312",
+      "display_name": "Water Science and Technology"
+    },
+    "field": {
+      "id": "https://openalex.org/fields/23",
+      "display_name": "Environmental Science"
+    },
+    "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+    }
+  },
+  "topics": [
+    {
+      "id": "https://openalex.org/T12697",
+      "display_name": "Water Quality Monitoring Technologies",
+      "score": 0.4503999948501587,
+      "subfield": {
+        "id": "https://openalex.org/subfields/2312",
+        "display_name": "Water Science and Technology"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/23",
+        "display_name": "Environmental Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T12319",
+      "display_name": "Fish Biology and Ecology Studies",
+      "score": 0.26759999990463257,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1104",
+        "display_name": "Aquatic Science"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/11",
+        "display_name": "Agricultural and Biological Sciences"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/1",
+        "display_name": "Life Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T10230",
+      "display_name": "Marine and fisheries research",
+      "score": 0.043800000101327896,
+      "subfield": {
+        "id": "https://openalex.org/subfields/2306",
+        "display_name": "Global and Planetary Change"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/23",
+        "display_name": "Environmental Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    }
+  ],
+  "keywords": [
+    {
+      "id": "https://openalex.org/keywords/atlantic-salmon",
+      "display_name": "Atlantic salmon",
+      "score": 0.996999979019165
+    },
+    {
+      "id": "https://openalex.org/keywords/individual-recognition",
+      "display_name": "individual recognition",
+      "score": 0.7680000066757202
+    },
+    {
+      "id": "https://openalex.org/keywords/operculum",
+      "display_name": "operculum",
+      "score": 0.8420000076293945
+    },
+    {
+      "id": "https://openalex.org/keywords/fish-species-identification",
+      "display_name": "fish identification",
+      "score": 0.5220000147819519
+    },
+    {
+      "id": "https://openalex.org/keywords/longitudinal-tracking",
+      "display_name": "long-term tracking",
+      "score": 0.6060000061988831
+    },
+    {
+      "id": "https://openalex.org/keywords/automatic-image-analysis",
+      "display_name": "automatic image analysis",
+      "score": 0.8349999785423279
+    },
+    {
+      "id": "https://openalex.org/keywords/fish-welfare",
+      "display_name": "fish welfare",
+      "score": 0.8629999756813049
+    }
+  ],
+  "concepts": [
+    {
+      "id": "https://openalex.org/C2777940460",
+      "wikidata": "https://www.wikidata.org/wiki/Q310436",
+      "display_name": "Salmo",
+      "level": 3,
+      "score": 0.983492910861969
+    },
+    {
+      "id": "https://openalex.org/C86803240",
+      "wikidata": "https://www.wikidata.org/wiki/Q420",
+      "display_name": "Biology",
+      "level": 0,
+      "score": 0.8360201120376587
+    },
+    {
+      "id": "https://openalex.org/C2776742316",
+      "wikidata": "https://www.wikidata.org/wiki/Q7097857",
+      "display_name": "Operculum (bryozoa)",
+      "level": 3,
+      "score": 0.7587863206863403
+    },
+    {
+      "id": "https://openalex.org/C2910540838",
+      "wikidata": "https://www.wikidata.org/wiki/Q504699",
+      "display_name": "Melanophore",
+      "level": 3,
+      "score": 0.755153477191925
+    },
+    {
+      "id": "https://openalex.org/C2781255879",
+      "wikidata": "https://www.wikidata.org/wiki/Q7580087",
+      "display_name": "Spots",
+      "level": 2,
+      "score": 0.7536685466766357
+    },
+    {
+      "id": "https://openalex.org/C505870484",
+      "wikidata": "https://www.wikidata.org/wiki/Q180538",
+      "display_name": "Fishery",
+      "level": 1,
+      "score": 0.5895564556121826
+    },
+    {
+      "id": "https://openalex.org/C2909208804",
+      "wikidata": "https://www.wikidata.org/wiki/Q127282",
+      "display_name": "Fish <Actinopterygii>",
+      "level": 2,
+      "score": 0.5737448930740356
+    },
+    {
+      "id": "https://openalex.org/C90856448",
+      "wikidata": "https://www.wikidata.org/wiki/Q431",
+      "display_name": "Zoology",
+      "level": 1,
+      "score": 0.5120906829833984
+    },
+    {
+      "id": "https://openalex.org/C74167732",
+      "wikidata": "https://www.wikidata.org/wiki/Q504699",
+      "display_name": "Chromatophore",
+      "level": 2,
+      "score": 0.1406325101852417
+    },
+    {
+      "id": "https://openalex.org/C157369684",
+      "wikidata": "https://www.wikidata.org/wiki/Q34740",
+      "display_name": "Genus",
+      "level": 2,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C59822182",
+      "wikidata": "https://www.wikidata.org/wiki/Q441",
+      "display_name": "Botany",
+      "level": 1,
+      "score": 0.0
+    }
+  ],
+  "mesh": [
+    {
+      "descriptor_ui": "D000818",
+      "descriptor_name": "Animals",
+      "qualifier_ui": null,
+      "qualifier_name": null,
+      "is_major_topic": false
+    },
+    {
+      "descriptor_ui": "D007091",
+      "descriptor_name": "Image Processing, Computer-Assisted",
+      "qualifier_ui": null,
+      "qualifier_name": null,
+      "is_major_topic": false
+    },
+    {
+      "descriptor_ui": "D008018",
+      "descriptor_name": "Life Cycle Stages",
+      "qualifier_ui": null,
+      "qualifier_name": null,
+      "is_major_topic": false
+    },
+    {
+      "descriptor_ui": "D008547",
+      "descriptor_name": "Melanophores",
+      "qualifier_ui": null,
+      "qualifier_name": null,
+      "is_major_topic": true
+    },
+    {
+      "descriptor_ui": "D020317",
+      "descriptor_name": "Salmo salar",
+      "qualifier_ui": "Q000033",
+      "qualifier_name": "anatomy & histology",
+      "is_major_topic": true
+    },
+    {
+      "descriptor_ui": "D020317",
+      "descriptor_name": "Salmo salar",
+      "qualifier_ui": "Q000145",
+      "qualifier_name": "classification",
+      "is_major_topic": false
+    }
+  ],
+  "locations_count": 6,
+  "locations": [
+    {
+      "id": "doi:10.1111/jfb.13491",
+      "doi": "https://doi.org/10.1111/jfb.13491",
+      "is_oa": true,
+      "landing_page_url": "https://doi.org/10.1111/jfb.13491",
+      "pdf_url": "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/jfb.13491",
+      "source": {
+        "id": "https://openalex.org/S9351502",
+        "display_name": "Journal of Fish Biology",
+        "issn_l": "0022-1112",
+        "issn": [
+          "0022-1112",
+          "1095-8649"
+        ],
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": true,
+        "listed_in": [
+          "anvur-scientific",
+          "cwts-core",
+          "dongbi-b",
+          "jufo-1",
+          "medline",
+          "norway-1",
+          "poland-70",
+          "russia-white-list-2",
+          "vabb-shw"
+        ],
+        "host_organization": "https://openalex.org/P4310320595",
+        "host_organization_name": "Wiley",
+        "host_organization_lineage": [
+          "https://openalex.org/P4310320595"
+        ],
+        "host_organization_lineage_names": [
+          "Wiley"
+        ],
+        "type": "journal"
+      },
+      "license": "cc-by",
+      "license_id": "https://openalex.org/licenses/cc-by",
+      "version": "publishedVersion",
+      "is_accepted": true,
+      "is_published": true,
+      "raw_source_name": "Journal of Fish Biology",
+      "raw_type": "journal-article"
+    },
+    {
+      "id": "pmid:29094766",
+      "doi": null,
+      "is_oa": false,
+      "landing_page_url": "https://pubmed.ncbi.nlm.nih.gov/29094766",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306525036",
+        "display_name": "PubMed",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I1299303238",
+        "host_organization_name": "National Institutes of Health",
+        "host_organization_lineage": [
+          "https://openalex.org/I1299303238"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "publishedVersion",
+      "is_accepted": true,
+      "is_published": true,
+      "raw_source_name": "Journal of fish biology",
+      "raw_type": "Journal Article"
+    },
+    {
+      "id": "pmh:oai:brage.bibsys.no:11250/2469514",
+      "doi": null,
+      "is_oa": true,
+      "landing_page_url": "http://hdl.handle.net/11250/2469514",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306400255",
+        "display_name": "BIBSYS Brage (BIBSYS (Norway))",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I173212132",
+        "host_organization_name": "Vilnius University",
+        "host_organization_lineage": [
+          "https://openalex.org/I173212132"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": "cc-by-nc-nd",
+      "license_id": "https://openalex.org/licenses/cc-by-nc-nd",
+      "version": "acceptedVersion",
+      "is_accepted": true,
+      "is_published": false,
+      "raw_source_name": "Journal of Fish Biology",
+      "raw_type": "Journal article"
+    },
+    {
+      "id": "pmh:oai:brage.bibsys.no:11250/2471897",
+      "doi": null,
+      "is_oa": false,
+      "landing_page_url": "http://hdl.handle.net/11250/2471897",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306400255",
+        "display_name": "BIBSYS Brage (BIBSYS (Norway))",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/I173212132",
+        "host_organization_name": "Vilnius University",
+        "host_organization_lineage": [
+          "https://openalex.org/I173212132"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "Journal of Fish Biology",
+      "raw_type": "Peer reviewed"
+    },
+    {
+      "id": "pmh:oai:imr.brage.unit.no:11250/2471897",
+      "doi": null,
+      "is_oa": true,
+      "landing_page_url": "http://hdl.handle.net/11250/2471897",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S7407064446",
+        "display_name": "NORA - Norwegian Open Research Archives",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": null,
+        "host_organization_name": null,
+        "host_organization_lineage": [],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": "other-oa",
+      "license_id": "https://openalex.org/licenses/other-oa",
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "Journal of Fish Biology",
+      "raw_type": "info:eu-repo/semantics/article"
+    },
+    {
+      "id": "pmh:oai:nmbu.brage.unit.no:11250/2469514",
+      "doi": null,
+      "is_oa": true,
+      "landing_page_url": "http://hdl.handle.net/11250/2469514",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S7407064446",
+        "display_name": "NORA - Norwegian Open Research Archives",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": null,
+        "host_organization_name": null,
+        "host_organization_lineage": [],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": "cc-by-nc-nd",
+      "license_id": "https://openalex.org/licenses/cc-by-nc-nd",
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "Journal of Fish Biology",
+      "raw_type": "info:eu-repo/semantics/article"
+    }
+  ],
+  "best_oa_location": {
+    "id": "doi:10.1111/jfb.13491",
+    "doi": "https://doi.org/10.1111/jfb.13491",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.1111/jfb.13491",
+    "pdf_url": "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/jfb.13491",
+    "source": {
+      "id": "https://openalex.org/S9351502",
+      "display_name": "Journal of Fish Biology",
+      "issn_l": "0022-1112",
+      "issn": [
+        "0022-1112",
+        "1095-8649"
+      ],
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": true,
+      "listed_in": [
+        "anvur-scientific",
+        "cwts-core",
+        "dongbi-b",
+        "jufo-1",
+        "medline",
+        "norway-1",
+        "poland-70",
+        "russia-white-list-2",
+        "vabb-shw"
+      ],
+      "host_organization": "https://openalex.org/P4310320595",
+      "host_organization_name": "Wiley",
+      "host_organization_lineage": [
+        "https://openalex.org/P4310320595"
+      ],
+      "host_organization_lineage_names": [
+        "Wiley"
+      ],
+      "type": "journal"
+    },
+    "license": "cc-by",
+    "license_id": "https://openalex.org/licenses/cc-by",
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "Journal of Fish Biology",
+    "raw_type": "journal-article"
+  },
+  "sustainable_development_goals": [
+    {
+      "score": 1.0,
+      "display_name": "Life below water",
+      "id": "https://metadata.un.org/sdg/14"
+    }
+  ],
+  "sustainable_development_goals_aurora": [
+    {
+      "score": 0.8700000047683716,
+      "display_name": "Life below water",
+      "id": "https://metadata.un.org/sdg/14"
+    }
+  ],
+  "study_designs": [],
+  "awards": [
+    {
+      "id": "https://openalex.org/G863471572",
+      "display_name": null,
+      "funder_award_id": "199728",
+      "funder_id": "https://openalex.org/F4320323299",
+      "funder_display_name": "Norges Forskningsr\u00e5d"
+    }
+  ],
+  "funders": [
+    {
+      "id": "https://openalex.org/F4320323299",
+      "display_name": "Norges Forskningsr\u00e5d",
+      "ror": "https://ror.org/00epmv149"
+    }
+  ],
+  "has_content": {
+    "pdf": true,
+    "grobid_xml": true
+  },
+  "content_urls": {
+    "pdf": "https://content.openalex.org/works/W2766675363.pdf",
+    "grobid_xml": "https://content.openalex.org/works/W2766675363.grobid-xml"
+  },
+  "referenced_works_count": 21,
+  "referenced_works": [
+    "https://openalex.org/W65480031",
+    "https://openalex.org/W1505623432",
+    "https://openalex.org/W1563842521",
+    "https://openalex.org/W1581993271",
+    "https://openalex.org/W1597341044",
+    "https://openalex.org/W1975644330",
+    "https://openalex.org/W1992310411",
+    "https://openalex.org/W2015681865",
+    "https://openalex.org/W2015892047",
+    "https://openalex.org/W2026240223",
+    "https://openalex.org/W2037324976",
+    "https://openalex.org/W2038725458",
+    "https://openalex.org/W2048877787",
+    "https://openalex.org/W2050117321",
+    "https://openalex.org/W2068232285",
+    "https://openalex.org/W2117571145",
+    "https://openalex.org/W2120988867",
+    "https://openalex.org/W2189495940",
+    "https://openalex.org/W2312795231",
+    "https://openalex.org/W4229496779",
+    "https://openalex.org/W4229591924"
+  ],
+  "related_works": [
+    "https://openalex.org/W1992310411",
+    "https://openalex.org/W2048877787",
+    "https://openalex.org/W2117571145",
+    "https://openalex.org/W3109339473",
+    "https://openalex.org/W3194088785",
+    "https://openalex.org/W3135818093",
+    "https://openalex.org/W4413336445",
+    "https://openalex.org/W2092899277",
+    "https://openalex.org/W4408127434",
+    "https://openalex.org/W7166571086"
+  ],
+  "abstract_inverted_index": {
+    "The": [
+      0,
+      144
+    ],
+    "present": [
+      1,
+      73
+    ],
+    "study": [
+      2
+    ],
+    "shows": [
+      3,
+      133
+    ],
+    "that": [
+      4,
+      71,
+      101
+    ],
+    "permanent": [
+      5
+    ],
+    "melanophore": [
+      6
+    ],
+    "spot": [
+      7,
+      96
+    ],
+    "patterns": [
+      8
+    ],
+    "in": [
+      9,
+      59,
+      159
+    ],
+    "Atlantic": [
+      10
+    ],
+    "salmon": [
+      11
+    ],
+    "Salmo": [
+      12
+    ],
+    "salar": [
+      13,
+      38
+    ],
+    "make": [
+      14
+    ],
+    "it": [
+      15
+    ],
+    "possible": [
+      16
+    ],
+    "to": [
+      17,
+      23,
+      112,
+      157
+    ],
+    "use": [
+      18
+    ],
+    "images": [
+      19
+    ],
+    "of": [
+      20,
+      26,
+      32,
+      49,
+      67,
+      95,
+      139,
+      142,
+      150
+    ],
+    "the": [
+      21,
+      78
+    ],
+    "operculum": [
+      22
+    ],
+    "keep": [
+      24
+    ],
+    "track": [
+      25
+    ],
+    "individual": [
+      27
+    ],
+    "fish": [
+      28,
+      102,
+      116
+    ],
+    "over": [
+      29
+    ],
+    "extended": [
+      30
+    ],
+    "periods": [
+      31
+    ],
+    "their": [
+      33
+    ],
+    "life": [
+      34
+    ],
+    "history.": [
+      35
+    ],
+    "Post-smolt": [
+      36
+    ],
+    "S.": [
+      37
+    ],
+    "(n": [
+      39
+    ],
+    "=": [
+      40
+    ],
+    "246)": [
+      41
+    ],
+    "were": [
+      42,
+      72,
+      77,
+      109
+    ],
+    "initially": [
+      43,
+      74
+    ],
+    "photographed": [
+      44
+    ],
+    "at": [
+      45,
+      63,
+      104
+    ],
+    "an": [
+      46,
+      64
+    ],
+    "average": [
+      47,
+      65
+    ],
+    "mass": [
+      48,
+      66
+    ],
+    "98": [
+      50
+    ],
+    "g": [
+      51
+    ],
+    "and": [
+      52,
+      76,
+      87,
+      98,
+      132
+    ],
+    "again": [
+      53
+    ],
+    "10": [
+      54,
+      82
+    ],
+    "months": [
+      55,
+      83
+    ],
+    "later": [
+      56
+    ],
+    "after": [
+      57
+    ],
+    "rearing": [
+      58
+    ],
+    "a": [
+      60,
+      154
+    ],
+    "sea": [
+      61
+    ],
+    "cage,": [
+      62
+    ],
+    "3088": [
+      68
+    ],
+    "g.": [
+      69
+    ],
+    "Spots": [
+      70
+    ],
+    "remained": [
+      75
+    ],
+    "most": [
+      79
+    ],
+    "overt": [
+      80,
+      89
+    ],
+    "(largest)": [
+      81
+    ],
+    "later,": [
+      84
+    ],
+    "while": [
+      85,
+      114
+    ],
+    "new": [
+      86
+    ],
+    "less": [
+      88,
+      118
+    ],
+    "spots": [
+      90,
+      108,
+      121,
+      152
+    ],
+    "had": [
+      91
+    ],
+    "developed.": [
+      92
+    ],
+    "Visual": [
+      93
+    ],
+    "recognition": [
+      94,
+      149
+    ],
+    "size": [
+      97
+    ],
+    "position": [
+      99
+    ],
+    "showed": [
+      100
+    ],
+    "with": [
+      103,
+      117
+    ],
+    "least": [
+      105
+    ],
+    "four": [
+      106,
+      120
+    ],
+    "initial": [
+      107
+    ],
+    "relatively": [
+      110
+    ],
+    "easy": [
+      111
+    ],
+    "identify,": [
+      113
+    ],
+    "identifying": [
+      115
+    ],
+    "than": [
+      119
+    ],
+    "could": [
+      122
+    ],
+    "be": [
+      123
+    ],
+    "challenging.": [
+      124
+    ],
+    "An": [
+      125
+    ],
+    "automatic": [
+      126
+    ],
+    "image": [
+      127
+    ],
+    "analysis": [
+      128
+    ],
+    "method": [
+      129
+    ],
+    "was": [
+      130
+    ],
+    "developed": [
+      131
+    ],
+    "potential": [
+      134
+    ],
+    "for": [
+      135
+    ],
+    "fast": [
+      136
+    ],
+    "match": [
+      137
+    ],
+    "processing": [
+      138
+    ],
+    "large": [
+      140
+    ],
+    "numbers": [
+      141
+    ],
+    "fish.": [
+      143
+    ],
+    "current": [
+      145
+    ],
+    "findings": [
+      146
+    ],
+    "promote": [
+      147
+    ],
+    "visual": [
+      148
+    ],
+    "opercular": [
+      151
+    ],
+    "as": [
+      153
+    ],
+    "welfare-friendly": [
+      155
+    ],
+    "alternative": [
+      156
+    ],
+    "tagging": [
+      158
+    ],
+    "experiments": [
+      160
+    ],
+    "involving": [
+      161
+    ],
+    "salmonid": [
+      162
+    ],
+    "fishes.": [
+      163
+    ]
+  },
+  "counts_by_year": [
+    {
+      "year": 2026,
+      "cited_by_count": 3
+    },
+    {
+      "year": 2025,
+      "cited_by_count": 6
+    },
+    {
+      "year": 2024,
+      "cited_by_count": 3
+    },
+    {
+      "year": 2023,
+      "cited_by_count": 1
+    },
+    {
+      "year": 2022,
+      "cited_by_count": 4
+    },
+    {
+      "year": 2021,
+      "cited_by_count": 3
+    },
+    {
+      "year": 2020,
+      "cited_by_count": 4
+    },
+    {
+      "year": 2018,
+      "cited_by_count": 1
+    }
+  ],
+  "updated_date": "2026-10-31T12:09:11.096373",
+  "created_date": "2017-11-10T00:00:00"
+}

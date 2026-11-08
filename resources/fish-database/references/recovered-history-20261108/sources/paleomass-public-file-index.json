@@ -1,0 +1,14 @@
+{
+  "url": "https://codeload.github.com/rmotani/paleomass/zip/refs/heads/main",
+  "zip_sha256": "9bb78ca6fd0f9799adb9a4ffbad16edccd518aba0b2bc2feee7da7895fe0b07c",
+  "files": [
+    [
+      "paleomass-main/validation/",
+      0
+    ],
+    [
+      "paleomass-main/validation/validation.zip",
+      2077686
+    ]
+  ]
+}

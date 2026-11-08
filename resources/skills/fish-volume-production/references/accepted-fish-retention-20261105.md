@@ -11,3 +11,8 @@
 执行清理前核对解析后的绝对路径、精确文件/字节/SHA、现成品和活依赖keeper，先完成文字提炼与PDF落盘，再清理。清理后核对保护资产SHA、实际删除/剩余字节及两仓库Git/LFS状态。用户说“提交”即两仓库commit+push；“本地清空”指Git工作区干净，不是删除仓库。不重写Git历史，不手工删`.git`对象。
 
 正式入口：Foundry `resources/volume-fish/final-eleven-fish-20261105.json`；游戏 `plans/reviews/eleven-fish-release-20261105/HANDOFF.md`。PDF的参照角色与历史差异文字：`docs/reviews/fish-reference-comparison-20261105/README.md`。资料库艺术模型、近缘厚度参照和非标定历史预览的限制继续生效，不能升级为生物实测或补造主参照。
+
+
+## 2026-11-08 扩展为28条与补漏规则
+
+用户已接受鲸鲨、旗鱼及两条双髻鲨，以上canonical-only与旧实验退休规则覆盖全部28条。未接受游动观感不构成保留旧静态工程理由。每轮扫Foundry独立projects、游戏output/experiments/reviews及Git/LFS；Git干净不等于实验已清。旧归档的物种接受状态必须对照当前inventory更新，不继续按“四鱼未成品”保留。先分离原始论文/参考模型、提炼方法与失败数值，再按文件SHA清除旧工程/截图/模型/密集数据。当前源/成品、活运行依赖、资料库和PDF前后哈希验证；不手工删Git对象或重写历史。详见游戏static-fish-release-20261108/HANDOFF.md补漏段。

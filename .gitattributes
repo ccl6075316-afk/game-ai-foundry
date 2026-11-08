@@ -1,4 +1,3 @@
-
 # Freeze the byte-hashed fish repair tools and runtime evidence.
 /resources/runtime/godot/surface-chart-112/** -text whitespace=cr-at-eol
 /resources/runtime/godot/eye-ownership-107/** -text whitespace=cr-at-eol
@@ -21,7 +20,6 @@
 /resources/runtime/godot/mouth-zander-110/** -text whitespace=cr-at-eol
 /resources/scripts/volume-fish/check_runtime_fin_attachment.py -text whitespace=cr-at-eol
 /resources/scripts/volume-fish/check_fin_membrane_collision.py -text whitespace=cr-at-eol
-
 # Portable hashes for retained reconstruction tools and species profiles.
 /resources/scripts/volume-fish/** -text whitespace=cr-at-eol
 /resources/volume-fish/** -text whitespace=cr-at-eol
@@ -32,7 +30,6 @@
 /cli/volume_sop.py -text whitespace=cr-at-eol
 # This frozen helper is referenced by existing capture receipts.
 /resources/scripts/volume-fish/portable/ReviewCaptureBase.gd whitespace=cr-at-eol,-blank-at-eof
-
 # Retained aquascape tools and source packages bind exact source bytes.
 /resources/aquascape/** -text whitespace=cr-at-eol
 /resources/scripts/aquascape/** -text whitespace=cr-at-eol
@@ -42,19 +39,15 @@
 /projects/aquascape-*/**/*.png filter=lfs diff=lfs merge=lfs -text
 /projects/aquarium-hall-materials-*/**/*.png filter=lfs diff=lfs merge=lfs -text
 /resources/runtime/godot/finalized-fish/** -text whitespace=cr-at-eol
-
 # Low-poly review source bytes are bound by experimental validation reports.
 /resources/runtime/godot/lowpoly-review/** -text whitespace=cr-at-eol
 # Archived shader helpers must not acquire CRLF from global autocrlf settings.
 /resources/runtime/godot/yellow-mouth-09[357]/FishHeadSource.gd -text whitespace=cr-at-eol
-
 # Visitor builders and source-driven profiles use byte-bound validation.
 /resources/scripts/visitors/** -text whitespace=cr-at-eol
 /resources/visitors/** -text whitespace=cr-at-eol
-
 # Reviewed school runtime sources are bound by exact-byte validation reports.
 /resources/runtime/godot/fish-school/** -text whitespace=cr-at-eol
-
 # Portable fish tool evidence and linked review keep byte-bound validation.
 /work/fish-portable-tools/** -text whitespace=cr-at-eol
 /docs/anvil/knowledge/2026-10-30-fish-portable-tools.validation.json -text whitespace=cr-at-eol
@@ -67,20 +60,16 @@
 /work/fish-portable-tools/**/*.stdout.txt -whitespace
 /work/fish-portable-tools/**/*.log -whitespace
 /work/fish-portable-tools/deepseek-repro/phase4.diff -whitespace
-
 # Current fish receipts and recipes bind exact source bytes.
 /docs/anvil/knowledge/2026-10-31-* -text whitespace=cr-at-eol
 /docs/FISH-FOUR-CONSOLIDATION-20261031.md -text whitespace=cr-at-eol
 /cli/volume_sop.py -text whitespace=cr-at-eol
-
 # Byte-hashed display-length policy is a frozen runtime-gate dependency.
 cli/fish_budget.py -text
-
 # Accepted four-fish width research: original source PDFs retain their bytes.
 /resources/volume-fish/width-reference-20261031/sources/raw/*.pdf filter=lfs diff=lfs merge=lfs -text
 /resources/volume-fish/width-reference-20261031/sources/raw/** -whitespace
 /resources/volume-fish/width-reference-20261031/sources/** -whitespace
-
 # Maintenance source receipts use stable line endings across checkouts.
 /cli/brief.py text eol=lf
 /cli/brief_normalize.py text eol=lf
@@ -90,22 +79,18 @@ cli/fish_budget.py -text
 /resources/scripts/maintenance/test_audit_workspace.py text eol=lf
 /resources/scripts/maintenance/*.gd -text whitespace=cr-at-eol
 /resources/scripts/maintenance/*.ps1 -text whitespace=cr-at-eol
-
 # Review metadata must keep the same bytes on every platform.
 /.gitattributes text eol=lf
 /docs/MAINTENANCE-ARCHITECTURE.md text eol=lf
-
 # Frozen carp repair toolchain binds exact bytes.
 /work/carp-frozen-tools-20261101/** -text whitespace=cr-at-eol
 /work/carp-frozen-tools-20261101/volume-fish/portable/ReviewCaptureBase.gd whitespace=cr-at-eol,-blank-at-eof
-
 # Historical shark authors retain the exact bytes referenced by their reports.
 /resources/scripts/volume-fish/build_shark_source_cage.py whitespace=cr-at-eol,-blank-at-eof
 /resources/scripts/volume-fish/shark_fin_cages.py whitespace=cr-at-eol,-blank-at-eof
 # Accepted-source-only fish archive validator is a byte-bound provenance input.
 /cli/volume_source_archive.py -text whitespace=cr-at-eol
 /cli/test_volume_source_archive.py -text whitespace=cr-at-eol
-
 # Art-driven shark rebuild: retain exact hash-bound source bytes.
 /resources/scripts/volume-fish/author_reference_shark_eyes.py -text whitespace=cr-at-eol
 /resources/scripts/volume-fish/build_continuous_shark_head_patch.py -text whitespace=cr-at-eol
@@ -127,7 +112,6 @@ cli/fish_budget.py -text
 /resources/scripts/volume-fish/portable/export_reference_shark_poses.gd -text whitespace=cr-at-eol
 /resources/scripts/volume-fish/portable/capture_distance_material_review.gd -text whitespace=cr-at-eol
 /resources/volume-fish/scalloped-hammerhead-project-art-20261102.profile.json -text whitespace=cr-at-eol
-
 # Fish information database: indexes stay text; retained source bytes use LFS.
 /resources/fish-database/**/*.json text eol=lf
 /resources/fish-database/**/*.jsonl text eol=lf
@@ -136,25 +120,20 @@ cli/fish_budget.py -text
 /resources/fish-database/**/*.md text eol=lf
 /resources/fish-database/**/*.txt text eol=lf
 /resources/fish-database/artifacts/** filter=lfs diff=lfs merge=lfs -text
-
 # Historical migrated CSV evidence is hashed as original bytes (CRLF).
 /resources/fish-database/catalogs/fishing-master-xiaomi-20260814/fish-catalog.csv -text whitespace=cr-at-eol
 /resources/fish-database/catalogs/fishing-master-xiaomi-20260814/all-indexed-objects.csv -text whitespace=cr-at-eol
-
 # Packed-source SOP implementation is part of byte-bound production snapshots.
 /cli/volume_packed_acceptance.py -text whitespace=cr-at-eol
 /cli/test_volume_packed_acceptance.py -text whitespace=cr-at-eol
 /resources/scripts/maintenance/clear_accepted_nile_trials.py -text whitespace=cr-at-eol
-
 # Accepted20261105 byte-bound release inputs.
 /docs/reviews/fish-reference-comparison-20261105.pdf filter=lfs diff=lfs merge=lfs -text
-
 # New source review and adopted controller byte snapshots.
 /cli/volume_reviewed_source.py -text whitespace=cr-at-eol
 /cli/test_volume_reviewed_source.py -text whitespace=cr-at-eol
 /resources/runtime/godot/peacock-final-20261104/PeacockMotion.gd -text whitespace=cr-at-eol
 /resources/runtime/godot/peacock-final-20261104/ValidatePeacockJaw.gd -text whitespace=cr-at-eol
-
 # Hammer-pair candidate byte-bound source helpers.
 /resources/scripts/volume-fish/HammerPairReview.gd -text whitespace=cr-at-eol
 /resources/scripts/volume-fish/audit_body_projection_envelope.py -text whitespace=cr-at-eol
@@ -192,9 +171,14 @@ cli/fish_budget.py -text
 /resources/volume-fish/great-hammerhead-rebuild-20261105.profile.json -text whitespace=cr-at-eol
 /resources/volume-fish/smooth-hammerhead-rebuild-20261105.profile.json -text whitespace=cr-at-eol
 /resources/scripts/volume-fish/rebuild_finite_pectoral_caps.py -text whitespace=cr-at-eol
-
 /resources/volume-fish/styles/clean-pixel-20261108/*.png filter=lfs diff=lfs merge=lfs -text
-
 /resources/scripts/maintenance/clear_accepted_static_release_20261108.ps1 -text whitespace=cr-at-eol
 /resources/fish-database/evidence/whale-shark-20261105/*.glb binary
 /resources/fish-database/evidence/whale-shark-20261105/*.json -text whitespace=cr-at-eol
+resources/fish-database/references/recovered-history-20261108/**/*.zip filter=lfs diff=lfs merge=lfs -text
+resources/fish-database/references/recovered-history-20261108/**/*.pdf filter=lfs diff=lfs merge=lfs -text
+resources/fish-database/references/recovered-history-20261108/**/*.blend filter=lfs diff=lfs merge=lfs -text
+resources/fish-database/references/recovered-history-20261108/**/*.glb filter=lfs diff=lfs merge=lfs -text
+
+# Preserve rescued original research bytes and SHA across checkouts.
+/resources/fish-database/references/recovered-history-20261108/** -text -whitespace

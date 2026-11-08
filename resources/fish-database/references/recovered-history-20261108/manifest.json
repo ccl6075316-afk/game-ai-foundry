@@ -1,0 +1,1005 @@
+{
+  "archive": {
+    "path": "nonaccepted-and-shared-history-20261105.tar.gz",
+    "bytes": 1305926218,
+    "sha256": "0d52741bcea1850a98e11ad9e22d4cc3e5408bff51f8f57c4cd998b3b65ed74b",
+    "mode": "r|gz",
+    "objects": 6254
+  },
+  "verified_objects": 6254,
+  "preserved_research": [
+    {
+      "sha256": "59493506fb4589cc72ce9182f3c5a92efd0b7c9b40a258cc78ac5404980d941f",
+      "bytes": 4454,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Lateolabrax_japonicus/Afin.png",
+        "Lateolabrax_japonicus/Afin.png",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Lateolabrax_japonicus/Afin.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\Lateolabrax_japonicus\\Afin.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "dcb429eda36ae103e0016c027a4e88005c57004aae8bb643d715619a253933c2",
+      "bytes": 18727,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Lateolabrax_japonicus/BodyL.png",
+        "Lateolabrax_japonicus/BodyL.png",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Lateolabrax_japonicus/BodyL.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\Lateolabrax_japonicus\\BodyL.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "d0573c955c89cd75476d29e6b34427ec4b98cb5ee36bd91226599f11478e792c",
+      "bytes": 16435,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Lateolabrax_japonicus/BodyV.png",
+        "Lateolabrax_japonicus/BodyV.png",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Lateolabrax_japonicus/BodyV.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\Lateolabrax_japonicus\\BodyV.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "546356e582eb0941ea87eb0c9d7474d2595d99d8def6718937f70ff84cd181cb",
+      "bytes": 7758,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Lateolabrax_japonicus/Cfin.png",
+        "Lateolabrax_japonicus/Cfin.png",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Lateolabrax_japonicus/Cfin.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\Lateolabrax_japonicus\\Cfin.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "b82d416e215e2e8c21036dc8a96cc97a809ec44228f795cd7cc878e1c6a49bb4",
+      "bytes": 6631,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Lateolabrax_japonicus/D2fin.png",
+        "Lateolabrax_japonicus/D2fin.png",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Lateolabrax_japonicus/D2fin.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\Lateolabrax_japonicus\\D2fin.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "96df787a8934edaa1458d577afc79eeaaa3e5152f051ccf2e4a6e80ddf072e61",
+      "bytes": 10483,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Lateolabrax_japonicus/Dfin.png",
+        "Lateolabrax_japonicus/Dfin.png",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Lateolabrax_japonicus/Dfin.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\Lateolabrax_japonicus\\Dfin.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "39b55859a2fa9a62e22c0cea14585faf794ffea72f8c92c40e5b2a3755c50830",
+      "bytes": 5646,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Lateolabrax_japonicus/Ffin.png",
+        "Lateolabrax_japonicus/Ffin.png",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Lateolabrax_japonicus/Ffin.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\Lateolabrax_japonicus\\Ffin.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "ccaf4c1122632b019cac926b4ddc05e37b176ef667767dc3813d0a4faff51126",
+      "bytes": 4922,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Lateolabrax_japonicus/Hfin.png",
+        "Lateolabrax_japonicus/Hfin.png",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Lateolabrax_japonicus/Hfin.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\Lateolabrax_japonicus\\Hfin.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "3017928b5a6c3c034e325632d1af2052c781eaab38b237a6e2905ab49810ec1c",
+      "bytes": 19797,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Oncorhynchus_masou/BodyL.png",
+        "Oncorhynchus_masou/BodyL.png",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Oncorhynchus_masou/BodyL.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\Oncorhynchus_masou\\BodyL.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "ce05931687670560a8d4d4c30b81c11ce74c65a6a516efdc932c285263d8fe07",
+      "bytes": 12338,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Oncorhynchus_masou/BodyV.png",
+        "Oncorhynchus_masou/BodyV.png",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Oncorhynchus_masou/BodyV.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\Oncorhynchus_masou\\BodyV.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "9f0386555fcdb834a61f841dd8abc2bb72adc704d64182e663044fdc41fbbcdb",
+      "bytes": 18280,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Salvelinus_leucomaenis/BodyL.png",
+        "Salvelinus_leucomaenis/BodyL.png",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Salvelinus_leucomaenis/BodyL.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\Salvelinus_leucomaenis\\BodyL.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "c7f3e319f825469246864cb1cf76ca6ddbfdafa95b1f23d471fbb203357b0b26",
+      "bytes": 12671,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Salvelinus_leucomaenis/BodyV.png",
+        "Salvelinus_leucomaenis/BodyV.png",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Salvelinus_leucomaenis/BodyV.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\Salvelinus_leucomaenis\\BodyV.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "b370c3ff30cd0ecad89dc4090169660a2f6e8c41527027e7b279b107abe934a6",
+      "bytes": 8419,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Scomber_japonicus/Afin.png",
+        "Scomber_japonicus/Afin.png",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Scomber_japonicus/Afin.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\Scomber_japonicus\\Afin.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "aacf6dabd654b8b67dafa19bb349dbcbd9c74547a80f89f0d3954bc91afad527",
+      "bytes": 15832,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Scomber_japonicus/BodyL.png",
+        "Scomber_japonicus/BodyL.png",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Scomber_japonicus/BodyL.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\Scomber_japonicus\\BodyL.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "b47ea95ab4d3fc599fdb65dbc9ae52b8d4662a8c0306098f5dc53826b82358f5",
+      "bytes": 13511,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Scomber_japonicus/BodyV.png",
+        "Scomber_japonicus/BodyV.png",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Scomber_japonicus/BodyV.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\Scomber_japonicus\\BodyV.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "652692231531bb6f81509e8359a862991ee13903a248b5366b3bfc54bd8add6a",
+      "bytes": 7766,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Scomber_japonicus/Cfin.png",
+        "Scomber_japonicus/Cfin.png",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Scomber_japonicus/Cfin.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\Scomber_japonicus\\Cfin.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "ab6ad66721a7e8010b2d2cd19a174cc79ec3d49870eef93bfb7fe00f170e729a",
+      "bytes": 9150,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Scomber_japonicus/D2fin.png",
+        "Scomber_japonicus/D2fin.png",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Scomber_japonicus/D2fin.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\Scomber_japonicus\\D2fin.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "6c51929476a7ee6a295cebf162a89120e7e7bc4f2825cbf14506a9694d4ad6ef",
+      "bytes": 5651,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Scomber_japonicus/Dfin.png",
+        "Scomber_japonicus/Dfin.png",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Scomber_japonicus/Dfin.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\Scomber_japonicus\\Dfin.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "435e6e91995361351afcfcf44a647610d15a05da817febe280faf47a15c87874",
+      "bytes": 4738,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Scomber_japonicus/Ffin.png",
+        "Scomber_japonicus/Ffin.png",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Scomber_japonicus/Ffin.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\Scomber_japonicus\\Ffin.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "4347b00e26f1a9fa5374b62d73d35be70d39c5b823ef1f18c247b2003ffeb44f",
+      "bytes": 4686,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Scomber_japonicus/Hfin.png",
+        "Scomber_japonicus/Hfin.png",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/Scomber_japonicus/Hfin.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\Scomber_japonicus\\Hfin.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "787ff295fcea367730141ae41de047488dda300d4fd3f1cceab1103f19f6301a",
+      "bytes": 972,
+      "aliases": [
+        "BALengths.csv",
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/BALengths.csv",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/BALengths.csv"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\BALengths.csv",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "3a2b00fb139588f6b2a91449c07ba18f090a6bb3cfb5395a6f1c5ce10baf134b",
+      "bytes": 13708,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/TrueVolSA.xlsx",
+        "TrueVolSA.xlsx",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/TrueVolSA.xlsx"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\TrueVolSA.xlsx",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "d36b27735d152625d50b7288f8af1196dc693d6447aa994836baee7b20ef04f6",
+      "bytes": 9230,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/validation.R",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation/validation.R",
+        "validation.R"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation\\validation.R",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "d1940c55f6ceb0056c7689e66f794dd8c04fd563ca304519203d21fcfe2f24c9",
+      "bytes": 1139678,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/blender-fish/fin-source-141/source/silver_arowana/source.png",
+        "projects/fishing-2d/experiments/blender-fish/fin-source-141/source/silver_arowana/source.png",
+        "projects/fishing-2d/experiments/blender-fish/hammer-pair-121/accepted/great_hammerhead/inputs/style-reference.png",
+        "projects/fishing-2d/experiments/blender-fish/hammer-pair-121/accepted/smooth_hammerhead/inputs/style-reference.png",
+        "projects/fishing-2d/experiments/blender-fish/surface-mouth-audit-102/sources/silver_arowana/image-0.png"
+      ],
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\silver_arowana_frame_0001.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "0171ffc20e58dce4a32cabd01306630c245171504cc9bbb4b62991ed790e5701",
+      "bytes": 1223,
+      "aliases": [
+        "E:/game-ai-foundry/projects/pelagic-fish-145/references/references.validation.json",
+        "projects/pelagic-fish-145/references/references.validation.json"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\references.validation.json",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "74463d7554d6e2f085b672f0d1a7d267a197b12784e7e25f41233b7910e2af8d",
+      "bytes": 15192,
+      "aliases": [
+        "E:/game-ai-foundry/projects/pelagic-fish-145/references/sailfish-fao.jpg",
+        "projects/pelagic-fish-145/references/sailfish-fao.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\sailfish-fao.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "41d4c44d8be2de92d8e6c1062067fb58708cdf09d625d4be42589c3c5dab2873",
+      "bytes": 10786,
+      "aliases": [
+        "E:/fish-mouth-rollout136-snapshot/skill-before-sop/references/mouth-repair.md",
+        "snapshots/fish-mouth-rollout136-snapshot/skill-before-sop/references/mouth-repair.md"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\mouth-repair.md",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "f51d0f8bec9274209180a66579a4c0a8282117ad99cc51490e061040e416722b",
+      "bytes": 3649,
+      "aliases": [
+        "E:/fish-mouth-rollout136-snapshot/skill-before-sop/references/source-surface-repair.md",
+        "snapshots/fish-mouth-rollout136-snapshot/skill-before-sop/references/source-surface-repair.md"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\source-surface-repair.md",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "1a52e88058c225ba47c717d9e33de02c86786a982f8ee8eeac4e40bea377f6a7",
+      "bytes": 51206,
+      "aliases": [
+        "E:/game-ai-foundry/projects/pelagic-fish-145/references/pacific-bluefin-smithsonian.jpg",
+        "projects/pelagic-fish-145/references/pacific-bluefin-smithsonian.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\pacific-bluefin-smithsonian.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "7a6abcb7f7f1e8cdbbb230b98e723efd7fcbe8828d494ab01491a2101cb16886",
+      "bytes": 55749,
+      "aliases": [
+        "E:/game-ai-foundry/projects/pelagic-fish-145/references/sailfish-noaa.jpg",
+        "projects/pelagic-fish-145/references/sailfish-noaa.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\sailfish-noaa.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "7447fdc92c5fd5c9ecf1d9713bbd4207d2de7ab4b2ea0e320871041da8e34264",
+      "bytes": 1662135,
+      "aliases": [
+        "E:/game-ai-foundry/resources/volume-fish/width-reference-20261031/sources/FishShapes_specimensv1.csv",
+        "resources/volume-fish/width-reference-20261031/sources/FishShapes_specimensv1.csv"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\FishShapes_specimensv1.csv",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "ecc3bafb6b00f2c8b810863c388e3768a7b7ea0d0335e8cb8c574c266e571f4a",
+      "bytes": 12488144,
+      "aliases": [
+        "objects/ecc3bafb6b00f2c8b810863c388e3768a7b7ea0d0335e8cb8c574c266e571f4a",
+        "projects/fishing-2d/experiments/blender-fish/head-source-research-089/references/barramundi/BarramundiFish.glb",
+        "work/head089/references/barramundi/BarramundiFish.glb"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\barramundi\\BarramundiFish.glb",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "e21b65f323a623534aed50d04f613194f302e4f49084cefbffeda9edbc184155",
+      "bytes": 2990,
+      "aliases": [
+        "objects/e21b65f323a623534aed50d04f613194f302e4f49084cefbffeda9edbc184155",
+        "work/head089/references/barramundi/gltf.json"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\barramundi\\gltf.json",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "c80f0a2b9752fb6fe1eda851afdad071b289982be036c1e6ee621592d64547c6",
+      "bytes": 4985099,
+      "aliases": [
+        "objects/c80f0a2b9752fb6fe1eda851afdad071b289982be036c1e6ee621592d64547c6",
+        "projects/fishing-2d/experiments/blender-fish/head-source-research-089/references/barramundi/image-0.png",
+        "work/head089/references/barramundi/image-0.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\barramundi\\image-0.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "4a89d8a0bf9d960e17177411fb846eb9acbb737ab3c6c7716a8d97672e22fafc",
+      "bytes": 4355820,
+      "aliases": [
+        "objects/4a89d8a0bf9d960e17177411fb846eb9acbb737ab3c6c7716a8d97672e22fafc",
+        "projects/fishing-2d/experiments/blender-fish/head-source-research-089/references/barramundi/image-1.png",
+        "work/head089/references/barramundi/image-1.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\barramundi\\image-1.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "089f8ff777a1ab63ceb26f5b77bc758ff9db944b59f579dc3aee4143e3bc8f9d",
+      "bytes": 3017384,
+      "aliases": [
+        "objects/089f8ff777a1ab63ceb26f5b77bc758ff9db944b59f579dc3aee4143e3bc8f9d",
+        "projects/fishing-2d/experiments/blender-fish/head-source-research-089/references/barramundi/image-2.png",
+        "work/head089/references/barramundi/image-2.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\barramundi\\image-2.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "668819801937f5b3c4602ca744ddf06ef104e809b36795954ccb9072581a1f08",
+      "bytes": 777,
+      "aliases": [
+        "objects/668819801937f5b3c4602ca744ddf06ef104e809b36795954ccb9072581a1f08",
+        "work/head089/references/barramundi/LICENSE.md"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\barramundi\\LICENSE.md",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "6f91b708d6547445eee6876bde40d938c566d07df59acec604dec44b66d72f3e",
+      "bytes": 988,
+      "aliases": [
+        "objects/6f91b708d6547445eee6876bde40d938c566d07df59acec604dec44b66d72f3e",
+        "work/head089/references/barramundi/provenance.json"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\barramundi\\provenance.json",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "0a872d23709643379fe2a13261d535d110060d73154ad9b2141a90f3a49351c4",
+      "bytes": 959,
+      "aliases": [
+        "objects/0a872d23709643379fe2a13261d535d110060d73154ad9b2141a90f3a49351c4",
+        "work/head089/references/barramundi/README.md"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\barramundi\\README.md",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "bd3662b14521e6b19d549f6763b5ed8b6960fcf5ac111263d044fd8b803b96af",
+      "bytes": 11930398,
+      "aliases": [
+        "objects/bd3662b14521e6b19d549f6763b5ed8b6960fcf5ac111263d044fd8b803b96af",
+        "work/head089/references/fishsim/FishSim_4_02_0.zip"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\fishsim\\FishSim_4_02_0.zip",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "e796eb4f428c7565d5dd7b881f7d79834aed785de8171aac0ef78319411d73e9",
+      "bytes": 26931,
+      "aliases": [
+        "objects/e796eb4f428c7565d5dd7b881f7d79834aed785de8171aac0ef78319411d73e9",
+        "work/head089/references/fishsim/unpacked/FishSim/__init__.py"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\fishsim\\unpacked\\FishSim\\__init__.py",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "e495093e2c1fc0caf66eaccaf8310cda77f0bfad5bc3b847044a03c09f46a885",
+      "bytes": 645,
+      "aliases": [
+        "objects/e495093e2c1fc0caf66eaccaf8310cda77f0bfad5bc3b847044a03c09f46a885",
+        "work/head089/references/fishsim/unpacked/FishSim/blender_manifest.toml"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\fishsim\\unpacked\\FishSim\\blender_manifest.toml",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "f7efa3670ad239052d8c7f12712e9cb90d95115607ff49da7f83399fb40bbaf8",
+      "bytes": 39937,
+      "aliases": [
+        "objects/f7efa3670ad239052d8c7f12712e9cb90d95115607ff49da7f83399fb40bbaf8",
+        "work/head089/references/fishsim/unpacked/FishSim/FishSim.py"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\fishsim\\unpacked\\FishSim\\FishSim.py",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "2297ec0f90788c6d82190dd2fbd7112f90db5fa4bd37b587f8931fd238116713",
+      "bytes": 8401,
+      "aliases": [
+        "objects/2297ec0f90788c6d82190dd2fbd7112f90db5fa4bd37b587f8931fd238116713",
+        "work/head089/references/fishsim/unpacked/FishSim/metarig_menu.py"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\fishsim\\unpacked\\FishSim\\metarig_menu.py",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "445dbac1a502ed9b3425751f19e816656129496a55274f95ee76692d0f0da4db",
+      "bytes": 38041,
+      "aliases": [
+        "objects/445dbac1a502ed9b3425751f19e816656129496a55274f95ee76692d0f0da4db",
+        "work/head089/references/fishsim/unpacked/FishSim/metarigs/FishSim/goldfish.py"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\fishsim\\unpacked\\FishSim\\metarigs\\FishSim\\goldfish.py",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "9ce1184d5b889da05537f09066b06e7b85e26153cc138fa33876f2be6669ed92",
+      "bytes": 16782980,
+      "aliases": [
+        "objects/9ce1184d5b889da05537f09066b06e7b85e26153cc138fa33876f2be6669ed92",
+        "work/head089/references/fishsim/unpacked/FishSim/Models/Models.blend"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\fishsim\\unpacked\\FishSim\\Models\\Models.blend",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "5de7f976bb93275fb97e4aba67861d45efbdee43f0ed2be254cd7daeeae575cb",
+      "bytes": 1223,
+      "aliases": [
+        "objects/5de7f976bb93275fb97e4aba67861d45efbdee43f0ed2be254cd7daeeae575cb",
+        "work/head089/references/fishsim/unpacked/FishSim/presets/goldfish.py"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\fishsim\\unpacked\\FishSim\\presets\\goldfish.py",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "b10c7d81196fa6b9eccd7bf47f262262853d017ee47263edb8b859756fd993f6",
+      "bytes": 652,
+      "aliases": [
+        "objects/b10c7d81196fa6b9eccd7bf47f262262853d017ee47263edb8b859756fd993f6",
+        "work/head089/references/fishsim/unpacked/FishSim/presets/GreatWhite.py"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\fishsim\\unpacked\\FishSim\\presets\\GreatWhite.py",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "550f49da2c583b091325649b3a4b452961ae877e4614676ba76028542f0b6c53",
+      "bytes": 70683,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/atlantic-imr-real-head.jpg",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/atlantic-imr-real-head.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\atlantic-imr-real-head.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "34ef40dd6e6acccbdd618f2202ec7c7d6ab008c54930f63296082e59be540475",
+      "bytes": 969989,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/atlantic-noaa-1998.pdf",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/atlantic-noaa-1998.pdf"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\atlantic-noaa-1998.pdf",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "cfea7843f480cd50c8900963fe12fd1fc103f7ff4d7d6a885b48a2e0ddab9eb0",
+      "bytes": 2117,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/atlantic-noaa-head-measurements.csv",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/atlantic-noaa-head-measurements.csv"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\atlantic-noaa-head-measurements.csv",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "37939854a80f375967f7ef858e087d644d3c8370683238fab76dd127efdd956e",
+      "bytes": 960040,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/atlantic-stien-2017.pdf",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/atlantic-stien-2017.pdf"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\atlantic-stien-2017.pdf",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "f77be4fdcbebb2a38bb68f6b6d09d038dfeff16737cc0716d3d1f0468a70eb1c",
+      "bytes": 250385,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/atlantic-stien-figure1-image0.jpg",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/atlantic-stien-figure1-image0.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\atlantic-stien-figure1-image0.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "2e1dda5c0c9164f89540739ebb7dc000c5c81e2fae92214077c2896ecfb6f383",
+      "bytes": 3193,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/atlantic-stien-institution.html",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/atlantic-stien-institution.html"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\atlantic-stien-institution.html",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "9e1711a4bf520da598f0cf9529625d8b5407b3179e5e699c585761a8c7de4dd6",
+      "bytes": 13218,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/atlantic-stien-institution.json",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/atlantic-stien-institution.json"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\atlantic-stien-institution.json",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "d14683d9604ac966ce5c68eeb18de94c5fbdd1d8611b68208c46c1f070043ab3",
+      "bytes": 35348,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/atlantic-stien-locations.json",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/atlantic-stien-locations.json"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\atlantic-stien-locations.json",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "5131e98415819696d74dbd12b6608abe99e3cece990adc2d199caf7ec0d83589",
+      "bytes": 1538786,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/brown-caspian-morphometrics.pdf",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/brown-caspian-morphometrics.pdf"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\brown-caspian-morphometrics.pdf",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "f5a14f45fa8597563e18ac0fd3e385e173e49647f547dd28ae814bfc2e991769",
+      "bytes": 160740,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/brown-chytej-real.jpg",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/brown-chytej-real.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\brown-chytej-real.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "1eaf2e9c90786cc5fcc4efbf2470d3ed0c87df700a349f94dea38f5bf152b005",
+      "bytes": 161936,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/brown-jakt-real.jpg",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/brown-jakt-real.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\brown-jakt-real.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "00f40ae1bf60143fd27d96786fcea4ba8288f25b1972b9383711c3fb2f4e89bb",
+      "bytes": 180177,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/brown-nrm56777-dorsal.jpg",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/brown-nrm56777-dorsal.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\brown-nrm56777-dorsal.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "4b8116e57c2e15df33e73fb65e28e01cb28b4ac24f3ddb8bb230201dbcfefeb5",
+      "bytes": 221246,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/brown-nrm56777-lateral.jpg",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/brown-nrm56777-lateral.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\brown-nrm56777-lateral.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "6f815ad5006d8e3b9cb3f4c42db833694058d573dff438a8d2454770b4f0ba72",
+      "bytes": 898521,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/brown-piria-2020.pdf",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/brown-piria-2020.pdf"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\brown-piria-2020.pdf",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "ae5f24824c2c7a19a304cc4d5191e606087bb8be369117dd7f692b2d81bf66d3",
+      "bytes": 336841,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/brown-real-front.jpg",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/brown-real-front.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\brown-real-front.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "9912f51f6e5d0b5e1cf03827f45f5dddeea8e4c4099a932b7a031cdc9316c893",
+      "bytes": 330,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-public-file-index.json",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-public-file-index.json"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-public-file-index.json",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "879ce24e2b0f5072f490a3237944f5dd6bd2eae7f9c808c7d25fcf544a99ba45",
+      "bytes": 279,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-tree-response.txt",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-tree-response.txt"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-tree-response.txt",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "e3b24f68a554d1985eadd641a2621fcf0f56f6f46016eeff697e989afbf7de7d",
+      "bytes": 15599,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation-index.json",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation-index.json"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation-index.json",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "3401a37b16fd623ebfac04f44006b6d40ac1f01d744a43265544f279f6554bfd",
+      "bytes": 2077686,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation.zip",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/paleomass-validation.zip"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\paleomass-validation.zip",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "3b37e6a74f96da0b38c4736aa47d170353f690e052bd2b8fea57594ea33b3d51",
+      "bytes": 6358938,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/rainbow-mccloud-2023.pdf",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/rainbow-mccloud-2023.pdf"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\rainbow-mccloud-2023.pdf",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "a402b54f8f0305563a0dbaa26b92d07c7d07d5b0287b5cf6e226307348615c37",
+      "bytes": 256878,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/rainbow-nick-price-real.jpg",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/rainbow-nick-price-real.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\rainbow-nick-price-real.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "096515ad0360f4e37f79fa99f3c4a68e5bb7674723d479cd6eec5ca19ea34639",
+      "bytes": 179270,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/rainbow-real-front.jpg",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/rainbow-real-front.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\rainbow-real-front.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "b2a56a6615e54f9abe2e23924ab636761cf2918f2c5905bb42291143422bf774",
+      "bytes": 681088,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/rainbow-vandeputte-2019-dorsal-shapes.webp",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/rainbow-vandeputte-2019-dorsal-shapes.webp"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\rainbow-vandeputte-2019-dorsal-shapes.webp",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "56ad94bbab0217231a18256e56ce128d2608b72ff4f10f5a55a790622873c4e8",
+      "bytes": 656014,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/rainbow-vandeputte-2019-landmarks.webp",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/rainbow-vandeputte-2019-landmarks.webp"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\rainbow-vandeputte-2019-landmarks.webp",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "3f12fc8a55cde680f595793d7a3f80e4c23c06deecb4646711ecf6a99507e5fd",
+      "bytes": 35183,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/red-australian-museum-real.jpg",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/red-australian-museum-real.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\red-australian-museum-real.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "173368b76db7d911e01514271eb234cb27456ece8e3aa03f7e1a1d9553260ce1",
+      "bytes": 77999,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/red-pictureworl-real.jpg",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/red-pictureworl-real.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\red-pictureworl-real.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "4438eb3ea9c62aba1ba4812bb065b264abb7cf2b2961c5275f635bfe947eb127",
+      "bytes": 100459,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/red-rls-adult.jpg",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/red-rls-adult.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\red-rls-adult.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "8cf26863d0d1a46135a9615fc00ad3b4d937e4f3d647023fa318f848f3abfda1",
+      "bytes": 97992,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/red-rls-juvenile.jpg",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/red-rls-juvenile.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\red-rls-juvenile.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "135684f78a7f4f902b6897797b0c650159ef320ade755993afc200b5ff95de25",
+      "bytes": 76801,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/red-rls-oblique.jpg",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/red-rls-oblique.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\red-rls-oblique.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "4a3d208d227daac475d358945d0d05d8a3aa87c04f94e2cf237de516ceda4296",
+      "bytes": 8183,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/seabass-ffish-model-api.json",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/seabass-ffish-model-api.json"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\seabass-ffish-model-api.json",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "08c808aab67402224b2f893f99c723891159513c8c0a14c8ee8b1d6368f9b63c",
+      "bytes": 507213,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/seabass-yokogawa-2019-figure12.jpg",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/seabass-yokogawa-2019-figure12.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\seabass-yokogawa-2019-figure12.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "7aab456c45f42e7a586bdd2c9ab8d8633c9cbb0853490a0d49f36696ebf3bb9a",
+      "bytes": 8673052,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/seabass-yokogawa-2019.pdf",
+        "projects/fishing-2d/experiments/five-fish-head-evidence-20261101/sources/seabass-yokogawa-2019.pdf"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\sources\\seabass-yokogawa-2019.pdf",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "1a8a318de08fa5a9dae5ce57b161c2e99dee5d454c40873c01aeb034c4d461ec",
+      "bytes": 209872,
+      "aliases": [
+        "objects/1a8a318de08fa5a9dae5ce57b161c2e99dee5d454c40873c01aeb034c4d461ec",
+        "projects/whale-shark-151/references/reference-contact.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\reference-contact.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "1e90c0c51cf5cc1af6792a628a46262b84900d116018ba4dfbf077139c22f456",
+      "bytes": 46502,
+      "aliases": [
+        "objects/1e90c0c51cf5cc1af6792a628a46262b84900d116018ba4dfbf077139c22f456",
+        "projects/whale-shark-151/references/26_10549.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\26_10549.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "33def2fcb84bdedf25b2227a8c6d363bcd4c8f0557451b6f5ab31c9b84e41354",
+      "bytes": 63987,
+      "aliases": [
+        "objects/33def2fcb84bdedf25b2227a8c6d363bcd4c8f0557451b6f5ab31c9b84e41354",
+        "projects/whale-shark-151/references/26_5745.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\26_5745.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "744987f8c7f91ca2957db2624ae6702f9267457e6d5dcd5e33d11a5c22fc96bc",
+      "bytes": 39749,
+      "aliases": [
+        "objects/744987f8c7f91ca2957db2624ae6702f9267457e6d5dcd5e33d11a5c22fc96bc",
+        "projects/whale-shark-151/references/26_5743.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\26_5743.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "9743bf9e6f9a35b690e17cb81f6d26c51f2559dee02a3e7d2c506a2f4468df2e",
+      "bytes": 30701,
+      "aliases": [
+        "objects/9743bf9e6f9a35b690e17cb81f6d26c51f2559dee02a3e7d2c506a2f4468df2e",
+        "projects/whale-shark-151/references/26_5742.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\26_5742.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "ae6a0e4c4fea847a47b643b74d730c2710f3201beeaf31aff3c2026f2944c5da",
+      "bytes": 48228,
+      "aliases": [
+        "objects/ae6a0e4c4fea847a47b643b74d730c2710f3201beeaf31aff3c2026f2944c5da",
+        "projects/whale-shark-151/references/26_5750.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\26_5750.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "b8b8d648d5d1671831594e863feea2ca550fe5e1f54da14c4ac55f0c64c24d6a",
+      "bytes": 4253,
+      "aliases": [
+        "objects/b8b8d648d5d1671831594e863feea2ca550fe5e1f54da14c4ac55f0c64c24d6a",
+        "projects/whale-shark-151/references/reference-sources.json"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\reference-sources.json",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "ba300b06538729392078842fa8b20773a853d74a596c4d48c06dd63748c443ab",
+      "bytes": 34842,
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/plans/reviews/whale-shark152/research-underside.jpg",
+        "E:/game-ai-foundry/projects/fishing-2d/plans/reviews/whale-shark153/research-underside.jpg",
+        "E:/game-ai-foundry/projects/fishing-2d/plans/reviews/whale-shark154/research-underside.jpg",
+        "objects/ba300b06538729392078842fa8b20773a853d74a596c4d48c06dd63748c443ab",
+        "projects/whale-shark-151/references/26_5741.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\26_5741.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "bd7117e84d0eab98158ed771b8d8b84a26dea21e57fb4623eeef2d04321dd6e1",
+      "bytes": 40505,
+      "aliases": [
+        "objects/bd7117e84d0eab98158ed771b8d8b84a26dea21e57fb4623eeef2d04321dd6e1",
+        "projects/whale-shark-151/references/26_5747.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\26_5747.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "d813b4efab31c8888278c34a6e1c0a45e1bc47f2d0211e491ac66762873888da",
+      "bytes": 69899,
+      "aliases": [
+        "objects/d813b4efab31c8888278c34a6e1c0a45e1bc47f2d0211e491ac66762873888da",
+        "projects/whale-shark-151/references/26_5746.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\26_5746.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "dead680cecda7f927fddea6af1d8affed7202b785cdc70a0ad631d5021b43861",
+      "bytes": 450432,
+      "aliases": [
+        "objects/dead680cecda7f927fddea6af1d8affed7202b785cdc70a0ad631d5021b43861",
+        "projects/whale-shark-151/references/fao-whale-shark-page442.png"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\fao-whale-shark-page442.png",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "e7595588d7d1f5c4658212c3e418758008c8d3654c5381912dedb75c5d789e12",
+      "bytes": 35741,
+      "aliases": [
+        "objects/e7595588d7d1f5c4658212c3e418758008c8d3654c5381912dedb75c5d789e12",
+        "projects/whale-shark-151/references/26_5744.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\26_5744.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "ee4f8bab8bf19d331080dd342114344511ec3a2642d653a639a16fda0404933c",
+      "bytes": 75855,
+      "aliases": [
+        "objects/ee4f8bab8bf19d331080dd342114344511ec3a2642d653a639a16fda0404933c",
+        "projects/whale-shark-151/references/26_14828.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\26_14828.jpg",
+      "action": "existing identical file"
+    },
+    {
+      "sha256": "ee5b592600f0dec7140a0e9ce9b1db46f6d38a04cd058984a947a97596e949aa",
+      "bytes": 41426,
+      "aliases": [
+        "objects/ee5b592600f0dec7140a0e9ce9b1db46f6d38a04cd058984a947a97596e949aa",
+        "projects/whale-shark-151/references/26_10548.jpg"
+      ],
+      "path": "E:\\game-ai-foundry\\resources\\fish-database\\references\\recovered-history-20261108\\references\\26_10548.jpg",
+      "action": "existing identical file"
+    }
+  ],
+  "external_providers": [
+    {
+      "bytes": 1521182,
+      "keep": true,
+      "reason": "current asset/source or pinned evidence",
+      "aliases": [
+        "E:/game-ai-foundry/projects/fishing-2d/plans/reviews/whale-shark152/source-top.png",
+        "E:/game-ai-foundry/projects/fishing-2d/plans/reviews/whale-shark153/source-top-region.png",
+        "E:/game-ai-foundry/projects/fishing-2d/plans/reviews/whale-shark154/source-top-region.png",
+        "objects/5288f052aeca756edecdebe6edb1198458bdde2bfdc2479ef9819a9b408c0ee4",
+        "projects/whale-shark-top152r2/output/char_whale_shark_top152r2_nobg.png"
+      ],
+      "provider": {
+        "kind": "retained_archive",
+        "archive": "projects/fishing-2d/plans/reviews/whale-shark-20261026/replay-inputs.tar.gz",
+        "member": "projects/whale-shark-top152r2/output/char_whale_shark_top152r2_nobg.png"
+      }
+    }
+  ],
+  "note": "External replay provider was already retired in the prior cleanup; no restoration promise. All 28 fish are now statically accepted. Shared/unassigned objects were examined through aliases; original research rescued separately."
+}

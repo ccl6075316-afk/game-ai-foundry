@@ -1,0 +1,221 @@
+{
+  "animationCount": 0,
+  "categories": [
+    {
+      "uid": "ed9e048550b2478eb1ab2faaba192832",
+      "name": "Animals & Pets",
+      "slug": "animals-pets",
+      "uri": "https://api.sketchfab.com/v3/categories/ed9e048550b2478eb1ab2faaba192832",
+      "icon": "https://static.sketchfab.com/static/builds/web/dist/static/assets/images/icons/categories/926733e187aa5a479aedd2581bffb3ea-v2.svg",
+      "thumbnails": [
+        {
+          "width": "512",
+          "height": "288",
+          "url": "https://static.sketchfab.com/categories/ed9e048550b2478eb1ab2faaba192832/512x288.png"
+        },
+        {
+          "width": "800",
+          "height": "450",
+          "url": "https://static.sketchfab.com/categories/ed9e048550b2478eb1ab2faaba192832/800x450.png"
+        }
+      ]
+    },
+    {
+      "uid": "17d20ca7b35243d4a45171838b50704c",
+      "name": "Science & Technology",
+      "slug": "science-technology",
+      "uri": "https://api.sketchfab.com/v3/categories/17d20ca7b35243d4a45171838b50704c",
+      "icon": "https://static.sketchfab.com/static/builds/web/dist/static/assets/images/icons/categories/86b1bae49e0ed3f43b2d59b26700234e-v2.svg",
+      "thumbnails": [
+        {
+          "width": "512",
+          "height": "288",
+          "url": "https://static.sketchfab.com/categories/17d20ca7b35243d4a45171838b50704c/512x288.png"
+        },
+        {
+          "width": "800",
+          "height": "450",
+          "url": "https://static.sketchfab.com/categories/17d20ca7b35243d4a45171838b50704c/800x450.png"
+        }
+      ]
+    }
+  ],
+  "commentCount": 0,
+  "createdAt": "2021-09-20T13:40:06.695075",
+  "embedUrl": "https://sketchfab.com/models/7460e749039547a783a85f612cca3ceb/embed",
+  "faceCount": 602817,
+  "isAgeRestricted": false,
+  "license": {
+    "uri": "https://api.sketchfab.com/v3/licenses/7c23a1ba438d4306920229c12afcb5f9",
+    "label": "CC0 Public Domain",
+    "fullName": "CC0 Public Domain",
+    "requirements": "Credit is not mandatory. Commercial use is allowed.",
+    "url": "http://creativecommons.org/publicdomain/zero/1.0/",
+    "slug": "cc0"
+  },
+  "likeCount": 39,
+  "name": "CC0 \u30b9\u30ba\u30ad \ud83d\udc1f Japanese Seabass, L. japonicus",
+  "publishedAt": "2021-09-20T13:43:37.975517",
+  "soundCount": 0,
+  "staffpickedAt": null,
+  "tags": [
+    {
+      "name": "fish",
+      "slug": "fish",
+      "uri": "https://api.sketchfab.com/v3/tags/fish"
+    },
+    {
+      "name": "cc0",
+      "slug": "cc0",
+      "uri": "https://api.sketchfab.com/v3/tags/cc0"
+    },
+    {
+      "name": "publicdomain",
+      "slug": "publicdomain",
+      "uri": "https://api.sketchfab.com/v3/tags/publicdomain"
+    },
+    {
+      "name": "chordata",
+      "slug": "chordata",
+      "uri": "https://api.sketchfab.com/v3/tags/chordata"
+    },
+    {
+      "name": "animalia",
+      "slug": "animalia",
+      "uri": "https://api.sketchfab.com/v3/tags/animalia"
+    },
+    {
+      "name": "ffishasia",
+      "slug": "ffishasia",
+      "uri": "https://api.sketchfab.com/v3/tags/ffishasia"
+    },
+    {
+      "name": "japonicus",
+      "slug": "japonicus",
+      "uri": "https://api.sketchfab.com/v3/tags/japonicus"
+    },
+    {
+      "name": "perciformes",
+      "slug": "perciformes",
+      "uri": "https://api.sketchfab.com/v3/tags/perciformes"
+    },
+    {
+      "name": "lateolabrax",
+      "slug": "lateolabrax",
+      "uri": "https://api.sketchfab.com/v3/tags/lateolabrax"
+    },
+    {
+      "name": "brackish",
+      "slug": "brackish",
+      "uri": "https://api.sketchfab.com/v3/tags/brackish"
+    },
+    {
+      "name": "osteichthyes",
+      "slug": "osteichthyes",
+      "uri": "https://api.sketchfab.com/v3/tags/osteichthyes"
+    },
+    {
+      "name": "lateolabracidae",
+      "slug": "lateolabracidae",
+      "uri": "https://api.sketchfab.com/v3/tags/lateolabracidae"
+    }
+  ],
+  "thumbnails": {
+    "images": [
+      {
+        "uid": "931e823334ac4cd6830021b3e9ac9d05",
+        "width": 1920,
+        "height": 1080,
+        "size": 174489,
+        "url": "https://media.sketchfab.com/models/7460e749039547a783a85f612cca3ceb/thumbnails/527c0457fd484607923c47053f88e97f/f7fece31a0964c9886271d112db58f89.jpeg"
+      },
+      {
+        "uid": "1f9d801f7c874f0298e534f4a6d240bd",
+        "width": 1024,
+        "height": 576,
+        "size": 50702,
+        "url": "https://media.sketchfab.com/models/7460e749039547a783a85f612cca3ceb/thumbnails/527c0457fd484607923c47053f88e97f/a9880656a1364c57aaba8f543a1405c3.jpeg"
+      },
+      {
+        "uid": "7de8d565c6ae415c94f59008a3a2a2cf",
+        "width": 720,
+        "height": 405,
+        "size": 27000,
+        "url": "https://media.sketchfab.com/models/7460e749039547a783a85f612cca3ceb/thumbnails/527c0457fd484607923c47053f88e97f/62cfc983ba1f471ea6dc5666fabfd61a.jpeg"
+      },
+      {
+        "uid": "4c69c3f0230445b2bbe77899772df6e2",
+        "width": 256,
+        "height": 144,
+        "size": 4892,
+        "url": "https://media.sketchfab.com/models/7460e749039547a783a85f612cca3ceb/thumbnails/527c0457fd484607923c47053f88e97f/f364d3399918407683f210fb6a743e9f.jpeg"
+      },
+      {
+        "uid": "7931b87fd4be42749a93c32cb9a919fa",
+        "width": 64,
+        "height": 36,
+        "size": 1174,
+        "url": "https://media.sketchfab.com/models/7460e749039547a783a85f612cca3ceb/thumbnails/527c0457fd484607923c47053f88e97f/8a22d58fa41e47b69b7874923beb17ad.jpeg"
+      }
+    ]
+  },
+  "uid": "7460e749039547a783a85f612cca3ceb",
+  "uri": "https://api.sketchfab.com/v3/models/7460e749039547a783a85f612cca3ceb",
+  "user": {
+    "uid": "19cfc338f034437189579a2aa1f0e1ff",
+    "username": "ffishAsia-and-floraZia",
+    "displayName": "ffish.asia / floraZia.com",
+    "account": "pro",
+    "profileUrl": "https://sketchfab.com/ffishAsia-and-floraZia",
+    "avatar": {
+      "uid": "fcacc84a68154e3a98b9f3d1ce7a413a",
+      "uri": "https://api.sketchfab.com/v3/avatars/fcacc84a68154e3a98b9f3d1ce7a413a",
+      "images": [
+        {
+          "width": 32,
+          "height": 32,
+          "size": 665,
+          "url": "https://media.sketchfab.com/avatars/fcacc84a68154e3a98b9f3d1ce7a413a/b671f00bdb8d4e6e8500bdb66b61e727.jpeg"
+        },
+        {
+          "width": 48,
+          "height": 48,
+          "size": 1061,
+          "url": "https://media.sketchfab.com/avatars/fcacc84a68154e3a98b9f3d1ce7a413a/b749d50bb80b45c0b66f1eaa289272f2.jpeg"
+        },
+        {
+          "width": 90,
+          "height": 90,
+          "size": 3053,
+          "url": "https://media.sketchfab.com/avatars/fcacc84a68154e3a98b9f3d1ce7a413a/dbec28e52d1f4e6b8ff6baa0e9551c94.jpeg"
+        },
+        {
+          "width": 100,
+          "height": 100,
+          "size": 3622,
+          "url": "https://media.sketchfab.com/avatars/fcacc84a68154e3a98b9f3d1ce7a413a/821da58844df4e568d1939081d023caa.jpeg"
+        }
+      ]
+    },
+    "uri": "https://api.sketchfab.com/v3/users/19cfc338f034437189579a2aa1f0e1ff"
+  },
+  "vertexCount": 383377,
+  "viewCount": 887,
+  "viewerUrl": "https://sketchfab.com/3d-models/cc0-japanese-seabass-l-japonicus-7460e749039547a783a85f612cca3ceb",
+  "isDownloadable": true,
+  "isProtected": false,
+  "description": "License: **CC0**  \n\n  \nAnimalia \u52d5\u7269\u754c  \n\u3000Chordata \u810a\u7d22\u52d5\u7269\u9580  \n\u3000\u3000Osteichthyes \u786c\u9aa8\u9b5a\u7db1  \n\u3000\u3000\u3000Perciformes \u30b9\u30ba\u30ad\u76ee  \n\u3000\u3000\u3000\u3000Lateolabracidae \u30b9\u30ba\u30ad\u79d1  \n\u3000\u3000\u3000\u3000\u3000Lateolabrax \u30b9\u30ba\u30ad\u5c5e  \n\u3000\u3000\u3000\u3000\u3000\u3000Lateolabrax japonicus \u30b9\u30ba\u30ad \u30de\u30eb\u30b9\u30ba\u30ad  \n  \n\u6c7d\u6c34\u9b5a \u9b5a\u985e",
+  "price": null,
+  "downloadCount": 302,
+  "editorUrl": "https://sketchfab.com/models/7460e749039547a783a85f612cca3ceb/edit",
+  "status": {
+    "warning": {},
+    "processing": "SUCCEEDED"
+  },
+  "source": "website",
+  "hasCommentsDisabled": false,
+  "updatedAt": "2025-03-07T01:47:59.930783",
+  "pbrType": null,
+  "textureCount": 3,
+  "materialCount": 3
+}

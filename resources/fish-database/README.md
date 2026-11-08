@@ -76,3 +76,5 @@ Foundry 的鱼类资料入口。集中保存物种资料、照片/扫描、第�
 2026-11-04补[双髻鲨逐鳍截面](evidence/hammerhead-fin-sections-20261104/sections.json)及实际网格测位定义/线框图：按各鳍局部根梢坐标测有限弦法向厚度与`t/c`，明确左右配对、四个展向测位和腹鳍近根与身体重叠的无效站；库具体种及生物厚度未知，仅供独立游戏造型参考，不是组织实测或外观接受。
 
 2026-11-05 [鲸鲨外部资料](evidence/whale-shark-20261105/sources.json)：iNaturalist 实拍、DigitalLife 个体 Mosi 的多相机重建（官方 GLB 已入库，逐索引核实 157312 个三角面）及已下载的一份独立艺术 GLB。区分真实个体与艺术模型。
+
+- [旧实验包分离出的原始研究资料](references/recovered-history-20261108/README.md)：2026-11-08清理时救出的论文、测量与外部模型；来源及SHA见该目录manifest。

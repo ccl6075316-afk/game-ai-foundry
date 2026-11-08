@@ -1,0 +1,20 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/BarramundiFish/glTF-Binary/BarramundiFish.glb",
+    "file": "E:\\game-ai-foundry\\work\\head089\\references\\barramundi\\BarramundiFish.glb",
+    "sha256": "ecc3bafb6b00f2c8b810863c388e3768a7b7ea0d0335e8cb8c574c266e571f4a",
+    "bytes": 12488144
+  },
+  {
+    "url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/BarramundiFish/LICENSE.md",
+    "file": "E:\\game-ai-foundry\\work\\head089\\references\\barramundi\\LICENSE.md",
+    "sha256": "668819801937f5b3c4602ca744ddf06ef104e809b36795954ccb9072581a1f08",
+    "bytes": 777
+  },
+  {
+    "url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/BarramundiFish/README.md",
+    "file": "E:\\game-ai-foundry\\work\\head089\\references\\barramundi\\README.md",
+    "sha256": "0a872d23709643379fe2a13261d535d110060d73154ad9b2141a90f3a49351c4",
+    "bytes": 959
+  }
+]
