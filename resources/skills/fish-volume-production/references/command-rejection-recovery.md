@@ -44,3 +44,11 @@
 2026-11-01 维护记录 `docs/MAINTENANCE-ARCHITECTURE.md`“本地盘点与清理”：首次内联删除返回 `blocked by policy`；用户随后要求检查执行方式，新增上述专用脚本与更严格预检后，实际删除1643文件、257342402字节，未修改权限配置。证据见游戏 `plans/reviews/maintenance-20261101/evidence/cleanup-execution.json`、`cleanup-verification.json`，历史路径迁移见该轮 `artifact-relocation.json`。
 
 这些案例证明各自特定范围的清理入口曾实际成功；**首次审批拒绝的具体原因仍未知**，不能推广为“只要把被拒命令装进脚本就可执行”，也不能混用不同产物的白名单。
+
+## 百度存储暂存清理（2026-11-09）
+
+存储试验/当前LFS快照的临时副本有独立入口 `resources/scripts/maintenance/clear_verified_baidu_staging.ps1 -Scope pilot|snapshot`，默认预演，`-Apply` 才执行。它不接收任意删除路径：pilot仅从已通过的三文件往返报告推导四个重复样本；snapshot仅从已发布且全量下载复核的清单推导send/receive暂存包与下载清单。快照清理前再次保护全部当前LFS源文件。还检查活动传输进程、真实路径/目录联接、Git未跟踪且被忽略、字节数及SHA，保留预演/执行报告，不递归删目录，也不删除`.git/lfs`或云端文件。
+
+本轮第一次内联删除在执行前被自动审批拒绝，具体原因仍未知。用户要求核对本地规则后，按上述更窄范围和新增完成证据、源文件保护、Git/链接/进程检查重新预演；pilot实际删除4文件、67,117,056字节，两个小输入仍保留。不是SQL清理，也不证明所有审批拒绝都源于skill。快照上传与后续清理的实际状态见 `docs/storage/baidu-lfs-20261109/`，不能凭pilot通过提前声称快照清理完成。
+
+本轮snapshot随后完成55包云端往返及4,816对象原始SHA全量重组验证、清单发布与下载复核；预演后实际删除111暂存文件、14,383,783,129字节，5,266当前源逐路径保护。执行事实见该目录`cleanup-execution.json`。这些是本轮新增传输暂存，不是旧项目历史资产或Git LFS缓存，不能称项目净减少14GB。

@@ -1,0 +1,9 @@
+{
+  "index": 42,
+  "sha256": "ef15800a6deca6c92522eb6b3dc2afe343e65a1050328aa5ad8e1abc30f0cc22",
+  "bytes": 131532800,
+  "remote": "foundry-lfs-20261109-218c50d7/packs/ef15800a6deca6c92522eb6b3dc2afe343e65a1050328aa5ad8e1abc30f0cc22.tar",
+  "round_trip_verified": true,
+  "upload_seconds": 60.666,
+  "download_seconds": 6.832
+}

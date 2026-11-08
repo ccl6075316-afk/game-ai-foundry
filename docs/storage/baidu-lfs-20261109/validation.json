@@ -1,0 +1,11 @@
+{
+  "ok": true,
+  "manifest_sha256": "9f0c70f93575736dea39d3a89687b25462898593a02e82f48901bfb6114883af",
+  "objects_reconstructed_sha256": 4816,
+  "paths_covered": 5266,
+  "unique_bytes": 7185747760,
+  "packs_downloaded_verified": 55,
+  "all_current_lfs_sources_unchanged": true,
+  "second_physical_computer_tested": false,
+  "git_filters_changed": false
+}

@@ -1,0 +1,573 @@
+{
+  "ok": true,
+  "scope": "snapshot",
+  "apply": true,
+  "proof_hashes": {
+    "manifest.json": "9F0C70F93575736DEA39D3A89687B25462898593A02E82F48901BFB6114883AF",
+    "validation.json": "4748540C4A5A152A608EF1B690A53B808FF7A631BA75B03329828D877E4766E8",
+    "publication.json": "3AF3DDE9C674828D386604821A7CA8194DC2DA7BC3ED60E8F9166C8511A9EF90"
+  },
+  "eligible_files": 111,
+  "eligible_bytes": 14383783129.0,
+  "protected_files": 5266,
+  "already_missing": [],
+  "deleted_files": 111,
+  "deleted_bytes": 14383783129,
+  "files": [
+    {
+      "bytes": 134103040,
+      "sha256": "e5bac67438e16a3ea3f87c1e07fd40895e2a4479e310daa556f3d96208c9c640",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0000.tar"
+    },
+    {
+      "bytes": 134103040,
+      "sha256": "e5bac67438e16a3ea3f87c1e07fd40895e2a4479e310daa556f3d96208c9c640",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0000.tar"
+    },
+    {
+      "bytes": 129085440,
+      "sha256": "b54da42d04439d48397a8e8a1138d0c44d2d8feacc84ce7c1a5ae355069d88fe",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0001.tar"
+    },
+    {
+      "bytes": 129085440,
+      "sha256": "b54da42d04439d48397a8e8a1138d0c44d2d8feacc84ce7c1a5ae355069d88fe",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0001.tar"
+    },
+    {
+      "bytes": 129085440,
+      "sha256": "2f07c0e08eb4ac87076c8c8d15b523c0a79d509969b5d24834bde1672dfa3859",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0002.tar"
+    },
+    {
+      "bytes": 129085440,
+      "sha256": "2f07c0e08eb4ac87076c8c8d15b523c0a79d509969b5d24834bde1672dfa3859",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0002.tar"
+    },
+    {
+      "bytes": 131133440,
+      "sha256": "51ed8d279fbd44a04f80ef3ac019c1443e8e2b38a96117d4e730d7b0727c613f",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0003.tar"
+    },
+    {
+      "bytes": 131133440,
+      "sha256": "51ed8d279fbd44a04f80ef3ac019c1443e8e2b38a96117d4e730d7b0727c613f",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0003.tar"
+    },
+    {
+      "bytes": 134144000,
+      "sha256": "e4407d75ec6202c33c646f6dd512f0405004db24689d893a28eb023f786210c3",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0004.tar"
+    },
+    {
+      "bytes": 134144000,
+      "sha256": "e4407d75ec6202c33c646f6dd512f0405004db24689d893a28eb023f786210c3",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0004.tar"
+    },
+    {
+      "bytes": 134103040,
+      "sha256": "c08509543523274f1aeb8a5528d306ac75f0c7364a079eeda8e31bf11463d00d",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0005.tar"
+    },
+    {
+      "bytes": 134103040,
+      "sha256": "c08509543523274f1aeb8a5528d306ac75f0c7364a079eeda8e31bf11463d00d",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0005.tar"
+    },
+    {
+      "bytes": 131123200,
+      "sha256": "4c29db4e3d59ec2e226e56752e2abece1cc6b1aa66d19066dd120aff7cc285d0",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0006.tar"
+    },
+    {
+      "bytes": 131123200,
+      "sha256": "4c29db4e3d59ec2e226e56752e2abece1cc6b1aa66d19066dd120aff7cc285d0",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0006.tar"
+    },
+    {
+      "bytes": 133263360,
+      "sha256": "eb1d31878b30920206d6291434f742205d456252120b2dd028be08ffb5cc448f",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0007.tar"
+    },
+    {
+      "bytes": 133263360,
+      "sha256": "eb1d31878b30920206d6291434f742205d456252120b2dd028be08ffb5cc448f",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0007.tar"
+    },
+    {
+      "bytes": 118599680,
+      "sha256": "9afca74caac1da30554a8c2fe0af0a61f1ae4ca4e661ff3d0873c6fd15be32ac",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0008.tar"
+    },
+    {
+      "bytes": 118599680,
+      "sha256": "9afca74caac1da30554a8c2fe0af0a61f1ae4ca4e661ff3d0873c6fd15be32ac",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0008.tar"
+    },
+    {
+      "bytes": 134144000,
+      "sha256": "8551923e8328a7702e6f95133c8a2f72646ea7a3d8c625f7e9f5c5d8e3e44747",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0009.tar"
+    },
+    {
+      "bytes": 134144000,
+      "sha256": "8551923e8328a7702e6f95133c8a2f72646ea7a3d8c625f7e9f5c5d8e3e44747",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0009.tar"
+    },
+    {
+      "bytes": 133713920,
+      "sha256": "2ffa049c21d4888b7d801895d2990692c823c023db78fd7994d9b9ed646aef66",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0010.tar"
+    },
+    {
+      "bytes": 133713920,
+      "sha256": "2ffa049c21d4888b7d801895d2990692c823c023db78fd7994d9b9ed646aef66",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0010.tar"
+    },
+    {
+      "bytes": 133519360,
+      "sha256": "c0630f32fa8330cf9ddecbbd91a139c6c8d7e637b68af6b25ce546967378afeb",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0011.tar"
+    },
+    {
+      "bytes": 133519360,
+      "sha256": "c0630f32fa8330cf9ddecbbd91a139c6c8d7e637b68af6b25ce546967378afeb",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0011.tar"
+    },
+    {
+      "bytes": 134297600,
+      "sha256": "744b1130763e083739f26768968d3d58c212b19b970aab5b3d17579d1ae13d44",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0012.tar"
+    },
+    {
+      "bytes": 134297600,
+      "sha256": "744b1130763e083739f26768968d3d58c212b19b970aab5b3d17579d1ae13d44",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0012.tar"
+    },
+    {
+      "bytes": 124344320,
+      "sha256": "a4a0abf28d029180f087db14d3ae09acd0cc115b060bd37202ac687a774fa120",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0013.tar"
+    },
+    {
+      "bytes": 124344320,
+      "sha256": "a4a0abf28d029180f087db14d3ae09acd0cc115b060bd37202ac687a774fa120",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0013.tar"
+    },
+    {
+      "bytes": 132659200,
+      "sha256": "d7cf3069026e1a18b970d5af382bafeeeeb03e7c47a7b4d27eb6fe464d6b5bc5",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0014.tar"
+    },
+    {
+      "bytes": 132659200,
+      "sha256": "d7cf3069026e1a18b970d5af382bafeeeeb03e7c47a7b4d27eb6fe464d6b5bc5",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0014.tar"
+    },
+    {
+      "bytes": 133273600,
+      "sha256": "443a97e6984ddda8865d195328ea874de8bc7d7ee626489c445650fc10104814",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0015.tar"
+    },
+    {
+      "bytes": 133273600,
+      "sha256": "443a97e6984ddda8865d195328ea874de8bc7d7ee626489c445650fc10104814",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0015.tar"
+    },
+    {
+      "bytes": 128798720,
+      "sha256": "d022529c54561c35092b43e667f269a0f41aacdd91415cf222e8892aad0c1c16",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0016.tar"
+    },
+    {
+      "bytes": 128798720,
+      "sha256": "d022529c54561c35092b43e667f269a0f41aacdd91415cf222e8892aad0c1c16",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0016.tar"
+    },
+    {
+      "bytes": 130304000,
+      "sha256": "01eda2a41487a28eea89343e84373f1bc01c2bdbaac8c81ffeb32cfc2fa65e9a",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0017.tar"
+    },
+    {
+      "bytes": 130304000,
+      "sha256": "01eda2a41487a28eea89343e84373f1bc01c2bdbaac8c81ffeb32cfc2fa65e9a",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0017.tar"
+    },
+    {
+      "bytes": 134236160,
+      "sha256": "92fb05044719bfaaaa7de788e074b4d51810b71d48f8bcf02a195767bd365698",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0018.tar"
+    },
+    {
+      "bytes": 134236160,
+      "sha256": "92fb05044719bfaaaa7de788e074b4d51810b71d48f8bcf02a195767bd365698",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0018.tar"
+    },
+    {
+      "bytes": 131481600,
+      "sha256": "20561ee32009d913d67b6e5bd4c7eb04b6d12272b3f6dfb7832e2c929406a361",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0019.tar"
+    },
+    {
+      "bytes": 131481600,
+      "sha256": "20561ee32009d913d67b6e5bd4c7eb04b6d12272b3f6dfb7832e2c929406a361",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0019.tar"
+    },
+    {
+      "bytes": 127795200,
+      "sha256": "c57390cbea1e86443f2751b1a78a13ab3d0a9fc302c1ad825019750e15137442",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0020.tar"
+    },
+    {
+      "bytes": 127795200,
+      "sha256": "c57390cbea1e86443f2751b1a78a13ab3d0a9fc302c1ad825019750e15137442",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0020.tar"
+    },
+    {
+      "bytes": 121067520,
+      "sha256": "dc6037246152b1341a44941f1184ef028147d2e275b850ac8deb93afdb559e04",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0021.tar"
+    },
+    {
+      "bytes": 121067520,
+      "sha256": "dc6037246152b1341a44941f1184ef028147d2e275b850ac8deb93afdb559e04",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0021.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "24adb62166f59bb2af7782cc30967c759c0f2aba4f972bc1cc8982a16a511e36",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0022.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "24adb62166f59bb2af7782cc30967c759c0f2aba4f972bc1cc8982a16a511e36",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0022.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "3ec65768712e4ade2bc91f8a883857683deec91f5019cd5e9da672c0d55290e4",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0023.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "3ec65768712e4ade2bc91f8a883857683deec91f5019cd5e9da672c0d55290e4",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0023.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "d350435367d37ebd6af5633ed3a4b9bcc5327cf699882117477d844413b86b65",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0024.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "d350435367d37ebd6af5633ed3a4b9bcc5327cf699882117477d844413b86b65",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0024.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "cc933c2f7ec23a3e72680159952fe2f9d02ecd9429d8c9767316065914193192",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0025.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "cc933c2f7ec23a3e72680159952fe2f9d02ecd9429d8c9767316065914193192",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0025.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "6ea19026a00da3ba3f76fcc290c0ee3f9da310fdd4c89e725c6bd8f0039904df",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0026.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "6ea19026a00da3ba3f76fcc290c0ee3f9da310fdd4c89e725c6bd8f0039904df",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0026.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "4fb9db941f467ee7f78e3e7c61754ef76d52c0d484da7b60ed21a60725610b2d",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0027.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "4fb9db941f467ee7f78e3e7c61754ef76d52c0d484da7b60ed21a60725610b2d",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0027.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "396b046e15b42f529a613476d6e180d53b4942eb5c64080512eaa4ac299565e1",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0028.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "396b046e15b42f529a613476d6e180d53b4942eb5c64080512eaa4ac299565e1",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0028.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "4b8e6069bf2906403804e9e2463be6dcac67dd6f38ab75a78168d33393a5b931",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0029.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "4b8e6069bf2906403804e9e2463be6dcac67dd6f38ab75a78168d33393a5b931",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0029.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "4d15f045c70a13dce2d02accebf234442edb9decfe9274c61fd675ace7621bf3",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0030.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "4d15f045c70a13dce2d02accebf234442edb9decfe9274c61fd675ace7621bf3",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0030.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "377b6d538b47b79de4b53c945262b34f1947152f749cc477e78ef638f58c4690",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0031.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "377b6d538b47b79de4b53c945262b34f1947152f749cc477e78ef638f58c4690",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0031.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "c21c1b3361dca4fb3b41c5b048dde26269f68552f12c0747c210337b8b7263a1",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0032.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "c21c1b3361dca4fb3b41c5b048dde26269f68552f12c0747c210337b8b7263a1",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0032.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "a3d933b0f857832c14c94bcec15a0d43a4e49cbc99d0dbfbdd83f66818a4780a",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0033.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "a3d933b0f857832c14c94bcec15a0d43a4e49cbc99d0dbfbdd83f66818a4780a",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0033.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "15ab803839b0b00075314880cf11d14927684390356e7acda762d607e2cb4f8b",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0034.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "15ab803839b0b00075314880cf11d14927684390356e7acda762d607e2cb4f8b",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0034.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "4ce29c236dda402a9f3c6c08dee111311c9269d3af157850ef4650f057de53b2",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0035.tar"
+    },
+    {
+      "bytes": 134225920,
+      "sha256": "4ce29c236dda402a9f3c6c08dee111311c9269d3af157850ef4650f057de53b2",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0035.tar"
+    },
+    {
+      "bytes": 134266880,
+      "sha256": "3b0843db5fe70399a410cf07ad6073d702c86fc0862bd1d7682a704d78874753",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0036.tar"
+    },
+    {
+      "bytes": 134266880,
+      "sha256": "3b0843db5fe70399a410cf07ad6073d702c86fc0862bd1d7682a704d78874753",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0036.tar"
+    },
+    {
+      "bytes": 134041600,
+      "sha256": "b2d6d9e42efe8336266e1123f93ad0dd9e797ae4dc10bf32f1d08fef9d97527f",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0037.tar"
+    },
+    {
+      "bytes": 134041600,
+      "sha256": "b2d6d9e42efe8336266e1123f93ad0dd9e797ae4dc10bf32f1d08fef9d97527f",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0037.tar"
+    },
+    {
+      "bytes": 118855680,
+      "sha256": "5397babda65b1a6229920392683705873f8cb621a34cbfcbd31d6f8ddf52665b",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0038.tar"
+    },
+    {
+      "bytes": 118855680,
+      "sha256": "5397babda65b1a6229920392683705873f8cb621a34cbfcbd31d6f8ddf52665b",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0038.tar"
+    },
+    {
+      "bytes": 133089280,
+      "sha256": "6a5e40a173aaec80d545a852534a1201e92a64cf9d18ba1d717113bf10aac47e",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0039.tar"
+    },
+    {
+      "bytes": 133089280,
+      "sha256": "6a5e40a173aaec80d545a852534a1201e92a64cf9d18ba1d717113bf10aac47e",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0039.tar"
+    },
+    {
+      "bytes": 117954560,
+      "sha256": "06660e590c9ce655bb40fd44d5c49348755ddaadeccae8f58625b028a2e6644c",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0040.tar"
+    },
+    {
+      "bytes": 117954560,
+      "sha256": "06660e590c9ce655bb40fd44d5c49348755ddaadeccae8f58625b028a2e6644c",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0040.tar"
+    },
+    {
+      "bytes": 134236160,
+      "sha256": "c0e062b4d71dc63bcdbeed72098266bbfe3c92fe779e723792b747c3af385805",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0041.tar"
+    },
+    {
+      "bytes": 134236160,
+      "sha256": "c0e062b4d71dc63bcdbeed72098266bbfe3c92fe779e723792b747c3af385805",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0041.tar"
+    },
+    {
+      "bytes": 131532800,
+      "sha256": "ef15800a6deca6c92522eb6b3dc2afe343e65a1050328aa5ad8e1abc30f0cc22",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0042.tar"
+    },
+    {
+      "bytes": 131532800,
+      "sha256": "ef15800a6deca6c92522eb6b3dc2afe343e65a1050328aa5ad8e1abc30f0cc22",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0042.tar"
+    },
+    {
+      "bytes": 128890880,
+      "sha256": "1aaf0ef301a0aa8e12fbfb8ea452f3c0a82c570cbe8b755d35a0d266b4ca25dc",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0043.tar"
+    },
+    {
+      "bytes": 128890880,
+      "sha256": "1aaf0ef301a0aa8e12fbfb8ea452f3c0a82c570cbe8b755d35a0d266b4ca25dc",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0043.tar"
+    },
+    {
+      "bytes": 130088960,
+      "sha256": "94a1aad6bb4be2d9484918a1cd0ef31f9784f12ca9d558cb67b3304480ba2c08",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0044.tar"
+    },
+    {
+      "bytes": 130088960,
+      "sha256": "94a1aad6bb4be2d9484918a1cd0ef31f9784f12ca9d558cb67b3304480ba2c08",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0044.tar"
+    },
+    {
+      "bytes": 132976640,
+      "sha256": "8b9cb55aab024b29709e0d197c7a9b1c2d2a175e53a0f8ddd54aba8c1b5b3a5b",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0045.tar"
+    },
+    {
+      "bytes": 132976640,
+      "sha256": "8b9cb55aab024b29709e0d197c7a9b1c2d2a175e53a0f8ddd54aba8c1b5b3a5b",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0045.tar"
+    },
+    {
+      "bytes": 133406720,
+      "sha256": "368204ba5af9c6d665296268fd40b701606de2cb53cbd8b6d80b95dcdd3f1af5",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0046.tar"
+    },
+    {
+      "bytes": 133406720,
+      "sha256": "368204ba5af9c6d665296268fd40b701606de2cb53cbd8b6d80b95dcdd3f1af5",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0046.tar"
+    },
+    {
+      "bytes": 133672960,
+      "sha256": "a23dd094e5d0a4d455e4c571c63fe6c6b8d66fca86915d665f0bb2f992a3e611",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0047.tar"
+    },
+    {
+      "bytes": 133672960,
+      "sha256": "a23dd094e5d0a4d455e4c571c63fe6c6b8d66fca86915d665f0bb2f992a3e611",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0047.tar"
+    },
+    {
+      "bytes": 132935680,
+      "sha256": "8f40b8dfa2d31a43f78c8e2241f14a5cfecbbe95d0873cb897151b63a64360b9",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0048.tar"
+    },
+    {
+      "bytes": 132935680,
+      "sha256": "8f40b8dfa2d31a43f78c8e2241f14a5cfecbbe95d0873cb897151b63a64360b9",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0048.tar"
+    },
+    {
+      "bytes": 132044800,
+      "sha256": "59fa9baea00a02302bf96bc67e324b9fa8f091e080a94bd6a0a8349867f697ef",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0049.tar"
+    },
+    {
+      "bytes": 132044800,
+      "sha256": "59fa9baea00a02302bf96bc67e324b9fa8f091e080a94bd6a0a8349867f697ef",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0049.tar"
+    },
+    {
+      "bytes": 119224320,
+      "sha256": "a8e1f803bf8572c1f98ef76fbaa374e99a2c5ef3ee3b325518949c1b205e3f5d",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0050.tar"
+    },
+    {
+      "bytes": 119224320,
+      "sha256": "a8e1f803bf8572c1f98ef76fbaa374e99a2c5ef3ee3b325518949c1b205e3f5d",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0050.tar"
+    },
+    {
+      "bytes": 132648960,
+      "sha256": "42a76f9254dfb7889eb295e854d87bda6a1dd8d72a1a39db6fd8a693668e3f5b",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0051.tar"
+    },
+    {
+      "bytes": 132648960,
+      "sha256": "42a76f9254dfb7889eb295e854d87bda6a1dd8d72a1a39db6fd8a693668e3f5b",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0051.tar"
+    },
+    {
+      "bytes": 132689920,
+      "sha256": "ac8d4945decccfb6bc483c5b32715587bbbebabcefc2715118eccbce6e718fd1",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0052.tar"
+    },
+    {
+      "bytes": 132689920,
+      "sha256": "ac8d4945decccfb6bc483c5b32715587bbbebabcefc2715118eccbce6e718fd1",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0052.tar"
+    },
+    {
+      "bytes": 131747840,
+      "sha256": "5195b0f2f9445bd17a01c72999071bbd5a58669c9d3aee863ca98980133f23a0",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0053.tar"
+    },
+    {
+      "bytes": 131747840,
+      "sha256": "5195b0f2f9445bd17a01c72999071bbd5a58669c9d3aee863ca98980133f23a0",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0053.tar"
+    },
+    {
+      "bytes": 92067840,
+      "sha256": "0abcb006c1c76fed9355c49fd5604a9612b1205dc09b0bcd432643377ee07f3f",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\send\\0054.tar"
+    },
+    {
+      "bytes": 92067840,
+      "sha256": "0abcb006c1c76fed9355c49fd5604a9612b1205dc09b0bcd432643377ee07f3f",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\receive\\0054.tar"
+    },
+    {
+      "bytes": 4160729,
+      "sha256": "9f0c70f93575736dea39d3a89687b25462898593a02e82f48901bfb6114883af",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-20261109\\manifest-roundtrip.json"
+    }
+  ]
+}

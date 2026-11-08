@@ -1,4 +1,7 @@
 # Freeze the byte-hashed fish repair tools and runtime evidence.
+# Storage receipts bind exact bytes across Windows/macOS checkouts.
+/docs/storage/** -text whitespace=cr-at-eol
+/resources/scripts/storage/** -text whitespace=cr-at-eol
 /resources/runtime/godot/surface-chart-112/** -text whitespace=cr-at-eol
 /resources/runtime/godot/eye-ownership-107/** -text whitespace=cr-at-eol
 /resources/scripts/volume-fish/capture_body_coverage.gd -text whitespace=cr-at-eol

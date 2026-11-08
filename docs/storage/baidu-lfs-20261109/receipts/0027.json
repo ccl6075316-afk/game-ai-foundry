@@ -1,0 +1,15 @@
+{
+  "index": 27,
+  "sha256": "4fb9db941f467ee7f78e3e7c61754ef76d52c0d484da7b60ed21a60725610b2d",
+  "bytes": 134225920,
+  "remote": "foundry-lfs-20261109-218c50d7/packs/4fb9db941f467ee7f78e3e7c61754ef76d52c0d484da7b60ed21a60725610b2d.tar",
+  "round_trip_verified": true,
+  "previous_attempts": [
+    {
+      "upload_seconds": 80.782,
+      "error": "download: exit 0: 获取文件信息失败: 列表请求失败: scene: list: file list: baidupan: API error errno=20013"
+    }
+  ],
+  "upload_reused": true,
+  "download_seconds": 8.274
+}
