@@ -31,6 +31,8 @@ CLI可能进程exit=0但JSON `code`非零，必须同时检查；本轮包0027�
 
 ## 在另一台电脑恢复到独立目录
 
+完整步骤见[另一台电脑接收说明](OTHER-COMPUTER.md)，包含先禁用自动LFS下载、本人登录、恢复以及安全回填。`install`默认预演，显式`--apply`才替换当前checkout中完全匹配的LFS指针；本地修改或快照落后于当前LFS清单时拒绝执行。
+
 先同步Foundry仓库，并在该电脑自行安装、登录官方bdpan；Mac须确认对应官方CLI可用，不能认为本次Windows测试证明Mac已配置。项目脚本可从PATH找到bdpan，Windows另支持默认安装位置。
 
 ```text

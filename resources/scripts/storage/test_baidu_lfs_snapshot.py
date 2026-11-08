@@ -73,6 +73,40 @@ class RestoreTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, 'coverage mismatch'):
             snapshot.verify_content(m, self.work / 'receive')
 
+    def checkouts(self):
+        repos = {name: self.root / ('checkout-' + name) for name in self.m['repositories']}
+        pointer = (f'version https://git-lfs.github.com/spec/v1\noid sha256:{self.oid}\n'
+                   f'size {len(self.data)}\n').encode('ascii')
+        for repo in repos.values():
+            (repo / 'assets').mkdir(parents=True)
+            (repo / 'assets/fish.bin').write_bytes(pointer)
+        def fake_git(repo, *args):
+            if args[0] == 'status': return ''
+            if args[:2] == ('lfs', 'ls-files'):
+                return json.dumps({'files': [{'name': 'assets/fish.bin', 'oid': self.oid, 'size': len(self.data)}]})
+            raise AssertionError(args)
+        return repos, pointer, fake_git
+
+    def test_install_preflight_and_verified_pointer_replacement(self):
+        snapshot.restore('fresh')
+        repos, pointer, fake_git = self.checkouts()
+        with patch.object(snapshot, 'REPOS', repos), patch.object(snapshot, 'git', side_effect=fake_git):
+            snapshot.install('fresh')
+            self.assertEqual((repos['foundry'] / 'assets/fish.bin').read_bytes(), pointer)
+            snapshot.install('fresh', apply=True)
+            for repo in repos.values(): self.assertEqual((repo / 'assets/fish.bin').read_bytes(), self.data)
+            snapshot.install('fresh', apply=True)  # Already installed is a no-op.
+
+    def test_later_conflict_prevents_all_installation(self):
+        snapshot.restore('fresh')
+        repos, pointer, fake_git = self.checkouts()
+        (repos['fishing-2d'] / 'assets/fish.bin').write_bytes(b'local edit must survive')
+        with patch.object(snapshot, 'REPOS', repos), patch.object(snapshot, 'git', side_effect=fake_git):
+            with self.assertRaisesRegex(RuntimeError, 'nonmatching content'):
+                snapshot.install('fresh', apply=True)
+        self.assertEqual((repos['foundry'] / 'assets/fish.bin').read_bytes(), pointer)
+        self.assertEqual((repos['fishing-2d'] / 'assets/fish.bin').read_bytes(), b'local edit must survive')
+
 
 if __name__ == '__main__':
     unittest.main()

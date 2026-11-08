@@ -359,15 +359,78 @@ def restore(destination):
     print(f'Restored and verified {m["path_count"]} paths in {dest}', flush=True)
 
 
+def install(destination, apply=False):
+    """Preflight all restored assets, then replace matching LFS pointers only."""
+    if not destination:
+        raise RuntimeError('--destination must name the completed restore directory')
+    restored = safe_path(ROOT / 'work', destination)
+    m = load(REVIEW / 'manifest.json')
+    manifest_hash = sha(REVIEW / 'manifest.json')
+    proof = load(restored / 'restore.validation.json')
+    if not proof.get('ok') or proof.get('manifest_sha256') != manifest_hash:
+        raise RuntimeError('Restore proof does not match the current manifest')
+    if load(REVIEW / 'publication.json')['sha256'] != manifest_hash:
+        raise RuntimeError('Publication hash mismatch')
+    changes = []
+    unchanged = 0
+    for name, entry in m['repositories'].items():
+        repo = REPOS[name]
+        if git(repo, 'status', '--porcelain', '--untracked-files=no').strip():
+            raise RuntimeError(f'{name}: resolve tracked local changes before installing assets')
+        actual = json.loads(git(repo, 'lfs', 'ls-files', '--json'))['files']
+        if {(r['name'], r['oid'], r['size']) for r in actual} != {
+                (r['path'], r['oid'], r['bytes']) for r in entry['files']}:
+            raise RuntimeError(f'{name}: checkout LFS pointers differ from this snapshot')
+        for row in entry['files']:
+            source = safe_path(restored / name, row['path'])
+            target = safe_path(repo, row['path'])
+            if source.stat().st_size != row['bytes'] or sha(source) != row['oid']:
+                raise RuntimeError(f'Corrupt restore source: {name}/{row["path"]}')
+            if target.is_file() and target.stat().st_size == row['bytes'] and sha(target) == row['oid']:
+                unchanged += 1
+                continue
+            pointer = (f'version https://git-lfs.github.com/spec/v1\noid sha256:{row["oid"]}\n'
+                       f'size {row["bytes"]}\n').encode('ascii')
+            if not target.is_file() or target.stat().st_size != len(pointer) or target.read_bytes() != pointer:
+                raise RuntimeError(f'Refusing to overwrite nonmatching content: {name}/{row["path"]}')
+            changes.append((source, target, pointer, row['oid']))
+    # Every repository/path has passed before the first working-tree write.
+    count = 0
+    if apply:
+        staging = WORK / 'install'
+        staging.mkdir(parents=True, exist_ok=True)
+        for source, target, pointer, oid in changes:
+            temporary = staging / (oid + '-' + secrets.token_hex(6) + '.tmp')
+            with temporary.open('xb') as out, source.open('rb') as stream:
+                shutil.copyfileobj(stream, out)
+            if sha(temporary) != oid or target.read_bytes() != pointer:
+                raise RuntimeError('Source/target changed during install; staging retained')
+            temporary.chmod(target.stat().st_mode & 0o777)
+            os.replace(temporary, target)
+            count += 1
+        for name, entry in m['repositories'].items():
+            for row in entry['files']:
+                if sha(safe_path(REPOS[name], row['path'])) != row['oid']:
+                    raise RuntimeError('Installed file SHA mismatch')
+    report = {'ok': True, 'apply': apply, 'manifest_sha256': manifest_hash,
+              'already_present': unchanged, 'eligible': len(changes), 'installed': count,
+              'git_filters_changed': False, 'github_lfs_network_requests': 0}
+    save(restored / ('install.validation.json' if apply else 'install-preflight.json'), report)
+    print(json.dumps(report), flush=True)
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['prepare', 'transfer', 'verify', 'publish', 'restore'])
+    parser.add_argument('action', choices=['prepare', 'transfer', 'verify', 'publish', 'restore', 'install'])
     parser.add_argument('--workers', type=int, default=4, choices=range(1, 5))
-    parser.add_argument('--destination', help='Restore only: new directory relative to work/')
+    parser.add_argument('--destination', help='Restore/install directory relative to work/')
+    parser.add_argument('--apply', action='store_true', help='Install only: replace verified matching LFS pointers')
     args = parser.parse_args()
     if args.action == 'transfer':
         transfer(args.workers)
     elif args.action == 'restore':
         restore(args.destination)
+    elif args.action == 'install':
+        install(args.destination, args.apply)
     else:
         globals()[args.action]()

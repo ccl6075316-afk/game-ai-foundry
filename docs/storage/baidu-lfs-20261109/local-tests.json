@@ -1,12 +1,14 @@
 {
   "date": "2026-11-09",
   "command": "python -B resources/scripts/storage/test_baidu_lfs_snapshot.py -v",
-  "tests_passed": 3,
+  "tests_passed": 5,
   "network_mocked": true,
   "coverage": [
     "Restore one binary object split across two packs to two repository paths",
     "Refuse destination overwrite and path escape before writing",
-    "Reject corrupted chunk hash and incomplete object coverage"
+    "Reject corrupted chunk hash and incomplete object coverage",
+    "Install preflight writes no assets; apply replaces matching pointers and repeated apply is a no-op",
+    "A conflicting file in the second repository blocks every install before any working-tree write"
   ],
   "cloud_validation": "Separate real full-snapshot results in validation.json",
   "synthetic_test_workspaces_cleaned": true
