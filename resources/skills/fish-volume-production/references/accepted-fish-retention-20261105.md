@@ -16,3 +16,5 @@
 ## 2026-11-08 扩展为28条与补漏规则
 
 用户已接受鲸鲨、旗鱼及两条双髻鲨，以上canonical-only与旧实验退休规则覆盖全部28条。未接受游动观感不构成保留旧静态工程理由。每轮扫Foundry独立projects、游戏output/experiments/reviews及Git/LFS；Git干净不等于实验已清。旧归档的物种接受状态必须对照当前inventory更新，不继续按“四鱼未成品”保留。先分离原始论文/参考模型、提炼方法与失败数值，再按文件SHA清除旧工程/截图/模型/密集数据。当前源/成品、活运行依赖、资料库和PDF前后哈希验证；不手工删Git对象或重写历史。详见游戏static-fish-release-20261108/HANDOFF.md补漏段。
+
+第二轮缓存规则：Git/LFS缓存与工作区载荷分开统计；已推送旧提交可用 `git lfs prune --recent --verify-remote --verify-unreachable` 放弃近期历史缓存，保留当前HEAD/未推送/其他工作树，不用会清当前对象的 `--force`。Godot只删无有效源import且无代码/场景/序列化资源引用的缓存；当前资产前后SHA核对。旧版本号不代表无依赖，造景重建/预算验证和鱼兼容链仍使用的资源先保留。
