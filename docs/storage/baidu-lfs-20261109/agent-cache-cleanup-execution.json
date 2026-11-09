@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "scope": "agent",
+  "apply": true,
+  "proof_hashes": {
+    "publication.json": "3AF3DDE9C674828D386604821A7CA8194DC2DA7BC3ED60E8F9166C8511A9EF90",
+    "manifest.json": "9F0C70F93575736DEA39D3A89687B25462898593A02E82F48901BFB6114883AF",
+    "validation.json": "4748540C4A5A152A608EF1B690A53B808FF7A631BA75B03329828D877E4766E8"
+  },
+  "eligible_files": 1,
+  "eligible_bytes": 132659200.0,
+  "protected_files": 0,
+  "already_missing": [],
+  "deleted_files": 1,
+  "deleted_bytes": 132659200,
+  "files": [
+    {
+      "sha256": "d7cf3069026e1a18b970d5af382bafeeeeb03e7c47a7b4d27eb6fe464d6b5bc5",
+      "path": "E:\\game-ai-foundry\\work\\baidu-lfs-agent\\packs\\d7cf3069026e1a18b970d5af382bafeeeeb03e7c47a7b4d27eb6fe464d6b5bc5.tar",
+      "bytes": 132659200
+    }
+  ]
+}

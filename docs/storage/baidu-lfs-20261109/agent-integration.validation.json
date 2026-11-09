@@ -1,0 +1,15 @@
+{
+  "ok": true,
+  "date": "2026-11-09",
+  "source_test": "resources/scripts/storage/test_baidu_lfs_agent_integration.py",
+  "environment": "Two temporary Git checkouts with a local bare Git remote; real Baidu CLI and cloud storage",
+  "normal_push_uploaded_new_lfs_object": true,
+  "normal_pull_downloaded_new_lfs_object": true,
+  "normal_pull_downloaded_legacy_snapshot_object": true,
+  "failed_transfer_blocked_push": true,
+  "receiver_git_status_clean": true,
+  "first_sha256": "60e18afdcf930fd203e15fbdb0ada2509d986571e6a2be8a256ba034f2162135",
+  "second_sha256": "c709758f79b1be8e6149f4c99f13d2c262a1b9c1d40d241c6744f63a5308a6d9",
+  "project_fish_assets_changed": false,
+  "second_physical_computer_tested": false
+}

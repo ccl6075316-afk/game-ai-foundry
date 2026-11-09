@@ -1,5 +1,7 @@
 # 另一台电脑：Git取代码，百度网盘取当前资产
 
+**日常自动同步请先看[自动传输说明](AUTO-TRANSFER.md)。**本文的`--skip-smudge`及`restore/install`是首次取得工具代码和手动整批恢复的路径。配置百度适配器后，普通Git pull/push会自动调用它；此时`git lfs pull`也通过百度，下面“不要运行”的提醒仅适用于配置适配器之前。
+
 以下以Mac终端为例，在`game-ai-foundry`仓库根目录执行。需要Git、Git LFS、Python3.12+。两个仓库都应没有未提交的已跟踪文件修改；有修改先保留并处理，不用reset覆盖。此流程接收本次已发布快照，尚未改变后续push的存储后端。
 
 ## 1. 先跳过GitHub LFS，再拉代码
