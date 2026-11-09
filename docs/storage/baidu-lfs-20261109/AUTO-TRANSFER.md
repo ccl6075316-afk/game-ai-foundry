@@ -1,5 +1,7 @@
 # Git LFS 自动走百度网盘
 
+**2026-11-10 实仓补充**：此前仅本机隔离仓库通过，真实 GitHub 推送另有 GH008 服务端完整性门。两仓库现新增受版本控制的 `.lfsconfig` 声明外部存储；仅本机 `.git/config` 的 standalone agent 配置不能让 GitHub 知道对象已经外置。`https://baidu-lfs.invalid/foundry-lfs-objects-v1` 是故意不提供 HTTP 服务的保留域名标识，实际数据仍由 `baidu_lfs_agent.py` 经官方 bdpan 传输。未配置代理的电脑必须按下文首次设置，不能指望这个 URL 提供下载，也不能回落到 GitHub LFS。真实推拉验收结果见 `../baidu-lfs-20261110/ACCEPTANCE.md`。
+
 2026-11-09 本机Windows已启用，隔离Git仓库实际验证普通`git push`上传新OID、普通`git pull`下载新OID、旧55包快照的OID按需取回，以及传输程序失败时阻止Git ref前进。`git-lfs`的独立传输接口由官方定义；本项目只实现连接百度官方`bdpan` CLI的小适配器，不部署LFS服务端。
 
 入口：`resources/scripts/storage/baidu_lfs_agent.py`。新OID按原始SHA放在百度网盘`我的应用数据/bdpan/foundry-lfs-objects-v1/<OID前两位>/<OID>`；旧OID按已发布的`manifest.json`查到历史快照包，按需下载该包、取成员并验原始SHA。旧包只读，不为启用自动模式重传原7GB。新上传在返回Git LFS成功前还会从网盘下载一次并验SHA，失败则本次Git push失败。

@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "attempt": 3,
+  "command": "git push origin main",
+  "cloud_objects_uploaded_and_readback_verified": 28,
+  "total_bytes": 58658242,
+  "standalone_transfer_agent": "baidu",
+  "repository_external_lfs_declaration": true,
+  "github_ref": "4bb8aea7eb385b68e8e528769eacffbda0e8e56d",
+  "local_head": "4bb8aea7eb385b68e8e528769eacffbda0e8e56d",
+  "files_uploaded_to_github_lfs": false,
+  "prior_failures": [
+    "Baidu mkdir errno=20013, push blocked",
+    "GitHub GH008, missing tracked external LFS declaration"
+  ],
+  "recovery": "Normal push retry; commit tracked .lfsconfig to both repositories. No hook bypass and no GitHub LFS data upload."
+}

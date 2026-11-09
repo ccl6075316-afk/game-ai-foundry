@@ -1,0 +1,123 @@
+{
+  "date": "2026-11-10",
+  "kind": "accepted_clean_pixel_material_release",
+  "user_acceptance": "看着没啥问题了。你那儿是没啥问题了就提代码吧。",
+  "scope": "crucian/carp/grass_carp material and mouth appearance; no new geometry or animation claim",
+  "fish": [
+    {
+      "species": "crucian",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/crucian.glb",
+        "sha256": "7f1128666b3ca138198a5f8f52bd7490d01c2dae0e43a1cf65df732a40fc661b"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/crucian/fish.blend",
+        "sha256": "8f3d7358f031298f9e84af376ffb649a886150026179052d993104a3a1e61b41"
+      },
+      "triangles": 1748,
+      "source_cold_byte_exact": true,
+      "non_image_streams_exact": true,
+      "checks": {
+        "body077": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261110/crucian/body077.validation.json",
+          "sha256": "5d1f73e6ffce6bf8fec1694689e1f7433d6397ea70fb99e009e27b643007c26d"
+        },
+        "root072": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261110/crucian/root072.validation.json",
+          "sha256": "d5488282d63c14ef5961aec6a37e7e66ec5de54ee0799e003f85a5cc827af408"
+        },
+        "full490": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261110/crucian/full490.validation.json",
+          "sha256": "4c4dbca239dc248f2828fa4ffcaaa4d9eb16f237cfa84444138b95300f69d625"
+        },
+        "canonical-load": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261110/crucian/canonical-load.validation.json",
+          "sha256": "8b4b2f75f29e470e7f8f1c14d4bbb085deb6aef152f0b0a68d61846427324837"
+        },
+        "canonical-pixels": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261110/crucian/canonical-pixels.validation.json",
+          "sha256": "ed42dc04fc039939c847739576a4673d8a27dcb8ea29769d4e3dd42b8bb34426"
+        }
+      }
+    },
+    {
+      "species": "carp",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/carp.glb",
+        "sha256": "125367185014e41a25fb4c83693a547d71fcc585486c853e55de44f8a29d1e67"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/carp/fish.blend",
+        "sha256": "8fed6507115412d1ae16369cb3f04966155513921e0ba19cf683539df054075b"
+      },
+      "triangles": 1494,
+      "source_cold_byte_exact": true,
+      "non_image_streams_exact": true,
+      "checks": {
+        "body077": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261110/carp/body077.validation.json",
+          "sha256": "82b83ee24e47821cdf074ed2340a0d52f634083827f4c0f1c1d3e68a511a4406"
+        },
+        "root072": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261110/carp/root072.validation.json",
+          "sha256": "a924de57bfd74cf6883f667614d1dc13bf59fb270b33fa82ca8cb667835b9cf0"
+        },
+        "full490": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261110/carp/full490.validation.json",
+          "sha256": "1d4c1bb65cbb9c03a0d68819a036b2579487141a606fa652c26e9d2f2364f1eb"
+        },
+        "canonical-load": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261110/carp/canonical-load.validation.json",
+          "sha256": "703be8bb47f168ba4466580bdbe6ab32c2126d476c7ef728e5d488ab72e5e236"
+        },
+        "canonical-pixels": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261110/carp/canonical-pixels.validation.json",
+          "sha256": "5dbeab620904690157faa6fc99857e57e459321639468cdd43751856b615cbd4"
+        }
+      }
+    },
+    {
+      "species": "grass_carp",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/grass_carp.glb",
+        "sha256": "7644b4127c23f8285773152f82e1b8416dc29c1b7e0cdd426473bddcea2d1029"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/grass_carp/fish.blend",
+        "sha256": "b2c9c7cd40bda25320fcc916db27d3091c52eea80a712c565bf8f69e9c713413"
+      },
+      "triangles": 1950,
+      "source_cold_byte_exact": true,
+      "non_image_streams_exact": true,
+      "checks": {
+        "body077": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261110/grass_carp/body077.validation.json",
+          "sha256": "e4f8f36f3d30719ec398c3c645dbfbe7b47c28c7156b8a0ae4b09d3e4ba7b84d"
+        },
+        "root072": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261110/grass_carp/root072.validation.json",
+          "sha256": "8dfb650b35e5daec657ccad45073503ef127d44e96c7a7792ad0aafd1d862cdb"
+        },
+        "full490": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261110/grass_carp/full490.validation.json",
+          "sha256": "e6841130dea7c4e5cfb0e9464a35c0b4fcf21cac68b55939b343c05a04b24f3b"
+        },
+        "canonical-load": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261110/grass_carp/canonical-load.validation.json",
+          "sha256": "b2fcd1cab55d3540c99aa795c5cdd71fbb9c49c0c18c7c1b69de4e83f00c41dc"
+        },
+        "canonical-pixels": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261110/grass_carp/canonical-pixels.validation.json",
+          "sha256": "0a89f00ccef8b6d4a3cdaafb61a87d939833c77398c2509572ba1d9875230207"
+        }
+      }
+    }
+  ],
+  "fishing_entry": {
+    "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261110/fishing-entry.validation.json",
+    "sha256": "af701c33310a33fc7bac6cba3ad8c0edc6ef9f8af88f4116c2e6ac7857f366f7"
+  },
+  "full_production_sop_pass": false,
+  "sop_limit": "Scoped material release, full anatomy/reference/presentation checklist not repeated. SOP reports retain pending items.",
+  "handoff": "projects\\fishing-2d\\plans\\reviews\\clean-pixel-three-20261110\\HANDOFF.md"
+}

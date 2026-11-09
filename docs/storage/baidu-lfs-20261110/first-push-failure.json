@@ -1,0 +1,12 @@
+{
+  "attempt": 1,
+  "ok": false,
+  "uploaded_and_verified_objects": 27,
+  "expected_objects": 28,
+  "failed_oid": "4605ae53bd36e1d55c2119b9e9ec38706373e0586abd273ba3283928238e4206",
+  "stage": "Baidu mkdir shard 46",
+  "baidu_errno": 20013,
+  "git_push_exit_code": 1,
+  "new_ref_sent": false,
+  "action": "Check missing shard with official CLI then retry ordinary git push; do not bypass LFS hook."
+}

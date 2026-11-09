@@ -1,0 +1,213 @@
+{
+  "ok": true,
+  "kind": "ordinary_git_pull_baidu_lfs_acceptance",
+  "command": "git pull --ff-only origin main",
+  "game_commit": "4bb8aea7eb385b68e8e528769eacffbda0e8e56d",
+  "isolated_head": "4bb8aea7eb385b68e8e528769eacffbda0e8e56d",
+  "cache_initially_empty": true,
+  "local_reference_dirs_empty": true,
+  "clone_from_actual_github": true,
+  "skip_smudge_unset": true,
+  "standalone_transfer_agent": "baidu",
+  "objects": [
+    {
+      "path": "assets/source/fish/carp/clean-pixel-20261110/approved-style-concept.png",
+      "oid": "3f8faa4d18b70af4c881441715ee476e85a81c506e9906b7a8940e9388a251bd",
+      "size": 1711809,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/carp/clean-pixel-20261110/body-color.png",
+      "oid": "97f3b3820efef81756c16e5c8ee2530f79302e04119942625612615567d5c0f0",
+      "size": 1903599,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/carp/clean-pixel-20261110/body-guide.png",
+      "oid": "d8306bd0f7541c93f4d150365b2eea6fcb7a27fc58f4fd4330df41c5129f8247",
+      "size": 978161,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/carp/clean-pixel-20261110/fin-color.png",
+      "oid": "b751c5cd3318d5eeecc0c9059d294b7762ee9a8202ed863bb0aa67c1f14829b7",
+      "size": 1609653,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/carp/clean-pixel-20261110/fin-guide.png",
+      "oid": "bce1ed03a5478d546ef038f41366e0116ec9e50ca1103cff4bbc03aef55cd932",
+      "size": 20006,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/carp/clean-pixel-20261110/front-color.png",
+      "oid": "8ea4736c64df86a4ff1422907f3b0b76befabf94cfe3aff19b3accafe60365e6",
+      "size": 1467240,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/carp/clean-pixel-20261110/mouth-guide.png",
+      "oid": "fe7191f58c984c3845f61c368e3014ee87e623e784eef2fa2ba4cfde4ae3c209",
+      "size": 597354,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/carp/fish.blend",
+      "oid": "8fed6507115412d1ae16369cb3f04966155513921e0ba19cf683539df054075b",
+      "size": 9041121,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/crucian/clean-pixel-20261110/approved-style-concept.png",
+      "oid": "635aa923643f903abe9a3c03679715d364e604cf9bfc6313d38459f3080c236c",
+      "size": 1538238,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/crucian/clean-pixel-20261110/body-color.png",
+      "oid": "75ff227050e579df2141709dc490c290aafcdf5f2b0bd02e8616f32eaf06086a",
+      "size": 1714194,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/crucian/clean-pixel-20261110/body-guide.png",
+      "oid": "68d35b0422920bc62147e822a543a3f750334df8933d714fdad3120d288df1d8",
+      "size": 939319,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/crucian/clean-pixel-20261110/fin-color.png",
+      "oid": "19bce72e197b01db2a62c2878a2ed82c8731ca97a5bf151d2a6dbe03c6c7b3cb",
+      "size": 1487356,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/crucian/clean-pixel-20261110/fin-guide.png",
+      "oid": "99cb6678e0d6b2571806ea844142e8f05723933c062c3f2c201d7e62ecc968c7",
+      "size": 19513,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/crucian/clean-pixel-20261110/front-color.png",
+      "oid": "2ecf3fe79a9a3c2a26ac6bbe674d0d7ce842095dfb2b26af5de08ed5230bd929",
+      "size": 1268231,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/crucian/clean-pixel-20261110/mouth-guide.png",
+      "oid": "d00d3a0ee5f392f010bbf36c84ecfe92e5e01c96c9d88c60ac7f879f5efe3179",
+      "size": 582913,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/crucian/fish.blend",
+      "oid": "8f3d7358f031298f9e84af376ffb649a886150026179052d993104a3a1e61b41",
+      "size": 4758664,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/grass_carp/clean-pixel-20261110/approved-style-concept.png",
+      "oid": "2360fdf0c8523979dafbfb0ff18d38ff2edffacc5b56a65b4c2b9baf727ce97b",
+      "size": 1399098,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/grass_carp/clean-pixel-20261110/body-color.png",
+      "oid": "4605ae53bd36e1d55c2119b9e9ec38706373e0586abd273ba3283928238e4206",
+      "size": 1739045,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/grass_carp/clean-pixel-20261110/body-guide.png",
+      "oid": "17acadeb0ed06a702d5088654e0cfb07c19f6a2aaeb7b3b18bdb1fdad4c0fd35",
+      "size": 916352,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/grass_carp/clean-pixel-20261110/fin-color.png",
+      "oid": "556ffa379b489337c259e611da7f54ed4993dc6d3ff93a2f339391f6af37f11f",
+      "size": 1562453,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/grass_carp/clean-pixel-20261110/fin-guide.png",
+      "oid": "d5ce93db0d14d098d294b8ca2a8a3bafba161a382b2f2af4a2190677a7393c7e",
+      "size": 19201,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/grass_carp/clean-pixel-20261110/front-color.png",
+      "oid": "6ed92d94286d4c96fafe1911e4381ab455d1a40d50d6492494ce9baece011c69",
+      "size": 1273991,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/grass_carp/clean-pixel-20261110/mouth-guide.png",
+      "oid": "14f9c8d26ff8a34e64ce4d74e9f7b8ae3206b7adbe228a5ddada525ce42b5a37",
+      "size": 595122,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "assets/source/fish/grass_carp/fish.blend",
+      "oid": "b2c9c7cd40bda25320fcc916db27d3091c52eea80a712c565bf8f69e9c713413",
+      "size": 3635806,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "game/assets/models/fish/carp.glb",
+      "oid": "125367185014e41a25fb4c83693a547d71fcc585486c853e55de44f8a29d1e67",
+      "size": 9420008,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "game/assets/models/fish/crucian.glb",
+      "oid": "7f1128666b3ca138198a5f8f52bd7490d01c2dae0e43a1cf65df732a40fc661b",
+      "size": 4768592,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "game/assets/models/fish/grass_carp.glb",
+      "oid": "7644b4127c23f8285773152f82e1b8416dc29c1b7e0cdd426473bddcea2d1029",
+      "size": 3559408,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    },
+    {
+      "path": "plans/reviews/clean-pixel-three-20261110/accepted-review.jpg",
+      "oid": "43479f535d6640e018e4e7d042a11f45ff2984fb1363cd28ead83709ad6af4cd",
+      "size": 131795,
+      "working_file_matches": true,
+      "downloaded_lfs_object_matches": true
+    }
+  ],
+  "total_bytes": 58658242,
+  "elapsed_seconds": 92.38,
+  "limits": "Same host login, isolated Git checkout and empty LFS storage; not a physical second-computer authentication test."
+}

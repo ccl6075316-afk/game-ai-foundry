@@ -1,0 +1,5 @@
+# External object storage is implemented by the locally configured baidu
+# standalone transfer agent. This reserved .invalid URL is a fail-closed
+# marker, not an HTTP service. See docs/storage/baidu-lfs-20261109/AUTO-TRANSFER.md.
+[lfs]
+	url = https://baidu-lfs.invalid/foundry-lfs-objects-v1

@@ -1,0 +1,12 @@
+{
+  "removed_files": 75,
+  "removed_bytes": 117364095,
+  "remaining_bytes": 31956331,
+  "retained": [
+    "work/baidu-lfs-acceptance-20261110/second-machine/.git",
+    "work/baidu-lfs-acceptance-20261110/network-checkout/.git",
+    "small .lfsconfig/.gitattributes in both sparse checkouts"
+  ],
+  "reason": "Automatic review rejected recursive deletion of isolated .git/lfs/objects with blocked by policy, without more detailed reason. No bypass attempted. Working payloads removed through git sparse-checkout; ordinary external download caches and scratch scripts/logs removed after receipts retained.",
+  "cloud_objects_deleted": false
+}

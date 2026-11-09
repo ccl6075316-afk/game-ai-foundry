@@ -1,0 +1,11 @@
+{
+  "attempt": 2,
+  "cloud_upload_and_readback_objects": 28,
+  "cloud_upload_ok": true,
+  "git_push_exit_code": 1,
+  "github_rejection": "GH008 unknown Git LFS objects",
+  "ref_advanced": false,
+  "root_cause": "Only local standalone agent config; no repository .lfsconfig external endpoint declaration.",
+  "fix": "Tracked .lfsconfig declares external adapter namespace with reserved .invalid fail-closed URL; actual transfer remains official bdpan CLI, no HTTP fallback.",
+  "reference": "https://github.com/git-lfs/git-lfs/issues/3231"
+}

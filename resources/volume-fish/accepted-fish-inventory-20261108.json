@@ -1,7 +1,7 @@
 {
   "count": 28,
-  "new_style_confirmed": 3,
-  "rebake_remaining": 25,
+  "new_style_confirmed": 6,
+  "rebake_remaining": 22,
   "fish": [
     {
       "species": "african_catfish",
@@ -142,54 +142,59 @@
     {
       "species": "carp",
       "model": "game\\assets\\models\\fish\\carp.glb",
-      "model_sha256": "35e414db4be52b26b991ceccbc0b3a1e82db1183c373778e3e53d6f2d3f145d1",
+      "model_sha256": "125367185014e41a25fb4c83693a547d71fcc585486c853e55de44f8a29d1e67",
       "source": "assets\\source\\fish\\carp\\fish.blend",
-      "source_sha256": "dae5bbba861b5e4c92d736ff28213d1c4d65db6717b0b14adca2c5eb0884c04b",
+      "source_sha256": "8fed6507115412d1ae16369cb3f04966155513921e0ba19cf683539df054075b",
       "static": {
         "geometry_uv_skin_sha256": "922a267b7bc38d2b9540152306db27e36dee3c1897b7d6b701faccad9daabfcb",
-        "material_pixels_sha256": "21db9952715813bcc0464c1a3fd7cc07231b2cc10eded102e18fbc8dd1545d4f",
+        "material_pixels_sha256": "b1fc9ee0877e5df2bd74e403742e0c2bca039a069184b37989dbdec2d6f620b6",
         "skeleton_rest_bind_sha256": "91ef15df00cb7c3d709cb30db38039f99f3296acc19add19f41d8fdde5035b58",
         "triangles": 1494,
         "bones": 18
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review",
+      "note": "2026-11-10 clean-pixel rebake and frontal-mouth correction accepted; motion unchanged.",
+      "current_release": "plans/reviews/clean-pixel-three-20261110/HANDOFF.md"
     },
     {
       "species": "crucian",
       "model": "game\\assets\\models\\fish\\crucian.glb",
-      "model_sha256": "b5b3a0ce35eb65092bb710e741f26e7131f889d12af7ed55c746ff0e9b74e83b",
+      "model_sha256": "7f1128666b3ca138198a5f8f52bd7490d01c2dae0e43a1cf65df732a40fc661b",
       "source": "assets\\source\\fish\\crucian\\fish.blend",
-      "source_sha256": "2ee178a44a9f09592a7d4d15c170b3756b55c15100832da5eefcdaa5f197ea60",
+      "source_sha256": "8f3d7358f031298f9e84af376ffb649a886150026179052d993104a3a1e61b41",
       "static": {
         "geometry_uv_skin_sha256": "05e81660199f185e1ce0246fb8ca6cc27766590dc413074704670ef0048a5293",
-        "material_pixels_sha256": "2f8b8725027cc57d650c21b7c7017899691a356260ebc98a1a346c4cf4bd40eb",
+        "material_pixels_sha256": "9ba7bdd2b7f149b999b95810b446045aaa0ed02974d22964d8d7404dad597b7b",
         "skeleton_rest_bind_sha256": "9ad4a1abe31230cc49f5c4a6dcd8f9209f5d5f85ea8fee4949798d947e7637b3",
         "triangles": 1748,
         "bones": 18
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
+      "new_style_status": "accepted",
       "animation_quality": "separate_future_review",
-      "note": "User recalls adjustment; current repository has no evidence of this clean-pixel rebake. Preserve existing accepted model and verify first."
+      "note": "2026-11-10 clean-pixel rebake and frontal-mouth correction accepted; motion unchanged.",
+      "current_release": "plans/reviews/clean-pixel-three-20261110/HANDOFF.md"
     },
     {
       "species": "grass_carp",
       "model": "game\\assets\\models\\fish\\grass_carp.glb",
-      "model_sha256": "6e0d5d2cc04e8bfe63386839533e81e0dbd58630ce81ea4c366ac26f50e1e970",
+      "model_sha256": "7644b4127c23f8285773152f82e1b8416dc29c1b7e0cdd426473bddcea2d1029",
       "source": "assets\\source\\fish\\grass_carp\\fish.blend",
-      "source_sha256": "c73fe13153c5145467afbfc84c56b36be7770840a31c3bb8ba12fb1774570264",
+      "source_sha256": "b2c9c7cd40bda25320fcc916db27d3091c52eea80a712c565bf8f69e9c713413",
       "static": {
         "geometry_uv_skin_sha256": "e26642296709b2300b60974e9829a85c9ac9f2c26421e2c22155b608198ae6cc",
-        "material_pixels_sha256": "10cb40f6635d8c13165d0ea5f2a20efe37b8fe6ec98dec0e262584b4885db2ee",
+        "material_pixels_sha256": "ae787f8faa080cb61e9cfd8b53be6cbef80dfdf587c7263952292755a0580e82",
         "skeleton_rest_bind_sha256": "03d7a328454066c85f64410bd87a09ab4ceb4b5ba6bd78fa015621d61d64a20d",
         "triangles": 1950,
         "bones": 18
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review",
+      "note": "2026-11-10 clean-pixel rebake and frontal-mouth correction accepted; motion unchanged.",
+      "current_release": "plans/reviews/clean-pixel-three-20261110/HANDOFF.md"
     },
     {
       "species": "great_hammerhead",
@@ -480,5 +485,6 @@
       "new_style_status": "rebake_pending",
       "animation_quality": "separate_future_review"
     }
-  ]
+  ],
+  "updated": "2026-11-10"
 }
