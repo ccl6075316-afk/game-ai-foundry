@@ -5,6 +5,8 @@ Foundry 的鱼类资料入口。集中保存物种资料、照片/扫描、第�
 ## 入口
 
 - [`manifest.json`](manifest.json)：资料来源、目录及记录入口。
+- **[真实鱼类／水生动物3D扫描与远程数据库索引（2026-11-11）](catalogs/aquatic-3d-sources-20261111/README.md)**：FFishAsia、MorphoSource/oVert、ScanAllFish、Digital Life、FishSim的主页/数据库/API地址、资料级别、数量口径、动物覆盖、许可及独立建模边界；只登记远程线索，未下载模型。鱼、龟/海龟、章鱼、鱿鱼/墨鱼、蟹虾、海星可从这里查，水母缺口明确保留。
+- [远程平台结构化索引](catalogs/aquatic-3d-sources-20261111/platforms.jsonl)：5个平台；另有FFishAsia与Digital Life共3,223条轻量模型元数据（含非鱼与重复物种版本），可用 `resources/scripts/fish-database/search_remote.py "章鱼" --kind model --license cc0 --json` 离线搜索，Windows使用仓库 `.venv\Scripts\python.exe` 执行。
 - [`handoff.md`](handoff.md)：本轮结果、待解问题及恢复方法。
 - [`validation-report.json`](validation-report.json)：本次入库与完整性检查。
 - [`catalogs/fishing-master-cdn-cnformal1-20261102/collection-status.html`](catalogs/fishing-master-cdn-cnformal1-20261102/collection-status.html)：**当前模型取得情况，325/325 个基础鱼名、646/646 条预制体与变体已取得**，可搜索、打开网格及来源记录。
@@ -50,6 +52,8 @@ Foundry 的鱼类资料入口。集中保存物种资料、照片/扫描、第�
 ## 新资料入库
 
 为来源建立 `source.json`，登记版本和来源链接；原始文件放入 `artifacts/<来源ID>/`，在 `assets-manifest.json` 中登记实际大小和 SHA256。游戏内名称未映射到真实物种前，保持 `scientific_name: null`。将实物/模型参考写入 `references/`，只有取得可复核测量后才按 `schemas/measurement.schema.json` 添加测量记录。
+
+仅登记远程来源时可只保存 `sources/` 与 `catalogs/` 文本，明确 `asset_downloaded: false`、许可核查范围、数量时间/单位及未知，并由manifest关联；不创建虚假的本地资产路径、SHA或“已验模”参考记录。远程目录中的 `scientific_name_label` 只是来源标签/提取线索，不能代替已核准的 `scientific_name`。
 
 ### 首轮制作参考试用：尼罗罗非鱼
 

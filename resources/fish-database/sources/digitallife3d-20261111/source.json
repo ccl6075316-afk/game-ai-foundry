@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "digitallife3d-20261111",
+  "title": "Digital Life 真实动物扫描与重建模型库",
+  "source_kind": "official_product_page",
+  "origin": {
+    "urls": [
+      "https://digitallife3d.org/3d-model",
+      "https://sketchfab.com/DigitalLife3D/models",
+      "https://api.sketchfab.com/v3/models?user=DigitalLife3D&sort_by=-publishedAt"
+    ],
+    "publisher": "Digital Life / University of Massachusetts Amherst and partners"
+  },
+  "retrieved_on": "2026-11-11",
+  "artifact_ids": [],
+  "unknowns": [
+    "jellyfish_squid_octopus_not_found_in_catalog",
+    "commercial_terms_not_blanket",
+    "scan_vs_artist_reconstruction_must_be_checked_per_item",
+    "远程索引不是已取得资产；本轮没有下载网格、贴图、视频或扫描切片。",
+    "学名为来源标签/规则提取，未校正异名、旧名、杂交及分类争议；不等于已核准的有效物种数。",
+    "同种的性别、标本、CT阈值、动作和网格版本可能分别计数；元数据不证明几何完整、颜色真实或形态适用。"
+  ],
+  "record_scope": "Remote source discovery and public metadata; not an acquired specimen/model.",
+  "catalog": "catalogs/aquatic-3d-sources-20261111/platforms.jsonl",
+  "reference_class": "C_specimen_based_reconstruction",
+  "evidence_level": "E1_public_catalog_metadata",
+  "license_summary": "168条中161条CC BY-NC、3条CC BY、4条许可未列。网站总政策为非营利科研教育艺术使用，商业用途联系项目负责人/大学及合作方。平背海龟53A、53B为CC BY例外，按条目许可和致谢要求核对。",
+  "evidence_urls": [
+    "https://digitallife3d.org/3d-model",
+    "https://sketchfab.com/DigitalLife3D/models",
+    "https://sketchfab.com/3d-models/442372b7f02b4730882d41d959726156"
+  ],
+  "model_catalog": "catalogs/aquatic-3d-sources-20261111/life-models.jsonl"
+}

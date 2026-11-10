@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "id": "morphosource-overt-20261111",
+  "title": "MorphoSource / oVert 博物馆标本三维数据入口",
+  "source_kind": "official_product_page",
+  "origin": {
+    "urls": [
+      "https://www.morphosource.org/",
+      "https://www.morphosource.org/",
+      "https://www.floridamuseum.ufl.edu/fish/digitized-specimens/",
+      "https://www.floridamuseum.ufl.edu/overt/"
+    ],
+    "publisher": "MorphoSource / Duke University; oVert / participating museums"
+  },
+  "retrieved_on": "2026-11-11",
+  "artifact_ids": [],
+  "unknowns": [
+    "current_platform_total_unknown",
+    "squid_octopus_jellyfish_suitable_items_unverified",
+    "远程索引不是已取得资产；本轮没有下载网格、贴图、视频或扫描切片。",
+    "学名为来源标签/规则提取，未校正异名、旧名、杂交及分类争议；不等于已核准的有效物种数。",
+    "同种的性别、标本、CT阈值、动作和网格版本可能分别计数；元数据不证明几何完整、颜色真实或形态适用。"
+  ],
+  "record_scope": "Remote source discovery and public metadata; not an acquired specimen/model.",
+  "catalog": "catalogs/aquatic-3d-sources-20261111/platforms.jsonl",
+  "reference_class": "B_ct_anatomy_priority",
+  "evidence_level": "E0_official_pages_and_policy; selected viewer examples documented",
+  "license_summary": "逐条核对Copyright/License、Permits commercial use、下载协议和Additional Usage Agreement；UF资料商业使用含衍生物要求书面批准/商业合同。",
+  "evidence_urls": [
+    "https://www.floridamuseum.ufl.edu/digital-lab/resources/access-ct-scans-online/",
+    "https://www.floridamuseum.ufl.edu/digital-lab/digital-data-policies/morphosource-digital-data-policy/",
+    "https://duke.atlassian.net/wiki/spaces/MD/pages/35422351/Standard%2BUse%2BAgreement"
+  ]
+}

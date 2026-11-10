@@ -1603,5 +1603,14 @@
     },
     "runtime_tested": false,
     "cleanup_complete": true
+  },
+  "remote_3d_index_update": {
+    "observed_on": "2026-11-11",
+    "scope": "Metadata-only source discovery; historical asset checks above were not rerun.",
+    "source_count_after_update": 8,
+    "new_remote_sources": 5,
+    "new_remote_model_records": 3223,
+    "model_files_acquired": 0,
+    "report": "evidence/aquatic-3d-sources-20261111/validation-report.json"
   }
 }

@@ -122,6 +122,7 @@ cli/fish_budget.py -text
 /resources/fish-database/**/*.html text eol=lf
 /resources/fish-database/**/*.md text eol=lf
 /resources/fish-database/**/*.txt text eol=lf
+/resources/scripts/fish-database/** text eol=lf
 /resources/fish-database/artifacts/** filter=lfs diff=lfs merge=lfs -text
 # Historical migrated CSV evidence is hashed as original bytes (CRLF).
 /resources/fish-database/catalogs/fishing-master-xiaomi-20260814/fish-catalog.csv -text whitespace=cr-at-eol

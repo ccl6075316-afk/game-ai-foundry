@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "id": "ffishasia-3d-20261111",
+  "title": "FFishAsia / floraZia 三维数字生物标本库",
+  "source_kind": "official_product_page",
+  "origin": {
+    "urls": [
+      "https://sketchfab.com/ffishAsia-and-floraZia/models",
+      "https://sketchfab.com/ffishAsia-and-floraZia/models",
+      "https://ffish.asia/",
+      "https://api.sketchfab.com/v3/models?user=ffishAsia-and-floraZia&sort_by=-publishedAt"
+    ],
+    "publisher": "Yuichi Kano / FFishAsia / Kyushu Open University; Kyushu University project history"
+  },
+  "retrieved_on": "2026-11-11",
+  "artifact_ids": [],
+  "unknowns": [
+    "water_jellyfish_not_found_in_catalog",
+    "fish_count_not_validated_species_count",
+    "远程索引不是已取得资产；本轮没有下载网格、贴图、视频或扫描切片。",
+    "学名为来源标签/规则提取，未校正异名、旧名、杂交及分类争议；不等于已核准的有效物种数。",
+    "同种的性别、标本、CT阈值、动作和网格版本可能分别计数；元数据不证明几何完整、颜色真实或形态适用。"
+  ],
+  "record_scope": "Remote source discovery and public metadata; not an acquired specimen/model.",
+  "catalog": "catalogs/aquatic-3d-sources-20261111/platforms.jsonl",
+  "reference_class": "A_surface_specimen_priority",
+  "evidence_level": "E1_public_catalog_metadata",
+  "license_summary": "643条可下载鱼类元数据标CC0（308个二名学名标签）；另有CC BY、SA、NC、仅学术和保留全部权利。CC0/BY条目按具体许可及另行协议核对，不全库批准。",
+  "evidence_urls": [
+    "https://www.kyushu-u.ac.jp/en/researches/view/240/",
+    "https://sketchfab.com/ffishAsia-and-floraZia/models"
+  ],
+  "model_catalog": "catalogs/aquatic-3d-sources-20261111/ffish-models.jsonl"
+}

@@ -14,6 +14,26 @@
     {
       "id": "fishing-master-cdn-cnformal1-20261102",
       "path": "sources/fishing-master-cdn-cnformal1-20261102/source.json"
+    },
+    {
+      "id": "ffishasia-3d-20261111",
+      "path": "sources/ffishasia-3d-20261111/source.json"
+    },
+    {
+      "id": "digitallife3d-20261111",
+      "path": "sources/digitallife3d-20261111/source.json"
+    },
+    {
+      "id": "morphosource-overt-20261111",
+      "path": "sources/morphosource-overt-20261111/source.json"
+    },
+    {
+      "id": "scanallfish-20261111",
+      "path": "sources/scanallfish-20261111/source.json"
+    },
+    {
+      "id": "fishsim-20261111",
+      "path": "sources/fishsim-20261111/source.json"
     }
   ],
   "catalogs": [
@@ -36,6 +56,18 @@
       "record_count": 325,
       "count_unit": "availability for the 325 lexical base fish names from the APK index; not biological species",
       "view": "catalogs/fishing-master-cdn-cnformal1-20261102/collection-status.html"
+    },
+    {
+      "source_id": "ffishasia-3d-20261111",
+      "path": "catalogs/aquatic-3d-sources-20261111/ffish-models.jsonl",
+      "record_count": 3055,
+      "count_unit": "remote model metadata IDs, including nonfish/variants; zero model files acquired"
+    },
+    {
+      "source_id": "digitallife3d-20261111",
+      "path": "catalogs/aquatic-3d-sources-20261111/life-models.jsonl",
+      "record_count": 168,
+      "count_unit": "remote model metadata IDs, including nonfish/variants; zero model files acquired"
     }
   ],
   "references": [
@@ -1386,5 +1418,17 @@
     "view": "evidence/fishing-master-xiaomi-20260814/motion-reconstruction/README.md",
     "readable_core": "evidence/fishing-master-xiaomi-20260814/motion-reconstruction/reference_model.py",
     "scope": "欢乐钓鱼大师 native core; Ace Fishing not acquired"
+  },
+  "remote_3d_sources": {
+    "observed_on": "2026-11-11",
+    "platform_catalog": "catalogs/aquatic-3d-sources-20261111/platforms.jsonl",
+    "model_catalogs": [
+      "catalogs/aquatic-3d-sources-20261111/ffish-models.jsonl",
+      "catalogs/aquatic-3d-sources-20261111/life-models.jsonl"
+    ],
+    "view": "catalogs/aquatic-3d-sources-20261111/README.md",
+    "validation_report": "evidence/aquatic-3d-sources-20261111/validation-report.json",
+    "local_search_script": "resources/scripts/fish-database/search_remote.py (relative to Foundry root)",
+    "model_files_acquired": 0
   }
 }

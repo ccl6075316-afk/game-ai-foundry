@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "fishsim-20261111",
+  "title": "FishSim 整鱼表面摄影测量与物理数据集 V2",
+  "source_kind": "official_product_page",
+  "origin": {
+    "urls": [
+      "https://doi.org/10.18710/OY9QWA",
+      "https://dataverse.no/dataset.xhtml?persistentId=doi:10.18710/OY9QWA"
+    ],
+    "publisher": "NTNU / Norwegian University of Science and Technology; DataverseNO"
+  },
+  "retrieved_on": "2026-11-11",
+  "artifact_ids": [],
+  "unknowns": [
+    "actual_archive_geometry_not_reviewed",
+    "per_species_mesh_counts_unverified",
+    "远程索引不是已取得资产；本轮没有下载网格、贴图、视频或扫描切片。",
+    "学名为来源标签/规则提取，未校正异名、旧名、杂交及分类争议；不等于已核准的有效物种数。",
+    "同种的性别、标本、CT阈值、动作和网格版本可能分别计数；元数据不证明几何完整、颜色真实或形态适用。"
+  ],
+  "record_scope": "Remote source discovery and public metadata; not an acquired specimen/model.",
+  "catalog": "catalogs/aquatic-3d-sources-20261111/platforms.jsonl",
+  "reference_class": "A_surface_specimen_priority",
+  "evidence_level": "E0_official_dataset_metadata; no archive acquired",
+  "license_summary": "数据页明确CC0；允许商业修改，学术规范建议引用数据集。实际采用前核对下载版本与包内说明。",
+  "evidence_urls": [
+    "https://dataverse.no/dataset.xhtml?persistentId=doi:10.18710/OY9QWA",
+    "https://creativecommons.org/publicdomain/zero/1.0/"
+  ]
+}

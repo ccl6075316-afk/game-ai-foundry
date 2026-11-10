@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "scanallfish-20261111",
+  "title": "ScanAllFish / ScanAllFishes 鱼类CT扫描项目",
+  "source_kind": "official_product_page",
+  "origin": {
+    "urls": [
+      "https://www.adamsummers.org/scanallfish",
+      "https://osf.io/ecmz4/",
+      "https://osf.io/ecmz4/wiki/Fishes/",
+      "https://api.osf.io/v2/nodes/ecmz4/"
+    ],
+    "publisher": "Adam P. Summers / University of Washington Friday Harbor Laboratories"
+  },
+  "retrieved_on": "2026-11-11",
+  "artifact_ids": [],
+  "unknowns": [
+    "current_public_species_total_unknown",
+    "blanket_commercial_license_unverified",
+    "远程索引不是已取得资产；本轮没有下载网格、贴图、视频或扫描切片。",
+    "学名为来源标签/规则提取，未校正异名、旧名、杂交及分类争议；不等于已核准的有效物种数。",
+    "同种的性别、标本、CT阈值、动作和网格版本可能分别计数；元数据不证明几何完整、颜色真实或形态适用。"
+  ],
+  "record_scope": "Remote source discovery and public metadata; not an acquired specimen/model.",
+  "catalog": "catalogs/aquatic-3d-sources-20261111/platforms.jsonl",
+  "reference_class": "B_ct_anatomy_priority",
+  "evidence_level": "E1_project_metadata_and_wiki; no mesh or volume acquired",
+  "license_summary": "官网有面向任何用途开放的说明；OSF主节点node_license为空，wiki说明科研教育用途，不能据此统一判定所有文件可商业衍生。须核实具体文件或取得权利人明确说明。",
+  "evidence_urls": [
+    "https://www.adamsummers.org/scanallfish",
+    "https://api.osf.io/v2/nodes/ecmz4/",
+    "https://api.osf.io/v2/wikis/fxq6r/content/",
+    "https://api.osf.io/v2/wikis/vbwzr/content/",
+    "https://fhl.uw.edu/wp-content/uploads/sites/17/2017/12/IntTidings2017_final.pdf"
+  ]
+}

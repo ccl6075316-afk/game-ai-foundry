@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Remote aquatic source or model metadata (not an acquired asset)",
+  "type": "object",
+  "required": ["schema_version", "record_kind", "id", "source_id", "title", "url", "observed_on", "keywords", "license_code", "asset_downloaded"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "record_kind": {"enum": ["remote_source", "remote_model"]},
+    "id": {"type": "string", "minLength": 1},
+    "source_id": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "url": {"type": "string", "pattern": "^https://"},
+    "observed_on": {"type": "string", "format": "date"},
+    "keywords": {"type": "array", "items": {"type": "string"}},
+    "license_code": {"enum": ["cc0", "cc_by", "cc_by_sa", "cc_by_nc", "cc_by_nc_sa", "other", "unknown", "mixed"]},
+    "asset_downloaded": {"const": false},
+    "groups": {"type": "array", "items": {"type": "string"}},
+    "scientific_name_label": {"type": ["string", "null"]},
+    "local_asset_path": {"type": "null"}
+  },
+  "allOf": [
+    {"if": {"properties": {"record_kind": {"const": "remote_source"}}}, "then": {"required": ["database_urls", "reference_class", "evidence_level", "counts", "commercial_use", "coverage"]}},
+    {"if": {"properties": {"record_kind": {"const": "remote_model"}}}, "then": {"required": ["remote_id", "license_label", "downloadable_flag", "groups", "local_asset_path", "taxonomy_status", "geometry_review"]}}
+  ]
+}

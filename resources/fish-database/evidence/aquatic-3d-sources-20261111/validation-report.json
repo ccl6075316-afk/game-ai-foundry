@@ -1,0 +1,306 @@
+{
+  "schema_version": 1,
+  "ok": true,
+  "status": "done",
+  "next_action": "none",
+  "checked_on": "2026-11-11",
+  "scope": "Remote-source index/schema/metadata fidelity/local discoverability only. No asset acquisition, anatomical or legal approval, production fish tests, or runtime validation.",
+  "summary": {
+    "registered_sources_total": 8,
+    "new_remote_sources": 5,
+    "remote_model_records": {
+      "ffish": 3055,
+      "life": 168
+    },
+    "model_files_downloaded": 0,
+    "texture_slice_video_files_downloaded": 0,
+    "production_assets_modified": false,
+    "ffish_fish_records": 747,
+    "ffish_fish_binomial_labels": 333,
+    "ffish_cc0_downloadable_fish_records": 643,
+    "ffish_cc0_binomial_labels": 308
+  },
+  "schema_checks": {
+    "all_registered_sources": 8,
+    "existing_reference_records": 326,
+    "new_remote_records": 3228,
+    "existing_catalog_row_counts_preserved": true,
+    "no_new_local_asset_paths_or_model_hashes": true
+  },
+  "historical_reference_schema_notes": [
+    {
+      "path": "references/fishing-master-cdn-cnformal1-20261102-hammerheadshark.json",
+      "json_path": "$.anatomical_correspondence[0]",
+      "message": "'part' is a required property",
+      "scope": "pre-existing reference; not changed or repaired by this metadata update"
+    },
+    {
+      "path": "references/fishing-master-cdn-cnformal1-20261102-hammerheadshark.json",
+      "json_path": "$.anatomical_correspondence[0]",
+      "message": "'unknowns' is a required property",
+      "scope": "pre-existing reference; not changed or repaired by this metadata update"
+    },
+    {
+      "path": "references/fishing-master-cdn-cnformal1-20261102-hammerheadshark.json",
+      "json_path": "$.anatomical_correspondence[1]",
+      "message": "'part' is a required property",
+      "scope": "pre-existing reference; not changed or repaired by this metadata update"
+    },
+    {
+      "path": "references/fishing-master-cdn-cnformal1-20261102-hammerheadshark.json",
+      "json_path": "$.anatomical_correspondence[1]",
+      "message": "'unknowns' is a required property",
+      "scope": "pre-existing reference; not changed or repaired by this metadata update"
+    },
+    {
+      "path": "references/fishing-master-cdn-cnformal1-20261102-niletilapia.json",
+      "json_path": "$.anatomical_correspondence[0]",
+      "message": "'evidence' is a required property",
+      "scope": "pre-existing reference; not changed or repaired by this metadata update"
+    },
+    {
+      "path": "references/fishing-master-cdn-cnformal1-20261102-niletilapia.json",
+      "json_path": "$.anatomical_correspondence[0]",
+      "message": "'unknowns' is a required property",
+      "scope": "pre-existing reference; not changed or repaired by this metadata update"
+    }
+  ],
+  "search_checks": [
+    {
+      "check": "Chinese octopus lookup with exact CC0 filter",
+      "query": "章鱼",
+      "kind": "model",
+      "source": "ffishasia",
+      "license_code": "cc0",
+      "matched_count": 7,
+      "ok": true
+    },
+    {
+      "check": "Chinese squid/cuttlefish lookup with exact CC0 filter",
+      "query": "鱿鱼",
+      "kind": "model",
+      "source": "ffishasia",
+      "license_code": "cc0",
+      "matched_count": 7,
+      "ok": true
+    },
+    {
+      "check": "Sea turtles do not include freshwater turtle matches",
+      "query": "海龟",
+      "kind": "model",
+      "source": "ffishasia",
+      "license_code": "cc0",
+      "matched_count": 1,
+      "ok": true
+    },
+    {
+      "check": "Scientific-name AND search",
+      "query": "Cyprinus carpio",
+      "kind": "model",
+      "source": "ffishasia",
+      "license_code": "",
+      "matched_count": 6,
+      "ok": true
+    },
+    {
+      "check": "Noncommercial Digital Life records cannot leak through CC0 filter",
+      "query": "",
+      "kind": "model",
+      "source": "digitallife3d",
+      "license_code": "cc0",
+      "matched_count": 0,
+      "ok": true
+    },
+    {
+      "check": "Chinese water-jellyfish lookup does not match wood-ear fungus or negative coverage",
+      "query": "水母",
+      "kind": "model",
+      "source": "",
+      "license_code": "",
+      "matched_count": 0,
+      "ok": true
+    },
+    {
+      "check": "CT source lookup",
+      "query": "CT",
+      "kind": "source",
+      "source": "",
+      "license_code": "",
+      "matched_count": 2,
+      "ok": true
+    },
+    {
+      "check": "All five platforms are discoverable locally",
+      "query": "",
+      "kind": "source",
+      "source": "",
+      "license_code": "",
+      "matched_count": 5,
+      "ok": true
+    },
+    {
+      "check": "Digital Life CC BY flatback exception preserved",
+      "query": "Flatback",
+      "kind": "model",
+      "source": "digitallife3d",
+      "license_code": "cc_by",
+      "matched_count": 2,
+      "ok": true
+    }
+  ],
+  "local_links_checked": [
+    {
+      "from": "resources/fish-database/catalogs/aquatic-3d-sources-20261111/README.md",
+      "target": "platforms.jsonl"
+    },
+    {
+      "from": "resources/fish-database/catalogs/aquatic-3d-sources-20261111/README.md",
+      "target": "../../manifest.json"
+    },
+    {
+      "from": "resources/fish-database/catalogs/aquatic-3d-sources-20261111/README.md",
+      "target": "ffish-models.jsonl"
+    },
+    {
+      "from": "resources/fish-database/catalogs/aquatic-3d-sources-20261111/README.md",
+      "target": "life-models.jsonl"
+    },
+    {
+      "from": "resources/fish-database/catalogs/aquatic-3d-sources-20261111/README.md",
+      "target": "../../evidence/aquatic-3d-sources-20261111/validation-report.json"
+    },
+    {
+      "from": "resources/fish-database/README.md",
+      "target": "catalogs/aquatic-3d-sources-20261111/README.md"
+    },
+    {
+      "from": "resources/fish-database/README.md",
+      "target": "catalogs/aquatic-3d-sources-20261111/platforms.jsonl"
+    },
+    {
+      "from": "docs/3D-ASSET-KNOWLEDGE.md",
+      "target": "../resources/fish-database/catalogs/aquatic-3d-sources-20261111/README.md"
+    },
+    {
+      "from": "projects/fishing-2d/docs/3d-fish/ANATOMY-RESEARCH.md",
+      "target": "../../../../resources/fish-database/catalogs/aquatic-3d-sources-20261111/README.md"
+    }
+  ],
+  "metadata_capture": {
+    "method": "Public Sketchfab Data API v3 GET /v3/models, author filter and sort_by=-publishedAt; UID deduplication. No /download endpoint.",
+    "ffish_profile_count": 3050,
+    "ffish_enumerated_unique_ids": 3055,
+    "profile_vs_enumeration_discrepancy": "unresolved; do not silently make counts equal",
+    "raw_temporary_input_sha256": "ad6a60f01ea0ffb911d312c1abeeb9c838205878956000e6ff4b2dd887e0492b",
+    "raw_input_retained": false,
+    "retained_fields_verified_against_raw": [
+      "uid",
+      "name",
+      "tags",
+      "license label",
+      "isDownloadable"
+    ],
+    "taxonomy_method": "Take final binomial-like taxonomic line after Animalia, otherwise plausible binomial in title; source labels unverified, synonyms not reconciled, unidentified groups not forced to species.",
+    "digital_life_approx_22_fish_groups_method": "Manual merge of names across mesh/animated and individual versions; not inferred from the incomplete binomial field.",
+    "rate_limit_note": "A later item-detail request received HTTP 429; no bypass or retry loop. List snapshot remains the evidence scope; exact license versions and mesh contents not newly verified."
+  },
+  "retained_files": [
+    {
+      "path": "catalogs/aquatic-3d-sources-20261111/ffish-models.jsonl",
+      "path_base": "database",
+      "bytes": 3286758,
+      "sha256": "4224fcc06468b078c5cd90d372966cedf024444713d0038723e1f5999873ac9c"
+    },
+    {
+      "path": "catalogs/aquatic-3d-sources-20261111/life-models.jsonl",
+      "path_base": "database",
+      "bytes": 167211,
+      "sha256": "9e2ddb48285674034d43705ce19ade313f805ab4e3645834dd221dc458836109"
+    },
+    {
+      "path": "catalogs/aquatic-3d-sources-20261111/platforms.jsonl",
+      "path_base": "database",
+      "bytes": 10927,
+      "sha256": "0a410d56b4b912a3a10aef01cb9c44c35d21836468cabb5d7b60268b46793cd1"
+    },
+    {
+      "path": "catalogs/aquatic-3d-sources-20261111/README.md",
+      "path_base": "database",
+      "bytes": 11751,
+      "sha256": "e172cde03e80524422c796b6488548942b55b1233dd9bc6dffceb66a6728ef63"
+    },
+    {
+      "path": "schemas/remote-catalog.schema.json",
+      "path_base": "database",
+      "bytes": 1499,
+      "sha256": "6a5dd5c479e0e294f3c999b37c2a4479231c84b39bde265f395c48df636172f0"
+    },
+    {
+      "path": "resources/scripts/fish-database/search_remote.py",
+      "path_base": "foundry",
+      "bytes": 3761,
+      "sha256": "9e574a876cf3f158124b5028e1b2e4a62cfdbba242ac0d0eb5597b5dea74cd17"
+    },
+    {
+      "path": "sources/ffishasia-3d-20261111/source.json",
+      "path_base": "database",
+      "bytes": 1814,
+      "sha256": "0823f23325339b3f6a75a724c0854aa49c3b1b209efc0681a99f4bbd73b51e4e"
+    },
+    {
+      "path": "sources/morphosource-overt-20261111/source.json",
+      "path_base": "database",
+      "bytes": 1858,
+      "sha256": "333350a5cacbc545da6c5ac625593c2229f4ffb7dde08a58522c25c5da96a017"
+    },
+    {
+      "path": "sources/scanallfish-20261111/source.json",
+      "path_base": "database",
+      "bytes": 1847,
+      "sha256": "7941ed613a19f3b3eec71b40b9f7db23f4255cf0436081679f409827c6129f6b"
+    },
+    {
+      "path": "sources/digitallife3d-20261111/source.json",
+      "path_base": "database",
+      "bytes": 1890,
+      "sha256": "be478a66074d6399f0e18e97f01c3e167012fa5e775b81efd3fe63be649b01e8"
+    },
+    {
+      "path": "sources/fishsim-20261111/source.json",
+      "path_base": "database",
+      "bytes": 1561,
+      "sha256": "6a97abab69f73122d013e3b5711cc15287b8ab01493644afcb0c0e29ee3f88e8"
+    }
+  ],
+  "cleanup": {
+    "status": "done",
+    "temporary_directory": "work/aquatic-source-index-20261111",
+    "remove": [
+      {
+        "path": "work/aquatic-source-index-20261111/catalog-metadata.json",
+        "bytes": 3005659
+      },
+      {
+        "path": "work/aquatic-source-index-20261111/record_index.py",
+        "bytes": 22462
+      },
+      {
+        "path": "work/aquatic-source-index-20261111/validate_index.py",
+        "bytes": 11172
+      }
+    ],
+    "raw_descriptions_and_authoring_scripts_not_needed_for_search": true,
+    "removed_logical_bytes": 3039293.0,
+    "removed_file_count": 3,
+    "temporary_directory_remaining": false
+  },
+  "limitations": [
+    "Metadata hit is not a downloaded or validated model, verified species identity, biological measurement, user acceptance or blanket commercial permission.",
+    "FFishAsia and Digital Life snapshots include nonfish and multiple versions; other platforms have source summaries only, not exhaustive item indexes.",
+    "Historical ScanAllFish scanned species and UF-only scan statistics are not current public platform inventory counts.",
+    "Water jellyfish not found in these two author snapshots is not a claim of global absence.",
+    "Historical raw/API response not retained in full; compact projection hashes and methodology are retained. Online content/licenses may change.",
+    "Previous binary acquisition/mesh checks in the database root report were not rerun because this update changes metadata/docs/search only."
+  ],
+  "failures": []
+}
