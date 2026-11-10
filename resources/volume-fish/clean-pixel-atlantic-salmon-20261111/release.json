@@ -1,0 +1,53 @@
+{
+  "date": "2026-11-11",
+  "kind": "accepted_clean_pixel_material_release",
+  "species": "atlantic_salmon",
+  "user_acceptance": "呃，差不多了，验收然后提交吧。",
+  "revision": "R3",
+  "model": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\atlantic_salmon.glb",
+    "sha256": "d7df6076dbadd7a0da681d5c46fb2fbb85b5837beec0b73d84ae27aeabb0387d"
+  },
+  "source": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\atlantic_salmon\\fish.blend",
+    "sha256": "29dd740004d46ae8156b82c04ecdc50a60812415fcb8de95c187857e611d7ea6"
+  },
+  "triangles": 1952,
+  "vertices": 4026,
+  "bones": 19,
+  "non_image_accessors_exact": 64,
+  "source_cold_byte_exact": true,
+  "body_texels_frozen_before_original_fin_stage": 961589,
+  "R3_dorsal_changed_RGB_texels": 243188,
+  "head_eye_texels_exact_vs_R2": 56767,
+  "R3_mouth_all8fins_RGBA_exact_vs_R2": true,
+  "new_style_accepted": 10,
+  "remaining": 18,
+  "checks": {
+    "full490": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\clean-pixel-atlantic-salmon-20261111\\full490.validation.json",
+      "sha256": "e57efdfb5a4044c4d89bdc6e3893c8a40aeabe6966e092151f34910e784259cd"
+    },
+    "root072": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\clean-pixel-atlantic-salmon-20261111\\root072.validation.json",
+      "sha256": "a4ed169925ab0469605eedb3aa76956125b5931522405ebadb35f388f090ded9"
+    },
+    "body077": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\clean-pixel-atlantic-salmon-20261111\\body077.validation.json",
+      "sha256": "51019346a38a9f4bf0eaf76e6954c08de23f1cc8b2a4cdfb1ca8055ea3cac321"
+    },
+    "canonical": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\clean-pixel-atlantic-salmon-20261111\\canonical-load.validation.json",
+      "sha256": "c3ab2b2db1a17458f1a7322be70a537a30aabf7b33469e3f8c4924efc3424c4d"
+    },
+    "fishing": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\clean-pixel-atlantic-salmon-20261111\\fishing-entry.validation.json",
+      "sha256": "71a0d6dc33dfd05e28e2214e175d3939581c7995e0359ad9a1a92c0d942755ac"
+    },
+    "cold_export": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\clean-pixel-atlantic-salmon-20261111\\source-cold-export.validation.json",
+      "sha256": "671bb2547968c04d25826f0e1bd1dde3d698d3e08f410fa828c74a27e9361c44"
+    }
+  },
+  "sop_scope": "Runtime/source finalization and current affected technical gates passed; full unperformed references/shape/video pending. Motion quality separate."
+}

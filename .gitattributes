@@ -190,3 +190,5 @@ resources/fish-database/references/recovered-history-20261108/**/*.glb filter=lf
 /docs/storage/baidu-lfs-20261110/** -text whitespace=cr-at-eol
 
 /resources/volume-fish/clean-pixel-brown-trout-20261110/** -text whitespace=cr-at-eol
+
+/resources/volume-fish/clean-pixel-atlantic-salmon-20261111/** -text whitespace=cr-at-eol

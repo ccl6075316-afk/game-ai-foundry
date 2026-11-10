@@ -1,7 +1,7 @@
 {
   "count": 28,
-  "new_style_confirmed": 9,
-  "rebake_remaining": 19,
+  "new_style_confirmed": 10,
+  "rebake_remaining": 18,
   "fish": [
     {
       "species": "african_catfish",
@@ -57,19 +57,20 @@
     {
       "species": "atlantic_salmon",
       "model": "game\\assets\\models\\fish\\atlantic_salmon.glb",
-      "model_sha256": "837fcc31a3aaabe36524473030925f7cadb4522d63602f69d0cf075c8fb30a4b",
+      "model_sha256": "d7df6076dbadd7a0da681d5c46fb2fbb85b5837beec0b73d84ae27aeabb0387d",
       "source": "assets\\source\\fish\\atlantic_salmon\\fish.blend",
-      "source_sha256": "6db3d60c2db0aca045217c5483aaa7b82a23a846022dae769a4f7cada271333e",
+      "source_sha256": "29dd740004d46ae8156b82c04ecdc50a60812415fcb8de95c187857e611d7ea6",
       "static": {
         "geometry_uv_skin_sha256": "e0211f6d6c988e9ba25ee1ace2d0a1551469ea8a996c511cdc3266fce0556fa2",
-        "material_pixels_sha256": "f6a30443114ec87e594c5b8007c348e009cd0e4ad0fc4f6706222ed5d213d22f",
+        "material_pixels_sha256": "c18ce92f470043c177a0bf44843a204876f2840837f79b328b6f4e60aec235d3",
         "skeleton_rest_bind_sha256": "0a49b854669e9cc23e7e8a316933866c32dcd4309b752e7dbda31dd9d2bf997e",
         "triangles": 1952,
         "bones": 19
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review",
+      "new_style_release": "resources/volume-fish/clean-pixel-atlantic-salmon-20261111/release.json"
     },
     {
       "species": "black_seabream",

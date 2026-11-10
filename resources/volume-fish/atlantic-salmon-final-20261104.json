@@ -35,5 +35,7 @@
     "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\five-fish-release-20261104\\atlantic_salmon\\references\\atlantic_salmon.validation.json",
     "sha256": "2de70a8072f87dc0572c2e7e694a4abcf0272c0908e442f6e487cf8938d43378"
   },
-  "release_handoff": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\five-fish-release-20261104\\HANDOFF.md"
+  "release_handoff": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\five-fish-release-20261104\\HANDOFF.md",
+  "current_material_release": "resources/volume-fish/clean-pixel-atlantic-salmon-20261111/release.json",
+  "historical_hash_note": "Original20261104 acceptance SHA is historical. Current20261111R3 bytes bound in current_material_release."
 }
