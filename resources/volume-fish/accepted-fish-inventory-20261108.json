@@ -1,7 +1,7 @@
 {
   "count": 28,
-  "new_style_confirmed": 8,
-  "rebake_remaining": 20,
+  "new_style_confirmed": 9,
+  "rebake_remaining": 19,
   "fish": [
     {
       "species": "african_catfish",
@@ -126,19 +126,20 @@
     {
       "species": "brown_trout",
       "model": "game\\assets\\models\\fish\\brown_trout.glb",
-      "model_sha256": "4962904703412f912c0990d4899d1956442110a57a32c5c175d397d426895204",
+      "model_sha256": "ee3bb770e2915f48a5140150410774b50d5e2d553b6313f7ae9f822bdab0a16c",
       "source": "assets\\source\\fish\\brown_trout\\fish.blend",
-      "source_sha256": "bd33fb605b638752e01ab46ef537967cfb4e75220fdd63426a7a6e3e079a8390",
+      "source_sha256": "1fe3a2b99bc789c0a4d43b32c674b42484198b695ae3fe055ba989233e98c9e5",
       "static": {
         "geometry_uv_skin_sha256": "3d19fd7654903e6eae929393b91836499dc58f18e028f76417a7804fcff21b0e",
-        "material_pixels_sha256": "4a0e9b66fef7c7469b2a09af1192434c18534a7089db2ec688ef7e7690754797",
+        "material_pixels_sha256": "a8eb6d0056beb2de9cbe49b0d1da570d831cdcfc550637058fc06799b68454b2",
         "skeleton_rest_bind_sha256": "4c643f4738c80ceffba6568140171781423600f248c5b771c0a87df7366b8af7",
         "triangles": 1896,
         "bones": 19
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review",
+      "new_style_release": "resources/volume-fish/clean-pixel-brown-trout-20261110/release.json"
     },
     {
       "species": "carp",

@@ -8,6 +8,8 @@
 
 入口：`resources/scripts/storage/baidu_lfs_agent.py`。新OID按原始SHA放在百度网盘`我的应用数据/bdpan/foundry-lfs-objects-v1/<OID前两位>/<OID>`；旧OID按已发布的`manifest.json`查到历史快照包，按需下载该包、取成员并验原始SHA。旧包只读，不为启用自动模式重传原7GB。新上传在返回Git LFS成功前还会从网盘下载一次并验SHA，失败则本次Git push失败。
 
+Windows官方CLI也可能安装在`~/.local/bdpan/versions/<current-version>/bdpan.exe`，而当前宿主进程尚未取得更新后的PATH。传输器优先PATH，再读取`~/.local/bdpan/current-version`定位实际程序，最后兼容原AppData路径。2026-11-10本机在PATH缺失条件下定位到官方3.8.9，完整游戏LFS拉取成功；当前蓝鳃/虹鳟四份源与GLB发布SHA一致，记录见游戏`plans/reviews/clean-pixel-brown-trout-20261110/sync.validation.json`。
+
 ## 当前电脑
 
 `resources/scripts/storage/configure_baidu_lfs.py`默认预演，`--apply`配置Foundry和`projects/fishing-2d`两个独立Git仓库。它使用本机Python绝对路径，只改两仓库`.git/config`中LFS过滤器/独立传输设置；不改项目中的`.lfsconfig`，不保存凭据，也不覆盖pre-push hook。已在本机执行并核对两边`lfs.standalonetransferagent=baidu`。官方百度登录沿用已完成的本机授权。

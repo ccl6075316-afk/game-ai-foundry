@@ -188,3 +188,5 @@ resources/fish-database/references/recovered-history-20261108/**/*.glb filter=lf
 # Current clean-pixel release evidence is byte-bound.
 /resources/volume-fish/clean-pixel-three-20261110/** -text whitespace=cr-at-eol
 /docs/storage/baidu-lfs-20261110/** -text whitespace=cr-at-eol
+
+/resources/volume-fish/clean-pixel-brown-trout-20261110/** -text whitespace=cr-at-eol

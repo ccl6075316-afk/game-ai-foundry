@@ -1,0 +1,48 @@
+{
+  "date": "2026-11-11",
+  "kind": "accepted_clean_pixel_material_release",
+  "species": "brown_trout",
+  "user_acceptance": "问题不大，验收提交，然后下一步。",
+  "model": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\brown_trout.glb",
+    "sha256": "ee3bb770e2915f48a5140150410774b50d5e2d553b6313f7ae9f822bdab0a16c"
+  },
+  "source": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\brown_trout\\fish.blend",
+    "sha256": "1fe3a2b99bc789c0a4d43b32c674b42484198b695ae3fe055ba989233e98c9e5"
+  },
+  "triangles": 1896,
+  "bones": 19,
+  "non_image_accessors_exact": 62,
+  "source_cold_byte_exact": true,
+  "body_texels_frozen_before_fins": 843118,
+  "new_style_accepted": 9,
+  "remaining": 19,
+  "checks": {
+    "full490": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\clean-pixel-brown-trout-20261110\\full490.validation.json",
+      "sha256": "ffb3b1ce3c64959ab29fafc08cb3be6a7981201a9d693868ae4b0426a7171a0f"
+    },
+    "root072": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\clean-pixel-brown-trout-20261110\\root072.validation.json",
+      "sha256": "36ec5544452d477fd3a1334fbb37cfa0442094ffd06b98cad5f4c58ec23c4c22"
+    },
+    "body077": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\clean-pixel-brown-trout-20261110\\body077.validation.json",
+      "sha256": "2ff17b8b08daaa501ed98ad56a803c9afa21f7ac4d625b526e37895b97674a8e"
+    },
+    "canonical": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\clean-pixel-brown-trout-20261110\\canonical-load.validation.json",
+      "sha256": "c0bbceeb459656d150a91b0c12a7fe75fc9f2c4b56385c39a7f4d1beace589ea"
+    },
+    "fishing": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\clean-pixel-brown-trout-20261110\\fishing-entry.validation.json",
+      "sha256": "7a3e425f541b6730e65a253357c9503606b5251a367189940a55efbfe0ffa57b"
+    },
+    "source_cold": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\clean-pixel-brown-trout-20261110\\source-cold-export.validation.json",
+      "sha256": "bbdb22de0fbfdf924ed3967564c57ea57c850c29878c758250cc4e35d47fed73"
+    }
+  },
+  "sop_scope": "Runtime/source finalization and affected technical gates passed; full reference/shape/video stages pending. Motion quality separately reviewed."
+}

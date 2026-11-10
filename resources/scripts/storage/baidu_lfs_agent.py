@@ -17,7 +17,20 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[3]
 WORK = ROOT / 'work/baidu-lfs-agent'
 SNAPSHOT = ROOT / 'docs/storage/baidu-lfs-20261109'
-CLI = shutil.which('bdpan') or str(Path.home() / 'AppData/Local/bdpan/bdpan.exe')
+def bdpan_executable():
+    installed = shutil.which('bdpan')
+    if installed:
+        return installed
+    local = Path.home() / '.local/bdpan'
+    version = local / 'current-version'
+    if version.is_file():
+        candidate = local / 'versions' / version.read_text(encoding='utf8').strip() / 'bdpan.exe'
+        if candidate.is_file():
+            return str(candidate)
+    return str(Path.home() / 'AppData/Local/bdpan/bdpan.exe')
+
+
+CLI = bdpan_executable()
 REMOTE = 'foundry-lfs-objects-v1'
 SESSION = '1794148677-34ab58'
 _SNAPSHOT_CACHE = None

@@ -35,5 +35,7 @@
     "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\five-fish-release-20261104\\brown_trout\\references\\brown_trout.validation.json",
     "sha256": "35e557f68be1303eee9a1a13812226e96d5b46834829387ffb07c51ca49774df"
   },
-  "release_handoff": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\five-fish-release-20261104\\HANDOFF.md"
+  "release_handoff": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\five-fish-release-20261104\\HANDOFF.md",
+  "current_material_release": "resources/volume-fish/clean-pixel-brown-trout-20261110/release.json",
+  "historical_hash_note": "Original 20261104 acceptance SHA below is historical; current20261111 material bytes are explicitly bound in current_material_release."
 }

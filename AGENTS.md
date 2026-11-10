@@ -1,5 +1,7 @@
 # Game AI Foundry — External Agent One-pager
 
+**2026-11-11 褐鳟新材质接受**：用户查看Godot R2后要求“问题不大，验收提交，然后下一步”。正式源/GLB已安装，62个非图像accessor、几何/UV/骨权/骨架/动作不变；先身体后8鳍，843118身体纹素保持。当前490/072/077、独立正式源冷导、正式/缓存480控制与360切换、四动作像素对照及真实上唇25项通过。完整根域只恢复原接受版文字配置，不恢复旧实验链。入口 resources/volume-fish/clean-pixel-brown-trout-20261110/release.json，游戏同名handoff。28条静态基线，新风格9条接受、19条待做；SOP runtime通过，未重做资料/形态/视频仍pending，不称完整SOP通过。下一条仍先出意向图获用户确认后烘焙。
+
 **2026-11-10 虹鳟新材质接受**：用户看过Godot R2后明确“可以了 验收 提交”。当前正式源/GLB已安装，60个非图像流及几何/UV/蒙皮/骨架/动作保持；先完整身体、后8鳍，1,281,164身体像素及8个裸身体视图保持。当前490/072/077、独立正式源冷导、正式/缓存/四动作和真实上唇25项通过；SOP固化/运行时阶段通过，未重复的资料/形态/全套视频项仍pending，不宣称整套SOP通过。入口 `resources/volume-fish/clean-pixel-rainbow-trout-20261110/release.json`、游戏 `plans/reviews/clean-pixel-rainbow-trout-20261110/HANDOFF.md`。28条静态基线，新风格8条接受、20条待做；动作质量另验，下一鱼仍先出图获用户确认后烘焙。
 
 **2026-11-10 蓝鳃新材质接受**：用户看过 Godot R4 后要求“提吧 提了 下一条”。蓝鳃当前源/GLB已安装，60个非图像流、几何/UV/蒙皮/骨架/动作保持；整张去鳍身体先完成，再仅烘鳍，734729个身体像素及八张裸身体图保持。当前490/072/077、独立源冷导、正式/缓存/四动作及真实上唇25项通过。入口 `resources/volume-fish/clean-pixel-bluegill-20261110/release.json`、游戏 `plans/reviews/clean-pixel-bluegill-20261110/HANDOFF.md`。28条静态基线，新风格7条接受、21条待做；完整生产SOP未重复的资料/形态/视频项仍pending，动作质量另验。本条覆盖旧数量，下一鱼仍先出图获用户确认后烘焙。
