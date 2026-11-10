@@ -1,0 +1,57 @@
+{
+  "species": "rainbow_trout",
+  "status": "accepted_material_release",
+  "working_directory": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/clean-pixel-rainbow-trout-20261110",
+  "method_snapshots": {
+    "bake.py": "262094ebf8241235fe89e2953f713bd0e8fb33edf8eda73638e8af6e7d2e7a8d",
+    "author_source.py": "6e3c714afb53ba56c5a6a5034decc1889e0a8388fa316e8c167d7fad28ad726c"
+  },
+  "snapshot_usage": "Historical actual authoring snapshots preserve experiment-relative paths and baseline SHA. Do not execute as current maintenance or restore old experiments; maintain current canonical blend.",
+  "baseline": {
+    "ok": true,
+    "model_sha256": "752c06f309c1e9127f6b8c0893ea96bb446c6b826cf255520292d471f09f1ae9",
+    "source_sha256": "494fc08922723ce8664f8db207651ff024dab4728b9b00d4363057174692500d",
+    "actual_static": {
+      "geometry_uv_skin_sha256": "d4feebf06c3ec0ccd246214d65a20df3386545409d6c069bb387f8364491e120",
+      "material_pixels_sha256": "767ec29ae9d9a5de1d22fab090de75ccb17bf0676b2a73e90f2a4e32c08ccc2d",
+      "skeleton_rest_bind_sha256": "35aee81b37a9d058c4b6f4fbf86a262cc782f1249ea1817fcc784022642d9193",
+      "triangles": 1860,
+      "bones": 19
+    },
+    "basis": "Current 2026-11-08 inventory and accepted 2026-11-06 tail repair agree exactly. Older 2026-11-04 frozen-static.json is historical and differs in repaired geometry hash; not silently overwritten.",
+    "user_style_acceptance": false
+  },
+  "central_front_domain_native": {
+    "abs_z_full": 0.012,
+    "abs_z_zero": 0.024,
+    "x_blend_start": 0.34,
+    "x_blend_end": 0.43
+  },
+  "front_y_registration": {
+    "target": [
+      0,
+      78,
+      330,
+      358,
+      400,
+      620
+    ],
+    "source": [
+      0,
+      91,
+      510,
+      562,
+      623,
+      1040
+    ]
+  },
+  "oral_surface": "Registered whole frontal head donor including skin/cavity; oral primitive contains external corners, so never flood all corners from cavity-only colors.",
+  "body_then_fins": {
+    "body_texels": 1281164,
+    "body_images_byte_exact": 8,
+    "fin_parts": 8
+  },
+  "preservation_report": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/clean-pixel-rainbow-trout-20261110/source-r2/preservation.validation.json",
+  "root_domains": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/tail-closure-repair-20261106/rainbow_trout/complete-root-domains.json",
+  "current_release": "release.json"
+}

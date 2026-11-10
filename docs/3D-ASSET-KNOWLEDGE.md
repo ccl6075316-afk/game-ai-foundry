@@ -97,3 +97,7 @@
 ## 2026-11-04 六鱼成品入口
 
 真鲷、黑鲷、鲫鱼、草鱼、鲤鱼、蓝鳃太阳鱼均已安装、获用户整鱼接受并冻结。当前 [六鱼索引](../resources/volume-fish/final-six-fish-20261104.json) 与 [游戏收尾卡](../projects/fishing-2d/plans/reviews/six-fish-release-20261104/HANDOFF.md) 包含逐鱼参数、实际当前验证和精确清理收据；旧六鱼资料库实验路径已退役。默认后续只改动作，静态重新开启须有用户明确要求。
+
+### 2026-11-10 虹鳟清爽像素材质发布
+
+[当前发布](../resources/volume-fish/clean-pixel-rainbow-trout-20261110/release.json)与[游戏交接](../projects/fishing-2d/plans/reviews/clean-pixel-rainbow-trout-20261110/HANDOFF.md)绑定用户已接受R2。先身体后8鳍，中央额部供体排除侧眼、口部外壁不等同口腔；方法见多视材质卡。新风格8条接受、20条待做，当前静态再冻结；动作质量和未重复完整SOP项另计。

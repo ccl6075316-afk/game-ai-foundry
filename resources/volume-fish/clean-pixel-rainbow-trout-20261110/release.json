@@ -1,0 +1,78 @@
+{
+  "date": "2026-11-10",
+  "kind": "accepted_clean_pixel_material_release",
+  "species": "rainbow_trout",
+  "user_acceptance": "可以了 验收 提交",
+  "model": {
+    "path": "projects/fishing-2d/game/assets/models/fish/rainbow_trout.glb",
+    "sha256": "769b864f8d8af1b1d55c6ec82eb790a3ba84c7cbff49a0d16658dd6eb1175570"
+  },
+  "source": {
+    "path": "projects/fishing-2d/assets/source/fish/rainbow_trout/fish.blend",
+    "sha256": "906c9334e992cbb22651226661f6ae1303602d60c8f10e3f7013214b110393a5"
+  },
+  "triangles": 1860,
+  "bones": 19,
+  "non_image_streams_exact": 60,
+  "source_cold_byte_exact": true,
+  "body_texels_frozen_before_fins": 1281164,
+  "checks": {
+    "full490": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-rainbow-trout-20261110/full490.validation.json",
+      "sha256": "73c4a735af59b1548770e9f8103d94f7d71e77b0939793434b2df72eedb3dabc"
+    },
+    "root072": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-rainbow-trout-20261110/root072.validation.json",
+      "sha256": "b80fddb3e0343192a50a99427f7ee4216998dc8ff7d5190c3682d3b4630ac0c6"
+    },
+    "body077": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-rainbow-trout-20261110/body077.validation.json",
+      "sha256": "b2c4c986c5759078287ccd2e07707d1e11daf7ce95a8e837f35b74b13b950dda"
+    },
+    "canonical-load": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-rainbow-trout-20261110/canonical-load.validation.json",
+      "sha256": "64d533e717669478e1e7c4f5bab5475279766a7025ddbb7a9e94d611622262bb"
+    },
+    "canonical-pixels": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-rainbow-trout-20261110/canonical-pixels.validation.json",
+      "sha256": "8c4db6221ad798c6b5a12888982f20937f69828ff55ea48539da7b9781445749"
+    },
+    "fishing-entry": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-rainbow-trout-20261110/fishing-entry.validation.json",
+      "sha256": "b7a985bd569c2147ff041a97f3ebee3d7a7131d0402419808e43b89c51c61843"
+    },
+    "source-cold-export": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-rainbow-trout-20261110/source-cold-export.validation.json",
+      "sha256": "62626e942e7110d44d7bae6bef4856da5ddaa06bb5e56cac70e8362a42f21e26"
+    },
+    "static-freeze": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-rainbow-trout-20261110/static-freeze.validation.json",
+      "sha256": "456e30f91c4ac768b383ce6a8bda80e68c60df816c5aa966363135628cab0aa1"
+    },
+    "final-cold-load": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-rainbow-trout-20261110/final-asset-cold-load.validation.json",
+      "sha256": "295cd8167b9ad397f16dc7afb6f123ffc1292adcb3da56c2e29a4b97023bb7e2"
+    }
+  },
+  "full_production_sop_pass": false,
+  "sop_limit": "Accepted material; geometry/UV/alpha/skin/rig/animation exact. Full anatomy/reference/video obligations not repeated; motion quality separately accepted.",
+  "handoff": "projects/fishing-2d/plans/reviews/clean-pixel-rainbow-trout-20261110/HANDOFF.md",
+  "inputs": [
+    {
+      "path": "projects/fishing-2d/assets/source/fish/rainbow_trout/clean-pixel-20261110/body-side-v1.png",
+      "sha256": "c17f92d42dca3d04337d1172aac83b8d6a96e042d5daef5a6fd78e898230cca2"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/rainbow_trout/clean-pixel-20261110/body-top-bottom-v1.png",
+      "sha256": "10ed4c9d936920cff01730090860df25b3278617ee324f68167b1cfc524f9dbe"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/rainbow_trout/clean-pixel-20261110/head-front-v1.png",
+      "sha256": "d343454e1c204ed21db6fbb9c5adcbff4f87ef2e1121976016e9653e967daafb"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/rainbow_trout/clean-pixel-20261110/style-concept-v1.png",
+      "sha256": "4951c77313a0a5b2f4d34362eff9a624e1f51032908b8590e9e447c252864f1d"
+    }
+  ]
+}

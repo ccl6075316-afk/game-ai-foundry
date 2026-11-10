@@ -1,7 +1,7 @@
 {
   "count": 28,
-  "new_style_confirmed": 7,
-  "rebake_remaining": 21,
+  "new_style_confirmed": 8,
+  "rebake_remaining": 20,
   "fish": [
     {
       "species": "african_catfish",
@@ -319,19 +319,21 @@
     {
       "species": "rainbow_trout",
       "model": "game\\assets\\models\\fish\\rainbow_trout.glb",
-      "model_sha256": "752c06f309c1e9127f6b8c0893ea96bb446c6b826cf255520292d471f09f1ae9",
+      "model_sha256": "769b864f8d8af1b1d55c6ec82eb790a3ba84c7cbff49a0d16658dd6eb1175570",
       "source": "assets\\source\\fish\\rainbow_trout\\fish.blend",
-      "source_sha256": "494fc08922723ce8664f8db207651ff024dab4728b9b00d4363057174692500d",
+      "source_sha256": "906c9334e992cbb22651226661f6ae1303602d60c8f10e3f7013214b110393a5",
       "static": {
         "geometry_uv_skin_sha256": "d4feebf06c3ec0ccd246214d65a20df3386545409d6c069bb387f8364491e120",
-        "material_pixels_sha256": "767ec29ae9d9a5de1d22fab090de75ccb17bf0676b2a73e90f2a4e32c08ccc2d",
+        "material_pixels_sha256": "cc11b73bb590a861c84c6357230dba047897aab8d7998bd3f1866bd77d0d617c",
         "skeleton_rest_bind_sha256": "35aee81b37a9d058c4b6f4fbf86a262cc782f1249ea1817fcc784022642d9193",
         "triangles": 1860,
         "bones": 19
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review",
+      "material_release": "resources/volume-fish/clean-pixel-rainbow-trout-20261110/release.json",
+      "material_accepted_date": "2026-11-10"
     },
     {
       "species": "red_emperor",
