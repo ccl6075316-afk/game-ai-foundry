@@ -1,0 +1,21 @@
+{
+  "proxy_attempt": {
+    "seconds": 725.2844071388245,
+    "verified": 0,
+    "not_verified": 11506,
+    "real_cache_untouched": true
+  },
+  "direct_probe": {
+    "seconds": 7.784059762954712,
+    "verified": 99,
+    "negative_control_passed": true,
+    "batch_size": 100
+  },
+  "conclusion": "Existing core.sshCommand proxy yielded no verified objects. Explicit per-process direct SSH verified the same probe objects. No persistent SSH configuration changed.",
+  "batch_500_attempt": {
+    "candidates": 499,
+    "verified": 0,
+    "real_cache_untouched": true,
+    "not_used_for_deletion": true
+  }
+}

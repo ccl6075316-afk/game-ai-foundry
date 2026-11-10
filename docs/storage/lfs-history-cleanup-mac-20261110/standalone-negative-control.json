@@ -1,0 +1,7 @@
+{
+  "exit_code": 0,
+  "unpublished_oid": "7a83e698f6fc95328939acbe3e9940fe95502255268000268abb3479ec79a29d",
+  "unpublished_object_incorrectly_reported_remote": true,
+  "output": "1 local object, 0 retained, 1 verified with remote, done.\nDeleting objects: 100% (1/1), done.\n",
+  "real_cache_untouched": true
+}

@@ -1,7 +1,7 @@
 {
   "count": 28,
-  "new_style_confirmed": 6,
-  "rebake_remaining": 22,
+  "new_style_confirmed": 7,
+  "rebake_remaining": 21,
   "fish": [
     {
       "species": "african_catfish",
@@ -108,19 +108,20 @@
     {
       "species": "bluegill",
       "model": "game\\assets\\models\\fish\\bluegill.glb",
-      "model_sha256": "4e666881650fdca7e2f51b70d44e01cc17bc77fa69a23e6a2ec1ad47c11df396",
+      "model_sha256": "55903ab56be819ba96fa5117c650028c01cd20a7cfc072778766171119d34cff",
       "source": "assets\\source\\fish\\bluegill\\fish.blend",
-      "source_sha256": "b0b7579aec931b34c281ff9cacfad099ec901db8f3ee110e30e0880a106e3f5c",
+      "source_sha256": "db3d38b474ec1ad3fc736ad17336c72e960e3f8716cfcf46e590574dfbdcc825",
       "static": {
         "geometry_uv_skin_sha256": "4a710d8c511a2db269483c71eab1df8dabcca22012a43558133a8208f56793e3",
-        "material_pixels_sha256": "1c04f2a096d5303df391d871d5fb6c4bbe7ef5364e5a76629fb2674862b51972",
+        "material_pixels_sha256": "58d88583d3097003e93bb63cb5d0a0922e21792146cd5e9947b3ddf5fcf84903",
         "skeleton_rest_bind_sha256": "352c56e782b154bfe09c2478e12403de99ca3ec0933a7c9ba1178ad5d8667233",
         "triangles": 1520,
         "bones": 18
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review",
+      "current_release": "resources/volume-fish/clean-pixel-bluegill-20261110/release.json"
     },
     {
       "species": "brown_trout",

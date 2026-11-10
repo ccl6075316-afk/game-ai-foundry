@@ -1,0 +1,116 @@
+{
+  "status": "done",
+  "files": [
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/baidu-lfs-agent/packs/6a5e40a173aaec80d545a852534a1201e92a64cf9d18ba1d717113bf10aac47e.tar",
+      "bytes": 133089280,
+      "sha256": "6a5e40a173aaec80d545a852534a1201e92a64cf9d18ba1d717113bf10aac47e",
+      "kind": "verified_cloud_pack"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/baidu-lfs-agent/packs/ac8d4945decccfb6bc483c5b32715587bbbebabcefc2715118eccbce6e718fd1.tar",
+      "bytes": 132689920,
+      "sha256": "ac8d4945decccfb6bc483c5b32715587bbbebabcefc2715118eccbce6e718fd1",
+      "kind": "verified_cloud_pack"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/baidu-lfs-agent/packs/eb1d31878b30920206d6291434f742205d456252120b2dd028be08ffb5cc448f.tar",
+      "bytes": 133263360,
+      "sha256": "eb1d31878b30920206d6291434f742205d456252120b2dd028be08ffb5cc448f",
+      "kind": "verified_cloud_pack"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/baidu-lfs-agent/packs/1aaf0ef301a0aa8e12fbfb8ea452f3c0a82c570cbe8b755d35a0d266b4ca25dc.tar",
+      "bytes": 128890880,
+      "sha256": "1aaf0ef301a0aa8e12fbfb8ea452f3c0a82c570cbe8b755d35a0d266b4ca25dc",
+      "kind": "verified_cloud_pack"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/baidu-lfs-agent/packs/d7cf3069026e1a18b970d5af382bafeeeeb03e7c47a7b4d27eb6fe464d6b5bc5.tar",
+      "bytes": 132659200,
+      "sha256": "d7cf3069026e1a18b970d5af382bafeeeeb03e7c47a7b4d27eb6fe464d6b5bc5",
+      "kind": "verified_cloud_pack"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/baidu-lfs-agent/packs/d022529c54561c35092b43e667f269a0f41aacdd91415cf222e8892aad0c1c16.tar",
+      "bytes": 128798720,
+      "sha256": "d022529c54561c35092b43e667f269a0f41aacdd91415cf222e8892aad0c1c16",
+      "kind": "verified_cloud_pack"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/baidu-lfs-agent/packs/94a1aad6bb4be2d9484918a1cd0ef31f9784f12ca9d558cb67b3304480ba2c08.tar",
+      "bytes": 130088960,
+      "sha256": "94a1aad6bb4be2d9484918a1cd0ef31f9784f12ca9d558cb67b3304480ba2c08",
+      "kind": "verified_cloud_pack"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/baidu-lfs-agent/packs/8551923e8328a7702e6f95133c8a2f72646ea7a3d8c625f7e9f5c5d8e3e44747.tar",
+      "bytes": 134144000,
+      "sha256": "8551923e8328a7702e6f95133c8a2f72646ea7a3d8c625f7e9f5c5d8e3e44747",
+      "kind": "verified_cloud_pack"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/baidu-lfs-agent/packs/744b1130763e083739f26768968d3d58c212b19b970aab5b3d17579d1ae13d44.tar",
+      "bytes": 134297600,
+      "sha256": "744b1130763e083739f26768968d3d58c212b19b970aab5b3d17579d1ae13d44",
+      "kind": "verified_cloud_pack"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/baidu-lfs-agent/packs/9afca74caac1da30554a8c2fe0af0a61f1ae4ca4e661ff3d0873c6fd15be32ac.tar",
+      "bytes": 118599680,
+      "sha256": "9afca74caac1da30554a8c2fe0af0a61f1ae4ca4e661ff3d0873c6fd15be32ac",
+      "kind": "verified_cloud_pack"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/baidu-lfs-agent/packs/5397babda65b1a6229920392683705873f8cb621a34cbfcbd31d6f8ddf52665b.tar",
+      "bytes": 118855680,
+      "sha256": "5397babda65b1a6229920392683705873f8cb621a34cbfcbd31d6f8ddf52665b",
+      "kind": "verified_cloud_pack"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/baidu-lfs-agent/packs/01eda2a41487a28eea89343e84373f1bc01c2bdbaac8c81ffeb32cfc2fa65e9a.tar",
+      "bytes": 130304000,
+      "sha256": "01eda2a41487a28eea89343e84373f1bc01c2bdbaac8c81ffeb32cfc2fa65e9a",
+      "kind": "verified_cloud_pack"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/baidu-lfs-agent/packs/2ffa049c21d4888b7d801895d2990692c823c023db78fd7994d9b9ed646aef66.tar",
+      "bytes": 133713920,
+      "sha256": "2ffa049c21d4888b7d801895d2990692c823c023db78fd7994d9b9ed646aef66",
+      "kind": "verified_cloud_pack"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/baidu-lfs-agent/packs/42a76f9254dfb7889eb295e854d87bda6a1dd8d72a1a39db6fd8a693668e3f5b.tar",
+      "bytes": 132648960,
+      "sha256": "42a76f9254dfb7889eb295e854d87bda6a1dd8d72a1a39db6fd8a693668e3f5b",
+      "kind": "verified_cloud_pack"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/baidu-lfs-agent/packs/92fb05044719bfaaaa7de788e074b4d51810b71d48f8bcf02a195767bd365698.tar",
+      "bytes": 134236160,
+      "sha256": "92fb05044719bfaaaa7de788e074b4d51810b71d48f8bcf02a195767bd365698",
+      "kind": "verified_cloud_pack"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/baidu-lfs-agent/packs/8f40b8dfa2d31a43f78c8e2241f14a5cfecbbe95d0873cb897151b63a64360b9.tar",
+      "bytes": 132935680,
+      "sha256": "8f40b8dfa2d31a43f78c8e2241f14a5cfecbbe95d0873cb897151b63a64360b9",
+      "kind": "verified_cloud_pack"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/baidu-lfs-mac-sync/speed-direct-7644b4127c23f8285773152f82e1b8416dc29c1b7e0cdd426473bddcea2d1029",
+      "bytes": 3559408,
+      "sha256": "7644b4127c23f8285773152f82e1b8416dc29c1b7e0cdd426473bddcea2d1029",
+      "kind": "verified_speed_probe"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/baidu-lfs-mac-sync/speed-proxy-7644b4127c23f8285773152f82e1b8416dc29c1b7e0cdd426473bddcea2d1029",
+      "bytes": 3559408,
+      "sha256": "7644b4127c23f8285773152f82e1b8416dc29c1b7e0cdd426473bddcea2d1029",
+      "kind": "verified_speed_probe"
+    }
+  ],
+  "bytes": 2096334816,
+  "deleted_files": 18,
+  "all_absent": true
+}

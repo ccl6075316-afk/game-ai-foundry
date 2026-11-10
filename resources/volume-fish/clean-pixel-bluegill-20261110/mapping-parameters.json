@@ -1,0 +1,105 @@
+{
+  "species": "bluegill",
+  "canonical_model_input_sha256": "4e666881650fdca7e2f51b70d44e01cc17bc77fa69a23e6a2ec1ad47c11df396",
+  "approved_concept_sha256": "b3bca3c56d43dd23575567f762366ad5b1e2c5bbef70259e5caf167b575335c2",
+  "UV_and_alpha": "original 2048x4096 preserved",
+  "side_camera_width_native": 1.14,
+  "side_camera_aspect": [
+    900,
+    620
+  ],
+  "body_panel_y_pixels": [
+    [
+      0,
+      520
+    ],
+    [
+      520,
+      760
+    ],
+    [
+      760,
+      1041
+    ]
+  ],
+  "body_view_order": [
+    "side_head_right",
+    "top_head_right",
+    "bottom_head_left"
+  ],
+  "body_top_bottom_normal_blend": [
+    0.4,
+    0.85
+  ],
+  "fin_domain": "same projected part footprint, 5px dilation, own-color foreground, 3px erosion; median fins exclude body interior; finite nearest donor fallback recorded",
+  "pectoral_body_exclusion_dilation_pixels": null,
+  "mouth_front_camera": {
+    "width": 0.14,
+    "height": 0.09644444444444446,
+    "focus_native": [
+      0.46,
+      -0.045,
+      0
+    ],
+    "noseward_x_blend": [
+      0.415,
+      0.46
+    ],
+    "oral_part": "front donor; outside skin excludes dark cavity"
+  },
+  "forehead_front_camera": {
+    "width": 0.3,
+    "height": 0.45,
+    "focus_native": [
+      0.43,
+      0,
+      0
+    ],
+    "lateral_full_blend_limit": 0.03,
+    "lateral_zero_blend_limit": 0.045,
+    "x_blend": [
+      0.3,
+      0.35
+    ],
+    "y_blend": [
+      -0.015,
+      0.01
+    ],
+    "eye_rule": "Only central anterior skin, lateral eyes retain accepted side image"
+  },
+  "atlas_gutter_pixels": 1.25,
+  "generation_role": "Previously generated full clean-body panels supply whole body color; approved whole-fish concept supplies fins; mouth/forehead donors kept within declared front domains.",
+  "limitations": [
+    "Artistic clean-body registration does not prove biological anatomy or exact reproduction of approved concept",
+    "Current representative actions are not full physical/runtime gates",
+    "No geometry/fin size change; existing small source/mesh contour difference remains separate from the fixed body patch"
+  ],
+  "revision": "R4",
+  "body_side_source": "entire clean-body side panel; no whole-fish RGB on body and no local pectoral patch",
+  "body_stage": "body-r4",
+  "fin_stage": "candidate-r4",
+  "side_landmark_registration": {
+    "target_concept_x": [
+      850,
+      1005,
+      1222,
+      1298
+    ],
+    "clean_body_x": [
+      850,
+      1017,
+      1176,
+      1243
+    ],
+    "endpoints": "actual projected/source silhouette bounds",
+    "target_eye_y": 499,
+    "clean_body_eye_y": 248,
+    "y_correction_blend_target_x": [
+      1080,
+      1180
+    ],
+    "method": "continuous source-coordinate remapping; no RGB patch blending at chest"
+  },
+  "frozen_body_pixels": 734729,
+  "body_before_after_GPU_views": 8
+}

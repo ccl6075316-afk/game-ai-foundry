@@ -1,0 +1,87 @@
+"""Delete only preflight-listed, hash-checked, remote-verified obsolete LFS objects."""
+from pathlib import Path
+import hashlib, json, os, subprocess, time
+from audit import ROOT, OUT, git, refs, sha
+
+def validate_checkout(entry):
+    repo=Path(entry['repo'])
+    assert refs(repo)==entry['refs'], 'Git refs changed'
+    assert hashlib.sha256(git(repo,'ls-files','--stage','-z')).hexdigest()==entry['index_entries_sha256'], 'Index changed'
+    trees=[x[9:] for x in git(repo,'worktree','list','--porcelain').decode().splitlines() if x.startswith('worktree ')]
+    assert trees==entry['worktrees'], 'Worktree set changed'
+    assert not git(repo,'status','--porcelain','--untracked-files=no').strip(), 'Tracked working changes'
+    for item in entry['current_files']:
+        p=repo/item['name']
+        assert p.stat().st_size==item['size'] and sha(p)==item['oid'], str(p)
+
+def safe_source(repo, row):
+    p=Path(row['path']);base=repo/'.git/lfs/objects'
+    assert p==base/row['oid'][:2]/row['oid'][2:4]/row['oid']
+    assert p.resolve()==p and not p.is_symlink()
+    st=p.stat()
+    assert st.st_size==row['bytes'] and st.st_mtime_ns==row['mtime_ns'] and st.st_ino==row['inode']
+    return p
+
+def du(path):
+    return int(subprocess.check_output(['du','-sk',str(path)],text=True).split()[0])*1024
+
+def main():
+    plan=json.loads((OUT/'preflight.json').read_text());assert plan['status']=='preflight_complete'
+    execution={'status':'preflight','started':time.time(),'scope':'local historical LFS objects only; current assets, code/Git history, cloud data unchanged','repos':[]}
+    for entry in plan['repos']:
+        validate_checkout(entry)
+        v=json.loads((OUT/(entry['name']+'-remote-verification.json')).read_text())
+        assert v['exit_code']==0 and v['negative_control_passed'] and not v['mirror_remaining']
+        verified=set(v['verified_oids'])
+        targets=[x for x in entry['candidates'] if x['oid'] in verified]
+        for row in targets:
+            p=safe_source(Path(entry['repo']),row)
+            assert sha(p)==row['oid']
+        execution['repos'].append({'name':entry['name'],'repo':entry['repo'],'targets':targets,
+            'unverified_retained':[x['oid'] for x in entry['candidates'] if x['oid'] not in verified],
+            'unknown_retained_objects':len(entry['unknown']),'unknown_retained_bytes':sum(x['bytes'] for x in entry['unknown']),
+            'deleted_objects':0,'deleted_bytes':0,'deleted_allocated_bytes':0,'deleted_oids':[]})
+    for entry in plan['repos']:
+        assert refs(Path(entry['repo']))==entry['refs']
+    execution['before_bytes']=du(ROOT)
+    execution['before_game_bytes']=du(ROOT/'projects/fishing-2d')
+    execution['before_lfs_bytes']={e['name']:du(Path(e['repo'])/'.git/lfs') for e in plan['repos']}
+    report_path=OUT/'execution.json'
+    report_path.write_text(json.dumps(execution,indent=2)+'\n')
+    journal=OUT/'deletion-journal.jsonl'
+    assert not journal.exists()
+    execution['status']='deleting'
+    try:
+        with journal.open('x') as stream:
+            for entry, result in zip(plan['repos'], execution['repos']):
+                repo=Path(entry['repo'])
+                assert refs(repo)==entry['refs']
+                for row in result['targets']:
+                    p=safe_source(repo,row)
+                    p.unlink()
+                    result['deleted_objects']+=1
+                    result['deleted_bytes']+=row['bytes']
+                    result['deleted_allocated_bytes']+=row['allocated_bytes']
+                    result['deleted_oids'].append(row['oid'])
+                    stream.write(json.dumps({'repo':entry['name'],'oid':row['oid'],'bytes':row['bytes']})+'\n')
+                stream.flush()
+                for directory,dirs,files in os.walk(repo/'.git/lfs/objects',topdown=False):
+                    q=Path(directory)
+                    if q!=repo/'.git/lfs/objects' and not any(q.iterdir()):q.rmdir()
+                print(json.dumps({'repo':entry['name'],'deleted_objects':result['deleted_objects'],'deleted_bytes':result['deleted_bytes']}),flush=True)
+        for entry in plan['repos']:
+            validate_checkout(entry)
+            for row in entry['unknown']+entry['retained']+entry['retained_workspace_matches']:
+                p=Path(row['path']);assert p.is_file() and p.stat().st_size==row['bytes']
+        execution['status']='done'
+        execution['current_asset_paths_hash_verified_before_and_after']=sum(len(e['current_files']) for e in plan['repos'])
+        execution['after_bytes']=du(ROOT)
+        execution['after_game_bytes']=du(ROOT/'projects/fishing-2d')
+        execution['after_lfs_bytes']={e['name']:du(Path(e['repo'])/'.git/lfs') for e in plan['repos']}
+        execution['finished']=time.time()
+    finally:
+        report_path.write_text(json.dumps(execution,indent=2)+'\n')
+    print(json.dumps({'status':execution['status'],'deleted_objects':sum(x['deleted_objects'] for x in execution['repos']),
+          'deleted_bytes':sum(x['deleted_bytes'] for x in execution['repos']),'before_bytes':execution['before_bytes'],'after_bytes':execution.get('after_bytes')}),flush=True)
+
+if __name__=='__main__':main()

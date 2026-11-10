@@ -17,4 +17,8 @@
 
 用户已接受鲸鲨、旗鱼及两条双髻鲨，以上canonical-only与旧实验退休规则覆盖全部28条。未接受游动观感不构成保留旧静态工程理由。每轮扫Foundry独立projects、游戏output/experiments/reviews及Git/LFS；Git干净不等于实验已清。旧归档的物种接受状态必须对照当前inventory更新，不继续按“四鱼未成品”保留。先分离原始论文/参考模型、提炼方法与失败数值，再按文件SHA清除旧工程/截图/模型/密集数据。当前源/成品、活运行依赖、资料库和PDF前后哈希验证；不手工删Git对象或重写历史。详见游戏static-fish-release-20261108/HANDOFF.md补漏段。
 
-第二轮缓存规则：Git/LFS缓存与工作区载荷分开统计；已推送旧提交可用 `git lfs prune --recent --verify-remote --verify-unreachable` 放弃近期历史缓存，保留当前HEAD/未推送/其他工作树，不用会清当前对象的 `--force`。Godot只删无有效源import且无代码/场景/序列化资源引用的缓存；当前资产前后SHA核对。旧版本号不代表无依赖，造景重建/预算验证和鱼兼容链仍使用的资源先保留。
+第二轮缓存规则：Git/LFS缓存与工作区载荷分开统计。2026-11-10 Mac 实测发现，百度 standalone adapter 下 `prune --verify-remote` 会把从未上传的负例误判为 verified，不能再据此直接清真实缓存。先保护当前 index/HEAD、全部 ref tip、stash/父树、未推送提交、其他工作树和现存载荷；远端核对只能在隔离硬链接镜像中，命令级禁用 standalone、使用实际存储端点，并要求未上传负例确实保留。核对成功后才按精确 SHA 清真实旧对象，不对真实缓存用 `--force`。详见 `docs/storage/lfs-history-cleanup-mac-20261110/README.md`。Godot只删无有效源import且无代码/场景/序列化资源引用的缓存；当前资产前后SHA核对。旧版本号不代表无依赖，造景重建/预算验证和鱼兼容链仍使用的资源先保留。
+
+## 2026-11-10 本机全目录收尾
+
+跨机器同步不会删除被 Git 忽略的旧实验。不能沿用另一台机器的“已清理”结论，也不能只看 Git 状态或上轮删除清单：每次在当前机器盘点 Foundry 的 work/output/独立 projects、游戏 output/experiments/reviews、两仓库 Git/LFS 与导入缓存，记录未跟踪和被忽略文件。历史退休清单只有路径和 SHA 同时匹配才可复用。先查活动任务、当前引用及原始输入，再提炼方法和完整核心数值、按精确清单删除；重复证据要留下现存同 SHA keeper 映射。下载残片单独确认无活动传输，未知且未确认副本的 LFS 对象明确列入保留项，不当垃圾盲删。收尾报告须给出实际剩余体积、保护资产 SHA 复核与保留原因。Mac 实际回执在游戏 `plans/reviews/static-fish-release-20261108/mac-full-cleanup-20261110/`。

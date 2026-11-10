@@ -1,0 +1,564 @@
+{
+  "started_at": "2026-11-10T03:32:44.236206+00:00",
+  "status": "done",
+  "repos": [
+    {
+      "path": "/Users/czl/projects/game-ai-foundry",
+      "head": "1d5501dc400eff4225a05b92adc3db1c4bc1d9dc",
+      "missing": [
+        {
+          "path": "resources/fish-database/references/recovered-history-20261108/references/barramundi/BarramundiFish.glb",
+          "oid": "ecc3bafb6b00f2c8b810863c388e3768a7b7ea0d0335e8cb8c574c266e571f4a",
+          "bytes": 12488144
+        },
+        {
+          "path": "resources/fish-database/references/recovered-history-20261108/references/fishsim/FishSim_4_02_0.zip",
+          "oid": "bd3662b14521e6b19d549f6763b5ed8b6960fcf5ac111263d044fd8b803b96af",
+          "bytes": 11930398
+        },
+        {
+          "path": "resources/fish-database/references/recovered-history-20261108/references/fishsim/unpacked/FishSim/Models/Models.blend",
+          "oid": "9ce1184d5b889da05537f09066b06e7b85e26153cc138fa33876f2be6669ed92",
+          "bytes": 16782980
+        },
+        {
+          "path": "resources/fish-database/references/recovered-history-20261108/sources/atlantic-noaa-1998.pdf",
+          "oid": "34ef40dd6e6acccbdd618f2202ec7c7d6ab008c54930f63296082e59be540475",
+          "bytes": 969989
+        },
+        {
+          "path": "resources/fish-database/references/recovered-history-20261108/sources/atlantic-stien-2017.pdf",
+          "oid": "37939854a80f375967f7ef858e087d644d3c8370683238fab76dd127efdd956e",
+          "bytes": 960040
+        },
+        {
+          "path": "resources/fish-database/references/recovered-history-20261108/sources/brown-caspian-morphometrics.pdf",
+          "oid": "5131e98415819696d74dbd12b6608abe99e3cece990adc2d199caf7ec0d83589",
+          "bytes": 1538786
+        },
+        {
+          "path": "resources/fish-database/references/recovered-history-20261108/sources/brown-piria-2020.pdf",
+          "oid": "6f815ad5006d8e3b9cb3f4c42db833694058d573dff438a8d2454770b4f0ba72",
+          "bytes": 898521
+        },
+        {
+          "path": "resources/fish-database/references/recovered-history-20261108/sources/paleomass-validation.zip",
+          "oid": "3401a37b16fd623ebfac04f44006b6d40ac1f01d744a43265544f279f6554bfd",
+          "bytes": 2077686
+        },
+        {
+          "path": "resources/fish-database/references/recovered-history-20261108/sources/rainbow-mccloud-2023.pdf",
+          "oid": "3b37e6a74f96da0b38c4736aa47d170353f690e052bd2b8fea57594ea33b3d51",
+          "bytes": 6358938
+        },
+        {
+          "path": "resources/fish-database/references/recovered-history-20261108/sources/seabass-yokogawa-2019.pdf",
+          "oid": "7aab456c45f42e7a586bdd2c9ab8d8633c9cbb0853490a0d49f36696ebf3bb9a",
+          "bytes": 8673052
+        },
+        {
+          "path": "resources/volume-fish/styles/clean-pixel-20261108/nile-tilapia-B-eye.png",
+          "oid": "b7d80cd0152dacd8abb5ec7a51f2b305be4082b0e509ef5d0ee274ec044ec98d",
+          "bytes": 1870210
+        },
+        {
+          "path": "resources/volume-fish/styles/clean-pixel-20261108/nile-tilapia-C.png",
+          "oid": "45fe646d48d2ae3e03bd1bdd644504e98d27c5bd963681089d84d3851c48905a",
+          "bytes": 2132715
+        }
+      ],
+      "pull_exit_code": 0,
+      "checks": [
+        {
+          "path": "resources/fish-database/references/recovered-history-20261108/references/barramundi/BarramundiFish.glb",
+          "bytes": 12488144,
+          "sha256": "ecc3bafb6b00f2c8b810863c388e3768a7b7ea0d0335e8cb8c574c266e571f4a",
+          "ok": true
+        },
+        {
+          "path": "resources/fish-database/references/recovered-history-20261108/references/fishsim/FishSim_4_02_0.zip",
+          "bytes": 11930398,
+          "sha256": "bd3662b14521e6b19d549f6763b5ed8b6960fcf5ac111263d044fd8b803b96af",
+          "ok": true
+        },
+        {
+          "path": "resources/fish-database/references/recovered-history-20261108/references/fishsim/unpacked/FishSim/Models/Models.blend",
+          "bytes": 16782980,
+          "sha256": "9ce1184d5b889da05537f09066b06e7b85e26153cc138fa33876f2be6669ed92",
+          "ok": true
+        },
+        {
+          "path": "resources/fish-database/references/recovered-history-20261108/sources/atlantic-noaa-1998.pdf",
+          "bytes": 969989,
+          "sha256": "34ef40dd6e6acccbdd618f2202ec7c7d6ab008c54930f63296082e59be540475",
+          "ok": true
+        },
+        {
+          "path": "resources/fish-database/references/recovered-history-20261108/sources/atlantic-stien-2017.pdf",
+          "bytes": 960040,
+          "sha256": "37939854a80f375967f7ef858e087d644d3c8370683238fab76dd127efdd956e",
+          "ok": true
+        },
+        {
+          "path": "resources/fish-database/references/recovered-history-20261108/sources/brown-caspian-morphometrics.pdf",
+          "bytes": 1538786,
+          "sha256": "5131e98415819696d74dbd12b6608abe99e3cece990adc2d199caf7ec0d83589",
+          "ok": true
+        },
+        {
+          "path": "resources/fish-database/references/recovered-history-20261108/sources/brown-piria-2020.pdf",
+          "bytes": 898521,
+          "sha256": "6f815ad5006d8e3b9cb3f4c42db833694058d573dff438a8d2454770b4f0ba72",
+          "ok": true
+        },
+        {
+          "path": "resources/fish-database/references/recovered-history-20261108/sources/paleomass-validation.zip",
+          "bytes": 2077686,
+          "sha256": "3401a37b16fd623ebfac04f44006b6d40ac1f01d744a43265544f279f6554bfd",
+          "ok": true
+        },
+        {
+          "path": "resources/fish-database/references/recovered-history-20261108/sources/rainbow-mccloud-2023.pdf",
+          "bytes": 6358938,
+          "sha256": "3b37e6a74f96da0b38c4736aa47d170353f690e052bd2b8fea57594ea33b3d51",
+          "ok": true
+        },
+        {
+          "path": "resources/fish-database/references/recovered-history-20261108/sources/seabass-yokogawa-2019.pdf",
+          "bytes": 8673052,
+          "sha256": "7aab456c45f42e7a586bdd2c9ab8d8633c9cbb0853490a0d49f36696ebf3bb9a",
+          "ok": true
+        },
+        {
+          "path": "resources/volume-fish/styles/clean-pixel-20261108/nile-tilapia-B-eye.png",
+          "bytes": 1870210,
+          "sha256": "b7d80cd0152dacd8abb5ec7a51f2b305be4082b0e509ef5d0ee274ec044ec98d",
+          "ok": true
+        },
+        {
+          "path": "resources/volume-fish/styles/clean-pixel-20261108/nile-tilapia-C.png",
+          "bytes": 2132715,
+          "sha256": "45fe646d48d2ae3e03bd1bdd644504e98d27c5bd963681089d84d3851c48905a",
+          "ok": true
+        }
+      ],
+      "clean": false,
+      "final_scan": {
+        "tracked_lfs_paths": 1487,
+        "remaining_pointers": [],
+        "absent_files": [],
+        "tracked_clean": true
+      }
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d",
+      "head": "4bb8aea7eb385b68e8e528769eacffbda0e8e56d",
+      "missing": [
+        {
+          "path": "assets/source/fish/atlantic_sailfish/fish.blend",
+          "oid": "722cca2a7cc2fa49fa1d0fcaf5aa83eef325f8957a369eabfb36a32e131cb85d",
+          "bytes": 4943160
+        },
+        {
+          "path": "assets/source/fish/carp/clean-pixel-20261110/approved-style-concept.png",
+          "oid": "3f8faa4d18b70af4c881441715ee476e85a81c506e9906b7a8940e9388a251bd",
+          "bytes": 1711809
+        },
+        {
+          "path": "assets/source/fish/carp/clean-pixel-20261110/body-color.png",
+          "oid": "97f3b3820efef81756c16e5c8ee2530f79302e04119942625612615567d5c0f0",
+          "bytes": 1903599
+        },
+        {
+          "path": "assets/source/fish/carp/clean-pixel-20261110/body-guide.png",
+          "oid": "d8306bd0f7541c93f4d150365b2eea6fcb7a27fc58f4fd4330df41c5129f8247",
+          "bytes": 978161
+        },
+        {
+          "path": "assets/source/fish/carp/clean-pixel-20261110/fin-color.png",
+          "oid": "b751c5cd3318d5eeecc0c9059d294b7762ee9a8202ed863bb0aa67c1f14829b7",
+          "bytes": 1609653
+        },
+        {
+          "path": "assets/source/fish/carp/clean-pixel-20261110/fin-guide.png",
+          "oid": "bce1ed03a5478d546ef038f41366e0116ec9e50ca1103cff4bbc03aef55cd932",
+          "bytes": 20006
+        },
+        {
+          "path": "assets/source/fish/carp/clean-pixel-20261110/front-color.png",
+          "oid": "8ea4736c64df86a4ff1422907f3b0b76befabf94cfe3aff19b3accafe60365e6",
+          "bytes": 1467240
+        },
+        {
+          "path": "assets/source/fish/carp/clean-pixel-20261110/mouth-guide.png",
+          "oid": "fe7191f58c984c3845f61c368e3014ee87e623e784eef2fa2ba4cfde4ae3c209",
+          "bytes": 597354
+        },
+        {
+          "path": "assets/source/fish/carp/fish.blend",
+          "oid": "8fed6507115412d1ae16369cb3f04966155513921e0ba19cf683539df054075b",
+          "bytes": 9041121
+        },
+        {
+          "path": "assets/source/fish/crucian/clean-pixel-20261110/approved-style-concept.png",
+          "oid": "635aa923643f903abe9a3c03679715d364e604cf9bfc6313d38459f3080c236c",
+          "bytes": 1538238
+        },
+        {
+          "path": "assets/source/fish/crucian/clean-pixel-20261110/body-color.png",
+          "oid": "75ff227050e579df2141709dc490c290aafcdf5f2b0bd02e8616f32eaf06086a",
+          "bytes": 1714194
+        },
+        {
+          "path": "assets/source/fish/crucian/clean-pixel-20261110/body-guide.png",
+          "oid": "68d35b0422920bc62147e822a543a3f750334df8933d714fdad3120d288df1d8",
+          "bytes": 939319
+        },
+        {
+          "path": "assets/source/fish/crucian/clean-pixel-20261110/fin-color.png",
+          "oid": "19bce72e197b01db2a62c2878a2ed82c8731ca97a5bf151d2a6dbe03c6c7b3cb",
+          "bytes": 1487356
+        },
+        {
+          "path": "assets/source/fish/crucian/clean-pixel-20261110/fin-guide.png",
+          "oid": "99cb6678e0d6b2571806ea844142e8f05723933c062c3f2c201d7e62ecc968c7",
+          "bytes": 19513
+        },
+        {
+          "path": "assets/source/fish/crucian/clean-pixel-20261110/front-color.png",
+          "oid": "2ecf3fe79a9a3c2a26ac6bbe674d0d7ce842095dfb2b26af5de08ed5230bd929",
+          "bytes": 1268231
+        },
+        {
+          "path": "assets/source/fish/crucian/clean-pixel-20261110/mouth-guide.png",
+          "oid": "d00d3a0ee5f392f010bbf36c84ecfe92e5e01c96c9d88c60ac7f879f5efe3179",
+          "bytes": 582913
+        },
+        {
+          "path": "assets/source/fish/crucian/fish.blend",
+          "oid": "8f3d7358f031298f9e84af376ffb649a886150026179052d993104a3a1e61b41",
+          "bytes": 4758664
+        },
+        {
+          "path": "assets/source/fish/grass_carp/clean-pixel-20261110/approved-style-concept.png",
+          "oid": "2360fdf0c8523979dafbfb0ff18d38ff2edffacc5b56a65b4c2b9baf727ce97b",
+          "bytes": 1399098
+        },
+        {
+          "path": "assets/source/fish/grass_carp/clean-pixel-20261110/body-color.png",
+          "oid": "4605ae53bd36e1d55c2119b9e9ec38706373e0586abd273ba3283928238e4206",
+          "bytes": 1739045
+        },
+        {
+          "path": "assets/source/fish/grass_carp/clean-pixel-20261110/body-guide.png",
+          "oid": "17acadeb0ed06a702d5088654e0cfb07c19f6a2aaeb7b3b18bdb1fdad4c0fd35",
+          "bytes": 916352
+        },
+        {
+          "path": "assets/source/fish/grass_carp/clean-pixel-20261110/fin-color.png",
+          "oid": "556ffa379b489337c259e611da7f54ed4993dc6d3ff93a2f339391f6af37f11f",
+          "bytes": 1562453
+        },
+        {
+          "path": "assets/source/fish/grass_carp/clean-pixel-20261110/fin-guide.png",
+          "oid": "d5ce93db0d14d098d294b8ca2a8a3bafba161a382b2f2af4a2190677a7393c7e",
+          "bytes": 19201
+        },
+        {
+          "path": "assets/source/fish/grass_carp/clean-pixel-20261110/front-color.png",
+          "oid": "6ed92d94286d4c96fafe1911e4381ab455d1a40d50d6492494ce9baece011c69",
+          "bytes": 1273991
+        },
+        {
+          "path": "assets/source/fish/grass_carp/clean-pixel-20261110/mouth-guide.png",
+          "oid": "14f9c8d26ff8a34e64ce4d74e9f7b8ae3206b7adbe228a5ddada525ce42b5a37",
+          "bytes": 595122
+        },
+        {
+          "path": "assets/source/fish/grass_carp/fish.blend",
+          "oid": "b2c9c7cd40bda25320fcc916db27d3091c52eea80a712c565bf8f69e9c713413",
+          "bytes": 3635806
+        },
+        {
+          "path": "assets/source/fish/nile_tilapia/fish.blend",
+          "oid": "9b676a1c44e06bb490a31e25a8b246be3b1cce8947df461b4bd56a91e5d0af41",
+          "bytes": 6061830
+        },
+        {
+          "path": "assets/source/fish/whale_shark/fish.blend",
+          "oid": "9902e18aed7913d66c07edd464de09982236d33f47abdcb58756d3f571d6af95",
+          "bytes": 3318056
+        },
+        {
+          "path": "game/assets/models/fish/atlantic_sailfish.glb",
+          "oid": "d39cf6ecd0862d0307d5c6cec4c3e645fb3c5d2c4ba7e78588791d7fb2cd4758",
+          "bytes": 3695204
+        },
+        {
+          "path": "game/assets/models/fish/carp.glb",
+          "oid": "125367185014e41a25fb4c83693a547d71fcc585486c853e55de44f8a29d1e67",
+          "bytes": 9420008
+        },
+        {
+          "path": "game/assets/models/fish/crucian.glb",
+          "oid": "7f1128666b3ca138198a5f8f52bd7490d01c2dae0e43a1cf65df732a40fc661b",
+          "bytes": 4768592
+        },
+        {
+          "path": "game/assets/models/fish/grass_carp.glb",
+          "oid": "7644b4127c23f8285773152f82e1b8416dc29c1b7e0cdd426473bddcea2d1029",
+          "bytes": 3559408
+        },
+        {
+          "path": "game/assets/models/fish/nile_tilapia.glb",
+          "oid": "f24528ccb29685741577fedfaf28afc627de1dc53593a43e0f3854e7fa3cba63",
+          "bytes": 4851508
+        },
+        {
+          "path": "game/assets/models/fish/nile_tilapia_atlas.png",
+          "oid": "32596ba32e317b19e0edebba5ebb267ac199f1107650dd3367b4196cfb592ef8",
+          "bytes": 4729416
+        },
+        {
+          "path": "game/assets/models/fish/whale_shark.glb",
+          "oid": "5df93fddbc48359edae4f59573f6834d20c5dd49bdd4952537c8e1f640319905",
+          "bytes": 3319008
+        },
+        {
+          "path": "plans/reviews/clean-pixel-three-20261110/accepted-review.jpg",
+          "oid": "43479f535d6640e018e4e7d042a11f45ff2984fb1363cd28ead83709ad6af4cd",
+          "bytes": 131795
+        }
+      ],
+      "pull_exit_code": 0,
+      "checks": [
+        {
+          "path": "assets/source/fish/atlantic_sailfish/fish.blend",
+          "bytes": 4943160,
+          "sha256": "722cca2a7cc2fa49fa1d0fcaf5aa83eef325f8957a369eabfb36a32e131cb85d",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/carp/clean-pixel-20261110/approved-style-concept.png",
+          "bytes": 1711809,
+          "sha256": "3f8faa4d18b70af4c881441715ee476e85a81c506e9906b7a8940e9388a251bd",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/carp/clean-pixel-20261110/body-color.png",
+          "bytes": 1903599,
+          "sha256": "97f3b3820efef81756c16e5c8ee2530f79302e04119942625612615567d5c0f0",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/carp/clean-pixel-20261110/body-guide.png",
+          "bytes": 978161,
+          "sha256": "d8306bd0f7541c93f4d150365b2eea6fcb7a27fc58f4fd4330df41c5129f8247",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/carp/clean-pixel-20261110/fin-color.png",
+          "bytes": 1609653,
+          "sha256": "b751c5cd3318d5eeecc0c9059d294b7762ee9a8202ed863bb0aa67c1f14829b7",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/carp/clean-pixel-20261110/fin-guide.png",
+          "bytes": 20006,
+          "sha256": "bce1ed03a5478d546ef038f41366e0116ec9e50ca1103cff4bbc03aef55cd932",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/carp/clean-pixel-20261110/front-color.png",
+          "bytes": 1467240,
+          "sha256": "8ea4736c64df86a4ff1422907f3b0b76befabf94cfe3aff19b3accafe60365e6",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/carp/clean-pixel-20261110/mouth-guide.png",
+          "bytes": 597354,
+          "sha256": "fe7191f58c984c3845f61c368e3014ee87e623e784eef2fa2ba4cfde4ae3c209",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/carp/fish.blend",
+          "bytes": 9041121,
+          "sha256": "8fed6507115412d1ae16369cb3f04966155513921e0ba19cf683539df054075b",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/crucian/clean-pixel-20261110/approved-style-concept.png",
+          "bytes": 1538238,
+          "sha256": "635aa923643f903abe9a3c03679715d364e604cf9bfc6313d38459f3080c236c",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/crucian/clean-pixel-20261110/body-color.png",
+          "bytes": 1714194,
+          "sha256": "75ff227050e579df2141709dc490c290aafcdf5f2b0bd02e8616f32eaf06086a",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/crucian/clean-pixel-20261110/body-guide.png",
+          "bytes": 939319,
+          "sha256": "68d35b0422920bc62147e822a543a3f750334df8933d714fdad3120d288df1d8",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/crucian/clean-pixel-20261110/fin-color.png",
+          "bytes": 1487356,
+          "sha256": "19bce72e197b01db2a62c2878a2ed82c8731ca97a5bf151d2a6dbe03c6c7b3cb",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/crucian/clean-pixel-20261110/fin-guide.png",
+          "bytes": 19513,
+          "sha256": "99cb6678e0d6b2571806ea844142e8f05723933c062c3f2c201d7e62ecc968c7",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/crucian/clean-pixel-20261110/front-color.png",
+          "bytes": 1268231,
+          "sha256": "2ecf3fe79a9a3c2a26ac6bbe674d0d7ce842095dfb2b26af5de08ed5230bd929",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/crucian/clean-pixel-20261110/mouth-guide.png",
+          "bytes": 582913,
+          "sha256": "d00d3a0ee5f392f010bbf36c84ecfe92e5e01c96c9d88c60ac7f879f5efe3179",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/crucian/fish.blend",
+          "bytes": 4758664,
+          "sha256": "8f3d7358f031298f9e84af376ffb649a886150026179052d993104a3a1e61b41",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/grass_carp/clean-pixel-20261110/approved-style-concept.png",
+          "bytes": 1399098,
+          "sha256": "2360fdf0c8523979dafbfb0ff18d38ff2edffacc5b56a65b4c2b9baf727ce97b",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/grass_carp/clean-pixel-20261110/body-color.png",
+          "bytes": 1739045,
+          "sha256": "4605ae53bd36e1d55c2119b9e9ec38706373e0586abd273ba3283928238e4206",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/grass_carp/clean-pixel-20261110/body-guide.png",
+          "bytes": 916352,
+          "sha256": "17acadeb0ed06a702d5088654e0cfb07c19f6a2aaeb7b3b18bdb1fdad4c0fd35",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/grass_carp/clean-pixel-20261110/fin-color.png",
+          "bytes": 1562453,
+          "sha256": "556ffa379b489337c259e611da7f54ed4993dc6d3ff93a2f339391f6af37f11f",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/grass_carp/clean-pixel-20261110/fin-guide.png",
+          "bytes": 19201,
+          "sha256": "d5ce93db0d14d098d294b8ca2a8a3bafba161a382b2f2af4a2190677a7393c7e",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/grass_carp/clean-pixel-20261110/front-color.png",
+          "bytes": 1273991,
+          "sha256": "6ed92d94286d4c96fafe1911e4381ab455d1a40d50d6492494ce9baece011c69",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/grass_carp/clean-pixel-20261110/mouth-guide.png",
+          "bytes": 595122,
+          "sha256": "14f9c8d26ff8a34e64ce4d74e9f7b8ae3206b7adbe228a5ddada525ce42b5a37",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/grass_carp/fish.blend",
+          "bytes": 3635806,
+          "sha256": "b2c9c7cd40bda25320fcc916db27d3091c52eea80a712c565bf8f69e9c713413",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/nile_tilapia/fish.blend",
+          "bytes": 6061830,
+          "sha256": "9b676a1c44e06bb490a31e25a8b246be3b1cce8947df461b4bd56a91e5d0af41",
+          "ok": true
+        },
+        {
+          "path": "assets/source/fish/whale_shark/fish.blend",
+          "bytes": 3318056,
+          "sha256": "9902e18aed7913d66c07edd464de09982236d33f47abdcb58756d3f571d6af95",
+          "ok": true
+        },
+        {
+          "path": "game/assets/models/fish/atlantic_sailfish.glb",
+          "bytes": 3695204,
+          "sha256": "d39cf6ecd0862d0307d5c6cec4c3e645fb3c5d2c4ba7e78588791d7fb2cd4758",
+          "ok": true
+        },
+        {
+          "path": "game/assets/models/fish/carp.glb",
+          "bytes": 9420008,
+          "sha256": "125367185014e41a25fb4c83693a547d71fcc585486c853e55de44f8a29d1e67",
+          "ok": true
+        },
+        {
+          "path": "game/assets/models/fish/crucian.glb",
+          "bytes": 4768592,
+          "sha256": "7f1128666b3ca138198a5f8f52bd7490d01c2dae0e43a1cf65df732a40fc661b",
+          "ok": true
+        },
+        {
+          "path": "game/assets/models/fish/grass_carp.glb",
+          "bytes": 3559408,
+          "sha256": "7644b4127c23f8285773152f82e1b8416dc29c1b7e0cdd426473bddcea2d1029",
+          "ok": true
+        },
+        {
+          "path": "game/assets/models/fish/nile_tilapia.glb",
+          "bytes": 4851508,
+          "sha256": "f24528ccb29685741577fedfaf28afc627de1dc53593a43e0f3854e7fa3cba63",
+          "ok": true
+        },
+        {
+          "path": "game/assets/models/fish/nile_tilapia_atlas.png",
+          "bytes": 4729416,
+          "sha256": "32596ba32e317b19e0edebba5ebb267ac199f1107650dd3367b4196cfb592ef8",
+          "ok": true
+        },
+        {
+          "path": "game/assets/models/fish/whale_shark.glb",
+          "bytes": 3319008,
+          "sha256": "5df93fddbc48359edae4f59573f6834d20c5dd49bdd4952537c8e1f640319905",
+          "ok": true
+        },
+        {
+          "path": "plans/reviews/clean-pixel-three-20261110/accepted-review.jpg",
+          "bytes": 131795,
+          "sha256": "43479f535d6640e018e4e7d042a11f45ff2984fb1363cd28ead83709ad6af4cd",
+          "ok": true
+        }
+      ],
+      "clean": true,
+      "final_scan": {
+        "tracked_lfs_paths": 3803,
+        "remaining_pointers": [],
+        "absent_files": [],
+        "tracked_clean": true
+      }
+    }
+  ],
+  "finished_at": "2026-11-10T03:58:52.661408+00:00",
+  "cleanup_report": "/Users/czl/projects/game-ai-foundry/work/baidu-lfs-mac-sync/cleanup.json",
+  "cleanup_bytes": 2096334816,
+  "bdpan_version": "3.8.9",
+  "membership": {
+    "is_svip": true,
+    "entitlement_status": "known"
+  },
+  "backend": "baidu"
+}

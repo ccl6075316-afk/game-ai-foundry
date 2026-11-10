@@ -1,0 +1,74 @@
+"""Verify old GitHub objects using disposable hardlinks, not the real LFS store."""
+from pathlib import Path
+import hashlib, json, os, re, subprocess, sys, time
+from audit import ROOT, OUT, git, refs
+
+def main():
+    name = sys.argv[1]
+    plan = json.loads((OUT/'preflight.json').read_text())
+    entry = next(r for r in plan['repos'] if r['name'] == name)
+    label = name
+    if len(sys.argv)>2 and sys.argv[2]=='probe':
+        entry['candidates']=entry['candidates'][:99]
+        label=name+'-direct-probe'
+    elif len(sys.argv)>2 and sys.argv[2].startswith('shard-'):
+        shard=int(sys.argv[2].split('-')[1])
+        assert 0<=shard<4
+        entry['candidates']=entry['candidates'][shard::4]
+        label=name+'-direct-'+sys.argv[2]
+    repo = Path(entry['repo'])
+    assert refs(repo) == entry['refs']
+    mirror = OUT / (label+'-verification-mirror')
+    assert not mirror.exists()
+    (mirror/'objects').mkdir(parents=True)
+    for row in entry['candidates']:
+        source = Path(row['path']); st = source.stat()
+        assert st.st_size == row['bytes'] and st.st_mtime_ns == row['mtime_ns'] and st.st_ino == row['inode']
+        target = mirror/'objects'/row['oid'][:2]/row['oid'][2:4]/row['oid']
+        target.parent.mkdir(parents=True, exist_ok=True)
+        os.link(source, target)
+    control_data = ('unpublished remote-verification negative control '+str(time.time_ns())).encode()
+    control_oid = hashlib.sha256(control_data).hexdigest()
+    control_path = mirror/'objects'/control_oid[:2]/control_oid[2:4]/control_oid
+    control_path.parent.mkdir(parents=True, exist_ok=True)
+    control_path.write_bytes(control_data)
+    project = 'game-ai-foundry' if name == 'foundry' else 'fishing-2d'
+    endpoint = f'ssh://git@github.com/ccl6075316-afk/{project}.git'
+    config = ['-c',f'lfs.storage={mirror}','-c',f'lfs.url={endpoint}','-c','lfs.fetchexclude=',
+              '-c','lfs.standalonetransferagent=','-c','lfs.transfer.batchSize=100']
+    env = git(repo, *config, 'lfs', 'env').decode()
+    assert f'LocalMediaDir={mirror}/objects' in env.splitlines()
+    args = ['git','-C',str(repo),*config,'lfs','prune','--force','--verify-remote','--verify-unreachable','--when-unverified=continue']
+    print(json.dumps({'repo':name,'checking':len(entry['candidates']),'bytes':sum(x['bytes'] for x in entry['candidates']),'real_cache_untouched':True}),flush=True)
+    started = time.time()
+    process_env = os.environ.copy()
+    process_env['GIT_TERMINAL_PROMPT'] = '0'
+    process_env['GIT_SSH_COMMAND'] = '/usr/bin/ssh -o ProxyCommand=none -o ConnectTimeout=15'
+    result = subprocess.run(args, capture_output=True, text=True, env=process_env)
+    log = result.stdout + result.stderr
+    log = re.sub(r'(https?://[^\s?]+)\?[^\s]+',r'\1?[redacted]',log)
+    (OUT/(label+'-remote-check.log')).write_text(log)
+    verified, retained = [], []
+    negative_control_passed = control_path.exists()
+    if control_path.exists():control_path.unlink()
+    for row in entry['candidates']:
+        path = mirror/'objects'/row['oid'][:2]/row['oid'][2:4]/row['oid']
+        assert Path(row['path']).is_file(), 'real cache changed during remote verification'
+        (retained if path.exists() else verified).append(row['oid'])
+        if path.exists():
+            assert path.stat().st_ino == Path(row['path']).stat().st_ino
+            path.unlink()
+    for directory, dirs, files in os.walk(mirror, topdown=False):
+        p=Path(directory)
+        if not any(p.iterdir()):p.rmdir()
+    # Only a successfully completed verification can authorize deletion.
+    report={'repo':name,'exit_code':result.returncode,'seconds':time.time()-started,'verified_oids':verified if result.returncode==0 and negative_control_passed else [],
+            'negative_control_passed':negative_control_passed, 'negative_control_oid':control_oid,
+            'unverified_or_protected_oids':retained,'real_cache_untouched':True,'verification_endpoint':endpoint,
+            'method':'git-lfs remote verification deletes only disposable mirror hardlinks; actual caches unchanged',
+            'mirror_remaining':mirror.exists()}
+    (OUT/(label+'-remote-verification.json')).write_text(json.dumps(report,indent=2)+'\n')
+    print(json.dumps({'repo':name,'exit_code':result.returncode,'negative_control_passed':negative_control_passed,'verified':len(report['verified_oids']),'not_verified_or_protected':len(retained),'mirror_remaining':mirror.exists(),'log_tail':log[-1200:]}),flush=True)
+
+if __name__ == '__main__':
+    main()

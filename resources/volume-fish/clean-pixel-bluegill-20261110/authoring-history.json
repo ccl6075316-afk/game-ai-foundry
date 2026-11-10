@@ -1,0 +1,95 @@
+{
+  "species": "bluegill",
+  "status": "retired_authoring_history",
+  "stage": "release_validation",
+  "next_action": "read_current_release",
+  "model": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/bluegill.glb",
+  "model_sha256": "4e666881650fdca7e2f51b70d44e01cc17bc77fa69a23e6a2ec1ad47c11df396",
+  "source": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/bluegill/fish.blend",
+  "source_sha256": "b0b7579aec931b34c281ff9cacfad099ec901db8f3ee110e30e0880a106e3f5c",
+  "scope": "material_only; preserve geometry, UV, normals, alpha, skin, skeleton and animation",
+  "difficulty": "medium: per-part mapping and preservation of natural dark markings; user-approved concept baked to independent candidate",
+  "risks": [
+    "Do not remove opercular dark patch as outline",
+    "Do not wrap lateral gill marks across underside",
+    "Keep mouth skin and oral cavity separate",
+    "Exclude fin shadows from body donor; review both fin sides",
+    "Use own current proportions, not tilapia geometry"
+  ],
+  "evidence_plan": [
+    "actual current left/right/top/bottom/oblique and mouth views",
+    "bare-body views with fins hidden",
+    "source/donor region overlay",
+    "image-only candidate nonimage streams and alpha comparison",
+    "candidate mouth then all fins then body review",
+    "frozen final candidate scope checks and source cold export"
+  ],
+  "formal_acceptance": false,
+  "user_gate": "Generate style concept first; wait for user approval before any texture baking.",
+  "last_failure": "R2 body patch fixed by whole clean-body bake, then isolated fin bake. R3 source landmark drift corrected in R4. Historical R2 contour discrepancy not claimed as a geometry repair.",
+  "baseline_capture": "baseline-review/local-capture.validation.json",
+  "image_generation_method": "built-in imagegen; user-approved style concept plus supplementary regional color donors; not a Foundry generation job",
+  "style_concept": {
+    "path": "projects/fishing-2d/experiments/clean-pixel-bluegill-20261110/style-concept-v1.png",
+    "sha256": "b3bca3c56d43dd23575567f762366ad5b1e2c5bbef70259e5caf167b575335c2",
+    "prompt_path": "projects/fishing-2d/experiments/clean-pixel-bluegill-20261110/style-concept.prompt.txt",
+    "tool": "built-in imagegen",
+    "generated_reference_only": true
+  },
+  "user_style_acceptance": {
+    "status": "accepted",
+    "quote": "可以 用吧",
+    "date": "2026-11-10",
+    "image_sha256": "b3bca3c56d43dd23575567f762366ad5b1e2c5bbef70259e5caf167b575335c2"
+  },
+  "texture_baking_started": true,
+  "current_canonical_assets_unchanged": false,
+  "operator_observation": "R2 hard pectoral patch removed. Entire side-body comes from the continuous clean-body panel, with independent top/bottom and narrow front donors. Left/right/oblique/top/bottom fin-hidden views inspected. No visible rectangular patch at former pectoral footprint. Body-first checkpoint and final eight body-only GPU views are byte-identical.",
+  "supplementary_donors": {
+    "body": {
+      "path": "body-donors-v1.png",
+      "sha256": "7d68fdad1b78042264ff79846a175d508c1e1996843fa1193a7fe02e8070ff9e",
+      "observation": "Side fin removed without a visible fin silhouette; top no fins/eyes; underside orange belly to blue chin, no copied gill arcs. Generated panel layout measured individually."
+    },
+    "mouth": {
+      "path": "mouth-donor-v1.png",
+      "sha256": "da153541fd3573b433a71b480195251430326572ddf153493347ea0aa03a58d2",
+      "observation": "Skin and cavity separated; no teeth or extra lips; original aperture approximately aligned, requires actual mapping review."
+    },
+    "head": {
+      "path": "head-donor-v1.png",
+      "sha256": "c9ad0c47486f3796d7c706a32ac3236ad3d95b346d89f3bc228bc65bf2c7a085",
+      "observation": "Full frontal head donor used only on central anterior skin to repair R1 bridge streak; lateral eyes and oral cavity use separate domains. Supplemental donor is not independent user anatomy approval."
+    }
+  },
+  "candidate": {
+    "model": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/clean-pixel-bluegill-20261110/source-r4/fish.glb",
+    "model_sha256": "55903ab56be819ba96fa5117c650028c01cd20a7cfc072778766171119d34cff",
+    "source": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/clean-pixel-bluegill-20261110/source-r4/fish.blend",
+    "source_sha256": "db3d38b474ec1ad3fc736ad17336c72e960e3f8716cfcf46e590574dfbdcc825"
+  },
+  "local_review": "local-review.validation.json",
+  "source_cold_export_byte_exact": true,
+  "nonimage_streams_exact": 60,
+  "canonical_installed": true,
+  "user_model_acceptance": "accepted",
+  "local_diagnosis": "pectoral-audit/diagnosis.validation.json",
+  "body_checkpoint": "body-r4/body-review.validation.json",
+  "interactive_viewer": {
+    "catalog": "viewer/catalog.json",
+    "script": "BluegillMaterialViewer.gd",
+    "launch": "viewer/launch.json",
+    "model_sha256": "55903ab56be819ba96fa5117c650028c01cd20a7cfc072778766171119d34cff",
+    "observed": "Visible Godot window, full fish framed, paused for material inspection; user can continue motion. Not user acceptance."
+  },
+  "user_model_acceptance_detail": {
+    "date": "2026-11-10",
+    "quote": "提吧 提了 下一条",
+    "scope": "Current R4 static material after interactive Godot review; no new motion quality acceptance."
+  },
+  "current_release": {
+    "path": "projects/fishing-2d/plans/reviews/clean-pixel-bluegill-20261110/manifest.json",
+    "sha256": "626b57e7b75feb73b7037b85d1d6319b296c557d4885b2517bd98894ffc50ea1"
+  },
+  "note": "Historical input hashes and candidate paths preserved; baseline/candidates retired after accepted source installation. Current release.json supersedes transient statuses."
+}

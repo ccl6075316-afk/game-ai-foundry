@@ -1,0 +1,27 @@
+{
+  "object": {
+    "path": "game/assets/models/fish/grass_carp.glb",
+    "oid": "7644b4127c23f8285773152f82e1b8416dc29c1b7e0cdd426473bddcea2d1029",
+    "bytes": 3559408
+  },
+  "results": [
+    {
+      "mode": "direct",
+      "seconds": 5.14,
+      "bytes": 3559408,
+      "MB_per_second": 0.69,
+      "exit_code": 0,
+      "verified": true,
+      "file": "/Users/czl/projects/game-ai-foundry/work/baidu-lfs-mac-sync/speed-direct-7644b4127c23f8285773152f82e1b8416dc29c1b7e0cdd426473bddcea2d1029"
+    },
+    {
+      "mode": "proxy",
+      "seconds": 6.69,
+      "bytes": 3559408,
+      "MB_per_second": 0.53,
+      "exit_code": 0,
+      "verified": true,
+      "file": "/Users/czl/projects/game-ai-foundry/work/baidu-lfs-mac-sync/speed-proxy-7644b4127c23f8285773152f82e1b8416dc29c1b7e0cdd426473bddcea2d1029"
+    }
+  ]
+}

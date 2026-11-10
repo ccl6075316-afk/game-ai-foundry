@@ -1,0 +1,107 @@
+"""Read-only inventory of old LFS objects; never deletes source objects."""
+from pathlib import Path
+import hashlib, json, os, re, subprocess, time
+
+ROOT = Path('/Users/czl/projects/game-ai-foundry')
+OUT = Path(__file__).resolve().parent
+REPOS = [ROOT, ROOT / 'projects/fishing-2d']
+
+def git(repo, *args):
+    return subprocess.check_output(['git', '-C', str(repo), *args])
+
+def sha(path):
+    with path.open('rb') as stream:
+        return hashlib.file_digest(stream, 'sha256').hexdigest()
+
+def pointers(repo, *args):
+    return json.loads(git(repo, 'lfs', 'ls-files', '--json', *args))['files'] or []
+
+def refs(repo):
+    return git(repo, 'for-each-ref', '--format=%(refname) %(objectname)').decode()
+
+def main():
+    report = {'status': 'auditing', 'started': time.time(), 'repos': []}
+    for repo in REPOS:
+        name = 'foundry' if repo == ROOT else 'fishing'
+        assert not git(repo, 'status', '--porcelain', '--untracked-files=no').strip()
+        env = git(repo, 'lfs', 'env').decode()
+        media = repo / '.git/lfs/objects'
+        assert f'LocalMediaDir={media}' in env.splitlines()
+        trees = [x[9:] for x in git(repo, 'worktree', 'list', '--porcelain').decode().splitlines() if x.startswith('worktree ')]
+        assert trees == [str(repo)], trees
+        current = pointers(repo)
+        protected = {x['oid']: ['current index/checkout'] for x in current}
+        ref_state = refs(repo)
+        revisions = {line.split()[1] for line in ref_state.splitlines()}
+        for stash in git(repo, 'stash', 'list', '--format=%H').decode().splitlines():
+            revisions.add(stash)
+            revisions.update(git(repo, 'rev-list', '--parents', '-n', '1', stash).decode().split()[1:])
+        unpushed = git(repo, 'rev-list', '--branches', '--not', '--remotes').decode().splitlines()
+        revisions.update(unpushed)
+        for revision in sorted(revisions):
+            for item in pointers(repo, revision):
+                protected.setdefault(item['oid'], []).append('ref/stash/unpushed tree ' + revision)
+        history = pointers(repo, '--all')
+        historical = {}
+        for item in history:
+            historical.setdefault(item['oid'], []).append({'path': item['name'], 'bytes': item['size']})
+        objects, candidates, retained, unknown = [], [], [], []
+        for path in sorted(media.glob('*/*/*')):
+            assert path.is_file() and not path.is_symlink() and re.fullmatch('[a-f0-9]{64}', path.name), path
+            st = path.stat()
+            row = {'oid': path.name, 'path': str(path), 'bytes': st.st_size, 'allocated_bytes': st.st_blocks * 512, 'mtime_ns': st.st_mtime_ns, 'inode': st.st_ino}
+            objects.append(row)
+            if path.name in protected:
+                retained.append({**row, 'reasons': protected[path.name]})
+            elif path.name not in historical:
+                unknown.append({**row, 'reason': 'not proven to be a historical tracked LFS object'})
+            else:
+                candidates.append({**row, 'historical_paths': historical[path.name]})
+        entry = {'name': name, 'repo': str(repo), 'head': git(repo, 'rev-parse', 'HEAD').decode().strip(), 'refs': ref_state,
+                 'index_entries_sha256': hashlib.sha256(git(repo, 'ls-files', '--stage', '-z')).hexdigest(),
+                 'worktrees': trees, 'unpushed_commits': unpushed, 'current_files': current,
+                 'objects': objects, 'candidates': candidates, 'retained': retained, 'unknown': unknown}
+        report['repos'].append(entry)
+        print(json.dumps({'repo': name, 'local_objects': len(objects), 'candidate_objects': len(candidates), 'candidate_bytes': sum(x['bytes'] for x in candidates), 'unknown_objects': len(unknown)}), flush=True)
+    # Protect matching content anywhere in the existing workspace, including ignored inputs.
+    candidates_by_size = {}
+    for entry in report['repos']:
+        for row in entry['candidates']:
+            candidates_by_size.setdefault(row['bytes'], set()).add(row['oid'])
+    matches = {}
+    scanned = 0
+    for directory, dirs, files in os.walk(ROOT, followlinks=False):
+        dirs[:] = [d for d in dirs if d not in ('.git', '.venv') and not (Path(directory)/d).is_symlink()]
+        for name in files:
+            path = Path(directory)/name
+            if path.is_symlink() or path.is_relative_to(OUT):
+                continue
+            st = path.stat()
+            if st.st_size not in candidates_by_size:
+                continue
+            scanned += 1
+            digest = sha(path)
+            if digest in candidates_by_size[st.st_size]:
+                matches.setdefault(digest, []).append(str(path))
+    for entry in report['repos']:
+        kept, eligible = [], []
+        for row in entry['candidates']:
+            if row['oid'] in matches:
+                kept.append({**row, 'reason': 'existing workspace payload', 'working_paths': matches[row['oid']]})
+            else:
+                assert sha(Path(row['path'])) == row['oid'], row['path']
+                eligible.append(row)
+        entry['retained_workspace_matches'] = kept
+        entry['candidates'] = eligible
+        for item in entry['current_files']:
+            path = Path(entry['repo']) / item['name']
+            assert path.stat().st_size == item['size'] and sha(path) == item['oid'], str(path)
+        entry['current_files_hash_verified'] = True
+        assert refs(Path(entry['repo'])) == entry['refs']
+        print(json.dumps({'repo': entry['name'], 'eligible_objects': len(eligible), 'eligible_bytes': sum(x['bytes'] for x in eligible), 'workspace_matches_kept': len(kept), 'current_files_verified': len(entry['current_files'])}), flush=True)
+    report['status'] = 'preflight_complete'
+    report['scanned_workspace_payloads'] = scanned
+    (OUT/'preflight.json').write_text(json.dumps(report, indent=2)+'\n')
+
+if __name__ == '__main__':
+    main()

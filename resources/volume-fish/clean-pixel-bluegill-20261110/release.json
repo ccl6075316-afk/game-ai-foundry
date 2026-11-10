@@ -1,0 +1,74 @@
+{
+  "date": "2026-11-10",
+  "kind": "accepted_clean_pixel_material_release",
+  "species": "bluegill",
+  "user_acceptance": "提吧 提了 下一条",
+  "model": {
+    "path": "projects/fishing-2d/game/assets/models/fish/bluegill.glb",
+    "sha256": "55903ab56be819ba96fa5117c650028c01cd20a7cfc072778766171119d34cff"
+  },
+  "source": {
+    "path": "projects/fishing-2d/assets/source/fish/bluegill/fish.blend",
+    "sha256": "db3d38b474ec1ad3fc736ad17336c72e960e3f8716cfcf46e590574dfbdcc825"
+  },
+  "triangles": 1520,
+  "bones": 18,
+  "non_image_streams_exact": 60,
+  "source_cold_byte_exact": true,
+  "body_texels_frozen_before_fins": 734729,
+  "checks": {
+    "full490": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-bluegill-20261110/full490.validation.json",
+      "sha256": "37c146220be1d34cf4e5c305e5d15a713ff11845eb35d88147a6350707f5b79a"
+    },
+    "root072": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-bluegill-20261110/root072.validation.json",
+      "sha256": "b9904f921b7fdbdc417a2b55702a668ad6871241f88447e4d084a9787a2fe7ad"
+    },
+    "body077": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-bluegill-20261110/body077.validation.json",
+      "sha256": "a9ef39d721ff676e61cb6c33184bb5a7bace06ebb91a66254af5c2396c3857bb"
+    },
+    "canonical-load": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-bluegill-20261110/canonical-load.validation.json",
+      "sha256": "2b469b82adca8c1b67fab0aa4fd62d417fb3ad4793336b1e5aaa424f640178a9"
+    },
+    "canonical-pixels": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-bluegill-20261110/canonical-pixels.validation.json",
+      "sha256": "7bd72a02138eaf3ee8a1d90087bc976391f48b7a01d92c7a3b3a87d3f7a4759c"
+    },
+    "fishing-entry": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-bluegill-20261110/fishing-entry.validation.json",
+      "sha256": "5b603cb49d91bc5a9db19df8810c3d70ac38b2e5fc0f622fa42e74ab623c3d45"
+    },
+    "static-freeze": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-bluegill-20261110/static-freeze.validation.json",
+      "sha256": "24c2e7b8c661e35395bbacbe5ab846939ddaf2b8a2125a49eaadf0d66d56d8fa"
+    },
+    "source-cold-export": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-bluegill-20261110/source-cold-export.validation.json",
+      "sha256": "8ea6d632c0868262c2857d616a34af4bcc3d0c2824062169a30e401fea2b2d36"
+    }
+  },
+  "full_production_sop_pass": false,
+  "sop_limit": "Accepted material only; original geometry/UV/alpha/skin/rig/animations exact; full anatomy/reference/presentation SOP not repeated.",
+  "handoff": "projects/fishing-2d/plans/reviews/clean-pixel-bluegill-20261110/HANDOFF.md",
+  "inputs": [
+    {
+      "path": "projects/fishing-2d/assets/source/fish/bluegill/clean-pixel-20261110/body-donors-v1.png",
+      "sha256": "7d68fdad1b78042264ff79846a175d508c1e1996843fa1193a7fe02e8070ff9e"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/bluegill/clean-pixel-20261110/head-donor-v1.png",
+      "sha256": "c9ad0c47486f3796d7c706a32ac3236ad3d95b346d89f3bc228bc65bf2c7a085"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/bluegill/clean-pixel-20261110/mouth-donor-v1.png",
+      "sha256": "da153541fd3573b433a71b480195251430326572ddf153493347ea0aa03a58d2"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/bluegill/clean-pixel-20261110/style-concept-v1.png",
+      "sha256": "b3bca3c56d43dd23575567f762366ad5b1e2c5bbef70259e5caf167b575335c2"
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "status": "done",
+  "started": 1794287827.475795,
+  "scope": "local historical LFS objects only; current assets, code/Git history, cloud data unchanged",
+  "before_bytes": 43832430592,
+  "before_game_bytes": 29348134912,
+  "before_lfs_bytes": {
+    "foundry": 3559530496,
+    "fishing": 21206351872
+  },
+  "current_asset_paths_hash_verified_before_and_after": 5290,
+  "after_bytes": 28189454336,
+  "after_game_bytes": 13706248192,
+  "after_lfs_bytes": {
+    "foundry": 3549011968,
+    "fishing": 5564465152
+  },
+  "finished": 1794287862.2295449,
+  "repos": [
+    {
+      "name": "foundry",
+      "repo": "/Users/czl/projects/game-ai-foundry",
+      "unverified_retained": [],
+      "unknown_retained_objects": 0,
+      "unknown_retained_bytes": 0,
+      "deleted_objects": 3,
+      "deleted_bytes": 10509578,
+      "deleted_allocated_bytes": 10518528
+    },
+    {
+      "name": "fishing",
+      "repo": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d",
+      "unverified_retained": [],
+      "unknown_retained_objects": 327,
+      "unknown_retained_bytes": 1718880641,
+      "deleted_objects": 11506,
+      "deleted_bytes": 15618197889,
+      "deleted_allocated_bytes": 15641886720
+    }
+  ],
+  "verification": [
+    {
+      "name": "foundry",
+      "exit_code": 0,
+      "verified_objects": 3,
+      "negative_control_passed": true,
+      "negative_control_oid": "4324ce35cfc3c901b7a1bff84aa50c8cb325e6f2b60897471b119b957b4596fb",
+      "seconds": 7.475925922393799,
+      "endpoint": "ssh://git@github.com/ccl6075316-afk/game-ai-foundry.git",
+      "mirror_remaining": false
+    },
+    {
+      "name": "fishing-direct-shard-0",
+      "exit_code": 0,
+      "verified_objects": 2877,
+      "negative_control_passed": true,
+      "negative_control_oid": "2831b6e21b2dc4fb1c88c3fa8d801e47f4076037944ea53f2cf34023b66a4adc",
+      "seconds": 25.160740852355957,
+      "endpoint": "ssh://git@github.com/ccl6075316-afk/fishing-2d.git",
+      "mirror_remaining": false
+    },
+    {
+      "name": "fishing-direct-shard-1",
+      "exit_code": 0,
+      "verified_objects": 2877,
+      "negative_control_passed": true,
+      "negative_control_oid": "3fa9ffedc3371b6cb116553b07943cd91baed4ff9021305d2575eaff466093fd",
+      "seconds": 25.268320083618164,
+      "endpoint": "ssh://git@github.com/ccl6075316-afk/fishing-2d.git",
+      "mirror_remaining": false
+    },
+    {
+      "name": "fishing-direct-shard-2",
+      "exit_code": 0,
+      "verified_objects": 2876,
+      "negative_control_passed": true,
+      "negative_control_oid": "17b6462acfc1488d6da88e3a013cb527f52b028dd307e0b463f5d1f5cfd6de49",
+      "seconds": 23.856940746307373,
+      "endpoint": "ssh://git@github.com/ccl6075316-afk/fishing-2d.git",
+      "mirror_remaining": false
+    },
+    {
+      "name": "fishing-direct-shard-3",
+      "exit_code": 0,
+      "verified_objects": 2876,
+      "negative_control_passed": true,
+      "negative_control_oid": "2db35380815cc6648e3b4f58bfa03d775e96f94a8a61d4c75da95a939b86be14",
+      "seconds": 25.136711359024048,
+      "endpoint": "ssh://git@github.com/ccl6075316-afk/fishing-2d.git",
+      "mirror_remaining": false
+    }
+  ],
+  "deleted_manifest": {
+    "path": "deleted-objects.jsonl",
+    "sha256": "c0b07f9acf75b2541e45e3ac8527a227985d5698e99b34cfed62124bc301d32b"
+  },
+  "protected_manifest": {
+    "path": "protected-current-files.json",
+    "sha256": "8cd1a7c766431578fc8f0ad185ecc440957ba7aa42f134f01a9f7a1bb1dfeff4"
+  },
+  "retained_exceptions": {
+    "path": "retained-exceptions.json",
+    "sha256": "10337d0ffef1909106adb85d7b8bf2c66d0bc7e22604e2ce112e507549dda4e0"
+  },
+  "local_adapter_unchanged": "baidu; verification overrides were command-local only",
+  "ordinary_git_objects_refs_and_history_unchanged": true,
+  "cloud_data_deleted": false,
+  "final_after_audit_cleanup": {
+    "total_bytes": 28162461696,
+    "game_bytes": 13706248192,
+    "foundry_lfs_bytes": 3549011968,
+    "game_lfs_bytes": 5564465152,
+    "retained_audit_bytes": 3817472,
+    "pre_request_total_bytes": 43815120896,
+    "ordinary_git_history_deleted": false,
+    "observed_total_reduction_bytes": 15652659200
+  }
+}

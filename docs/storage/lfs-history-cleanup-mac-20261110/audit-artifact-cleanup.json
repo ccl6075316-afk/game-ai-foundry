@@ -1,0 +1,126 @@
+{
+  "retained_directory": "/Users/czl/projects/game-ai-foundry/docs/storage/lfs-history-cleanup-mac-20261110",
+  "removed_temporary_files": [
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/standalone-negative-control.json",
+      "bytes": 312,
+      "sha256": "1a2c6850663330ddcfbf9d3a064c4da9e7aeb5722508960c1819c436f655a551"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/foundry-remote-check.log",
+      "bytes": 112,
+      "sha256": "2e8742b53e04bb817c6924fe472890dd600dcfb940159873c33b060e056444fe"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/connection-investigation.json",
+      "bytes": 605,
+      "sha256": "3bdc6bd4b8be197770a7a035c5453a5ca0555483c28a17e501e2a1cac3098514"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/fishing-direct-shard-3-remote-verification.json",
+      "bytes": 207590,
+      "sha256": "767f8e191df17945132ec1014b39affe2248284a334403f0867610e06c1a1f82"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/fishing-remote-verification.json",
+      "bytes": 829122,
+      "sha256": "e16f92ef844f0bd9a264262e6534ea4eef2850a4f2c3e719f6ecd0454cdb881f"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/fishing-prune-dry-run.txt",
+      "bytes": 126,
+      "sha256": "4941b1d41cb50bb90ff42456c32c7dd29a8192892d5ff0a0cf8a53eead912b19"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/audit.py",
+      "bytes": 5885,
+      "sha256": "e3d21975167b7f2932fa1ef5d9e44e434087c6941d8be853dffaac1dc6053865"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/fishing-direct-shard-1-remote-check.log",
+      "bytes": 124,
+      "sha256": "818ca24aeeb41ee0843d0bcb8934832f0951537f117e117875f28e7aee6066c6"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/foundry-remote-verification.json",
+      "bytes": 738,
+      "sha256": "61d96767f69959a399af9ec9d6001b3a6c7472425022578f83a0d940319a22d0"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/apply_cleanup.py",
+      "bytes": 5165,
+      "sha256": "ba0d5789bb5eb8abc4d34e27e56853b64dfae14251586b16b26b48a0324e1d18"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/fishing-direct-shard-0-remote-check.log",
+      "bytes": 124,
+      "sha256": "818ca24aeeb41ee0843d0bcb8934832f0951537f117e117875f28e7aee6066c6"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/fishing-direct-shard-2-remote-verification.json",
+      "bytes": 207590,
+      "sha256": "bf7b0bd630d9d60c21da96a993d5d8b6609e744fa83a679098c8751eed0c8a3a"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/fishing-remote-check.log",
+      "bytes": 60,
+      "sha256": "e505acc6bafcb05c9fd7fa2b6c219b35f0460f9f4080d2e2a6113445200bc9c7"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/verify_remote.py",
+      "bytes": 4520,
+      "sha256": "e100051e86435923ea9ffe505f659f71f54700b37dc09e20414e50e31ab6012f"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/fishing-direct-shard-0-remote-verification.json",
+      "bytes": 207662,
+      "sha256": "7218383a892f93ade8ff35e40742a0d10bb64df20d55b868824c675ae47afb3c"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/fishing-direct-probe-remote-verification.json",
+      "bytes": 7645,
+      "sha256": "97ffbf4c6500cef184558facec465aad2183d7558afb3da7138b9a9e8f18c3ca"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/fishing-direct-shard-3-remote-check.log",
+      "bytes": 124,
+      "sha256": "23dbafef17d48caaf3c69c69dee0c42ef140c1af8cc98001f8e48c6753aa457b"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/fishing-direct-shard-1-remote-verification.json",
+      "bytes": 207662,
+      "sha256": "c719b4087b69ec289e4f7cd5766ac2459b1c483b3c52a4352694f01bd14dc737"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/foundry-prune-dry-run.txt",
+      "bytes": 126,
+      "sha256": "18150ccdc4770b3d1464e6ca3388f46d4b4c22e13c96e95ce38c1f10bf8527ab"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/preflight.json",
+      "bytes": 19630944,
+      "sha256": "cb8380b14e26375b7472892b547619dadbda1050ff28b53bef923a675707f757"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/deletion-journal.jsonl",
+      "bytes": 1282377,
+      "sha256": "b53c97f327683cbb30c62db5bde001310c2022e2ee05731940d87470d4c9ffe3"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/execution.json",
+      "bytes": 8140556,
+      "sha256": "2918212cdfaf9d629a9687755b3f812b3dfd47432fbb7f1c7b4136ff0daf0bce"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/fishing-direct-probe-remote-check.log",
+      "bytes": 117,
+      "sha256": "b7de5b03b82bd50cfd9490577e831d3106381ce1fa1c3ec4034f915c784c18dd"
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/lfs-history-cleanup-20261110/fishing-direct-shard-2-remote-check.log",
+      "bytes": 124,
+      "sha256": "23dbafef17d48caaf3c69c69dee0c42ef140c1af8cc98001f8e48c6753aa457b"
+    }
+  ],
+  "deleted_bytes": 30739410
+}
