@@ -1,0 +1,85 @@
+{
+  "species": "red_seabream",
+  "parts": [
+    {
+      "name": "Anal_mesh_0",
+      "logical_name": "Anal_mesh",
+      "role": "fin",
+      "source_node": "Anal_mesh",
+      "source_surface": 0,
+      "opaque_uv": false
+    },
+    {
+      "name": "Caudal_mesh_0",
+      "logical_name": "Caudal_mesh",
+      "role": "fin",
+      "source_node": "Caudal_mesh",
+      "source_surface": 0,
+      "opaque_uv": false
+    },
+    {
+      "name": "Closed_body_0",
+      "logical_name": "Closed_body",
+      "role": "body_skin",
+      "source_node": "Closed_body",
+      "source_surface": 0,
+      "opaque_uv": true
+    },
+    {
+      "name": "Closed_body_1",
+      "logical_name": "Closed_body",
+      "role": "body_skin",
+      "source_node": "Closed_body",
+      "source_surface": 1,
+      "opaque_uv": true
+    },
+    {
+      "name": "Closed_body_2",
+      "logical_name": "Closed_body",
+      "role": "mouth",
+      "source_node": "Closed_body",
+      "source_surface": 2,
+      "opaque_uv": true
+    },
+    {
+      "name": "Dorsal_mesh_0",
+      "logical_name": "Dorsal_mesh",
+      "role": "fin",
+      "source_node": "Dorsal_mesh",
+      "source_surface": 0,
+      "opaque_uv": false
+    },
+    {
+      "name": "Pectoral_left_mesh_0",
+      "logical_name": "Pectoral_left_mesh",
+      "role": "fin",
+      "source_node": "Pectoral_left_mesh",
+      "source_surface": 0,
+      "opaque_uv": false
+    },
+    {
+      "name": "Pectoral_right_mesh_0",
+      "logical_name": "Pectoral_right_mesh",
+      "role": "fin",
+      "source_node": "Pectoral_right_mesh",
+      "source_surface": 0,
+      "opaque_uv": false
+    },
+    {
+      "name": "Pelvic_left_mesh_0",
+      "logical_name": "Pelvic_left_mesh",
+      "role": "fin",
+      "source_node": "Pelvic_left_mesh",
+      "source_surface": 0,
+      "opaque_uv": false
+    },
+    {
+      "name": "Pelvic_right_mesh_0",
+      "logical_name": "Pelvic_right_mesh",
+      "role": "fin",
+      "source_node": "Pelvic_right_mesh",
+      "source_surface": 0,
+      "opaque_uv": false
+    }
+  ]
+}

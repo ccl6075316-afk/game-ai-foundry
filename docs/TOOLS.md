@@ -182,3 +182,7 @@ python gamefactory.py play fishing-2d --dry-run
 ```
 
 相关文档：[`AI-HANDOFF.md`](AI-HANDOFF.md)、[`CONSTRUCTION-SYSTEM.md`](CONSTRUCTION-SYSTEM.md)、[`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md)、[`README.md`](README.md)。
+
+### Mac Godot 预览屏幕（2026-11-11）
+
+用户偏好内置屏幕。多屏窗口坐标是 Godot 虚拟桌面坐标，不是所选屏幕的局部坐标；不能用固定 `--position 80,65`。先核对内置屏幕对应的索引，设置 `root.current_screen`，再用 `DisplayServer.screen_get_position(screen) + (DisplayServer.screen_get_size(screen) - root.size) / 2` 居中。当前双屏内置屏为 0；屏幕排列变化后重新查询，不复用这次坐标。成品双鱼示例在 `resources/volume-fish/clean-pixel-red-seabream-20261111/viewer.gd`，目录见游戏同名 `preview-catalog.json`。

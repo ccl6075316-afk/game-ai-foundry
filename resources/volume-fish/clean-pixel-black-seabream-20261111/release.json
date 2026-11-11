@@ -1,0 +1,99 @@
+{
+  "date": "2026-11-11",
+  "kind": "accepted_clean_pixel_material_and_tail_rim_release",
+  "species": "black_seabream",
+  "user_acceptance": "可以了 提交吧",
+  "model": {
+    "path": "projects/fishing-2d/game/assets/models/fish/black_seabream.glb",
+    "sha256": "f091aef9e27f7ffa372d09c055190b90de5f084d1c6ef41371c97f825931c8c3"
+  },
+  "source": {
+    "path": "projects/fishing-2d/assets/source/fish/black_seabream/fish.blend",
+    "sha256": "4dfaaa22adb6fc6b24561fb807603694aec5eeb339c990ccff3685da270b78a5"
+  },
+  "triangles": 1952,
+  "bones": 18,
+  "body_texels_frozen_before_fins": 1942577,
+  "central_trailing_rim_mm": 0.45,
+  "thickness_basis": "User-approved artistic thickness, not biological measurement. Complete original root domain fixed.",
+  "preserved": "Body geometry; tail XY silhouette; UV; skin weights; rig; native animation; body material frozen before fin bake. Tail thickness and corresponding normals explicitly revised.",
+  "source_cold_byte_exact": true,
+  "checks": {
+    "canonical": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/canonical-load.validation.json",
+      "sha256": "3cbc6123f5693c009b074bc527b259c688f7d74c5368670840e482d2bfd5510f"
+    },
+    "pixels": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/canonical-pixels.validation.json",
+      "sha256": "07e8e8bffa3448b9d203a4e0ca99b57fde301927e4e26dba91ab1922ce5b5e43"
+    },
+    "fishing": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/fishing-entry.validation.json",
+      "sha256": "04fde8170964f7eef48035b981430a9f08d031c80a33f023b3e2cf62023c526d"
+    },
+    "source_cold": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/source-cold-export.validation.json",
+      "sha256": "b966ad29fdc0c7160c4a5e688b6241ce865aa408d9bf1658af1d41b5013a78fa"
+    },
+    "full490": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/checks/fin490/completion.validation.json",
+      "sha256": "571ec92b19750cae87ec97a3c440e29d46230d5dfc516ece337c2b810c449039"
+    },
+    "root072": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/checks/root072/completion.validation.json",
+      "sha256": "167924c8c16434a21ae5ae49d70aaf72de0cb880aee2fc285868926d5f9d18b7"
+    },
+    "body077": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/checks/body077/completion.validation.json",
+      "sha256": "f5711861ba8946f23254225e6e0291a1f2fd0f5bd9ce571621143a0bd139736d"
+    },
+    "tail_volume": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/tail-volume.validation.json",
+      "sha256": "c14b5f3c0ecff89afe1e13f284d958c2a593c947eea5e21b4a70a359232b5300"
+    },
+    "tail_preservation": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/source-authoring.validation.json",
+      "sha256": "9f91a64026d9062ccf819e893432915bf694f6594defbd5bde732be2a358f682"
+    },
+    "final_cold": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/final-asset-cold-load.validation.json",
+      "sha256": "9d545d3503762dd98893e8b59bff524814cc964156cf89b7dfe13994988aa349"
+    }
+  },
+  "full_production_sop_pass": false,
+  "sop_limit": "用户已接受本鱼新材质及尾叉中央后缘减薄。正式运行时固化通过；全套资料/形态/视频尚未补齐，不宣称整套SOP通过。几何仅尾鳍厚度重开，UV/骨权/骨架/原生动作保持。",
+  "handoff": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/HANDOFF.md",
+  "inputs": [
+    {
+      "path": "projects/fishing-2d/assets/source/fish/black_seabream/clean-pixel-20261111/body-side-v1.png",
+      "sha256": "ae2d9a9588bd8d986c142e2a56ae1013ed86d2fa2ffebc8c275ea452abc848c6"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/black_seabream/clean-pixel-20261111/body-top-bottom-v1.png",
+      "sha256": "6e89461be35aeff01fe42385d750c6760e2f6ebd39b429034830d7fb2b0c249d"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/black_seabream/clean-pixel-20261111/head-front-v1.png",
+      "sha256": "8252f414e9f918fa6b3be0776255c155ff2cc9ebe2c998424afe786219ed74cc"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/black_seabream/clean-pixel-20261111/style-concept-v1.png",
+      "sha256": "44be49fbb168b880b52cf63eaa300ad3d6c628225b1ec4f18f70988799c0daaf"
+    }
+  ],
+  "sop_check": {
+    "path": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/sop-check.json",
+    "sha256": "0b3eea439d50a79582852f374043ea4de271ce3c155b36d4fef14e3a7a316e70",
+    "runtime_pass": true,
+    "full_sop_pass": false
+  },
+  "baidu_lfs": {
+    "path": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/baidu-lfs.validation.json",
+    "sha256": "0028033887d10edb545f2d8a315457ef64772e497e6f1b55ec72c0cc5d501fd4",
+    "download_verified": true
+  },
+  "cleanup": {
+    "path": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/cleanup-release.validation.json",
+    "sha256": "b5b5eed4ba422a863ab39c9187f8b9b062b5fb427f96dab60d56144456361980"
+  }
+}

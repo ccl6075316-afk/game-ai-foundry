@@ -1,0 +1,748 @@
+{
+  "species": "black_seabream",
+  "batch": [
+    "red_seabream",
+    "black_seabream"
+  ],
+  "status": "done",
+  "next_action": "human_review",
+  "stage": "Godot_tail_rim_review",
+  "model_sha256": "bbeb71166d9deab84557865204fc81f0e913f8290d5dec90a2526620dd1053bd",
+  "source_sha256": "6828dac864d8603d5b205012c81f4e8ab81a29916e5a4c08075d6ad6388e239d",
+  "style_reference": {
+    "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/styles/clean-pixel-20261108/nile-tilapia-C.png",
+    "sha256": "45fe646d48d2ae3e03bd1bdd644504e98d27c5bd963681089d84d3851c48905a"
+  },
+  "baseline_inventory": {
+    "species": "black_seabream",
+    "model": "game\\assets\\models\\fish\\black_seabream.glb",
+    "model_sha256": "bbeb71166d9deab84557865204fc81f0e913f8290d5dec90a2526620dd1053bd",
+    "source": "assets\\source\\fish\\black_seabream\\fish.blend",
+    "source_sha256": "6828dac864d8603d5b205012c81f4e8ab81a29916e5a4c08075d6ad6388e239d",
+    "static": {
+      "geometry_uv_skin_sha256": "2c7c3487ee9d75eb8448b78b33d2dccf7da207539808fe37f350b46e10001c6e",
+      "material_pixels_sha256": "00316db8e83ca70b9c3786fc4f5da96080646be13f9fff407259355c9ed08bc7",
+      "skeleton_rest_bind_sha256": "8fef87601f397cd0b1338c78ccc87319cbf69d06cd5351e5cb24a0ecb78d483f",
+      "triangles": 1952,
+      "bones": 18
+    },
+    "model_status": "user_accepted_static_baseline",
+    "new_style_status": "rebake_pending",
+    "animation_quality": "separate_future_review"
+  },
+  "non_image_accessors": 61,
+  "user_style_acceptance": {
+    "status": "accepted",
+    "message": "可以 开始",
+    "sha256": "44be49fbb168b880b52cf63eaa300ad3d6c628225b1ec4f18f70988799c0daaf"
+  },
+  "texture_baking_started": true,
+  "root_domain": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/black_seabream/complete-root-domains.json",
+    "sha256": "0098456d6b861555f2077dc14fb0f0da706046957f99289b0b0277870162d926"
+  },
+  "baseline_capture": {
+    "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/baseline-review/capture.validation.json",
+    "sha256": "0634ed9d10f8dc664bc20c4f3816b0809184abaa9ccbc76f2e56065369b971e8"
+  },
+  "concept": {
+    "path": "style-concept-v1.png",
+    "sha256": "44be49fbb168b880b52cf63eaa300ad3d6c628225b1ec4f18f70988799c0daaf",
+    "prompt_sha256": "7f1903fc262a68faeaee4b08d5472ccc7396eb946a9716bb1a97558bca251367",
+    "size": [
+      1511,
+      1041
+    ],
+    "tool": "built-in imagegen",
+    "original": "/Users/czl/.codex/generated_images/01a1c37c-65bb-7091-a5ae-8a0db7ad098e/exec-f2ae827b-5fa0-4b07-86ee-c498f5cae1f0.png"
+  },
+  "operator_observation": "石墨灰背、银灰腹、淡竖纹和暗鳍清楚，减少原棋盘亮点和粗鳃线。后续以正式模型确认尾柄、实际唇缘与侧线配准。",
+  "side_landmarks": {
+    "model_x": [
+      635,
+      683,
+      752,
+      781,
+      804
+    ],
+    "donor_x": [
+      1065,
+      1155,
+      1262,
+      1310,
+      1352
+    ]
+  },
+  "front_projection": {
+    "width": 0.46,
+    "cy": 0,
+    "target_y": [
+      18,
+      140,
+      250,
+      340,
+      356,
+      375,
+      387,
+      402,
+      442,
+      614
+    ],
+    "source_y": [
+      18,
+      205,
+      392,
+      518,
+      540,
+      580,
+      596,
+      620,
+      688,
+      1010
+    ]
+  },
+  "front_cavity_polygon": [
+    [
+      0.425,
+      0.598
+    ],
+    [
+      0.449,
+      0.564
+    ],
+    [
+      0.473,
+      0.555
+    ],
+    [
+      0.526,
+      0.555
+    ],
+    [
+      0.556,
+      0.565
+    ],
+    [
+      0.577,
+      0.597
+    ],
+    [
+      0.549,
+      0.585
+    ],
+    [
+      0.527,
+      0.574
+    ],
+    [
+      0.47,
+      0.575
+    ],
+    [
+      0.448,
+      0.589
+    ]
+  ],
+  "front_rim_y": [
+    0.518,
+    0.66
+  ],
+  "front_lower_lip_y": [
+    0.58,
+    0.69
+  ],
+  "lower_rim_x": [
+    0.43,
+    0.45,
+    0.47,
+    0.49,
+    0.495
+  ],
+  "lower_rim_y": [
+    -0.0637,
+    -0.0548,
+    -0.0442,
+    -0.0382,
+    -0.038
+  ],
+  "lower_lip_anchor": -0.038,
+  "rim_brightness": 110,
+  "fin_polygons": {
+    "Caudal": [
+      [
+        132,
+        300
+      ],
+      [
+        188,
+        314
+      ],
+      [
+        250,
+        343
+      ],
+      [
+        335,
+        394
+      ],
+      [
+        333,
+        408
+      ],
+      [
+        323,
+        432
+      ],
+      [
+        319,
+        470
+      ],
+      [
+        319,
+        513
+      ],
+      [
+        331,
+        548
+      ],
+      [
+        335,
+        553
+      ],
+      [
+        265,
+        603
+      ],
+      [
+        188,
+        634
+      ],
+      [
+        132,
+        654
+      ],
+      [
+        181,
+        570
+      ],
+      [
+        227,
+        473
+      ],
+      [
+        182,
+        386
+      ]
+    ],
+    "Dorsal": [
+      [
+        460,
+        356
+      ],
+      [
+        488,
+        319
+      ],
+      [
+        545,
+        286
+      ],
+      [
+        600,
+        262
+      ],
+      [
+        664,
+        235
+      ],
+      [
+        718,
+        210
+      ],
+      [
+        770,
+        195
+      ],
+      [
+        822,
+        182
+      ],
+      [
+        875,
+        175
+      ],
+      [
+        930,
+        171
+      ],
+      [
+        994,
+        183
+      ],
+      [
+        1048,
+        220
+      ],
+      [
+        1102,
+        275
+      ],
+      [
+        1048,
+        260
+      ],
+      [
+        957,
+        253
+      ],
+      [
+        852,
+        256
+      ],
+      [
+        755,
+        273
+      ],
+      [
+        662,
+        305
+      ],
+      [
+        568,
+        345
+      ],
+      [
+        507,
+        378
+      ]
+    ],
+    "Anal": [
+      [
+        477,
+        565
+      ],
+      [
+        535,
+        586
+      ],
+      [
+        592,
+        615
+      ],
+      [
+        664,
+        644
+      ],
+      [
+        637,
+        672
+      ],
+      [
+        561,
+        719
+      ],
+      [
+        531,
+        671
+      ],
+      [
+        508,
+        626
+      ]
+    ],
+    "Pectoral": [
+      [
+        766,
+        453
+      ],
+      [
+        826,
+        451
+      ],
+      [
+        885,
+        461
+      ],
+      [
+        958,
+        480
+      ],
+      [
+        1043,
+        516
+      ],
+      [
+        1024,
+        521
+      ],
+      [
+        1006,
+        532
+      ],
+      [
+        1000,
+        549
+      ],
+      [
+        1003,
+        566
+      ],
+      [
+        1014,
+        581
+      ],
+      [
+        978,
+        592
+      ],
+      [
+        930,
+        590
+      ],
+      [
+        872,
+        559
+      ],
+      [
+        812,
+        502
+      ]
+    ],
+    "Pelvic": [
+      [
+        934,
+        658
+      ],
+      [
+        976,
+        651
+      ],
+      [
+        1007,
+        652
+      ],
+      [
+        990,
+        695
+      ],
+      [
+        952,
+        736
+      ],
+      [
+        906,
+        768
+      ],
+      [
+        869,
+        783
+      ],
+      [
+        890,
+        730
+      ],
+      [
+        909,
+        691
+      ]
+    ]
+  },
+  "projection": {
+    "width": 1.2,
+    "cx": 0,
+    "cy": 0
+  },
+  "donors": {
+    "body-side": {
+      "path": "body-side-v1.png",
+      "sha256": "ae2d9a9588bd8d986c142e2a56ae1013ed86d2fa2ffebc8c275ea452abc848c6",
+      "size": [
+        1511,
+        1041
+      ],
+      "prompt_sha256": "19558bee0dcf032f861f0346b3c44ae8ebee41fd7d4475e2b41f130f3dadbf02",
+      "original": "/Users/czl/.codex/generated_images/01a1c37c-65bb-7091-a5ae-8a0db7ad098e/exec-cd951023-99bd-48ca-8056-777ffc93c2e9.png",
+      "references": [
+        "baseline-review/body-left-clay.png",
+        "style-concept-v1.png"
+      ]
+    },
+    "body-top-bottom": {
+      "path": "body-top-bottom-v1.png",
+      "sha256": "6e89461be35aeff01fe42385d750c6760e2f6ebd39b429034830d7fb2b0c249d",
+      "size": [
+        1511,
+        1041
+      ],
+      "prompt_sha256": "1135d32261caaa7f2d9fb8b62e18dae9cdf467c8cb1b324250e7affde15617fb",
+      "original": "/Users/czl/.codex/generated_images/01a1c37c-65bb-7091-a5ae-8a0db7ad098e/exec-251e6ce8-087f-46fc-82a4-72ab04271c71.png",
+      "references": [
+        "baseline-review/body-top-clay.png",
+        "baseline-review/body-bottom-clay.png",
+        "style-concept-v1.png"
+      ]
+    },
+    "head-front": {
+      "path": "head-front-v1.png",
+      "sha256": "8252f414e9f918fa6b3be0776255c155ff2cc9ebe2c998424afe786219ed74cc",
+      "size": [
+        1511,
+        1041
+      ],
+      "prompt_sha256": "39e4a01c156c611a3196adfee390d5dd9cba1dc44ea72d8a1d3c1766ece061d5",
+      "original": "/Users/czl/.codex/generated_images/01a1c37c-65bb-7091-a5ae-8a0db7ad098e/exec-807f1c40-69ed-440d-9a36-9eddd6f4b4cb.png",
+      "references": [
+        "baseline-review/head-front-texture.png",
+        "baseline-review/head-front-clay.png",
+        "style-concept-v1.png"
+      ]
+    }
+  },
+  "body_checkpoint": {
+    "path": "body-r1/body-review.validation.json",
+    "sha256": "299c3d5c2477ee109a3c0d48e538067fe94c0d86114905a9645b3db787931003"
+  },
+  "fin_polygon_revision": {
+    "reason": "排除原画胸鳍基部及尾柄灰白鳞片，避免鳍根出现重复鳞纹。",
+    "previous": {
+      "Pectoral": [
+        [
+          766,
+          453
+        ],
+        [
+          826,
+          451
+        ],
+        [
+          885,
+          461
+        ],
+        [
+          958,
+          480
+        ],
+        [
+          1047,
+          518
+        ],
+        [
+          1019,
+          537
+        ],
+        [
+          1007,
+          565
+        ],
+        [
+          1020,
+          581
+        ],
+        [
+          978,
+          592
+        ],
+        [
+          930,
+          590
+        ],
+        [
+          872,
+          559
+        ],
+        [
+          812,
+          502
+        ]
+      ],
+      "Caudal": [
+        [
+          132,
+          300
+        ],
+        [
+          188,
+          314
+        ],
+        [
+          250,
+          343
+        ],
+        [
+          340,
+          395
+        ],
+        [
+          353,
+          422
+        ],
+        [
+          325,
+          474
+        ],
+        [
+          349,
+          529
+        ],
+        [
+          342,
+          554
+        ],
+        [
+          265,
+          603
+        ],
+        [
+          188,
+          634
+        ],
+        [
+          132,
+          654
+        ],
+        [
+          181,
+          570
+        ],
+        [
+          227,
+          473
+        ],
+        [
+          182,
+          386
+        ]
+      ]
+    },
+    "earlier_frame": "fins-preview-initial/review/whole-left-texture.png"
+  },
+  "caudal_registration": {
+    "method": "per-height leading and trailing contour registration",
+    "reason": "尾叉位置与意向图不同，逐高度对齐实际轮廓以保住鳍条，减少尾叉边缘的取样重复。",
+    "earlier_frame": "fins-preview-affine/review/whole-left-texture.png"
+  },
+  "user_3D_acceptance": "pending",
+  "candidate": {
+    "model": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/tail-r3/fish.glb",
+      "sha256": "f091aef9e27f7ffa372d09c055190b90de5f084d1c6ef41371c97f825931c8c3"
+    },
+    "editable_source": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/tail-r3/fish.blend",
+      "sha256": "4dfaaa22adb6fc6b24561fb807603694aec5eeb339c990ccff3685da270b78a5"
+    }
+  },
+  "validation": {
+    "authoring": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/tail-r3/tail-authoring.validation.json",
+      "sha256": "9f91a64026d9062ccf819e893432915bf694f6594defbd5bde732be2a358f682"
+    },
+    "tail_thickness": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/tail-r3/tail-volume.validation.json",
+      "sha256": "c14b5f3c0ecff89afe1e13f284d958c2a593c947eea5e21b4a70a359232b5300"
+    },
+    "cold_export": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/tail-r3/cold-export.validation.json",
+      "sha256": "b966ad29fdc0c7160c4a5e688b6241ce865aa408d9bf1658af1d41b5013a78fa"
+    },
+    "fin490": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/checks-tail-r3/fin490/completion.validation.json",
+      "sha256": "571ec92b19750cae87ec97a3c440e29d46230d5dfc516ece337c2b810c449039"
+    },
+    "root072": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/checks-tail-r3/root072/completion.validation.json",
+      "sha256": "167924c8c16434a21ae5ae49d70aaf72de0cb880aee2fc285868926d5f9d18b7"
+    },
+    "body077": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/checks-tail-r3/body077/completion.validation.json",
+      "sha256": "f5711861ba8946f23254225e6e0291a1f2fd0f5bd9ce571621143a0bd139736d"
+    },
+    "whole_Godot": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/tail-r3/review/capture.validation.json",
+      "sha256": "795a928383f0bdd6b5b2d5cf199129909b0d6c8b486f7a6f7df5112b4e4b85d9"
+    },
+    "tail_Godot": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/tail-r3/tail-review/capture.validation.json",
+      "sha256": "405584fe52ec1ca3679c05d6915bdcbd09d99489638dace857dbbf3c67e2a2b2"
+    },
+    "viewer_switching": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-red-seabream-20261111/viewer-tail-smoke/viewer.validation.json",
+      "sha256": "99ea4c0571227899e690bf185ef72ede83a40b7f1a28368c2078a32db8914732"
+    },
+    "visual": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/checks-tail-r3/visual.validation.json",
+      "sha256": "bb230e6bbd9f88357e85952de96e7c2d5b2c7161c2ce6d13bf8d2647ec53b68a"
+    }
+  },
+  "production_review": {
+    "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/production-review.json",
+    "sha256": "7bc3ff96ef5e2126c966905645466f9e07d73da0b7a5aa91a73a81fa2936f255"
+  },
+  "viewer_catalog": {
+    "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-red-seabream-20261111/viewer-tail-interactive.json",
+    "sha256": "90dedccb43b760c98d2527a86d002c59ecf5193af3f906261ce31b23aa7cde55"
+  },
+  "full_production_sop": "pending",
+  "cold_export_byte_exact": true,
+  "cleanup": {
+    "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/cleanup.validation.json",
+    "sha256": "e9029fc3d177a12b32862d5fb3f689ac52fd89aca8e41d44a7f3e8c559915156",
+    "removed_bytes": 301932173,
+    "removed_files": 654
+  },
+  "previous_material_candidate": {
+    "model": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/source-r1/fish.glb",
+      "sha256": "bf28751e569af27229f3ba4bdb6168c599ef5e03a955d7ce22b290ff43699144"
+    },
+    "editable_source": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/source-r1/fish.blend",
+      "sha256": "9f860da189a82bd57b527695eb93543eebeec688065b444d8af85c3d3deab647"
+    }
+  },
+  "previous_validation": {
+    "source_authoring": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/source-r1/source-authoring.validation.json",
+      "sha256": "807a867b0beb330e0ed5b7c8c08e502efe3e9a1ab724bc20a03c3e9d636b8503"
+    },
+    "preservation": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/source-r1/preservation.validation.json",
+      "sha256": "67fe64d8e09c38dc4993a09e78f9857110e00d5b654820a701a69cb826408e8d"
+    },
+    "cold_export": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/source-r1/cold-export.validation.json",
+      "sha256": "ff74f15d8427cb9ba63e727781d6dca247082d5b41736a36c8778ce982a5302c"
+    },
+    "Godot_views": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/source-r1/review/capture.validation.json",
+      "sha256": "f556e2693d39ab56abb264fc1b40a7c7c6dd378a0f165518b402274b0e132059"
+    },
+    "fin490": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/checks/fin490/completion.validation.json",
+      "sha256": "c14d18f48ea1748ea0a491a2a767dc39fd8ea72c18c71365822a87cccee1c702"
+    },
+    "root072": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/checks/root072/completion.validation.json",
+      "sha256": "0904c8866bdf545393b3edef84b0932674574fa9c6f2edbf2b33250f4fb20349"
+    },
+    "body077": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/checks/body077/completion.validation.json",
+      "sha256": "25dc9c1f6887ce40b9f84ae6e51eb755ebfc409ac23e3d6d0ed787387b32af06"
+    },
+    "viewer_switching": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-red-seabream-20261111/viewer-smoke/viewer.validation.json",
+      "sha256": "03e99b2f211619a6841e85345d6322a5b19a9d9c59f9383b2bee1870fad1df03"
+    },
+    "visual_comparison": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/checks/visual.validation.json",
+      "sha256": "1eb05249b55ce886869c5623336e7b4209f22029b13bbe22d8de61b598a8c4d1"
+    }
+  },
+  "user_tail_repair_authorization": "处理？",
+  "tail_repair_scope": "两鱼尾叉中央后缘及渐薄过渡",
+  "tail_cleanup": {
+    "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/tail-cleanup.validation.json",
+    "sha256": "ebd24fb7dac9eceeabd3b1d9db7ce4e47792283f1f6eddd5595f5e253c6298fb",
+    "removed_bytes": 223655187
+  }
+}

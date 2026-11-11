@@ -1,7 +1,7 @@
 {
   "count": 28,
-  "new_style_confirmed": 12,
-  "rebake_remaining": 16,
+  "new_style_confirmed": 14,
+  "rebake_remaining": 14,
   "fish": [
     {
       "species": "african_catfish",
@@ -75,19 +75,20 @@
     {
       "species": "black_seabream",
       "model": "game\\assets\\models\\fish\\black_seabream.glb",
-      "model_sha256": "bbeb71166d9deab84557865204fc81f0e913f8290d5dec90a2526620dd1053bd",
+      "model_sha256": "f091aef9e27f7ffa372d09c055190b90de5f084d1c6ef41371c97f825931c8c3",
       "source": "assets\\source\\fish\\black_seabream\\fish.blend",
-      "source_sha256": "6828dac864d8603d5b205012c81f4e8ab81a29916e5a4c08075d6ad6388e239d",
+      "source_sha256": "4dfaaa22adb6fc6b24561fb807603694aec5eeb339c990ccff3685da270b78a5",
       "static": {
-        "geometry_uv_skin_sha256": "2c7c3487ee9d75eb8448b78b33d2dccf7da207539808fe37f350b46e10001c6e",
-        "material_pixels_sha256": "00316db8e83ca70b9c3786fc4f5da96080646be13f9fff407259355c9ed08bc7",
+        "geometry_uv_skin_sha256": "0f56d4f15f1c817d43f237bb0195b07430b05d029c3a24a7269c58db5a2b5c2c",
+        "material_pixels_sha256": "fef50dcfa5433c26c29ae306c6dae4c1825f679f2ef3bae5aa05ed95e85d563f",
         "skeleton_rest_bind_sha256": "8fef87601f397cd0b1338c78ccc87319cbf69d06cd5351e5cb24a0ecb78d483f",
         "triangles": 1952,
         "bones": 18
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review",
+      "material_release": "resources/volume-fish/clean-pixel-black-seabream-20261111/release.json"
     },
     {
       "species": "blacktip_reef_shark",
@@ -359,19 +360,20 @@
     {
       "species": "red_seabream",
       "model": "game\\assets\\models\\fish\\red_seabream.glb",
-      "model_sha256": "6ac8710a55b84cd59729c0164a5f604d40811e41b0b1024a2a96edfdb00603e6",
+      "model_sha256": "9054304a4061b08618c5235da52248d6cb3d432908d43ebf223e49d042600495",
       "source": "assets\\source\\fish\\red_seabream\\fish.blend",
-      "source_sha256": "2a905ebf75af47f3257189c608b6d850f4a989e281c9da16122f33729b266fef",
+      "source_sha256": "a2149e0f85d2470d019817b56d0b8a61db3362c12d355c4ee245795c6f143eb5",
       "static": {
-        "geometry_uv_skin_sha256": "fbb38e9ce58f4053c64ccaeed0131a9eed4b16ac459c69ca4f0544fe49d17d59",
-        "material_pixels_sha256": "af1470e8aa23d6020e3ad71288c41dea5e29d6dcc3b9a99f772c44d764cbb9c0",
+        "geometry_uv_skin_sha256": "f37cd35856c01d3c760febdab9a79e126ca51c98487d8622709ea77e736e6f6c",
+        "material_pixels_sha256": "304f1b46e9409ee5b16ff31426311f9e01943c9b0137156d0c18417b3e70c3f6",
         "skeleton_rest_bind_sha256": "a1b5aaca4606d82d6e68e3c3530fefdcf551b126047bdafa1f86b44ed33a694f",
         "triangles": 1904,
         "bones": 18
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review",
+      "material_release": "resources/volume-fish/clean-pixel-red-seabream-20261111/release.json"
     },
     {
       "species": "scalloped_hammerhead",
