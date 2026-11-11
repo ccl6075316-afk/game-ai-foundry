@@ -1,0 +1,78 @@
+{
+  "date": "2026-11-11",
+  "kind": "accepted_clean_pixel_material_release",
+  "species": "sea_bass",
+  "user_acceptance": "提交 下一条",
+  "model": {
+    "path": "projects/fishing-2d/game/assets/models/fish/sea_bass.glb",
+    "sha256": "24ed2050e6388922e88a3ec77a57ca624b24c29ddce7df81efc5e7b8a408ee3b"
+  },
+  "source": {
+    "path": "projects/fishing-2d/assets/source/fish/sea_bass/fish.blend",
+    "sha256": "aa6753f239dc2d5924871c54bccef67328df3cbcc2391fd325c17571a9bc8d8b"
+  },
+  "triangles": 1958,
+  "bones": 19,
+  "non_image_streams_exact": 65,
+  "source_cold_byte_exact": true,
+  "body_texels_frozen_before_fins": 1376281,
+  "checks": {
+    "full490": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-sea-bass-20261111/checks/fin490/completion.validation.json",
+      "sha256": "80ded63eb9e360ef8ab1f14631f37ea82327345eb7717afd9a2836a4fccf3f28"
+    },
+    "root072": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-sea-bass-20261111/checks/root072/completion.validation.json",
+      "sha256": "1e75e5090d8ca5f7f362ec2e2c2c3809b2fcd600931a99159305bdc037ef5f71"
+    },
+    "body077": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-sea-bass-20261111/checks/body077/completion.validation.json",
+      "sha256": "a8a83231a34fa8a725fe30e848e0aea0a1d1aa6b0489b6e7590dbe5edd3df3fb"
+    },
+    "preservation": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-sea-bass-20261111/preservation.validation.json",
+      "sha256": "8b3380e2af6c49fd5b702d4ee9a0a5eeb166a64f31869c280feec8403354ae46"
+    },
+    "canonical-load.validation.json": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-sea-bass-20261111/canonical-load.validation.json",
+      "sha256": "f12b3adf8764325dfbcbe31f5413043f3c2445c5f1bf31d9ded8eec2d18ff067"
+    },
+    "canonical-pixels.validation.json": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-sea-bass-20261111/canonical-pixels.validation.json",
+      "sha256": "7a537beb1e04a373a80d079c32b0412d2248e9ac2de1e61eda78c31b2d48dcce"
+    },
+    "fishing-entry.validation.json": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-sea-bass-20261111/fishing-entry.validation.json",
+      "sha256": "23426a353ee5407278ed62f4aa1fc82a8a0fe681dbaaeadd03e8957fc0dddc4b"
+    },
+    "source-cold-export.validation.json": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-sea-bass-20261111/source-cold-export.validation.json",
+      "sha256": "b301d2af94393a417bb4201ce63f5a92b9ae3c26eb5b1fca4295bc13850399ce"
+    },
+    "final_cold_load": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-sea-bass-20261111/final-asset-cold-load.validation.json",
+      "sha256": "204ba68fe9b3287d4885f8fd96d5724aeafbf62c7b03ff935aa8abe465d2e887"
+    }
+  },
+  "full_production_sop_pass": false,
+  "sop_limit": "Runtime stage verified. Anatomy/reference/video stages not repeated for material-only scope.",
+  "handoff": "projects/fishing-2d/plans/reviews/clean-pixel-sea-bass-20261111/HANDOFF.md",
+  "inputs": [
+    {
+      "path": "projects/fishing-2d/assets/source/fish/sea_bass/clean-pixel-20261111/body-side-v1.png",
+      "sha256": "9b34442d382e203df1e9d08cf6fcf6018c1f1d6719decc334edd0daaa2d8b0e9"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/sea_bass/clean-pixel-20261111/body-top-bottom-v1.png",
+      "sha256": "32e07c224400bcaade3f7dbf724d1940d6b1f770a72eb9ca5e9fec9de5ce47b4"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/sea_bass/clean-pixel-20261111/head-front-v1.png",
+      "sha256": "843709339c84555705d0709c8201b72c0501ad5bfdf118e97da3b53da6026eac"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/sea_bass/clean-pixel-20261111/style-concept-v1.png",
+      "sha256": "3fbe38962c69e07f6efd23f6a40dc6da8c044e1e9ac96a158337bdf3097e04fc"
+    }
+  ]
+}

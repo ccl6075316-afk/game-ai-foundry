@@ -1,7 +1,7 @@
 {
   "count": 28,
-  "new_style_confirmed": 10,
-  "rebake_remaining": 18,
+  "new_style_confirmed": 11,
+  "rebake_remaining": 17,
   "fish": [
     {
       "species": "african_catfish",
@@ -391,19 +391,21 @@
     {
       "species": "sea_bass",
       "model": "game\\assets\\models\\fish\\sea_bass.glb",
-      "model_sha256": "1c908b8875e655559438ebe7797cc3f87d1658df93d6b0dacb86a69c75e4a631",
+      "model_sha256": "24ed2050e6388922e88a3ec77a57ca624b24c29ddce7df81efc5e7b8a408ee3b",
       "source": "assets\\source\\fish\\sea_bass\\fish.blend",
-      "source_sha256": "ddd6d46f6c326bb6c0342db533c03cd645e9379a6835308b4025c5cc1f7b4af0",
+      "source_sha256": "aa6753f239dc2d5924871c54bccef67328df3cbcc2391fd325c17571a9bc8d8b",
       "static": {
         "geometry_uv_skin_sha256": "b6a99ccb1ddd4ba245220080ca181829a969c8932e02ce3a27708fedb5b7b5a4",
-        "material_pixels_sha256": "bc884a882641500cc41d9d12b4e6d5b807e5d5658e3868a5b75c822dd062f1fd",
+        "material_pixels_sha256": "ae1ea01392bf5f97941df560b142df1511120d2ea78165ea56e346fa1f235ebd",
         "skeleton_rest_bind_sha256": "3d40c8736dbc823d1597fa665b4dbbee582a7b85fb28062855aab8145aca94b8",
         "triangles": 1958,
         "bones": 19
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review",
+      "material_release": "resources/volume-fish/clean-pixel-sea-bass-20261111/release.json",
+      "material_accepted_date": "2026-11-11"
     },
     {
       "species": "silver_arowana",
