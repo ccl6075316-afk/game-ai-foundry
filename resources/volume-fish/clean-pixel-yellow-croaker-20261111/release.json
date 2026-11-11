@@ -1,0 +1,99 @@
+{
+  "date": "2026-11-11",
+  "kind": "accepted_clean_pixel_material_and_mouth_release",
+  "species": "yellow_croaker",
+  "user_acceptance": "红腹食人鱼和大黄鱼提交吧",
+  "model": {
+    "path": "projects/fishing-2d/game/assets/models/fish/yellow_croaker.glb",
+    "sha256": "51b2a7aa84f6c3ae2e3f2d11f9df81aa77436cf5040b04d7be964e8842b72b21"
+  },
+  "source": {
+    "path": "projects/fishing-2d/assets/source/fish/yellow_croaker/fish.blend",
+    "sha256": "0d0ecd6661858cb08b4dc823ea62ecd6c2f0e76a0e303ed6a3e813acc279220e"
+  },
+  "triangles": 2000,
+  "bones": 18,
+  "body_texels_frozen_before_fins": 1195913,
+  "source_cold_byte_exact": true,
+  "checks": {
+    "fin490": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-yellow-croaker-20261111/checks/fin490/completion.validation.json",
+      "sha256": "0b6c02f43fecb184a1b7afc9023716a7c5e3f187c43ea1a1e30f1706d2044a78"
+    },
+    "root072": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-yellow-croaker-20261111/checks/root072/completion.validation.json",
+      "sha256": "d05679f2f9f2a852075dba5a1e701524fe74f57b0a0550166acce532ef320f02"
+    },
+    "body077": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-yellow-croaker-20261111/checks/body077/completion.validation.json",
+      "sha256": "7ae2752105c431ffda3fa435079844865127c8c9e0fbee75f2e644f3c0d51a85"
+    },
+    "installation": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-yellow-croaker-20261111/installation.validation.json",
+      "sha256": "0a9ffabeb672634d5f404d3a70c1e371b22ecda578c0e19ebf4b558cc30fa3fe"
+    },
+    "source-cold-export": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-yellow-croaker-20261111/source-cold-export.validation.json",
+      "sha256": "e652e122c831e87b61dd14c6c15528e4bdf7bed499c1ca3ad331afd74092925c"
+    },
+    "canonical-load": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-yellow-croaker-20261111/canonical-load.validation.json",
+      "sha256": "ce957960b89ed538037ed61463024b45eb0eb8745a3bcfd3a95f188b64422919"
+    },
+    "canonical-motion": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-yellow-croaker-20261111/canonical-motion.validation.json",
+      "sha256": "a3564c637e667a352503cbe5ac961fff3aa32ee5708277f30e2cbbfbac49d305"
+    },
+    "baidu-lfs": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-yellow-croaker-20261111/baidu-lfs.validation.json",
+      "sha256": "5a3acddd73fc197ea696ec9d3edd909173efbaea6f543d6776f4e8078a053a16"
+    },
+    "source-authoring": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-yellow-croaker-20261111/source-authoring.validation.json",
+      "sha256": "9fee6524aa9eed56bc021c77d3a53cfcbbed0e9f3a4ef50d8ba7eca14cba1974"
+    },
+    "mouth-preservation": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-yellow-croaker-20261111/mouth-preservation.validation.json",
+      "sha256": "ce48459bc6a0509460665ef49bbe3b42a7927ed3ca2ed62b8c23ed51901a0c57"
+    },
+    "mouth-review": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-yellow-croaker-20261111/mouth-review.validation.json",
+      "sha256": "23de96480d4926ef9985e625be8bd0617d7dac7fc001df99bc11783f79350b92"
+    },
+    "oral-color": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-yellow-croaker-20261111/oral-color.validation.json",
+      "sha256": "f4cb3c8b8c60480ee4b2998d4d96f3a889669bfbde329c9d384365b41959af55"
+    },
+    "final-asset-cold-load": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-yellow-croaker-20261111/final-asset-cold-load.validation.json",
+      "sha256": "84fcc3f1958fa30652ee4dde4d81a608145c5192684ee6b8dbca32d186212617"
+    },
+    "canonical-pixels": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-yellow-croaker-20261111/canonical-pixels.validation.json",
+      "sha256": "3547b7b8f0be09f2a14d761a6ef1195651cdeaec2ffedebe0a049d0fd136903d"
+    },
+    "body-before-fins": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-yellow-croaker-20261111/body-before-fins.validation.json",
+      "sha256": "96f853395e6607207b52adfb85f6efe0a7d0d2bec5bd5d2d1845f20de0b40727"
+    }
+  },
+  "full_production_sop_pass": false,
+  "sop_limit": "完整资料、形态及全套视频项目仍待验。",
+  "handoff": "projects/fishing-2d/plans/reviews/clean-pixel-yellow-croaker-20261111/HANDOFF.md",
+  "inputs": [
+    {
+      "path": "projects/fishing-2d/assets/source/fish/yellow_croaker/clean-pixel-20261111/body-side-v1.png",
+      "sha256": "f443d272e2ed44e04bd1acdea35ec0eb95e42cc6eb170749aced38717258de3c"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/yellow_croaker/clean-pixel-20261111/body-top-bottom-v1.png",
+      "sha256": "0587935197a7e3f80959da25e862521c8b3cda7c315d8a2d4fc0ae5519008396"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/yellow_croaker/clean-pixel-20261111/style-concept-v1.png",
+      "sha256": "eecb3ff4a08cf9f10ee25c1459af3c662f96a9fa5c048f9ce47e086d2fb03201"
+    }
+  ],
+  "sop_check": "projects/fishing-2d/plans/reviews/clean-pixel-yellow-croaker-20261111/sop-check.json",
+  "cleanup": "projects/fishing-2d/plans/reviews/clean-pixel-yellow-croaker-20261111/cleanup-release.validation.json"
+}

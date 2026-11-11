@@ -1,0 +1,52 @@
+{
+  "method": "built-in image_gen",
+  "transparent_background": false,
+  "outputs": [
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-piranha-20261111/body-side-v1.png",
+      "sha256": "96ad155f3ad187d6b1bc7b8a8f7a1fb9c09aaa02baf0b1a15f2157e7e3ae5180",
+      "prompt": "Edit this approved red-bellied piranha material concept into a COMPLETE FINLESS BODY color donor, same exact side view facing right, same body proportions, same short thick jaw, small visible teeth attached along inside jaw edge, same eyes, gill cover, silver scales and vivid orange red belly. Remove ALL fins including dorsal, adipose, tail fin, anal, both pelvic and pectoral fins. Replace the entire pectoral fin and its root shading with perfectly continuous natural scaled red-orange body skin matching adjacent rows and colors. Keep the whole fish body from snout to the blunt caudal peduncle, no fins whatsoever and no fin shadows or outlines on body. Preserve original approved scale style and colors. Flat uniform charcoal background, no text, single side view, same framing.",
+      "references": [
+        {
+          "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-piranha-20261111/style-concept-v3-teeth.png",
+          "sha256": "5bae9e6bf15441fcf02b0405eeb2d42922b32d533e3925db0a36a4c0431ad14e"
+        }
+      ]
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-piranha-20261111/body-top-bottom-v1.png",
+      "sha256": "0c42a1234a03c8db61a4e99d5c76cc82833ba3c49e8aa2975c21f36753bfcc5a",
+      "prompt": "Create a TWO ROW material donor sheet for this red-bellied piranha. Top row: paint the exact finless dorsal body silhouette from image 1 (tail LEFT head RIGHT), in image 3's silver grey scales and natural bronze head tones. Bottom row: paint the exact finless belly body silhouette from image 2 (head LEFT tail RIGHT), in image 3's saturated orange-red belly scales. Every row should keep the full same silhouette and centered framing of its gray source image, each rectangular row ratio 900:620. No fins, no eyes pasted onto belly, no gill lines on belly, no shadows or fin footprints. Continuous scale skin over whole body, appropriate pale bronze gray snout top, orange-red chin belly. Use the accepted fine scale/color style of image 3. Dark uniform charcoal background. No text or labels. Both rows same dimensions, total sheet ratio 900:1240.",
+      "references": [
+        {
+          "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-piranha-20261111/donor-review/body-top-clay.png",
+          "sha256": "1459871462f42c21a99bc3f9b088a27999743e27844b994afb814a05d0ce99f4"
+        },
+        {
+          "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-piranha-20261111/donor-review/body-bottom-clay.png",
+          "sha256": "4374b0b270326bdb2cc3419e40ebaccd8708fc829d3cd4b90640b90274c3699d"
+        },
+        {
+          "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-piranha-20261111/style-concept-v3-teeth.png",
+          "sha256": "5bae9e6bf15441fcf02b0405eeb2d42922b32d533e3925db0a36a4c0431ad14e"
+        }
+      ]
+    },
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-piranha-20261111/head-front-v1.png",
+      "sha256": "47911a17a077151562a9713c83133079ad4db7645c47a2c1c035092ec8272d9c",
+      "prompt": "Edit image 1 only, preserving exact frontal camera, same snout, lip and mouth boundary location and head silhouette. Repaint its coarse material in the approved smooth fine pixel-scale art of image 2. Natural bronze grey upper snout smoothly connecting to orange red chin, lips NOT ivory white, same natural skin color, small dark mouth opening retaining its same position and shape. A few tiny ivory triangular teeth are rooted at the INNER upper jaw inside the black opening and subtle lower tips, NEVER on outside lip skin, never floating. Keep eye placement as image 1 but clean appearance from image 2. Continuous head skin, no duplicate gill lines on center forehead, no external cartoon snarl. Same charcoal background. Exact same close crop and face proportions.",
+      "references": [
+        {
+          "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-piranha-20261111/donor-review/head-front-texture.png",
+          "sha256": "82cade5dea51ea3388c899cf1077bdac52d1e1ca39edb18ecd00b7f73558198e"
+        },
+        {
+          "path": "/Users/czl/projects/game-ai-foundry/work/clean-pixel-piranha-20261111/style-concept-v3-teeth.png",
+          "sha256": "5bae9e6bf15441fcf02b0405eeb2d42922b32d533e3925db0a36a4c0431ad14e"
+        }
+      ]
+    }
+  ],
+  "operator_review": "All three outputs inspected. Actual body silhouette and donor domains measured rather than assuming returned image size/layout. Front donor exterior lower lip not used in final lower jaw; original UV skin retained to avoid slab."
+}

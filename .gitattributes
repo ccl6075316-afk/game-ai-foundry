@@ -193,3 +193,6 @@ resources/fish-database/references/recovered-history-20261108/**/*.glb filter=lf
 /resources/volume-fish/clean-pixel-brown-trout-20261110/** -text whitespace=cr-at-eol
 
 /resources/volume-fish/clean-pixel-atlantic-salmon-20261111/** -text whitespace=cr-at-eol
+/resources/volume-fish/clean-pixel-piranha-20261111/**/*.json -text whitespace=cr-at-eol
+/resources/volume-fish/clean-pixel-yellow-croaker-20261111/**/*.json -text whitespace=cr-at-eol
+/resources/volume-fish/clean-pixel-pair-20261111/**/*.json -text whitespace=cr-at-eol

@@ -1,0 +1,177 @@
+{
+  "species": "piranha",
+  "parts": [
+    {
+      "name": "Adipose_mesh_0",
+      "role": "fin",
+      "source_node": "Adipose_mesh",
+      "source_surface": 0,
+      "logical_name": "Adipose_mesh",
+      "opaque_uv": false
+    },
+    {
+      "name": "Adipose_mesh_1",
+      "role": "fin",
+      "source_node": "Adipose_mesh",
+      "source_surface": 1,
+      "logical_name": "Adipose_mesh",
+      "opaque_uv": false
+    },
+    {
+      "name": "Anal_mesh_0",
+      "role": "fin",
+      "source_node": "Anal_mesh",
+      "source_surface": 0,
+      "logical_name": "Anal_mesh",
+      "opaque_uv": false
+    },
+    {
+      "name": "Anal_mesh_1",
+      "role": "fin",
+      "source_node": "Anal_mesh",
+      "source_surface": 1,
+      "logical_name": "Anal_mesh",
+      "opaque_uv": false
+    },
+    {
+      "name": "Caudal_mesh_0",
+      "role": "fin",
+      "source_node": "Caudal_mesh",
+      "source_surface": 0,
+      "logical_name": "Caudal_mesh",
+      "opaque_uv": false
+    },
+    {
+      "name": "Caudal_mesh_1",
+      "role": "fin",
+      "source_node": "Caudal_mesh",
+      "source_surface": 1,
+      "logical_name": "Caudal_mesh",
+      "opaque_uv": false
+    },
+    {
+      "name": "Closed_body_0",
+      "role": "body_skin",
+      "source_node": "Closed_body",
+      "source_surface": 0,
+      "logical_name": "Closed_body",
+      "opaque_uv": true
+    },
+    {
+      "name": "Closed_body_1",
+      "role": "body_skin",
+      "source_node": "Closed_body",
+      "source_surface": 1,
+      "logical_name": "Closed_body",
+      "opaque_uv": true
+    },
+    {
+      "name": "Closed_body_2",
+      "role": "mouth",
+      "source_node": "Closed_body",
+      "source_surface": 2,
+      "logical_name": "Closed_body",
+      "opaque_uv": true
+    },
+    {
+      "name": "Dorsal_mesh_0",
+      "role": "fin",
+      "source_node": "Dorsal_mesh",
+      "source_surface": 0,
+      "logical_name": "Dorsal_mesh",
+      "opaque_uv": false
+    },
+    {
+      "name": "Dorsal_mesh_1",
+      "role": "fin",
+      "source_node": "Dorsal_mesh",
+      "source_surface": 1,
+      "logical_name": "Dorsal_mesh",
+      "opaque_uv": false
+    },
+    {
+      "name": "Pectoral_left_mesh_0",
+      "role": "fin",
+      "source_node": "Pectoral_left_mesh",
+      "source_surface": 0,
+      "logical_name": "Pectoral_left_mesh",
+      "opaque_uv": false
+    },
+    {
+      "name": "Pectoral_left_mesh_1",
+      "role": "fin",
+      "source_node": "Pectoral_left_mesh",
+      "source_surface": 1,
+      "logical_name": "Pectoral_left_mesh",
+      "opaque_uv": false
+    },
+    {
+      "name": "Pectoral_right_mesh_0",
+      "role": "fin",
+      "source_node": "Pectoral_right_mesh",
+      "source_surface": 0,
+      "logical_name": "Pectoral_right_mesh",
+      "opaque_uv": false
+    },
+    {
+      "name": "Pectoral_right_mesh_1",
+      "role": "fin",
+      "source_node": "Pectoral_right_mesh",
+      "source_surface": 1,
+      "logical_name": "Pectoral_right_mesh",
+      "opaque_uv": false
+    },
+    {
+      "name": "Pelvic_left_mesh_0",
+      "role": "fin",
+      "source_node": "Pelvic_left_mesh",
+      "source_surface": 0,
+      "logical_name": "Pelvic_left_mesh",
+      "opaque_uv": false
+    },
+    {
+      "name": "Pelvic_left_mesh_1",
+      "role": "fin",
+      "source_node": "Pelvic_left_mesh",
+      "source_surface": 1,
+      "logical_name": "Pelvic_left_mesh",
+      "opaque_uv": false
+    },
+    {
+      "name": "Pelvic_right_mesh_0",
+      "role": "fin",
+      "source_node": "Pelvic_right_mesh",
+      "source_surface": 0,
+      "logical_name": "Pelvic_right_mesh",
+      "opaque_uv": false
+    },
+    {
+      "name": "Pelvic_right_mesh_1",
+      "role": "fin",
+      "source_node": "Pelvic_right_mesh",
+      "source_surface": 1,
+      "logical_name": "Pelvic_right_mesh",
+      "opaque_uv": false
+    },
+    {
+      "name": "Eye_relief_-1",
+      "role": "eyes",
+      "source_node": "Eye_relief_-1",
+      "source_surface": 0,
+      "logical_name": "Eye_relief_-1",
+      "opaque_uv": true
+    },
+    {
+      "name": "Eye_relief_1",
+      "role": "eyes",
+      "source_node": "Eye_relief_1",
+      "source_surface": 0,
+      "logical_name": "Eye_relief_1",
+      "opaque_uv": true
+    }
+  ],
+  "expected": {
+    "triangles": 1992,
+    "bones": 19
+  }
+}

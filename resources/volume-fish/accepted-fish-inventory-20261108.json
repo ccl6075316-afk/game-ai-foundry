@@ -1,7 +1,7 @@
 {
   "count": 28,
-  "new_style_confirmed": 14,
-  "rebake_remaining": 14,
+  "new_style_confirmed": 16,
+  "rebake_remaining": 12,
   "fish": [
     {
       "species": "african_catfish",
@@ -305,19 +305,20 @@
     {
       "species": "piranha",
       "model": "game\\assets\\models\\fish\\piranha.glb",
-      "model_sha256": "80be233cef987ac695fff661986fa307542a9f5738415680c26e4f8c9149d532",
+      "model_sha256": "1d95bbff91d2e1d15b101005da9d156991fec419903bc0e49e3c535aa329122d",
       "source": "assets\\source\\fish\\piranha\\fish.blend",
-      "source_sha256": "25dd210d0d74404ca2ab4c6247832cff0ec1188e673e49cf2fa81e59cb6ee998",
+      "source_sha256": "131315e1d653651d97e609d277afbd6721b4bb895b0e8e8cafc5351d1996612f",
       "static": {
-        "geometry_uv_skin_sha256": "3b1a39c5719704ef35ee0a4da612cff997486a375eb275271c09c59dae55a1ca",
-        "material_pixels_sha256": "77013b83e4990a3abdd49cc35970f60317a6fbadf452affd52e65b1cc0f0dbc1",
+        "geometry_uv_skin_sha256": "7003e5f1c3bc3bfc4f4150e6dce2f86b31b8d02cbecee7e5f70f3d8039d4b1d7",
+        "material_pixels_sha256": "40873e751ea94b8b3a0ec71023975151eeaccfa99b6f50226b737ac01aea4c5c",
         "skeleton_rest_bind_sha256": "164afb6067683bade6360d9dc4e8e3b05501758b9a09379751954e4f6d6e53f3",
-        "triangles": 1992,
+        "triangles": 2000,
         "bones": 19
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review",
+      "new_style_release": "resources/volume-fish/clean-pixel-piranha-20261111/release.json"
     },
     {
       "species": "rainbow_trout",
@@ -465,19 +466,20 @@
     {
       "species": "yellow_croaker",
       "model": "game\\assets\\models\\fish\\yellow_croaker.glb",
-      "model_sha256": "8846cb7bd8736407f80b5b0436889f07e7e5df2e1c95f57d077b97e24dd2dec4",
+      "model_sha256": "51b2a7aa84f6c3ae2e3f2d11f9df81aa77436cf5040b04d7be964e8842b72b21",
       "source": "assets\\source\\fish\\yellow_croaker\\fish.blend",
-      "source_sha256": "ae1e42c1b29276e64ba975954610f81c98efe2d57ef1490ec4cb423a1022f311",
+      "source_sha256": "0d0ecd6661858cb08b4dc823ea62ecd6c2f0e76a0e303ed6a3e813acc279220e",
       "static": {
-        "geometry_uv_skin_sha256": "1beb3604e0d8313b5c37d3a3463afd1134fea698aa87fe5c3b8a49c10b552eef",
-        "material_pixels_sha256": "4a1869ff98b85207829da993dc6d31e544e296bf32bbacbd385a6e76b92391ef",
+        "geometry_uv_skin_sha256": "479837ef2f74dea72774bc7cc100a0d5bf52ae49a48bf0f6f9b6af2cc63a0792",
+        "material_pixels_sha256": "b5f67a04a79dadff9a237f8f603c2e700f07ae044f60ef8c6a92f4180f5c821f",
         "skeleton_rest_bind_sha256": "bd44684b945a66d3001352fd910eb6aa1380ea9aa23b366db8c442be95c588b0",
         "triangles": 2000,
         "bones": 18
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review",
+      "new_style_release": "resources/volume-fish/clean-pixel-yellow-croaker-20261111/release.json"
     },
     {
       "species": "zander",
@@ -497,5 +499,5 @@
       "animation_quality": "separate_future_review"
     }
   ],
-  "updated": "2026-11-10"
+  "updated": "2026-11-11"
 }
