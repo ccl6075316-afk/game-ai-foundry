@@ -1,0 +1,154 @@
+{
+  "species": "red_emperor",
+  "baseline_inventory": {
+    "species": "red_emperor",
+    "model": "game\\assets\\models\\fish\\red_emperor.glb",
+    "model_sha256": "317f10ee1a1fb1eb3f1e76667af5904efd3586d052495eca85b3ad6f52e0f072",
+    "source": "assets\\source\\fish\\red_emperor\\fish.blend",
+    "source_sha256": "3db7de905e510f41c1813d4e248b26c2ef1dac276545fd7fd3288ca8eab68d47",
+    "static": {
+      "geometry_uv_skin_sha256": "db59f0e181cb438b4b7120dd5ab6cfa584bb666875fc681bcebc8c3ff3394dbd",
+      "material_pixels_sha256": "0298fb13ccc591456370072dcf6f47e5a25a247562db3b85bd2bfa3a261ab575",
+      "skeleton_rest_bind_sha256": "dd9f10462d840e31ad615b4628b3dc1910f147f8a07647a06feb426c517f7916",
+      "triangles": 1742,
+      "bones": 18
+    },
+    "model_status": "user_accepted_static_baseline",
+    "new_style_status": "rebake_pending",
+    "animation_quality": "separate_future_review"
+  },
+  "projection": {
+    "width": 1.16,
+    "cx": 0,
+    "cy": 0
+  },
+  "side_landmarks": {
+    "model_x": [
+      611,
+      677,
+      731,
+      776,
+      808
+    ],
+    "donor_x": [
+      1026,
+      1115,
+      1230,
+      1295,
+      1352
+    ]
+  },
+  "front_projection": {
+    "width": 0.37,
+    "cy": 0,
+    "target_y": [
+      157,
+      226,
+      352,
+      382,
+      400,
+      432,
+      497
+    ],
+    "source_y": [
+      237,
+      337,
+      542,
+      586,
+      617,
+      658,
+      778
+    ]
+  },
+  "front_cavity_polygon": [
+    [
+      0.375,
+      0.661
+    ],
+    [
+      0.401,
+      0.618
+    ],
+    [
+      0.434,
+      0.591
+    ],
+    [
+      0.475,
+      0.585
+    ],
+    [
+      0.525,
+      0.585
+    ],
+    [
+      0.568,
+      0.592
+    ],
+    [
+      0.6,
+      0.618
+    ],
+    [
+      0.625,
+      0.66
+    ],
+    [
+      0.585,
+      0.65
+    ],
+    [
+      0.543,
+      0.639
+    ],
+    [
+      0.5,
+      0.633
+    ],
+    [
+      0.457,
+      0.639
+    ],
+    [
+      0.415,
+      0.65
+    ]
+  ],
+  "front_rim_y": [
+    0.545,
+    0.75
+  ],
+  "front_lower_lip_y": [
+    0.648,
+    0.759
+  ],
+  "root_domain": {
+    "path": "resources/volume-fish/tail-closure-repair-20261106/red_emperor/complete-root-domains.json",
+    "sha256": "8eab69f808ba308bfd8258fc2e99194a082bde210001d0c0ce7a27c69d93742c"
+  },
+  "user_style_acceptance": {
+    "status": "accepted",
+    "quote": "可以 开始吧",
+    "date": "2026-11-11",
+    "image_sha256": "6968d83b9ce8faca5832b807ac09676989e37a3c5378d57779ad3a54388c0874"
+  },
+  "scope": "Actual authoring snapshot. Maintain from the accepted canonical source.",
+  "donors": [
+    {
+      "path": "projects/fishing-2d/assets/source/fish/red_emperor/clean-pixel-20261111/body-side-v1.png",
+      "sha256": "3a09b603100b0a63747f9664968a4173774dd0f95f8636b96c4aeb27e9476e52"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/red_emperor/clean-pixel-20261111/body-top-bottom-v1.png",
+      "sha256": "bb164fcb221a335812222ae52a7ca7f50529c57b9694c68281a9268d79d3ff9c"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/red_emperor/clean-pixel-20261111/head-front-v1.png",
+      "sha256": "c2db7838fefd5abd72cf1fb7883d84ffc85a59191cce8e8463d0d1d093196eba"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/red_emperor/clean-pixel-20261111/style-concept-v1.png",
+      "sha256": "6968d83b9ce8faca5832b807ac09676989e37a3c5378d57779ad3a54388c0874"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "count": 28,
-  "new_style_confirmed": 11,
-  "rebake_remaining": 17,
+  "new_style_confirmed": 12,
+  "rebake_remaining": 16,
   "fish": [
     {
       "species": "african_catfish",
@@ -340,19 +340,21 @@
     {
       "species": "red_emperor",
       "model": "game\\assets\\models\\fish\\red_emperor.glb",
-      "model_sha256": "317f10ee1a1fb1eb3f1e76667af5904efd3586d052495eca85b3ad6f52e0f072",
+      "model_sha256": "b00b644c9ae06d26d58ecd318b197f4abdd45a6141c1c6cb469df688f6ae73af",
       "source": "assets\\source\\fish\\red_emperor\\fish.blend",
-      "source_sha256": "3db7de905e510f41c1813d4e248b26c2ef1dac276545fd7fd3288ca8eab68d47",
+      "source_sha256": "8da30fcf230f28cda8b0b53f09bcd9b9083e42b4e6da8dbc929ad6f1ec882996",
       "static": {
         "geometry_uv_skin_sha256": "db59f0e181cb438b4b7120dd5ab6cfa584bb666875fc681bcebc8c3ff3394dbd",
-        "material_pixels_sha256": "0298fb13ccc591456370072dcf6f47e5a25a247562db3b85bd2bfa3a261ab575",
+        "material_pixels_sha256": "3cd6116e4860136aa17fd5f7e34bf1a6885ecb94bf193d7745439f0d5b146714",
         "skeleton_rest_bind_sha256": "dd9f10462d840e31ad615b4628b3dc1910f147f8a07647a06feb426c517f7916",
         "triangles": 1742,
         "bones": 18
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review",
+      "material_release": "resources/volume-fish/clean-pixel-red-emperor-20261111/release.json",
+      "material_accepted_date": "2026-11-11"
     },
     {
       "species": "red_seabream",

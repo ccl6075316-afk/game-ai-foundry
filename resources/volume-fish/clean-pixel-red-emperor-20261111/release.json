@@ -1,0 +1,78 @@
+{
+  "date": "2026-11-11",
+  "kind": "accepted_clean_pixel_material_release",
+  "species": "red_emperor",
+  "user_acceptance": "验收 提交  下一次两条",
+  "model": {
+    "path": "projects/fishing-2d/game/assets/models/fish/red_emperor.glb",
+    "sha256": "b00b644c9ae06d26d58ecd318b197f4abdd45a6141c1c6cb469df688f6ae73af"
+  },
+  "source": {
+    "path": "projects/fishing-2d/assets/source/fish/red_emperor/fish.blend",
+    "sha256": "8da30fcf230f28cda8b0b53f09bcd9b9083e42b4e6da8dbc929ad6f1ec882996"
+  },
+  "triangles": 1742,
+  "bones": 18,
+  "non_image_streams_exact": 58,
+  "body_texels_frozen_before_fins": 1353415,
+  "source_cold_byte_exact": true,
+  "checks": {
+    "canonical-load.validation.json": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-red-emperor-20261111/canonical-load.validation.json",
+      "sha256": "65ca55323f8b5bd2f55506e26fba7e99569746780e0049c89678dc5f64b7fc5f"
+    },
+    "canonical-pixels.validation.json": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-red-emperor-20261111/canonical-pixels.validation.json",
+      "sha256": "bdc04256e35c60aad562f14c77517a5fe7b7a58349a57c7e0119f2ec9610827a"
+    },
+    "fishing-entry.validation.json": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-red-emperor-20261111/fishing-entry.validation.json",
+      "sha256": "90f80e1efc7089fb4d098a634991f67a272a9437034c3076eefdb1d8fed94205"
+    },
+    "source-cold-export.validation.json": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-red-emperor-20261111/source-cold-export.validation.json",
+      "sha256": "c1eb2b65be50b9e8fceedd6a7588e078a4eac056a77a16e7b884ea6c73a62ec1"
+    },
+    "full490": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-red-emperor-20261111/checks/fin490/completion.validation.json",
+      "sha256": "379b04aef481e91de07b2d7127a9913a086c77cbaa737d764a3c1abe57407490"
+    },
+    "root072": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-red-emperor-20261111/checks/root072/completion.validation.json",
+      "sha256": "a2a98c0e1afe168fcb0ed16cc140670664f0c3bba2add6cadb996bdcebe8312b"
+    },
+    "body077": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-red-emperor-20261111/checks/body077/completion.validation.json",
+      "sha256": "b8b79969f3bcb8e702b22bdf2d0e34b89b11b41cabfd88dae0077086f5365be2"
+    },
+    "preservation": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-red-emperor-20261111/preservation.validation.json",
+      "sha256": "60ce77da9b85abf085597014132159c471ca029f3f41acdb49112af5fe2557e4"
+    },
+    "final_cold_load": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-red-emperor-20261111/final-asset-cold-load.validation.json",
+      "sha256": "c39f5db5c6ec4e96193256682278fc95174a222bc0457f9b1339e10dd4ace182"
+    }
+  },
+  "full_production_sop_pass": false,
+  "sop_limit": "Runtime stage verified. Full reference/anatomy/video stages were outside this material release.",
+  "handoff": "projects/fishing-2d/plans/reviews/clean-pixel-red-emperor-20261111/HANDOFF.md",
+  "inputs": [
+    {
+      "path": "projects/fishing-2d/assets/source/fish/red_emperor/clean-pixel-20261111/body-side-v1.png",
+      "sha256": "3a09b603100b0a63747f9664968a4173774dd0f95f8636b96c4aeb27e9476e52"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/red_emperor/clean-pixel-20261111/body-top-bottom-v1.png",
+      "sha256": "bb164fcb221a335812222ae52a7ca7f50529c57b9694c68281a9268d79d3ff9c"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/red_emperor/clean-pixel-20261111/head-front-v1.png",
+      "sha256": "c2db7838fefd5abd72cf1fb7883d84ffc85a59191cce8e8463d0d1d093196eba"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/red_emperor/clean-pixel-20261111/style-concept-v1.png",
+      "sha256": "6968d83b9ce8faca5832b807ac09676989e37a3c5378d57779ad3a54388c0874"
+    }
+  ]
+}
