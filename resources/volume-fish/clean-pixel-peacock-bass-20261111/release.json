@@ -1,0 +1,111 @@
+{
+  "date": "2026-11-11",
+  "kind": "accepted_clean_pixel_material_and_mouth_release",
+  "species": "peacock_bass",
+  "user_acceptance": "先提交吧 这个嘴巴这里 简单记录一下未来开合意图 现在也当成品提交",
+  "model": {
+    "path": "projects/fishing-2d/game/assets/models/fish/peacock_bass.glb",
+    "sha256": "bb26fbb4b8cdd8de66c8f72f0941c7755eac514df873df108353d3516765012f"
+  },
+  "source": {
+    "path": "projects/fishing-2d/assets/source/fish/peacock_bass/fish.blend",
+    "sha256": "163d5080075738324c2b4d481b61780f5e22d958ff2a02d072454a52b8474339"
+  },
+  "triangles": 1892,
+  "bones": 18,
+  "fins": 8,
+  "body_texels_frozen_before_fins": 1664812,
+  "scope": "Complete body before eight fins; later R5 local mouth geometry/normals/interior topology and mouth RGB reopened. Exterior UV, complete fins, rig/binds/native animation retained.",
+  "future_mouth_intent": "Natural small breathing gape and reasonable closure may be developed later; current 0–18 degree control retained, rest remains slightly open. No new periodic jaw animation or all-fish rollout in this release.",
+  "checks": {
+    "fin490": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-peacock-bass-20261111/checks/fin490/completion.validation.json",
+      "sha256": "eb94b042ac30dda366a51e7df29877fb678c91a0d5162d3935aa1d24f6826ed8"
+    },
+    "root072": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-peacock-bass-20261111/checks/root072/completion.validation.json",
+      "sha256": "2507b1f65ae1c26b07d68a611acde06c6417e134d91892f33ea40121edc6c1ea"
+    },
+    "body077": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-peacock-bass-20261111/checks/body077/completion.validation.json",
+      "sha256": "16ccf4e1e54a239f75e46fe09e6f96e7b45decbe634294e8ff8b5a27debc011f"
+    },
+    "canonical-motion": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-peacock-bass-20261111/canonical-motion.validation.json",
+      "sha256": "bc0fc7658ef5b6f1f1317a19e23c47fa9d77d75548104ae087307c5e3bf2414a"
+    },
+    "canonical-pixels": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-peacock-bass-20261111/canonical-pixels.validation.json",
+      "sha256": "deb3815e4b28732a81d58f7a3bfb48a8932a8688c6a9ed1fa246888c5038f15f"
+    },
+    "baidu-lfs": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-peacock-bass-20261111/baidu-lfs.validation.json",
+      "sha256": "f96f8fb682134214568476f430ecbda05724be67edb2f8d1ff55900cf145ae74"
+    },
+    "source-authoring": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-peacock-bass-20261111/source-authoring.validation.json",
+      "sha256": "f2de684a7c6cd25adc3879914fe5ce57cc1df3187be77b73d619ffb291186b1e"
+    },
+    "aperture": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-peacock-bass-20261111/aperture.validation.json",
+      "sha256": "438fea6e4fd1aa8e8e1d480ea3bb804aef8c77cfd5c09adf39f199547b8a10bb"
+    },
+    "body-before-fins": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-peacock-bass-20261111/body-before-fins.validation.json",
+      "sha256": "301146e0d8d2d911131f3ce90a65e763fe8950072f2979658d32b9064059f322"
+    },
+    "install": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-peacock-bass-20261111/installation/install.validation.json",
+      "sha256": "b69df4be92851f8dc559910fbf66612f5d5699b192a8cb9047e2aeda325e560f"
+    },
+    "canonical": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-peacock-bass-20261111/installation/canonical.validation.json",
+      "sha256": "274603b9ddaa66909cf9324b7f871514350334e5fde2af24e44656527335c9ef"
+    },
+    "final-asset-cold-load": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-peacock-bass-20261111/installation/final-asset-cold-load.validation.json",
+      "sha256": "afaa6ebe36923e0f5f790c979ef9b38fbf857f3bab2c72867bf18059aabe0181"
+    },
+    "official-main-cold": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-peacock-bass-20261111/installation/official-main-cold.validation.json",
+      "sha256": "3f953ba579a951da8b83ff034658dbb69e08dc12c8a3f1df8892f81bc3bd94ff"
+    },
+    "sop": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-peacock-bass-20261111/sop-check.json",
+      "sha256": "6244818d97ec964406a4d8fc62a6a783748085a6577500831a8aa1ad31c5bf68"
+    },
+    "accepted-viewer": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-peacock-bass-20261111/accepted-viewer.validation.json",
+      "sha256": "6c1401f276d797664f23b602fb87d38ddb419512e051592459c2845b8fc360c0"
+    }
+  },
+  "inputs": [
+    {
+      "path": "projects/fishing-2d/assets/source/fish/peacock_bass/clean-pixel-20261111/body-bottom-v2.png",
+      "sha256": "f4d13f30c7c5b83fd92002f7f6f218fa667c506b65d2eee7f01b4d699bcfe89d"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/peacock_bass/clean-pixel-20261111/body-side-v1.png",
+      "sha256": "3bce4531d856b494149855f90de1eb8ccddedb3f5b5359ab2b399cd55fd181ec"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/peacock_bass/clean-pixel-20261111/body-top-v2.png",
+      "sha256": "7d58de78e49b4a2cc3cd37857ede1c022269253ecd18b19c7184846668331297"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/peacock_bass/clean-pixel-20261111/mouth-front-donor.png",
+      "sha256": "8fad87adc24e4f5e37b777f394e26dba61993f03af87d50e8d675714efd55542"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/peacock_bass/clean-pixel-20261111/style-concept-v1.png",
+      "sha256": "62670ae6db3ebf711994e663f73a40daa8834197438416523b5e30d92e8a1fc6"
+    }
+  ],
+  "full_production_sop_pass": false,
+  "sop_limit": "完整资料/形态、完整原生唇供体链和全动作视频未重做；静态成品获用户接受，动作质量另验。",
+  "handoff": "projects/fishing-2d/plans/reviews/clean-pixel-peacock-bass-20261111/HANDOFF.md",
+  "sop_check": "projects/fishing-2d/plans/reviews/clean-pixel-peacock-bass-20261111/sop-check.json",
+  "cleanup": "projects/fishing-2d/plans/reviews/clean-pixel-peacock-bass-20261111/cleanup-release.validation.json",
+  "source_cold_byte_exact": true,
+  "runtime_sop_pass": true
+}

@@ -1,0 +1,496 @@
+{
+  "date": "2026-11-11",
+  "scope": "Today both repositories and ignored experiment output; preserve installed sources, approved donors, complete numerical conclusions, database, active Godot viewer and required development caches.",
+  "consolidated_seabream_logs": [
+    {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-red-seabream-20261111/checks/body077/capture.log",
+      "bytes": 186,
+      "sha256": "d3d0923cdbbfed103c10001c85a7565fe9b0423fd435e09fc6fd61c8e801704f",
+      "text": "Godot Engine v4.7.1.stable.mono.official.a13da4feb - https://godotengine.org\nOpenGL API 4.1 Metal - 90.5 - Compatibility - Using Device: Apple - Apple M4\n\nSTANDALONE_BODY_077_CAPTURE_OK\n"
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-red-seabream-20261111/checks/body077/godot.log",
+      "bytes": 186,
+      "sha256": "d3d0923cdbbfed103c10001c85a7565fe9b0423fd435e09fc6fd61c8e801704f",
+      "text": "Godot Engine v4.7.1.stable.mono.official.a13da4feb - https://godotengine.org\nOpenGL API 4.1 Metal - 90.5 - Compatibility - Using Device: Apple - Apple M4\n\nSTANDALONE_BODY_077_CAPTURE_OK\n"
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-red-seabream-20261111/checks/fin490/export.log",
+      "bytes": 111,
+      "sha256": "764354fb13852efd76f5f077d1783494c84ae830278d8b7619e291c4ce1df43d",
+      "text": "Godot Engine v4.7.1.stable.mono.official.a13da4feb - https://godotengine.org\n\nFIN_EXPORT_DONE red_seabream 490\n"
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-red-seabream-20261111/checks/fin490/red_seabream/roots.log",
+      "bytes": 1634,
+      "sha256": "e991a857e1d7f1fcac3361881e7f4865fc21d9c967af347d1507b14396b5492f",
+      "text": "{\"ok\": true, \"summary\": {\"Anal_mesh\": {\"samples\": 490, \"fully_detached_samples\": 0, \"failed_contact_samples\": 0, \"minimum_signed_distance_cm\": -0.00728559389244765, \"maximum_signed_distance_cm\": 0.053553387988358736}, \"Caudal_mesh\": {\"samples\": 490, \"fully_detached_samples\": 0, \"failed_contact_samples\": 0, \"minimum_signed_distance_cm\": -0.015844404697418213, \"maximum_signed_distance_cm\": 0.08764831582084298}, \"Dorsal_mesh\": {\"samples\": 490, \"fully_detached_samples\": 0, \"failed_contact_samples\": 0, \"minimum_signed_distance_cm\": -0.04958143108524382, \"maximum_signed_distance_cm\": 0.02621206804178655}, \"Pectoral_left_mesh\": {\"samples\": 490, \"fully_detached_samples\": 0, \"failed_contact_samples\": 0, \"minimum_signed_distance_cm\": -0.03960827016271651, \"maximum_signed_distance_cm\": 0.07335153059102595}, \"Pectoral_right_mesh\": {\"samples\": 490, \"fully_detached_samples\": 0, \"failed_contact_samples\": 0, \"minimum_signed_distance_cm\": -0.00818824046291411, \"maximum_signed_distance_cm\": 0.0799715518951416}, \"Pelvic_left_mesh\": {\"samples\": 490, \"fully_detached_samples\": 0, \"failed_contact_samples\": 0, \"minimum_signed_distance_cm\": -0.04423747304826975, \"maximum_signed_distance_cm\": 0.004528421413851902}, \"Pelvic_right_mesh\": {\"samples\": 490, \"fully_detached_samples\": 0, \"failed_contact_samples\": 0, \"minimum_signed_distance_cm\": -0.04471254360396415, \"maximum_signed_distance_cm\": 0.011029658344341442}}, \"output\": \"/Users/czl/projects/game-ai-foundry/work/clean-pixel-red-seabream-20261111/checks-tail-r3/fin490/red_seabream/roots.validation.json\"}\nBlender 4.5.3 LTS (hash 67807e1800cc built 2025-09-09 01:33:39)\n\nBlender quit\n"
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-red-seabream-20261111/checks/fin490/red_seabream/membranes.log",
+      "bytes": 672,
+      "sha256": "ffb2c725bcc9ef8eb42d85abe37e4ae465f56ef1165d68004a00b5c45cb10c26",
+      "text": "{\"ok\": true, \"summary\": {\"Anal_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Caudal_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Dorsal_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pectoral_left_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pectoral_right_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pelvic_left_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pelvic_right_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}}, \"workers\": 2, \"poses\": 490}"
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-red-seabream-20261111/checks/fin490/red_seabream/membrane-parts/0.export.log",
+      "bytes": 709,
+      "sha256": "71f6d57df616f839887a7658f0635c25f11b6c62eb411c4e3d9b7191985c95d7",
+      "text": "Blender 4.5.3 LTS (hash 67807e1800cc built 2025-09-09 01:33:39)\n{\"ok\": true, \"summary\": {\"Anal_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Caudal_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Dorsal_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pectoral_left_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pectoral_right_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pelvic_left_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pelvic_right_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}}}\n"
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-red-seabream-20261111/checks/fin490/red_seabream/membrane-parts/1.export.log",
+      "bytes": 709,
+      "sha256": "71f6d57df616f839887a7658f0635c25f11b6c62eb411c4e3d9b7191985c95d7",
+      "text": "Blender 4.5.3 LTS (hash 67807e1800cc built 2025-09-09 01:33:39)\n{\"ok\": true, \"summary\": {\"Anal_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Caudal_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Dorsal_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pectoral_left_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pectoral_right_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pelvic_left_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pelvic_right_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}}}\n"
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/checks/body077/capture.log",
+      "bytes": 186,
+      "sha256": "d3d0923cdbbfed103c10001c85a7565fe9b0423fd435e09fc6fd61c8e801704f",
+      "text": "Godot Engine v4.7.1.stable.mono.official.a13da4feb - https://godotengine.org\nOpenGL API 4.1 Metal - 90.5 - Compatibility - Using Device: Apple - Apple M4\n\nSTANDALONE_BODY_077_CAPTURE_OK\n"
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/checks/body077/godot.log",
+      "bytes": 186,
+      "sha256": "d3d0923cdbbfed103c10001c85a7565fe9b0423fd435e09fc6fd61c8e801704f",
+      "text": "Godot Engine v4.7.1.stable.mono.official.a13da4feb - https://godotengine.org\nOpenGL API 4.1 Metal - 90.5 - Compatibility - Using Device: Apple - Apple M4\n\nSTANDALONE_BODY_077_CAPTURE_OK\n"
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/checks/fin490/export.log",
+      "bytes": 113,
+      "sha256": "53630589fae3ba671c27412a7675cbaad767976e93d31023a02f89f69e9c15db",
+      "text": "Godot Engine v4.7.1.stable.mono.official.a13da4feb - https://godotengine.org\n\nFIN_EXPORT_DONE black_seabream 490\n"
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/checks/fin490/black_seabream/roots.log",
+      "bytes": 1649,
+      "sha256": "2a708af4b143ae004be94a4421b7d934f96475a3f57655e597872ab1f7ea2955",
+      "text": "{\"ok\": true, \"summary\": {\"Anal_mesh\": {\"samples\": 490, \"fully_detached_samples\": 0, \"failed_contact_samples\": 0, \"minimum_signed_distance_cm\": -0.029906810959801078, \"maximum_signed_distance_cm\": 0.03879973664879799}, \"Caudal_mesh\": {\"samples\": 490, \"fully_detached_samples\": 0, \"failed_contact_samples\": 0, \"minimum_signed_distance_cm\": -0.016300895367749035, \"maximum_signed_distance_cm\": 0.002614193545014132}, \"Dorsal_mesh\": {\"samples\": 490, \"fully_detached_samples\": 0, \"failed_contact_samples\": 0, \"minimum_signed_distance_cm\": -0.031292292987927794, \"maximum_signed_distance_cm\": 0.0019344539396115579}, \"Pectoral_left_mesh\": {\"samples\": 490, \"fully_detached_samples\": 0, \"failed_contact_samples\": 0, \"minimum_signed_distance_cm\": -0.026806123787537217, \"maximum_signed_distance_cm\": 0.007370774255832657}, \"Pectoral_right_mesh\": {\"samples\": 490, \"fully_detached_samples\": 0, \"failed_contact_samples\": 0, \"minimum_signed_distance_cm\": -0.028844925691373646, \"maximum_signed_distance_cm\": 0.005307641185936518}, \"Pelvic_left_mesh\": {\"samples\": 490, \"fully_detached_samples\": 0, \"failed_contact_samples\": 0, \"minimum_signed_distance_cm\": -0.030892275390215218, \"maximum_signed_distance_cm\": 0.012141714250901714}, \"Pelvic_right_mesh\": {\"samples\": 490, \"fully_detached_samples\": 0, \"failed_contact_samples\": 0, \"minimum_signed_distance_cm\": -0.034542681532911956, \"maximum_signed_distance_cm\": 0.012709901784546673}}, \"output\": \"/Users/czl/projects/game-ai-foundry/work/clean-pixel-black-seabream-20261111/checks-tail-r3/fin490/black_seabream/roots.validation.json\"}\nBlender 4.5.3 LTS (hash 67807e1800cc built 2025-09-09 01:33:39)\n\nBlender quit\n"
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/checks/fin490/black_seabream/membranes.log",
+      "bytes": 672,
+      "sha256": "ffb2c725bcc9ef8eb42d85abe37e4ae465f56ef1165d68004a00b5c45cb10c26",
+      "text": "{\"ok\": true, \"summary\": {\"Anal_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Caudal_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Dorsal_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pectoral_left_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pectoral_right_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pelvic_left_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pelvic_right_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}}, \"workers\": 2, \"poses\": 490}"
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/checks/fin490/black_seabream/membrane-parts/0.export.log",
+      "bytes": 709,
+      "sha256": "71f6d57df616f839887a7658f0635c25f11b6c62eb411c4e3d9b7191985c95d7",
+      "text": "Blender 4.5.3 LTS (hash 67807e1800cc built 2025-09-09 01:33:39)\n{\"ok\": true, \"summary\": {\"Anal_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Caudal_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Dorsal_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pectoral_left_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pectoral_right_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pelvic_left_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pelvic_right_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}}}\n"
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/checks/fin490/black_seabream/membrane-parts/1.export.log",
+      "bytes": 709,
+      "sha256": "71f6d57df616f839887a7658f0635c25f11b6c62eb411c4e3d9b7191985c95d7",
+      "text": "Blender 4.5.3 LTS (hash 67807e1800cc built 2025-09-09 01:33:39)\n{\"ok\": true, \"summary\": {\"Anal_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Caudal_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Dorsal_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pectoral_left_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pectoral_right_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pelvic_left_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}, \"Pelvic_right_mesh\": {\"failed_poses\": 0, \"worst_penetration_mm\": 0.0, \"worst_pose\": null}}}\n"
+    }
+  ],
+  "retired_stale_capture_pid": 44077,
+  "accepted_preview_pid": 90791,
+  "preview_uses_formal_models": true,
+  "official_inventory_check": {
+    "ok": true,
+    "files": [
+      {
+        "species": "african_catfish",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/african_catfish.glb",
+        "sha256": "62b26e865ba68f09fafbb7b2bf73a7439736101806f66ac7a35b63cb232aac04",
+        "matches_inventory": true
+      },
+      {
+        "species": "african_catfish",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/african_catfish/fish.blend",
+        "sha256": "d807fb550386990b9ad21fc544f3538cbf54ae0dfe895a2611ae9b890b77001f",
+        "matches_inventory": true
+      },
+      {
+        "species": "arapaima",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/arapaima.glb",
+        "sha256": "d4a52b0e4ea989e5f40088004677919619adfb1194e71e97b8fa5fbd320f8818",
+        "matches_inventory": true
+      },
+      {
+        "species": "arapaima",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/arapaima/fish.blend",
+        "sha256": "879f82a1c6b84efdf81024afc012fc44716f77097d9a484f5320f7568cefba7c",
+        "matches_inventory": true
+      },
+      {
+        "species": "atlantic_sailfish",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/atlantic_sailfish.glb",
+        "sha256": "d39cf6ecd0862d0307d5c6cec4c3e645fb3c5d2c4ba7e78588791d7fb2cd4758",
+        "matches_inventory": true
+      },
+      {
+        "species": "atlantic_sailfish",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/atlantic_sailfish/fish.blend",
+        "sha256": "722cca2a7cc2fa49fa1d0fcaf5aa83eef325f8957a369eabfb36a32e131cb85d",
+        "matches_inventory": true
+      },
+      {
+        "species": "atlantic_salmon",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/atlantic_salmon.glb",
+        "sha256": "d7df6076dbadd7a0da681d5c46fb2fbb85b5837beec0b73d84ae27aeabb0387d",
+        "matches_inventory": true
+      },
+      {
+        "species": "atlantic_salmon",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/atlantic_salmon/fish.blend",
+        "sha256": "29dd740004d46ae8156b82c04ecdc50a60812415fcb8de95c187857e611d7ea6",
+        "matches_inventory": true
+      },
+      {
+        "species": "black_seabream",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/black_seabream.glb",
+        "sha256": "f091aef9e27f7ffa372d09c055190b90de5f084d1c6ef41371c97f825931c8c3",
+        "matches_inventory": true
+      },
+      {
+        "species": "black_seabream",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/black_seabream/fish.blend",
+        "sha256": "4dfaaa22adb6fc6b24561fb807603694aec5eeb339c990ccff3685da270b78a5",
+        "matches_inventory": true
+      },
+      {
+        "species": "blacktip_reef_shark",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark.glb",
+        "sha256": "f9ffc6f9c71155cdf126cd82bf3b1c88d634d61963b64896796fd59e88428e43",
+        "matches_inventory": true
+      },
+      {
+        "species": "blacktip_reef_shark",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/blacktip_reef_shark/fish.blend",
+        "sha256": "c663b9a4347c5327ad01c561d9cbe5da93d93ba292855712b28c1cdb863217bd",
+        "matches_inventory": true
+      },
+      {
+        "species": "bluegill",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/bluegill.glb",
+        "sha256": "55903ab56be819ba96fa5117c650028c01cd20a7cfc072778766171119d34cff",
+        "matches_inventory": true
+      },
+      {
+        "species": "bluegill",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/bluegill/fish.blend",
+        "sha256": "db3d38b474ec1ad3fc736ad17336c72e960e3f8716cfcf46e590574dfbdcc825",
+        "matches_inventory": true
+      },
+      {
+        "species": "brown_trout",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/brown_trout.glb",
+        "sha256": "ee3bb770e2915f48a5140150410774b50d5e2d553b6313f7ae9f822bdab0a16c",
+        "matches_inventory": true
+      },
+      {
+        "species": "brown_trout",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/brown_trout/fish.blend",
+        "sha256": "1fe3a2b99bc789c0a4d43b32c674b42484198b695ae3fe055ba989233e98c9e5",
+        "matches_inventory": true
+      },
+      {
+        "species": "carp",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/carp.glb",
+        "sha256": "125367185014e41a25fb4c83693a547d71fcc585486c853e55de44f8a29d1e67",
+        "matches_inventory": true
+      },
+      {
+        "species": "carp",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/carp/fish.blend",
+        "sha256": "8fed6507115412d1ae16369cb3f04966155513921e0ba19cf683539df054075b",
+        "matches_inventory": true
+      },
+      {
+        "species": "crucian",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/crucian.glb",
+        "sha256": "7f1128666b3ca138198a5f8f52bd7490d01c2dae0e43a1cf65df732a40fc661b",
+        "matches_inventory": true
+      },
+      {
+        "species": "crucian",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/crucian/fish.blend",
+        "sha256": "8f3d7358f031298f9e84af376ffb649a886150026179052d993104a3a1e61b41",
+        "matches_inventory": true
+      },
+      {
+        "species": "grass_carp",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/grass_carp.glb",
+        "sha256": "7644b4127c23f8285773152f82e1b8416dc29c1b7e0cdd426473bddcea2d1029",
+        "matches_inventory": true
+      },
+      {
+        "species": "grass_carp",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/grass_carp/fish.blend",
+        "sha256": "b2c9c7cd40bda25320fcc916db27d3091c52eea80a712c565bf8f69e9c713413",
+        "matches_inventory": true
+      },
+      {
+        "species": "great_hammerhead",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/great_hammerhead.glb",
+        "sha256": "9c11e27caf2ac6029b6a0b473594049a592dd6648453a450efaa435cef24046f",
+        "matches_inventory": true
+      },
+      {
+        "species": "great_hammerhead",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/great_hammerhead/fish.blend",
+        "sha256": "367235fe442ba970a5c9816b83be00382d914b3d41578f30eaf3da26e03af980",
+        "matches_inventory": true
+      },
+      {
+        "species": "hairtail",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/hairtail.glb",
+        "sha256": "a5ae53ae77b395b63bfa248142cd859059ab1253b6849ac4b6847d38cb3651ee",
+        "matches_inventory": true
+      },
+      {
+        "species": "hairtail",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/hairtail/fish.blend",
+        "sha256": "0fbfde27751a4a00f90df0c2eced0507e68dc07547d7b5483df3e37523d48b02",
+        "matches_inventory": true
+      },
+      {
+        "species": "mahi_mahi",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/mahi_mahi.glb",
+        "sha256": "fffa338ffa38050388eee3435c143b36a0c4b07834b99ac9c21c1cef4e0338c5",
+        "matches_inventory": true
+      },
+      {
+        "species": "mahi_mahi",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/mahi_mahi/fish.blend",
+        "sha256": "e8cbdef5c1b8765dc0c063794670db1523d0137bf2e9f6d4751682cdb0040383",
+        "matches_inventory": true
+      },
+      {
+        "species": "nile_tilapia",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/nile_tilapia.glb",
+        "sha256": "f24528ccb29685741577fedfaf28afc627de1dc53593a43e0f3854e7fa3cba63",
+        "matches_inventory": true
+      },
+      {
+        "species": "nile_tilapia",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/nile_tilapia/fish.blend",
+        "sha256": "9b676a1c44e06bb490a31e25a8b246be3b1cce8947df461b4bd56a91e5d0af41",
+        "matches_inventory": true
+      },
+      {
+        "species": "pacific_bluefin_tuna",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/pacific_bluefin_tuna.glb",
+        "sha256": "21a541bfad43b97d6d8f4a5acea78c4caaf55f8f2266dc12119be705b703fc02",
+        "matches_inventory": true
+      },
+      {
+        "species": "pacific_bluefin_tuna",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "f916416706ef3a481c731de8a44e8dac815f6675bcfc3b78be7ee680f84a938d",
+        "matches_inventory": true
+      },
+      {
+        "species": "peacock_bass",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/peacock_bass.glb",
+        "sha256": "bb26fbb4b8cdd8de66c8f72f0941c7755eac514df873df108353d3516765012f",
+        "matches_inventory": true
+      },
+      {
+        "species": "peacock_bass",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/peacock_bass/fish.blend",
+        "sha256": "163d5080075738324c2b4d481b61780f5e22d958ff2a02d072454a52b8474339",
+        "matches_inventory": true
+      },
+      {
+        "species": "piranha",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/piranha.glb",
+        "sha256": "1d95bbff91d2e1d15b101005da9d156991fec419903bc0e49e3c535aa329122d",
+        "matches_inventory": true
+      },
+      {
+        "species": "piranha",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/piranha/fish.blend",
+        "sha256": "131315e1d653651d97e609d277afbd6721b4bb895b0e8e8cafc5351d1996612f",
+        "matches_inventory": true
+      },
+      {
+        "species": "rainbow_trout",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/rainbow_trout.glb",
+        "sha256": "769b864f8d8af1b1d55c6ec82eb790a3ba84c7cbff49a0d16658dd6eb1175570",
+        "matches_inventory": true
+      },
+      {
+        "species": "rainbow_trout",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/rainbow_trout/fish.blend",
+        "sha256": "906c9334e992cbb22651226661f6ae1303602d60c8f10e3f7013214b110393a5",
+        "matches_inventory": true
+      },
+      {
+        "species": "red_emperor",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/red_emperor.glb",
+        "sha256": "b00b644c9ae06d26d58ecd318b197f4abdd45a6141c1c6cb469df688f6ae73af",
+        "matches_inventory": true
+      },
+      {
+        "species": "red_emperor",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/red_emperor/fish.blend",
+        "sha256": "8da30fcf230f28cda8b0b53f09bcd9b9083e42b4e6da8dbc929ad6f1ec882996",
+        "matches_inventory": true
+      },
+      {
+        "species": "red_seabream",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/red_seabream.glb",
+        "sha256": "9054304a4061b08618c5235da52248d6cb3d432908d43ebf223e49d042600495",
+        "matches_inventory": true
+      },
+      {
+        "species": "red_seabream",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/red_seabream/fish.blend",
+        "sha256": "a2149e0f85d2470d019817b56d0b8a61db3362c12d355c4ee245795c6f143eb5",
+        "matches_inventory": true
+      },
+      {
+        "species": "scalloped_hammerhead",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/scalloped_hammerhead.glb",
+        "sha256": "06f07e304dd2b702f0d12043bc1153d257c7172691d4d31c038535c92cebbfad",
+        "matches_inventory": true
+      },
+      {
+        "species": "scalloped_hammerhead",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/scalloped_hammerhead/fish.blend",
+        "sha256": "fcf342cc60c02b9b544633d31a977547b80228186a759370045c20c8dad03504",
+        "matches_inventory": true
+      },
+      {
+        "species": "sea_bass",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/sea_bass.glb",
+        "sha256": "24ed2050e6388922e88a3ec77a57ca624b24c29ddce7df81efc5e7b8a408ee3b",
+        "matches_inventory": true
+      },
+      {
+        "species": "sea_bass",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/sea_bass/fish.blend",
+        "sha256": "aa6753f239dc2d5924871c54bccef67328df3cbcc2391fd325c17571a9bc8d8b",
+        "matches_inventory": true
+      },
+      {
+        "species": "silver_arowana",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/silver_arowana.glb",
+        "sha256": "cf008adeaded905704861a232006a51c00dcffa0edc817fdc41858f7aa9b7a02",
+        "matches_inventory": true
+      },
+      {
+        "species": "silver_arowana",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/silver_arowana/fish.blend",
+        "sha256": "3de66d12937aa00209d7c651d29d109a10edc657ac9159c8e69baa836ba3bdb2",
+        "matches_inventory": true
+      },
+      {
+        "species": "smooth_hammerhead",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/smooth_hammerhead.glb",
+        "sha256": "e581b46799bfdeb353633ede8e4228261d6ccc9416f4bc175f61346c5267a2af",
+        "matches_inventory": true
+      },
+      {
+        "species": "smooth_hammerhead",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/smooth_hammerhead/fish.blend",
+        "sha256": "f322e532b0e538ffe6d28241e1703655c40074b453231f6e5af1654f80c30f84",
+        "matches_inventory": true
+      },
+      {
+        "species": "whale_shark",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/whale_shark.glb",
+        "sha256": "5df93fddbc48359edae4f59573f6834d20c5dd49bdd4952537c8e1f640319905",
+        "matches_inventory": true
+      },
+      {
+        "species": "whale_shark",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/whale_shark/fish.blend",
+        "sha256": "9902e18aed7913d66c07edd464de09982236d33f47abdcb58756d3f571d6af95",
+        "matches_inventory": true
+      },
+      {
+        "species": "yellow_croaker",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/yellow_croaker.glb",
+        "sha256": "51b2a7aa84f6c3ae2e3f2d11f9df81aa77436cf5040b04d7be964e8842b72b21",
+        "matches_inventory": true
+      },
+      {
+        "species": "yellow_croaker",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/yellow_croaker/fish.blend",
+        "sha256": "0d0ecd6661858cb08b4dc823ea62ecd6c2f0e76a0e303ed6a3e813acc279220e",
+        "matches_inventory": true
+      },
+      {
+        "species": "zander",
+        "role": "model",
+        "path": "projects/fishing-2d/game/assets/models/fish/zander.glb",
+        "sha256": "bf1137b96464ab2e395437e9bee9e0da16b9bbad2a508cabdfa87b43baef9c67",
+        "matches_inventory": true
+      },
+      {
+        "species": "zander",
+        "role": "source",
+        "path": "projects/fishing-2d/assets/source/fish/zander/fish.blend",
+        "sha256": "0612118f307f9ad6870af3db541f7981a552d34a853c6e13a04bfe27d7691f79",
+        "matches_inventory": true
+      }
+    ]
+  },
+  "today_unrelated_uncommitted_changes_before_release": [],
+  "cleanup": {
+    "path": "projects/fishing-2d/plans/reviews/clean-pixel-peacock-bass-20261111/cleanup-release.validation.json",
+    "sha256": "e5a1b91ede973064c10b0afacd74d727c0a602072850d60904e82d5a3b739320"
+  },
+  "ok": true
+}

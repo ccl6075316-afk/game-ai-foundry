@@ -1,7 +1,7 @@
 {
   "count": 28,
-  "new_style_confirmed": 16,
-  "rebake_remaining": 12,
+  "new_style_confirmed": 17,
+  "rebake_remaining": 11,
   "fish": [
     {
       "species": "african_catfish",
@@ -288,19 +288,21 @@
     {
       "species": "peacock_bass",
       "model": "game\\assets\\models\\fish\\peacock_bass.glb",
-      "model_sha256": "e703122fde5667bef8de396a002bf07daf75094d97040003807a1dc0c69f956d",
+      "model_sha256": "bb26fbb4b8cdd8de66c8f72f0941c7755eac514df873df108353d3516765012f",
       "source": "assets\\source\\fish\\peacock_bass\\fish.blend",
-      "source_sha256": "b5a71eb8d29fabb06a2ee7f3ddf2892be4ee42fdabaecd0bf53dfb3b2d43af19",
+      "source_sha256": "163d5080075738324c2b4d481b61780f5e22d958ff2a02d072454a52b8474339",
       "static": {
-        "geometry_uv_skin_sha256": "53d1fb1e99acb55e36e4f4f97c3722333a6310cb8715ab491a9db1fbfff6b177",
-        "material_pixels_sha256": "9e0bb6264548871407a11cdfd19b85e4557eff4cf42bb600682ce344729d6898",
+        "geometry_uv_skin_sha256": "26594baabc4d050a15163b9a37179dd5c30b67434962b3a8ab0a581062e23c80",
+        "material_pixels_sha256": "708148d1d33e754e480e6c4afbe803c442d2f08db18edc352b877924909e73a6",
         "skeleton_rest_bind_sha256": "c326f8e4e2b738b1f66f71b33b9e88578f74f92560ecd1c5468a824bdbcde750",
-        "triangles": 1842,
+        "triangles": 1892,
         "bones": 18
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review",
+      "new_style_release": "resources/volume-fish/clean-pixel-peacock-bass-20261111/release.json",
+      "note": "2026-11-11 user accepted R5 maxillary fold, true aperture, recessed oral cavity and clean-pixel materials. Existing jaw control retained; future breathing/closure intent recorded only."
     },
     {
       "species": "piranha",

@@ -103,3 +103,5 @@
 ### 2026-11-10 虹鳟清爽像素材质发布
 
 [当前发布](../resources/volume-fish/clean-pixel-rainbow-trout-20261110/release.json)与[游戏交接](../projects/fishing-2d/plans/reviews/clean-pixel-rainbow-trout-20261110/HANDOFF.md)绑定用户已接受R2。先身体后8鳍，中央额部供体排除侧眼、口部外壁不等同口腔；方法见多视材质卡。新风格8条接受、20条待做，当前静态再冻结；动作质量和未重复完整SOP项另计。
+
+2026-11-11孔雀鲈R5接受与嘴部意图：[当前发布](../resources/volume-fish/clean-pixel-peacock-bass-20261111/release.json)、[方法及未来开合意图](../resources/volume-fish/clean-pixel-peacock-bass-20261111/README.md)。实体颌褶与真实口腔分别识别；1892三角、18骨，原0–18°控制保留。自动呼吸与合理闭口仅记未来意图，本次静态成品接受，新风格17/28。
