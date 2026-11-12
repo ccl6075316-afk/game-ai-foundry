@@ -1,0 +1,146 @@
+{
+  "date": "2026-11-12",
+  "kind": "accepted_rebuilt_arapaima_clean_pixel_release",
+  "species": "arapaima",
+  "user_acceptance": "可以了 验收提交吧",
+  "new_style_confirmed": 21,
+  "rebake_remaining": 7,
+  "model": {
+    "path": "projects/fishing-2d/game/assets/models/fish/arapaima.glb",
+    "sha256": "e396c76a7cc97e9ac3fe1af836bf461372941f2434c65d324259f478071f17e6"
+  },
+  "source": {
+    "path": "projects/fishing-2d/assets/source/fish/arapaima/fish.blend",
+    "sha256": "57a095e31369157db7fb4071febb76499bb3e8a2405c5cc674f0aaf481310928"
+  },
+  "triangles": 3972,
+  "bones": 33,
+  "fins": 7,
+  "body_texels_frozen_before_fins": 3787522,
+  "jaw": {
+    "maximum_degrees": 14,
+    "rest_amount": 0,
+    "rest_slightly_open": true,
+    "single_normal_runtime_wrapper": true,
+    "automatic_breathing_added": false
+  },
+  "scope": "Whole-body/head/mouth/tail rebuilding and approved gray-green/silver/red bake. Complete body before seven independent fins. Subsequent fin attachment/finite-thickness/proximal skin and Anal topology repaired; body/eyes/mouth streams and all texture bytes exactly preserved from accepted baked preview.",
+  "checks": {
+    "fin490": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-arapaima-20261112/checks/fin490/completion.validation.json",
+      "sha256": "d6612b00c42bd0d8fa2cd0487e4a4a4acb0de0fcb251bbb4d025dffde7f9b1d5"
+    },
+    "root072": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-arapaima-20261112/checks/root072/completion.validation.json",
+      "sha256": "0212f308528398853238141740ec54ed1457c471a8c85118e157938c46289102"
+    },
+    "body077": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-arapaima-20261112/checks/body077/completion.validation.json",
+      "sha256": "16021109d069b7086968fe1dc4b8400787912e2477a647aeb5a44bc0274e575b"
+    },
+    "body-before-fins": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-arapaima-20261112/body-before-fins.validation.json",
+      "sha256": "5adca656f7fbb6cd835340e786b6b051a9f09642c75b00fa7b66d9bdb5062d56"
+    },
+    "accepted-body-preservation": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-arapaima-20261112/accepted-body-preservation.validation.json",
+      "sha256": "769f2f3b1dd65bdf5dbcd61c2391b8881610657592017e910183fa30c766a4ae"
+    },
+    "canonical": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-arapaima-20261112/installation/canonical.validation.json",
+      "sha256": "cfb1a274f3b1746bae88ff2dee6bcf078cf58811d049fdc6eb7e458b3aa2aa54"
+    },
+    "post-cleanup-canonical": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-arapaima-20261112/installation/post-cleanup-canonical.validation.json",
+      "sha256": "cfb1a274f3b1746bae88ff2dee6bcf078cf58811d049fdc6eb7e458b3aa2aa54"
+    },
+    "canonical-motion": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-arapaima-20261112/canonical-motion.validation.json",
+      "sha256": "b02dd204a01015d7ac8886458c29d06b84587633453443a98086fb25e66d96dc"
+    },
+    "canonical-pixels": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-arapaima-20261112/canonical-pixels.validation.json",
+      "sha256": "cc6c6f555d013452a6a4f4ed9420b9e7b99159470e26e502b6a0c65e115756cc"
+    },
+    "official-source-cold": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-arapaima-20261112/installation/official-main-cold.validation.json",
+      "sha256": "e57ba32b43e470078adda78c95322c415a73c062fdfda90a2d61dfc6926dfcec"
+    },
+    "final-asset-cold-load": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-arapaima-20261112/installation/final-asset-cold-load.validation.json",
+      "sha256": "de50141000ba839d3ca829e4b30b7f4ab153a9be2c7fd4d6394f36ed1c1f8115"
+    },
+    "baidu-lfs": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-arapaima-20261112/baidu-lfs.validation.json",
+      "sha256": "c0d2cb5793b052bb81d2fee03a6042026632a27e7d7c95f492c1db28a9de426d"
+    },
+    "sop": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-arapaima-20261112/sop-check.json",
+      "sha256": "f80e6569b0336e3eac1fb617fdd57b2ef696f78e02dfeea6c71a58d50fe3235d"
+    },
+    "review": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-arapaima-20261112/review.validation.json",
+      "sha256": "4da108429e309e81d38ab0801b7e28ec53fce97ed0fded3ddb21719c6948bd84"
+    },
+    "cleanup": {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-arapaima-20261112/cleanup-release.validation.json",
+      "sha256": "322484e720638c9283d067506b321a2bba25ab9401090e9f0dc178a580e9a8f1"
+    }
+  },
+  "inputs": [
+    {
+      "path": "projects/fishing-2d/assets/source/fish/arapaima/clean-pixel-20261112/body-gray-bottom.png",
+      "sha256": "8ea8943683add12b38622fcd20eceea22f2185513b19ba91d7b471c901195b1b"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/arapaima/clean-pixel-20261112/body-gray-side.png",
+      "sha256": "f4d60b7273549d5c786ce3a2abf77de47a50d6acbf9ceb78dfcef8c9a793b352"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/arapaima/clean-pixel-20261112/body-gray-top.png",
+      "sha256": "8402efc365a1bf9e72c9bdd12ec69777c342e8dab3cc2b5577cad411c8cc6e58"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/arapaima/clean-pixel-20261112/body-side.png",
+      "sha256": "0c340270d31694f6f257f8236c3d4179d7fc3601f0a812b22b6f6f15a12f4edb"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/arapaima/clean-pixel-20261112/body-side.prompt.txt",
+      "sha256": "d48957c65d9c47fac91752c91e29f98010c610c2234f5952de29c334b7758d29"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/arapaima/clean-pixel-20261112/body-top-bottom.png",
+      "sha256": "b3449a32b2b63a5c175f9a5b918b68c897b002cee14ddc34b4f86f90a031695e"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/arapaima/clean-pixel-20261112/body-top-bottom.prompt.txt",
+      "sha256": "251673e255caf572005d01178388d9202ed8c6cf8e8fa4ba571d4e9aa959477e"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/arapaima/clean-pixel-20261112/concept-geometry-input.png",
+      "sha256": "580bbc11e64f399ba4582e6d0344b19ab8e42f65c16b5bd257da0047d3bc6e4d"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/arapaima/clean-pixel-20261112/concept.prompt.txt",
+      "sha256": "eb963936b5aa5e1e817b4ef8e64c03c5de064191c481945e886f8804b675e68a"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/arapaima/clean-pixel-20261112/style-concept.png",
+      "sha256": "f93f2f51f1c323610f7020eeeefb9e69476c4ca6fb7d8523f5d966537e30be35"
+    }
+  ],
+  "current_complete_roots": {
+    "path": "resources/volume-fish/clean-pixel-arapaima-20261112/complete-root-domains.json",
+    "sha256": "68bc1aa51b423e1198a797ca4fbfc7b3e4f6835999c34c1a79f32e5bc2887ded"
+  },
+  "source_cold_byte_exact": true,
+  "runtime_sop_pass": true,
+  "full_production_sop_pass": false,
+  "sop_limit": "Full historical preparation/morphology/video requirements remain pending. Static fish accepted; motion aesthetics separately reviewed. Discrete collision tests do not prove continuous time.",
+  "handoff": "projects/fishing-2d/plans/reviews/clean-pixel-arapaima-20261112/HANDOFF.md",
+  "cleanup_deleted_bytes": 3585084508,
+  "review": {
+    "path": ".ai/anvil/reviews/2026-11-12-arapaima-release-review.md",
+    "sha256": "98d826c6bce66ab5fdf4e96acf370dc26062c9b677815342d34eef3b83247e20"
+  }
+}

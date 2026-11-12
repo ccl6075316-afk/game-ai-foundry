@@ -1,0 +1,3 @@
+Current maintenance starts from the formal fish.blend and cold_export.py. complete-root-domains.json binds formal bytes and all original basal selections plus added finite surface points. The normal runtime is in game/scripts/aquarium/ArapaimaJawMotion20261112.gd.
+
+validate_body.py and export_fin_poses.gd are the exact audited checker adapters; local absolute paths record the measurement environment. history/ contains algorithm snapshots with retired experiment paths, not runnable reconstruction or acceptance entrypoints. Parameters and unique donor images remain separately preserved. Fresh work should use a new declared work directory and current formal source; never resurrect retired candidate chains.
