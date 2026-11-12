@@ -1,0 +1,137 @@
+{
+  "date": "2026-11-12",
+  "kind": "accepted_clean_pixel_material_release",
+  "user_acceptance": "ok 验收提交吧",
+  "new_style_confirmed": 20,
+  "rebake_remaining": 8,
+  "fish": [
+    {
+      "species": "zander",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/zander.glb",
+        "sha256": "3b0081e1547f0949a6bce3df50407d97cd5e9833d505a920a45b20c76c60f252"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/zander/fish.blend",
+        "sha256": "f99d2169af1aaf361feeae879ebf4344cc12413d131bf05173200dbe04677f26"
+      },
+      "source_donors": {
+        "path": "projects/fishing-2d/assets/source/fish/zander/clean-pixel-20261112/source-receipt.json",
+        "sha256": "7c5d8f7431c23958fc17ea6fab2a8a8f78b29f93dc1e61f47ff15c521ac729d6"
+      },
+      "freeze": {
+        "path": "projects/fishing-2d/assets/source/fish/zander/frozen-static.json",
+        "sha256": "36458accaa92cf6c9f6a2bd0687e77e7b136301f7d76f042099fd39ef5e11d5e"
+      },
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/zander-mouth-anchor.json",
+        "sha256": "a8db942d6ec19f68d399dad43080c7b24e3eb4f684e27ee2713fa70a1f001085"
+      },
+      "evidence": {
+        "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261112/zander.validation.json",
+        "sha256": "218010b4be9ef705e6d6165db94adc1b85d60e62180c3a994788e7709a638e41"
+      },
+      "triangles": 2000.0,
+      "fins": 8,
+      "bones": 19
+    },
+    {
+      "species": "mahi_mahi",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/mahi_mahi.glb",
+        "sha256": "874afc30f6c4b9a253a16248fd558f9ab35092fae935e671c346e37b09f8d8d9"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/mahi_mahi/fish.blend",
+        "sha256": "3d2de026f15e78388ac26bf191aeea6f2db250a0e04003ef4f0d158308e36627"
+      },
+      "source_donors": {
+        "path": "projects/fishing-2d/assets/source/fish/mahi_mahi/clean-pixel-20261112/source-receipt.json",
+        "sha256": "0864d4f61df39df81249c8eaaa1adb86fe8057ce95ff5012a52814a1ee8606b5"
+      },
+      "freeze": {
+        "path": "projects/fishing-2d/assets/source/fish/mahi_mahi/frozen-static.json",
+        "sha256": "6364ef6fa8cc595f22cdf73060f4a8aa92768f2022c7683a06b6e9781b7040a4"
+      },
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/mahi_mahi-mouth-anchor.json",
+        "sha256": "d1129f8beeb3b9f53926be50e4264e14c056a302b50151bc66fc3db419abb556"
+      },
+      "evidence": {
+        "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261112/mahi_mahi.validation.json",
+        "sha256": "d79ec75febf140a1fd07d8186cb5772abbd807c3ced5d6339566f5a413e41bee"
+      },
+      "triangles": 1990.0,
+      "fins": 7,
+      "bones": 18
+    },
+    {
+      "species": "african_catfish",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/african_catfish.glb",
+        "sha256": "57e5bc45e3b8caa34d5f810d5c1cb27c7a96ccdcade7211cedff8ec713cbdcd0"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/african_catfish/fish.blend",
+        "sha256": "294502c85b12b20296906fc7c91d3befefbc3707c43f64e543f9d76061997423"
+      },
+      "source_donors": {
+        "path": "projects/fishing-2d/assets/source/fish/african_catfish/clean-pixel-20261112/source-receipt.json",
+        "sha256": "8e9b5580e5fabc1afca726f457baab20e061f33964a232518ec90345f4301f9a"
+      },
+      "freeze": {
+        "path": "projects/fishing-2d/assets/source/fish/african_catfish/frozen-static.json",
+        "sha256": "3f3179d153e976ef44719925e794daee550967eb24f4495372914ad743c069d5"
+      },
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/african_catfish-mouth-anchor.json",
+        "sha256": "9f19c2f8e3d84a7763607a9e55784477a328825343586036fa4d66813fae4910"
+      },
+      "evidence": {
+        "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261112/african_catfish.validation.json",
+        "sha256": "209407a9a0e0c4d755308caa95c73f22fc47435c3cab18d50fd84afbe07ae689"
+      },
+      "triangles": 2000.0,
+      "fins": 7,
+      "bones": 18
+    }
+  ],
+  "canonical_entry": {
+    "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261112/canonical-entry.validation.json",
+    "sha256": "cac37fe261e1f9c7d21f64195b0ec3139b4c3ba2b6924d69edd9b73bf06216cb"
+  },
+  "visual_evidence": [
+    {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261112/new-material-comparison.png",
+      "sha256": "fffe869d3aad7a6497555e535add55677c37d87f261dc55a40e651ada1730471"
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261112/back-seam-before-after.png",
+      "sha256": "41b96656b37619f77bd9fe65f14c6bab75f797d4ef5638fa8e22e2bab789e53d"
+    }
+  ],
+  "scope": "Three accepted material replacements. Current 490/072/077 and runtime checks passed. Full historical production SOP remains pending.",
+  "baidu_lfs": {
+    "path": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261112/baidu-lfs.validation.json",
+    "sha256": "ac8ac48e208407f2ae48f2a8f6351ee055d3cae778bd1f398d396a06c919aa70"
+  },
+  "handoff": "projects/fishing-2d/plans/reviews/clean-pixel-three-20261112/HANDOFF.md",
+  "game_commit": "b6c3a9893bdbc68ca7988dd09afaed3e50c711fb",
+  "cleanup": {
+    "removed": [
+      {
+        "retired_directory": "work/clean-pixel-three-20261112",
+        "files": 760,
+        "bytes": 215930954,
+        "retired_path_size_list_sha256": "81c93ecb408e7af08b07cdca122be6a6b8a1499a84836e29ee2cceee1fb19d9c"
+      },
+      {
+        "retired_directory": "work/clean-pixel-three-release-20261112",
+        "files": 76,
+        "bytes": 83889593,
+        "retired_path_size_list_sha256": "f65cef3cfd2f38c9451c3aea6dc7b4a45c9e153d20e395b8eaf97b15accdd13a"
+      }
+    ],
+    "retained": "Installed editable sources and GLBs, original donors and prompts, selected visual comparisons, validation measurements and report hashes, and authoring method."
+  }
+}

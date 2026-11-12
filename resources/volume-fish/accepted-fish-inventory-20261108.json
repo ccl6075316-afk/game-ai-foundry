@@ -1,24 +1,25 @@
 {
   "count": 28,
-  "new_style_confirmed": 17,
-  "rebake_remaining": 11,
+  "new_style_confirmed": 20,
+  "rebake_remaining": 8,
   "fish": [
     {
       "species": "african_catfish",
       "model": "game\\assets\\models\\fish\\african_catfish.glb",
-      "model_sha256": "62b26e865ba68f09fafbb7b2bf73a7439736101806f66ac7a35b63cb232aac04",
+      "model_sha256": "57e5bc45e3b8caa34d5f810d5c1cb27c7a96ccdcade7211cedff8ec713cbdcd0",
       "source": "assets\\source\\fish\\african_catfish\\fish.blend",
-      "source_sha256": "d807fb550386990b9ad21fc544f3538cbf54ae0dfe895a2611ae9b890b77001f",
+      "source_sha256": "294502c85b12b20296906fc7c91d3befefbc3707c43f64e543f9d76061997423",
       "static": {
         "geometry_uv_skin_sha256": "faabf4aaa6f5055ee63f54d3d42d3e7be412c32925b70c4e5ab5be6a550824a2",
-        "material_pixels_sha256": "f70b543d7ea3b795c782f344ef3b069e9989ecb070566632be03803d46ffd380",
+        "material_pixels_sha256": "5d3c5bc4332ffb5360121ae08bb2fcb9c870f3116aeaad029f12e3925ca4719a",
         "skeleton_rest_bind_sha256": "cdf598cdbf1c51bc41d25060528bcb4367c05831cae6e989196a1a06c9a498d4",
         "triangles": 2000,
         "bones": 18
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review",
+      "new_style_release": "resources/volume-fish/clean-pixel-three-20261112/release.json"
     },
     {
       "species": "arapaima",
@@ -237,19 +238,20 @@
     {
       "species": "mahi_mahi",
       "model": "game\\assets\\models\\fish\\mahi_mahi.glb",
-      "model_sha256": "fffa338ffa38050388eee3435c143b36a0c4b07834b99ac9c21c1cef4e0338c5",
+      "model_sha256": "874afc30f6c4b9a253a16248fd558f9ab35092fae935e671c346e37b09f8d8d9",
       "source": "assets\\source\\fish\\mahi_mahi\\fish.blend",
-      "source_sha256": "e8cbdef5c1b8765dc0c063794670db1523d0137bf2e9f6d4751682cdb0040383",
+      "source_sha256": "3d2de026f15e78388ac26bf191aeea6f2db250a0e04003ef4f0d158308e36627",
       "static": {
         "geometry_uv_skin_sha256": "2123f4fbc5bc8a8b04f4dd4a457906cad903770748bcf89e49ba94835819a372",
-        "material_pixels_sha256": "5c0b65a802cec3460f75576e5335718db8e014e13d2e319fa479c072a50c612d",
+        "material_pixels_sha256": "332868baf0e48d1337620c25519e6672388618d89421bcfddf8e356dce83475a",
         "skeleton_rest_bind_sha256": "e818d20d27bc2c42a856211da933ef0070c5aa57710b0d8cbf42be4da206f14e",
         "triangles": 1990,
         "bones": 18
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review",
+      "new_style_release": "resources/volume-fish/clean-pixel-three-20261112/release.json"
     },
     {
       "species": "nile_tilapia",
@@ -486,20 +488,21 @@
     {
       "species": "zander",
       "model": "game\\assets\\models\\fish\\zander.glb",
-      "model_sha256": "bf1137b96464ab2e395437e9bee9e0da16b9bbad2a508cabdfa87b43baef9c67",
+      "model_sha256": "3b0081e1547f0949a6bce3df50407d97cd5e9833d505a920a45b20c76c60f252",
       "source": "assets\\source\\fish\\zander\\fish.blend",
-      "source_sha256": "0612118f307f9ad6870af3db541f7981a552d34a853c6e13a04bfe27d7691f79",
+      "source_sha256": "f99d2169af1aaf361feeae879ebf4344cc12413d131bf05173200dbe04677f26",
       "static": {
         "geometry_uv_skin_sha256": "6eaa598d2548311619d13c0ab95a770e26a5c96d3b003f2187e6d8de99d645fa",
-        "material_pixels_sha256": "723d2ee90f10cff92240386f28dd9bb1841fa1ce26fc7601d5192448aaeb1d96",
+        "material_pixels_sha256": "108f0e0173336ae89757c900218cbf67dd7466f063ba24bc88d390b657a1a96e",
         "skeleton_rest_bind_sha256": "39f4ce17a2a77f9c345a4079d6d3e379308ee49e6530c8ad1beb9aa891ee4608",
         "triangles": 2000,
         "bones": 19
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review",
+      "new_style_release": "resources/volume-fish/clean-pixel-three-20261112/release.json"
     }
   ],
-  "updated": "2026-11-11"
+  "updated": "2026-11-12"
 }

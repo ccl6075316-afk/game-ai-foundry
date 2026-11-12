@@ -105,3 +105,5 @@
 [当前发布](../resources/volume-fish/clean-pixel-rainbow-trout-20261110/release.json)与[游戏交接](../projects/fishing-2d/plans/reviews/clean-pixel-rainbow-trout-20261110/HANDOFF.md)绑定用户已接受R2。先身体后8鳍，中央额部供体排除侧眼、口部外壁不等同口腔；方法见多视材质卡。新风格8条接受、20条待做，当前静态再冻结；动作质量和未重复完整SOP项另计。
 
 2026-11-11孔雀鲈R5接受与嘴部意图：[当前发布](../resources/volume-fish/clean-pixel-peacock-bass-20261111/release.json)、[方法及未来开合意图](../resources/volume-fish/clean-pixel-peacock-bass-20261111/README.md)。实体颌褶与真实口腔分别识别；1892三角、18骨，原0–18°控制保留。自动呼吸与合理闭口仅记未来意图，本次静态成品接受，新风格17/28。
+
+2026-11-12 三鱼背侧修复与材质接受见[当前发布](../resources/volume-fish/clean-pixel-three-20261112/release.json)及[跨背侧连续取色方法](../resources/volume-fish/clean-pixel-three-20261112/README.md)。新风格 20/28。
