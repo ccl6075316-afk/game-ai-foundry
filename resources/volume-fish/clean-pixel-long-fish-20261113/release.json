@@ -1,0 +1,220 @@
+{
+  "kind": "accepted_clean_pixel_material_release",
+  "date": "2026-11-13",
+  "user_acceptance": "行了 上吧",
+  "new_style_confirmed": 23,
+  "rebake_remaining": 5,
+  "fish": [
+    {
+      "species": "hairtail",
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/hairtail/fish.blend",
+        "sha256": "7c7f4adde5d58508ee092ecd6d0a8bcbde7b93000338db0088df02a381bcea29"
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/hairtail.glb",
+        "sha256": "dc67d5d47b9dce274130cae38bb76732ca49b2bf284c631885df6b01e178ebd6"
+      },
+      "concept": {
+        "path": "projects/fishing-2d/assets/source/fish/hairtail/clean-pixel-20261113/style-concept.png",
+        "sha256": "a4c2f1fc26b6e9ac8b1f59ec14354b8aaf571c20341d080fc09176ded8705d5c"
+      },
+      "triangles": 2000,
+      "bones": 67,
+      "fins": 3,
+      "nonimage_accessors_preserved": 229,
+      "body_and_auxiliary_texels_preserved": 2118862,
+      "source_cold_byte_exact": true,
+      "full_sop_pass": false,
+      "runtime_sop_pass": true,
+      "checks": {
+        "bake-isolation.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/hairtail/bake-isolation.validation.json",
+          "sha256": "12af321c4555814047704a9be403f338137acb37a13c6770aa75e6b9a817b4ff"
+        },
+        "body-bake.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/hairtail/body-bake.validation.json",
+          "sha256": "e8d203d41693b482c2d3086a3bc3fa388ad80328296e5fb8d721094adc6a1332"
+        },
+        "body-review.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/hairtail/body-review.validation.json",
+          "sha256": "7a53ead55e8c45ff247e0189e5a9af4a08ff8176b9b18fe34ea7fcde9e8c8ec8"
+        },
+        "body.plan.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/hairtail/body.plan.json",
+          "sha256": "de0aec8ab4ff67caacda1116bd0113d3f14417153e22d5f2fb759a29fe0754c9"
+        },
+        "body077.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/hairtail/body077.validation.json",
+          "sha256": "fda40a9a4a5b23441a5c2a4a0f80e5b13a35af430a56028cd5ff7100b3028807"
+        },
+        "canonical-motion.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/hairtail/canonical-motion.validation.json",
+          "sha256": "d3f52770b1d38d2c30a119b5c4d8cdbf64c779f163f9d1b41ea09c441e0b4377"
+        },
+        "canonical-pixels.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/hairtail/canonical-pixels.validation.json",
+          "sha256": "6fb27c9f374a3669390a4a5c0a3336e1fec7ced9f848d470355df48b0b87c79d"
+        },
+        "fin-bake.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/hairtail/fin-bake.validation.json",
+          "sha256": "06f6bfefd761ff0255c0a74c4b253a134071c0245abe3d77f669f60b33446215"
+        },
+        "fin-pose-index.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/hairtail/fin-pose-index.json",
+          "sha256": "2a0b2c7cef2d13d2fd1b7297b3d55ef8ff48d23cb9759da95c86624a289c56ac"
+        },
+        "fin490.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/hairtail/fin490.validation.json",
+          "sha256": "8357803985d9090e3c8177caf50c0eeb0c6574f0c7be8676176572279faa9d55"
+        },
+        "final-asset-cold-load.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/hairtail/final-asset-cold-load.validation.json",
+          "sha256": "4962c8bbaa76e7442baba24df68afd46e81cc38e34f26f9fa1a1d76c1cb27ce6"
+        },
+        "formal-cold.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/hairtail/formal-cold.validation.json",
+          "sha256": "cde181c042bc9e713b39ee459c9134c49d1522e84074b675d4814d6fc244e029"
+        },
+        "membranes490.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/hairtail/membranes490.validation.json",
+          "sha256": "f727e18cc19d8fff8a1dabb748273d275394edb275e25832fd3b5134604b4bdf"
+        },
+        "production-review.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/hairtail/production-review.json",
+          "sha256": "7bd6cf63112cca6c0d8c8e8b43ffc88afc4447323ccac83592cdaa163938c03f"
+        },
+        "root072.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/hairtail/root072.validation.json",
+          "sha256": "66f6fbc94162e815907f81120335fd17c44f2559cba6cab490cb7e684e2b53b8"
+        },
+        "roots490.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/hairtail/roots490.validation.json",
+          "sha256": "7e4009b0682d3df3024d587010f9d1065e9648283ec46e48dd87f1942f1f3704"
+        },
+        "sop-check.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/hairtail/sop-check.json",
+          "sha256": "1f1d8cfd979f74c7a0139ac3194f5fd9b577f62d673fbb4fd0bdabcc1dfdf915"
+        }
+      },
+      "preview": {
+        "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/hairtail/godot-review.jpg",
+        "sha256": "a66a4b858db4f1ae9a37a520e919b8fbdc963b13c7cd0da301f76a87b20f4a6d"
+      }
+    },
+    {
+      "species": "silver_arowana",
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/silver_arowana/fish.blend",
+        "sha256": "a06a98416597393f7dbda78d7ca92580af72ef185e404064a5172a582cc09542"
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/silver_arowana.glb",
+        "sha256": "0203fbe659bb12608a22862719c3660f1cd36ad67b2f0dd8d06ecba3ebaa5932"
+      },
+      "concept": {
+        "path": "projects/fishing-2d/assets/source/fish/silver_arowana/clean-pixel-20261113/style-concept.png",
+        "sha256": "907a20b430b805f15cd5f6b6d237850a5cd88cbffdd999ae39aa32a08450db24"
+      },
+      "triangles": 1984,
+      "bones": 35,
+      "fins": 7,
+      "nonimage_accessors_preserved": 175,
+      "body_and_auxiliary_texels_preserved": 1273551,
+      "source_cold_byte_exact": true,
+      "full_sop_pass": false,
+      "runtime_sop_pass": true,
+      "checks": {
+        "bake-isolation.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/silver_arowana/bake-isolation.validation.json",
+          "sha256": "0a7fa7f6cbe15dbf3cb2a32187e3281594e1670f63c1a987217fc930acb2a800"
+        },
+        "body-bake.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/silver_arowana/body-bake.validation.json",
+          "sha256": "1ec5e49e4e3082aee9df729fd9c9d2fe6f15d6be8bfdd2eaed2b0f65daf5d526"
+        },
+        "body-review.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/silver_arowana/body-review.validation.json",
+          "sha256": "6a28604bd79ddbfd2f72f3ba7c1591f5e1de0ba0800a4ff7432e93091b8445f3"
+        },
+        "body.plan.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/silver_arowana/body.plan.json",
+          "sha256": "7bb975eb59c631be026bb9b87db75b35cc931e236b70a65ea6396b6a04ac7e3e"
+        },
+        "body077.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/silver_arowana/body077.validation.json",
+          "sha256": "4463c937e3b46c3e6348319e207ad6daffa27032fc3e92ecd18b8c28230b3c77"
+        },
+        "canonical-motion.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/silver_arowana/canonical-motion.validation.json",
+          "sha256": "d1a67188b657d184e93bc7fccb9ad5c32bb329ae267fa15a2e8efeea2b4d74cc"
+        },
+        "canonical-pixels.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/silver_arowana/canonical-pixels.validation.json",
+          "sha256": "be11089230332c2b772da9ed538897904b4ecdf557c84261f16550b5b64f05d2"
+        },
+        "fin-bake.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/silver_arowana/fin-bake.validation.json",
+          "sha256": "1c26fef2e3ce83ec03f51ecf8a149a46289762167c0282d41f9577c1fb8f990e"
+        },
+        "fin-pose-index.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/silver_arowana/fin-pose-index.json",
+          "sha256": "d4d261672f96653299ee3e74150c0909354af350efaca7ee2d31955b87960495"
+        },
+        "fin490.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/silver_arowana/fin490.validation.json",
+          "sha256": "3b895e964240c3d8b30f6734da4f0da4ff4ead3a209e45901304ca06d66a6511"
+        },
+        "final-asset-cold-load.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/silver_arowana/final-asset-cold-load.validation.json",
+          "sha256": "6530058b613fb4ab42c0a309b9ba73e386ae4131e69d89d88665240c59f2cc13"
+        },
+        "formal-cold.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/silver_arowana/formal-cold.validation.json",
+          "sha256": "020b5ecf600705320c0ffbe17ebae7fd00fbf869a671106643dde95cec8847f6"
+        },
+        "membranes490.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/silver_arowana/membranes490.validation.json",
+          "sha256": "3d55f9863ea85f99921df1fd6681b7865c88b9c1b1d17088162a3d86a48f9e95"
+        },
+        "production-review.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/silver_arowana/production-review.json",
+          "sha256": "5337802a935094ee06e4882b6a5d617e85ee95872e09982da34697a2008ea1f0"
+        },
+        "root072.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/silver_arowana/root072.validation.json",
+          "sha256": "193a18b073875910913c20e72d2db2057aed194677612d26332cb5fafe442a95"
+        },
+        "roots490.validation.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/silver_arowana/roots490.validation.json",
+          "sha256": "a5e1ba9538063a81a9f540bd83361275c45be912fb2a1287409745a71b81b905"
+        },
+        "sop-check.json": {
+          "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/silver_arowana/sop-check.json",
+          "sha256": "e23743cee4d00ef98d8b8ecca9717fcdcf5ee8af95236af6f3353fd0b9a670d4"
+        }
+      },
+      "preview": {
+        "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/silver_arowana/godot-review.jpg",
+        "sha256": "b8601680e7fcd0f0be1782b3b0cdd6bc2387c91f56c5abcb9e137453fe38bc78"
+      }
+    }
+  ],
+  "canonical": {
+    "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/canonical.validation.json",
+    "sha256": "93f3b2bd7844868368ae68e92188b08d55b7b975fb6708d53cf253da0ccb5297"
+  },
+  "baidu_lfs": {
+    "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/baidu-lfs.validation.json",
+    "sha256": "8bef90808a95948c999ec48ef4943e50fa252820742057d4b134a188ffd26e94"
+  },
+  "cleanup": {
+    "path": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/cleanup.validation.json",
+    "sha256": "e32968d060bf0088d67474965d6e56d458e1f2912bf12ab4b233260c4ff85a3d"
+  },
+  "handoff": "projects/fishing-2d/plans/reviews/clean-pixel-long-fish-20261113/HANDOFF.md",
+  "complete_root_domains": {
+    "path": "resources/volume-fish/clean-pixel-long-fish-20261113/complete-root-domains.json",
+    "sha256": "e3f861cba9002e75bb096df6205b0f4256c530f01f0af979adc22155f6db12d5"
+  }
+}
