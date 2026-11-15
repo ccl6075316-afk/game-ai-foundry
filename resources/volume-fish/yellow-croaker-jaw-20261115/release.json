@@ -16,7 +16,7 @@
   "default_scope": "Accepted static geometry, material, UV, skin and skeleton frozen. Normal runtime motion is editable.",
   "handoff": {
     "path": "projects/fishing-2d/plans/reviews/yellow-croaker-jaw-20261115/HANDOFF.md",
-    "sha256": "1c6291b3e4c8a7dbe3b0654f29eaf0d19cf73a55eec51d3052e45da83240614f"
+    "sha256": "30bc1485b70ac4809ff054beab2393e1acfea56a6962f4effa818fae1c2465a6"
   },
   "model": {
     "path": "projects/fishing-2d/game/assets/models/fish/yellow_croaker.glb",
@@ -81,5 +81,20 @@
     "path": "resources/volume-fish/yellow-croaker-jaw-20261115/verify_action.gd",
     "sha256": "850d68c52380f00bf6682d772e2c681a11efc75ec142b3cde9c7752ceadd2df9"
   },
-  "game_revision": "1456708d5b08491cf976ec1682ba6f6b2daa18dc"
+  "game_revision": "d6403502b90ff29f67118c03f556f4c648078290",
+  "release_transport": {
+    "game_ref": "origin/main",
+    "pushed_git_revision": "d6403502b90ff29f67118c03f556f4c648078290",
+    "baidu_lfs_assets_read_back_verified_by_pre_push": [
+      {
+        "path": "projects/fishing-2d/assets/source/fish/yellow_croaker/fish.blend",
+        "sha256": "9d416009332e4e3cde1ca7c1814242ec8612b11ab29cfdb6ca8d509d0abf28eb"
+      },
+      {
+        "path": "projects/fishing-2d/game/assets/models/fish/yellow_croaker.glb",
+        "sha256": "17b229f11997aeb187895e6ab75fd33f17ffd3c5f8f04403618f1ceeb5f51455"
+      }
+    ],
+    "preview_video": "Kept locally after the Baidu video read-back failed. The pushed source and GLB both verified."
+  }
 }
