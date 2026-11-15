@@ -1,0 +1,4221 @@
+{
+  "scope": "Only60fps derivative PNG frames/logs; video, contact sheet, configuration, scripts, captured samples and comparison report retained. Existing R5 and sources untouched.",
+  "retained_files": [
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\capture_feeding.gd",
+      "bytes": 8618
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\comparison.json",
+      "bytes": 3229
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\encode_video.py",
+      "bytes": 1714
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\feeding-preview.mp4",
+      "bytes": 3665702
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\FeedingMotion.gd",
+      "bytes": 4163
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\motion.json",
+      "bytes": 3019
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\record_comparison.py",
+      "bytes": 3906
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\video-review.jpg",
+      "bytes": 68974
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\video.validation.json",
+      "bytes": 431
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\capture.validation.json",
+      "bytes": 520324
+    }
+  ],
+  "deleted": [
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-000.png",
+      "bytes": 63561
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-001.png",
+      "bytes": 64510
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-002.png",
+      "bytes": 65881
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-003.png",
+      "bytes": 66756
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-004.png",
+      "bytes": 68310
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-005.png",
+      "bytes": 70026
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-006.png",
+      "bytes": 70899
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-007.png",
+      "bytes": 71958
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-008.png",
+      "bytes": 73263
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-009.png",
+      "bytes": 74660
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-010.png",
+      "bytes": 75525
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-011.png",
+      "bytes": 76835
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-012.png",
+      "bytes": 77861
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-013.png",
+      "bytes": 78779
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-014.png",
+      "bytes": 80007
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-015.png",
+      "bytes": 81728
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-016.png",
+      "bytes": 83638
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-017.png",
+      "bytes": 85274
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-018.png",
+      "bytes": 87356
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-019.png",
+      "bytes": 89146
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-020.png",
+      "bytes": 91250
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-021.png",
+      "bytes": 92649
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-022.png",
+      "bytes": 94943
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-023.png",
+      "bytes": 96787
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-024.png",
+      "bytes": 98443
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-025.png",
+      "bytes": 99995
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-026.png",
+      "bytes": 101871
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-027.png",
+      "bytes": 104056
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-028.png",
+      "bytes": 105933
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-029.png",
+      "bytes": 108480
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-030.png",
+      "bytes": 110638
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-031.png",
+      "bytes": 112907
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-032.png",
+      "bytes": 115492
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-033.png",
+      "bytes": 117163
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-034.png",
+      "bytes": 119586
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-035.png",
+      "bytes": 121527
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-036.png",
+      "bytes": 123688
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-037.png",
+      "bytes": 126055
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-038.png",
+      "bytes": 128615
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-039.png",
+      "bytes": 130292
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-040.png",
+      "bytes": 132909
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-041.png",
+      "bytes": 135249
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-042.png",
+      "bytes": 138482
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-043.png",
+      "bytes": 140719
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-044.png",
+      "bytes": 143577
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-045.png",
+      "bytes": 145614
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-046.png",
+      "bytes": 147630
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-047.png",
+      "bytes": 150173
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-048.png",
+      "bytes": 153344
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-049.png",
+      "bytes": 156490
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-050.png",
+      "bytes": 160275
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-051.png",
+      "bytes": 163364
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-052.png",
+      "bytes": 166446
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-053.png",
+      "bytes": 170034
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-054.png",
+      "bytes": 172927
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-055.png",
+      "bytes": 176654
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-056.png",
+      "bytes": 181080
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-057.png",
+      "bytes": 184525
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-058.png",
+      "bytes": 188814
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-059.png",
+      "bytes": 192139
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-060.png",
+      "bytes": 195103
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-061.png",
+      "bytes": 199227
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-062.png",
+      "bytes": 204153
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-063.png",
+      "bytes": 209163
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-064.png",
+      "bytes": 213945
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-065.png",
+      "bytes": 218736
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-066.png",
+      "bytes": 223568
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-067.png",
+      "bytes": 227993
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-068.png",
+      "bytes": 233656
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-069.png",
+      "bytes": 240011
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-070.png",
+      "bytes": 245023
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-071.png",
+      "bytes": 254035
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-072.png",
+      "bytes": 262103
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-073.png",
+      "bytes": 271372
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-074.png",
+      "bytes": 281274
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-075.png",
+      "bytes": 291579
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-076.png",
+      "bytes": 300688
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-077.png",
+      "bytes": 311054
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-078.png",
+      "bytes": 318069
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-079.png",
+      "bytes": 324660
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-080.png",
+      "bytes": 331357
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-081.png",
+      "bytes": 336985
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-082.png",
+      "bytes": 341115
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-083.png",
+      "bytes": 344570
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-084.png",
+      "bytes": 346373
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-085.png",
+      "bytes": 348428
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-086.png",
+      "bytes": 349336
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-087.png",
+      "bytes": 349740
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-088.png",
+      "bytes": 348947
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-089.png",
+      "bytes": 348946
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-090.png",
+      "bytes": 348839
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-091.png",
+      "bytes": 348547
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-092.png",
+      "bytes": 348571
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-093.png",
+      "bytes": 348199
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-094.png",
+      "bytes": 347645
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-095.png",
+      "bytes": 347956
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-096.png",
+      "bytes": 348279
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-097.png",
+      "bytes": 347875
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-098.png",
+      "bytes": 348507
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-099.png",
+      "bytes": 347846
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-100.png",
+      "bytes": 347558
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-101.png",
+      "bytes": 347912
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-102.png",
+      "bytes": 347381
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-103.png",
+      "bytes": 347583
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-104.png",
+      "bytes": 347332
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-105.png",
+      "bytes": 347196
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-106.png",
+      "bytes": 346367
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-107.png",
+      "bytes": 347346
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-108.png",
+      "bytes": 346956
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-109.png",
+      "bytes": 346631
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-110.png",
+      "bytes": 346448
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-111.png",
+      "bytes": 346683
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-112.png",
+      "bytes": 346029
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-113.png",
+      "bytes": 345827
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-114.png",
+      "bytes": 345507
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-115.png",
+      "bytes": 344730
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-116.png",
+      "bytes": 344770
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-117.png",
+      "bytes": 343726
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-118.png",
+      "bytes": 343305
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-119.png",
+      "bytes": 342245
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-120.png",
+      "bytes": 341655
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-121.png",
+      "bytes": 340883
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-122.png",
+      "bytes": 339892
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-123.png",
+      "bytes": 339192
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-124.png",
+      "bytes": 337881
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-125.png",
+      "bytes": 333363
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-126.png",
+      "bytes": 332459
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-127.png",
+      "bytes": 330771
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-128.png",
+      "bytes": 330223
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-129.png",
+      "bytes": 328907
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-130.png",
+      "bytes": 327268
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-131.png",
+      "bytes": 326938
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-132.png",
+      "bytes": 325189
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-133.png",
+      "bytes": 324568
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-134.png",
+      "bytes": 323065
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-135.png",
+      "bytes": 321734
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-136.png",
+      "bytes": 320634
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-137.png",
+      "bytes": 320706
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-138.png",
+      "bytes": 319614
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-139.png",
+      "bytes": 319025
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-140.png",
+      "bytes": 317638
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-141.png",
+      "bytes": 316845
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-142.png",
+      "bytes": 316008
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-143.png",
+      "bytes": 315743
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-144.png",
+      "bytes": 315416
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-145.png",
+      "bytes": 315003
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-146.png",
+      "bytes": 315065
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-147.png",
+      "bytes": 314068
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-148.png",
+      "bytes": 313673
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-149.png",
+      "bytes": 314198
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-150.png",
+      "bytes": 315472
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-151.png",
+      "bytes": 316130
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-152.png",
+      "bytes": 316977
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-153.png",
+      "bytes": 318862
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-154.png",
+      "bytes": 320462
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-155.png",
+      "bytes": 322911
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-156.png",
+      "bytes": 325700
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-157.png",
+      "bytes": 329816
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-158.png",
+      "bytes": 333170
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-159.png",
+      "bytes": 336009
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-160.png",
+      "bytes": 339441
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-161.png",
+      "bytes": 344123
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-162.png",
+      "bytes": 347493
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-163.png",
+      "bytes": 351812
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-164.png",
+      "bytes": 356419
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-165.png",
+      "bytes": 361606
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-166.png",
+      "bytes": 363949
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-167.png",
+      "bytes": 361360
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-168.png",
+      "bytes": 365842
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-169.png",
+      "bytes": 368553
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-170.png",
+      "bytes": 370802
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-171.png",
+      "bytes": 383052
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-172.png",
+      "bytes": 384600
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-173.png",
+      "bytes": 387118
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-174.png",
+      "bytes": 388955
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-175.png",
+      "bytes": 389024
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-176.png",
+      "bytes": 389898
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-177.png",
+      "bytes": 390705
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-178.png",
+      "bytes": 388284
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-179.png",
+      "bytes": 387652
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-180.png",
+      "bytes": 384628
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-181.png",
+      "bytes": 382481
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-182.png",
+      "bytes": 380045
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-183.png",
+      "bytes": 376587
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-184.png",
+      "bytes": 373548
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-185.png",
+      "bytes": 362780
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-186.png",
+      "bytes": 367135
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-187.png",
+      "bytes": 363093
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-188.png",
+      "bytes": 359344
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-189.png",
+      "bytes": 356355
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-190.png",
+      "bytes": 356232
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-191.png",
+      "bytes": 352121
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-192.png",
+      "bytes": 348332
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-193.png",
+      "bytes": 339904
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-194.png",
+      "bytes": 338058
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-195.png",
+      "bytes": 334317
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-196.png",
+      "bytes": 332407
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-197.png",
+      "bytes": 329883
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-198.png",
+      "bytes": 328096
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-199.png",
+      "bytes": 325587
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-200.png",
+      "bytes": 324117
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-201.png",
+      "bytes": 321917
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-202.png",
+      "bytes": 321643
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-203.png",
+      "bytes": 319957
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-204.png",
+      "bytes": 317314
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-205.png",
+      "bytes": 314810
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-206.png",
+      "bytes": 310735
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-207.png",
+      "bytes": 309723
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-208.png",
+      "bytes": 309777
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-209.png",
+      "bytes": 310011
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-210.png",
+      "bytes": 310809
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-211.png",
+      "bytes": 317042
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-212.png",
+      "bytes": 317874
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-213.png",
+      "bytes": 319913
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-214.png",
+      "bytes": 319900
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-215.png",
+      "bytes": 322584
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-216.png",
+      "bytes": 322738
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-217.png",
+      "bytes": 324619
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-218.png",
+      "bytes": 325501
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-219.png",
+      "bytes": 326559
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-220.png",
+      "bytes": 328250
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-221.png",
+      "bytes": 329287
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-222.png",
+      "bytes": 331257
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-223.png",
+      "bytes": 332014
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-224.png",
+      "bytes": 333738
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-225.png",
+      "bytes": 336108
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-226.png",
+      "bytes": 337945
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-227.png",
+      "bytes": 339576
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-228.png",
+      "bytes": 340701
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-229.png",
+      "bytes": 342224
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-230.png",
+      "bytes": 343463
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-231.png",
+      "bytes": 346111
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-232.png",
+      "bytes": 347995
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-233.png",
+      "bytes": 348520
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-234.png",
+      "bytes": 349401
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-235.png",
+      "bytes": 349766
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-236.png",
+      "bytes": 351429
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-237.png",
+      "bytes": 353376
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-238.png",
+      "bytes": 354930
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-239.png",
+      "bytes": 354367
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-240.png",
+      "bytes": 355864
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-241.png",
+      "bytes": 356132
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-242.png",
+      "bytes": 356888
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-243.png",
+      "bytes": 354714
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-244.png",
+      "bytes": 354953
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-245.png",
+      "bytes": 354632
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-246.png",
+      "bytes": 354214
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-247.png",
+      "bytes": 354297
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-248.png",
+      "bytes": 354119
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-249.png",
+      "bytes": 354050
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-250.png",
+      "bytes": 353936
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-251.png",
+      "bytes": 353123
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-252.png",
+      "bytes": 352326
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-253.png",
+      "bytes": 351968
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-254.png",
+      "bytes": 352127
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-255.png",
+      "bytes": 350695
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-256.png",
+      "bytes": 349829
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-257.png",
+      "bytes": 353391
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-258.png",
+      "bytes": 352132
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-259.png",
+      "bytes": 351606
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-260.png",
+      "bytes": 350785
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-261.png",
+      "bytes": 349977
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-262.png",
+      "bytes": 349975
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-263.png",
+      "bytes": 349942
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-264.png",
+      "bytes": 348120
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-265.png",
+      "bytes": 348097
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-266.png",
+      "bytes": 348035
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-267.png",
+      "bytes": 346521
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-268.png",
+      "bytes": 346541
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-269.png",
+      "bytes": 346183
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-270.png",
+      "bytes": 345088
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-271.png",
+      "bytes": 345046
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-272.png",
+      "bytes": 344027
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-273.png",
+      "bytes": 344010
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-274.png",
+      "bytes": 342958
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-275.png",
+      "bytes": 341656
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-276.png",
+      "bytes": 341794
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-277.png",
+      "bytes": 342263
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-278.png",
+      "bytes": 341351
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-279.png",
+      "bytes": 341840
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-280.png",
+      "bytes": 341680
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-281.png",
+      "bytes": 341482
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-282.png",
+      "bytes": 341530
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-283.png",
+      "bytes": 342236
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-284.png",
+      "bytes": 341363
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-285.png",
+      "bytes": 340753
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-286.png",
+      "bytes": 341163
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-287.png",
+      "bytes": 341327
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-288.png",
+      "bytes": 341054
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-289.png",
+      "bytes": 340889
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-290.png",
+      "bytes": 341421
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-291.png",
+      "bytes": 341868
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-292.png",
+      "bytes": 341607
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-293.png",
+      "bytes": 341244
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-294.png",
+      "bytes": 341281
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-295.png",
+      "bytes": 340899
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-296.png",
+      "bytes": 341434
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-297.png",
+      "bytes": 341087
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-298.png",
+      "bytes": 341328
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-299.png",
+      "bytes": 341404
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-300.png",
+      "bytes": 341695
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-301.png",
+      "bytes": 341251
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-302.png",
+      "bytes": 341106
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-303.png",
+      "bytes": 340731
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-304.png",
+      "bytes": 341544
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-305.png",
+      "bytes": 341596
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-306.png",
+      "bytes": 340910
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-307.png",
+      "bytes": 340935
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-308.png",
+      "bytes": 341033
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-309.png",
+      "bytes": 340692
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-310.png",
+      "bytes": 340977
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-311.png",
+      "bytes": 340047
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-312.png",
+      "bytes": 341288
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-313.png",
+      "bytes": 340509
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-314.png",
+      "bytes": 340766
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-315.png",
+      "bytes": 340369
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-316.png",
+      "bytes": 340576
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-317.png",
+      "bytes": 340222
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-318.png",
+      "bytes": 339955
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-319.png",
+      "bytes": 340488
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-320.png",
+      "bytes": 339982
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-321.png",
+      "bytes": 340123
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-322.png",
+      "bytes": 340399
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-323.png",
+      "bytes": 339912
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-324.png",
+      "bytes": 339180
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-325.png",
+      "bytes": 340069
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-326.png",
+      "bytes": 340138
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-327.png",
+      "bytes": 340288
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-328.png",
+      "bytes": 340201
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-329.png",
+      "bytes": 340211
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-330.png",
+      "bytes": 341032
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-331.png",
+      "bytes": 340187
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-332.png",
+      "bytes": 340157
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-333.png",
+      "bytes": 339601
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-334.png",
+      "bytes": 340487
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-335.png",
+      "bytes": 340135
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-336.png",
+      "bytes": 339886
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-337.png",
+      "bytes": 340045
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-338.png",
+      "bytes": 339688
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-339.png",
+      "bytes": 340865
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-340.png",
+      "bytes": 340732
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-341.png",
+      "bytes": 340585
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-342.png",
+      "bytes": 340314
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-343.png",
+      "bytes": 339669
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-344.png",
+      "bytes": 340928
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-345.png",
+      "bytes": 340407
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-346.png",
+      "bytes": 340529
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-347.png",
+      "bytes": 340132
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-348.png",
+      "bytes": 340358
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-349.png",
+      "bytes": 340480
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-350.png",
+      "bytes": 340405
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-351.png",
+      "bytes": 340258
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-352.png",
+      "bytes": 340700
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-353.png",
+      "bytes": 340557
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-354.png",
+      "bytes": 340716
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-355.png",
+      "bytes": 340346
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-356.png",
+      "bytes": 341188
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-357.png",
+      "bytes": 340401
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-358.png",
+      "bytes": 349020
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\close-359.png",
+      "bytes": 349231
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\feeding-close.png",
+      "bytes": 344474
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\feeding-whole.png",
+      "bytes": 186046
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-000.png",
+      "bytes": 196129
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-001.png",
+      "bytes": 196061
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-002.png",
+      "bytes": 196568
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-003.png",
+      "bytes": 196784
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-004.png",
+      "bytes": 197815
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-005.png",
+      "bytes": 198486
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-006.png",
+      "bytes": 198343
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-007.png",
+      "bytes": 199014
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-008.png",
+      "bytes": 198680
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-009.png",
+      "bytes": 198959
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-010.png",
+      "bytes": 198912
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-011.png",
+      "bytes": 198898
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-012.png",
+      "bytes": 198616
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-013.png",
+      "bytes": 198836
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-014.png",
+      "bytes": 199000
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-015.png",
+      "bytes": 199205
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-016.png",
+      "bytes": 199010
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-017.png",
+      "bytes": 199087
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-018.png",
+      "bytes": 199244
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-019.png",
+      "bytes": 198654
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-020.png",
+      "bytes": 198787
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-021.png",
+      "bytes": 199077
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-022.png",
+      "bytes": 198484
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-023.png",
+      "bytes": 198577
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-024.png",
+      "bytes": 198738
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-025.png",
+      "bytes": 198280
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-026.png",
+      "bytes": 198684
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-027.png",
+      "bytes": 198395
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-028.png",
+      "bytes": 198195
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-029.png",
+      "bytes": 198243
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-030.png",
+      "bytes": 198192
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-031.png",
+      "bytes": 198562
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-032.png",
+      "bytes": 198713
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-033.png",
+      "bytes": 198877
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-034.png",
+      "bytes": 198735
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-035.png",
+      "bytes": 198110
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-036.png",
+      "bytes": 198490
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-037.png",
+      "bytes": 198327
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-038.png",
+      "bytes": 198235
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-039.png",
+      "bytes": 197973
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-040.png",
+      "bytes": 198632
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-041.png",
+      "bytes": 198289
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-042.png",
+      "bytes": 198678
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-043.png",
+      "bytes": 197990
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-044.png",
+      "bytes": 198146
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-045.png",
+      "bytes": 197982
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-046.png",
+      "bytes": 197950
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-047.png",
+      "bytes": 198100
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-048.png",
+      "bytes": 197852
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-049.png",
+      "bytes": 198182
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-050.png",
+      "bytes": 197504
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-051.png",
+      "bytes": 198304
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-052.png",
+      "bytes": 198305
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-053.png",
+      "bytes": 197979
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-054.png",
+      "bytes": 198186
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-055.png",
+      "bytes": 196806
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-056.png",
+      "bytes": 196573
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-057.png",
+      "bytes": 196856
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-058.png",
+      "bytes": 196792
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-059.png",
+      "bytes": 197395
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-060.png",
+      "bytes": 197055
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-061.png",
+      "bytes": 197126
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-062.png",
+      "bytes": 196891
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-063.png",
+      "bytes": 196857
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-064.png",
+      "bytes": 196872
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-065.png",
+      "bytes": 196802
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-066.png",
+      "bytes": 196903
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-067.png",
+      "bytes": 197086
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-068.png",
+      "bytes": 196696
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-069.png",
+      "bytes": 196720
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-070.png",
+      "bytes": 197233
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-071.png",
+      "bytes": 197636
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-072.png",
+      "bytes": 196969
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-073.png",
+      "bytes": 197165
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-074.png",
+      "bytes": 196929
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-075.png",
+      "bytes": 196195
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-076.png",
+      "bytes": 195894
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-077.png",
+      "bytes": 195330
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-078.png",
+      "bytes": 194749
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-079.png",
+      "bytes": 194636
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-080.png",
+      "bytes": 194472
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-081.png",
+      "bytes": 194362
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-082.png",
+      "bytes": 194342
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-083.png",
+      "bytes": 194310
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-084.png",
+      "bytes": 194404
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-085.png",
+      "bytes": 194449
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-086.png",
+      "bytes": 194384
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-087.png",
+      "bytes": 194732
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-088.png",
+      "bytes": 194556
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-089.png",
+      "bytes": 194635
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-090.png",
+      "bytes": 194769
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-091.png",
+      "bytes": 194719
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-092.png",
+      "bytes": 194568
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-093.png",
+      "bytes": 195067
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-094.png",
+      "bytes": 195398
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-095.png",
+      "bytes": 195343
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-096.png",
+      "bytes": 195487
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-097.png",
+      "bytes": 195244
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-098.png",
+      "bytes": 195205
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-099.png",
+      "bytes": 195147
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-100.png",
+      "bytes": 195081
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-101.png",
+      "bytes": 194972
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-102.png",
+      "bytes": 194708
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-103.png",
+      "bytes": 194800
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-104.png",
+      "bytes": 194491
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-105.png",
+      "bytes": 194839
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-106.png",
+      "bytes": 194558
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-107.png",
+      "bytes": 194577
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-108.png",
+      "bytes": 194652
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-109.png",
+      "bytes": 194930
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-110.png",
+      "bytes": 194846
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-111.png",
+      "bytes": 194753
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-112.png",
+      "bytes": 194702
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-113.png",
+      "bytes": 194886
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-114.png",
+      "bytes": 194628
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-115.png",
+      "bytes": 194813
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-116.png",
+      "bytes": 194381
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-117.png",
+      "bytes": 194451
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-118.png",
+      "bytes": 194881
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-119.png",
+      "bytes": 195240
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-120.png",
+      "bytes": 195023
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-121.png",
+      "bytes": 195566
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-122.png",
+      "bytes": 195634
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-123.png",
+      "bytes": 195474
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-124.png",
+      "bytes": 195622
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-125.png",
+      "bytes": 195068
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-126.png",
+      "bytes": 195761
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-127.png",
+      "bytes": 196021
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-128.png",
+      "bytes": 195892
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-129.png",
+      "bytes": 195382
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-130.png",
+      "bytes": 195973
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-131.png",
+      "bytes": 196270
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-132.png",
+      "bytes": 196729
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-133.png",
+      "bytes": 197011
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-134.png",
+      "bytes": 197917
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-135.png",
+      "bytes": 197798
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-136.png",
+      "bytes": 198472
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-137.png",
+      "bytes": 198426
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-138.png",
+      "bytes": 199214
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-139.png",
+      "bytes": 199611
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-140.png",
+      "bytes": 199933
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-141.png",
+      "bytes": 199802
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-142.png",
+      "bytes": 200129
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-143.png",
+      "bytes": 200544
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-144.png",
+      "bytes": 200362
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-145.png",
+      "bytes": 200982
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-146.png",
+      "bytes": 201488
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-147.png",
+      "bytes": 201250
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-148.png",
+      "bytes": 201348
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-149.png",
+      "bytes": 201101
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-150.png",
+      "bytes": 201055
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-151.png",
+      "bytes": 200939
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-152.png",
+      "bytes": 201390
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-153.png",
+      "bytes": 201185
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-154.png",
+      "bytes": 200907
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-155.png",
+      "bytes": 200046
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-156.png",
+      "bytes": 199098
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-157.png",
+      "bytes": 199119
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-158.png",
+      "bytes": 198188
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-159.png",
+      "bytes": 198017
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-160.png",
+      "bytes": 197594
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-161.png",
+      "bytes": 198582
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-162.png",
+      "bytes": 199155
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-163.png",
+      "bytes": 198930
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-164.png",
+      "bytes": 199077
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-165.png",
+      "bytes": 198945
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-166.png",
+      "bytes": 198568
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-167.png",
+      "bytes": 198112
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-168.png",
+      "bytes": 198328
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-169.png",
+      "bytes": 198980
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-170.png",
+      "bytes": 199716
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-171.png",
+      "bytes": 202831
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-172.png",
+      "bytes": 202846
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-173.png",
+      "bytes": 202999
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-174.png",
+      "bytes": 203046
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-175.png",
+      "bytes": 203143
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-176.png",
+      "bytes": 203065
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-177.png",
+      "bytes": 203039
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-178.png",
+      "bytes": 202910
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-179.png",
+      "bytes": 202873
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-180.png",
+      "bytes": 202862
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-181.png",
+      "bytes": 202796
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-182.png",
+      "bytes": 202821
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-183.png",
+      "bytes": 202678
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-184.png",
+      "bytes": 203005
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-185.png",
+      "bytes": 201508
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-186.png",
+      "bytes": 201575
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-187.png",
+      "bytes": 201846
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-188.png",
+      "bytes": 201256
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-189.png",
+      "bytes": 199913
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-190.png",
+      "bytes": 200129
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-191.png",
+      "bytes": 200000
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-192.png",
+      "bytes": 200080
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-193.png",
+      "bytes": 199443
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-194.png",
+      "bytes": 199555
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-195.png",
+      "bytes": 199471
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-196.png",
+      "bytes": 200152
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-197.png",
+      "bytes": 199840
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-198.png",
+      "bytes": 200035
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-199.png",
+      "bytes": 200276
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-200.png",
+      "bytes": 200245
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-201.png",
+      "bytes": 200159
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-202.png",
+      "bytes": 200361
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-203.png",
+      "bytes": 200154
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-204.png",
+      "bytes": 199722
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-205.png",
+      "bytes": 199271
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-206.png",
+      "bytes": 199001
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-207.png",
+      "bytes": 198514
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-208.png",
+      "bytes": 198444
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-209.png",
+      "bytes": 197410
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-210.png",
+      "bytes": 197314
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-211.png",
+      "bytes": 198049
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-212.png",
+      "bytes": 198219
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-213.png",
+      "bytes": 198038
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-214.png",
+      "bytes": 198511
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-215.png",
+      "bytes": 198896
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-216.png",
+      "bytes": 198650
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-217.png",
+      "bytes": 198549
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-218.png",
+      "bytes": 198592
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-219.png",
+      "bytes": 198363
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-220.png",
+      "bytes": 198067
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-221.png",
+      "bytes": 197482
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-222.png",
+      "bytes": 198321
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-223.png",
+      "bytes": 198353
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-224.png",
+      "bytes": 197915
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-225.png",
+      "bytes": 197644
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-226.png",
+      "bytes": 196883
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-227.png",
+      "bytes": 196702
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-228.png",
+      "bytes": 196693
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-229.png",
+      "bytes": 195869
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-230.png",
+      "bytes": 195121
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-231.png",
+      "bytes": 195047
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-232.png",
+      "bytes": 194701
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-233.png",
+      "bytes": 194483
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-234.png",
+      "bytes": 194611
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-235.png",
+      "bytes": 194143
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-236.png",
+      "bytes": 194331
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-237.png",
+      "bytes": 193849
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-238.png",
+      "bytes": 194137
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-239.png",
+      "bytes": 193812
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-240.png",
+      "bytes": 194083
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-241.png",
+      "bytes": 194216
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-242.png",
+      "bytes": 193907
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-243.png",
+      "bytes": 194103
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-244.png",
+      "bytes": 193768
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-245.png",
+      "bytes": 193730
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-246.png",
+      "bytes": 193669
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-247.png",
+      "bytes": 193875
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-248.png",
+      "bytes": 193560
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-249.png",
+      "bytes": 193611
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-250.png",
+      "bytes": 193691
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-251.png",
+      "bytes": 193825
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-252.png",
+      "bytes": 193620
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-253.png",
+      "bytes": 193690
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-254.png",
+      "bytes": 193617
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-255.png",
+      "bytes": 194072
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-256.png",
+      "bytes": 193932
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-257.png",
+      "bytes": 194038
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-258.png",
+      "bytes": 194152
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-259.png",
+      "bytes": 194028
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-260.png",
+      "bytes": 194057
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-261.png",
+      "bytes": 194026
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-262.png",
+      "bytes": 193987
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-263.png",
+      "bytes": 193963
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-264.png",
+      "bytes": 193734
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-265.png",
+      "bytes": 193881
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-266.png",
+      "bytes": 193929
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-267.png",
+      "bytes": 193800
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-268.png",
+      "bytes": 194139
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-269.png",
+      "bytes": 193429
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-270.png",
+      "bytes": 193810
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-271.png",
+      "bytes": 193706
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-272.png",
+      "bytes": 193517
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-273.png",
+      "bytes": 193150
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-274.png",
+      "bytes": 193028
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-275.png",
+      "bytes": 193100
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-276.png",
+      "bytes": 193285
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-277.png",
+      "bytes": 192893
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-278.png",
+      "bytes": 193182
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-279.png",
+      "bytes": 192080
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-280.png",
+      "bytes": 192462
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-281.png",
+      "bytes": 192351
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-282.png",
+      "bytes": 192249
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-283.png",
+      "bytes": 191977
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-284.png",
+      "bytes": 191881
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-285.png",
+      "bytes": 192274
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-286.png",
+      "bytes": 192428
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-287.png",
+      "bytes": 192280
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-288.png",
+      "bytes": 192327
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-289.png",
+      "bytes": 192274
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-290.png",
+      "bytes": 192096
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-291.png",
+      "bytes": 192550
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-292.png",
+      "bytes": 192647
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-293.png",
+      "bytes": 192593
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-294.png",
+      "bytes": 192772
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-295.png",
+      "bytes": 192875
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-296.png",
+      "bytes": 192623
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-297.png",
+      "bytes": 192701
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-298.png",
+      "bytes": 192777
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-299.png",
+      "bytes": 192718
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-300.png",
+      "bytes": 192510
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-301.png",
+      "bytes": 192782
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-302.png",
+      "bytes": 193167
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-303.png",
+      "bytes": 192917
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-304.png",
+      "bytes": 193215
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-305.png",
+      "bytes": 193130
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-306.png",
+      "bytes": 193142
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-307.png",
+      "bytes": 192860
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-308.png",
+      "bytes": 193244
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-309.png",
+      "bytes": 193464
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-310.png",
+      "bytes": 193547
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-311.png",
+      "bytes": 193678
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-312.png",
+      "bytes": 193912
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-313.png",
+      "bytes": 193906
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-314.png",
+      "bytes": 193938
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-315.png",
+      "bytes": 193856
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-316.png",
+      "bytes": 194084
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-317.png",
+      "bytes": 194316
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-318.png",
+      "bytes": 194415
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-319.png",
+      "bytes": 194648
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-320.png",
+      "bytes": 194753
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-321.png",
+      "bytes": 194711
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-322.png",
+      "bytes": 194519
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-323.png",
+      "bytes": 194582
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-324.png",
+      "bytes": 195185
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-325.png",
+      "bytes": 195053
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-326.png",
+      "bytes": 195141
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-327.png",
+      "bytes": 195213
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-328.png",
+      "bytes": 195705
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-329.png",
+      "bytes": 196099
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-330.png",
+      "bytes": 196073
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-331.png",
+      "bytes": 196186
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-332.png",
+      "bytes": 196171
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-333.png",
+      "bytes": 196365
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-334.png",
+      "bytes": 196664
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-335.png",
+      "bytes": 196663
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-336.png",
+      "bytes": 196890
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-337.png",
+      "bytes": 197174
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-338.png",
+      "bytes": 197026
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-339.png",
+      "bytes": 197310
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-340.png",
+      "bytes": 197385
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-341.png",
+      "bytes": 197414
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-342.png",
+      "bytes": 197611
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-343.png",
+      "bytes": 197759
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-344.png",
+      "bytes": 197515
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-345.png",
+      "bytes": 198293
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-346.png",
+      "bytes": 198099
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-347.png",
+      "bytes": 198266
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-348.png",
+      "bytes": 198320
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-349.png",
+      "bytes": 197876
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-350.png",
+      "bytes": 198392
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-351.png",
+      "bytes": 198435
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-352.png",
+      "bytes": 198171
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-353.png",
+      "bytes": 198394
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-354.png",
+      "bytes": 198870
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-355.png",
+      "bytes": 198357
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-356.png",
+      "bytes": 198567
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-357.png",
+      "bytes": 198955
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-358.png",
+      "bytes": 199286
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\front-359.png",
+      "bytes": 199398
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-bite-bottom.png",
+      "bytes": 81619
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-bite-front.png",
+      "bytes": 101206
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-bite-oblique.png",
+      "bytes": 127032
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-bite-side.png",
+      "bytes": 101395
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-carry-bottom.png",
+      "bytes": 81704
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-carry-front.png",
+      "bytes": 103014
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-carry-oblique.png",
+      "bytes": 124338
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-carry-side.png",
+      "bytes": 97796
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-half-bottom.png",
+      "bytes": 79145
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-half-front.png",
+      "bytes": 99867
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-half-oblique.png",
+      "bytes": 126115
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-half-side.png",
+      "bytes": 100393
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-open-bottom.png",
+      "bytes": 85533
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-open-front.png",
+      "bytes": 113554
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-open-oblique.png",
+      "bytes": 136734
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-open-side.png",
+      "bytes": 107106
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-rest-bottom.png",
+      "bytes": 80438
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-rest-front.png",
+      "bytes": 94345
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-rest-oblique.png",
+      "bytes": 122990
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-rest-side.png",
+      "bytes": 96129
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-shake_left-bottom.png",
+      "bytes": 69378
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-shake_left-front.png",
+      "bytes": 112286
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-shake_left-oblique.png",
+      "bytes": 101795
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-shake_left-side.png",
+      "bytes": 92991
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-shake_right-bottom.png",
+      "bytes": 88351
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-shake_right-front.png",
+      "bytes": 111140
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-shake_right-oblique.png",
+      "bytes": 155796
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\gray-shake_right-side.png",
+      "bytes": 105100
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\grip-front.png",
+      "bytes": 420645
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\prey-120.png",
+      "bytes": 371721
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\prey-138.png",
+      "bytes": 380245
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\prey-156.png",
+      "bytes": 376431
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\prey-180.png",
+      "bytes": 367485
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\prey-210.png",
+      "bytes": 351400
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\prey-225.png",
+      "bytes": 418138
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\prey-240.png",
+      "bytes": 381290
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\prey-260.png",
+      "bytes": 351281
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\prey-280.png",
+      "bytes": 390288
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\prey-330.png",
+      "bytes": 374359
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-bite-bottom.png",
+      "bytes": 333713
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-bite-front.png",
+      "bytes": 386279
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-bite-oblique.png",
+      "bytes": 443703
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-bite-side.png",
+      "bytes": 307150
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-carry-bottom.png",
+      "bytes": 334763
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-carry-front.png",
+      "bytes": 386473
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-carry-oblique.png",
+      "bytes": 435982
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-carry-side.png",
+      "bytes": 307443
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-half-bottom.png",
+      "bytes": 336771
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-half-front.png",
+      "bytes": 382878
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-half-oblique.png",
+      "bytes": 442721
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-half-side.png",
+      "bytes": 304327
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-open-bottom.png",
+      "bytes": 339708
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-open-front.png",
+      "bytes": 386262
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-open-oblique.png",
+      "bytes": 442785
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-open-side.png",
+      "bytes": 301128
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-rest-bottom.png",
+      "bytes": 334357
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-rest-front.png",
+      "bytes": 384267
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-rest-oblique.png",
+      "bytes": 447026
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-rest-side.png",
+      "bytes": 305485
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-shake_left-bottom.png",
+      "bytes": 378039
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-shake_left-front.png",
+      "bytes": 446997
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-shake_left-oblique.png",
+      "bytes": 391044
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-shake_left-side.png",
+      "bytes": 310201
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-shake_right-bottom.png",
+      "bytes": 365073
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-shake_right-front.png",
+      "bytes": 454923
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-shake_right-oblique.png",
+      "bytes": 483174
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\texture-shake_right-side.png",
+      "bytes": 335345
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-000.png",
+      "bytes": 110080
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-001.png",
+      "bytes": 110182
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-002.png",
+      "bytes": 110360
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-003.png",
+      "bytes": 110338
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-004.png",
+      "bytes": 110529
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-005.png",
+      "bytes": 110931
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-006.png",
+      "bytes": 110928
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-007.png",
+      "bytes": 111297
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-008.png",
+      "bytes": 111418
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-009.png",
+      "bytes": 111777
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-010.png",
+      "bytes": 111977
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-011.png",
+      "bytes": 112089
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-012.png",
+      "bytes": 112424
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-013.png",
+      "bytes": 112422
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-014.png",
+      "bytes": 112964
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-015.png",
+      "bytes": 112957
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-016.png",
+      "bytes": 112997
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-017.png",
+      "bytes": 113225
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-018.png",
+      "bytes": 113435
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-019.png",
+      "bytes": 113860
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-020.png",
+      "bytes": 113774
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-021.png",
+      "bytes": 114215
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-022.png",
+      "bytes": 114406
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-023.png",
+      "bytes": 114684
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-024.png",
+      "bytes": 114451
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-025.png",
+      "bytes": 115148
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-026.png",
+      "bytes": 115345
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-027.png",
+      "bytes": 115584
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-028.png",
+      "bytes": 115948
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-029.png",
+      "bytes": 114192
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-030.png",
+      "bytes": 114377
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-031.png",
+      "bytes": 114753
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-032.png",
+      "bytes": 114550
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-033.png",
+      "bytes": 114799
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-034.png",
+      "bytes": 114704
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-035.png",
+      "bytes": 114961
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-036.png",
+      "bytes": 115107
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-037.png",
+      "bytes": 115166
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-038.png",
+      "bytes": 115186
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-039.png",
+      "bytes": 116699
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-040.png",
+      "bytes": 116670
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-041.png",
+      "bytes": 116771
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-042.png",
+      "bytes": 116830
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-043.png",
+      "bytes": 117068
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-044.png",
+      "bytes": 117283
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-045.png",
+      "bytes": 117193
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-046.png",
+      "bytes": 117391
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-047.png",
+      "bytes": 117258
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-048.png",
+      "bytes": 117531
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-049.png",
+      "bytes": 117217
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-050.png",
+      "bytes": 117124
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-051.png",
+      "bytes": 117194
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-052.png",
+      "bytes": 116872
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-053.png",
+      "bytes": 116787
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-054.png",
+      "bytes": 117090
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-055.png",
+      "bytes": 117509
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-056.png",
+      "bytes": 117705
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-057.png",
+      "bytes": 117474
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-058.png",
+      "bytes": 117291
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-059.png",
+      "bytes": 117375
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-060.png",
+      "bytes": 117237
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-061.png",
+      "bytes": 116994
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-062.png",
+      "bytes": 116856
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-063.png",
+      "bytes": 116639
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-064.png",
+      "bytes": 117135
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-065.png",
+      "bytes": 116967
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-066.png",
+      "bytes": 116639
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-067.png",
+      "bytes": 116352
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-068.png",
+      "bytes": 116579
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-069.png",
+      "bytes": 116072
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-070.png",
+      "bytes": 115228
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-071.png",
+      "bytes": 114624
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-072.png",
+      "bytes": 114995
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-073.png",
+      "bytes": 114839
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-074.png",
+      "bytes": 115738
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-075.png",
+      "bytes": 115034
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-076.png",
+      "bytes": 112272
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-077.png",
+      "bytes": 112170
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-078.png",
+      "bytes": 112059
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-079.png",
+      "bytes": 112816
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-080.png",
+      "bytes": 112491
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-081.png",
+      "bytes": 112623
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-082.png",
+      "bytes": 112620
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-083.png",
+      "bytes": 112528
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-084.png",
+      "bytes": 113465
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-085.png",
+      "bytes": 113395
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-086.png",
+      "bytes": 113558
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-087.png",
+      "bytes": 113271
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-088.png",
+      "bytes": 113500
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-089.png",
+      "bytes": 113711
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-090.png",
+      "bytes": 113841
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-091.png",
+      "bytes": 113867
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-092.png",
+      "bytes": 114137
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-093.png",
+      "bytes": 114142
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-094.png",
+      "bytes": 114325
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-095.png",
+      "bytes": 116511
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-096.png",
+      "bytes": 116403
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-097.png",
+      "bytes": 116509
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-098.png",
+      "bytes": 116414
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-099.png",
+      "bytes": 115122
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-100.png",
+      "bytes": 115979
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-101.png",
+      "bytes": 116034
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-102.png",
+      "bytes": 115612
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-103.png",
+      "bytes": 116207
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-104.png",
+      "bytes": 115888
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-105.png",
+      "bytes": 115194
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-106.png",
+      "bytes": 115250
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-107.png",
+      "bytes": 114365
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-108.png",
+      "bytes": 113974
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-109.png",
+      "bytes": 114384
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-110.png",
+      "bytes": 113905
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-111.png",
+      "bytes": 114158
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-112.png",
+      "bytes": 113570
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-113.png",
+      "bytes": 112302
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-114.png",
+      "bytes": 112370
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-115.png",
+      "bytes": 112660
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-116.png",
+      "bytes": 112366
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-117.png",
+      "bytes": 111970
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-118.png",
+      "bytes": 112132
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-119.png",
+      "bytes": 111554
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-120.png",
+      "bytes": 111315
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-121.png",
+      "bytes": 110933
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-122.png",
+      "bytes": 110451
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-123.png",
+      "bytes": 109757
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-124.png",
+      "bytes": 109295
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-125.png",
+      "bytes": 108851
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-126.png",
+      "bytes": 108188
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-127.png",
+      "bytes": 108535
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-128.png",
+      "bytes": 107855
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-129.png",
+      "bytes": 109586
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-130.png",
+      "bytes": 109854
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-131.png",
+      "bytes": 109364
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-132.png",
+      "bytes": 108491
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-133.png",
+      "bytes": 109214
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-134.png",
+      "bytes": 112254
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-135.png",
+      "bytes": 113013
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-136.png",
+      "bytes": 113515
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-137.png",
+      "bytes": 114374
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-138.png",
+      "bytes": 115402
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-139.png",
+      "bytes": 116276
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-140.png",
+      "bytes": 116836
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-141.png",
+      "bytes": 116293
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-142.png",
+      "bytes": 116614
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-143.png",
+      "bytes": 116756
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-144.png",
+      "bytes": 117057
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-145.png",
+      "bytes": 116572
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-146.png",
+      "bytes": 116236
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-147.png",
+      "bytes": 116230
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-148.png",
+      "bytes": 116332
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-149.png",
+      "bytes": 116272
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-150.png",
+      "bytes": 115185
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-151.png",
+      "bytes": 114863
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-152.png",
+      "bytes": 114505
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-153.png",
+      "bytes": 113900
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-154.png",
+      "bytes": 114842
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-155.png",
+      "bytes": 114334
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-156.png",
+      "bytes": 114371
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-157.png",
+      "bytes": 114700
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-158.png",
+      "bytes": 113829
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-159.png",
+      "bytes": 115869
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-160.png",
+      "bytes": 115973
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-161.png",
+      "bytes": 115110
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-162.png",
+      "bytes": 115204
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-163.png",
+      "bytes": 113812
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-164.png",
+      "bytes": 113903
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-165.png",
+      "bytes": 113733
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-166.png",
+      "bytes": 114063
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-167.png",
+      "bytes": 114814
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-168.png",
+      "bytes": 114377
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-169.png",
+      "bytes": 114809
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-170.png",
+      "bytes": 115225
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-171.png",
+      "bytes": 115480
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-172.png",
+      "bytes": 115519
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-173.png",
+      "bytes": 116238
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-174.png",
+      "bytes": 116548
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-175.png",
+      "bytes": 116508
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-176.png",
+      "bytes": 116576
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-177.png",
+      "bytes": 117077
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-178.png",
+      "bytes": 117293
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-179.png",
+      "bytes": 117226
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-180.png",
+      "bytes": 117337
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-181.png",
+      "bytes": 117207
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-182.png",
+      "bytes": 115548
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-183.png",
+      "bytes": 117212
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-184.png",
+      "bytes": 117102
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-185.png",
+      "bytes": 116476
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-186.png",
+      "bytes": 116746
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-187.png",
+      "bytes": 116599
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-188.png",
+      "bytes": 115091
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-189.png",
+      "bytes": 114720
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-190.png",
+      "bytes": 114979
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-191.png",
+      "bytes": 114757
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-192.png",
+      "bytes": 114698
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-193.png",
+      "bytes": 114277
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-194.png",
+      "bytes": 113847
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-195.png",
+      "bytes": 114125
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-196.png",
+      "bytes": 114015
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-197.png",
+      "bytes": 113961
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-198.png",
+      "bytes": 113585
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-199.png",
+      "bytes": 113414
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-200.png",
+      "bytes": 113229
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-201.png",
+      "bytes": 113132
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-202.png",
+      "bytes": 112871
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-203.png",
+      "bytes": 112943
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-204.png",
+      "bytes": 112778
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-205.png",
+      "bytes": 112561
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-206.png",
+      "bytes": 112337
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-207.png",
+      "bytes": 112141
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-208.png",
+      "bytes": 112042
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-209.png",
+      "bytes": 111977
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-210.png",
+      "bytes": 111438
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-211.png",
+      "bytes": 111281
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-212.png",
+      "bytes": 111025
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-213.png",
+      "bytes": 110734
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-214.png",
+      "bytes": 110790
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-215.png",
+      "bytes": 110544
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-216.png",
+      "bytes": 110293
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-217.png",
+      "bytes": 110222
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-218.png",
+      "bytes": 110107
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-219.png",
+      "bytes": 110097
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-220.png",
+      "bytes": 109678
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-221.png",
+      "bytes": 109442
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-222.png",
+      "bytes": 109725
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-223.png",
+      "bytes": 109221
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-224.png",
+      "bytes": 109559
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-225.png",
+      "bytes": 109800
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-226.png",
+      "bytes": 109738
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-227.png",
+      "bytes": 111200
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-228.png",
+      "bytes": 111281
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-229.png",
+      "bytes": 110936
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-230.png",
+      "bytes": 111113
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-231.png",
+      "bytes": 111409
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-232.png",
+      "bytes": 110911
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-233.png",
+      "bytes": 110916
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-234.png",
+      "bytes": 109752
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-235.png",
+      "bytes": 109979
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-236.png",
+      "bytes": 109803
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-237.png",
+      "bytes": 110147
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-238.png",
+      "bytes": 110032
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-239.png",
+      "bytes": 110368
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-240.png",
+      "bytes": 108994
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-241.png",
+      "bytes": 109250
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-242.png",
+      "bytes": 109421
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-243.png",
+      "bytes": 109782
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-244.png",
+      "bytes": 109620
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-245.png",
+      "bytes": 109717
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-246.png",
+      "bytes": 109705
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-247.png",
+      "bytes": 109998
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-248.png",
+      "bytes": 110121
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-249.png",
+      "bytes": 110566
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-250.png",
+      "bytes": 110580
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\godot\\wide-251.png",
+      "bytes": 111143
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\capture.err",
+      "bytes": 0
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\fish-jaw-rollout-20261115\\blacktip-shape-review\\feeding\\r5\\fps60\\capture.log",
+      "bytes": 177
+    }
+  ],
+  "retained_bytes": 4280080.0,
+  "deleted_bytes": 225341168
+}

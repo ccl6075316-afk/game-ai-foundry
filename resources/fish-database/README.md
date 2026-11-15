@@ -4,6 +4,7 @@ Foundry 的鱼类资料入口。集中保存物种资料、照片/扫描、第�
 
 ## 入口
 
+- **[黑鳍礁鲨捕食R5已接受样板（2026-11-15）](references/blacktip-reef-shark-shape-review-20261115.json)**：真实视频/论文与游戏动作参考的来源、许可、查看时间段；真实口腔、上颌前伸、下颌开合、躯干/尾部联动、猎物响应和60fps经验。其他鲨鱼逐种适配，不能直接继承参数或验收。
 - [`manifest.json`](manifest.json)：资料来源、目录及记录入口。
 - **[真实鱼类／水生动物3D扫描与远程数据库索引（2026-11-11）](catalogs/aquatic-3d-sources-20261111/README.md)**：FFishAsia、MorphoSource/oVert、ScanAllFish、Digital Life、FishSim的主页/数据库/API地址、资料级别、数量口径、动物覆盖、许可及独立建模边界；只登记远程线索，未下载模型。鱼、龟/海龟、章鱼、鱿鱼/墨鱼、蟹虾、海星可从这里查，水母缺口明确保留。
 - [远程平台结构化索引](catalogs/aquatic-3d-sources-20261111/platforms.jsonl)：5个平台；另有FFishAsia与Digital Life共3,223条轻量模型元数据（含非鱼与重复物种版本），可用 `resources/scripts/fish-database/search_remote.py "章鱼" --kind model --license cc0 --json` 离线搜索，Windows使用仓库 `.venv\Scripts\python.exe` 执行。

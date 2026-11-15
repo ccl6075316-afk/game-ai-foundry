@@ -1,0 +1,649 @@
+{
+  "standard": {
+    "version": "2026-11-05-reference-shape-v2",
+    "files": {
+      "resources/skills/fish-volume-production/references/production-sop.md": "3650a6e2c42650134070ef109e8bf994195833889fd734fab071739277d2e890",
+      "resources/skills/fish-volume-production/references/fin-types-thickness-tail.md": "eb60e1f0606330bc4e8492463d066cfd46bf4e0aa1341b43c40f6a90968fbaea",
+      "resources/skills/fish-volume-production/references/source-surface-repair.md": "0695300f5b79df9ebd543d55a46b7fdbe92c79247a37984cb05765b6a15d956d",
+      "resources/skills/fish-volume-production/references/final-asset-export.md": "b2428bc63ed5b107b561eceed6e61068686e2b435f95191683863929b5456e4e",
+      "resources/skills/fish-volume-production/references/mouth-first-review.md": "b4b8eeb2d167b1f93e13f65414e10e3f2772ce86d38dd90489fe506d5ca53ebe",
+      "resources/skills/fish-volume-production/references/production-workflow-gates.md": "dba7d4c955270a0179cbc6affd50b53c7beb1ad30545c87656c4d89e0fe67d0b",
+      "cli/volume_sop.py": "8e82d240fbc9e77a8e7f3414a816dea1d7ab1798a1551a5dbe7a2d08a16c491d",
+      "cli/volume_finalization.py": "937461e4e86398f409c01ffd6f375afa0584fbe1033f349e0162e364aa7ecc56",
+      "cli/volume_packed_acceptance.py": "7846babdbf9ec5e8c6346c1b3a7a841e3b9f630cb19cb61f433f39911249e004",
+      "cli/volume_repair_preservation.py": "9b9cc30727a257d33948b5841b8db13599eb3699b17d34397a8a588827c900e1"
+    },
+    "criteria": {
+      "preparation": {
+        "research_and_measurements": "data",
+        "source_views_and_purposes": "data",
+        "accepted_source_provenance": "data",
+        "landmarks_and_part_inventory": "image",
+        "native_fin_cutouts_and_part_ownership": "data"
+      },
+      "head": {
+        "reference_side_comparison": "image",
+        "reference_top_comparison": "image",
+        "reference_shape_verdict": "report",
+        "source_pose_comparison": "image",
+        "clay_side": "image",
+        "clay_front": "image",
+        "clay_top": "image",
+        "clay_bottom": "image",
+        "clay_oblique": "image",
+        "transverse_constraints": "data"
+      },
+      "mouth": {
+        "structure_branch_and_constraints": "data",
+        "whole_snout_and_chin": "image",
+        "integrated_upper_lower_jaws_and_cut": "image",
+        "misplaced_outline_ownership": "image",
+        "native_pixel_cover_and_actual_uv_joins": "image",
+        "source_donors_and_mouth_gap": "data",
+        "complete_native_lip_domain_and_front_exclusion": "report"
+      },
+      "eyes": {
+        "source_eye_and_ownership_domains": "image",
+        "opposite_and_top_views": "image",
+        "overlay_attachment_and_lod": "data"
+      },
+      "skin": {
+        "dorsal_material": "image",
+        "ventral_material": "image",
+        "hidden_fin_skin": "image",
+        "native_2d_donors_and_exclusions": "data",
+        "surface_opacity_inventory": "data",
+        "body_owned_fin_base_marks": "image"
+      },
+      "fins": {
+        "complete_species_fin_inventory_and_roots": "data",
+        "source_cutout_and_shape_comparison": "image",
+        "installed_visibility_and_body_occlusion": "data",
+        "all_fin_root_gate": "report",
+        "whole_fin_membrane_gate": "report",
+        "expanded_fin_visual_review": "image",
+        "actual_normal_thickness_and_tail_section": "report",
+        "fin_volume_end_on_and_top_clay": "image"
+      },
+      "motion": {
+        "native_loop": "report",
+        "swim": "image",
+        "turn": "image",
+        "ascend": "image",
+        "dive": "image",
+        "real_transitions_and_control_ranges": "report",
+        "jaw_or_other_action_branch": "data"
+      },
+      "runtime": {
+        "body_integrity_gpu_gate": "report",
+        "material_anchor_and_actual_lod": "report",
+        "motion_and_surface_gate": "report",
+        "cold_import_and_install_binding": "report",
+        "final_asset_cold_load": "report",
+        "exported_vs_experiment_comparison": "image"
+      },
+      "presentation": {
+        "source_style_final_comparison": "image",
+        "normal_and_close_game_views": "image",
+        "water_readability": "image",
+        "orbit_and_motion_video": "video",
+        "final_files_and_remaining_limits": "data"
+      }
+    }
+  },
+  "task_type": "repair",
+  "schema_version": 1,
+  "kind": "fish_production_sop_review",
+  "species": "blacktip_reef_shark",
+  "candidate_files": {
+    "source_image": {
+      "path": "../../../projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark_char_blacktip_pixel040_nobg.png",
+      "sha256": "46bcbb995edb66055ffa159f753077bfe15fc2454f892ed7a4b2c6ce18b4b56a",
+      "bytes": 631928
+    },
+    "model": {
+      "path": "../../../projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark.glb",
+      "sha256": "3a9256652859a2ec468c95b197b94c49fd0c866f890a6fb08414b0469d5bc8e7",
+      "bytes": 2001384
+    },
+    "species_profile": {
+      "path": "../blacktip-reef-shark-anatomy-20261101.profile.json",
+      "sha256": "6ea6224b520e77eb493278db1bd8090a0a3fcb08588905c478d8ef506cc39e1e",
+      "bytes": 18487
+    },
+    "runtime_manifest": {
+      "path": "../../../projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/capture.validation.json",
+      "sha256": "a88157104bf0fe21e594f0e12b0038cda9deb3112b123be88275f28ab92c01c8",
+      "bytes": 520324
+    },
+    "motion_config": {
+      "path": "../../../projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/blacktip_reef_shark.json",
+      "sha256": "a9008ea8c4f7a41d919f9e9603cc709a7246c6df93152986d95e16ec4fd56eea",
+      "bytes": 2150
+    },
+    "editable_source": {
+      "path": "../../../projects/fishing-2d/assets/source/fish/blacktip_reef_shark/fish.blend",
+      "sha256": "6968513f6ba48910a75ef26d3f6cbb4d0b5cc685cde6f36b2ac1c068a4b01991",
+      "bytes": 2070324
+    },
+    "feeding_config": {
+      "path": "../../../projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/motion.json",
+      "sha256": "09cf06f42a278be30ce5bf66670b54405c456cf4d4003a5c290484cd79927079",
+      "bytes": 3019
+    },
+    "feeding_controller": {
+      "path": "../../../projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/FeedingMotion.gd",
+      "sha256": "c06b3245adc92a439f3b7bd829ee9960476ac1681fb0cc152877dc839a0eeee2",
+      "bytes": 4163
+    },
+    "preview_entry": {
+      "path": "../../../projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/capture_feeding.gd",
+      "sha256": "7a7f8f8700e513098c441d53487d85f6be5ec568860a76559915099dd4936adb",
+      "bytes": 8571
+    },
+    "base_controller": {
+      "path": "../../../projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/FoundryFishMotion.gd",
+      "sha256": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+      "bytes": 22917
+    },
+    "canonical_loader": {
+      "path": "../../../projects/fishing-2d/game/scripts/aquarium/FinalizedElevenFish20261105.gd",
+      "sha256": "f2af3213a98cab1367be650ad12065cae1d9276d14faa260dcdfcc3d4cc7c979",
+      "bytes": 7232
+    }
+  },
+  "evidence": {
+    "fin490": {
+      "path": "../../../projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/fin490.json",
+      "sha256": "6c12dc073fd75d3e9e3ba05651ba31d99a286858d7e672f867020d6937bd7f24",
+      "bytes": 1226,
+      "kind": "report",
+      "bound_inputs": {
+        "source_image": "46bcbb995edb66055ffa159f753077bfe15fc2454f892ed7a4b2c6ce18b4b56a",
+        "model": "3a9256652859a2ec468c95b197b94c49fd0c866f890a6fb08414b0469d5bc8e7",
+        "species_profile": "6ea6224b520e77eb493278db1bd8090a0a3fcb08588905c478d8ef506cc39e1e",
+        "runtime_manifest": "a88157104bf0fe21e594f0e12b0038cda9deb3112b123be88275f28ab92c01c8",
+        "motion_config": "a9008ea8c4f7a41d919f9e9603cc709a7246c6df93152986d95e16ec4fd56eea",
+        "editable_source": "6968513f6ba48910a75ef26d3f6cbb4d0b5cc685cde6f36b2ac1c068a4b01991",
+        "feeding_config": "09cf06f42a278be30ce5bf66670b54405c456cf4d4003a5c290484cd79927079",
+        "feeding_controller": "c06b3245adc92a439f3b7bd829ee9960476ac1681fb0cc152877dc839a0eeee2",
+        "preview_entry": "7a7f8f8700e513098c441d53487d85f6be5ec568860a76559915099dd4936adb",
+        "base_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "canonical_loader": "f2af3213a98cab1367be650ad12065cae1d9276d14faa260dcdfcc3d4cc7c979"
+      },
+      "observation": "Actual scope and limits are in the bound report; no cross-species acceptance."
+    },
+    "fin490_roots": {
+      "path": "../../../projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/fin490_roots.json",
+      "sha256": "9eec26bbdab27b965aa06304326ec5ef490faec1c238944393aa575ed7ebd716",
+      "bytes": 1510686,
+      "kind": "report",
+      "bound_inputs": {
+        "source_image": "46bcbb995edb66055ffa159f753077bfe15fc2454f892ed7a4b2c6ce18b4b56a",
+        "model": "3a9256652859a2ec468c95b197b94c49fd0c866f890a6fb08414b0469d5bc8e7",
+        "species_profile": "6ea6224b520e77eb493278db1bd8090a0a3fcb08588905c478d8ef506cc39e1e",
+        "runtime_manifest": "a88157104bf0fe21e594f0e12b0038cda9deb3112b123be88275f28ab92c01c8",
+        "motion_config": "a9008ea8c4f7a41d919f9e9603cc709a7246c6df93152986d95e16ec4fd56eea",
+        "editable_source": "6968513f6ba48910a75ef26d3f6cbb4d0b5cc685cde6f36b2ac1c068a4b01991",
+        "feeding_config": "09cf06f42a278be30ce5bf66670b54405c456cf4d4003a5c290484cd79927079",
+        "feeding_controller": "c06b3245adc92a439f3b7bd829ee9960476ac1681fb0cc152877dc839a0eeee2",
+        "preview_entry": "7a7f8f8700e513098c441d53487d85f6be5ec568860a76559915099dd4936adb",
+        "base_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "canonical_loader": "f2af3213a98cab1367be650ad12065cae1d9276d14faa260dcdfcc3d4cc7c979"
+      },
+      "observation": "Actual scope and limits are in the bound report; no cross-species acceptance."
+    },
+    "fin490_membranes": {
+      "path": "../../../projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/fin490_membranes.json",
+      "sha256": "f1bd7a44747af31f0763146d32767430628984f2e57b29ecbc2116e652bc4800",
+      "bytes": 1532518,
+      "kind": "report",
+      "bound_inputs": {
+        "source_image": "46bcbb995edb66055ffa159f753077bfe15fc2454f892ed7a4b2c6ce18b4b56a",
+        "model": "3a9256652859a2ec468c95b197b94c49fd0c866f890a6fb08414b0469d5bc8e7",
+        "species_profile": "6ea6224b520e77eb493278db1bd8090a0a3fcb08588905c478d8ef506cc39e1e",
+        "runtime_manifest": "a88157104bf0fe21e594f0e12b0038cda9deb3112b123be88275f28ab92c01c8",
+        "motion_config": "a9008ea8c4f7a41d919f9e9603cc709a7246c6df93152986d95e16ec4fd56eea",
+        "editable_source": "6968513f6ba48910a75ef26d3f6cbb4d0b5cc685cde6f36b2ac1c068a4b01991",
+        "feeding_config": "09cf06f42a278be30ce5bf66670b54405c456cf4d4003a5c290484cd79927079",
+        "feeding_controller": "c06b3245adc92a439f3b7bd829ee9960476ac1681fb0cc152877dc839a0eeee2",
+        "preview_entry": "7a7f8f8700e513098c441d53487d85f6be5ec568860a76559915099dd4936adb",
+        "base_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "canonical_loader": "f2af3213a98cab1367be650ad12065cae1d9276d14faa260dcdfcc3d4cc7c979"
+      },
+      "observation": "Actual scope and limits are in the bound report; no cross-species acceptance."
+    },
+    "roots072": {
+      "path": "../../../projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/roots072.json",
+      "sha256": "cfaeb5c3e4d57f0e9f1bf6b70f6bb18a0df746c7a41511869dbc6bff301c7475",
+      "bytes": 905,
+      "kind": "report",
+      "bound_inputs": {
+        "source_image": "46bcbb995edb66055ffa159f753077bfe15fc2454f892ed7a4b2c6ce18b4b56a",
+        "model": "3a9256652859a2ec468c95b197b94c49fd0c866f890a6fb08414b0469d5bc8e7",
+        "species_profile": "6ea6224b520e77eb493278db1bd8090a0a3fcb08588905c478d8ef506cc39e1e",
+        "runtime_manifest": "a88157104bf0fe21e594f0e12b0038cda9deb3112b123be88275f28ab92c01c8",
+        "motion_config": "a9008ea8c4f7a41d919f9e9603cc709a7246c6df93152986d95e16ec4fd56eea",
+        "editable_source": "6968513f6ba48910a75ef26d3f6cbb4d0b5cc685cde6f36b2ac1c068a4b01991",
+        "feeding_config": "09cf06f42a278be30ce5bf66670b54405c456cf4d4003a5c290484cd79927079",
+        "feeding_controller": "c06b3245adc92a439f3b7bd829ee9960476ac1681fb0cc152877dc839a0eeee2",
+        "preview_entry": "7a7f8f8700e513098c441d53487d85f6be5ec568860a76559915099dd4936adb",
+        "base_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "canonical_loader": "f2af3213a98cab1367be650ad12065cae1d9276d14faa260dcdfcc3d4cc7c979"
+      },
+      "observation": "Actual scope and limits are in the bound report; no cross-species acceptance."
+    },
+    "body077": {
+      "path": "../../../projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077.json",
+      "sha256": "50a7108874492c82242c0d93a210c7b70ed67318a238197349c593ff0c464554",
+      "bytes": 21467,
+      "kind": "report",
+      "bound_inputs": {
+        "source_image": "46bcbb995edb66055ffa159f753077bfe15fc2454f892ed7a4b2c6ce18b4b56a",
+        "model": "3a9256652859a2ec468c95b197b94c49fd0c866f890a6fb08414b0469d5bc8e7",
+        "species_profile": "6ea6224b520e77eb493278db1bd8090a0a3fcb08588905c478d8ef506cc39e1e",
+        "runtime_manifest": "a88157104bf0fe21e594f0e12b0038cda9deb3112b123be88275f28ab92c01c8",
+        "motion_config": "a9008ea8c4f7a41d919f9e9603cc709a7246c6df93152986d95e16ec4fd56eea",
+        "editable_source": "6968513f6ba48910a75ef26d3f6cbb4d0b5cc685cde6f36b2ac1c068a4b01991",
+        "feeding_config": "09cf06f42a278be30ce5bf66670b54405c456cf4d4003a5c290484cd79927079",
+        "feeding_controller": "c06b3245adc92a439f3b7bd829ee9960476ac1681fb0cc152877dc839a0eeee2",
+        "preview_entry": "7a7f8f8700e513098c441d53487d85f6be5ec568860a76559915099dd4936adb",
+        "base_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "canonical_loader": "f2af3213a98cab1367be650ad12065cae1d9276d14faa260dcdfcc3d4cc7c979"
+      },
+      "observation": "Actual scope and limits are in the bound report; no cross-species acceptance."
+    },
+    "event_roots": {
+      "path": "../../../projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/event_roots.json",
+      "sha256": "5e82c7e4464527bdc1ee0b863b91d39b835b480c16ed83f7379902e9cea79127",
+      "bytes": 313067,
+      "kind": "report",
+      "bound_inputs": {
+        "source_image": "46bcbb995edb66055ffa159f753077bfe15fc2454f892ed7a4b2c6ce18b4b56a",
+        "model": "3a9256652859a2ec468c95b197b94c49fd0c866f890a6fb08414b0469d5bc8e7",
+        "species_profile": "6ea6224b520e77eb493278db1bd8090a0a3fcb08588905c478d8ef506cc39e1e",
+        "runtime_manifest": "a88157104bf0fe21e594f0e12b0038cda9deb3112b123be88275f28ab92c01c8",
+        "motion_config": "a9008ea8c4f7a41d919f9e9603cc709a7246c6df93152986d95e16ec4fd56eea",
+        "editable_source": "6968513f6ba48910a75ef26d3f6cbb4d0b5cc685cde6f36b2ac1c068a4b01991",
+        "feeding_config": "09cf06f42a278be30ce5bf66670b54405c456cf4d4003a5c290484cd79927079",
+        "feeding_controller": "c06b3245adc92a439f3b7bd829ee9960476ac1681fb0cc152877dc839a0eeee2",
+        "preview_entry": "7a7f8f8700e513098c441d53487d85f6be5ec568860a76559915099dd4936adb",
+        "base_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "canonical_loader": "f2af3213a98cab1367be650ad12065cae1d9276d14faa260dcdfcc3d4cc7c979"
+      },
+      "observation": "Actual scope and limits are in the bound report; no cross-species acceptance."
+    },
+    "event_membranes": {
+      "path": "../../../projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/event_membranes.json",
+      "sha256": "ed5868757f724f4d6d1775a901ff5129d0d6250f47009965044552d3bbfbcd25",
+      "bytes": 456733,
+      "kind": "report",
+      "bound_inputs": {
+        "source_image": "46bcbb995edb66055ffa159f753077bfe15fc2454f892ed7a4b2c6ce18b4b56a",
+        "model": "3a9256652859a2ec468c95b197b94c49fd0c866f890a6fb08414b0469d5bc8e7",
+        "species_profile": "6ea6224b520e77eb493278db1bd8090a0a3fcb08588905c478d8ef506cc39e1e",
+        "runtime_manifest": "a88157104bf0fe21e594f0e12b0038cda9deb3112b123be88275f28ab92c01c8",
+        "motion_config": "a9008ea8c4f7a41d919f9e9603cc709a7246c6df93152986d95e16ec4fd56eea",
+        "editable_source": "6968513f6ba48910a75ef26d3f6cbb4d0b5cc685cde6f36b2ac1c068a4b01991",
+        "feeding_config": "09cf06f42a278be30ce5bf66670b54405c456cf4d4003a5c290484cd79927079",
+        "feeding_controller": "c06b3245adc92a439f3b7bd829ee9960476ac1681fb0cc152877dc839a0eeee2",
+        "preview_entry": "7a7f8f8700e513098c441d53487d85f6be5ec568860a76559915099dd4936adb",
+        "base_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "canonical_loader": "f2af3213a98cab1367be650ad12065cae1d9276d14faa260dcdfcc3d4cc7c979"
+      },
+      "observation": "Actual scope and limits are in the bound report; no cross-species acceptance."
+    },
+    "canonical": {
+      "path": "../../../projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/canonical.json",
+      "sha256": "606a8303a691da77244be202e53ecf9d218542207ea45ed10b103f72cc1e3812",
+      "bytes": 7069,
+      "kind": "report",
+      "bound_inputs": {
+        "source_image": "46bcbb995edb66055ffa159f753077bfe15fc2454f892ed7a4b2c6ce18b4b56a",
+        "model": "3a9256652859a2ec468c95b197b94c49fd0c866f890a6fb08414b0469d5bc8e7",
+        "species_profile": "6ea6224b520e77eb493278db1bd8090a0a3fcb08588905c478d8ef506cc39e1e",
+        "runtime_manifest": "a88157104bf0fe21e594f0e12b0038cda9deb3112b123be88275f28ab92c01c8",
+        "motion_config": "a9008ea8c4f7a41d919f9e9603cc709a7246c6df93152986d95e16ec4fd56eea",
+        "editable_source": "6968513f6ba48910a75ef26d3f6cbb4d0b5cc685cde6f36b2ac1c068a4b01991",
+        "feeding_config": "09cf06f42a278be30ce5bf66670b54405c456cf4d4003a5c290484cd79927079",
+        "feeding_controller": "c06b3245adc92a439f3b7bd829ee9960476ac1681fb0cc152877dc839a0eeee2",
+        "preview_entry": "7a7f8f8700e513098c441d53487d85f6be5ec568860a76559915099dd4936adb",
+        "base_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "canonical_loader": "f2af3213a98cab1367be650ad12065cae1d9276d14faa260dcdfcc3d4cc7c979"
+      },
+      "observation": "Actual scope and limits are in the bound report; no cross-species acceptance."
+    },
+    "normal_repair": {
+      "path": "../../../projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/normal_repair.json",
+      "sha256": "e71ee5b0c480b2afb4f750aca16ba3aad64e538aeb9c36e628782a993b8d2382",
+      "bytes": 11523,
+      "kind": "report",
+      "bound_inputs": {
+        "source_image": "46bcbb995edb66055ffa159f753077bfe15fc2454f892ed7a4b2c6ce18b4b56a",
+        "model": "3a9256652859a2ec468c95b197b94c49fd0c866f890a6fb08414b0469d5bc8e7",
+        "species_profile": "6ea6224b520e77eb493278db1bd8090a0a3fcb08588905c478d8ef506cc39e1e",
+        "runtime_manifest": "a88157104bf0fe21e594f0e12b0038cda9deb3112b123be88275f28ab92c01c8",
+        "motion_config": "a9008ea8c4f7a41d919f9e9603cc709a7246c6df93152986d95e16ec4fd56eea",
+        "editable_source": "6968513f6ba48910a75ef26d3f6cbb4d0b5cc685cde6f36b2ac1c068a4b01991",
+        "feeding_config": "09cf06f42a278be30ce5bf66670b54405c456cf4d4003a5c290484cd79927079",
+        "feeding_controller": "c06b3245adc92a439f3b7bd829ee9960476ac1681fb0cc152877dc839a0eeee2",
+        "preview_entry": "7a7f8f8700e513098c441d53487d85f6be5ec568860a76559915099dd4936adb",
+        "base_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "canonical_loader": "f2af3213a98cab1367be650ad12065cae1d9276d14faa260dcdfcc3d4cc7c979"
+      },
+      "observation": "Actual scope and limits are in the bound report; no cross-species acceptance."
+    },
+    "normal_repair_authoring": {
+      "path": "../../../projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/normal_repair_authoring.json",
+      "sha256": "e4e98361ed53c417408e7dcbb49c67a66fb33c260ec4180ad4b7f4b3c5d4b256",
+      "bytes": 1212,
+      "kind": "report",
+      "bound_inputs": {
+        "source_image": "46bcbb995edb66055ffa159f753077bfe15fc2454f892ed7a4b2c6ce18b4b56a",
+        "model": "3a9256652859a2ec468c95b197b94c49fd0c866f890a6fb08414b0469d5bc8e7",
+        "species_profile": "6ea6224b520e77eb493278db1bd8090a0a3fcb08588905c478d8ef506cc39e1e",
+        "runtime_manifest": "a88157104bf0fe21e594f0e12b0038cda9deb3112b123be88275f28ab92c01c8",
+        "motion_config": "a9008ea8c4f7a41d919f9e9603cc709a7246c6df93152986d95e16ec4fd56eea",
+        "editable_source": "6968513f6ba48910a75ef26d3f6cbb4d0b5cc685cde6f36b2ac1c068a4b01991",
+        "feeding_config": "09cf06f42a278be30ce5bf66670b54405c456cf4d4003a5c290484cd79927079",
+        "feeding_controller": "c06b3245adc92a439f3b7bd829ee9960476ac1681fb0cc152877dc839a0eeee2",
+        "preview_entry": "7a7f8f8700e513098c441d53487d85f6be5ec568860a76559915099dd4936adb",
+        "base_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "canonical_loader": "f2af3213a98cab1367be650ad12065cae1d9276d14faa260dcdfcc3d4cc7c979"
+      },
+      "observation": "Actual scope and limits are in the bound report; no cross-species acceptance."
+    },
+    "installation": {
+      "path": "../../../projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/installation.json",
+      "sha256": "8a7ff013d091ceaf289f08d2879a8c4d5cd01fda817f227795b7c4af2f8f0527",
+      "bytes": 4117,
+      "kind": "report",
+      "bound_inputs": {
+        "source_image": "46bcbb995edb66055ffa159f753077bfe15fc2454f892ed7a4b2c6ce18b4b56a",
+        "model": "3a9256652859a2ec468c95b197b94c49fd0c866f890a6fb08414b0469d5bc8e7",
+        "species_profile": "6ea6224b520e77eb493278db1bd8090a0a3fcb08588905c478d8ef506cc39e1e",
+        "runtime_manifest": "a88157104bf0fe21e594f0e12b0038cda9deb3112b123be88275f28ab92c01c8",
+        "motion_config": "a9008ea8c4f7a41d919f9e9603cc709a7246c6df93152986d95e16ec4fd56eea",
+        "editable_source": "6968513f6ba48910a75ef26d3f6cbb4d0b5cc685cde6f36b2ac1c068a4b01991",
+        "feeding_config": "09cf06f42a278be30ce5bf66670b54405c456cf4d4003a5c290484cd79927079",
+        "feeding_controller": "c06b3245adc92a439f3b7bd829ee9960476ac1681fb0cc152877dc839a0eeee2",
+        "preview_entry": "7a7f8f8700e513098c441d53487d85f6be5ec568860a76559915099dd4936adb",
+        "base_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "canonical_loader": "f2af3213a98cab1367be650ad12065cae1d9276d14faa260dcdfcc3d4cc7c979"
+      },
+      "observation": "Actual scope and limits are in the bound report; no cross-species acceptance."
+    },
+    "body724": {
+      "path": "../../../projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body724-original-r5.json",
+      "sha256": "2c598a2e78c501b9d9f56157a4e5c863f5190f5dd8be5eb0568497a2abd73ef8",
+      "bytes": 422991,
+      "kind": "report",
+      "bound_inputs": {
+        "source_image": "46bcbb995edb66055ffa159f753077bfe15fc2454f892ed7a4b2c6ce18b4b56a",
+        "model": "3a9256652859a2ec468c95b197b94c49fd0c866f890a6fb08414b0469d5bc8e7",
+        "species_profile": "6ea6224b520e77eb493278db1bd8090a0a3fcb08588905c478d8ef506cc39e1e",
+        "runtime_manifest": "a88157104bf0fe21e594f0e12b0038cda9deb3112b123be88275f28ab92c01c8",
+        "motion_config": "a9008ea8c4f7a41d919f9e9603cc709a7246c6df93152986d95e16ec4fd56eea",
+        "editable_source": "6968513f6ba48910a75ef26d3f6cbb4d0b5cc685cde6f36b2ac1c068a4b01991",
+        "feeding_config": "09cf06f42a278be30ce5bf66670b54405c456cf4d4003a5c290484cd79927079",
+        "feeding_controller": "c06b3245adc92a439f3b7bd829ee9960476ac1681fb0cc152877dc839a0eeee2",
+        "preview_entry": "7a7f8f8700e513098c441d53487d85f6be5ec568860a76559915099dd4936adb",
+        "base_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "canonical_loader": "f2af3213a98cab1367be650ad12065cae1d9276d14faa260dcdfcc3d4cc7c979"
+      },
+      "observation": "Actual scope and limits are in the bound report; no cross-species acceptance."
+    },
+    "fps_comparison": {
+      "path": "../../../projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/fps-comparison.json",
+      "sha256": "841ab3f3c49b51a8804f32c8320a26e7f700d0154bfd1562845f2117cdcfa688",
+      "bytes": 3229,
+      "kind": "report",
+      "bound_inputs": {
+        "source_image": "46bcbb995edb66055ffa159f753077bfe15fc2454f892ed7a4b2c6ce18b4b56a",
+        "model": "3a9256652859a2ec468c95b197b94c49fd0c866f890a6fb08414b0469d5bc8e7",
+        "species_profile": "6ea6224b520e77eb493278db1bd8090a0a3fcb08588905c478d8ef506cc39e1e",
+        "runtime_manifest": "a88157104bf0fe21e594f0e12b0038cda9deb3112b123be88275f28ab92c01c8",
+        "motion_config": "a9008ea8c4f7a41d919f9e9603cc709a7246c6df93152986d95e16ec4fd56eea",
+        "editable_source": "6968513f6ba48910a75ef26d3f6cbb4d0b5cc685cde6f36b2ac1c068a4b01991",
+        "feeding_config": "09cf06f42a278be30ce5bf66670b54405c456cf4d4003a5c290484cd79927079",
+        "feeding_controller": "c06b3245adc92a439f3b7bd829ee9960476ac1681fb0cc152877dc839a0eeee2",
+        "preview_entry": "7a7f8f8700e513098c441d53487d85f6be5ec568860a76559915099dd4936adb",
+        "base_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "canonical_loader": "f2af3213a98cab1367be650ad12065cae1d9276d14faa260dcdfcc3d4cc7c979"
+      },
+      "observation": "Actual scope and limits are in the bound report; no cross-species acceptance."
+    },
+    "final_cold": {
+      "path": "../../../projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/final-cold-load.json",
+      "sha256": "733aeeafd2e68920936ba77cc52dfe0deed311cc3a510bdbda89875c3cf4acfe",
+      "bytes": 2370,
+      "kind": "report",
+      "bound_inputs": {
+        "source_image": "46bcbb995edb66055ffa159f753077bfe15fc2454f892ed7a4b2c6ce18b4b56a",
+        "model": "3a9256652859a2ec468c95b197b94c49fd0c866f890a6fb08414b0469d5bc8e7",
+        "species_profile": "6ea6224b520e77eb493278db1bd8090a0a3fcb08588905c478d8ef506cc39e1e",
+        "runtime_manifest": "a88157104bf0fe21e594f0e12b0038cda9deb3112b123be88275f28ab92c01c8",
+        "motion_config": "a9008ea8c4f7a41d919f9e9603cc709a7246c6df93152986d95e16ec4fd56eea",
+        "editable_source": "6968513f6ba48910a75ef26d3f6cbb4d0b5cc685cde6f36b2ac1c068a4b01991",
+        "feeding_config": "09cf06f42a278be30ce5bf66670b54405c456cf4d4003a5c290484cd79927079",
+        "feeding_controller": "c06b3245adc92a439f3b7bd829ee9960476ac1681fb0cc152877dc839a0eeee2",
+        "preview_entry": "7a7f8f8700e513098c441d53487d85f6be5ec568860a76559915099dd4936adb",
+        "base_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "canonical_loader": "f2af3213a98cab1367be650ad12065cae1d9276d14faa260dcdfcc3d4cc7c979"
+      },
+      "observation": "Actual scope and limits are in the bound report; no cross-species acceptance."
+    },
+    "visual_comparison": {
+      "path": "../../../projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/normal-maintenance-comparison.jpg",
+      "sha256": "cf1ec4e44c1b8664848fa783cdf1f8ace4860072886244789160c436d52256ef",
+      "bytes": 26358,
+      "kind": "image",
+      "bound_inputs": {
+        "source_image": "46bcbb995edb66055ffa159f753077bfe15fc2454f892ed7a4b2c6ce18b4b56a",
+        "model": "3a9256652859a2ec468c95b197b94c49fd0c866f890a6fb08414b0469d5bc8e7",
+        "species_profile": "6ea6224b520e77eb493278db1bd8090a0a3fcb08588905c478d8ef506cc39e1e",
+        "runtime_manifest": "a88157104bf0fe21e594f0e12b0038cda9deb3112b123be88275f28ab92c01c8",
+        "motion_config": "a9008ea8c4f7a41d919f9e9603cc709a7246c6df93152986d95e16ec4fd56eea",
+        "editable_source": "6968513f6ba48910a75ef26d3f6cbb4d0b5cc685cde6f36b2ac1c068a4b01991",
+        "feeding_config": "09cf06f42a278be30ce5bf66670b54405c456cf4d4003a5c290484cd79927079",
+        "feeding_controller": "c06b3245adc92a439f3b7bd829ee9960476ac1681fb0cc152877dc839a0eeee2",
+        "preview_entry": "7a7f8f8700e513098c441d53487d85f6be5ec568860a76559915099dd4936adb",
+        "base_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "canonical_loader": "f2af3213a98cab1367be650ad12065cae1d9276d14faa260dcdfcc3d4cc7c979"
+      },
+      "observation": "Same camera, pose, texture and model shape before/after one inner lining normal correction; semantic stream equality and19image differences in normal_repair report."
+    }
+  },
+  "stages": {
+    "preparation": {
+      "result": "pending",
+      "method": "Existing source local tail warp and independent mandibular hinge; all sharks require movable lower jaw.",
+      "reviewer": "",
+      "observations": "R5 full-body/prey motion revision from viewed external references. Static/source/jaw timing unchanged. 724body samples and64complete-root poses checked; current Godot cold preview inspected, full formal validation and user acceptance pending.",
+      "checks": {
+        "research_and_measurements": [],
+        "source_views_and_purposes": [],
+        "accepted_source_provenance": [],
+        "landmarks_and_part_inventory": [],
+        "native_fin_cutouts_and_part_ownership": []
+      }
+    },
+    "head": {
+      "result": "pending",
+      "method": "",
+      "reviewer": "",
+      "observations": "",
+      "checks": {
+        "reference_side_comparison": [],
+        "reference_top_comparison": [],
+        "reference_shape_verdict": [],
+        "source_pose_comparison": [],
+        "clay_side": [],
+        "clay_front": [],
+        "clay_top": [],
+        "clay_bottom": [],
+        "clay_oblique": [],
+        "transverse_constraints": []
+      }
+    },
+    "mouth": {
+      "result": "pending",
+      "method": "Existing source local tail warp and independent mandibular hinge; all sharks require movable lower jaw.",
+      "reviewer": "",
+      "observations": "R5 full-body/prey motion revision from viewed external references. Static/source/jaw timing unchanged. 724body samples and64complete-root poses checked; current Godot cold preview inspected, full formal validation and user acceptance pending.",
+      "checks": {
+        "structure_branch_and_constraints": [],
+        "whole_snout_and_chin": [],
+        "integrated_upper_lower_jaws_and_cut": [],
+        "misplaced_outline_ownership": [],
+        "native_pixel_cover_and_actual_uv_joins": [],
+        "source_donors_and_mouth_gap": [],
+        "complete_native_lip_domain_and_front_exclusion": []
+      },
+      "implementation": {
+        "branch": "pending",
+        "body_resource_role": "",
+        "cut_line": "",
+        "upper_jaw": "",
+        "lower_jaw": "",
+        "method_reference": ""
+      }
+    },
+    "eyes": {
+      "result": "pending",
+      "method": "",
+      "reviewer": "",
+      "observations": "",
+      "checks": {
+        "source_eye_and_ownership_domains": [],
+        "opposite_and_top_views": [],
+        "overlay_attachment_and_lod": []
+      }
+    },
+    "skin": {
+      "result": "pending",
+      "method": "",
+      "reviewer": "",
+      "observations": "",
+      "checks": {
+        "dorsal_material": [],
+        "ventral_material": [],
+        "hidden_fin_skin": [],
+        "native_2d_donors_and_exclusions": [],
+        "surface_opacity_inventory": [],
+        "body_owned_fin_base_marks": []
+      }
+    },
+    "fins": {
+      "result": "pending",
+      "method": "Existing source local tail warp and independent mandibular hinge; all sharks require movable lower jaw.",
+      "reviewer": "",
+      "observations": "Local tail/jaw preview; see review.json and jaw-r1 reports. Full production stage remains pending; no formal installation.",
+      "checks": {
+        "complete_species_fin_inventory_and_roots": [],
+        "source_cutout_and_shape_comparison": [],
+        "installed_visibility_and_body_occlusion": [],
+        "all_fin_root_gate": [],
+        "whole_fin_membrane_gate": [],
+        "expanded_fin_visual_review": [],
+        "actual_normal_thickness_and_tail_section": [],
+        "fin_volume_end_on_and_top_clay": []
+      }
+    },
+    "motion": {
+      "result": "pending",
+      "method": "",
+      "reviewer": "",
+      "observations": "R5 full-body/prey motion revision from viewed external references. Static/source/jaw timing unchanged. 724body samples and64complete-root poses checked; current Godot cold preview inspected, full formal validation and user acceptance pending.",
+      "checks": {
+        "native_loop": [],
+        "swim": [],
+        "turn": [],
+        "ascend": [],
+        "dive": [],
+        "real_transitions_and_control_ranges": [],
+        "jaw_or_other_action_branch": []
+      }
+    },
+    "runtime": {
+      "result": "passed",
+      "method": "Source-owned asset, direct cold GLTF replay and actual canonical first/cache/fishing entry.",
+      "reviewer": "Codex; user accepted R5 action2026-11-15",
+      "observations": "Current490/072/077, actual event147poses, source cold export and36canonical checks passed. Feeding explicit replay; other species untouched.",
+      "checks": {
+        "body_integrity_gpu_gate": [
+          "body077"
+        ],
+        "material_anchor_and_actual_lod": [
+          "canonical"
+        ],
+        "motion_and_surface_gate": [
+          "fin490",
+          "roots072",
+          "event_roots",
+          "event_membranes"
+        ],
+        "cold_import_and_install_binding": [
+          "canonical"
+        ],
+        "final_asset_cold_load": [
+          "final_cold"
+        ],
+        "exported_vs_experiment_comparison": [
+          "visual_comparison"
+        ]
+      },
+      "finalization": {
+        "state": "exported",
+        "editable_source_role": "editable_source",
+        "model_role": "model",
+        "entry_role": "model",
+        "static_parts": {
+          "body": {
+            "geometry_uv_weights_role": "model",
+            "observation": "All actual static geometry/UV/weights/materials in source-owned canonical GLB; no runtime construction."
+          },
+          "eyes": {
+            "geometry_uv_weights_role": "model",
+            "observation": "All actual static geometry/UV/weights/materials in source-owned canonical GLB; no runtime construction."
+          },
+          "mouth": {
+            "geometry_uv_weights_role": "model",
+            "observation": "All actual static geometry/UV/weights/materials in source-owned canonical GLB; no runtime construction."
+          },
+          "fins": {
+            "geometry_uv_weights_role": "model",
+            "observation": "All actual static geometry/UV/weights/materials in source-owned canonical GLB; no runtime construction."
+          }
+        },
+        "engine_resource_roles": [],
+        "runtime_behaviors": [
+          {
+            "resource_role": "feeding_controller",
+            "purpose": "animation",
+            "observation": "Explicit R5 head/jaws/floor/body blend; no static mesh edits."
+          },
+          {
+            "resource_role": "base_controller",
+            "purpose": "animation",
+            "observation": "Frozen ordinary Swim for standalone accepted replay."
+          }
+        ]
+      }
+    },
+    "presentation": {
+      "result": "pending",
+      "method": "",
+      "reviewer": "",
+      "observations": "R5 full-body/prey motion revision from viewed external references. Static/source/jaw timing unchanged. 724body samples and64complete-root poses checked; current Godot cold preview inspected, full formal validation and user acceptance pending.",
+      "checks": {
+        "source_style_final_comparison": [],
+        "normal_and_close_game_views": [],
+        "water_readability": [],
+        "orbit_and_motion_video": [],
+        "final_files_and_remaining_limits": []
+      }
+    }
+  },
+  "scope": "User accepted blacktip feeding reference and current model. Runtime finalization evidence complete; source/anatomical/full presentation stages still not all reviewed."
+}

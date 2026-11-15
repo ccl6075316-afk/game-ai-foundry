@@ -1,0 +1,347 @@
+{
+  "kind": "accepted_blacktip_feeding_reference_and_model_release",
+  "date": "2026-11-15",
+  "species": "blacktip_reef_shark",
+  "scientific_name": "Carcharhinus melanopterus",
+  "status": "accepted_installed_model_and_independent_feeding_reference",
+  "user_acceptance": {
+    "accepted": true,
+    "quote": "我觉得好多了 验收 总结信息 知识 资料 一下 其他鲨科可以参考 感觉可以提交了",
+    "basis": "R5 action and60fps comparison; one inner lining normal maintenance fix independently checked afterwards."
+  },
+  "model": {
+    "path": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark.glb",
+    "sha256": "3a9256652859a2ec468c95b197b94c49fd0c866f890a6fb08414b0469d5bc8e7",
+    "bytes": 2001384
+  },
+  "editable_source": {
+    "path": "projects/fishing-2d/assets/source/fish/blacktip_reef_shark/fish.blend",
+    "sha256": "6968513f6ba48910a75ef26d3f6cbb4d0b5cc685cde6f36b2ac1c068a4b01991",
+    "bytes": 2070324
+  },
+  "triangles": 3962,
+  "bones": 22,
+  "fins": 8,
+  "runtime": {
+    "feeding_controller": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/FeedingMotion.gd",
+      "sha256": "c06b3245adc92a439f3b7bd829ee9960476ac1681fb0cc152877dc839a0eeee2",
+      "bytes": 4163
+    },
+    "feeding_config": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/motion.json",
+      "sha256": "09cf06f42a278be30ce5bf66670b54405c456cf4d4003a5c290484cd79927079",
+      "bytes": 3019
+    },
+    "base_controller": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/FoundryFishMotion.gd",
+      "sha256": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+      "bytes": 22917
+    },
+    "swim_profile": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/swim-profile.json",
+      "sha256": "a9008ea8c4f7a41d919f9e9603cc709a7246c6df93152986d95e16ec4fd56eea",
+      "bytes": 2150
+    },
+    "replay_entry": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/capture_feeding.gd",
+      "sha256": "7a7f8f8700e513098c441d53487d85f6be5ec568860a76559915099dd4936adb",
+      "bytes": 8571
+    },
+    "gameplay_scope": "Canonical model and lip recipe installed. Feeding is explicit replay/reference; ordinary exhibit/fishing four-action controller retained. No automatic feeding trigger or other-shark rollout."
+  },
+  "video": {
+    "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/final-preview.mp4",
+    "sha256": "4f7457802a3e8bab7b95a201dd000627f8d0770455edb4760ef4d7526a7c0c52",
+    "bytes": 3666288
+  },
+  "video_validation": {
+    "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/video.validation.json",
+    "sha256": "6ba60f1051ed2730dc9b26fad01f6c93256742a94ff6e1dddccd381a29ff13e7",
+    "bytes": 611
+  },
+  "accepted_video": {
+    "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/user-accepted-60fps.mp4",
+    "sha256": "f49ba49b67e10aad77aeaef79eb8e98349eeec3d858f3e3f98dacea96360085e",
+    "bytes": 3665702
+  },
+  "reference_research": {
+    "path": "resources/volume-fish/blacktip-feeding-20261115/research.json",
+    "sha256": "a00768d5b3c9fea6dda5f1bb52a8d0fa59d61fdc38c8ce6a0972048b6760b581",
+    "bytes": 19689
+  },
+  "checks": {
+    "fin490": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/fin490.json",
+      "sha256": "6c12dc073fd75d3e9e3ba05651ba31d99a286858d7e672f867020d6937bd7f24",
+      "bytes": 1226
+    },
+    "fin490_roots": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/fin490_roots.json",
+      "sha256": "9eec26bbdab27b965aa06304326ec5ef490faec1c238944393aa575ed7ebd716",
+      "bytes": 1510686
+    },
+    "fin490_membranes": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/fin490_membranes.json",
+      "sha256": "f1bd7a44747af31f0763146d32767430628984f2e57b29ecbc2116e652bc4800",
+      "bytes": 1532518
+    },
+    "roots072": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/roots072.json",
+      "sha256": "cfaeb5c3e4d57f0e9f1bf6b70f6bb18a0df746c7a41511869dbc6bff301c7475",
+      "bytes": 905
+    },
+    "body077": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077.json",
+      "sha256": "50a7108874492c82242c0d93a210c7b70ed67318a238197349c593ff0c464554",
+      "bytes": 21467
+    },
+    "event_roots": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/event_roots.json",
+      "sha256": "5e82c7e4464527bdc1ee0b863b91d39b835b480c16ed83f7379902e9cea79127",
+      "bytes": 313067
+    },
+    "event_membranes": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/event_membranes.json",
+      "sha256": "ed5868757f724f4d6d1775a901ff5129d0d6250f47009965044552d3bbfbcd25",
+      "bytes": 456733
+    },
+    "canonical": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/canonical.json",
+      "sha256": "606a8303a691da77244be202e53ecf9d218542207ea45ed10b103f72cc1e3812",
+      "bytes": 7069
+    },
+    "normal_repair": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/normal_repair.json",
+      "sha256": "e71ee5b0c480b2afb4f750aca16ba3aad64e538aeb9c36e628782a993b8d2382",
+      "bytes": 11523
+    },
+    "normal_repair_authoring": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/normal_repair_authoring.json",
+      "sha256": "e4e98361ed53c417408e7dcbb49c67a66fb33c260ec4180ad4b7f4b3c5d4b256",
+      "bytes": 1212
+    },
+    "installation": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/installation.json",
+      "sha256": "8a7ff013d091ceaf289f08d2879a8c4d5cd01fda817f227795b7c4af2f8f0527",
+      "bytes": 4117
+    },
+    "body724": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body724-original-r5.json",
+      "sha256": "2c598a2e78c501b9d9f56157a4e5c863f5190f5dd8be5eb0568497a2abd73ef8",
+      "bytes": 422991
+    },
+    "fps_comparison": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/fps-comparison.json",
+      "sha256": "841ab3f3c49b51a8804f32c8320a26e7f700d0154bfd1562845f2117cdcfa688",
+      "bytes": 3229
+    },
+    "final_cold": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/final-cold-load.json",
+      "sha256": "733aeeafd2e68920936ba77cc52dfe0deed311cc3a510bdbda89875c3cf4acfe",
+      "bytes": 2359
+    }
+  },
+  "limits": [
+    "Full anatomical/source/style SOP fields remain pending; do not call all9stages complete.",
+    "No tearing/swallowing or prey physics; ends carrying food.",
+    "Angles/timings are authored, not calibrated species measurements;9teeth are visual cues.",
+    "New-style texture baking remains separate; existing texture retained.",
+    "Other shark species need their own jaw/axis/proportions/motion and complete-root validation."
+  ],
+  "sop": {
+    "report": {
+      "path": "resources/volume-fish/blacktip-feeding-20261115/sop.validation.json",
+      "sha256": "21bdd375720ec393d43661f75652c634044c98e62ed964b2a33cfcd2724a8376",
+      "bytes": 24996
+    },
+    "full_status": "blocked",
+    "runtime_stage_recorded_pass": true,
+    "full_pending_count": 76
+  },
+  "body077_images": [
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/negative-transparent-body.png",
+      "sha256": "5b00beb441fbff68e78be8a595498cb6f89132837f82ebd641b57b1966e0472d",
+      "bytes": 1954
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p0-v0-actual.png",
+      "sha256": "7cf3898aaa7bd445d298aa299216354dc09f92624aa069a3c8ccc89b17f154a8",
+      "bytes": 35814
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p0-v0-closed.png",
+      "sha256": "424a26643d4ea8ab8ccd97aeae4d22c67f5099ac708112747fb206335157eb3a",
+      "bytes": 2495
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p0-v1-actual.png",
+      "sha256": "1f43cb368a070bab65d8c2a10ee3c55aa0f06d937b8f6b0cb0a0e95ebc695b56",
+      "bytes": 35999
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p0-v1-closed.png",
+      "sha256": "19080c26d01a635e100be321dc08c953e6056ea3032351fc78b2a818bc34f147",
+      "bytes": 2504
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p0-v2-actual.png",
+      "sha256": "d9c3359e336e18c7032d0045890161835ac23f60d6d63a1908c34b2d82d95521",
+      "bytes": 10818
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p0-v2-closed.png",
+      "sha256": "6ca4ddf4322d5f15c29115bde8ffc03b30a038e7dcffc406298c84f521330159",
+      "bytes": 2462
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p0-v3-actual.png",
+      "sha256": "01c96c111fc0541cf56345fdbba684d10348fa43e09dd3da823a72557f77cd0d",
+      "bytes": 11570
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p0-v3-closed.png",
+      "sha256": "6ca4ddf4322d5f15c29115bde8ffc03b30a038e7dcffc406298c84f521330159",
+      "bytes": 2462
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p0-v4-actual.png",
+      "sha256": "c505a075c037f77927afe5a6542d1d11da8e30d142a57a50befd7084b77e72b3",
+      "bytes": 45366
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p0-v4-closed.png",
+      "sha256": "bb0928749672959d2ec005abbfc6d5f28ec27f3eca3d7ff9b95fd05ac3ff7750",
+      "bytes": 3102
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p0-v5-actual.png",
+      "sha256": "0cd462dfd6c699081fe63cd3c011218853a754c15e73ba807c1afea1b33ecbe9",
+      "bytes": 31309
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p0-v5-closed.png",
+      "sha256": "1062a3e099bd9bacbc4cd444d0bd3077a98fde5886efb9210ebc2416806c1446",
+      "bytes": 3074
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p0-v6-actual.png",
+      "sha256": "aea8167ede9b225878e0671a83c9ff01f465f1bc4b305fb766ee17942e568dfe",
+      "bytes": 42882
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p0-v6-closed.png",
+      "sha256": "ec2139f23cd22a0b02d62bde36624efa7b058cb02bd00df531a34b2104032066",
+      "bytes": 2919
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p0-v7-actual.png",
+      "sha256": "087569c71e9780e71b38a7af9dd7d09a0ecb0391942f11c1150e66889d53477d",
+      "bytes": 32175
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p0-v7-closed.png",
+      "sha256": "81a8e07051bf04163a59e4b92ed6476615096f1164cf90fdb82d496414e34476",
+      "bytes": 2866
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p1-v0-actual.png",
+      "sha256": "247b36f93c273f5045fdf364f2d5d7f4c04ddafb63a37a6df9f409cfe7105b69",
+      "bytes": 33972
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p1-v0-closed.png",
+      "sha256": "abc252cdfebdaa33828fe8d975a996ffcc46041ca70fa3c21a3c2da94a416b54",
+      "bytes": 2510
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p1-v1-actual.png",
+      "sha256": "62382bd6ac440a9737bb7c814e5a528e233a440ea7c3a0b94f363b1530a4aa03",
+      "bytes": 34994
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p1-v1-closed.png",
+      "sha256": "88c804d36208bfda59d74980a426b6fb025a50b9558cc3d78cfbf9f93b38ebd3",
+      "bytes": 2518
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p1-v2-actual.png",
+      "sha256": "2d48974796f0b122343c4660428b5466d53da2371f24a12140bfe1c24f850b91",
+      "bytes": 14516
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p1-v2-closed.png",
+      "sha256": "330079f1345abb3d4419977ba9532ffeeefd47255bd5dc57062cb20fda510ae5",
+      "bytes": 2466
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p1-v3-actual.png",
+      "sha256": "082cba6ddda200401ba0150f1b91debacb613183fad7c6f9b115deb530215687",
+      "bytes": 14185
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p1-v3-closed.png",
+      "sha256": "f42774bafd292a01169a17581fbd9449eb5ee470f05ddda829ef382130ea68ca",
+      "bytes": 2467
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p1-v4-actual.png",
+      "sha256": "6adfb9cf3b0008bb17aa9850b59380698ad82091331b1c08014e737261571577",
+      "bytes": 44206
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p1-v4-closed.png",
+      "sha256": "111f3901b6a88bee020eeba221f20bf8a59ba416d8d1fa237af721c7a4eac406",
+      "bytes": 3272
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p1-v5-actual.png",
+      "sha256": "563e8b19559ae7153e26479511833fb087061c6c437fc29055d2185116f09ee1",
+      "bytes": 30539
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p1-v5-closed.png",
+      "sha256": "5126e2918bada26a003356530f1a32f35b083bcfa03598c186c6ce147c0555d1",
+      "bytes": 3219
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p1-v6-actual.png",
+      "sha256": "74797346ea5a3fd65dc2b413a7802db28c726c2e8372d259a4a966efb4963190",
+      "bytes": 41713
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p1-v6-closed.png",
+      "sha256": "c212c8420cbf6b62e978e819937b2051aa06698b043e76cb2606618f7933df3a",
+      "bytes": 3122
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p1-v7-actual.png",
+      "sha256": "c84c9be69d66d37049a3ef4c22eeae18cf60339d538d71bdae265375a9ff057f",
+      "bytes": 30821
+    },
+    {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/body077-images/p1-v7-closed.png",
+      "sha256": "238d03397aea86189874aa7451db06999f23ac0e6ef3bff96c27bdb786fd5d2e",
+      "bytes": 3022
+    }
+  ],
+  "cleanup": {
+    "path": "resources/volume-fish/blacktip-feeding-20261115/cleanup.json",
+    "sha256": "d89ec57b22f5ae900439d7ed40c0ac2694d85a9aff5aaf9c38ef6d7fa1a3e385",
+    "bytes": 453345
+  },
+  "current_replay_source_snapshot": {
+    "model": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/fish.glb",
+      "sha256": "3a9256652859a2ec468c95b197b94c49fd0c866f890a6fb08414b0469d5bc8e7",
+      "bytes": 2001384
+    },
+    "source": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/fish.blend",
+      "sha256": "6968513f6ba48910a75ef26d3f6cbb4d0b5cc685cde6f36b2ac1c068a4b01991",
+      "bytes": 2070324
+    },
+    "reason": "Frozen accepted baseline independent of future canonical edits; same LFS objects deduplicate remote storage."
+  }
+}

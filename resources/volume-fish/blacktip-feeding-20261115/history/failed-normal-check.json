@@ -1,0 +1,12 @@
+{
+  "ok": false,
+  "model_sha256": "54ed0e7d64cba0295dc56bbcaa71271619c3e7c616610e0d8d9043c7b76334b1",
+  "failure": "Body normals disagree with winding",
+  "located": "Oral lining surface1,triangle0; Blender polygon1642",
+  "resolution": {
+    "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/checks/normal_repair.json",
+    "sha256": "e71ee5b0c480b2afb4f750aca16ba3aad64e538aeb9c36e628782a993b8d2382",
+    "bytes": 11523
+  },
+  "scope": "Preserved failed first check, not overwritten as a pass."
+}

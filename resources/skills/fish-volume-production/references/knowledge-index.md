@@ -57,7 +57,7 @@
 | [黑鲷](black-seabream-production-lessons-20261102.md) | 已定稿近缘样板厚度、左右同光照侧腹覆盖、近根自由面和正式替换；样板接受不转移 |
 | [食人鱼](piranha-production-lessons-20261102.md) | 嘴先看源、鳍尖方向、封边 RGB/alpha、实际蒙皮与相机单位；技术全门不自动成为用户接受 |
 | [鲤鱼](carp-lowpoly-trial-lessons-20261101.md) | 头底材质从失败补皮到限定生成供体、保留域和接头；局部外观认可不补足未知头型资料 |
-| [鲨鱼主线](shark-production-lessons.md) | 项目原画同源、连续实体鳍/异尾、真实口弧和原生冷读；已撤销网上扫描投影驱动的 3986 面路线 |
+| [鲨鱼主线](shark-production-lessons.md) | 项目原画同源、连续实体鳍/异尾、真实口弧和原生冷读；[共用捕食阶段与口腔前置检查](shark-production-lessons.md#shared-feeding)：外部同种/柠檬鲨/《Maneater》视频实际复核，[黑鳍R5已接受捕食样板](shark-feeding-reference-20261115.md)，整身联动/猎物响应/60fps，逐种适配；双髻逐鱼适配、鲸鲨另分支；已撤销网上扫描投影驱动的3986面路线 |
 | [黑鳍礁鲨返修](blacktip-review-lessons-20261101.md) | 有限截面、曲根拓扑分色、派生色声明与深度精度；早期 pending 按鲨鱼主线后续记录定位 |
 | [双髻鲨同族](hammerhead-family.md) | 头翼形、物种差异、根带降维；同属不等于同尺寸、同头翼或已接受 |
 | [海鲈](sea-bass-lessons-20261031.md)、[大西洋鲑](atlantic-salmon-lessons-20261031.md)、[褐鳟](brown-trout-lessons-20261031.md)、[红皇帝](red-emperor-lessons-20261031.md) | 逐种源线/供体/失败姿态与真实图审，不能从技术通过或案例标题继承状态 |
@@ -79,3 +79,5 @@
 新增经验优先修订上述对应专题；只有出现新的稳定分支才增文档并接入此索引，避免每轮只在文件尾追加一条“已提交”。
 
 - 2026-11-06 尾部透明封边/尾柄维护：`resources/volume-fish/tail-closure-repair-20261106.json` 与游戏 `plans/reviews/tail-repair-20261106/HANDOFF.md`。保留原鳍基解剖坐标、有限端盖、新增domain后代、严格未改部位继承、单鱼不可变验证输入与EXACT_UV授权域等方法；不恢复退休实验链。
+
+2026-11-15 用户接受黑鳍礁鲨R5整身/猎物协同及60fps效果；R4仅加幅度已被替代。见[鲨鱼方法](shark-production-lessons.md)末尾R5及资料库物种记录。

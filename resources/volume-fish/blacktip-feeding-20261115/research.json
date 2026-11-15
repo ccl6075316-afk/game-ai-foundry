@@ -1,0 +1,407 @@
+{
+  "status": "reviewed_sources_for_user_accepted_R5",
+  "user_request": "看真正鲨鱼或其他游戏捕食视频；Computer Use不得干扰正常用电脑。",
+  "execution": "All research fetched/decoded in background; no Computer Use, desktop input, focus changes or browser controls this turn.",
+  "sources": [
+    {
+      "id": "porcher2023-blacktip-video1",
+      "kind": "same_species_real_video",
+      "species": "Carcharhinus melanopterus",
+      "url": "https://doi.org/10.6084/m9.figshare.22268605",
+      "article": "https://doi.org/10.1163/1568539X-bja10213",
+      "author": "Ila F. Porcher",
+      "license": "CC BY4.0",
+      "source": {
+        "path": "E:/game-ai-foundry/work/fish-jaw-rollout-20261115/blacktip-shape-review/feeding/reference-session304-29s-42s.mp4",
+        "sha256": "886c86f7754c8cb9ebce703d6b6d1800a564cf9146e18900b590bc3ec44c1ef4",
+        "bytes": 719830,
+        "storage": "Original local research input; hash/provenance retained. Only explicitly listed excerpts below are versioned."
+      },
+      "reviewed": "Existing external research clip29–42sec; this turn35–40sec sampled8fps,38–39.5sec sampled8fps at native640width. Actual images inspected, not a claim of uninterrupted live playback.",
+      "evidence": [
+        {
+          "path": "resources/volume-fish/blacktip-feeding-20261115/references/blacktip-shake-35-40.jpg",
+          "sha256": "031c20d58deca2719451e46daac2c4e929b629e3da5f7ddf286bb23aa34d95ab",
+          "bytes": 139041
+        },
+        {
+          "path": "resources/volume-fish/blacktip-feeding-20261115/references/blacktip-detail-38-39_5.jpg",
+          "sha256": "5b5c63ce3cd92cd7e32a325993ff266390d7627db00ec2c43d857cae1eb3e532",
+          "bytes": 112178
+        }
+      ],
+      "observations": [
+        "Target shark rises and changes viewing orientation while carrying a visible scrap; trunk/caudal silhouette changes during successive head directions.",
+        "The visible scrap changes pose relative to the shark silhouette. This is not a rigid whole-fish rotation along a fixed straight screen path."
+      ],
+      "limits": [
+        "Camera motion, depth changes and occlusion prohibit calibrated3D yaw/phase measurements.",
+        "The existing1fps montage was insufficient for choosing a3Hz fixed sine; this denser review still does not determine species-wide exact timing."
+      ]
+    },
+    {
+      "id": "clua2018-lemon-feeding",
+      "kind": "related_family_real_provisioned_video",
+      "species": "Negaprion acutidens",
+      "species_basis": "Clua2018 paper DOI10.1016/j.tourman.2018.03.022 identifies sicklefin lemon sharks at Bora-Bora; not N.brevirostris and not target blacktip.",
+      "url": "https://data.mendeley.com/datasets/2k46dg6n8t/1",
+      "article": "https://doi.org/10.1016/j.tourman.2018.03.022",
+      "author": "Eric Clua",
+      "license": "CC BY4.0",
+      "source": {
+        "path": "E:/game-ai-foundry/work/fish-jaw-rollout-20261115/blacktip-shape-review/feeding/external-video-review/lemon-shark-videos.zip",
+        "sha256": "5e0f02c27f328b5838a60b4197c184a2857a32dd1b8709ce9a91fe44cea08c0f",
+        "bytes": 23582016,
+        "storage": "Original local research input; hash/provenance retained. Only explicitly listed excerpts below are versioned."
+      },
+      "archive_expected_sha256": "5e0f02c27f328b5838a60b4197c184a2857a32dd1b8709ce9a91fe44cea08c0f",
+      "files": [
+        {
+          "original": "Video 1 - LS No interactive feeding - sluggish swimming.mp4",
+          "sha256": "7484d5ba2416c736db59696efb9a0aa2da78f02a1f7cc28e16d14e9db7f4ae3c",
+          "probe": {
+            "programs": [],
+            "stream_groups": [],
+            "streams": [
+              {
+                "r_frame_rate": "0/0"
+              },
+              {
+                "width": 352,
+                "height": 288,
+                "r_frame_rate": "2500/83"
+              },
+              {
+                "r_frame_rate": "0/0"
+              },
+              {
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "format": {
+              "duration": "29.720000"
+            }
+          },
+          "extracted_analysis_name": "lemon-1.mp4",
+          "archive_member": "Videos for management of shark feeding/Video 1 - LS No interactive feeding - sluggish swimming.mp4",
+          "storage": "Exact bytes retained inside verified original ZIP; duplicate analysis extraction removed after inspection."
+        },
+        {
+          "original": "Video 2 - LS Highly-interactive feeding and riding.mov",
+          "sha256": "1b9197276a44e62112e220acddbd1899fab8eeb5befa773c7b7248ea92247305",
+          "probe": {
+            "programs": [],
+            "stream_groups": [],
+            "streams": [
+              {
+                "width": 427,
+                "height": 240,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "format": {
+              "duration": "42.680000"
+            }
+          },
+          "extracted_analysis_name": "lemon-2.mov",
+          "archive_member": "Videos for management of shark feeding/Video 2 - LS Highly-interactive feeding and riding.mov",
+          "storage": "Exact bytes retained inside verified original ZIP; duplicate analysis extraction removed after inspection."
+        },
+        {
+          "original": "Video 3 - LS Medium interactive feeding - sluggish swimming.mp4",
+          "sha256": "46e0ec7fb5fd2593d8d54caa334005c98f1889c201efd1be38145bbca433ea29",
+          "probe": {
+            "programs": [],
+            "stream_groups": [],
+            "streams": [
+              {
+                "r_frame_rate": "0/0"
+              },
+              {
+                "width": 352,
+                "height": 288,
+                "r_frame_rate": "2500/83"
+              },
+              {
+                "r_frame_rate": "0/0"
+              },
+              {
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "format": {
+              "duration": "19.720000"
+            }
+          },
+          "extracted_analysis_name": "lemon-3.mp4",
+          "archive_member": "Videos for management of shark feeding/Video 3 - LS Medium interactive feeding - sluggish swimming.mp4",
+          "storage": "Exact bytes retained inside verified original ZIP; duplicate analysis extraction removed after inspection."
+        },
+        {
+          "original": "Video 4 - LS Medium-interactive feeding and active swimming t.mp4",
+          "sha256": "5b19bf190f3407e9aae8afe3e5e6908dcdabb527cc4c5c6d6dad2bdf653be1a4",
+          "probe": {
+            "programs": [],
+            "stream_groups": [],
+            "streams": [
+              {
+                "r_frame_rate": "0/0"
+              },
+              {
+                "width": 352,
+                "height": 288,
+                "r_frame_rate": "2500/83"
+              },
+              {
+                "r_frame_rate": "0/0"
+              },
+              {
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "format": {
+              "duration": "30.600000"
+            }
+          },
+          "extracted_analysis_name": "lemon-4.mp4",
+          "archive_member": "Videos for management of shark feeding/Video 4 - LS Medium-interactive feeding and active swimming t.mp4",
+          "storage": "Exact bytes retained inside verified original ZIP; duplicate analysis extraction removed after inspection."
+        },
+        {
+          "original": "Video 5 - LS Highly-interactive feeding and begging behaviour.mp4",
+          "sha256": "1f6bc69eacfbcecf469a232fb54fdeb39000ec66dccc8d9e220c0709b755aa6c",
+          "probe": {
+            "programs": [],
+            "stream_groups": [],
+            "streams": [
+              {
+                "r_frame_rate": "0/0"
+              },
+              {
+                "width": 352,
+                "height": 288,
+                "r_frame_rate": "2500/83"
+              },
+              {
+                "r_frame_rate": "0/0"
+              },
+              {
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "format": {
+              "duration": "57.080000"
+            }
+          },
+          "extracted_analysis_name": "lemon-5.mp4",
+          "archive_member": "Videos for management of shark feeding/Video 5 - LS Highly-interactive feeding and begging behaviour.mp4",
+          "storage": "Exact bytes retained inside verified original ZIP; duplicate analysis extraction removed after inspection."
+        },
+        {
+          "original": "Video 6 - LS Highly-interactive feeding and swimming deviant behaviour.mp4",
+          "sha256": "c00bd6b7bd7ff60770f7fad8dcb79baa01142ccfc1d2b7cb8d502512ffd5d03f",
+          "probe": {
+            "programs": [],
+            "stream_groups": [],
+            "streams": [
+              {
+                "r_frame_rate": "0/0"
+              },
+              {
+                "width": 352,
+                "height": 288,
+                "r_frame_rate": "2500/83"
+              },
+              {
+                "r_frame_rate": "0/0"
+              },
+              {
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "format": {
+              "duration": "23.480000"
+            }
+          },
+          "extracted_analysis_name": "lemon-6.mp4",
+          "archive_member": "Videos for management of shark feeding/Video 6 - LS Highly-interactive feeding and swimming deviant behaviour.mp4",
+          "storage": "Exact bytes retained inside verified original ZIP; duplicate analysis extraction removed after inspection."
+        },
+        {
+          "original": "Video 7 - LS Highly-interactive feeding and hand feeding.mov",
+          "sha256": "de12fecafa5d8b5b9f874a01235a35c3b64eb977377c63edc3e6976f33675e84",
+          "probe": {
+            "programs": [],
+            "stream_groups": [],
+            "streams": [
+              {
+                "width": 320,
+                "height": 240,
+                "r_frame_rate": "25/1"
+              },
+              {
+                "r_frame_rate": "0/0"
+              }
+            ],
+            "format": {
+              "duration": "31.680000"
+            }
+          },
+          "extracted_analysis_name": "lemon-7.mov",
+          "archive_member": "Videos for management of shark feeding/Video 7 - LS Highly-interactive feeding and hand feeding.mov",
+          "storage": "Exact bytes retained inside verified original ZIP; duplicate analysis extraction removed after inspection."
+        },
+        {
+          "original": "Video 8 - LS Highly-interactive feeding at the surface with feeding frenzy.mp4",
+          "sha256": "783382cba76c559967cb17c0529ea6b3b8d9af22ef19d19e12d67469ad57c01a",
+          "probe": {
+            "programs": [],
+            "stream_groups": [],
+            "streams": [
+              {
+                "r_frame_rate": "0/0"
+              },
+              {
+                "width": 1280,
+                "height": 720,
+                "r_frame_rate": "2500/167"
+              }
+            ],
+            "format": {
+              "duration": "30.080000"
+            }
+          },
+          "extracted_analysis_name": "lemon-8.mp4",
+          "archive_member": "Videos for management of shark feeding/Video 8 - LS Highly-interactive feeding at the surface with feeding frenzy.mp4",
+          "storage": "Exact bytes retained inside verified original ZIP; duplicate analysis extraction removed after inspection."
+        }
+      ],
+      "reviewed": "Actual full-duration24-frame overviews of Videos4,7,8; detailed Video7 17–21sec at6fps. Videos1,2,3,5,6 not visually reviewed this turn.",
+      "evidence": [
+        {
+          "path": "resources/volume-fish/blacktip-feeding-20261115/references/lemon-4-overview.jpg",
+          "sha256": "188355bc2e0c34b5844e805613f12bac9c04d8754c4eb5b118796e9fd5528b1b",
+          "bytes": 139389
+        },
+        {
+          "path": "resources/volume-fish/blacktip-feeding-20261115/references/lemon-7-overview.jpg",
+          "sha256": "da048f5df0c5289357df24f07f2d66cf5efc8cb7e98e5e0d95728364b00c3d84",
+          "bytes": 191588
+        },
+        {
+          "path": "resources/volume-fish/blacktip-feeding-20261115/references/lemon-8-overview.jpg",
+          "sha256": "083d0f1d08cd908e4eec5251ee8546466454104a8036d78d6177c23767a3f358",
+          "bytes": 129782
+        },
+        {
+          "path": "resources/volume-fish/blacktip-feeding-20261115/references/lemon-7-bite-17-21.jpg",
+          "sha256": "0ac494085614d3ce5f3ad493a91e44c0ae599d03841567d9258916f4e18c2415",
+          "bytes": 161334
+        }
+      ],
+      "observations": [
+        "Video7 near19–20sec: approach toward hand, mouth opens, closes and the whole animal passes/turns away; snout does not stay parked while jaws perform a long isolated loop.",
+        "Video4 and7 overviews show changes across the body and tail during turns; the sparse overviews do not establish a tail-to-head phase value."
+      ],
+      "limits": [
+        "Human provisioning/handling can alter behavior; not a normal open-water hunting template.",
+        "Low resolution and crowding obscure jaw contacts; do not derive a precise gape angle or force from this."
+      ]
+    },
+    {
+      "id": "maneater-steam-launch",
+      "kind": "external_game_official_trailer",
+      "species": "fictional player shark; not anatomical evidence",
+      "url": "https://store.steampowered.com/app/629820/Maneater/",
+      "video_name": "Maneater Launch Trailer",
+      "video_id": 256835669,
+      "rights": "Tripwire Interactive / respective rights holders. No production reuse or redistribution permission inferred; local research proxy only.",
+      "source": {
+        "path": "E:/game-ai-foundry/work/fish-jaw-rollout-20261115/blacktip-shape-review/feeding/external-video-review/maneater-launch-360p.mp4",
+        "sha256": "343e568e01c5548f24704a406b02da778f688f3e7a8e5c27808b4993e562dfcf",
+        "bytes": 9407347,
+        "storage": "Original local research input; hash/provenance retained. Only explicitly listed excerpts below are versioned."
+      },
+      "discovery": {
+        "path": "E:/game-ai-foundry/work/fish-jaw-rollout-20261115/blacktip-shape-review/feeding/external-video-review/steam-videos.json",
+        "sha256": "f0799f3e8d15ba72845fab7eae328433b98442a31e03c5a1a2c0bd0898f44ebd",
+        "bytes": 729
+      },
+      "reviewed": "80.35sec launch trailer sampled every2sec;29–33sec inspected8fps. Actual external game frames, not merely a description of controls.",
+      "evidence": [
+        {
+          "path": "resources/volume-fish/blacktip-feeding-20261115/references/maneater-overview.jpg",
+          "sha256": "42fe6491972687c98a4cca72275aff91d5d1ec162a8b7061c3c8c9b2966bb6e6",
+          "bytes": 210018
+        },
+        {
+          "path": "resources/volume-fish/blacktip-feeding-20261115/references/maneater-bite-29-33.jpg",
+          "sha256": "e16fe55a60070ba0a8f712524c14bf51056ae0401baad202fa9850c5dda9523b",
+          "bytes": 232293
+        }
+      ],
+      "observations": [
+        "Around30–31sec shark body and tail change shape/direction during a bite; target limbs move relative to grip, followed by release/consumption feedback.",
+        "Around31.1–32.8sec shark/orca combat uses full-body turning and target response, with very exaggerated effects."
+      ],
+      "limits": [
+        "Quick edits, camera motion and possible slow-motion; cannot infer continuous attack timing from across cuts.",
+        "Good for readable attack/target/recovery staging, not a realistic amplitude or anatomy template."
+      ]
+    }
+  ],
+  "r4_audit_inputs": [
+    {
+      "path": "E:/game-ai-foundry/work/fish-jaw-rollout-20261115/blacktip-shape-review/feeding/r4/FeedingMotion.gd",
+      "sha256": "d1c9aca1d48c5cafcc9a9a0ba87cb285e47579891e9abe6e189df732b63baa36",
+      "bytes": 3334
+    },
+    {
+      "path": "E:/game-ai-foundry/work/fish-jaw-rollout-20261115/blacktip-shape-review/feeding/r4/capture_feeding.gd",
+      "sha256": "ec4d065e2b9f3cffbef3f1d2f319bb591ac01223ce30ca3a4bc59cff79f654f6",
+      "bytes": 8241
+    },
+    {
+      "path": "E:/game-ai-foundry/work/fish-jaw-rollout-20261115/blacktip-shape-review/feeding/r4/motion.json",
+      "sha256": "e33ff878621a95c4bd45feb500ad9349334d7baa308df4ac046943a1a60a4ccf",
+      "bytes": 2436
+    }
+  ],
+  "findings": [
+    {
+      "issue": "Feeding body deformation not coordinated",
+      "code": "r4/capture_feeding.gd: controller.seek(1+t), then rigid carrier.rotation.y; r4/FeedingMotion.gd only head/jaw/floor overrides.",
+      "conclusion": "Native Swim keeps its own cycle while independent head shake is added; carrier yaw turns the entire rig rigidly. This does not create a feeding-specific curvature distribution down the trunk.",
+      "next": "Use one feeding action to blend head, anterior/mid trunk and caudal motion; choose bend distribution from a single continuous external shot. Keep head/body surface continuity."
+    },
+    {
+      "issue": "Scripted periodic shaking",
+      "code": "sin(PI*q)^2 * sin(TAU*3*q),1.85–2.85seconds; body fixed phase offset-.35rad.",
+      "conclusion": "Three perfectly prescribed oscillations were artistic guesses, not fitted to observed motion. Increasing8to14deg preserves this mechanical structure.",
+      "next": "Key a concrete grip/turn/reversal/recovery sequence against the reference; do not claim all real sharks are non-periodic or fit arbitrary irregular noise."
+    },
+    {
+      "issue": "Rigid prey prop",
+      "code": "prey pose from central jaw midpoint and feeding_head rotation; no independent flex/orientation response.",
+      "conclusion": "Prey behaves as a stiff crossbar attached to the mouth. Keeping the grip point fixed is useful, but the rest of the prey should not be forced to share the head transform exactly.",
+      "next": "Keep contact stable; animate free ends with lag/flex based on the selected prey and reference. Physics simulation is optional, not required."
+    },
+    {
+      "issue": "Incomplete event ending",
+      "code": "Gape.45/protrusion.85 remain constant after1.8sec; food carried to4.2sec.",
+      "conclusion": "Intentional grip-only prototype has no bite-off/regrip/release/swallow result; cannot stand in for a completed feeding event.",
+      "next": "Choose one evidenced ending for one prey size. Do not hide a prop to fake swallowing or apply ripping to every small fish."
+    }
+  ],
+  "decision": "R5 accepted2026-11-15; sources support qualitative construction, not measured species amplitudes.",
+  "validation_scope": "Research only; no new asset or motion acceptance, no rerun of model gates needed for text-only records. Existing local R4 checks remain technical evidence, not visual acceptance.",
+  "cleanup_path": "E:/game-ai-foundry/work/fish-jaw-rollout-20261115/blacktip-shape-review/feeding/external-video-review/cleanup.json",
+  "versioned_same_species_clip": {
+    "path": "resources/volume-fish/blacktip-feeding-20261115/references/porcher2023-video1-29-42.mp4",
+    "sha256": "886c86f7754c8cb9ebce703d6b6d1800a564cf9146e18900b590bc3ec44c1ef4",
+    "bytes": 719830
+  }
+}

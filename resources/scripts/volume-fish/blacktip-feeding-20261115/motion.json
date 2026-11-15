@@ -1,0 +1,169 @@
+{
+  "species": "blacktip_reef_shark",
+  "units": "native model length approximately one",
+  "status": "R5 coordinated body/prey prototype, not biological measurement or accepted asset",
+  "jaw_max_degrees": 32,
+  "upper_translation_native": [
+    0.002,
+    0,
+    -0.0007
+  ],
+  "duration": 4.2,
+  "keyframes": [
+    {
+      "t": 0,
+      "gape": 0,
+      "protrusion": 0,
+      "travel": -0.32,
+      "head": 0,
+      "travel_speed": 0.11428571428571431
+    },
+    {
+      "t": 0.7,
+      "gape": 0,
+      "protrusion": 0,
+      "travel": -0.24,
+      "head": 0,
+      "travel_speed": 0.14545454545454545
+    },
+    {
+      "t": 1.1,
+      "gape": 0.18,
+      "protrusion": 0,
+      "travel": -0.16,
+      "head": 0.2,
+      "travel_speed": 0.25165562913907286
+    },
+    {
+      "t": 1.38,
+      "gape": 1,
+      "protrusion": 0.1,
+      "travel": -0.065,
+      "head": 1,
+      "travel_speed": 0.38481012658227853
+    },
+    {
+      "t": 1.56,
+      "gape": 0.52,
+      "protrusion": 1,
+      "travel": 0.015,
+      "head": 0.6,
+      "travel_speed": 0.39420289855072455
+    },
+    {
+      "t": 1.8,
+      "gape": 0.45,
+      "protrusion": 0.85,
+      "travel": 0.1,
+      "head": 0.25,
+      "travel_speed": 0.35705950991831986
+    },
+    {
+      "t": 2.3,
+      "gape": 0.45,
+      "protrusion": 0.85,
+      "travel": 0.28,
+      "head": 0.25,
+      "travel_speed": 0.37130044843049337
+    },
+    {
+      "t": 2.9,
+      "gape": 0.45,
+      "protrusion": 0.85,
+      "travel": 0.51,
+      "head": 0.2,
+      "travel_speed": 0.3365853658536585
+    },
+    {
+      "t": 3.3,
+      "gape": 0.45,
+      "protrusion": 0.85,
+      "travel": 0.63,
+      "head": 0.1,
+      "travel_speed": 0.2478260869565216
+    },
+    {
+      "t": 4.2,
+      "gape": 0.45,
+      "protrusion": 0.85,
+      "travel": 0.82,
+      "head": 0,
+      "travel_speed": 0.21111111111111097
+    }
+  ],
+  "head_max_degrees": 6,
+  "floor_translation_native": [
+    0,
+    0,
+    -0.008
+  ],
+  "upper_max_degrees": 7,
+  "shake_start": 1.85,
+  "shake_end": 2.85,
+  "shake_cycles": 3,
+  "shake_degrees": 3,
+  "body_yaw_degrees": 0,
+  "source_directory": "../r2",
+  "branch": "large_food_grip_and_shake",
+  "small_food_note": "Small food may be swallowed without shaking. This preview ends carrying food; no simulated tearing or swallowing.",
+  "bend_keys": [
+    [
+      0,
+      0
+    ],
+    [
+      1.72,
+      0
+    ],
+    [
+      2.02,
+      0.85
+    ],
+    [
+      2.25,
+      -1
+    ],
+    [
+      2.52,
+      0.8
+    ],
+    [
+      2.83,
+      -0.35
+    ],
+    [
+      3.15,
+      0
+    ],
+    [
+      4.2,
+      0
+    ]
+  ],
+  "body_degrees": [
+    14,
+    10,
+    5,
+    -2,
+    -9,
+    -16,
+    -22,
+    -27
+  ],
+  "body_delay": [
+    0,
+    0.025,
+    0.05,
+    0.075,
+    0.1,
+    0.13,
+    0.16,
+    0.19
+  ],
+  "blend_window": [
+    1.1,
+    1.72,
+    3.15,
+    3.8
+  ]
+}

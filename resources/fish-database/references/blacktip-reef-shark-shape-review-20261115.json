@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "id": "blacktip-reef-shark-shape-review-20261115",
+  "reference_kind": "species_literature_and_current_model_review",
+  "species_binding": {
+    "scientific_name": "Carcharhinus melanopterus",
+    "game_species": "blacktip_reef_shark"
+  },
+  "keywords": [
+    "黑鳍礁鲨",
+    "尾鳍",
+    "尾叶",
+    "尾柄",
+    "黑鳍鲨区别",
+    "blacktip reef shark",
+    "Carcharhinus melanopterus",
+    "可动下颌",
+    "真实口内",
+    "钓鱼达人",
+    "全民钓鱼2",
+    "捕食",
+    "上颌前伸",
+    "palatoquadrate",
+    "feeding kinematics"
+  ],
+  "sources": [
+    {
+      "url": "https://www.fao.org/4/ad123e/ad123e28.pdf",
+      "role": "同种分类图谱与描述；印刷页488 / PDF第2页实际看图",
+      "asset": {
+        "path": "work/fish-jaw-rollout-20261115/blacktip-shape-review/fao-ad123e28.pdf",
+        "sha256": "548061152d8954977ebdc9e49428ceb115951a84c54c6185ddc83c38ca7b3fa9",
+        "bytes": 840405
+      }
+    },
+    {
+      "url": "https://www.floridamuseum.ufl.edu/discover-fish/species-profiles/blacktip-reef-shark/",
+      "role": "同种博物馆说明与实拍；短钝吻、第一背鳍/胸鳍关系；照片透视限制",
+      "photos": [
+        {
+          "url": "https://www.floridamuseum.ufl.edu/wp-content/uploads/sites/66/2017/05/Carcharhinus-melanopterus-01.jpg",
+          "asset": {
+            "path": "work/fish-jaw-rollout-20261115/blacktip-shape-review/museum-photo-01.jpg",
+            "sha256": "8f7b93b8cad858d718b7f34c56154a374165daecd3f129c85ffbd1a3c0fa9d7c",
+            "bytes": 52317
+          },
+          "credit": "Pasquale Pascullo",
+          "rights": "Copyrighted photograph; research comparison only, not production texture"
+        },
+        {
+          "url": "https://www.floridamuseum.ufl.edu/wp-content/uploads/sites/66/2017/05/Carcharhinus-melanopterus-03.jpg",
+          "asset": {
+            "path": "work/fish-jaw-rollout-20261115/blacktip-shape-review/museum-photo-03.jpg",
+            "sha256": "d04720947d616a305b06996bf199a56fe4495c1433b48d5fcc793daae7417189",
+            "bytes": 107930
+          },
+          "credit": "Pasquale Pascullo",
+          "rights": "Copyrighted photograph; research comparison only, not production texture"
+        }
+      ]
+    },
+    {
+      "url": "https://australian.museum/learn/animals/fishes/blacktip-reef-shark-carcharhinus-melanopterus-quoy-gaimard-1824/",
+      "role": "文字补证黑尖分布；图片请求403，不计作实际看图"
+    }
+  ],
+  "local_game_reference": "resources/fish-database/references/fishing-master-cdn-cnformal1-20261102-blacktipshark.json",
+  "findings": [
+    {
+      "part": "caudal_lower_lobe",
+      "result": "needs_repair",
+      "observation": "当前灰模下尾叶狭窄、尖直，后缘到尾叉呈直线式折转。FAO同种图谱下叶根部更饱满、后缘更有弧度。本地游戏原网格也较饱满，但材质alpha未还原，仅辅助。",
+      "constraint": "保留异尾上下不等长，恢复下叶面积和连续弧线；不能直接把尾尖磨圆或整体等比放大。"
+    },
+    {
+      "part": "caudal_upper_lobe",
+      "result": "needs_repair",
+      "observation": "当前上叶内缘长而直，尖前凹口呈短硬折，端叶过薄。FAO图谱可辨凹口和其后的端叶。凹口本身是结构，不应当锯齿全部抹掉。",
+      "constraint": "按尾柄、上叶根、凹口、端叶四处分别确定连续轮廓；保留凹口。"
+    },
+    {
+      "part": "peduncle_transition",
+      "result": "needs_review",
+      "observation": "当前俯视与侧视尾根可见接环/折阶，库模型更连续。灰模显示应继续核对截面和法线，不能仅根据接缝阴影断言物理裂缝。",
+      "constraint": "修尾时联合尾柄末段与鳍根，不做独立尾片硬接；完整根带与动作复验。"
+    },
+    {
+      "part": "body_head",
+      "result": "not_verified",
+      "observation": "当前侧视中腹饱满、腹线鼓起，库模型也有腹部体积；相对FAO图谱我们的背腹轮廓更凸。俯视保有短宽圆吻，不能笼统判整头错误。实拍存在转身透视，体高体宽准确偏差未知。",
+      "constraint": "同种实拍和图谱指导裸身体吻/鳃/腹/尾柄站点复核，不按库模型整体压瘦或改头。"
+    },
+    {
+      "part": "source_chain",
+      "result": "confirmed",
+      "observation": "当前正式模型、新意向图及早期040原画尾轮廓都有相似倾向；当前下叶比原画更窄尖。新意向继承几何问题，单换材质不足以解决。",
+      "constraint": "当前黑鳍意向暂停烘焙，形态校正先行。"
+    }
+  ],
+  "limits": [
+    "同种图谱/实拍用于定性校核，不是150cm个体生物实测",
+    "库BlacktipShark具体种及材质alpha未核准",
+    "没有下载新的第三方模型，没有修模或安装"
+  ],
+  "new_library_check": {
+    "report": {
+      "path": "work/fish-jaw-rollout-20261115/blacktip-shape-review/new-library-sharks.json",
+      "sha256": "f205604ef6184dd9c1c7d4e4ecab1b49b55a9b87832ed2ab91a9a505fa623fba"
+    },
+    "grid": {
+      "path": "work/fish-jaw-rollout-20261115/blacktip-shape-review/new-library-sharks.jpg",
+      "sha256": "fc81909ae19bdf5ad789f66e378dc58fea3edc4963ab42f46ad607c96cf1ed0a"
+    },
+    "unique_shark_labelled_geometry": 8,
+    "confirmed_same_species": 0,
+    "scope": "Existing APK assets only: Hookem 7, Fishing2 1. Labels include fantasy fish and ray-like forms; not 8 proven biological shark species."
+  },
+  "user_acceptance": true,
+  "current_release": {
+    "path": "resources/volume-fish/blacktip-feeding-20261115/release.json",
+    "sha256": "098407b48cba0e8e75b3673855dc4d434e6e6313b0c4ca4c72ecedbe68f78357",
+    "bytes": 16277
+  },
+  "current_model": {
+    "path": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark.glb",
+    "sha256": "3a9256652859a2ec468c95b197b94c49fd0c866f890a6fb08414b0469d5bc8e7",
+    "bytes": 2001384
+  },
+  "feeding_reference": {
+    "feeding_controller": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/FeedingMotion.gd",
+      "sha256": "c06b3245adc92a439f3b7bd829ee9960476ac1681fb0cc152877dc839a0eeee2",
+      "bytes": 4163
+    },
+    "feeding_config": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/motion.json",
+      "sha256": "09cf06f42a278be30ce5bf66670b54405c456cf4d4003a5c290484cd79927079",
+      "bytes": 3019
+    },
+    "base_controller": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/FoundryFishMotion.gd",
+      "sha256": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+      "bytes": 22917
+    },
+    "swim_profile": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/swim-profile.json",
+      "sha256": "a9008ea8c4f7a41d919f9e9603cc709a7246c6df93152986d95e16ec4fd56eea",
+      "bytes": 2150
+    },
+    "replay_entry": {
+      "path": "projects/fishing-2d/plans/reviews/blacktip-feeding-20261115/capture_feeding.gd",
+      "sha256": "7a7f8f8700e513098c441d53487d85f6be5ec568860a76559915099dd4936adb",
+      "bytes": 8571
+    },
+    "gameplay_scope": "Canonical model and lip recipe installed. Feeding is explicit replay/reference; ordinary exhibit/fishing four-action controller retained. No automatic feeding trigger or other-shark rollout."
+  },
+  "feeding_sources": {
+    "path": "resources/volume-fish/blacktip-feeding-20261115/research.json",
+    "sha256": "a00768d5b3c9fea6dda5f1bb52a8d0fa59d61fdc38c8ce6a0972048b6760b581",
+    "bytes": 19689
+  },
+  "method": "resources/skills/fish-volume-production/references/shark-feeding-reference-20261115.md",
+  "search_keywords": [
+    "黑鳍礁鲨",
+    "鲨鱼捕食",
+    "可动下颌",
+    "上颌前伸",
+    "口腔挡墙",
+    "头躯干尾部联动",
+    "猎物弯曲",
+    "60fps",
+    "半速",
+    "Carcharhinus melanopterus",
+    "Negaprion acutidens",
+    "Maneater"
+  ],
+  "historical_failures": [
+    "R1口内入口挡墙",
+    "R2上下颌同幅平移、前进逐关键点停顿",
+    "R3/R4独立游动上叠加头部正弦、猎物横杆",
+    "初次077一片口内自定义法线反向；当前已修复"
+  ],
+  "reuse_limits": [
+    "Full anatomical/source/style SOP fields remain pending; do not call all9stages complete.",
+    "No tearing/swallowing or prey physics; ends carrying food.",
+    "Angles/timings are authored, not calibrated species measurements;9teeth are visual cues.",
+    "New-style texture baking remains separate; existing texture retained.",
+    "Other shark species need their own jaw/axis/proportions/motion and complete-root validation."
+  ]
+}

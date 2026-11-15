@@ -196,3 +196,12 @@ resources/fish-database/references/recovered-history-20261108/**/*.glb filter=lf
 /resources/volume-fish/clean-pixel-piranha-20261111/**/*.json -text whitespace=cr-at-eol
 /resources/volume-fish/clean-pixel-yellow-croaker-20261111/**/*.json -text whitespace=cr-at-eol
 /resources/volume-fish/clean-pixel-pair-20261111/**/*.json -text whitespace=cr-at-eol
+
+# Accepted blacktip feeding evidence: byte-bound records and media.
+/resources/volume-fish/blacktip-feeding-20261115/** -text whitespace=cr-at-eol
+/resources/volume-fish/blacktip-feeding-20261115/**/*.jpg filter=lfs diff=lfs merge=lfs -text
+/resources/volume-fish/blacktip-feeding-20261115/**/*.mp4 filter=lfs diff=lfs merge=lfs -text
+/resources/scripts/volume-fish/blacktip-feeding-20261115/** -text whitespace=cr-at-eol
+/resources/fish-database/references/blacktip-reef-shark-shape-review-20261115.json -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/blacktip-feeding-20261115/*.py whitespace=cr-at-eol,-blank-at-eof
+/resources/scripts/volume-fish/blacktip-feeding-20261115/*.gd whitespace=cr-at-eol,-blank-at-eof
