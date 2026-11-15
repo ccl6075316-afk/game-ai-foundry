@@ -40,3 +40,7 @@ progress.json
 
 # Versioned fish reference inputs and durable status override generic media/status ignores.
 !/resources/fish-database/**
+
+# Database evidence is versioned; generated Python caches are not.
+/resources/fish-database/**/__pycache__/
+/resources/fish-database/**/*.pyc

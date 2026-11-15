@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "id": "national-fishing-2-2-6-7-20261114",
+  "title": "全民钓鱼2：Android 2.6.7",
+  "source_kind": "game_resource",
+  "retrieved_on": "2026-11-14",
+  "origin": {
+    "urls": [
+      "https://www.taptap.cn/app/182581",
+      "https://api.ddooo.com/down/224106"
+    ],
+    "publisher": "嘉丰永道（北京）科技股份有限公司",
+    "channel": "多多软件站；MD5 与 TapTap 和好游快爆一致"
+  },
+  "version": {
+    "store_version": "2.6.7",
+    "version_code": 1027,
+    "version_origin": "AndroidManifest.xml read with aapt",
+    "package_name": "com.jfyd.fish"
+  },
+  "artifact_ids": [
+    "national-fishing-2-2-6-7-20261114:apk"
+  ],
+  "evidence_paths": [
+    "evidence/fishing-model-comparison-20261114/report.md",
+    "evidence/fishing-model-comparison-20261114/audit.json",
+    "evidence/fishing-model-comparison-20261114/validation-report.json"
+  ],
+  "related_artifact_ids": [
+    "hookem-fishing-xiaomi-4-3-20261114:comparison-textured",
+    "hookem-fishing-xiaomi-4-3-20261114:comparison-wireframe",
+    "hookem-fishing-xiaomi-4-3-20261114:comparison-gameplay"
+  ],
+  "package_sha256": "3a95bb765bde9ea81d6dc355591a4cf86e9bf10133d2b5bc00f2f44ae95aac61",
+  "package_bytes": 180581044,
+  "usage": {
+    "reference_purpose": "本地鱼种、嘴部结构与美术表达对照，三角面数作为旁证",
+    "rights_holder": "嘉丰永道（北京）科技股份有限公司",
+    "redistribution_license": null,
+    "production_asset_reuse_authorization": null
+  },
+  "unknowns": [
+    "Biological identity of named variants and unnamed entries is unverified",
+    "Live or remote content, runtime LOD, custom shaders and animation quality not verified",
+    "Source permission for redistribution or use as production game assets not established"
+  ]
+}

@@ -1612,5 +1612,14 @@
     "new_remote_model_records": 3223,
     "model_files_acquired": 0,
     "report": "evidence/aquatic-3d-sources-20261111/validation-report.json"
+  },
+  "game_model_comparison_20261114": {
+    "checked_on": "2026-11-14",
+    "scope": "Additive local APK and indexed model reference checks.",
+    "new_source_count": 2,
+    "new_model_records": 408,
+    "new_artifact_count": 5,
+    "new_artifact_bytes": 476514703,
+    "report": "evidence/fishing-model-comparison-20261114/validation-report.json"
   }
 }

@@ -34,6 +34,14 @@
     {
       "id": "fishsim-20261111",
       "path": "sources/fishsim-20261111/source.json"
+    },
+    {
+      "id": "hookem-fishing-xiaomi-4-3-20261114",
+      "path": "sources/hookem-fishing-xiaomi-4-3-20261114/source.json"
+    },
+    {
+      "id": "national-fishing-2-2-6-7-20261114",
+      "path": "sources/national-fishing-2-2-6-7-20261114/source.json"
     }
   ],
   "catalogs": [
@@ -68,6 +76,20 @@
       "path": "catalogs/aquatic-3d-sources-20261111/life-models.jsonl",
       "record_count": 168,
       "count_unit": "remote model metadata IDs, including nonfish/variants; zero model files acquired"
+    },
+    {
+      "source_id": "hookem-fishing-xiaomi-4-3-20261114",
+      "path": "catalogs/hookem-fishing-xiaomi-4-3-20261114/entries.jsonl",
+      "record_count": 239,
+      "count_unit": "Local APK bundle/prefab entries including variants",
+      "view": "catalogs/hookem-fishing-xiaomi-4-3-20261114/models.csv"
+    },
+    {
+      "source_id": "national-fishing-2-2-6-7-20261114",
+      "path": "catalogs/national-fishing-2-2-6-7-20261114/entries.jsonl",
+      "record_count": 169,
+      "count_unit": "Local APK bundle/prefab entries including variants",
+      "view": "catalogs/national-fishing-2-2-6-7-20261114/models.csv"
     }
   ],
   "references": [
@@ -1430,5 +1452,15 @@
     "validation_report": "evidence/aquatic-3d-sources-20261111/validation-report.json",
     "local_search_script": "resources/scripts/fish-database/search_remote.py (relative to Foundry root)",
     "model_files_acquired": 0
+  },
+  "game_model_comparison_20261114": {
+    "source_ids": [
+      "hookem-fishing-xiaomi-4-3-20261114",
+      "national-fishing-2-2-6-7-20261114"
+    ],
+    "view": "evidence/fishing-model-comparison-20261114/report.md",
+    "audit": "evidence/fishing-model-comparison-20261114/audit.json",
+    "validation_report": "evidence/fishing-model-comparison-20261114/validation-report.json",
+    "priority": "mouth shape and contour first; project display-length budgets still apply"
   }
 }

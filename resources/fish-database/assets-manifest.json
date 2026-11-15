@@ -23033,6 +23033,88 @@
         "sha256_verified": true,
         "source_byte_identity_verified": true
       }
+    },
+    {
+      "id": "hookem-fishing-xiaomi-4-3-20261114:apk",
+      "source_id": "hookem-fishing-xiaomi-4-3-20261114",
+      "path": "artifacts/hookem-fishing-xiaomi-4-3-20261114/hookem-xiaomi-4.3.apk",
+      "kind": "original_package",
+      "acquisition": "downloaded",
+      "sha256": "9f06f7d6ae11f583e4f5fa253f650243236ab5e545daaebd262d0e8a2a154ef0",
+      "bytes": 294932692,
+      "origin_url": "https://t1.g.mi.com/download/AppStore/00d13daaec6d44bc9883bd0d6b83a9be01ea17b1c/com.zongyi.dydryx.mi.apk",
+      "verification": {
+        "sha256_verified": true,
+        "all_zip_entries_crc_verified": true,
+        "apk_signature_verified": true
+      }
+    },
+    {
+      "id": "national-fishing-2-2-6-7-20261114:apk",
+      "source_id": "national-fishing-2-2-6-7-20261114",
+      "path": "artifacts/national-fishing-2-2-6-7-20261114/national-fishing-2-2.6.7.apk",
+      "kind": "original_package",
+      "acquisition": "downloaded",
+      "sha256": "3a95bb765bde9ea81d6dc355591a4cf86e9bf10133d2b5bc00f2f44ae95aac61",
+      "bytes": 180581044,
+      "origin_url": "https://api.ddooo.com/down/224106",
+      "verification": {
+        "sha256_verified": true,
+        "all_zip_entries_crc_verified": true,
+        "apk_signature_verified": true,
+        "channel_md5_verified": true
+      }
+    },
+    {
+      "id": "hookem-fishing-xiaomi-4-3-20261114:comparison-textured",
+      "source_id": "hookem-fishing-xiaomi-4-3-20261114",
+      "path": "artifacts/hookem-fishing-xiaomi-4-3-20261114/comparison/textured.jpg",
+      "kind": "derived_preview",
+      "sha256": "9a4ce0253037eb631a428e52452210005b1094059d72bca93eab287ee6f4334f",
+      "bytes": 403955,
+      "related_source_ids": [
+        "hookem-fishing-xiaomi-4-3-20261114",
+        "national-fishing-2-2-6-7-20261114",
+        "fishing-master-cdn-cnformal1-20261102"
+      ],
+      "verification": {
+        "sha256_verified": true,
+        "source_byte_identity_verified": true
+      }
+    },
+    {
+      "id": "hookem-fishing-xiaomi-4-3-20261114:comparison-wireframe",
+      "source_id": "hookem-fishing-xiaomi-4-3-20261114",
+      "path": "artifacts/hookem-fishing-xiaomi-4-3-20261114/comparison/wireframe.jpg",
+      "kind": "derived_preview",
+      "sha256": "9408086197f4dba388c7d794eab4702f2b1ff42390f80aaf84efaa2d29724702",
+      "bytes": 408191,
+      "related_source_ids": [
+        "hookem-fishing-xiaomi-4-3-20261114",
+        "national-fishing-2-2-6-7-20261114",
+        "fishing-master-cdn-cnformal1-20261102"
+      ],
+      "verification": {
+        "sha256_verified": true,
+        "source_byte_identity_verified": true
+      }
+    },
+    {
+      "id": "hookem-fishing-xiaomi-4-3-20261114:comparison-gameplay",
+      "source_id": "hookem-fishing-xiaomi-4-3-20261114",
+      "path": "artifacts/hookem-fishing-xiaomi-4-3-20261114/comparison/gameplay.jpg",
+      "kind": "derived_preview",
+      "sha256": "6f18980c84bfd951b40e4ec15063d08fb1000a562165fb7fdaf4b89bce94fcb3",
+      "bytes": 188821,
+      "related_source_ids": [
+        "hookem-fishing-xiaomi-4-3-20261114",
+        "national-fishing-2-2-6-7-20261114",
+        "fishing-master-cdn-cnformal1-20261102"
+      ],
+      "verification": {
+        "sha256_verified": true,
+        "source_byte_identity_verified": true
+      }
     }
   ]
 }

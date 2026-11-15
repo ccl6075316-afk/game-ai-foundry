@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "hookem-fishing-xiaomi-4-3-20261114",
+  "title": "钓鱼达人：Android 4.3",
+  "source_kind": "game_resource",
+  "retrieved_on": "2026-11-14",
+  "origin": {
+    "urls": [
+      "https://game.xiaomi.com/game/62380179",
+      "https://t1.g.mi.com/download/AppStore/00d13daaec6d44bc9883bd0d6b83a9be01ea17b1c/com.zongyi.dydryx.mi.apk",
+      "https://www.taptap.cn/app/131427"
+    ],
+    "publisher": "沈阳纵艺科技有限公司",
+    "channel": "小米游戏中心"
+  },
+  "version": {
+    "store_version": "4.3",
+    "version_code": 43,
+    "version_origin": "AndroidManifest.xml read with aapt",
+    "package_name": "com.zongyi.dydryx.mi"
+  },
+  "artifact_ids": [
+    "hookem-fishing-xiaomi-4-3-20261114:apk",
+    "hookem-fishing-xiaomi-4-3-20261114:comparison-textured",
+    "hookem-fishing-xiaomi-4-3-20261114:comparison-wireframe",
+    "hookem-fishing-xiaomi-4-3-20261114:comparison-gameplay"
+  ],
+  "evidence_paths": [
+    "evidence/fishing-model-comparison-20261114/report.md",
+    "evidence/fishing-model-comparison-20261114/audit.json",
+    "evidence/fishing-model-comparison-20261114/validation-report.json"
+  ],
+  "related_artifact_ids": [
+    "hookem-fishing-xiaomi-4-3-20261114:comparison-textured",
+    "hookem-fishing-xiaomi-4-3-20261114:comparison-wireframe",
+    "hookem-fishing-xiaomi-4-3-20261114:comparison-gameplay"
+  ],
+  "package_sha256": "9f06f7d6ae11f583e4f5fa253f650243236ab5e545daaebd262d0e8a2a154ef0",
+  "package_bytes": 294932692,
+  "usage": {
+    "reference_purpose": "本地鱼种、嘴部结构与美术表达对照，三角面数作为旁证",
+    "rights_holder": "沈阳纵艺科技有限公司",
+    "redistribution_license": null,
+    "production_asset_reuse_authorization": null
+  },
+  "unknowns": [
+    "Biological identity of named variants and unnamed entries is unverified",
+    "Live or remote content, runtime LOD, custom shaders and animation quality not verified",
+    "Source permission for redistribution or use as production game assets not established"
+  ]
+}

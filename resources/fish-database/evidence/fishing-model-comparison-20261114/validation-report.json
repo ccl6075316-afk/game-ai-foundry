@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "ok": true,
+  "status": "done",
+  "next_action": "none",
+  "checked_on": "2026-11-14",
+  "scope": "Local game reference source and catalog registration. Species, runtime and production acceptance pending.",
+  "sources": {
+    "hookem-fishing-xiaomi-4-3-20261114": {
+      "prefabs": 239,
+      "distinct_geometry_signatures": 89,
+      "chinese_search_names": 110,
+      "resolved_bundle_hashes": 13,
+      "package_sha256": "9f06f7d6ae11f583e4f5fa253f650243236ab5e545daaebd262d0e8a2a154ef0",
+      "catalog_sha256": "50c0bec44fdbf5d4f8ec9463877c8d6c58ce7f3656f3a9285b7a0cd119538aec"
+    },
+    "national-fishing-2-2-6-7-20261114": {
+      "prefabs": 169,
+      "distinct_geometry_signatures": 81,
+      "chinese_search_names": 13,
+      "resolved_bundle_hashes": 169,
+      "package_sha256": "3a95bb765bde9ea81d6dc355591a4cf86e9bf10133d2b5bc00f2f44ae95aac61",
+      "catalog_sha256": "00b8c980f8cd3a7b42e1d076efe30aa7e45202a57377c9d45819c5fb026a9973"
+    }
+  },
+  "checks": [
+    "APK SHA256/size rechecked after relocation",
+    "Source schemas and new IDs validated",
+    "All catalog bundle hashes and exact prefab container paths verified",
+    "All stored renderer and mesh PathIDs resolved in retained APKs",
+    "All new binary artifacts use LFS and no text normalization",
+    "Rebuilt the audit and both static comparison images byte-for-byte from the registered APKs and local references"
+  ],
+  "retained_artifact_count": 5,
+  "retained_artifact_bytes": 476514703,
+  "cleanup": {
+    "removed_files": 873,
+    "removed_empty_directories": 94,
+    "removed_bytes": 42838949,
+    "scope": "Temporary parsing dependencies, bytecode cache, registration script and duplicate regeneration outputs"
+  },
+  "failures": [],
+  "submission_review_20261116": {
+    "status": "passed",
+    "scope": "Existing local reference package and knowledge retention; no production model changes",
+    "checks": [
+      "5 retained binary artifacts match recorded SHA256 and byte counts",
+      "Both APK archives pass full ZIP CRC check",
+      "408 catalog records parse, catalog hashes and CSV counts match",
+      "All indexed APK bundle SHA256 values match",
+      "New JSON parses and retained Python methods pass syntax parsing",
+      "Binary artifacts have LFS filter and text normalization disabled"
+    ],
+    "retained_artifact_bytes": 476514703,
+    "cleanup": {
+      "deleted_files": 3,
+      "deleted_bytes": 44459,
+      "paths": [
+        "resources/fish-database/evidence/fishing-master-cdn-cnformal1-20261102/collection-scripts/__pycache__/decode_compressed_skin.cpython-314.pyc",
+        "resources/fish-database/evidence/fishing-model-comparison-20261114/methods/__pycache__/audit.cpython-314.pyc",
+        "resources/fish-database/evidence/fishing-model-comparison-20261114/methods/__pycache__/compare.cpython-314.pyc"
+      ],
+      "initial_attempt": "Inline recursive deletion rejected before execution: blocked by policy; precise reason unknown.",
+      "resolution": "Used existing reviewed-cache executor with hash-bound manifest, Git ignored/untracked checks, path/link and active-project protection; dry run passed; individual file deletion and empty-directory removal passed.",
+      "executor": "resources/scripts/maintenance/clear_reviewed_caches.ps1",
+      "executor_sha256": "1684ce170c45605ae3bd17d250b44ddff125c37662719d0fb1762ca7eaba9004"
+    }
+  }
+}

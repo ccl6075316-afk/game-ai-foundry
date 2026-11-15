@@ -210,3 +210,8 @@ resources/fish-database/references/recovered-history-20261108/**/*.glb filter=lf
 /resources/volume-fish/great-hammerhead-feeding-20261116/** -text whitespace=cr-at-eol,-blank-at-eof
 /resources/volume-fish/great-hammerhead-feeding-20261116/**/*.png filter=lfs diff=lfs merge=lfs -text
 /resources/fish-database/references/great-hammerhead-feeding-review-20261116.json -text whitespace=cr-at-eol
+
+# Preserve the registered catalog and reproducible audit byte hashes.
+/resources/fish-database/catalogs/hookem-fishing-xiaomi-4-3-20261114/** -text whitespace=cr-at-eol
+/resources/fish-database/catalogs/national-fishing-2-2-6-7-20261114/** -text whitespace=cr-at-eol
+/resources/fish-database/evidence/fishing-model-comparison-20261114/audit.json -text whitespace=cr-at-eol
