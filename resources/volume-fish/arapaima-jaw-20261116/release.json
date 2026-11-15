@@ -1,0 +1,124 @@
+{
+  "kind": "accepted_arapaima_jaw_release",
+  "species": "arapaima",
+  "accepted": "2026-11-16",
+  "user_acceptance": "行，这个没问题，清绿本地提交吧。",
+  "source_sha256": "67eb27a3ddf529e82a50420f0102fb14da44f5a81c95fea9045e084e52e65611",
+  "model_sha256": "14ebf18dfa7c06518cc59ea4b952a90a5c8d9f66c7b1db9e05b02a691712b9a0",
+  "triangles": 3972,
+  "bones": 33,
+  "fins": 7,
+  "jaw": {
+    "maximum_degrees": 14,
+    "rest_amount": 0,
+    "rest_slightly_open": true,
+    "automatic_breathing_added": false,
+    "action_seconds": 2.4
+  },
+  "default_scope": "Static geometry, material, UV, skin and skeleton frozen; explicit user request required to reopen. Normal runtime motion retained.",
+  "handoff": "plans/reviews/arapaima-jaw-20261116/HANDOFF.md",
+  "model": {
+    "path": "projects/fishing-2d/game/assets/models/fish/arapaima.glb",
+    "sha256": "14ebf18dfa7c06518cc59ea4b952a90a5c8d9f66c7b1db9e05b02a691712b9a0"
+  },
+  "source": {
+    "path": "projects/fishing-2d/assets/source/fish/arapaima/fish.blend",
+    "sha256": "67eb27a3ddf529e82a50420f0102fb14da44f5a81c95fea9045e084e52e65611"
+  },
+  "runtime": {
+    "path": "projects/fishing-2d/game/scripts/aquarium/ArapaimaMouthAction.gd",
+    "sha256": "5b1f5226ba81a9f9d4727fdfac36ac2cd0a5a6f9f92317c5e8eccd03155e755d"
+  },
+  "static_freeze": {
+    "path": "projects/fishing-2d/assets/source/fish/arapaima/frozen-static.json",
+    "sha256": "2a4b9960223545414c2c5cea70eaffa283aedaaf8a4271a6f46fb91d582aed3d"
+  },
+  "hook": {
+    "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/arapaima-mouth-anchor.json",
+    "sha256": "51be7dad3169628135db09150243d7cdf3de89180de33bbc376d9c7bed9b97dd"
+  },
+  "acceptance_scope": "Commit and push after local cleanup.",
+  "motion_verifier": {
+    "path": "resources/volume-fish/arapaima-jaw-20261116/verify_action.gd",
+    "sha256": "39889197f6e023f2e6065058fcb048a3fd8519789d6ffdaa1cd84bb2e7616d63"
+  },
+  "verification": {
+    "action-swim-parity.validation": {
+      "path": "projects/fishing-2d/plans/reviews/arapaima-jaw-20261116/action-swim-parity.validation.json",
+      "sha256": "ea8ca0e2a6105d366fd1ae88b469f2688fad90c20a710cf3840c4f8ca58bf8bc"
+    },
+    "authoring.validation": {
+      "path": "projects/fishing-2d/plans/reviews/arapaima-jaw-20261116/authoring.validation.json",
+      "sha256": "daa89fafb7b266473900a5a9650cd5ca1d406350681ca3488d37cd0a11c8e926"
+    },
+    "body077.validation": {
+      "path": "projects/fishing-2d/plans/reviews/arapaima-jaw-20261116/body077.validation.json",
+      "sha256": "61a4e25dd48c95a0c1827da3e05c8ff2fce45202bfe46e2c7d57784e043401fd"
+    },
+    "canonical-motion.validation": {
+      "path": "projects/fishing-2d/plans/reviews/arapaima-jaw-20261116/canonical-motion.validation.json",
+      "sha256": "cfe23554d408c900684534b1cc0da0c4a2aa6aa142619922b3e3d1bfe0bd550c"
+    },
+    "fin-gates.validation": {
+      "path": "projects/fishing-2d/plans/reviews/arapaima-jaw-20261116/fin-gates.validation.json",
+      "sha256": "88e3f420743f1abc68bfb21d83513ae85ac0111ceeb095d551ab647778f6024b"
+    },
+    "final-asset-cold-load.validation": {
+      "path": "projects/fishing-2d/plans/reviews/arapaima-jaw-20261116/final-asset-cold-load.validation.json",
+      "sha256": "146453fd9b535404ab3805b9a9c0b9731cf8d4115c5573dd0976da612d522345"
+    },
+    "fishing-entry.validation": {
+      "path": "projects/fishing-2d/plans/reviews/arapaima-jaw-20261116/fishing-entry.validation.json",
+      "sha256": "7f82149083e1d4458b2693bb05468528944c53ca69b9aa2237233041fb0b30db"
+    },
+    "installation.validation": {
+      "path": "projects/fishing-2d/plans/reviews/arapaima-jaw-20261116/installation.validation.json",
+      "sha256": "137f2c71bf0414ea7cc92b90fcce20af3037dcfac65ea1dedc276b866d17a5e9"
+    },
+    "installed-views.validation": {
+      "path": "projects/fishing-2d/plans/reviews/arapaima-jaw-20261116/installed-views.validation.json",
+      "sha256": "b8be6897baa95e7e8216fc08fafb2664081a69eed8cc047ba2eb6dec7e9e2952"
+    },
+    "jaw-button.validation": {
+      "path": "projects/fishing-2d/plans/reviews/arapaima-jaw-20261116/jaw-button.validation.json",
+      "sha256": "35bbd7110422085dac79e64c0a50b1593a7a7f77076b38a82956c8dc55a960c8"
+    },
+    "mouth-poses.validation": {
+      "path": "projects/fishing-2d/plans/reviews/arapaima-jaw-20261116/mouth-poses.validation.json",
+      "sha256": "4befcd67356e4217604452d0b2568987e75fad0a21e045a76852184555d0e7a0"
+    },
+    "preservation.validation": {
+      "path": "projects/fishing-2d/plans/reviews/arapaima-jaw-20261116/preservation.validation.json",
+      "sha256": "4c44760f5d5cdba1a7f6048ff1235a69bb4d3754091d18c80eb4731104188af2"
+    },
+    "source-cold-export.validation": {
+      "path": "projects/fishing-2d/plans/reviews/arapaima-jaw-20261116/source-cold-export.validation.json",
+      "sha256": "a62758e547d999f6e767d88ef0aaf419ce0816ce954611b99a327001d43d8001"
+    },
+    "sop_runtime": {
+      "path": "projects/fishing-2d/plans/reviews/arapaima-jaw-20261116/sop-check.json",
+      "sha256": "cf792231f34ff1178fc5e7e1b2724994e1093748de18765c6555447fe4da0a7e"
+    },
+    "sop_review": {
+      "path": "projects/fishing-2d/plans/reviews/arapaima-jaw-20261116/production-review.json",
+      "sha256": "0d3bc85e129d8614fa75b5550f8b1d01462f08c6a409e41b249ebb74b9d8bb6c"
+    }
+  },
+  "game_handoff": {
+    "path": "projects/fishing-2d/plans/reviews/arapaima-jaw-20261116/HANDOFF.md",
+    "sha256": "546218f59b0ec04c3ca7ecabbc406b05605d5ffeb1df7f07940299b95c77da2a"
+  },
+  "local_install_cleanup": {
+    "removed_files": 38,
+    "bytes_released": 12639687
+  },
+  "previous_preview_cleanup": {
+    "removed_files": 1177,
+    "bytes_released": 1266931202
+  },
+  "game_commit": "f9321be69e26c726cbc71b00a249960e393fa9a5",
+  "acceptance_scope_confirmation": {
+    "user_confirmed_push": true,
+    "additional_capture_cleanup": 8
+  }
+}
