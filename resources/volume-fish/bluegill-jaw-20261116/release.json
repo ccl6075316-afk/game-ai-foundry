@@ -1,0 +1,138 @@
+{
+  "kind": "accepted_bluegill_jaw_release",
+  "species": "bluegill",
+  "accepted": "2026-11-16",
+  "user_acceptance": "没问题了 提交吧",
+  "model_sha256": "d74d684490d925abb8f1bc98f798e34ca3dc0dd04ec3c2495140d69e438a12f1",
+  "source_sha256": "537cff031972dbfa37db919333ed57f353854b3371c9f00ef342a5ebec366796",
+  "handoff": "plans/reviews/bluegill-jaw-20261116/HANDOFF.md",
+  "model": {
+    "path": "projects/fishing-2d/game/assets/models/fish/bluegill.glb",
+    "sha256": "d74d684490d925abb8f1bc98f798e34ca3dc0dd04ec3c2495140d69e438a12f1"
+  },
+  "source": {
+    "path": "projects/fishing-2d/assets/source/fish/bluegill/fish.blend",
+    "sha256": "537cff031972dbfa37db919333ed57f353854b3371c9f00ef342a5ebec366796"
+  },
+  "static_freeze": {
+    "path": "projects/fishing-2d/assets/source/fish/bluegill/frozen-static.json",
+    "sha256": "f9dcb44dc360b70f0d64ac8a276b0a9f20630940943c13d29a9358d7f54b0d7c"
+  },
+  "runtime": {
+    "path": "projects/fishing-2d/game/scripts/aquarium/FishJawActionMotion.gd",
+    "sha256": "311c89389cf95aa898f930f0180688939d54d1f4e84d49ba01edcff42e4c348c"
+  },
+  "hook": {
+    "path": "projects/fishing-2d/game/assets/models/fish/motion/width20261101/bluegill-mouth-anchor.json",
+    "sha256": "6c7f6a9fefb50a1440d1ac669015f1fa32ebc658bfa2cde536fb61d799d53587"
+  },
+  "accepted_review_model_sha256": "0b749851e3e5a6d171fd3280f6c60f909cb3f76944c018220fa4a00212d690be",
+  "triangles": 1520,
+  "bones": 19,
+  "fins": 7,
+  "jaw_maximum_degrees": 8,
+  "jaw_action_seconds": 2.4,
+  "rest_slightly_open": true,
+  "painted_oral_texels": 19529,
+  "verification": {
+    "body077.validation": {
+      "path": "projects/fishing-2d/plans/reviews/bluegill-jaw-20261116/body077.validation.json",
+      "sha256": "7dda39ab67679260c6714bb3563832f869d37b26b3ebb181294c462462dc8cfd"
+    },
+    "canonical-load.validation": {
+      "path": "projects/fishing-2d/plans/reviews/bluegill-jaw-20261116/canonical-load.validation.json",
+      "sha256": "029c4acba8fecba7dee8bb337d7ab80e279dcf15c46d123657c662f5142b5170"
+    },
+    "corner-correction.validation": {
+      "path": "projects/fishing-2d/plans/reviews/bluegill-jaw-20261116/corner-correction.validation.json",
+      "sha256": "93d6cf8a4b27c9f769ec45abaa03022f499dc910aa177aa17c38fa0000f41e50"
+    },
+    "fin-gates.validation": {
+      "path": "projects/fishing-2d/plans/reviews/bluegill-jaw-20261116/fin-gates.validation.json",
+      "sha256": "14edd01da585ed59dda355d4de06125d7007f25cf065009520a8ab9a6f09ac4b"
+    },
+    "final-asset-cold-load.validation": {
+      "path": "projects/fishing-2d/plans/reviews/bluegill-jaw-20261116/final-asset-cold-load.validation.json",
+      "sha256": "d4eeef7b66ef2eec6830c62522a23299f64a7255d289a3d0b07d982618ab8ec9"
+    },
+    "fishing-entry.validation": {
+      "path": "projects/fishing-2d/plans/reviews/bluegill-jaw-20261116/fishing-entry.validation.json",
+      "sha256": "d12c4ddd1a7b3351cb8f3a02bd2ded8859f34e8e86ca56fd5aa93062606bdc3d"
+    },
+    "installed-views.validation": {
+      "path": "projects/fishing-2d/plans/reviews/bluegill-jaw-20261116/installed-views.validation.json",
+      "sha256": "a82ab313a7285cba4e6c0b929a57cb9debba723105afc88b0790c7723c8f5af0"
+    },
+    "jaw-action.validation": {
+      "path": "projects/fishing-2d/plans/reviews/bluegill-jaw-20261116/jaw-action.validation.json",
+      "sha256": "220170d11da370e41d9ae2d9466a9c7ca75a47ddcc6a310075137cfde84a6748"
+    },
+    "jaw-poses.validation": {
+      "path": "projects/fishing-2d/plans/reviews/bluegill-jaw-20261116/jaw-poses.validation.json",
+      "sha256": "db539e0b152bb411fea8b9f80c4dec063898399e0a2f83930452d0a70eb8f720"
+    },
+    "jaw-swim-poses.validation": {
+      "path": "projects/fishing-2d/plans/reviews/bluegill-jaw-20261116/jaw-swim-poses.validation.json",
+      "sha256": "07e3c23fc2e0a69766ff7eb9e106c9887212a48102ed20b9ca8ebaf27e552388"
+    },
+    "oral-color.validation": {
+      "path": "projects/fishing-2d/plans/reviews/bluegill-jaw-20261116/oral-color.validation.json",
+      "sha256": "790166cb7b67fa370e7f3c49e4c482ee1aac85b10fe8f5fb0076da0b2c4b0d62"
+    },
+    "source-cold-export.validation": {
+      "path": "projects/fishing-2d/plans/reviews/bluegill-jaw-20261116/source-cold-export.validation.json",
+      "sha256": "805b27675c54966b75045d6280340275d0a01545b41c8fff7808cb9edb5c8b52"
+    },
+    "sop_runtime": {
+      "path": "projects/fishing-2d/plans/reviews/bluegill-jaw-20261116/sop-check.json",
+      "sha256": "63036f6c733e40f88f0a53a8a16e93b048ffb574ba45f49baa3153932edf491f"
+    },
+    "sop_review": {
+      "path": "projects/fishing-2d/plans/reviews/bluegill-jaw-20261116/production-review.json",
+      "sha256": "bb6ebfc70266dddd23c23219e2b152489eb12e82227e914b28943863502ea41d"
+    }
+  },
+  "game_handoff": {
+    "path": "projects/fishing-2d/plans/reviews/bluegill-jaw-20261116/HANDOFF.md",
+    "sha256": "d3344b24261870cff81e833337ba7cb42af628d7f9bb80a139746d77c1afb13d"
+  },
+  "motion_verifier": {
+    "path": "resources/volume-fish/bluegill-jaw-20261116/verify_action.gd",
+    "sha256": "b9fb63c4cabbcdecb752c272d1c04b19f7dfc958f182d44cc1e6c2c5b01b5159"
+  },
+  "game_commit": "e46386cc36bf54c99c5ca6f8c76b869706d3a241",
+  "local_cleanup": {
+    "categories": {
+      "dense_pose_samples": {
+        "files": 3920,
+        "bytes": 2107070164
+      },
+      "duplicate_body_gpu": {
+        "files": 66,
+        "bytes": 2819842
+      },
+      "extra_presentation_stills": {
+        "files": 21,
+        "bytes": 7987521
+      },
+      "redundant_canonical_stills": {
+        "files": 8,
+        "bytes": 2157598
+      },
+      "identical_installed_asset_copies": {
+        "files": 3,
+        "bytes": 10323461
+      },
+      "relocated_hook_validation": {
+        "files": 2,
+        "bytes": 5256
+      },
+      "regenerable_cache": {
+        "files": 1,
+        "bytes": 5922
+      }
+    },
+    "removed_files": 4021,
+    "released_bytes": 2130369764
+  }
+}

@@ -170,7 +170,8 @@ func run() -> void:
         if entry.has("packed_partition_proof"):
             report["packed_partition_proof"]=entry.packed_partition_proof
             report["packed_parts_manifest_sha256"]=FileAccess.get_sha256(spec.packed_parts_manifest)
-            report["packed_helper_sha256"]=FileAccess.get_sha256(get_script().resource_path.get_base_dir().path_join("PackedFishParts.gd"))
+            var packed_helper: Script = PACKED_PARTS
+            report["packed_helper_sha256"]=FileAccess.get_sha256(packed_helper.resource_path)
         report["actual_motion_profile"]=spec.motion_profile
         report["actual_motion_profile_sha256"]=FileAccess.get_sha256(spec.motion_profile)
         report["loader_scope"]="Explicit standalone GLB and native profile; game config/exhibit hashes are context snapshots, no canonical fish is replaced."
