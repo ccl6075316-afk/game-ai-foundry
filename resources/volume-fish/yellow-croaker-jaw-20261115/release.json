@@ -1,0 +1,85 @@
+{
+  "kind": "accepted_croaker_jaw_release",
+  "species": "yellow_croaker",
+  "accepted": "2026-11-15",
+  "user_acceptance": "我已经看到了，验收吧，收纳成成品提交然后下一条鱼。不错，还挺好的。",
+  "source_sha256": "9d416009332e4e3cde1ca7c1814242ec8612b11ab29cfdb6ca8d509d0abf28eb",
+  "model_sha256": "17b229f11997aeb187895e6ab75fd33f17ffd3c5f8f04403618f1ceeb5f51455",
+  "triangles": 2000,
+  "bones": 19,
+  "fins": 7,
+  "jaw": {
+    "maximum_degrees": 14,
+    "rest_slightly_open": true,
+    "action_seconds": 2.4
+  },
+  "default_scope": "Accepted static geometry, material, UV, skin and skeleton frozen. Normal runtime motion is editable.",
+  "handoff": {
+    "path": "projects/fishing-2d/plans/reviews/yellow-croaker-jaw-20261115/HANDOFF.md",
+    "sha256": "1c6291b3e4c8a7dbe3b0654f29eaf0d19cf73a55eec51d3052e45da83240614f"
+  },
+  "model": {
+    "path": "projects/fishing-2d/game/assets/models/fish/yellow_croaker.glb",
+    "sha256": "17b229f11997aeb187895e6ab75fd33f17ffd3c5f8f04403618f1ceeb5f51455"
+  },
+  "source": {
+    "path": "projects/fishing-2d/assets/source/fish/yellow_croaker/fish.blend",
+    "sha256": "9d416009332e4e3cde1ca7c1814242ec8612b11ab29cfdb6ca8d509d0abf28eb"
+  },
+  "runtime": {
+    "path": "projects/fishing-2d/game/scripts/aquarium/YellowCroakerJawMotion20261115.gd",
+    "sha256": "501391fbf70d947836159502e5b78671aad58f93ea3ba0318835f23358abafcb"
+  },
+  "hook": {
+    "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/yellow_croaker-mouth-anchor.json",
+    "sha256": "a5eb319bef360a67fbe4de4e82c46afaba176bd4e6671d1facb2aca8c9a9046f"
+  },
+  "source_release_style": "clean-pixel-yellow-croaker-20261111",
+  "checks": {
+    "body077.validation": {
+      "path": "projects/fishing-2d/plans/reviews/yellow-croaker-jaw-20261115/body077.validation.json",
+      "sha256": "bb4e63bfcbe5d1c08924c009bdca99c07dcccc2b95c6a68b6c1605c55af03b46"
+    },
+    "canonical-load.validation": {
+      "path": "projects/fishing-2d/plans/reviews/yellow-croaker-jaw-20261115/canonical-load.validation.json",
+      "sha256": "9c4a35a78e55bf24a39eb8a813bf5bd1bacbd41ee079f8f8fb668fa3a0bea768"
+    },
+    "fin-gates.validation": {
+      "path": "projects/fishing-2d/plans/reviews/yellow-croaker-jaw-20261115/fin-gates.validation.json",
+      "sha256": "b458d871c3b4ebb790094e172e516fbba0eebf4c8166fd9bf925ee576486252f"
+    },
+    "final-asset-cold-load.validation": {
+      "path": "projects/fishing-2d/plans/reviews/yellow-croaker-jaw-20261115/final-asset-cold-load.validation.json",
+      "sha256": "e69c55ca050399d1a5967d30fcd5b7fe6008b7e8a2deaff187b7e3a06c9b8c3a"
+    },
+    "installed-views.validation": {
+      "path": "projects/fishing-2d/plans/reviews/yellow-croaker-jaw-20261115/installed-views.validation.json",
+      "sha256": "284600c1d4cfc76359d8b2d8ea018a9b851ac22d0377f0d04d7464794a9b2c0e"
+    },
+    "jaw-action.validation": {
+      "path": "projects/fishing-2d/plans/reviews/yellow-croaker-jaw-20261115/jaw-action.validation.json",
+      "sha256": "40c110977b1839cb56dd240d28a274bef81ecf0cf2f9be0481fcf94d8e000a30"
+    },
+    "jaw-poses.validation": {
+      "path": "projects/fishing-2d/plans/reviews/yellow-croaker-jaw-20261115/jaw-poses.validation.json",
+      "sha256": "5dc903e60305dd8bdc06fc6e56954c1665feb2e9faf1c4616dad4c3b94ab31bd"
+    },
+    "preservation.validation": {
+      "path": "projects/fishing-2d/plans/reviews/yellow-croaker-jaw-20261115/preservation.validation.json",
+      "sha256": "8680208213ba8224b484831af8c9f34983a4237655afd8bf770fc717fe805087"
+    },
+    "rim-pigment.validation": {
+      "path": "projects/fishing-2d/plans/reviews/yellow-croaker-jaw-20261115/rim-pigment.validation.json",
+      "sha256": "4df3a70634b64dc4c81df8b7b610d7c323d2062dd51f2784febc4f8fc8c098d8"
+    },
+    "source-cold-export.validation": {
+      "path": "projects/fishing-2d/plans/reviews/yellow-croaker-jaw-20261115/source-cold-export.validation.json",
+      "sha256": "3d3d7970f351151471359138ae949903cdde7bcc4c42d7ad3ad130eac100eeee"
+    }
+  },
+  "motion_verifier": {
+    "path": "resources/volume-fish/yellow-croaker-jaw-20261115/verify_action.gd",
+    "sha256": "850d68c52380f00bf6682d772e2c681a11efc75ec142b3cde9c7752ceadd2df9"
+  },
+  "game_revision": "1456708d5b08491cf976ec1682ba6f6b2daa18dc"
+}

@@ -46,6 +46,7 @@ description: Build or repair rigged, source-art-based 3D fish in Game AI Foundry
 - 每鱼检查完整鳍基，对同姿态实际蒙皮身体面测有符号距离；按源图冻结各鳍根区，不套鳍数/选点/骨名，漏鳍/空区/旧哈希须失败。`validate_fin_completion.py` 与 `validate_fin_membrane_clearance.py` 分别覆盖完整根、整片自由鳍面及适用动作，根带许可不适用于自由面，不事后缩根区或放宽容差。
 - `validate_body_integrity.py` 检查闭合身体、逐surface不透明供体与GPU同姿态覆盖，正常口腔外不得缺块；透明装饰叠层与下层实体分别核验。`check_head_form.py` 和正/俯/斜灰模独立验吻型，不为取色压尖头。
 - 原生循环、Godot四动作/真实切换、独立幅频/零幅度/支点、全部实际LOD与材质归属均按当前候选验。离散177/490等覆盖不证明全连续时间安全，也不证明原图/解剖或用户外观已通过。专项入口/参数见 SOP 与游戏 `docs/3d-fish/VALIDATION.md`。
+- 后续逐鱼制作动作时，按根 AGENTS.md 的 2026-11-15 要求，在四项基础动作之外为本鱼增加取食或张嘴动作之一。在 Godot 实际看起口、张口、回位及与游动的衔接。取食另看食物与嘴的接触。
 - 原像素/nearest、两侧同光照侧腹覆盖、隐藏活动鳍后的身体残影、实际唇/眼/鳃区域与背腹接头都要看。技术计数、源RGB一致、UV未变或旧profile approved不能代替视觉审核。
 
 准备本轮交付主动执行[最终源固化与导出](references/final-asset-export.md)：静态几何/UV/权重/纹理进可编辑源与最终GLB，保存引擎资源；新进程关闭实验静态造型链直接读最终入口并检查真实动作/缓存。完整门和实际图审后跑 `volume sop-check --review <清单> --output <报告> --json`，再按来源/接受合同使用 `volume accept`；这是操作者审核，不等于用户接受。完整门未通过仍按[工作流状态规则](references/production-workflow-gates.md)保留候选/局部结果。
