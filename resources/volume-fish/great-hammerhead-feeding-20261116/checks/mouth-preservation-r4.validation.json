@@ -1,0 +1,7 @@
+{
+  "ok": true,
+  "head_mouth_texels_protected": 507394,
+  "changed_protected_texels": 0,
+  "model_sha256": "1f8f9476d52b12bed351fbb3b9d01207b0c8d984da7063d00a7b65ae80d00a2c",
+  "scope": "Every interior UV texel of body skin triangles reaching x>.8m compared against R3 body atlas, RGBA exact. No claim tail RGB unchanged."
+}

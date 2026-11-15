@@ -1,0 +1,10 @@
+{
+  "ok": true,
+  "source_sha256": "a162fbe901312cd0718df137d21c40ae268770917b78e1fdd8d23fcc2deda542",
+  "model_sha256": "1f8f9476d52b12bed351fbb3b9d01207b0c8d984da7063d00a7b65ae80d00a2c",
+  "base_source_sha256": "979d0bc25ea765cf9e1784ce7b97ad1809457568d10b838d0eca2f1915cb1b67",
+  "all_non_image_accessors_exact": true,
+  "scope": "Whole body and caudal atlas RGB rebaked with common interior tail-end column x=-1.515 to exclude generated silhouette ink. Other fin/eye images unchanged. Distal caudal original color retained by continuous25-480mm root-distance transition. No lip geometry, UV, weights, bones or native clip edits.",
+  "owned_texels": 106751,
+  "atlas_sha256": "4df8135e24e7d099d366cc4f5bd55d974c97eca95647cd68cdac469f299e41da"
+}

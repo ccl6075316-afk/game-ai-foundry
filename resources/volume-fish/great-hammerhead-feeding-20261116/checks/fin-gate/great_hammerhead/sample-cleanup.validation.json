@@ -1,0 +1,892 @@
+{
+  "ok": true,
+  "status": "done",
+  "scope": "Complete passing check precedes cleanup. Exact posed output hashes retained; regenerate from frozen plan/current runtime. Failed validation samples are never discarded by this option.",
+  "removed": [
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-000.json",
+      "sha256": "2b71f11ed17e53b6004f5c0fcc72a84ca796db93b45116deffc42303177d25d7",
+      "bytes": 201352
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-001.json",
+      "sha256": "6304db879eae0a7c06abefa60cd369142c9cd996abbff5af7730e482dd6856e5",
+      "bytes": 200312
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-002.json",
+      "sha256": "7fde1b800aae2cf27e93038aa0fd3f9831e7902b415de35d6057958651412755",
+      "bytes": 200247
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-003.json",
+      "sha256": "80ff2aa68c245f94baf8fbba48ea1589f6bd630e3fe0ac3b7b992aecc20fdff2",
+      "bytes": 200059
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-004.json",
+      "sha256": "da57264cc0a2a66f6834a46786a4078c7cf86b6ead939e811e859a5c55bf6e73",
+      "bytes": 200597
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-005.json",
+      "sha256": "0810356c9e652877b60956a11b18ae80705eadc960aa074f0fac6da72ef8f2f1",
+      "bytes": 200196
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-006.json",
+      "sha256": "e963317475821eab808b6f9695cd1433517f4d2af942411da70370262f80c0d6",
+      "bytes": 200567
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-007.json",
+      "sha256": "029c093d292f87d7507a93b0cf3dfb4018b6929b00de3d962ac9022f0ebbfcb5",
+      "bytes": 200380
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-008.json",
+      "sha256": "75930196599566c2376e504b820c399d3ec2c0d754f3629133475ce71b473f65",
+      "bytes": 200489
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-009.json",
+      "sha256": "26b3c1e59d87b3ef0817d4b79c2ecb677b1c25ea48bc1a6f393483f47af6fc70",
+      "bytes": 200221
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-010.json",
+      "sha256": "d569746a21b2f2ba7089c47c7cc0bf6299714f11da514288085e6cee3ccf3d90",
+      "bytes": 200428
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-011.json",
+      "sha256": "d68a8c940a2442c76fc8c6025ba4b69d1abebf52137dab9f0f99307d17e5cec5",
+      "bytes": 200112
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-012.json",
+      "sha256": "cf7d3e51b375aaf45b3f4b05f5c86244ac61eb33d604722256edae4cd6bb4065",
+      "bytes": 199946
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-013.json",
+      "sha256": "292c62d65b79da93c286e3572d27a9d5f0a414c406bf6e1dd28e23dfd054044d",
+      "bytes": 200368
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-014.json",
+      "sha256": "8e587b4989698c2668eb37c1c81b9f11177e2df1239ac869aefc5f72e65dc28a",
+      "bytes": 199979
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-015.json",
+      "sha256": "4d2d6058cfa0d62ff1a12c3c0eeea9c814816db1f6592d4ee709d14d8fe85d0c",
+      "bytes": 200573
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-016.json",
+      "sha256": "f2530eddaa7dc9608f90022ce74ce3e79d556c5fce6b63b4a0a36c8d510d4a95",
+      "bytes": 200302
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-017.json",
+      "sha256": "60a19226afdf45f738a842366acc23c1cd61cbc1a6b6491a6b0ad4de71f4440c",
+      "bytes": 200065
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-018.json",
+      "sha256": "41e0c545416250075393ac4bece505f7ce889ca56630f246754e6291efe04a89",
+      "bytes": 200614
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-019.json",
+      "sha256": "604469b2efe35cbdf74cd86e08a6664073f2d0d1ca7490af7cc95d837357e61f",
+      "bytes": 199884
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-020.json",
+      "sha256": "56a0293b6270349220aca7999f50af4ea27373925a77f73995b66119ee071648",
+      "bytes": 200517
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-021.json",
+      "sha256": "61936a0cc061f52c742c1c25c88ecc465661baab17645564bf096d9fd442e840",
+      "bytes": 199845
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-022.json",
+      "sha256": "5549274f6537a1b30c221fb11d1c16a2cc512f6b365d7d609d1da1af6e1c788c",
+      "bytes": 200462
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-023.json",
+      "sha256": "6d979e308193f425322b6c83458125fd9652ea5b1b5bfddccc5b8dd0a853dcf6",
+      "bytes": 199746
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-024.json",
+      "sha256": "e3e6c4d10d3950d3a247af7d9e106fb1fe7ab8d937675041f68270c8fa9c4fb5",
+      "bytes": 200480
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-025.json",
+      "sha256": "893dda589d7c1e21a3f34b9b2db8b4a1319ce79d7bf7ef919caba39d1d958102",
+      "bytes": 200278
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-026.json",
+      "sha256": "c2c9ada526e82de764130f5f4675e88b4f777bf8c707230622a92ebae224bc6c",
+      "bytes": 200468
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-027.json",
+      "sha256": "8cdbe9eae683f1db123c60804922c855eeaff6d0bfb92b2ce66ff0365c2c700a",
+      "bytes": 200258
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-028.json",
+      "sha256": "cf4d4618655e0ca1f104d3b894ff0525496f6ded25296ccc12632057699aa337",
+      "bytes": 199939
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-029.json",
+      "sha256": "17aad3caef8cb24a78015fc230fdb7d9f6aaacb018f8e5d688b84a62514bc23b",
+      "bytes": 200142
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-030.json",
+      "sha256": "bd1883995dcd933f29635b73489b2cb3ed1d5895f693d6848b66fd2c105058f8",
+      "bytes": 199870
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-031.json",
+      "sha256": "90fc2d378be3b498ceb9c992aec85a5c6e7d13baf62bff5acced3cbb2607823a",
+      "bytes": 200425
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-032.json",
+      "sha256": "b28aaee991a5a612edd0b644a41dbf2e7cdca1a76b17af72353188e77c0e163b",
+      "bytes": 199969
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-033.json",
+      "sha256": "35887403556ca4ef852407b80a6dc3c3035d97b1435d66805009e6d5cc7c098b",
+      "bytes": 200258
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-034.json",
+      "sha256": "98b951a458e6bd9d0918b93287826dae12e8d5fa89813a0bf3d61b50957ede7d",
+      "bytes": 200421
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-035.json",
+      "sha256": "884ea808034d21835ad23e49f4a34cb461dd8957b9226a1480696dd81a06e411",
+      "bytes": 200074
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-036.json",
+      "sha256": "03ad8022a8cc35bb4cadff7e2b89938c43be20610f68eeff9f3a88e9768015e0",
+      "bytes": 200708
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-037.json",
+      "sha256": "390b14b26effc7d06d0235808cb8029413b74b227242c3cd6c0717f30278b0b8",
+      "bytes": 200178
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-038.json",
+      "sha256": "c0ca9f18248ecdc1dc390d7508734a57d1eb5e738dfd7a0abe2bdbf28ed6ed68",
+      "bytes": 200567
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-039.json",
+      "sha256": "a85a4be5c7ae9e2644beda67b1f7b1beb2e1b84e7976764aec64010ab95c825e",
+      "bytes": 200439
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-040.json",
+      "sha256": "405f79aca1f658d7176075672edba030f589b173061ca8e0ea7d8f9f58564a10",
+      "bytes": 200554
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-041.json",
+      "sha256": "bf14c4255fd27af760e157858627bfdd7a1635f638689a3088449fb497a884e4",
+      "bytes": 200280
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-042.json",
+      "sha256": "9f0ed78855ef9a8a00c17d21bcc065ec0cf4ef236d0752ad14e952c7bad8b531",
+      "bytes": 200289
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-043.json",
+      "sha256": "8d951656597e009a7dc3be001649ea1b7af9429e4a56b789b2094804f038a986",
+      "bytes": 200171
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-044.json",
+      "sha256": "270ebc1853b008cc5b8ea92628163164a64a4d979276e3f264304ca6fbf1c043",
+      "bytes": 199854
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-045.json",
+      "sha256": "4f29ef45d475b78ddf6d68398ad1b1ae14fd0f97f84f11558c92b9800437de57",
+      "bytes": 200402
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-046.json",
+      "sha256": "50741b2855688160893167d4c0e5bc25be95bcf84f7bba5c60a3ef2f7da450db",
+      "bytes": 199904
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-047.json",
+      "sha256": "2dd16219188aafebb1a3541862ffcd3bca5ed73f60793719c45810b56f2f3664",
+      "bytes": 200564
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-048.json",
+      "sha256": "2ecb05c108938d0d93a6f8fae0109c850a682c7dac8a13b39e28ea30dbca74db",
+      "bytes": 200337
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-049.json",
+      "sha256": "af1276df55ec2ed8cd1b5eba7de78ba052017b531a75585af377734ee68c5277",
+      "bytes": 200285
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-050.json",
+      "sha256": "d0f79a784ad2b94af4155aeb8e6c67e2930d4516735731e051b08ff1742580e3",
+      "bytes": 200444
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-051.json",
+      "sha256": "6e59d8215a1cd9951de038a410c5a6e8b386f134e0686cc4c2159bc989a2846c",
+      "bytes": 199879
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-052.json",
+      "sha256": "69ac272abf9ec885903d72ab4da2f34f6920ce3bf28a2b252a2cb5d1bd2cc26c",
+      "bytes": 200618
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-053.json",
+      "sha256": "7357b2c1bdbb68067489ec8505ae648563bb36fccec3dc50ee05f9561060e53c",
+      "bytes": 200009
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-054.json",
+      "sha256": "e0f51333bc68b35820151e842531724912641efa895dc53a491e568f77227964",
+      "bytes": 200410
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-055.json",
+      "sha256": "8878f87c2a9f667b8beeaa1b59b232f5deb6b9aae8503f8b8d188c15a58f31fc",
+      "bytes": 200408
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-056.json",
+      "sha256": "32e0dd8318e567a2237a74cc2485c0b7ce42dc1eabe2cc3b4d44b71687ebc535",
+      "bytes": 200534
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-057.json",
+      "sha256": "ee9f21b32c76ccd7a995838824ba87abf46755a17bdc3548533d35581c15d742",
+      "bytes": 200302
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-058.json",
+      "sha256": "92bf3c2badb727f4e6c70b8841cc0a1e8845f8ecfa71d3bf4343ea0fc63f0da6",
+      "bytes": 200232
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-059.json",
+      "sha256": "06eacfb1604f1a73edbbc181b8e625be551f70fb6810ab8922ef764704407a5d",
+      "bytes": 200235
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-060.json",
+      "sha256": "fadc239dc31c58cd8330a5bc0d9861357734fd31ec8c89703801583a2b317529",
+      "bytes": 199945
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-061.json",
+      "sha256": "ccc8ae604b1b363d242058d2976445fb79a6b1b39fa13cdf69f0f6b8bf10ee4f",
+      "bytes": 200487
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-062.json",
+      "sha256": "16e91973f38238792d9f769c9b033950c5ca970781a939741a47fd4f77cce980",
+      "bytes": 200044
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-063.json",
+      "sha256": "33b24a9c3d969a13e72d30f262d143e9166277483144efa17384d80f7bb262f8",
+      "bytes": 200533
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-064.json",
+      "sha256": "c75ec9a6fdb54382967ef35ee17ee1fea03e89f8f25cfcdbf9a65846b1f1d29f",
+      "bytes": 200392
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-065.json",
+      "sha256": "7cb46f3f1abe20b371db5f8efabf1be28a0a1aa0a476206016f0593e3ee83e37",
+      "bytes": 200076
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-066.json",
+      "sha256": "60f55539a3de251e245fecf6d6c2ce49959c181d0b3e375db84a307c81b9071b",
+      "bytes": 199728
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-067.json",
+      "sha256": "065935e1d2af47b1c68a9c457bd37d2a30d7376855f56b09e5a3e7d06616527e",
+      "bytes": 200483
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-068.json",
+      "sha256": "18c0cf88078e6e9a30a7636b2f48553d38e3009f9bfef8230d0f6b052d706eb3",
+      "bytes": 199577
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-069.json",
+      "sha256": "2812822aec31c8254534220063452b42eb148706504e6f91e3a2fcde6b04ff51",
+      "bytes": 199431
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-070.json",
+      "sha256": "14e8a397970444343a8740c9f4e9c0150449bd63077ad621553013d045117638",
+      "bytes": 199454
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-071.json",
+      "sha256": "caeb7a1409863740f9f3907307ae168e6105077cf1c24eb7eb09e50d055147cc",
+      "bytes": 200233
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-072.json",
+      "sha256": "2e04dc26271a638cc1045650a90c26b1fcfa96b24a2a8ae6c46291b569a079eb",
+      "bytes": 200362
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-073.json",
+      "sha256": "b4875876acccd1d3aca245beaa556988e152eab17bcaf5a8fcb70af326c6dabf",
+      "bytes": 200075
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-074.json",
+      "sha256": "1799e59c117909afd4ec86dfdf4ed86930038dee65c5220b5d6fceb6ef754164",
+      "bytes": 200049
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-075.json",
+      "sha256": "8fa6731c4e72fd5067ab7810166e93686eda9fd3265b6253e3a914fd7f015860",
+      "bytes": 200393
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-076.json",
+      "sha256": "b94348369a7b0cec3114f9dba0f1973fa2005489431d26ca5ae3c6d4aeba09fd",
+      "bytes": 200468
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-077.json",
+      "sha256": "6a6999d4081b1bab315c3d6a81b50a7a8913bb544c5c1ba2c43073047787c0c7",
+      "bytes": 199951
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-078.json",
+      "sha256": "9a416365399f4b76845ff59117d71e05a8243da8ca7ae9890ff1cc775e704cf5",
+      "bytes": 199657
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-079.json",
+      "sha256": "3d518e6e790511172bf332f782c48838de52b410f0587d6ac1c35f5dcb6c77be",
+      "bytes": 200304
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-080.json",
+      "sha256": "cbf3ed81c3f4472133d750ed9fcf3adb5f589b9b098095b90ad8f5459a3aad9a",
+      "bytes": 200543
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-081.json",
+      "sha256": "cf3007d89ff5c412b942b5f36938113a26586944331444c3cc4ee015a13f13c0",
+      "bytes": 201365
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-082.json",
+      "sha256": "cf3007d89ff5c412b942b5f36938113a26586944331444c3cc4ee015a13f13c0",
+      "bytes": 201365
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-083.json",
+      "sha256": "4e4f2821647b83c23a72231ba0702d871ad55d6c67c2f27dac9eb4ed86d1d7f1",
+      "bytes": 201397
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-084.json",
+      "sha256": "bd3b4bbfe5f68b67ebf4caa1e2415438cdc15f972bab74546ea571f8494b7ab6",
+      "bytes": 201366
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-085.json",
+      "sha256": "cf3007d89ff5c412b942b5f36938113a26586944331444c3cc4ee015a13f13c0",
+      "bytes": 201365
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-086.json",
+      "sha256": "032452aecf19a2aeb83803162427990d79fd5b2871f1bd7571c0c9b92ab619e8",
+      "bytes": 201436
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-087.json",
+      "sha256": "4e4f2821647b83c23a72231ba0702d871ad55d6c67c2f27dac9eb4ed86d1d7f1",
+      "bytes": 201397
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-088.json",
+      "sha256": "cf3007d89ff5c412b942b5f36938113a26586944331444c3cc4ee015a13f13c0",
+      "bytes": 201365
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-089.json",
+      "sha256": "cf3007d89ff5c412b942b5f36938113a26586944331444c3cc4ee015a13f13c0",
+      "bytes": 201365
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-090.json",
+      "sha256": "cf3007d89ff5c412b942b5f36938113a26586944331444c3cc4ee015a13f13c0",
+      "bytes": 201365
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-091.json",
+      "sha256": "4e4f2821647b83c23a72231ba0702d871ad55d6c67c2f27dac9eb4ed86d1d7f1",
+      "bytes": 201397
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-092.json",
+      "sha256": "bd3b4bbfe5f68b67ebf4caa1e2415438cdc15f972bab74546ea571f8494b7ab6",
+      "bytes": 201366
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-093.json",
+      "sha256": "cf3007d89ff5c412b942b5f36938113a26586944331444c3cc4ee015a13f13c0",
+      "bytes": 201365
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-094.json",
+      "sha256": "032452aecf19a2aeb83803162427990d79fd5b2871f1bd7571c0c9b92ab619e8",
+      "bytes": 201436
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-095.json",
+      "sha256": "4e4f2821647b83c23a72231ba0702d871ad55d6c67c2f27dac9eb4ed86d1d7f1",
+      "bytes": 201397
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-096.json",
+      "sha256": "cf3007d89ff5c412b942b5f36938113a26586944331444c3cc4ee015a13f13c0",
+      "bytes": 201365
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-097.json",
+      "sha256": "3827e91c2ae1152669023c0995fc893ec6acf53b59fcbf53d556fe39f425b7a5",
+      "bytes": 200322
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-098.json",
+      "sha256": "06e018e8007907a2ae2d61f7dc5c45686cb9f6472667a1fdf33de3e83a9d735b",
+      "bytes": 200106
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-099.json",
+      "sha256": "c13805d58ca9ea199ca0a02cc4200bb74fbb726ede5439a0fdee49852dde1609",
+      "bytes": 200090
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-100.json",
+      "sha256": "3bc589092d1161d0c54d987e210b4a6ed9fba397f599fce7a7df11fd916acf9d",
+      "bytes": 199793
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-101.json",
+      "sha256": "95a01c8b77c08c38a1bcf04c5ff9fe84bdcd1ebdac4135d60e1ecc27a2945d0c",
+      "bytes": 200219
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-102.json",
+      "sha256": "6a1de120f750f357e283843adb4a79797e8a788fa00d4a2c7013fff71a4d47ef",
+      "bytes": 200044
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-103.json",
+      "sha256": "6c82063fcdc2fa724dfb82128580049e2090accd5e8223cc568f8802559cddf7",
+      "bytes": 200066
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-104.json",
+      "sha256": "ea84b455a391725475b63175fc42f70d37dd9266fb44d72d0361a64d1914776d",
+      "bytes": 199878
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-105.json",
+      "sha256": "b804551119984adb56be8f4f8a93f25fefd661b3652c006ccbec0f84549133e1",
+      "bytes": 200285
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-106.json",
+      "sha256": "72166bd87934a815ecdb794817ffc78d8acb0dc81d5095ac2f8043d3e9e534ee",
+      "bytes": 199775
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-107.json",
+      "sha256": "8f0b7c71cdeb0bbfe145f36a064fb94d105843e58e01111605259694f4282d80",
+      "bytes": 199867
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-108.json",
+      "sha256": "52cd08e23c101ec308800eaa5d33d815d1be6d63d38222f3489272d77ea69790",
+      "bytes": 199836
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-109.json",
+      "sha256": "d6547a32a33b669778fc775e16277dc71541b20856e79829e39c0625e38cb1c4",
+      "bytes": 200052
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-110.json",
+      "sha256": "f918e30e7dda60940a4506677eac4582573133a39ef94abc689373af8149743c",
+      "bytes": 200033
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-111.json",
+      "sha256": "f54712cb69111a3883053362e7ccbb0068fd63ffd52e621d0d6d727a8a65b37e",
+      "bytes": 200396
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-112.json",
+      "sha256": "8f9914d336d7d1d13d7cd1faff986e6283a9fc8968a1802068be8090c21b3ce0",
+      "bytes": 199733
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-113.json",
+      "sha256": "3827e91c2ae1152669023c0995fc893ec6acf53b59fcbf53d556fe39f425b7a5",
+      "bytes": 200322
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-114.json",
+      "sha256": "98eefa25a7d91135963e69e3104a521a9e65c23b2c0e0482e371d8857a579bd5",
+      "bytes": 199967
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-115.json",
+      "sha256": "51eed5f35fb834062790290900d724748fb8661d98d4d86031edca4bb37990ca",
+      "bytes": 200064
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-116.json",
+      "sha256": "1abaab5f68bbd883c412b2096a852b4f8b9649be468abdc1438cc5806f5690a0",
+      "bytes": 199928
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-117.json",
+      "sha256": "561f0dfbb8da10d87565a61884b8bfec1777831709e277a7217b7170952d8df6",
+      "bytes": 199758
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-118.json",
+      "sha256": "0caabed52d91cfa670ef88a67d58b3a3b887f91b3b61ef31d7224e577676b80a",
+      "bytes": 200030
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-119.json",
+      "sha256": "f7c978f8a4f1f20206bad65f0814cff204681109b694f1504b4ff7d5640abb4a",
+      "bytes": 200002
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-120.json",
+      "sha256": "ad4d670742b6c7045a3400a5423c57ccca439d629453eb9aae071c93cd813576",
+      "bytes": 199577
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-121.json",
+      "sha256": "4fe35e119ef1f897364dc30a32b7aff29cba31f7f17aa14e1bf703f907e123e6",
+      "bytes": 200241
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-122.json",
+      "sha256": "94f96c901e1c854fbdaa7dd552b977b2c1dce124f4890f733a1d116208fe0f02",
+      "bytes": 200367
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-123.json",
+      "sha256": "1171681f124a82cbd557dbeb48aad37abdd4ba4c0610aa099b01846db486ee91",
+      "bytes": 199871
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-124.json",
+      "sha256": "9d8e889347869694cb546f67b6320b5e68145d0297507e66c558f5f1f82b08d3",
+      "bytes": 200126
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-125.json",
+      "sha256": "595a01a00ef5515723242322ca63792608208d5e3964b15c3b1ac3add6bfbb33",
+      "bytes": 200295
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-126.json",
+      "sha256": "b7fce26e66598de57bae4ca48c91c3dbf71da903fa7774a37c1e71e6befaa2a0",
+      "bytes": 200240
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-127.json",
+      "sha256": "41ecf06f74fdecfbd15c736482a1d173cc2da468df2a2504f207485d330b5a19",
+      "bytes": 200083
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-128.json",
+      "sha256": "64b8684d59366bb64da00c0d236f66b00e8cffc329e7dd65e05db55a2e0e9a96",
+      "bytes": 199787
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-129.json",
+      "sha256": "cf3007d89ff5c412b942b5f36938113a26586944331444c3cc4ee015a13f13c0",
+      "bytes": 201365
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-130.json",
+      "sha256": "cf3007d89ff5c412b942b5f36938113a26586944331444c3cc4ee015a13f13c0",
+      "bytes": 201365
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-131.json",
+      "sha256": "4e4f2821647b83c23a72231ba0702d871ad55d6c67c2f27dac9eb4ed86d1d7f1",
+      "bytes": 201397
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-132.json",
+      "sha256": "bd3b4bbfe5f68b67ebf4caa1e2415438cdc15f972bab74546ea571f8494b7ab6",
+      "bytes": 201366
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-133.json",
+      "sha256": "cf3007d89ff5c412b942b5f36938113a26586944331444c3cc4ee015a13f13c0",
+      "bytes": 201365
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-134.json",
+      "sha256": "032452aecf19a2aeb83803162427990d79fd5b2871f1bd7571c0c9b92ab619e8",
+      "bytes": 201436
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-135.json",
+      "sha256": "4e4f2821647b83c23a72231ba0702d871ad55d6c67c2f27dac9eb4ed86d1d7f1",
+      "bytes": 201397
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-136.json",
+      "sha256": "cf3007d89ff5c412b942b5f36938113a26586944331444c3cc4ee015a13f13c0",
+      "bytes": 201365
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-137.json",
+      "sha256": "cf3007d89ff5c412b942b5f36938113a26586944331444c3cc4ee015a13f13c0",
+      "bytes": 201365
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-138.json",
+      "sha256": "cf3007d89ff5c412b942b5f36938113a26586944331444c3cc4ee015a13f13c0",
+      "bytes": 201365
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-139.json",
+      "sha256": "4e4f2821647b83c23a72231ba0702d871ad55d6c67c2f27dac9eb4ed86d1d7f1",
+      "bytes": 201397
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-140.json",
+      "sha256": "bd3b4bbfe5f68b67ebf4caa1e2415438cdc15f972bab74546ea571f8494b7ab6",
+      "bytes": 201366
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-141.json",
+      "sha256": "cf3007d89ff5c412b942b5f36938113a26586944331444c3cc4ee015a13f13c0",
+      "bytes": 201365
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-142.json",
+      "sha256": "032452aecf19a2aeb83803162427990d79fd5b2871f1bd7571c0c9b92ab619e8",
+      "bytes": 201436
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-143.json",
+      "sha256": "4e4f2821647b83c23a72231ba0702d871ad55d6c67c2f27dac9eb4ed86d1d7f1",
+      "bytes": 201397
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-144.json",
+      "sha256": "cf3007d89ff5c412b942b5f36938113a26586944331444c3cc4ee015a13f13c0",
+      "bytes": 201365
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-145.json",
+      "sha256": "3827e91c2ae1152669023c0995fc893ec6acf53b59fcbf53d556fe39f425b7a5",
+      "bytes": 200322
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-146.json",
+      "sha256": "98eefa25a7d91135963e69e3104a521a9e65c23b2c0e0482e371d8857a579bd5",
+      "bytes": 199967
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-147.json",
+      "sha256": "51eed5f35fb834062790290900d724748fb8661d98d4d86031edca4bb37990ca",
+      "bytes": 200064
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-148.json",
+      "sha256": "1abaab5f68bbd883c412b2096a852b4f8b9649be468abdc1438cc5806f5690a0",
+      "bytes": 199928
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-149.json",
+      "sha256": "561f0dfbb8da10d87565a61884b8bfec1777831709e277a7217b7170952d8df6",
+      "bytes": 199758
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-150.json",
+      "sha256": "0caabed52d91cfa670ef88a67d58b3a3b887f91b3b61ef31d7224e577676b80a",
+      "bytes": 200030
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-151.json",
+      "sha256": "f7c978f8a4f1f20206bad65f0814cff204681109b694f1504b4ff7d5640abb4a",
+      "bytes": 200002
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-152.json",
+      "sha256": "ad4d670742b6c7045a3400a5423c57ccca439d629453eb9aae071c93cd813576",
+      "bytes": 199577
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-153.json",
+      "sha256": "4fe35e119ef1f897364dc30a32b7aff29cba31f7f17aa14e1bf703f907e123e6",
+      "bytes": 200241
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-154.json",
+      "sha256": "94f96c901e1c854fbdaa7dd552b977b2c1dce124f4890f733a1d116208fe0f02",
+      "bytes": 200367
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-155.json",
+      "sha256": "1171681f124a82cbd557dbeb48aad37abdd4ba4c0610aa099b01846db486ee91",
+      "bytes": 199871
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-156.json",
+      "sha256": "9d8e889347869694cb546f67b6320b5e68145d0297507e66c558f5f1f82b08d3",
+      "bytes": 200126
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-157.json",
+      "sha256": "595a01a00ef5515723242322ca63792608208d5e3964b15c3b1ac3add6bfbb33",
+      "bytes": 200295
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-158.json",
+      "sha256": "b7fce26e66598de57bae4ca48c91c3dbf71da903fa7774a37c1e71e6befaa2a0",
+      "bytes": 200240
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-159.json",
+      "sha256": "41ecf06f74fdecfbd15c736482a1d173cc2da468df2a2504f207485d330b5a19",
+      "bytes": 200083
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-160.json",
+      "sha256": "64b8684d59366bb64da00c0d236f66b00e8cffc329e7dd65e05db55a2e0e9a96",
+      "bytes": 199787
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-161.json",
+      "sha256": "7301a9b99d0cb3dc4077f3aa763b341cb171959bf5bd1297caf61b3438296be7",
+      "bytes": 200324
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-162.json",
+      "sha256": "82686195df5d5ee397de308723de4a137ecbde0e477be1fc59785dcc1473f021",
+      "bytes": 200644
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-163.json",
+      "sha256": "c5baaf87205fea67a833ab652b607931c0cec77f438133b151d63723f54fe915",
+      "bytes": 200742
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-164.json",
+      "sha256": "890b78ae83ecf5bf67c4b30bb2b28c302bc50563499a6e6352537a4a18ea4318",
+      "bytes": 200796
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-165.json",
+      "sha256": "9da804c165b8091c359362c4cd2159507d9438cc27438242d1536e66f7574314",
+      "bytes": 199784
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-166.json",
+      "sha256": "97d1c0759820d5dba3bee9a0c8226e770c6f1a23e443cceea37ba961990e82b8",
+      "bytes": 199638
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-167.json",
+      "sha256": "6428323b59fcd8e288a55677a45a75a65c0b045737be55b5d9c0ad954dedb794",
+      "bytes": 199569
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-168.json",
+      "sha256": "c4d92c5e7b56668df6c9499d1b45ea0dc34d6c4edf74115e4c97418904ef1f86",
+      "bytes": 199534
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-169.json",
+      "sha256": "b0e1c8e6116b14299dd989aae7f436deb30c840da8e977a2d0166b0eba0c25b2",
+      "bytes": 200080
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-170.json",
+      "sha256": "76827480ea980f8bb7604f4cbfebcfdb5dd3e400aec71c96b7213fa881a96366",
+      "bytes": 199976
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-171.json",
+      "sha256": "1b9a74437b55dd1187acecd1afd05e7ac6d8341bdbee7e69236c9f11e690be2b",
+      "bytes": 200073
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-172.json",
+      "sha256": "430e5e741fd0afa94b4ff8d89c9dd8369ad0e1ffebc05fa756b6e4ead4ee2662",
+      "bytes": 199816
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-173.json",
+      "sha256": "30d16563c882c8640a261297b95d9e893ad291065750c55040c55489b2e63a5d",
+      "bytes": 200659
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-174.json",
+      "sha256": "bf1ff1c6da5ea7b83027e40222f20598dbc062d3b0c609ed4ce02141640888d8",
+      "bytes": 200742
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-175.json",
+      "sha256": "f216cce6ee5daaf87e9275e9bde07dbcd62178b0127bb0dfb462477bba17559b",
+      "bytes": 200765
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\sample-176.json",
+      "sha256": "4a57cbb1be7b37ba9e23ede139ac00bf77db6ce4d3283cb55c7268b3fe3cfd57",
+      "bytes": 200889
+    }
+  ]
+}

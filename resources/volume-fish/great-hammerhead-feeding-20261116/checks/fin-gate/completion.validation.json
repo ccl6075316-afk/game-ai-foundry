@@ -1,0 +1,22 @@
+{
+  "ok": true,
+  "status": "done",
+  "next_action": "human_review",
+  "scope": "Absolute fin contact at recorded static/action/transition samples; anatomical accuracy and visual review remain separate.",
+  "plan": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin.plan.json",
+  "plan_sha256": "12faf68d63158b60a521100d66c4772e00861b485234606324ee233fa4ba0f0d",
+  "checks": [
+    {
+      "species": "great_hammerhead",
+      "ok": true,
+      "model": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\candidate\\fish.glb",
+      "model_sha256": "1f8f9476d52b12bed351fbb3b9d01207b0c8d984da7063d00a7b65ae80d00a2c",
+      "fins": 8,
+      "poses": 177,
+      "report": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\fin-gate-current-profile\\great_hammerhead\\contact.validation.json",
+      "report_sha256": "55460a3904263215f9bcd04ed855e72661baa6097d0aa620b6deb60cfd59ce0a",
+      "maximum_gap_cm": 6.006850128414953e-06,
+      "deepest_embedding_cm": -6.006850128414953e-06
+    }
+  ]
+}

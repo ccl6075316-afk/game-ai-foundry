@@ -1,0 +1,28 @@
+{
+  "status": "accepted_for_checkpoint_with_known_issues",
+  "current_entry": "release.json",
+  "species": "great_hammerhead",
+  "game_snapshot": {
+    "path": "projects/fishing-2d/plans/reviews/great-hammerhead-feeding-20261116/checkpoint.json",
+    "sha256": "bed4648de370b9d938370ea41b84d86fbd6bf420e5975e47f7126509d1bdf269",
+    "bytes": 5882
+  },
+  "installed": false,
+  "pending": [
+    {
+      "issue": "眼睛看起来被拆成四份",
+      "state": "reported_by_user_deferred",
+      "next": "同机位检查完整眼几何、UV、材质/像素采样与光照，先定位原因再修。当前不猜测根因。"
+    },
+    {
+      "issue": "捕食动作仍机械、真实感不足",
+      "state": "current_feeding_acceptable_further_refinement_deferred",
+      "next": "研究主动肌肉弯曲、骨骼传力与软组织柔性、水阻/猎物惯性及头躯干尾相位，再依据实际视频定动作；不只继续加大幅度或堆关键帧。"
+    },
+    {
+      "issue": "完整生产验收与正式游戏安装",
+      "state": "pending",
+      "next": "当前只有177根门、220/192摄食身体与根采样、两分支牙齿及冷导出；全490/自由鳍膜/游戏挂钩和完整SOP另做。"
+    }
+  ]
+}

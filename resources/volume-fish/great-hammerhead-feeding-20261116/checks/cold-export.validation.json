@@ -1,0 +1,7 @@
+{
+  "ok": true,
+  "source_sha256": "a162fbe901312cd0718df137d21c40ae268770917b78e1fdd8d23fcc2deda542",
+  "model_sha256": "1f8f9476d52b12bed351fbb3b9d01207b0c8d984da7063d00a7b65ae80d00a2c",
+  "cold_sha256": "1f8f9476d52b12bed351fbb3b9d01207b0c8d984da7063d00a7b65ae80d00a2c",
+  "method": "New Blender process opens only saved candidate and exports with stock settings; no builder or poses executed."
+}

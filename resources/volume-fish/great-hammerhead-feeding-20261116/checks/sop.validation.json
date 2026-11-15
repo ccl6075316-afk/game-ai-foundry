@@ -1,0 +1,837 @@
+{
+  "schema_version": 1,
+  "ok": false,
+  "command": "volume.sop-check",
+  "status": "blocked",
+  "next_action": "fix_input",
+  "species": "great_hammerhead",
+  "review_sha256": "fea4b4852caf2dda99d579a660148d693ea29bd62a4bb099dd41f8ffe8470d73",
+  "checker_sha256": "8e82d240fbc9e77a8e7f3414a816dea1d7ab1798a1551a5dbe7a2d08a16c491d",
+  "finalization_checker_sha256": "937461e4e86398f409c01ffd6f375afa0584fbe1033f349e0162e364aa7ecc56",
+  "candidate_files": {
+    "source_image": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\great_hammerhead\\sources\\side.png",
+      "sha256": "a13be74309346f111093654f5f3a86d64b509d58183019f13bf8da0c2c808c77"
+    },
+    "model": {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\candidate\\fish.glb",
+      "sha256": "1f8f9476d52b12bed351fbb3b9d01207b0c8d984da7063d00a7b65ae80d00a2c"
+    },
+    "species_profile": {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\swim-profile.json",
+      "sha256": "e6b8f01a8f8a7e2591c922195c9ab2f0c3cb1f9c20123aae5950526bd548ee06"
+    },
+    "runtime_manifest": {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\manifest.json",
+      "sha256": "3cae9e294f281d06e2cd0d2a3ef69b25b2a33b914f026254611bcfee97d46fe5"
+    },
+    "motion_config": {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\motion.json",
+      "sha256": "8ed34ca984ce0f571be7f08b85cfe6ff675ac6b8c30cacfac6fc70b2f5f4f7b6"
+    },
+    "editable_source": {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\candidate\\fish.blend",
+      "sha256": "a162fbe901312cd0718df137d21c40ae268770917b78e1fdd8d23fcc2deda542"
+    }
+  },
+  "stages": [
+    {
+      "stage": "preparation",
+      "ok": false,
+      "failures": [
+        {
+          "kind": "validation",
+          "code": "stage_incomplete",
+          "message": "preparation"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_review",
+          "message": "preparation.method"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "preparation.source_views_and_purposes"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "preparation.accepted_source_provenance"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "preparation.landmarks_and_part_inventory"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "preparation.native_fin_cutouts_and_part_ownership"
+        }
+      ]
+    },
+    {
+      "stage": "head",
+      "ok": false,
+      "failures": [
+        {
+          "kind": "validation",
+          "code": "stage_incomplete",
+          "message": "head"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_review",
+          "message": "head.method"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "head.reference_side_comparison"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "head.reference_top_comparison"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "head.reference_shape_verdict"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "head.source_pose_comparison"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "head.clay_side"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "head.clay_front"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "head.clay_top"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "head.clay_bottom"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "head.clay_oblique"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "head.transverse_constraints"
+        }
+      ]
+    },
+    {
+      "stage": "mouth",
+      "ok": false,
+      "failures": [
+        {
+          "kind": "validation",
+          "code": "stage_incomplete",
+          "message": "mouth"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_mouth_implementation",
+          "message": "Choose integrated_jaw_cut or a justified anatomical_alternative"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_review",
+          "message": "mouth.method"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "mouth.structure_branch_and_constraints"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "mouth.whole_snout_and_chin"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "mouth.misplaced_outline_ownership"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "mouth.native_pixel_cover_and_actual_uv_joins"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "mouth.source_donors_and_mouth_gap"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "mouth.complete_native_lip_domain_and_front_exclusion"
+        }
+      ]
+    },
+    {
+      "stage": "eyes",
+      "ok": false,
+      "failures": [
+        {
+          "kind": "validation",
+          "code": "stage_incomplete",
+          "message": "eyes"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_review",
+          "message": "eyes.method"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "eyes.source_eye_and_ownership_domains"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "eyes.opposite_and_top_views"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "eyes.overlay_attachment_and_lod"
+        }
+      ]
+    },
+    {
+      "stage": "skin",
+      "ok": false,
+      "failures": [
+        {
+          "kind": "validation",
+          "code": "stage_incomplete",
+          "message": "skin"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_review",
+          "message": "skin.method"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "skin.dorsal_material"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "skin.ventral_material"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "skin.hidden_fin_skin"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "skin.native_2d_donors_and_exclusions"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "skin.surface_opacity_inventory"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "skin.body_owned_fin_base_marks"
+        }
+      ]
+    },
+    {
+      "stage": "fins",
+      "ok": false,
+      "failures": [
+        {
+          "kind": "validation",
+          "code": "stage_incomplete",
+          "message": "fins"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_review",
+          "message": "fins.method"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "fins.complete_species_fin_inventory_and_roots"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "fins.source_cutout_and_shape_comparison"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "fins.installed_visibility_and_body_occlusion"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "fins.whole_fin_membrane_gate"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "fins.expanded_fin_visual_review"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "fins.actual_normal_thickness_and_tail_section"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "fins.fin_volume_end_on_and_top_clay"
+        }
+      ]
+    },
+    {
+      "stage": "motion",
+      "ok": false,
+      "failures": [
+        {
+          "kind": "validation",
+          "code": "stage_incomplete",
+          "message": "motion"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_review",
+          "message": "motion.method"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "motion.native_loop"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "motion.swim"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "motion.turn"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "motion.ascend"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "motion.dive"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "motion.real_transitions_and_control_ranges"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "motion.jaw_or_other_action_branch"
+        }
+      ]
+    },
+    {
+      "stage": "runtime",
+      "ok": false,
+      "failures": [
+        {
+          "kind": "validation",
+          "code": "stage_incomplete",
+          "message": "runtime"
+        },
+        {
+          "kind": "validation",
+          "code": "asset_not_finalized",
+          "message": "runtime.finalization.state must be exported"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_review",
+          "message": "runtime.method"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "runtime.body_integrity_gpu_gate"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "runtime.material_anchor_and_actual_lod"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "runtime.motion_and_surface_gate"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "runtime.cold_import_and_install_binding"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "runtime.final_asset_cold_load"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "runtime.exported_vs_experiment_comparison"
+        }
+      ]
+    },
+    {
+      "stage": "presentation",
+      "ok": false,
+      "failures": [
+        {
+          "kind": "validation",
+          "code": "stage_incomplete",
+          "message": "presentation"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_review",
+          "message": "presentation.method"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "presentation.source_style_final_comparison"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "presentation.normal_and_close_game_views"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "presentation.water_readability"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "presentation.orbit_and_motion_video"
+        },
+        {
+          "kind": "validation",
+          "code": "missing_evidence",
+          "message": "presentation.final_files_and_remaining_limits"
+        }
+      ]
+    }
+  ],
+  "evidence_count": 4,
+  "failures": [
+    {
+      "kind": "validation",
+      "code": "stage_incomplete",
+      "message": "preparation"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_review",
+      "message": "preparation.method"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "preparation.source_views_and_purposes"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "preparation.accepted_source_provenance"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "preparation.landmarks_and_part_inventory"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "preparation.native_fin_cutouts_and_part_ownership"
+    },
+    {
+      "kind": "validation",
+      "code": "stage_incomplete",
+      "message": "head"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_review",
+      "message": "head.method"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "head.reference_side_comparison"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "head.reference_top_comparison"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "head.reference_shape_verdict"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "head.source_pose_comparison"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "head.clay_side"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "head.clay_front"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "head.clay_top"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "head.clay_bottom"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "head.clay_oblique"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "head.transverse_constraints"
+    },
+    {
+      "kind": "validation",
+      "code": "stage_incomplete",
+      "message": "mouth"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_mouth_implementation",
+      "message": "Choose integrated_jaw_cut or a justified anatomical_alternative"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_review",
+      "message": "mouth.method"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "mouth.structure_branch_and_constraints"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "mouth.whole_snout_and_chin"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "mouth.misplaced_outline_ownership"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "mouth.native_pixel_cover_and_actual_uv_joins"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "mouth.source_donors_and_mouth_gap"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "mouth.complete_native_lip_domain_and_front_exclusion"
+    },
+    {
+      "kind": "validation",
+      "code": "stage_incomplete",
+      "message": "eyes"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_review",
+      "message": "eyes.method"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "eyes.source_eye_and_ownership_domains"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "eyes.opposite_and_top_views"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "eyes.overlay_attachment_and_lod"
+    },
+    {
+      "kind": "validation",
+      "code": "stage_incomplete",
+      "message": "skin"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_review",
+      "message": "skin.method"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "skin.dorsal_material"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "skin.ventral_material"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "skin.hidden_fin_skin"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "skin.native_2d_donors_and_exclusions"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "skin.surface_opacity_inventory"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "skin.body_owned_fin_base_marks"
+    },
+    {
+      "kind": "validation",
+      "code": "stage_incomplete",
+      "message": "fins"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_review",
+      "message": "fins.method"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "fins.complete_species_fin_inventory_and_roots"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "fins.source_cutout_and_shape_comparison"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "fins.installed_visibility_and_body_occlusion"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "fins.whole_fin_membrane_gate"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "fins.expanded_fin_visual_review"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "fins.actual_normal_thickness_and_tail_section"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "fins.fin_volume_end_on_and_top_clay"
+    },
+    {
+      "kind": "validation",
+      "code": "stage_incomplete",
+      "message": "motion"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_review",
+      "message": "motion.method"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "motion.native_loop"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "motion.swim"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "motion.turn"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "motion.ascend"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "motion.dive"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "motion.real_transitions_and_control_ranges"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "motion.jaw_or_other_action_branch"
+    },
+    {
+      "kind": "validation",
+      "code": "stage_incomplete",
+      "message": "runtime"
+    },
+    {
+      "kind": "validation",
+      "code": "asset_not_finalized",
+      "message": "runtime.finalization.state must be exported"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_review",
+      "message": "runtime.method"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "runtime.body_integrity_gpu_gate"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "runtime.material_anchor_and_actual_lod"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "runtime.motion_and_surface_gate"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "runtime.cold_import_and_install_binding"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "runtime.final_asset_cold_load"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "runtime.exported_vs_experiment_comparison"
+    },
+    {
+      "kind": "validation",
+      "code": "stage_incomplete",
+      "message": "presentation"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_review",
+      "message": "presentation.method"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "presentation.source_style_final_comparison"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "presentation.normal_and_close_game_views"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "presentation.water_readability"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "presentation.orbit_and_motion_video"
+    },
+    {
+      "kind": "validation",
+      "code": "missing_evidence",
+      "message": "presentation.final_files_and_remaining_limits"
+    }
+  ],
+  "scope": "Checks required evidence, declared candidate bindings, integrated jaw-cut resource and description or justified anatomical branch, final asset declarations and bound fresh-process/no-static-builder report fields, file freshness and operator observations. Does not export assets, run Godot, prove undisclosed-builder absence, report semantics or visual quality. Actual cold-load capture, specialized gates and visual review remain required. No asset/user acceptance."
+}

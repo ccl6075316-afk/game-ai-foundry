@@ -1,0 +1,66 @@
+{
+  "model_sha256": "d08bb1ef43c8b0fc6c20d08b3772dc754d0d2cebc2d2137ead6933cd323abc9e",
+  "purpose": "Full unshaded body color projection guide; all fins/eyes hidden; old oral marks excluded only in reference render. Actual candidate geometry untouched.",
+  "views": [
+    {
+      "focus": [
+        0.0,
+        -0.100000001490116,
+        0.0
+      ],
+      "height": 1.16666666666667,
+      "name": "side",
+      "right": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "up": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "width": 3.5
+    },
+    {
+      "focus": [
+        0.0,
+        -0.100000001490116,
+        0.0
+      ],
+      "height": 1.16666666666667,
+      "name": "dorsal",
+      "right": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "up": [
+        0.0,
+        -0.0000000437113882867379,
+        -1.0
+      ],
+      "width": 3.5
+    },
+    {
+      "focus": [
+        0.0,
+        -0.100000001490116,
+        0.0
+      ],
+      "height": 1.16666666666667,
+      "name": "ventral",
+      "right": [
+        -1.0,
+        0.0,
+        0.0000000874227765734759
+      ],
+      "up": [
+        -0.0000000874227765734759,
+        -0.0000000437113882867379,
+        -1.0
+      ],
+      "width": 3.5
+    }
+  ]
+}

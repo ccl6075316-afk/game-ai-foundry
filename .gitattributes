@@ -205,3 +205,8 @@ resources/fish-database/references/recovered-history-20261108/**/*.glb filter=lf
 /resources/fish-database/references/blacktip-reef-shark-shape-review-20261115.json -text whitespace=cr-at-eol
 /resources/scripts/volume-fish/blacktip-feeding-20261115/*.py whitespace=cr-at-eol,-blank-at-eof
 /resources/scripts/volume-fish/blacktip-feeding-20261115/*.gd whitespace=cr-at-eol,-blank-at-eof
+
+# Great hammerhead stage checkpoint: frozen byte-bound sources and evidence.
+/resources/volume-fish/great-hammerhead-feeding-20261116/** -text whitespace=cr-at-eol,-blank-at-eof
+/resources/volume-fish/great-hammerhead-feeding-20261116/**/*.png filter=lfs diff=lfs merge=lfs -text
+/resources/fish-database/references/great-hammerhead-feeding-review-20261116.json -text whitespace=cr-at-eol

@@ -1,0 +1,61 @@
+{
+  "species": "Sphyrna mokarran",
+  "common_name": "大双髻鲨",
+  "status": "User accepts current feeding presentation for checkpoint commit; eye fragmentation and motion realism deferred; no production install",
+  "keywords": [
+    "鲨鱼",
+    "整吞",
+    "小猎物",
+    "大猎物",
+    "甩咬",
+    "撕咬",
+    "躯干摆动",
+    "grasp-turning",
+    "尾鳍接缝"
+  ],
+  "sources": [
+    {
+      "author": "G. Cliff",
+      "year": 1995,
+      "url": "https://iotc.org/sites/default/files/documents/2022/08/IOTC-2022-WPEB18-INF02_protective_gill_nets_KZN_South_Africa_great_hammerhead.pdf",
+      "doi": "10.2989/025776195784156331",
+      "examined": "SIZE OF PREY, journal p113 / PDF p10",
+      "finding": "Same-species stomach-content evidence includes intact swallowed prey and prey reduced to pieces; repeated processing is not obligatory. Predator lengths in this paper are precaudal lengths, not total lengths.",
+      "limit": "Stomach contents do not reveal measured motion frequency, sequence or exact3D joint angles. Copyrighted reference, not a production texture."
+    },
+    {
+      "author": "Motta, Tricas, Hueter and Summers",
+      "year": 1997,
+      "url": "https://www.hawaii.edu/fishlab/pubs/Motta%20et%20al.%201997.pdf",
+      "examined": "Discussion, journal p2776 / PDF p12",
+      "species": "Negaprion brevirostris",
+      "finding": "Large food can be gripped between jaws then processed through vigorous lateral head and body movement; upper teeth cut while the prey is held.",
+      "limit": "Related carcharhinid mechanism, not measured Sphyrna mokarran kinematics; not a rule that every shark shakes every prey. Copyrighted reference."
+    },
+    {
+      "url": "https://doi.org/10.1080/10236244.2016.1168089",
+      "year": 2016,
+      "examined": "Abstract only; full text unavailable in prior research",
+      "species": "Sphyrna mokarran",
+      "finding": "Grasp-turning is a burst/tight turning prey-capture behavior. It must not be equated with all lateral prey processing or all feeding.",
+      "limit": "No original continuous video inspected from this paper; no angle/frequency calibration."
+    },
+    {
+      "author": "Ila F. Porcher",
+      "year": 2023,
+      "url": "https://doi.org/10.6084/m9.figshare.22268605",
+      "species": "Carcharhinus melanopterus",
+      "license": "CC BY4.0",
+      "local_source": "resources/volume-fish/blacktip-feeding-20261115/references/porcher2023-video1-29-42.mp4",
+      "source_sha256": "886c86f7754c8cb9ebce703d6b6d1800a564cf9146e18900b590bc3ec44c1ef4",
+      "examined_this_turn": "Existing external-video montage blacktip-detail-38-39_5.jpg, twelve frames at8fps, viewed directly",
+      "finding": "Visible held scrap and changes in head, trunk and tail orientation; useful qualitative contrast to a rigid right turn.",
+      "limit": "Not target species; moving camera and occlusion prevent exact3D measurement. Viewed sampled frames, not claimed continuous playback."
+    }
+  ],
+  "decision": "Use separate small-prey ingestion and large-food processing branches. Size relative to mouth, food shape and resistance matter; do not use a universal length threshold. R4 lateral reversals are authored qualitative demonstrations, not copied or calibrated animation.",
+  "prototype": "resources/volume-fish/great-hammerhead-feeding-20261116/trial.json",
+  "work_handoff": "E:/game-ai-foundry/work/great-hammerhead-feeding-20261116/HANDOFF.md",
+  "asset_reuse": "References support independent factual/motion research; no third-party geometry, animation or footage included in game production assets. Local reference permission is not a blanket commercial license.",
+  "current_entry": "resources/volume-fish/great-hammerhead-feeding-20261116/release.json"
+}

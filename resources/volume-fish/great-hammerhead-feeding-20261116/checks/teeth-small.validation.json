@@ -1,0 +1,80 @@
+{
+  "model_sha256": "1f8f9476d52b12bed351fbb3b9d01207b0c8d984da7063d00a7b65ae80d00a2c",
+  "scope": "12 times, native frame1; tooth triangles vs opposing jaw faces whose mean direct jaw weight >.5. Own base embed intentional; mixed junction faces not covered. Not full continuous collision proof.",
+  "samples": [
+    {
+      "t": 0,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 8.637127209194341
+    },
+    {
+      "t": 0.7,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 8.637127209194341
+    },
+    {
+      "t": 1.1,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 26.888385280431002
+    },
+    {
+      "t": 1.2,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 41.321245602831084
+    },
+    {
+      "t": 1.38,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 76.00689791916842
+    },
+    {
+      "t": 1.56,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 33.04763978396855
+    },
+    {
+      "t": 1.66,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 35.991173218199215
+    },
+    {
+      "t": 1.8,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 40.868435221297354
+    },
+    {
+      "t": 2.18,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 25.825837710933722
+    },
+    {
+      "t": 2.85,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 8.980320296724331
+    },
+    {
+      "t": 3.3,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 8.637183226418196
+    },
+    {
+      "t": 4.2,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 8.637127209194341
+    }
+  ],
+  "ok": true,
+  "motion_sha256": "c4340cb4d3474471f55cf86b5889a5690346f99436bb68341ea13e7f09c1150f"
+}

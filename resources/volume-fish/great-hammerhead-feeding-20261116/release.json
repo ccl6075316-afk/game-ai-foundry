@@ -1,0 +1,174 @@
+{
+  "kind": "stage_checkpoint_not_production_install",
+  "status": "accepted_for_checkpoint_with_known_issues",
+  "acceptance": {
+    "date": "2026-11-16",
+    "quote": "目前到现在为止，整个的这个捕食状态，我其实是可以接受的，只是它的动作没有我想象中的那么真实。",
+    "instruction": "先这么提交上去吧，有些事情明天我们再去做。",
+    "scope": "Current R4 feeding presentation accepted as a checkpoint for commit/push. Known eye and motion-realism issues explicitly deferred; not whole-fish defect-free final approval."
+  },
+  "pending": [
+    {
+      "issue": "眼睛看起来被拆成四份",
+      "state": "reported_by_user_deferred",
+      "next": "同机位检查完整眼几何、UV、材质/像素采样与光照，先定位原因再修。当前不猜测根因。"
+    },
+    {
+      "issue": "捕食动作仍机械、真实感不足",
+      "state": "current_feeding_acceptable_further_refinement_deferred",
+      "next": "研究主动肌肉弯曲、骨骼传力与软组织柔性、水阻/猎物惯性及头躯干尾相位，再依据实际视频定动作；不只继续加大幅度或堆关键帧。"
+    },
+    {
+      "issue": "完整生产验收与正式游戏安装",
+      "state": "pending",
+      "next": "当前只有177根门、220/192摄食身体与根采样、两分支牙齿及冷导出；全490/自由鳍膜/游戏挂钩和完整SOP另做。"
+    }
+  ],
+  "model": {
+    "path": "projects/fishing-2d/plans/reviews/great-hammerhead-feeding-20261116/fish.glb",
+    "sha256": "1f8f9476d52b12bed351fbb3b9d01207b0c8d984da7063d00a7b65ae80d00a2c",
+    "bytes": 3508544
+  },
+  "source": {
+    "path": "projects/fishing-2d/plans/reviews/great-hammerhead-feeding-20261116/fish.blend",
+    "sha256": "a162fbe901312cd0718df137d21c40ae268770917b78e1fdd8d23fcc2deda542",
+    "bytes": 4376676
+  },
+  "game_checkpoint": {
+    "path": "projects/fishing-2d/plans/reviews/great-hammerhead-feeding-20261116/checkpoint.json",
+    "sha256": "bed4648de370b9d938370ea41b84d86fbd6bf420e5975e47f7126509d1bdf269",
+    "bytes": 5882
+  },
+  "handoff": {
+    "path": "projects/fishing-2d/plans/reviews/great-hammerhead-feeding-20261116/HANDOFF.md",
+    "sha256": "4cfbeb036bacdf4ba1444b7c63649930480c0642d2f2a0fbcbd85bccd9419497",
+    "bytes": 2100
+  },
+  "installed": false,
+  "evidence": [
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/checks/authoring.validation.json",
+      "sha256": "c777e8c9c0d2477932b6821c791387958bbbc6220a1536dc9bf64a28ba02b024",
+      "bytes": 50466
+    },
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/checks/body-color-diff-r4.json",
+      "sha256": "740c5433e57e4a5b69433c153abf8cf7ebe962f565ee7b244661e4b87aa046b2",
+      "bytes": 69
+    },
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/checks/cleanup-r4.validation.json",
+      "sha256": "b4b991d3179f2434626a2805de4ae6632eccd19a98a03cf3a4f868b17a17bdb2",
+      "bytes": 353510
+    },
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/checks/cold-export.validation.json",
+      "sha256": "abae981221c7ec1449e72aff7df7886f958dc8cfb664f20a6c649f2d6b8e5a24",
+      "bytes": 405
+    },
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/checks/fin.plan.json",
+      "sha256": "12faf68d63158b60a521100d66c4772e00861b485234606324ee233fa4ba0f0d",
+      "bytes": 43930
+    },
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/checks/mouth-preservation-r4.validation.json",
+      "sha256": "4c3f8cf57c9159b7b37bea6631915250075bcbddb065d3fec6206db7e25361fc",
+      "bytes": 331
+    },
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/checks/sop.validation.json",
+      "sha256": "27715522d1c1359cefb3fdf72faed0401df757f10d4314628d40b8cc8da304e7",
+      "bytes": 23305
+    },
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/checks/tail-r4.validation.json",
+      "sha256": "1faf2e35bf8ed6b9e6debb57b0c7773a628b17f5bd19d719bf73c9bf6f4dbc04",
+      "bytes": 756
+    },
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/checks/teeth-small.validation.json",
+      "sha256": "a3d4205e09cb5e6124246cc1c563ad18b18cf896bceffe1168f10378360bcfd2",
+      "bytes": 2125
+    },
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/checks/teeth.validation.json",
+      "sha256": "e33ea27c49965ce66efe828990aee091e90342eeb24d09e5a920212889923113",
+      "bytes": 2033
+    },
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/checks/trial-small.validation.json",
+      "sha256": "9ec056b4bd939df557b3aebcfb49e6b566eb6f78ce69e3a37f45dab20305dd8a",
+      "bytes": 246130
+    },
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/checks/trial.validation.json",
+      "sha256": "4cb0fb8726a6a354c68457ffb50e337ea09c3de4d63c8dd5cb425d17cc433ca0",
+      "bytes": 284473
+    },
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/checks/video-r4.validation.json",
+      "sha256": "c8c39983220258347136e85f2d59c5a79f6f7aa5227ce3c2fd59d38309ae29ea",
+      "bytes": 2072
+    },
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/checks/fin-gate/completion.validation.json",
+      "sha256": "1306716fe322e8003159cf3383de6df90c0426181aeb07f1935b7cca227bea87",
+      "bytes": 1053
+    },
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/checks/fin-gate/great_hammerhead/contact.validation.json",
+      "sha256": "55460a3904263215f9bcd04ed855e72661baa6097d0aa620b6deb60cfd59ce0a",
+      "bytes": 536364
+    },
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/checks/fin-gate/great_hammerhead/export.validation.json",
+      "sha256": "9b3c19126c14a5c87f21e9cfefb54299d989f390ecfcdceec673757e5c22dd66",
+      "bytes": 46383
+    },
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/checks/fin-gate/great_hammerhead/sample-cleanup.validation.json",
+      "sha256": "e2c18179df816730bf764b8d4e6fc8adb319601e1804cc7b1e7ae4dc8dcbe559",
+      "bytes": 46810
+    }
+  ],
+  "source_art": [
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/source-art/body-baked-r4.png",
+      "sha256": "401a0aa457fd91d24a84271ff0a79774e7a5b4ba9f834aca5cb3fd1f63dbea7e",
+      "bytes": 1996930
+    },
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/source-art/body-guide-r3.png",
+      "sha256": "fbd86f36ce0f0ad98cfadca77e887337f15a83364ba3e417bfd95b6fe801177a",
+      "bytes": 637507
+    },
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/source-art/body-guide-r3.png.json",
+      "sha256": "a60f25f29199b03e39a3144b8a7b3281365ec7bdfb25af3289178437de30d014",
+      "bytes": 1244
+    },
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/source-art/body-projections-r3.png",
+      "sha256": "601c6e8e4206ea7d64b0d586d249d649d7c237a86125744c4a7a24eb929a07e8",
+      "bytes": 991600
+    },
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/source-art/caudal-baked-r4.png",
+      "sha256": "4df8135e24e7d099d366cc4f5bd55d974c97eca95647cd68cdac469f299e41da",
+      "bytes": 146903
+    }
+  ],
+  "research": {
+    "path": "resources/fish-database/references/great-hammerhead-feeding-review-20261116.json",
+    "sha256": "edf0d8a56b94aaa24fcb2af9f7ed3271bc0972e0efecaff164067ed78a1179df",
+    "bytes": 3824
+  },
+  "checks": [
+    {
+      "path": "resources/volume-fish/great-hammerhead-feeding-20261116/checks/checkpoint-cold.validation.json",
+      "sha256": "fcac5378aadfe0643f716d0c649c438ce3f621b892dbf4dfe6dd985fe5a6a3a0",
+      "bytes": 1933
+    }
+  ]
+}

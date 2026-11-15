@@ -1,0 +1,352 @@
+{
+  "ok": true,
+  "deleted": [
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\feeding-close.png",
+      "bytes": 446015,
+      "sha256": "d7f70e642db2b20d44b04ccf96fef14b6d5db5b1878206253e837adac2c59bd7"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\feeding-whole.png",
+      "bytes": 209801,
+      "sha256": "e073f91f7eafb3378a7541e336f5fda8c10139a98f50d52991898234df183a94"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-bite-bottom.png",
+      "bytes": 118261,
+      "sha256": "75de905b1b83e5c50318c0c55887d6c73e310497beb00c385b50cf2da95a9a22"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-bite-front.png",
+      "bytes": 126660,
+      "sha256": "492c7ceee67a48a324df51fdf5b9f2002ba8887210b6d60c256fbbf1bec8828a"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-bite-oblique.png",
+      "bytes": 185150,
+      "sha256": "e62af4a68686e238963a0204f0eb880ea430ee31d026edfa579f5a915d7a02e8"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-bite-side.png",
+      "bytes": 174670,
+      "sha256": "2f867dac5a2ca1f709cec4fb81cb4cd3110cdea58867bb8d7aaaa2249a2e33e0"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-carry-bottom.png",
+      "bytes": 101136,
+      "sha256": "cad6cc5b3a72afa70db46ddd60ef22a9a229be9a4183d9958e5e12564f27775c"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-carry-front.png",
+      "bytes": 111629,
+      "sha256": "2a784ee34b2c0080cacfb236aa05924e827784ab2f26d037f1ce4f66a9002ed9"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-carry-oblique.png",
+      "bytes": 170195,
+      "sha256": "3273271fcfdbec33ef4fc8c0f21a67d88c5a655cab5e26a62d15ed44cf58bda6"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-carry-side.png",
+      "bytes": 173591,
+      "sha256": "95cdebdb9ad455b62aa22c9dbb1f858572c390bab534525bca3791ed7616ced2"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-half-bottom.png",
+      "bytes": 94667,
+      "sha256": "e45701a9abfd1d86793bc5fcf6b177a0fc826b0a5ce90bf30bf2d1c83af1f65a"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-half-front.png",
+      "bytes": 107931,
+      "sha256": "279c68324a10277934d907d439538f4381b96eaea59878807b5be3bac670e007"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-half-oblique.png",
+      "bytes": 146304,
+      "sha256": "326ef69dfcd10e206b87f5e5cf3ef626c3e49386b99ae3193cce0806e2f1b64a"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-half-side.png",
+      "bytes": 166796,
+      "sha256": "28a76b6f4d48d4d1e0d37cc24dd79c21e6f5ccb3d19f109d6f4a3272df1fce49"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-open-bottom.png",
+      "bytes": 98678,
+      "sha256": "c610021f280662bdeca5b1171e6ac39f99e9c03e0be632ef25eaf96081124734"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-open-front.png",
+      "bytes": 116752,
+      "sha256": "3e525ddb51cc8a0695629873b2513d5422ba8ec2e3f18996d75ad70bba8b309a"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-open-oblique.png",
+      "bytes": 155735,
+      "sha256": "bf2408bbdfcca652d3bfb938b2a040317b22181934a778fd9ddd0b8253ac60ae"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-open-side.png",
+      "bytes": 139185,
+      "sha256": "6aaa77085fb867e577f56f5140343ee5607ff29d8c30261b87c2e2313bc33e88"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-rest-bottom.png",
+      "bytes": 86025,
+      "sha256": "beb6557c8ac9dc74e9a5a9912b7561c9631afcb2385a83aee97640123303950e"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-rest-front.png",
+      "bytes": 102465,
+      "sha256": "5e7623fbb0f41c1a8beb8e824a3dc670a80711b934b05a5546cb025d91b544c2"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-rest-oblique.png",
+      "bytes": 150331,
+      "sha256": "6eb52f46fc15606dce2cdf158cf84d011f064ec0a9c1ddfaa70afd46e66604e6"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-rest-side.png",
+      "bytes": 168561,
+      "sha256": "ca9ebb8d5be2eab3b1c75f4959b16b12c5763b329fa1ddeb1a143309a3ca0287"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-shake_left-bottom.png",
+      "bytes": 100676,
+      "sha256": "3ad872dd1e181a4ca3f66b0135131b89a619a383e2c4d7cb45fe5cbaa6d0c6db"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-shake_left-front.png",
+      "bytes": 90470,
+      "sha256": "45f47c9af56f17c6b6a980a46d403aa5e090faf461b24d000697608baa106759"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-shake_left-oblique.png",
+      "bytes": 116254,
+      "sha256": "f2c077796c3e71b7e52a5fd20151faa2169851e3f0b585f33abc9994daf8dd32"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-shake_left-side.png",
+      "bytes": 161579,
+      "sha256": "0822b693ce261d0c6c7cda71a0b708cf6a36f5d9768b0bd15f9136ca302d7b84"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-shake_right-bottom.png",
+      "bytes": 93763,
+      "sha256": "ebcc3fa386fb1ee8a55f1104a611d1a697cf214646081f9be09d9d3f72b74b50"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-shake_right-front.png",
+      "bytes": 89298,
+      "sha256": "31ebb158ebcb87a654455cf3cb5168b578a5c39f1d5a2100fd895448cc8231db"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-shake_right-oblique.png",
+      "bytes": 100606,
+      "sha256": "6b5a72f91c0115bea4cac4e97b2665688462aa65c2a17f2d14840c4b9ba030f4"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\gray-shake_right-side.png",
+      "bytes": 152822,
+      "sha256": "b575cc1e340e70b28e79559028e360292f20915bbe128f75f13be4a266c42ea4"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\grip-front.png",
+      "bytes": 457964,
+      "sha256": "3071bf6f41bd09369836e53ee219cd51c2c1ecd4043df3950f6fb92a707a083c"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\prey-120.png",
+      "bytes": 470998,
+      "sha256": "853e59181f2f5db49ff5c87ae6fb0fad010b3538167bdba191144954b0221046"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\prey-138.png",
+      "bytes": 455580,
+      "sha256": "86c8a75c0b31d253bc2163813b922abe65b131b87d1889da357c9d87dfd84b4c"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\prey-156.png",
+      "bytes": 452316,
+      "sha256": "8af445796d260c93fd4f2f8632b7ba796331e4d7c279f05176b6db036361fb93"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\prey-180.png",
+      "bytes": 400870,
+      "sha256": "60bed5b87e2461323d0866b6944e4d7cac4a7c8d3eb32b66c40105ee74679150"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\prey-210.png",
+      "bytes": 520190,
+      "sha256": "1766af2de9ae2adf88bba566a5ca37a05e04ea5e3d591b8e614f3f22ec01da63"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\prey-225.png",
+      "bytes": 465834,
+      "sha256": "5d534bff1a8b29416ab26c037fa48cb748a65f03b7d9474717f305fc2380f1d4"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\prey-240.png",
+      "bytes": 408578,
+      "sha256": "ec0aa4d756106e2ced0bd5e94ad98a8c0cf6b7df2fa371a965334fa7463bb856"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\prey-260.png",
+      "bytes": 454421,
+      "sha256": "25e838207c593970b6139524a87cafe2b5215b7a3986c5167a6f35f6bc53919a"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\prey-280.png",
+      "bytes": 487608,
+      "sha256": "012e746f2ea9d8913e5dfeb162edbd6818cbd4b9a133548661481588bb26de49"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\prey-330.png",
+      "bytes": 442342,
+      "sha256": "e731545fdae41c02134c824ba54da69ba293a7a34ed372f4fffffb57135fb9dd"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-bite-bottom.png",
+      "bytes": 329731,
+      "sha256": "6f483843d947ff2ce2acbacd153f91e1c34040f732175529cc3a4c22028a13d7"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-bite-front.png",
+      "bytes": 446381,
+      "sha256": "3af3a73d8abefdbd7262e8416e1bbff5a8a517b45e2d46e3d89e401b0aec332d"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-bite-oblique.png",
+      "bytes": 527707,
+      "sha256": "70562ed7b6b38694aecb1f5e66b579be87822b97cefd7719aaeb2acf07d07af2"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-bite-side.png",
+      "bytes": 398398,
+      "sha256": "62dcd0896393336c015774fd3313429cb084358e85757f55199e5a785df350ff"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-carry-bottom.png",
+      "bytes": 338188,
+      "sha256": "00c76122ec5cc4b5d202015928d649ec76f9faf17bcdacaaae3f9dff70f1174f"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-carry-front.png",
+      "bytes": 438660,
+      "sha256": "d85252875fa860329d837fd19f3bef1378a759296fd6dd2c84ee931f34afda48"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-carry-oblique.png",
+      "bytes": 513622,
+      "sha256": "c3cd9860418dea5401377b14b733e4fce39558cb85c3e1ae6e71eaf8e109b42f"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-carry-side.png",
+      "bytes": 419778,
+      "sha256": "61bb613e676c79099affb3fe43ee6bfb6eb152ce7a6f6df80ed2c4490743faeb"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-half-bottom.png",
+      "bytes": 345646,
+      "sha256": "2a38bd796fd46efae84ec1f45dcbabd4b7ced72b64a36b48358d00fc8094b06c"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-half-front.png",
+      "bytes": 436454,
+      "sha256": "8f62b6c7aed12f1365bec96b8bf86cba98262c0f6cae07ec87f48c56ac2a4591"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-half-oblique.png",
+      "bytes": 477141,
+      "sha256": "b83de2d35a50e3537d748573355c78d53dafac16a8719aa66e4e541e05daa38c"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-half-side.png",
+      "bytes": 399394,
+      "sha256": "2a185b80d99943317820dfe790551b2e529b5d5161d7cbf4ae0237a482263dcb"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-open-bottom.png",
+      "bytes": 336967,
+      "sha256": "d37aa0dd1d456fd0552ed6a82596b87ec3277fbcefa7157bdfb79fd52d141be7"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-open-front.png",
+      "bytes": 409720,
+      "sha256": "e38d762e195cb6b882c21cad59816f1595b87234c1a152f9f9b4998a03543786"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-open-oblique.png",
+      "bytes": 443455,
+      "sha256": "83b6c7613deb02b445b3c8524f04ddf70d5f79754b6f8de52f3c08afdb38f814"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-open-side.png",
+      "bytes": 331303,
+      "sha256": "88b7f3423c84844bf3db10a120180b6cec707f4aa56e67a49fa9592cf9df573a"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-rest-bottom.png",
+      "bytes": 339273,
+      "sha256": "2d00140117e27aa8205d156c66c604616fd02aafb3a5fba65f2b4ad90b1054f5"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-rest-front.png",
+      "bytes": 442839,
+      "sha256": "af4d1e7a16114a20a87e0d1d90161dd3c5fef60a8e27e16c0ae9347e966ba87c"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-rest-oblique.png",
+      "bytes": 496818,
+      "sha256": "a070bd83b2348d75295d40d68ca676156fee87d4f1c248fcf8cdfbaa3a3181db"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-rest-side.png",
+      "bytes": 423632,
+      "sha256": "27d9a80667fed63bbe96800b2c61e764fb125fb693f0d9e8ea923c6e9bf3cf1e"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-shake_left-bottom.png",
+      "bytes": 376488,
+      "sha256": "eff6fe0c6b69a734881516012011544a64c3a7b5665c51d0ca520e78e9c9a3b9"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-shake_left-front.png",
+      "bytes": 464427,
+      "sha256": "c62b846303356268041163f44fd14cdd39e62d42dcba6f15b0fede3e7bc2c643"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-shake_left-oblique.png",
+      "bytes": 388956,
+      "sha256": "af143773d209ff4ab87b4617211da1b9fd1b53b70f61f6617b80729d6a2ad6b5"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-shake_left-side.png",
+      "bytes": 403756,
+      "sha256": "c36c2e3f79a13c03eca881c9d06097116fe1913088917b943c1f8dedc2ab6039"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-shake_right-bottom.png",
+      "bytes": 356111,
+      "sha256": "b4adab7779668451fa6dd2f3572f178179d8d85667ca238173e83999f6959ebe"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-shake_right-front.png",
+      "bytes": 500498,
+      "sha256": "649e4172cf1cca3c7e681661281d6700c60f6dd0527b8c13a0f2abdd8c4a58bf"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-shake_right-oblique.png",
+      "bytes": 332377,
+      "sha256": "f4704b674248761b6ee9b76a88a1071d476f90c00b2a851e0a0d8e0c24cc1708"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\checkpoint-cold\\texture-shake_right-side.png",
+      "bytes": 391686,
+      "sha256": "f17192f7cffc1e325fa3ad4bef6b21355c33cc41ce5f982603bc67159e328a3c"
+    }
+  ],
+  "deleted_bytes": 20782113,
+  "retained": "Four exact-match representative images already in game checkpoint; current model/source, videos and capture report retained."
+}

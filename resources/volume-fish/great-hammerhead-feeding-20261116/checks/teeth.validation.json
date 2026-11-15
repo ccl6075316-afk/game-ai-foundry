@@ -1,0 +1,79 @@
+{
+  "model_sha256": "1f8f9476d52b12bed351fbb3b9d01207b0c8d984da7063d00a7b65ae80d00a2c",
+  "scope": "12 times, native frame1; tooth triangles vs opposing jaw faces whose mean direct jaw weight >.5. Own base embed intentional; mixed junction faces not covered. Not full continuous collision proof.",
+  "samples": [
+    {
+      "t": 0,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 8.637127209194341
+    },
+    {
+      "t": 0.7,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 8.637127209194341
+    },
+    {
+      "t": 1.1,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 26.888385280431002
+    },
+    {
+      "t": 1.2,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 50.85991630981766
+    },
+    {
+      "t": 1.38,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 107.5385220949721
+    },
+    {
+      "t": 1.56,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 43.81244826676464
+    },
+    {
+      "t": 1.66,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 42.12762677243317
+    },
+    {
+      "t": 1.8,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 39.331066312438935
+    },
+    {
+      "t": 2.18,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 39.33112809993065
+    },
+    {
+      "t": 2.85,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 39.3310881184398
+    },
+    {
+      "t": 3.3,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 39.33112127833735
+    },
+    {
+      "t": 4.2,
+      "opposing_jaw_contacts": 0,
+      "examples": [],
+      "center_rim_distance_mm": 39.33108403790886
+    }
+  ],
+  "ok": true
+}

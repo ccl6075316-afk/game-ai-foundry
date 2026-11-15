@@ -1,0 +1,43 @@
+{
+  "ok": true,
+  "fresh_process": true,
+  "entry": {
+    "path": "projects/fishing-2d/plans/reviews/great-hammerhead-feeding-20261116/capture_feeding.gd",
+    "sha256": "01de979abe745328654c90ca7e8944d8ce680f252ad61ad64d6dd9fe8ba8b483",
+    "bytes": 9221
+  },
+  "model": {
+    "path": "projects/fishing-2d/plans/reviews/great-hammerhead-feeding-20261116/fish.glb",
+    "sha256": "1f8f9476d52b12bed351fbb3b9d01207b0c8d984da7063d00a7b65ae80d00a2c",
+    "bytes": 3508544
+  },
+  "source": {
+    "path": "projects/fishing-2d/plans/reviews/great-hammerhead-feeding-20261116/fish.blend",
+    "sha256": "a162fbe901312cd0718df137d21c40ae268770917b78e1fdd8d23fcc2deda542",
+    "bytes": 4376676
+  },
+  "snapshot_files_verified": 20,
+  "representative_gpu_images_exact": [
+    {
+      "image": "texture-rest-front.png",
+      "old_sha256": "af4d1e7a16114a20a87e0d1d90161dd3c5fef60a8e27e16c0ae9347e966ba87c",
+      "checkpoint_sha256": "af4d1e7a16114a20a87e0d1d90161dd3c5fef60a8e27e16c0ae9347e966ba87c"
+    },
+    {
+      "image": "texture-open-oblique.png",
+      "old_sha256": "83b6c7613deb02b445b3c8524f04ddf70d5f79754b6f8de52f3c08afdb38f814",
+      "checkpoint_sha256": "83b6c7613deb02b445b3c8524f04ddf70d5f79754b6f8de52f3c08afdb38f814"
+    },
+    {
+      "image": "feeding-whole.png",
+      "old_sha256": "e073f91f7eafb3378a7541e336f5fda8c10139a98f50d52991898234df183a94",
+      "checkpoint_sha256": "e073f91f7eafb3378a7541e336f5fda8c10139a98f50d52991898234df183a94"
+    },
+    {
+      "image": "gray-open-oblique.png",
+      "old_sha256": "bf2408bbdfcca652d3bfb938b2a040317b22181934a778fd9ddd0b8253ac60ae",
+      "checkpoint_sha256": "bf2408bbdfcca652d3bfb938b2a040317b22181934a778fd9ddd0b8253ac60ae"
+    }
+  ],
+  "scope": "Frozen review snapshot cold replay, not formal gameplay installation; no static construction invoked by replay. Source bytes match earlier independently cold-exported R4."
+}

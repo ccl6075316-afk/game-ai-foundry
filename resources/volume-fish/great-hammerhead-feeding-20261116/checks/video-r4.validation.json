@@ -1,0 +1,55 @@
+{
+  "ok": true,
+  "model": {
+    "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\candidate\\fish.glb",
+    "sha256": "1f8f9476d52b12bed351fbb3b9d01207b0c8d984da7063d00a7b65ae80d00a2c"
+  },
+  "videos": [
+    {
+      "mode": "large",
+      "video": {
+        "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\feeding-large-r4-60fps.mp4",
+        "sha256": "ce84b65c82d2c5b951a8dec14b768d7e58c86246e2b6a171e81d07d5a005f3d2"
+      },
+      "capture": {
+        "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\feeding-preview\\capture.validation.json",
+        "sha256": "5b5197bd96adf4634e2fc698ef14befcb7b457c9dd867849bc8ffcea4e27b304"
+      },
+      "config": {
+        "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\motion.json",
+        "sha256": "8ed34ca984ce0f571be7f08b85cfe6ff675ac6b8c30cacfac6fc70b2f5f4f7b6"
+      },
+      "stream": {
+        "width": 1280,
+        "height": 720,
+        "r_frame_rate": "60/1",
+        "duration": "10.200000",
+        "nb_frames": "612"
+      },
+      "decode_all_frames": true
+    },
+    {
+      "mode": "small",
+      "video": {
+        "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\feeding-small-r4-60fps.mp4",
+        "sha256": "507bd5d7b6e711b6f8d08dc9033a8c967e3063f7811996c4193bb0f2c162fe8c"
+      },
+      "capture": {
+        "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\small-preview\\capture.validation.json",
+        "sha256": "f91cc756706754d2aba3cf1125bbee0168cc9f39aee3076310c0e864fc785242"
+      },
+      "config": {
+        "path": "E:\\game-ai-foundry\\work\\great-hammerhead-feeding-20261116\\motion-small.json",
+        "sha256": "c4340cb4d3474471f55cf86b5889a5690346f99436bb68341ea13e7f09c1150f"
+      },
+      "stream": {
+        "width": 1280,
+        "height": 720,
+        "r_frame_rate": "60/1",
+        "duration": "10.200000",
+        "nb_frames": "612"
+      },
+      "decode_all_frames": true
+    }
+  ]
+}
