@@ -1,0 +1,291 @@
+{
+  "kind": "five_user_accepted_articulated_fish_mouths",
+  "date": "2026-11-16",
+  "user_acceptance": "这五条嘴巴都可以了，验收提交推送吧。",
+  "fish": {
+    "carp": {
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/carp.glb",
+        "sha256": "c02e8674168977d10105359b5d7a20bc182cdf32dcb8cfbef482a4de20b20b2c"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/carp/fish.blend",
+        "sha256": "8d081e3d216213b02a19fef1f6db7c0e60bc0a74c5809fe4eb09b7146382eb21"
+      },
+      "motion_profile": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/width20261101/carp.json",
+        "sha256": "061eb8e6750818157d8139be2f6f3d8bb1abffb936fc556cd325093c6f4ed5c3"
+      },
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/width20261101/carp-mouth-anchor.json",
+        "sha256": "32453b84bf5c2236011abbcf51a0b29c023eb224c29e05cb95c6951fa19aab22"
+      },
+      "max_open_degrees": 10.0,
+      "duration_seconds": 2.4,
+      "triangles": 1522,
+      "bones": 19,
+      "fins": 7,
+      "cold-load": {
+        "path": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/carp-final-asset-cold-load.validation.json",
+        "sha256": "d02dd08bb0812e28c4abfb24821f9b1be7b4b56a8bb0f866ed51c08e10f554e9"
+      },
+      "mouth-views": {
+        "path": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/carp-mouth-views.jpg",
+        "sha256": "fe4d97b1618ea9676042ffc6e02e5288a1a1b93219bdc2ca24464277b048d06c"
+      },
+      "physical": {
+        "path": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/carp-physical.validation.json",
+        "sha256": "d49e7ca951f4cb5addf1a4c0f4e00f1c97c363e227d13c84d13adce751741fd5"
+      },
+      "sop": {
+        "runtime_passed": true,
+        "full_sop_passed": false,
+        "path": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/carp-sop-check.json",
+        "sha256": "e924cf935dfe5a8f16003b3e4791195b60307aa2878222d6f129d7211cfffef3"
+      }
+    },
+    "grass_carp": {
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/grass_carp.glb",
+        "sha256": "491e7c0222152f61cdba0bf9f383dce15d602d4e056d95d4f3a4e9cdd403b024"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/grass_carp/fish.blend",
+        "sha256": "334ebd019e22a0352cc61d3a79240d640df8d615efd4aed9a3394eb78d45a1d0"
+      },
+      "motion_profile": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/width20261101/grass_carp.json",
+        "sha256": "910577a63b34781ab3f37735a2b6eb53ffe60670912de7910737e62284e41ebb"
+      },
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/width20261101/grass_carp-mouth-anchor.json",
+        "sha256": "e7b471bd5884c595aac8a7f27568b7ef4913a25fd369edf9ba1ffd824b0cf54f"
+      },
+      "max_open_degrees": 10.0,
+      "duration_seconds": 2.4,
+      "triangles": 1918,
+      "bones": 19,
+      "fins": 7,
+      "cold-load": {
+        "path": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/grass_carp-final-asset-cold-load.validation.json",
+        "sha256": "181eeecd47c8e97b595cccda58d2d0085c2f95eac6977e110c526c203a2eba0d"
+      },
+      "mouth-views": {
+        "path": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/grass_carp-mouth-views.jpg",
+        "sha256": "322f33bc89966917897fc11ffd0afcb0c80919647042310f48152584811f180c"
+      },
+      "physical": {
+        "path": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/grass_carp-physical.validation.json",
+        "sha256": "f08f3991bb2fe7bd05233edb8605ee05c6ef2f4dae7c14836f2fdbf19ac4d65e"
+      },
+      "sop": {
+        "runtime_passed": true,
+        "full_sop_passed": false,
+        "path": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/grass_carp-sop-check.json",
+        "sha256": "8d8da626c371217c4feb398763c8b9d7f3775bc5eed48db90ba5098c1f38e397"
+      }
+    },
+    "zander": {
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/zander.glb",
+        "sha256": "0e9204d8125d1f3ef370da90429071994c8e4fdcbc09da965cdde9b03c800e9e"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/zander/fish.blend",
+        "sha256": "0331a67d5c67c09b252efa9453dc4fc7dd813d6f861d9af1967da4975a5db122"
+      },
+      "motion_profile": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/zander.json",
+        "sha256": "1bac27e4d3cbe7258b3e26b0a8eace55f81e9732be9bdaa67814354cbc35ebb2"
+      },
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/zander-mouth-anchor.json",
+        "sha256": "e3ba35a1423d2f0ea7852a2cd087a697ef8ae80c8222032de14efc1f396b2b40"
+      },
+      "max_open_degrees": 12.0,
+      "duration_seconds": 2.4,
+      "triangles": 2000,
+      "bones": 20,
+      "fins": 8,
+      "cold-load": {
+        "path": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/zander-final-asset-cold-load.validation.json",
+        "sha256": "dea98029b38d9ba12d15a9dc7251d0c3c7095d8be22cddcc6be108632755ebe4"
+      },
+      "mouth-views": {
+        "path": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/zander-mouth-views.jpg",
+        "sha256": "f48cf48f87feac1015f06c2faa1bdfd612173c8dc387d5cb714eab64077caf83"
+      },
+      "physical": {
+        "path": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/zander-physical.validation.json",
+        "sha256": "d971242167768e606fa2aee6ae3bb2590cb045db9888be863aa723feb6f9baf3"
+      },
+      "sop": {
+        "runtime_passed": true,
+        "full_sop_passed": false,
+        "path": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/zander-sop-check.json",
+        "sha256": "223c3f00b0fd7649474d0807ba4b7fde09ebe37e98213ffb079592b5daf9f5c9"
+      }
+    },
+    "sea_bass": {
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/sea_bass.glb",
+        "sha256": "dab6589792309f8e7ed6658b505e1ac75e3c5952296d6bec903414882ba287ae"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/sea_bass/fish.blend",
+        "sha256": "5d188ae85c5ff414eb8638c5e5318ca4cb409647c375c321c806147884214fef"
+      },
+      "motion_profile": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/width20261101/sea_bass.json",
+        "sha256": "21646fd9da85d18821defdbb491998e5b72f76de65223868958ce212f076a43c"
+      },
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/width20261101/sea_bass-mouth-anchor.json",
+        "sha256": "fa4e4cac0830ee27639ce9d47da4aceb952626b5e7af88d178294e738cd1d2fe"
+      },
+      "max_open_degrees": 14.0,
+      "duration_seconds": 2.4,
+      "triangles": 1994,
+      "bones": 20,
+      "fins": 8,
+      "cold-load": {
+        "path": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/sea_bass-final-asset-cold-load.validation.json",
+        "sha256": "c53f9acae9841dc2d38c463c6577890d646f287124cd588512ffa49cecd81871"
+      },
+      "mouth-views": {
+        "path": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/sea_bass-mouth-views.jpg",
+        "sha256": "5eba473158f1e0e9bf491cb8ccd50244aaf3b542662033199763fcd2805da3a3"
+      },
+      "physical": {
+        "path": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/sea_bass-physical.validation.json",
+        "sha256": "ec334bfd63e1d940baf6e3a2522ef08a5e51bf8be2960b0a07608b3ddfeb9829"
+      },
+      "sop": {
+        "runtime_passed": true,
+        "full_sop_passed": false,
+        "path": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/sea_bass-sop-check.json",
+        "sha256": "73e6bd56319fce615a8ce62f0a53f2f57edc772735a2b952ad9d8c5c8f428f7b"
+      }
+    },
+    "brown_trout": {
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/brown_trout.glb",
+        "sha256": "4fa8147be65f2bf2d6fdeb60de3b48ebe0b1b9a29bfff0ea95e74ab842e3abd9"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/brown_trout/fish.blend",
+        "sha256": "c91eb8f04d9ddf5ab39b1a67c1ed27a69220044d6e086849d5c64faf7e0bc726"
+      },
+      "motion_profile": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/width20261101/brown_trout.json",
+        "sha256": "f33fba36eabf3650af3a91e18de5b71aa3a15183cde70069e49e3469d9a05501"
+      },
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/width20261101/brown_trout-mouth-anchor.json",
+        "sha256": "850573f6c5d7a3c1b535aebd045b54c5200aac8a28502d24484594809ed8123e"
+      },
+      "max_open_degrees": 14.0,
+      "duration_seconds": 2.4,
+      "triangles": 1960,
+      "bones": 20,
+      "fins": 8,
+      "cold-load": {
+        "path": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/brown_trout-final-asset-cold-load.validation.json",
+        "sha256": "e0a53a7aeced8fb4fc18ed4a2b1dd502242df42838cff004ebcf4a7e1e4f221c"
+      },
+      "mouth-views": {
+        "path": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/brown_trout-mouth-views.jpg",
+        "sha256": "78320edb5d1b0863fec104ceb13ab6155e12bad29ae7840e704bb6986b414f69"
+      },
+      "physical": {
+        "path": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/brown_trout-physical.validation.json",
+        "sha256": "9602b914651baa76ba22d5bf56c30c89af7467f162df615ac40462d44d163909"
+      },
+      "sop": {
+        "runtime_passed": true,
+        "full_sop_passed": false,
+        "path": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/brown_trout-sop-check.json",
+        "sha256": "4582ccfb022dcac234b16321c449d255df50c5002353cef369fa97a7b5ce5954"
+      }
+    }
+  },
+  "handoff": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/HANDOFF.md",
+  "installed_jaw_button": {
+    "path": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/jaw-actions.validation.json",
+    "sha256": "ac8410c01630ec5242dd8a80026c7b4c9e63c9c7bff005f1a7bbebcda1267796"
+  },
+  "formal_and_fishing": {
+    "path": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/canonical-and-fishing.validation.json",
+    "sha256": "42d509f02d230aedf22a045f967b61d72b81ac47ae36b31802e944267e8003c1"
+  },
+  "replay_installed_button": {
+    "path": "resources/volume-fish/five-fish-jaws-20261116/verify_action.gd",
+    "sha256": "357e9c02a66874af22aacd531294674d5f4005e9ab3f546ec26661b5068d301f"
+  },
+  "publication": {
+    "game_commit": "09343bd84edfc29ada37e403965163dddc9a93bc",
+    "game_branch": "main",
+    "lfs_backend": "baidu",
+    "lfs_upload_readback_verified": true,
+    "objects": [
+      {
+        "path": "projects/fishing-2d/game/assets/models/fish/carp.glb",
+        "sha256": "c02e8674168977d10105359b5d7a20bc182cdf32dcb8cfbef482a4de20b20b2c",
+        "size": 7760144
+      },
+      {
+        "path": "projects/fishing-2d/assets/source/fish/carp/fish.blend",
+        "sha256": "8d081e3d216213b02a19fef1f6db7c0e60bc0a74c5809fe4eb09b7146382eb21",
+        "size": 7691043
+      },
+      {
+        "path": "projects/fishing-2d/game/assets/models/fish/grass_carp.glb",
+        "sha256": "491e7c0222152f61cdba0bf9f383dce15d602d4e056d95d4f3a4e9cdd403b024",
+        "size": 2720052
+      },
+      {
+        "path": "projects/fishing-2d/assets/source/fish/grass_carp/fish.blend",
+        "sha256": "334ebd019e22a0352cc61d3a79240d640df8d615efd4aed9a3394eb78d45a1d0",
+        "size": 2815172
+      },
+      {
+        "path": "projects/fishing-2d/game/assets/models/fish/zander.glb",
+        "sha256": "0e9204d8125d1f3ef370da90429071994c8e4fdcbc09da965cdde9b03c800e9e",
+        "size": 7183420
+      },
+      {
+        "path": "projects/fishing-2d/assets/source/fish/zander/fish.blend",
+        "sha256": "0331a67d5c67c09b252efa9453dc4fc7dd813d6f861d9af1967da4975a5db122",
+        "size": 7090049
+      },
+      {
+        "path": "projects/fishing-2d/game/assets/models/fish/sea_bass.glb",
+        "sha256": "dab6589792309f8e7ed6658b505e1ac75e3c5952296d6bec903414882ba287ae",
+        "size": 7626728
+      },
+      {
+        "path": "projects/fishing-2d/assets/source/fish/sea_bass/fish.blend",
+        "sha256": "5d188ae85c5ff414eb8638c5e5318ca4cb409647c375c321c806147884214fef",
+        "size": 7532661
+      },
+      {
+        "path": "projects/fishing-2d/game/assets/models/fish/brown_trout.glb",
+        "sha256": "4fa8147be65f2bf2d6fdeb60de3b48ebe0b1b9a29bfff0ea95e74ab842e3abd9",
+        "size": 4984076
+      },
+      {
+        "path": "projects/fishing-2d/assets/source/fish/brown_trout/fish.blend",
+        "sha256": "c91eb8f04d9ddf5ab39b1a67c1ed27a69220044d6e086849d5c64faf7e0bc726",
+        "size": 4971201
+      }
+    ]
+  },
+  "style_progress": {
+    "accepted": 24,
+    "total": 28
+  },
+  "non_shark_mouth_progress": {
+    "accepted": 14,
+    "total": 23
+  }
+}
