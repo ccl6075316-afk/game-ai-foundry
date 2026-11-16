@@ -1,0 +1,189 @@
+{
+  "kind": "three_user_accepted_articulated_fish_mouths",
+  "date": "2026-11-16",
+  "user_acceptance": "这三条嘴巴都可以了，验收提交推送吧。",
+  "fish": {
+    "red_seabream": {
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/red_seabream.glb",
+        "sha256": "b04ec7b3db374b0a3eb8afd10b3d5d4bff0e2f22610076d59cd2c4cf6b026285"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/red_seabream/fish.blend",
+        "sha256": "e41a70b999455c905c37f2f01cd6d0f40932337fa09f5953d86d80c398c1e4cc"
+      },
+      "motion_profile": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/width20261101/red_seabream.json",
+        "sha256": "b75258d0374d9202f309028485c1f5c62cfe16deced72b35d7dab5bc214fb7e2"
+      },
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/width20261101/red_seabream-mouth-anchor.json",
+        "sha256": "684303d6fbfd4eab4eddc9f929c5f293ff0601c724278a8939893b045b94665a"
+      },
+      "max_open_degrees": 10.0,
+      "duration_seconds": 2.4,
+      "triangles": 1940,
+      "bones": 19,
+      "fins": 7,
+      "cold-load": {
+        "path": "projects/fishing-2d/plans/reviews/three-fish-jaws-20261116/red_seabream-final-asset-cold-load.validation.json",
+        "sha256": "c298a049e09e6b34b64ed550edfc042515bd9e35e710e538fda64c6a550a2d11"
+      },
+      "mouth-views": {
+        "path": "projects/fishing-2d/plans/reviews/three-fish-jaws-20261116/red_seabream-mouth-views.jpg",
+        "sha256": "6dac6a6b71f94453a5058ec00e44824f82bb5e24c8527d5e498b5c2f344d6959"
+      },
+      "physical": {
+        "path": "projects/fishing-2d/plans/reviews/three-fish-jaws-20261116/red_seabream-physical.validation.json",
+        "sha256": "9240108f2523d2f5bbe33e987e4f874cdc393b87588e6db6da098ebc71fe623d"
+      },
+      "sop": {
+        "runtime_passed": true,
+        "full_sop_passed": false,
+        "path": "projects/fishing-2d/plans/reviews/three-fish-jaws-20261116/red_seabream-sop-check.json",
+        "sha256": "8117185b267d723d339591d4fc38ffaafc70f255fd076543fb28950bc44a18df"
+      }
+    },
+    "crucian": {
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/crucian.glb",
+        "sha256": "697c0d3acf150fd620f0419cd323fff4b173a5d6b41e9962071d10a5092afb9a"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/crucian/fish.blend",
+        "sha256": "144259277cf19e5043030876661f0450d3bab60a06375f5744b02ea56c8941fe"
+      },
+      "motion_profile": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/width20261101/crucian.json",
+        "sha256": "2bd7419434d8aabb86c63388e9b06c498748f28effc5fc8d5f5bf4e00d691966"
+      },
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/width20261101/crucian-mouth-anchor.json",
+        "sha256": "3a55830e592693ba625543af580fa0066fa1732400d7fa53a2a8bcfec400d6a4"
+      },
+      "max_open_degrees": 10.0,
+      "duration_seconds": 2.4,
+      "triangles": 1716,
+      "bones": 19,
+      "fins": 7,
+      "cold-load": {
+        "path": "projects/fishing-2d/plans/reviews/three-fish-jaws-20261116/crucian-final-asset-cold-load.validation.json",
+        "sha256": "726a7aff371262ccd7e4d08d3a98af7da2f6617f99bb24cb71fb7f43c5fedfef"
+      },
+      "mouth-views": {
+        "path": "projects/fishing-2d/plans/reviews/three-fish-jaws-20261116/crucian-mouth-views.jpg",
+        "sha256": "69bf9c2be02a294ab466075e4a5b5b450d6967e11e7eedccf62bfb28983afa8d"
+      },
+      "physical": {
+        "path": "projects/fishing-2d/plans/reviews/three-fish-jaws-20261116/crucian-physical.validation.json",
+        "sha256": "163cef70fc0696375a7c0432f5b5c036e5185b78c35da79fdd4d10e70144b11d"
+      },
+      "sop": {
+        "runtime_passed": true,
+        "full_sop_passed": false,
+        "path": "projects/fishing-2d/plans/reviews/three-fish-jaws-20261116/crucian-sop-check.json",
+        "sha256": "feb17b92e705d86f9a8c940ae1434222172753325c5732e310691f4629bae211"
+      }
+    },
+    "piranha": {
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/piranha.glb",
+        "sha256": "310eb305534b00e1cca1c7431abc73b593430576db453463d4dcc1976ac9f622"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/piranha/fish.blend",
+        "sha256": "a4513b3475ea68aba83b1672483030415efc33e0a9969750a36dbee66b385207"
+      },
+      "motion_profile": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/piranha.json",
+        "sha256": "3a1c6f4b2d3c786a28d881bdae1d93df385b0b04d477b84c8d6183b6e4e41e7f"
+      },
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/piranha-mouth-anchor.json",
+        "sha256": "3e8642033c8749f900877227621ea158e57f3ee5e279498a30658cdd4eb82ee4"
+      },
+      "max_open_degrees": 12.0,
+      "duration_seconds": 2.4,
+      "triangles": 2000,
+      "bones": 20,
+      "fins": 8,
+      "cold-load": {
+        "path": "projects/fishing-2d/plans/reviews/three-fish-jaws-20261116/piranha-final-asset-cold-load.validation.json",
+        "sha256": "533fcd6dc237a40a8f6c83b71f5e45c84aa05499c02ba778c291c2b465646d8e"
+      },
+      "mouth-views": {
+        "path": "projects/fishing-2d/plans/reviews/three-fish-jaws-20261116/piranha-mouth-views.jpg",
+        "sha256": "6f397d6be4d25ba10aefdff649ebd60e1e99373c9855977df7112dd6a76a27e2"
+      },
+      "physical": {
+        "path": "projects/fishing-2d/plans/reviews/three-fish-jaws-20261116/piranha-physical.validation.json",
+        "sha256": "6a43a63db914011421800a9f1e44b13a7011bf5729e8c965275c666c95121aed"
+      },
+      "sop": {
+        "runtime_passed": true,
+        "full_sop_passed": false,
+        "path": "projects/fishing-2d/plans/reviews/three-fish-jaws-20261116/piranha-sop-check.json",
+        "sha256": "51a0d948777b69241633031e965e5c382da6e1d930773017c915971032684d4d"
+      }
+    }
+  },
+  "handoff": "projects/fishing-2d/plans/reviews/three-fish-jaws-20261116/HANDOFF.md",
+  "installed_jaw_button": {
+    "path": "projects/fishing-2d/plans/reviews/three-fish-jaws-20261116/jaw-actions.validation.json",
+    "sha256": "4095131788b0507325e0e17cf6d1cd960238bbf40a3341b8dcaec102da1937b3"
+  },
+  "formal_and_fishing": {
+    "path": "projects/fishing-2d/plans/reviews/three-fish-jaws-20261116/canonical-and-fishing.validation.json",
+    "sha256": "442ad5a218f75597158beff819fa0467598d9a556217965795557e8c95a5c849"
+  },
+  "replay_installed_button": {
+    "path": "resources/volume-fish/three-fish-jaws-20261116/verify_action.gd",
+    "sha256": "0b130883464f7aba204ade53d104d8bf8ccab054f04afef6ae6975ec8cdb2699"
+  },
+  "publication": {
+    "game_commit": "2803dbbfba3a59f762c82943674701eb6789c822",
+    "game_branch": "main",
+    "lfs_backend": "baidu",
+    "lfs_upload_readback_verified": true,
+    "objects": [
+      {
+        "path": "game/assets/models/fish/red_seabream.glb",
+        "oid": "b04ec7b3db374b0a3eb8afd10b3d5d4bff0e2f22610076d59cd2c4cf6b026285",
+        "bytes": 9235488
+      },
+      {
+        "path": "assets/source/fish/red_seabream/fish.blend",
+        "oid": "e41a70b999455c905c37f2f01cd6d0f40932337fa09f5953d86d80c398c1e4cc",
+        "bytes": 9143240
+      },
+      {
+        "path": "game/assets/models/fish/crucian.glb",
+        "oid": "697c0d3acf150fd620f0419cd323fff4b173a5d6b41e9962071d10a5092afb9a",
+        "bytes": 3609608
+      },
+      {
+        "path": "assets/source/fish/crucian/fish.blend",
+        "oid": "144259277cf19e5043030876661f0450d3bab60a06375f5744b02ea56c8941fe",
+        "bytes": 3686451
+      },
+      {
+        "path": "game/assets/models/fish/piranha.glb",
+        "oid": "310eb305534b00e1cca1c7431abc73b593430576db453463d4dcc1976ac9f622",
+        "bytes": 8059164
+      },
+      {
+        "path": "assets/source/fish/piranha/fish.blend",
+        "oid": "a4513b3475ea68aba83b1672483030415efc33e0a9969750a36dbee66b385207",
+        "bytes": 7979939
+      }
+    ]
+  },
+  "style_progress": {
+    "accepted": 24,
+    "total": 28
+  },
+  "non_shark_mouth_progress": {
+    "accepted": 9,
+    "total": 23
+  }
+}
