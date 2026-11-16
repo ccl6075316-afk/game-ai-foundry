@@ -1,0 +1,125 @@
+{
+  "date": "2026-11-17",
+  "kind": "accepted_great_hammerhead_r5_motion_baseline",
+  "status": "user_accepted_installed",
+  "species": "great_hammerhead",
+  "fishing_2d_commit": "8a93b7dc22ee5f8020011e747e1da9bc916861ee",
+  "release": {
+    "path": "projects/fishing-2d/plans/reviews/great-hammerhead-feeding-20261116/r5/release.json",
+    "sha256": "73e2509311127378395ed435041ab01051f3a9c9e7036808954731174d465ebe"
+  },
+  "handoff": {
+    "path": "projects/fishing-2d/plans/reviews/great-hammerhead-feeding-20261116/HANDOFF.md",
+    "sha256": "83dafd1b8a68d2175b6f2a4274c2a6c5865d0b30cbbef2f9a07c202fb52654da"
+  },
+  "model": {
+    "path": "projects/fishing-2d/game/assets/models/fish/great_hammerhead.glb",
+    "sha256": "88a1973ea09cf82692d7c02119432ab1076f0c1afc0084647922de4ca64985a4",
+    "bytes": 3515892
+  },
+  "editable_source": {
+    "path": "projects/fishing-2d/assets/source/fish/great_hammerhead/fish.blend",
+    "sha256": "679078f1e5311530130e44e7c02854efb8345ae57398a744f53dfa22a0f0538c",
+    "bytes": 4381262
+  },
+  "swim_profile": {
+    "path": "projects/fishing-2d/game/assets/models/fish/motion/great-hammerhead-final-20261106.json",
+    "sha256": "e6b8f01a8f8a7e2591c922195c9ab2f0c3cb1f9c20123aae5950526bd548ee06",
+    "bytes": 2138
+  },
+  "feeding": {
+    "large": {
+      "video": {
+        "path": "projects/fishing-2d/plans/reviews/great-hammerhead-feeding-20261116/feeding-large-r5-60fps.mp4",
+        "sha256": "85fd0400b60523d2c253a16376ac845c0c8ee93eb3da82aadd2900471b7adf5f",
+        "bytes": 618841
+      },
+      "motion": {
+        "path": "resources/volume-fish/great-hammerhead-feeding-20261116/r5-preview/motion.json",
+        "sha256": "ff2a357328182d825692db270014e1adca16aeaed0bc86ae1abc3820f0520fd9",
+        "bytes": 2799
+      },
+      "poses": {
+        "path": "projects/fishing-2d/plans/reviews/great-hammerhead-feeding-20261116/r5/large-poses.json",
+        "sha256": "ce150a2b8874b1c04de72532f8dc04f5b06aa65a76139866afad844805005de6",
+        "bytes": 160687
+      },
+      "frames": 504,
+      "fps": 60,
+      "event_pose_checks": 253
+    },
+    "small": {
+      "video": {
+        "path": "projects/fishing-2d/plans/reviews/great-hammerhead-feeding-20261116/feeding-small-r5-60fps.mp4",
+        "sha256": "9c87bcc11f7d0370170b495e0538141cd31cf6676f3cb9e1b76fffccac2e9e10",
+        "bytes": 604563
+      },
+      "motion": {
+        "path": "resources/volume-fish/great-hammerhead-feeding-20261116/r5-preview/motion-small.json",
+        "sha256": "970e36ec152652e733fafdf82caad94330581c661892796770a7659ddfac39a6",
+        "bytes": 2469
+      },
+      "poses": {
+        "path": "projects/fishing-2d/plans/reviews/great-hammerhead-feeding-20261116/r5/small-poses.json",
+        "sha256": "7b8801543074010753c1326f2468d5e377741d7c105bf006cc74fae18fcd8576",
+        "bytes": 130829
+      },
+      "frames": 504,
+      "fps": 60,
+      "event_pose_checks": 253
+    }
+  },
+  "feeding_controller": {
+    "path": "resources/volume-fish/great-hammerhead-feeding-20261116/r5-preview/FeedingMotion.gd",
+    "sha256": "abd01c32250dc19c6cc165a57d9fc937068515c9173be9adb02cbe04b771f502",
+    "bytes": 5246
+  },
+  "preview_entry": {
+    "path": "resources/volume-fish/great-hammerhead-feeding-20261116/r5-preview/capture_feeding.gd",
+    "sha256": "489c8afff8bd16a20cb922e667276e58ec22ad110aeffe28241f482fc399bdec",
+    "bytes": 11349
+  },
+  "future_motion_basis": "R5 editable source, GLB and both feeding configurations. Subsequent motion refinement starts here.",
+  "runtime_sop": true,
+  "full_sop": false,
+  "sop": {
+    "path": "projects/fishing-2d/plans/reviews/great-hammerhead-feeding-20261116/r5/sop-check.json",
+    "sha256": "280008a69bb9decd2797debc8dc872cb550a1db28ec70d982dbf1dd82a920f03"
+  },
+  "related_accepted_shark_baselines": {
+    "blacktip_reef_shark": {
+      "path": "resources/volume-fish/blacktip-feeding-20261115/release.json",
+      "sha256": "098407b48cba0e8e75b3673855dc4d434e6e6313b0c4ca4c72ecedbe68f78357"
+    },
+    "whale_shark": {
+      "path": "resources/volume-fish/whale-shark-suction-20261116/release.json",
+      "sha256": "e67c768aba3d6960f6e08266a9460ec396683ab8d099e891cf067fa2b77f3366"
+    }
+  },
+  "related_baidu_readback": [
+    {
+      "species": "blacktip_reef_shark",
+      "path": "assets/source/fish/blacktip_reef_shark/fish.blend",
+      "oid": "6968513f6ba48910a75ef26d3f6cbb4d0b5cc685cde6f36b2ac1c068a4b01991",
+      "bytes": 2070324
+    },
+    {
+      "species": "blacktip_reef_shark",
+      "path": "game/assets/models/fish/blacktip_reef_shark.glb",
+      "oid": "3a9256652859a2ec468c95b197b94c49fd0c866f890a6fb08414b0469d5bc8e7",
+      "bytes": 2001384
+    },
+    {
+      "species": "whale_shark",
+      "path": "assets/source/fish/whale_shark/fish.blend",
+      "oid": "84f756ba2c145072338708a7688b7d4250ff7621ed41d9bfdfcd0ac87d7a7074",
+      "bytes": 3337749
+    },
+    {
+      "species": "whale_shark",
+      "path": "game/assets/models/fish/whale_shark.glb",
+      "oid": "a553fc2a082fbccbf7a0cca040c1f4b3d36f35ae308e9e7daac55fbda755741d",
+      "bytes": 3457820
+    }
+  ]
+}

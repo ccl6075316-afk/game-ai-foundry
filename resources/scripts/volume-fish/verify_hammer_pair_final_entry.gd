@@ -31,7 +31,7 @@ func compare_static(a: Node3D, b: Node3D, require_no_override: bool) -> Dictiona
 			if m.albedo_texture == null: assert(n.albedo_texture == null)
 			else: assert(n.albedo_texture != null and m.albedo_texture.get_image().get_data()==n.albedo_texture.get_image().get_data())
 		for surface in x.mesh.get("_surfaces"):lods+=surface.get("lods",[]).size()
-	assert(triangles==int(row.triangles) and surfaces==24 and lods==0)
+	assert(triangles==int(row.triangles) and surfaces==int(row.surfaces) and lods==0)
 	return {"triangles":triangles,"meshes":meshes.size(),"surfaces":surfaces,"serialized_lod_entries":lods}
 
 func pose(item: Dictionary, action: String, seconds: float) -> void:
@@ -114,10 +114,23 @@ func run() -> void:
 	var socket: Dictionary=BINDER.new().mouth_recipe(species)
 	assert(str(fishing.mouth_mesh.name)==socket.mesh)
 	assert(fishing.mouth_vertex.distance_to(Vector3(socket.position_native[0],socket.position_native[1],socket.position_native[2]))<0.0000001)
+	var max_socket_error := 0.0
+	var socket_bone: int = fishing.skeleton.find_bone(socket.weighted_bones.keys()[0])
+	assert(socket_bone >= 0 and socket.weighted_bones.size() == 1)
+	var lip: Vector3 = fishing.mouth_vertex
 	for action in ["Swim","Turn","Ascend","Dive"]:
-		fishing.animate(1.0/60,action)
-		assert(fishing.mouth_world().is_finite())
+		for i in 24:
+			fishing.animate(1.0/60,action)
+			fishing.skeleton.force_update_all_bone_transforms()
+			var expected: Vector3 = fishing.skeleton.global_transform * (
+				fishing.skeleton.get_bone_global_pose(socket_bone) *
+				fishing.skeleton.get_bone_global_rest(socket_bone).affine_inverse() * lip)
+			var error: float = fishing.mouth_world().distance_to(expected)
+			max_socket_error = maxf(max_socket_error,error)
+			assert(error < 0.00001)
 	var report: Dictionary={"ok":true,"kind":"hammer_pair_final_canonical_install_check","species":species,"fresh_process":true,"actual_entry":"VolumeFishExhibit._add_fish","approved_model_sha256":row.model_sha256,"model_sha256":FileAccess.get_sha256(path),"static":static_result,"scale":entry.model.scale.x,"static_build_calls":0,"static_builders_disabled":true,"first_load_material_overrides":0,"cached_effective_materials_identical":true,"first_and_cache_load_equal":true,"fishing_entry_static_equal":true,"fishing_socket_validated":socket,"controller_comparisons":comparisons,"transition_steps":transitions,"maximum_actual_bone_pose_delta":max_delta,"captures":captures,"motion_sha256":FileAccess.get_sha256(row.motion_path),"runtime_dependencies":preload("res://scripts/aquarium/FishRuntimeData.gd")._digests.duplicate(),"scope":"Current formal entry and cached entry vs independent raw approved GLB, all mesh arrays and embedded pixels exact; physical490 and opacity reports separate."}
+	report["fishing_socket_checks"] = 96
+	report["max_fishing_socket_error_m"] = max_socket_error
 	FileAccess.open(out.path_join("canonical-load.validation.json"),FileAccess.WRITE).store_string(JSON.stringify(report,"  ")+"\n")
 	preload("res://scripts/aquarium/FishAppearanceCache.gd").clear(); exhibit.fish.clear(); exhibit.free(); entry.clear(); direct.clear(); viewport.queue_free(); await process_frame; await process_frame
 	print("HAMMER_PAIR_CANONICAL_INSTALL_OK "+species); quit()
