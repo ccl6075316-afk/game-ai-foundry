@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "species": "great_hammerhead",
+  "real_length_cm": 400,
+  "head_sign": 1,
+  "base_clip": "Swim",
+  "body_bones": [
+    "body_00",
+    "body_01",
+    "body_02",
+    "body_03",
+    "body_04",
+    "body_05",
+    "body_06",
+    "body_07"
+  ],
+  "tank_size_m": [
+    24,
+    18,
+    24
+  ],
+  "path_radii_m": [
+    2.2,
+    1.6
+  ],
+  "vertical_amplitude_m": 0.65,
+  "envelope_radius_m": 6.0,
+  "period_seconds": 16,
+  "transition_seconds": 1,
+  "body_delay_seconds": 0.65,
+  "base_body_gain": 0.7,
+  "body_wave_radians": 0.14,
+  "body_wave_cycles": 0.75,
+  "bend_bias": 1.1,
+  "paired_fin_radians": 0.045,
+  "median_fin_radians": 0.025,
+  "actions": {
+    "Swim": {
+      "radius_scale": 1,
+      "bend_radians": 0.14,
+      "vertical_sign": 0,
+      "clip_speed": 1
+    },
+    "Turn": {
+      "radius_scale": 0.65,
+      "bend_radians": 0.48,
+      "vertical_sign": 0,
+      "clip_speed": 1.15
+    },
+    "Ascend": {
+      "radius_scale": 0.9,
+      "bend_radians": 0.18,
+      "vertical_sign": 1,
+      "clip_speed": 1
+    },
+    "Dive": {
+      "radius_scale": 0.9,
+      "bend_radians": 0.18,
+      "vertical_sign": -1,
+      "clip_speed": 1
+    }
+  },
+  "notes": [
+    "Species own side/front/top/bottom PNGs and own sparse surface/finite mouth/all8fins, ordinary source rig.",
+    "Triangles=4524,18bones; display engineering motion parameters, not species measured kinematics.",
+    "Method/axis/binding interface from accepted scalloped review; own morphology, original source materials and per-species parameters remain independent."
+  ],
+  "fin_motion_constraints": {
+    "Pectoral_left_bone": {
+      "outward_model_axis": [
+        0,
+        0,
+        1
+      ],
+      "minimum_radians": 0
+    },
+    "Pectoral_right_bone": {
+      "outward_model_axis": [
+        0,
+        0,
+        -1
+      ],
+      "minimum_radians": 0
+    },
+    "Pelvic_left_bone": {
+      "outward_model_axis": [
+        0,
+        0,
+        1
+      ],
+      "minimum_radians": 0
+    },
+    "Pelvic_right_bone": {
+      "outward_model_axis": [
+        0,
+        0,
+        -1
+      ],
+      "minimum_radians": 0
+    }
+  }
+}

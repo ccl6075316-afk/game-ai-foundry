@@ -1,0 +1,141 @@
+{
+  "species": "great_hammerhead",
+  "units": "native scene length approximately 4 metres",
+  "status": "R5 great hammerhead small-prey ingestion preview.",
+  "jaw_max_degrees": 40,
+  "upper_translation_native": [
+    0.006,
+    0,
+    -0.002
+  ],
+  "duration": 4.2,
+  "keyframes": [
+    {
+      "t": 0,
+      "gape": 0,
+      "protrusion": 0,
+      "travel": -1.088,
+      "head": 0,
+      "travel_speed": 0.8
+    },
+    {
+      "t": 0.7,
+      "gape": 0,
+      "protrusion": 0,
+      "travel": -0.5280000000000001,
+      "head": 0,
+      "travel_speed": 0.8
+    },
+    {
+      "t": 1.1,
+      "gape": 0.18,
+      "protrusion": 0,
+      "travel": -0.20799999999999996,
+      "head": 0.2,
+      "travel_speed": 0.8
+    },
+    {
+      "t": 1.38,
+      "gape": 0.68,
+      "protrusion": 0.1,
+      "travel": 0.015999999999999792,
+      "head": 1,
+      "travel_speed": 0.8
+    },
+    {
+      "t": 1.56,
+      "gape": 0.38,
+      "protrusion": 0.8,
+      "travel": 0.16000000000000014,
+      "head": 0.6,
+      "travel_speed": 0.8
+    },
+    {
+      "t": 1.8,
+      "gape": 0.43,
+      "protrusion": 0.65,
+      "travel": 0.3520000000000001,
+      "head": 0.25,
+      "travel_speed": 0.8
+    },
+    {
+      "t": 2.3,
+      "gape": 0.18,
+      "protrusion": 0.25,
+      "travel": 0.7519999999999998,
+      "head": 0.25,
+      "travel_speed": 0.8
+    },
+    {
+      "t": 2.9,
+      "gape": 0,
+      "protrusion": 0,
+      "travel": 1.2319999999999998,
+      "head": 0.2,
+      "travel_speed": 0.8
+    },
+    {
+      "t": 3.3,
+      "gape": 0,
+      "protrusion": 0,
+      "travel": 1.552,
+      "head": 0.1,
+      "travel_speed": 0.8
+    },
+    {
+      "t": 4.2,
+      "gape": 0,
+      "protrusion": 0,
+      "travel": 2.2720000000000002,
+      "head": 0,
+      "travel_speed": 0.8
+    }
+  ],
+  "head_max_degrees": 6,
+  "floor_translation_native": [
+    0,
+    0,
+    -0.04
+  ],
+  "upper_max_degrees": 7,
+  "shake_degrees": 0,
+  "branch": "small_prey_ingestion_r5",
+  "body_degrees": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "body_delay": [
+    0,
+    0.02,
+    0.04,
+    0.06,
+    0.08,
+    0.1,
+    0.13,
+    0.16
+  ],
+  "blend_window": [
+    5,
+    6,
+    7,
+    8
+  ],
+  "path_yaw_keys": [
+    [
+      0,
+      0
+    ],
+    [
+      4.2,
+      0
+    ]
+  ],
+  "prey_mode": "small",
+  "swim_blend_max": 0.0
+}

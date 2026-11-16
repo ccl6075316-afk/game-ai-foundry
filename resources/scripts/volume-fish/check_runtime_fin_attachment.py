@@ -49,6 +49,13 @@ def main():
     for key in ['candidate_gait_revision', 'gait_adapter_sha256', 'gait_config_sha256', 'base_exporter_sha256']:
         if key in export:
             report[key] = export[key]
+    if 'feeding_event_revision' in export:
+        for key in ('feeding_event_revision', 'feeding_duration_seconds', 'feeding_sample_rate',
+                    'native_clip_seconds', 'feeding_motion_sha256', 'feeding_controller_sha256'):
+            report[key] = export[key]
+        report['method'] = ('Actual Godot native and feeding poses with imported inverse-bind matrices. '
+                            'CPU-skinned roots and closed body triangles in carrier-local meters. '
+                            'Signed nearest BVH distances are reported in centimeters.')
     for sample in export['samples']:
         path = Path(sample['posed_mesh_json'])
         if hashlib.sha256(path.read_bytes()).hexdigest() != sample['sha256']:

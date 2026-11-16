@@ -1,0 +1,154 @@
+{
+  "species": "great_hammerhead",
+  "units": "native scene length approximately 4 metres",
+  "status": "R5 great hammerhead large-prey preview. Authored timing and amplitudes.",
+  "jaw_max_degrees": 40,
+  "upper_translation_native": [
+    0.006,
+    0,
+    -0.002
+  ],
+  "duration": 4.2,
+  "keyframes": [
+    {
+      "t": 0,
+      "gape": 0,
+      "protrusion": 0,
+      "travel": -1.088,
+      "head": 0,
+      "travel_speed": 0.3885714285714288
+    },
+    {
+      "t": 0.7,
+      "gape": 0,
+      "protrusion": 0,
+      "travel": -0.816,
+      "head": 0,
+      "travel_speed": 0.49454545454545457
+    },
+    {
+      "t": 1.1,
+      "gape": 0.18,
+      "protrusion": 0,
+      "travel": -0.544,
+      "head": 0.2,
+      "travel_speed": 0.875
+    },
+    {
+      "t": 1.38,
+      "gape": 1,
+      "protrusion": 0.1,
+      "travel": -0.221,
+      "head": 1,
+      "travel_speed": 1.2934782608695654
+    },
+    {
+      "t": 1.56,
+      "gape": 0.52,
+      "protrusion": 1,
+      "travel": 0.051,
+      "head": 0.6,
+      "travel_speed": 0.8304761904761901
+    },
+    {
+      "t": 1.8,
+      "gape": 0.45,
+      "protrusion": 0.85,
+      "travel": 0.1278,
+      "head": 0.25,
+      "travel_speed": 0.32000000000000006
+    },
+    {
+      "t": 2.3,
+      "gape": 0.45,
+      "protrusion": 0.85,
+      "travel": 0.28779999999999994,
+      "head": 0.25,
+      "travel_speed": 0.32
+    },
+    {
+      "t": 2.9,
+      "gape": 0.45,
+      "protrusion": 0.85,
+      "travel": 0.47979999999999995,
+      "head": 0.2,
+      "travel_speed": 0.32000000000000006
+    },
+    {
+      "t": 3.3,
+      "gape": 0.45,
+      "protrusion": 0.85,
+      "travel": 0.6078,
+      "head": 0.1,
+      "travel_speed": 0.3200000000000001
+    },
+    {
+      "t": 4.2,
+      "gape": 0.45,
+      "protrusion": 0.85,
+      "travel": 0.8958000000000002,
+      "head": 0,
+      "travel_speed": 0.32000000000000006
+    }
+  ],
+  "head_max_degrees": 6,
+  "floor_translation_native": [
+    0,
+    0,
+    -0.04
+  ],
+  "upper_max_degrees": 7,
+  "shake_degrees": 3,
+  "branch": "large_food_processing_r5",
+  "body_degrees": [
+    25,
+    22,
+    14,
+    3,
+    -11,
+    -23,
+    -32,
+    -37
+  ],
+  "body_delay": [
+    0,
+    0.026,
+    0.055,
+    0.085,
+    0.116,
+    0.149,
+    0.183,
+    0.218
+  ],
+  "blend_window": [
+    1.17,
+    1.62,
+    3.38,
+    4.09
+  ],
+  "path_yaw_keys": [
+    [
+      0,
+      0
+    ],
+    [
+      4.2,
+      0
+    ]
+  ],
+  "prey_mode": "large",
+  "swim_blend_max": 0.88,
+  "processing": {
+    "engage": [
+      1.53,
+      1.85
+    ],
+    "release": [
+      2.04,
+      3.48
+    ],
+    "crest": 1.85,
+    "initial_hz": 1.58,
+    "hz_per_second": -0.21
+  }
+}

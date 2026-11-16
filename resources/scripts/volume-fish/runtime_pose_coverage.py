@@ -6,6 +6,28 @@ import math
 def validate_runtime_pose_coverage(export):
     samples = export["samples"]
     counts = dict(Counter(row["action"] for row in samples))
+    if "feeding_event_revision" in export:
+        if (export["feeding_event_revision"] != 1 or export.get("fin_membrane_revision") != 1
+                or not export.get("expected_fins")
+                or any(key in export for key in ("native_cycle_revision", "candidate_gait_revision", "motion_range_revision"))):
+            raise ValueError("Invalid dedicated feeding event coverage")
+        duration = export.get("feeding_duration_seconds")
+        native_duration = export.get("native_clip_seconds")
+        fps = export.get("feeding_sample_rate")
+        if (type(fps) is not int or fps <= 0 or any(
+                type(value) not in (int, float) or not math.isfinite(value) or value <= 0
+                for value in (duration, native_duration))):
+            raise ValueError("Feeding export requires finite clip durations and a positive sample rate")
+        intervals = round(duration * fps)
+        if abs(duration * fps - intervals) > 1e-6 or counts != {"Static": 1, "Native": 25, "Feeding": intervals + 1}:
+            raise ValueError("Incomplete feeding event coverage")
+        expected = [("Static", 0.0)]
+        expected.extend(("Native", native_duration * phase / 25) for phase in range(25))
+        expected.extend(("Feeding", frame / fps) for frame in range(intervals + 1))
+        for row, (action, seconds) in zip(samples, expected, strict=True):
+            if row["action"] != action or not math.isfinite(row["seconds"]) or abs(row["seconds"] - seconds) > 1e-6:
+                raise ValueError("Feeding export has missing, duplicated or misordered times")
+        return counts
     if "native_cycle_revision" in export:
         if export["native_cycle_revision"] != 1 or not export.get("expected_fins"):
             raise ValueError("Unknown native cycle contract or missing fin inventory")

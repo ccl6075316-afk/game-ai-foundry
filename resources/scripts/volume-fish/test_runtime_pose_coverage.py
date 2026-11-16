@@ -16,6 +16,22 @@ def candidate(membranes=False):
 
 
 class CoverageTests(unittest.TestCase):
+    def test_feeding_requires_each_declared_time_in_order(self):
+        times = [('Static', 0.0)]
+        times.extend(('Native', phase / 25) for phase in range(25))
+        times.extend(('Feeding', frame / 60) for frame in range(253))
+        data = {'feeding_event_revision': 1, 'fin_membrane_revision': 1, 'expected_fins': ['fin'],
+                'feeding_duration_seconds': 4.2, 'native_clip_seconds': 1.0, 'feeding_sample_rate': 60,
+                'samples': [{'action': action, 'seconds': seconds} for action, seconds in times]}
+        self.assertEqual(validate_runtime_pose_coverage(data), {'Static': 1, 'Native': 25, 'Feeding': 253})
+        broken = copy.deepcopy(data)
+        broken['samples'][-1] = broken['samples'][-2]
+        with self.assertRaisesRegex(ValueError, 'missing, duplicated or misordered'):
+            validate_runtime_pose_coverage(broken)
+        data['motion_range_revision'] = 1
+        with self.assertRaisesRegex(ValueError, 'dedicated feeding'):
+            validate_runtime_pose_coverage(data)
+
     def test_valid_candidate_inventories(self):
         for membranes in [False, True]: validate_runtime_pose_coverage(candidate(membranes))
 
