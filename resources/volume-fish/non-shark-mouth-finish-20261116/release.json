@@ -1,0 +1,630 @@
+{
+  "kind": "completed_non_shark_mouth_review",
+  "date": "2026-11-16",
+  "user_acceptance": "带鱼不用张嘴了 去掉吧  其他的可以了 提交吧",
+  "progress": {
+    "mouth_scope_completed": 23,
+    "species": 23,
+    "jaw_action_released": 22,
+    "static_exceptions": [
+      "hairtail"
+    ]
+  },
+  "style_progress": {
+    "accepted": 24,
+    "total": 28
+  },
+  "fish": {
+    "rainbow_trout": {
+      "label": "虹鳟",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/rainbow_trout.glb",
+        "sha256": "3f861bfad7029fe5bc890c0fa95bd56e6378de510bb90232a6b6f742f1f4d5ee"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/rainbow_trout/fish.blend",
+        "sha256": "4a231214e37b060c0e91caf85793885f7013e1be576c4401cca3d6037555999b"
+      },
+      "motion_profile": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/width20261101/rainbow_trout.json",
+        "sha256": "8d3d33cbcf18720ddb20d2a22652cd9b7b33d61ef37854c9c241d1d5fdcb2da4"
+      },
+      "motion_runtime": {
+        "path": "projects/fishing-2d/game/scripts/aquarium/FishJawActionMotion.gd",
+        "sha256": "311c89389cf95aa898f930f0180688939d54d1f4e84d49ba01edcff42e4c348c"
+      },
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/width20261101/rainbow_trout-mouth-anchor.json",
+        "sha256": "263205a8810d07ad9e24494d782ea1b446bb5a5f76cd9d4b94148773f7422c93"
+      },
+      "jaw_action": true,
+      "max_open_degrees": 12.0,
+      "duration_seconds": 2.4,
+      "triangles": 1896,
+      "bones": 20,
+      "fins": 8,
+      "mouth_views": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/rainbow_trout-mouth-review.jpg",
+        "sha256": "fe9e2bd13a35b858a2c6198b35c2216b5ff13e90d85adc72fdf9f497737c18de"
+      },
+      "physical": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/rainbow_trout-physical.validation.json",
+        "sha256": "65bfc82dc73d612d47bfb8a6af5f7b70f7379d23c28848d698dffdbf0c76c7cc"
+      },
+      "cold_load": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/rainbow_trout-final-asset-cold-load.validation.json",
+        "sha256": "432e8bd3027ba23518be5b9e23d48ae881c6da07e971afd63879df54e8e54113"
+      },
+      "unchanged_sampler_values_mag_min_s_t": [
+        [
+          9728,
+          9728,
+          33071,
+          33071
+        ]
+      ],
+      "production_sop": {
+        "runtime_passed": true,
+        "full_sop_passed": false,
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/rainbow_trout-sop-check.json",
+        "sha256": "e8219a279da1e9619a85fd2ba8d6ef7c4cc39d4f1aadb5e39844f0227967e3dd"
+      }
+    },
+    "atlantic_salmon": {
+      "label": "大西洋鲑",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/atlantic_salmon.glb",
+        "sha256": "d11e117d760d331fb4810e025b6df65d86b99ce06ca0ca8624e620eb7fb8c4f6"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/atlantic_salmon/fish.blend",
+        "sha256": "f7890f46564e0ea116a04655af66830ad878ebc7cadd51996d1f904647c48fe5"
+      },
+      "motion_profile": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/width20261101/atlantic_salmon.json",
+        "sha256": "154e34abdce375d7caff7e6e7eb4b1aafbaa9c670f70ec5748a7b2a7795a6b66"
+      },
+      "motion_runtime": {
+        "path": "projects/fishing-2d/game/scripts/aquarium/FishJawActionMotion.gd",
+        "sha256": "311c89389cf95aa898f930f0180688939d54d1f4e84d49ba01edcff42e4c348c"
+      },
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/width20261101/atlantic_salmon-mouth-anchor.json",
+        "sha256": "48d79d3ce69d26b3f5be67543c87f3d6c3e55581008385d1637ae1fa9277eaed"
+      },
+      "jaw_action": true,
+      "max_open_degrees": 12.0,
+      "duration_seconds": 2.4,
+      "triangles": 1988,
+      "bones": 20,
+      "fins": 8,
+      "mouth_views": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/atlantic_salmon-mouth-review.jpg",
+        "sha256": "e9bc85d2356732d5ec9231189580c754d1de8e8ae45508decbe3a3610f4199d7"
+      },
+      "physical": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/atlantic_salmon-physical.validation.json",
+        "sha256": "8af1f37eb41135b7b3a9b525f3063bb90db85a2c98032cc6875b9b691434968b"
+      },
+      "cold_load": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/atlantic_salmon-final-asset-cold-load.validation.json",
+        "sha256": "f7fb2b61ed54a5d75c303ac42a6ed316832dcb8d9c057b817cb4ddcd25b08b8f"
+      },
+      "unchanged_sampler_values_mag_min_s_t": [
+        [
+          9728,
+          9728,
+          33071,
+          33071
+        ]
+      ],
+      "production_sop": {
+        "runtime_passed": true,
+        "full_sop_passed": false,
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/atlantic_salmon-sop-check.json",
+        "sha256": "b8e8dbc05fe484b7845c24c7987d79b28d963deb92009e121f748d7cc079c457"
+      }
+    },
+    "red_emperor": {
+      "label": "红皇帝鱼",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/red_emperor.glb",
+        "sha256": "dd32e6b2b207b717034ee55eef25657c7677efd2b928760c5996e8b67adec713"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/red_emperor/fish.blend",
+        "sha256": "41e34c20764dd75cb2eb914490513d704b6c7d70f6b1b51faef3fc3bba635981"
+      },
+      "motion_profile": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/width20261101/red_emperor.json",
+        "sha256": "67b888aef799ad3295f679e97a5151de26380550ec26c5965ce6baa78e6be961"
+      },
+      "motion_runtime": {
+        "path": "projects/fishing-2d/game/scripts/aquarium/FishJawActionMotion.gd",
+        "sha256": "311c89389cf95aa898f930f0180688939d54d1f4e84d49ba01edcff42e4c348c"
+      },
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/width20261101/red_emperor-mouth-anchor.json",
+        "sha256": "53631889f75edb28e5f3ce6750b8995c27da9da908a0e4c65f487731a6c70890"
+      },
+      "jaw_action": true,
+      "max_open_degrees": 11.0,
+      "duration_seconds": 2.4,
+      "triangles": 1742,
+      "bones": 19,
+      "fins": 7,
+      "mouth_views": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/red_emperor-mouth-review.jpg",
+        "sha256": "7b6089a9e00be703224622b214988fed3fe11db988d5606e7c9fa4f30b774131"
+      },
+      "physical": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/red_emperor-physical.validation.json",
+        "sha256": "b5b6125d82f2dcffad247ba47e8c08f67a951342fbf1541325964c1f93b064ad"
+      },
+      "cold_load": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/red_emperor-final-asset-cold-load.validation.json",
+        "sha256": "0aeb490cff43c5ceed1a1a8074ce00a84f9e1b77768d890b7780351f39fca1b8"
+      },
+      "unchanged_sampler_values_mag_min_s_t": [
+        [
+          9728,
+          9728,
+          33071,
+          33071
+        ]
+      ],
+      "production_sop": {
+        "runtime_passed": true,
+        "full_sop_passed": false,
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/red_emperor-sop-check.json",
+        "sha256": "df10b42070f0e65589ec0b49c8b59bcc6b173fcd23e65ee7747e96bab3b5e37c"
+      }
+    },
+    "nile_tilapia": {
+      "label": "罗非鱼",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/nile_tilapia.glb",
+        "sha256": "28a20e9cc8a2acf4c06570922cd2a6ddf41e86418875c15fea27ef85d2379755"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/nile_tilapia/fish.blend",
+        "sha256": "1ae6a45118be00f1f316aab98d6ae41f01b029740c99a10dc91317a0613be53d"
+      },
+      "motion_profile": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/width20261101/nile_tilapia.json",
+        "sha256": "832ce905aff869d2a646532a7aeff35096db350cd88ca565830abe740a09af71"
+      },
+      "motion_runtime": {
+        "path": "projects/fishing-2d/game/scripts/aquarium/FishJawActionMotion.gd",
+        "sha256": "311c89389cf95aa898f930f0180688939d54d1f4e84d49ba01edcff42e4c348c"
+      },
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/width20261101/nile_tilapia-mouth-anchor.json",
+        "sha256": "9ca9e2ce5aec2c2e9a5f994ac53d97eae166f1df3777c283223665fe863b5fa1"
+      },
+      "jaw_action": true,
+      "max_open_degrees": 12,
+      "duration_seconds": 2.4,
+      "triangles": 1734,
+      "bones": 19,
+      "fins": 7,
+      "mouth_views": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/nile_tilapia-mouth-review.jpg",
+        "sha256": "80a64438b9b60ff336b071b57ac6864965c5846b284e9b3a767a010d708a9846"
+      },
+      "physical": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/nile_tilapia-physical.validation.json",
+        "sha256": "85c8dd3915f78e43a02922b66e516276576f2df3538a8d8031bbedbafc6185b2"
+      },
+      "cold_load": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/nile_tilapia-final-asset-cold-load.validation.json",
+        "sha256": "d3dd26b63796d2020811571e3b7ca1fce9a83c55493c46c8dfb48228ea4572d0"
+      },
+      "unchanged_sampler_values_mag_min_s_t": [
+        [
+          9728,
+          9728,
+          33071,
+          33071
+        ]
+      ],
+      "production_sop": {
+        "runtime_passed": true,
+        "full_sop_passed": false,
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/nile_tilapia-sop-check.json",
+        "sha256": "f43411ecb01190df1d5b0e04d228411e3110e450f1b03155e4d47bf2dd71cdcf"
+      }
+    },
+    "atlantic_sailfish": {
+      "label": "大西洋旗鱼",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/atlantic_sailfish.glb",
+        "sha256": "6eeb1cf28996b786fd2bcef06905673673574b01e462124a74a572a288ac118c"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/atlantic_sailfish/fish.blend",
+        "sha256": "5c9ff9ded08992b6b4fbae467874fa48deffc6a952096ec49bcade3fd787d02b"
+      },
+      "motion_profile": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/static20261108/atlantic_sailfish.json",
+        "sha256": "a0b25c589c6e41ca028b2431352a58e1e5c19326a3530e865478dbba679c57e8"
+      },
+      "motion_runtime": {
+        "path": "projects/fishing-2d/game/scripts/aquarium/FishJawActionMotion.gd",
+        "sha256": "311c89389cf95aa898f930f0180688939d54d1f4e84d49ba01edcff42e4c348c"
+      },
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/static20261108/atlantic_sailfish-mouth-anchor.json",
+        "sha256": "b1e323107c3db4695803f7eebe78a265714806ff29f1d4406dc5f15bbfccdaf5"
+      },
+      "jaw_action": true,
+      "max_open_degrees": 11.0,
+      "duration_seconds": 2.4,
+      "triangles": 3982,
+      "bones": 21,
+      "fins": 9,
+      "mouth_views": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/atlantic_sailfish-mouth-review.jpg",
+        "sha256": "2da4991501843436e2d1f8ad98d42abd629c3d74770f3ceabf06fdffd0d8a088"
+      },
+      "physical": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/atlantic_sailfish-physical.validation.json",
+        "sha256": "d35f792029cefc25286861a700af34c6f687e4606736f92d11f708ee63424899"
+      },
+      "cold_load": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/atlantic_sailfish-final-asset-cold-load.validation.json",
+        "sha256": "680129a824dd5e04f76667c8188cf49109662e9bf02b886113f73f8a97a42e29"
+      },
+      "unchanged_sampler_values_mag_min_s_t": [
+        [
+          9728,
+          9984,
+          10497,
+          10497
+        ]
+      ],
+      "production_sop": {
+        "runtime_passed": true,
+        "full_sop_passed": false,
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/atlantic_sailfish-sop-check.json",
+        "sha256": "391cb9f29fa2a40c5074450e27ede543c5e909602e746ef9ae5dd82beaa34fed"
+      }
+    },
+    "mahi_mahi": {
+      "label": "鲯鳅",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/mahi_mahi.glb",
+        "sha256": "da22d376669f6703e258a5f3e5fbdceb2fb594f0b4fe645abde8993baed4f745"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/mahi_mahi/fish.blend",
+        "sha256": "821f935cd748437b0dc531453c2bddfa741ece956f742bb64b9d26237a005bb3"
+      },
+      "motion_profile": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/mahi_mahi.json",
+        "sha256": "68f204f177bf3d65e164a75d6a7b7ca95a232e60b3c02edc02e32cc4689fec43"
+      },
+      "motion_runtime": {
+        "path": "projects/fishing-2d/game/scripts/aquarium/FishJawActionMotion.gd",
+        "sha256": "311c89389cf95aa898f930f0180688939d54d1f4e84d49ba01edcff42e4c348c"
+      },
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/mahi_mahi-mouth-anchor.json",
+        "sha256": "6431993da41a11fae32a2eaa35a129dd9ab768bc25558446ddc5a528846b3c2a"
+      },
+      "jaw_action": true,
+      "max_open_degrees": 12.0,
+      "duration_seconds": 2.4,
+      "triangles": 1990,
+      "bones": 19,
+      "fins": 7,
+      "mouth_views": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/mahi_mahi-mouth-review.jpg",
+        "sha256": "c35b7555e12a2ee7181a896d8d89f0d587a0728510a5065f8a160a9896058e66"
+      },
+      "physical": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/mahi_mahi-physical.validation.json",
+        "sha256": "75f539a65ad67f467f550b50d2d7b25801396d6eeec1959e03e4a4bd14ff6386"
+      },
+      "cold_load": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/mahi_mahi-final-asset-cold-load.validation.json",
+        "sha256": "b0598954eaf2a5248a6505ed01fe2aa3eecc9abe8088a703b2858128a7a58b40"
+      },
+      "unchanged_sampler_values_mag_min_s_t": [
+        [
+          9728,
+          9728,
+          33071,
+          33071
+        ]
+      ],
+      "production_sop": {
+        "runtime_passed": true,
+        "full_sop_passed": false,
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/mahi_mahi-sop-check.json",
+        "sha256": "aba83bd2f31120846aa46e93ce620a0f07c0d5505d77f27b28e5dc187ba4078c"
+      }
+    },
+    "african_catfish": {
+      "label": "非洲鲇鱼",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/african_catfish.glb",
+        "sha256": "d361e3f26ae612bd3cfd07f125db64f8df3387f58b2a4cf96550c06f4f9ec2a7"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/african_catfish/fish.blend",
+        "sha256": "89a606604a109ca90250b661d06a78e64f1ed92ebc38af649b292d4289e54443"
+      },
+      "motion_profile": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/african_catfish.json",
+        "sha256": "68f6b562db6d9bf63f2ffed9a6db33bb129244f6a68d1367b2d99221324329e0"
+      },
+      "motion_runtime": {
+        "path": "projects/fishing-2d/game/scripts/aquarium/FishJawActionMotion.gd",
+        "sha256": "311c89389cf95aa898f930f0180688939d54d1f4e84d49ba01edcff42e4c348c"
+      },
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/african_catfish-mouth-anchor.json",
+        "sha256": "200bfe40b61b3f7e09a2ffdfbc5048306cd958b73269ec82efb40e932252de9a"
+      },
+      "jaw_action": true,
+      "max_open_degrees": 13.0,
+      "duration_seconds": 2.4,
+      "triangles": 2000,
+      "bones": 19,
+      "fins": 7,
+      "mouth_views": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/african_catfish-mouth-review.jpg",
+        "sha256": "f47564c6f2c35630e02230cdcdb86a703c5cd46a4b44864fe84b54c54da271e9"
+      },
+      "physical": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/african_catfish-physical.validation.json",
+        "sha256": "b890176ab1669730dbc2d596c4fae388555fb29ce47ff810cfd8acb7387d478f"
+      },
+      "cold_load": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/african_catfish-final-asset-cold-load.validation.json",
+        "sha256": "579782fd6ebae07a3852abad4d9ae9c15d06cdc6a594a754266a1a8d28ebacbe"
+      },
+      "unchanged_sampler_values_mag_min_s_t": [
+        [
+          9728,
+          9984,
+          33071,
+          33071
+        ]
+      ],
+      "production_sop": {
+        "runtime_passed": true,
+        "full_sop_passed": false,
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/african_catfish-sop-check.json",
+        "sha256": "10650f4c0ff9d9bc5ea06118ebabd4917e562d6b52addba74f401425f8d0fe4c"
+      }
+    },
+    "silver_arowana": {
+      "label": "银龙鱼",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/silver_arowana.glb",
+        "sha256": "9ab1e4487b22cc10df40302f791a19a3717027cc24eaa4dbba4eec6c20b97dbd"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/silver_arowana/fish.blend",
+        "sha256": "0f2ee3ef9e405966f9576898f4e64ef0998e8c9ec9c6bf57a89a2bec1ae8e66f"
+      },
+      "motion_profile": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/silver_arowana.json",
+        "sha256": "bb4d1bfe0233ad7e4ad4ffc0631af2ef4348d8550dcd898a6e4ab93d09752915"
+      },
+      "motion_runtime": {
+        "path": "projects/fishing-2d/game/scripts/aquarium/FishJawActionMotion.gd",
+        "sha256": "311c89389cf95aa898f930f0180688939d54d1f4e84d49ba01edcff42e4c348c"
+      },
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/silver_arowana-mouth-anchor.json",
+        "sha256": "d4a62095f48a7a2fe8bfb58333660795757e337ae044828ca300eca4a3563457"
+      },
+      "jaw_action": true,
+      "max_open_degrees": 14,
+      "duration_seconds": 2.4,
+      "triangles": 1984,
+      "bones": 36,
+      "fins": 7,
+      "mouth_views": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/silver_arowana-mouth-review.jpg",
+        "sha256": "0c44912b432c77d762a613bfc0ea82287c3e4d7ab8d67254291c40e6aa93396d"
+      },
+      "physical": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/silver_arowana-physical.validation.json",
+        "sha256": "d07e2a62388d66dc9769337583aeadbb40075590dc46b896db24a1cb952691e0"
+      },
+      "cold_load": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/silver_arowana-final-asset-cold-load.validation.json",
+        "sha256": "33d7000d3a7e4e9b27ebf7ca3f97aa4618d3e5462ff8d90825be381c98dbfac9"
+      },
+      "unchanged_sampler_values_mag_min_s_t": [
+        [
+          9728,
+          9728,
+          33071,
+          33071
+        ]
+      ],
+      "production_sop": {
+        "runtime_passed": true,
+        "full_sop_passed": false,
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/silver_arowana-sop-check.json",
+        "sha256": "7117326e2bfa31932f2e9f875f45998459bbf41015e20dec10d63c577f54693f"
+      }
+    },
+    "hairtail": {
+      "label": "带鱼",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/hairtail.glb",
+        "sha256": "31f9308f454af3b5b2573de2a51b4f9a2be11911381eb276df91364b0b258b64"
+      },
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/hairtail/fish.blend",
+        "sha256": "0344855ceba1c102b8a420b0d26c4840f9286b9387a45f61957cb4834d32ac2c"
+      },
+      "motion_profile": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/hairtail.json",
+        "sha256": "677ef0f95d112b50b5631437bca789db13282b58e43a1f6a678be7e8b1d3bc01"
+      },
+      "motion_runtime": {
+        "path": "projects/fishing-2d/game/scripts/aquarium/FoundryFishMotion.gd",
+        "sha256": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1"
+      },
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/hairtail-mouth-anchor.json",
+        "sha256": "c37d43df8daf034e8e34eb8aacefa156becf13fa84d347c6789e784d61bfe7cb"
+      },
+      "jaw_action": false,
+      "max_open_degrees": null,
+      "duration_seconds": null,
+      "triangles": 2000,
+      "bones": 67,
+      "fins": 3,
+      "mouth_views": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/hairtail-mouth-review.jpg",
+        "sha256": "ca5b82f93584873bd8d8959da33c67a95b4b26bc8f54d2afaaf7cc3c8796d267"
+      },
+      "physical": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/hairtail-physical.validation.json",
+        "sha256": "d6237596c7cdded6736f11fcc29664751d84dde9c21526b66f9c030a43fbeaab"
+      },
+      "cold_load": {
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/hairtail-final-asset-cold-load.validation.json",
+        "sha256": "f30e335fe147bf6dd55a70980817133fd6146b1b2fb4fed091c2292e9eefc61e"
+      },
+      "unchanged_sampler_values_mag_min_s_t": [
+        [
+          9728,
+          9728,
+          33071,
+          33071
+        ]
+      ],
+      "production_sop": {
+        "runtime_passed": true,
+        "full_sop_passed": false,
+        "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/hairtail-sop-check.json",
+        "sha256": "7a13ca19aef89e7bcc51320a876e7787776a9c082967e85e7042d304ef0df52c"
+      }
+    }
+  },
+  "formal_game_and_fishing": {
+    "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/formal-entries.validation.json",
+    "sha256": "648a8c6de826182cc779e11a331e1585bc57a174f668bd29053f98ec50ab6e2c"
+  },
+  "formal_mouth_button": {
+    "path": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/formal-jaw-button.validation.json",
+    "sha256": "cc3e8100507d1294ee2048bf12511d82f900ccb3060269df8092ab88b7643c27"
+  },
+  "replay_button_validation": {
+    "path": "resources/volume-fish/non-shark-mouth-finish-20261116/verify_action.gd",
+    "sha256": "eed80c016fc42c990b2e7e9acbaf368815d5863947baa8bf12b5d455ba0d896b"
+  },
+  "cold_export_entry": {
+    "path": "resources/volume-fish/non-shark-mouth-finish-20261116/cold_export.py",
+    "sha256": "bc140a5225624043acb85c00dbbdb0851bef6ac3aff6c30e354e159173613a68"
+  },
+  "handoff": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/HANDOFF.md",
+  "publication": {
+    "game_assets_commit": "7f160e830afd6404c942f1cbd71609598dabd41d",
+    "game_commit": "8a11d90d9ad7adfbebc74c49259417928e3af8ff",
+    "game_branch": "main",
+    "lfs_backend": "baidu",
+    "lfs_upload_readback_verified": true,
+    "objects": [
+      {
+        "path": "projects/fishing-2d/game/assets/models/fish/rainbow_trout.glb",
+        "sha256": "3f861bfad7029fe5bc890c0fa95bd56e6378de510bb90232a6b6f742f1f4d5ee",
+        "bytes": 6848364
+      },
+      {
+        "path": "projects/fishing-2d/assets/source/fish/rainbow_trout/fish.blend",
+        "sha256": "4a231214e37b060c0e91caf85793885f7013e1be576c4401cca3d6037555999b",
+        "bytes": 6755077
+      },
+      {
+        "path": "projects/fishing-2d/game/assets/models/fish/atlantic_salmon.glb",
+        "sha256": "d11e117d760d331fb4810e025b6df65d86b99ce06ca0ca8624e620eb7fb8c4f6",
+        "bytes": 5349600
+      },
+      {
+        "path": "projects/fishing-2d/assets/source/fish/atlantic_salmon/fish.blend",
+        "sha256": "f7890f46564e0ea116a04655af66830ad878ebc7cadd51996d1f904647c48fe5",
+        "bytes": 5325131
+      },
+      {
+        "path": "projects/fishing-2d/game/assets/models/fish/red_emperor.glb",
+        "sha256": "dd32e6b2b207b717034ee55eef25657c7677efd2b928760c5996e8b67adec713",
+        "bytes": 7997348
+      },
+      {
+        "path": "projects/fishing-2d/assets/source/fish/red_emperor/fish.blend",
+        "sha256": "41e34c20764dd75cb2eb914490513d704b6c7d70f6b1b51faef3fc3bba635981",
+        "bytes": 7911498
+      },
+      {
+        "path": "projects/fishing-2d/game/assets/models/fish/nile_tilapia.glb",
+        "sha256": "28a20e9cc8a2acf4c06570922cd2a6ddf41e86418875c15fea27ef85d2379755",
+        "bytes": 4865208
+      },
+      {
+        "path": "projects/fishing-2d/assets/source/fish/nile_tilapia/fish.blend",
+        "sha256": "1ae6a45118be00f1f316aab98d6ae41f01b029740c99a10dc91317a0613be53d",
+        "bytes": 6094527
+      },
+      {
+        "path": "projects/fishing-2d/game/assets/models/fish/atlantic_sailfish.glb",
+        "sha256": "6eeb1cf28996b786fd2bcef06905673673574b01e462124a74a572a288ac118c",
+        "bytes": 3712040
+      },
+      {
+        "path": "projects/fishing-2d/assets/source/fish/atlantic_sailfish/fish.blend",
+        "sha256": "5c9ff9ded08992b6b4fbae467874fa48deffc6a952096ec49bcade3fd787d02b",
+        "bytes": 5010016
+      },
+      {
+        "path": "projects/fishing-2d/game/assets/models/fish/mahi_mahi.glb",
+        "sha256": "da22d376669f6703e258a5f3e5fbdceb2fb594f0b4fe645abde8993baed4f745",
+        "bytes": 11263668
+      },
+      {
+        "path": "projects/fishing-2d/assets/source/fish/mahi_mahi/fish.blend",
+        "sha256": "821f935cd748437b0dc531453c2bddfa741ece956f742bb64b9d26237a005bb3",
+        "bytes": 11200143
+      },
+      {
+        "path": "projects/fishing-2d/game/assets/models/fish/african_catfish.glb",
+        "sha256": "d361e3f26ae612bd3cfd07f125db64f8df3387f58b2a4cf96550c06f4f9ec2a7",
+        "bytes": 7011800
+      },
+      {
+        "path": "projects/fishing-2d/assets/source/fish/african_catfish/fish.blend",
+        "sha256": "89a606604a109ca90250b661d06a78e64f1ed92ebc38af649b292d4289e54443",
+        "bytes": 7640105
+      },
+      {
+        "path": "projects/fishing-2d/game/assets/models/fish/silver_arowana.glb",
+        "sha256": "9ab1e4487b22cc10df40302f791a19a3717027cc24eaa4dbba4eec6c20b97dbd",
+        "bytes": 4760800
+      },
+      {
+        "path": "projects/fishing-2d/assets/source/fish/silver_arowana/fish.blend",
+        "sha256": "0f2ee3ef9e405966f9576898f4e64ef0998e8c9ec9c6bf57a89a2bec1ae8e66f",
+        "bytes": 4804482
+      },
+      {
+        "path": "projects/fishing-2d/game/assets/models/fish/hairtail.glb",
+        "sha256": "31f9308f454af3b5b2573de2a51b4f9a2be11911381eb276df91364b0b258b64",
+        "bytes": 3185532
+      },
+      {
+        "path": "projects/fishing-2d/assets/source/fish/hairtail/fish.blend",
+        "sha256": "0344855ceba1c102b8a420b0d26c4840f9286b9387a45f61957cb4834d32ac2c",
+        "bytes": 3762326
+      }
+    ]
+  }
+}
