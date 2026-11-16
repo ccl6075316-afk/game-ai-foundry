@@ -13,6 +13,7 @@ import subprocess
 import sys
 import tarfile
 import tempfile
+import time
 
 ROOT = Path(__file__).resolve().parents[3]
 WORK = ROOT / 'work/baidu-lfs-agent'
@@ -131,6 +132,19 @@ def missing(error):
     return any(phrase in message for phrase in ('不存在', '找不到指定', 'not exist', 'not found'))
 
 
+def download_object(remote_path, target):
+    """Retry Baidu's transient file-list failure on agent-owned temporary files."""
+    for delay in (1, 2, 4, 8, None):
+        try:
+            cli('download', remote_path, target)
+            return
+        except RuntimeError as error:
+            if delay is None or not re.search(r'\berrno=20013\b', str(error)):
+                raise
+            target.unlink(missing_ok=True)
+            time.sleep(delay)
+
+
 def upload(oid, size, source):
     check(oid, size)
     WORK.mkdir(parents=True, exist_ok=True)
@@ -155,7 +169,7 @@ def upload(oid, size, source):
         probe = Path(temporary.name)
     probe.unlink()
     try:
-        cli('download', object_path(oid), probe)
+        download_object(object_path(oid), probe)
         if probe.stat().st_size != size or digest(probe) != oid:
             raise RuntimeError('Cloud upload read-back SHA mismatch')
     finally:
@@ -170,7 +184,7 @@ def download(oid, size):
     target.unlink()
     try:
         try:
-            cli('download', object_path(oid), target)
+            download_object(object_path(oid), target)
         except RuntimeError as error:
             if not missing(error):
                 raise
