@@ -1,0 +1,125 @@
+{
+  "date": "2026-11-16",
+  "species": "whale_shark",
+  "kind": "user_accepted_whale_shark_suction_filter",
+  "user_acceptance": "鲸鲨这版可以了，就按现在 Godot 里看的吸滤开合验收、提交推送吧。",
+  "model": {
+    "path": "projects/fishing-2d/game/assets/models/fish/whale_shark.glb",
+    "sha256": "a553fc2a082fbccbf7a0cca040c1f4b3d36f35ae308e9e7daac55fbda755741d"
+  },
+  "source": {
+    "path": "projects/fishing-2d/assets/source/fish/whale_shark/fish.blend",
+    "sha256": "84f756ba2c145072338708a7688b7d4250ff7621ed41d9bfdfcd0ac87d7a7074"
+  },
+  "mouth_recipe": {
+    "path": "projects/fishing-2d/game/assets/models/fish/motion/static20261108/whale_shark-mouth-anchor.json",
+    "sha256": "009f397dc2d5362ec30dea08d7c035027d7e581c038e5b0f7b30ee97f30ed91e"
+  },
+  "motion_runtime": {
+    "path": "projects/fishing-2d/game/scripts/aquarium/WhaleSharkSuctionMotion.gd",
+    "sha256": "791d1763b7416a75df9eb57da0e304f0d85a813404a2f6c2169613c7900a3a03"
+  },
+  "motion_profile": {
+    "path": "projects/fishing-2d/game/assets/models/fish/motion/static20261108/whale_shark.json",
+    "sha256": "dcce4dd033a52ced7ff0577f116e6552f8c12df1c88a8f39aa7aa917660d7dbd"
+  },
+  "action": {
+    "button": "吸滤",
+    "seconds_per_cycle": 3.5,
+    "repeats": 3,
+    "preview_samples": 631,
+    "max_trace_error": 0,
+    "blend_shapes": [
+      "SuctionIntake",
+      "BuccalPump",
+      "SuctionSeal"
+    ],
+    "fishing_mouth_state": "idle"
+  },
+  "triangles": 9990,
+  "bones": 7,
+  "logical_fins": 8,
+  "evidence": {
+    "buttons": {
+      "path": "projects/fishing-2d/plans/reviews/whale-shark-suction-20261116/formal-suction.validation.json",
+      "sha256": "0f1098bd38ab9a314c5f6e50c5b27b47166b67d49ce06b4b3736c58d6673964e"
+    },
+    "official": {
+      "path": "projects/fishing-2d/plans/reviews/whale-shark-suction-20261116/formal-entries.validation.json",
+      "sha256": "583241d085095a2252e60f59ba145323e1bc205c3b15df1e4921179bbcc92867"
+    },
+    "source": {
+      "path": "projects/fishing-2d/plans/reviews/whale-shark-suction-20261116/source-cold.validation.json",
+      "sha256": "f80d61bd065b2b76574ace183f27d85182d7e6659c0c595f378866c8a0bb105b"
+    },
+    "normal-motion": {
+      "path": "projects/fishing-2d/plans/reviews/whale-shark-suction-20261116/normal-motion.validation.json",
+      "sha256": "b5deb9d47e40118cf9dfd2c5c3486ee738506a351f97c5e1651334a96089d01b"
+    },
+    "normal-views": {
+      "path": "projects/fishing-2d/plans/reviews/whale-shark-suction-20261116/normal-actions.jpg",
+      "sha256": "680c633f90ff37910f7aa516df278d7c70e83395e3e6a38cb1f2c8c2249a7e6e"
+    },
+    "mouth-views": {
+      "path": "projects/fishing-2d/plans/reviews/whale-shark-suction-20261116/mouth-review.jpg",
+      "sha256": "f0809b1236482ec57d5dfc0526082d5f86043488cbb4c133b0f3cf631f7f0658"
+    },
+    "mouth-geometry": {
+      "path": "projects/fishing-2d/plans/reviews/whale-shark-suction-20261116/geometry.validation.json",
+      "sha256": "9789dcfb1cc8d024d3559e9f1073b6346fc11c3aef7ce1f74599212af0db4ae0"
+    },
+    "head-contacts": {
+      "path": "projects/fishing-2d/plans/reviews/whale-shark-suction-20261116/head-contacts.validation.json",
+      "sha256": "0d9d238d1fb69255a1429d591a07a81dd1983eed15de220732f2567e43a75e2e"
+    },
+    "neutral-camera": {
+      "path": "projects/fishing-2d/plans/reviews/whale-shark-suction-20261116/same-camera-rest.validation.json",
+      "sha256": "81591ba9d3f8b3f12d39451180a079cd9f45cf727ed597380c5ab13739820646"
+    },
+    "cold-load": {
+      "path": "projects/fishing-2d/plans/reviews/whale-shark-suction-20261116/final-asset-cold-load.validation.json",
+      "sha256": "3788edc4dd66d3f3b1f6a3a3301d36e67d8caeb5a1222dc3a1399ba4f4d72ca4"
+    }
+  },
+  "cold_export_method": {
+    "path": "resources/volume-fish/whale-shark-suction-20261116/cold_export.py",
+    "sha256": "6c739850f20f41c1ceaabd6fbc25015100e90a0d0dce98c7ee9018b0665bf4db"
+  },
+  "replay_button": {
+    "path": "resources/volume-fish/whale-shark-suction-20261116/verify_action.gd",
+    "sha256": "8ef2c66af83dc8d405f87e63861494525c72fe63491eb5c28e3e342767087bb6"
+  },
+  "approved_playback": {
+    "path": "projects/fishing-2d/plans/reviews/whale-shark-suction-20261116/approved-playback.json",
+    "sha256": "ac2076d36010d4a1add0eaafba5a89be914cb6a8bb0e6b9a2ccd614787d356b4"
+  },
+  "checks_pending": [
+    "full_fish_fin_and_body_077",
+    "complete_fish_production_sop_and_swimming_quality"
+  ],
+  "handoff": "projects/fishing-2d/plans/reviews/whale-shark-suction-20261116/HANDOFF.md",
+  "sop": {
+    "full_sop_passed": false,
+    "scope": "suction action installed and tested; full fin and body runtime scope remains pending",
+    "path": "projects/fishing-2d/plans/reviews/whale-shark-suction-20261116/sop-check.json",
+    "sha256": "3c166b8fd52fc7b3e972cdb82e53f8c259cdd1dd71d301c4c6cd28af8c9a7e47"
+  },
+  "publication": {
+    "game_commit": "7da4f5d0c6d2183d50316331a697ab80573d7684",
+    "game_branch": "main",
+    "lfs_backend": "baidu",
+    "lfs_upload_readback_verified": true,
+    "objects": [
+      {
+        "path": "projects/fishing-2d/assets/source/fish/whale_shark/fish.blend",
+        "sha256": "84f756ba2c145072338708a7688b7d4250ff7621ed41d9bfdfcd0ac87d7a7074",
+        "bytes": 3337749
+      },
+      {
+        "path": "projects/fishing-2d/game/assets/models/fish/whale_shark.glb",
+        "sha256": "a553fc2a082fbccbf7a0cca040c1f4b3d36f35ae308e9e7daac55fbda755741d",
+        "bytes": 3457820
+      }
+    ]
+  }
+}
