@@ -1,0 +1,71 @@
+{
+  "kind": "accepted_black_seabream_jaw_release",
+  "accepted_date": "2026-11-16",
+  "user_acceptance": "黑鲷可以了，验收提交吧。",
+  "species": "black_seabream",
+  "supersedes_static_sha_from": "resources/volume-fish/clean-pixel-black-seabream-20261111/release.json",
+  "model": {
+    "path": "projects/fishing-2d/game/assets/models/fish/black_seabream.glb",
+    "sha256": "d25b0b8ccf1cd73cd42a1cb45bf6a6bf0e120118e2d3642b6f29fa7900d06638"
+  },
+  "source": {
+    "path": "projects/fishing-2d/assets/source/fish/black_seabream/fish.blend",
+    "sha256": "dc8a1c1b824a19518ecf3b6dde7e1a105d4c517feb72534e151d862f53dbb0dc"
+  },
+  "triangles": 1988,
+  "bones": 19,
+  "fins": 7,
+  "max_open_degrees": 10,
+  "mouth_action_seconds": 2.4,
+  "fishing_upper_lip_index": 1213,
+  "motion_runtime": {
+    "path": "projects/fishing-2d/game/scripts/aquarium/FishJawActionMotion.gd",
+    "sha256": "311c89389cf95aa898f930f0180688939d54d1f4e84d49ba01edcff42e4c348c"
+  },
+  "motion_profile": {
+    "path": "projects/fishing-2d/game/assets/models/fish/motion/width20261101/black_seabream.json",
+    "sha256": "ed3aba55abfa3ca5034fdb1e66fc176f1112744c5e346ba708572d42f10b34a8"
+  },
+  "verification": {
+    "source-cold-export": {
+      "path": "projects/fishing-2d/plans/reviews/black-seabream-jaw-20261116/source-cold-export.validation.json",
+      "sha256": "7daf10996c4a7f0f9be8ffe5cfa4a014a182cb66c819119a510da2804e6510e7"
+    },
+    "canonical-load": {
+      "path": "projects/fishing-2d/plans/reviews/black-seabream-jaw-20261116/canonical-load.validation.json",
+      "sha256": "c8478abd7903c2340ca36c9bdd8b98b5c41f16131abc2245aa8caa93bb4bef63"
+    },
+    "canonical-pixels": {
+      "path": "projects/fishing-2d/plans/reviews/black-seabream-jaw-20261116/canonical-pixels.validation.json",
+      "sha256": "24d46de9fbc066df5aa7fc36a18b8fdce6de65e626bd4cde90eefb0014902999"
+    },
+    "fishing-entry": {
+      "path": "projects/fishing-2d/plans/reviews/black-seabream-jaw-20261116/fishing-entry.validation.json",
+      "sha256": "f929636bc08899ff7563583f47873bdbdae67129f91b359e2db0efbabc42736a"
+    },
+    "jaw-action": {
+      "path": "projects/fishing-2d/plans/reviews/black-seabream-jaw-20261116/jaw-action.validation.json",
+      "sha256": "70806476990db516a4581b3ae7f05365034bd578cbf3b33b68cb7f854914cf44"
+    },
+    "physical-gates": {
+      "path": "projects/fishing-2d/plans/reviews/black-seabream-jaw-20261116/physical-gates.validation.json",
+      "sha256": "cf1a031190a20583a260a7798de0ff43d2379ca9634895eec807c364818289c4"
+    },
+    "final-asset-cold-load": {
+      "path": "projects/fishing-2d/plans/reviews/black-seabream-jaw-20261116/final-asset-cold-load.validation.json",
+      "sha256": "eb05e736e5662a04e9a53bf36658f929394163f795a187881a85d32805d9b1e2"
+    }
+  },
+  "replay_jaw_check": {
+    "path": "resources/volume-fish/black-seabream-jaw-20261116/verify_action.gd",
+    "sha256": "db205466ed06c4f1423391e3b1698748fde6b6a9cfb3f23ed0ce30fbe1d10681"
+  },
+  "handoff": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/HANDOFF.md",
+  "scope": "User-accepted R3 installed. Runtime/cold source validated. Full source chain shape and all-action video SOP pending.",
+  "sop_runtime": {
+    "passed": true,
+    "full_sop": false,
+    "path": "projects/fishing-2d/plans/reviews/black-seabream-jaw-20261116/sop-check.json",
+    "sha256": "41435052c84d35dd49fa0965b2808fa39beaadf01d4f5c80b1ecff9c782a8ca6"
+  }
+}
