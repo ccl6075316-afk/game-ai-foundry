@@ -1,0 +1,117 @@
+{
+  "kind": "accepted_pacific_bluefin_tuna_style_and_jaw_release",
+  "species": "pacific_bluefin_tuna",
+  "accepted_date": "2026-11-16",
+  "user_acceptance": "金枪鱼这版可以了，按现在 Godot 里看的版本验收、提交推送吧，下颌和嘴部平滑一起验。",
+  "model": {
+    "path": "projects/fishing-2d/game/assets/models/fish/pacific_bluefin_tuna.glb",
+    "sha256": "232c8c0ed86c12e348a6715366da043e6eeebe0fe2124e088971f371a30369a0"
+  },
+  "editable_source": {
+    "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+    "sha256": "e7fe86ab7c91ae871fd0cb949d99a1f4e90bfa81e94eabe466b88f4bde0be421"
+  },
+  "style_concept": {
+    "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/style-concept-v2.png",
+    "sha256": "4be4d89c8aadd36c0d722a73741c59c813f777b1ca9a525436c837944e3de0e2"
+  },
+  "triangles": 3976,
+  "bones": 36,
+  "fins": 24,
+  "mouth": {
+    "maximum_degrees": 12,
+    "duration_seconds": 2.4,
+    "fishing_upper_lip_vertex": 4412,
+    "motion_runtime": {
+      "path": "projects/fishing-2d/game/scripts/aquarium/PacificBluefinTunaJawMotion.gd",
+      "sha256": "547ba9fb3c034ffcbb4219a730a75aa206b5443b29ca160dbbee1e28b523add6"
+    },
+    "motion_profile": {
+      "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/pacific_bluefin_tuna.json",
+      "sha256": "e988cb2a2aa827e20dd8b27b73296319d73c98615b8e47754724e6010b43ba91"
+    },
+    "hook_recipe": {
+      "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/pacific_bluefin_tuna-mouth-anchor.json",
+      "sha256": "b9d881d193b5bbe4859e9d1accb49bc14b4f6b58267a36ca55e47a22d09af12e"
+    }
+  },
+  "runtime_manifest": {
+    "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105.json",
+    "sha256": "c42e5fdbf08737c65e028d0f861eafe11704843ef00c678037766c08d0fce05e"
+  },
+  "scope": "User-accepted visuals and jaw installed; full reference shape, native lip donor and full action videos remain pending.",
+  "verification": {
+    "source-cold-export": {
+      "path": "projects/fishing-2d/plans/reviews/pacific-bluefin-tuna-20261116/source-cold-export.validation.json",
+      "sha256": "09561eea8b0794193f450b1cdc01ff0364b2335ba02af1cbf0befaf330d55984"
+    },
+    "entry-and-fishing": {
+      "path": "projects/fishing-2d/plans/reviews/pacific-bluefin-tuna-20261116/entry-and-fishing.validation.json",
+      "sha256": "5f499a65616f518a1750d389b48c164844645fb76409356f12b4142bf8a235cd"
+    },
+    "motion-parity": {
+      "path": "projects/fishing-2d/plans/reviews/pacific-bluefin-tuna-20261116/motion-parity.validation.json",
+      "sha256": "c52631528834b86e5e41a6d472527c0e2084a4ce352f206a6c203573cd0718dc"
+    },
+    "jaw-action": {
+      "path": "projects/fishing-2d/plans/reviews/pacific-bluefin-tuna-20261116/jaw-action.validation.json",
+      "sha256": "fb7d3a5c6598cca45565e478d69852e685000ae390f792f66a63e0403983d5c1"
+    },
+    "upper-lower-lip": {
+      "path": "projects/fishing-2d/plans/reviews/pacific-bluefin-tuna-20261116/upper-lower-lip.validation.json",
+      "sha256": "850e8cd220b52946624fc5aac922cb7fdbd11ae2940db15977708f8c977fcdb4"
+    },
+    "physical-gates": {
+      "path": "projects/fishing-2d/plans/reviews/pacific-bluefin-tuna-20261116/physical-gates.validation.json",
+      "sha256": "c182d244a7547f41804e11461c014f176cefdcae3f32f18aca617a9d35e21613"
+    },
+    "final-asset-cold-load": {
+      "path": "projects/fishing-2d/plans/reviews/pacific-bluefin-tuna-20261116/final-asset-cold-load.validation.json",
+      "sha256": "cd4e0580a147eadc8f65ced14481e832fd958867f643c7ee19bf036636b57eaf"
+    },
+    "material-and-mouth": {
+      "path": "projects/fishing-2d/plans/reviews/pacific-bluefin-tuna-20261116/material-and-mouth.validation.json",
+      "sha256": "d05f84c53d1c9923115f47d6b0ff18778c4581571cfa42cb3f045fa5899efa7e"
+    }
+  },
+  "handoff": "projects/fishing-2d/plans/reviews/pacific-bluefin-tuna-20261116/HANDOFF.md",
+  "replay": {
+    "verify_action.gd": {
+      "path": "resources/volume-fish/clean-pixel-pacific-bluefin-tuna-20261116/verify_action.gd",
+      "sha256": "4331a633386eaa91928cba9f530de3a61fa628b5452d32f099694efd7aa28c0f"
+    },
+    "verify_motion_parity.gd": {
+      "path": "resources/volume-fish/clean-pixel-pacific-bluefin-tuna-20261116/verify_motion_parity.gd",
+      "sha256": "b6bb8fd7b63f129d9dec62243f529763c646aab66fd968c4c1ac1da1703a919d"
+    }
+  },
+  "sop": {
+    "runtime_passed": true,
+    "full_check_passed": false,
+    "path": "projects/fishing-2d/plans/reviews/pacific-bluefin-tuna-20261116/sop-check.json",
+    "sha256": "ec166ea783e99fe6817dda5c4429e33dce70669f00024d2c414deea2e5f24a9d"
+  },
+  "publication": {
+    "game_commit": "fbf64201f31d32f4d045cf4a23eeb8e4fc86b5e2",
+    "game_branch": "main",
+    "lfs_backend": "baidu",
+    "lfs_upload_readback_verified": true,
+    "objects": [
+      {
+        "path": "assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "oid": "e7fe86ab7c91ae871fd0cb949d99a1f4e90bfa81e94eabe466b88f4bde0be421",
+        "bytes": 6563938
+      },
+      {
+        "path": "game/assets/models/fish/pacific_bluefin_tuna.glb",
+        "oid": "232c8c0ed86c12e348a6715366da043e6eeebe0fe2124e088971f371a30369a0",
+        "bytes": 6843704
+      },
+      {
+        "path": "assets/source/fish/pacific_bluefin_tuna/style-concept-v2.png",
+        "oid": "4be4d89c8aadd36c0d722a73741c59c813f777b1ca9a525436c837944e3de0e2",
+        "bytes": 1566895
+      }
+    ]
+  }
+}
