@@ -1,7 +1,7 @@
 {
   "count": 28,
-  "new_style_confirmed": 20,
-  "rebake_remaining": 8,
+  "new_style_confirmed": 26,
+  "rebake_remaining": 2,
   "fish": [
     {
       "species": "african_catfish",
@@ -35,8 +35,9 @@
         "bones": 32
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review",
+      "new_style_release": "resources/volume-fish/clean-pixel-arapaima-20261112/release.json"
     },
     {
       "species": "atlantic_sailfish",
@@ -105,8 +106,9 @@
         "bones": 18
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review",
+      "new_style_release": "resources/volume-fish/clean-pixel-shark-pair-20261117/release.json"
     },
     {
       "species": "bluegill",
@@ -215,8 +217,9 @@
         "bones": 18
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review",
+      "new_style_release": "resources/volume-fish/clean-pixel-shark-pair-20261117/release.json"
     },
     {
       "species": "hairtail",
@@ -232,8 +235,9 @@
         "bones": 67
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review",
+      "new_style_release": "resources/volume-fish/clean-pixel-long-fish-20261113/release.json"
     },
     {
       "species": "mahi_mahi",
@@ -284,8 +288,9 @@
         "bones": 35
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review",
+      "new_style_release": "resources/volume-fish/clean-pixel-pacific-bluefin-tuna-20261116/release.json"
     },
     {
       "species": "peacock_bass",
@@ -430,8 +435,9 @@
         "bones": 35
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "separate_future_review",
+      "new_style_release": "resources/volume-fish/clean-pixel-long-fish-20261113/release.json"
     },
     {
       "species": "smooth_hammerhead",
@@ -504,5 +510,5 @@
       "new_style_release": "resources/volume-fish/clean-pixel-three-20261112/release.json"
     }
   ],
-  "updated": "2026-11-12"
+  "updated": "2026-11-17"
 }

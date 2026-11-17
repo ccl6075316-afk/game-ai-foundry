@@ -1,0 +1,100 @@
+{
+  "kind": "accepted_shark_style_release",
+  "accepted_date": "2026-11-17",
+  "user_acceptance": "这回没问题了 提交 参照经验 处理最后两条吧",
+  "fish": {
+    "blacktip_reef_shark": {
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark.glb",
+        "sha256": "73ac89c22d43524c4668fea6acfa4b5f5bd696b0a242dc9d91ac4db30fc5c2cf",
+        "bytes": 6924248
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/blacktip_reef_shark/fish.blend",
+        "sha256": "4b96a2f400311ff7095f607286ada9f223687c45ad61d2271ab26fa7f15e038e",
+        "bytes": 9731311
+      },
+      "approved_concept": {
+        "path": "projects/fishing-2d/assets/source/fish/blacktip_reef_shark/style-concept-20261117.png",
+        "sha256": "095842abb0387d2c4bf23c2144dcdbf82d532b0088c6a631c544d3809e276a2e",
+        "bytes": 1504989
+      },
+      "previous_model_sha256": "3a9256652859a2ec468c95b197b94c49fd0c866f890a6fb08414b0469d5bc8e7",
+      "non_image_accessors_preserved": 140,
+      "eight_native_fins": true
+    },
+    "great_hammerhead": {
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/great_hammerhead.glb",
+        "sha256": "420e2ca2fa79664848f734c7d2dcee0c1385f1e814ec432f164fd6bde04d1aad",
+        "bytes": 2987384
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/great_hammerhead/fish.blend",
+        "sha256": "b6ccb719e3eb5da742fc2e8aa715aac3083651f121c65377dfd87113f1ccf664",
+        "bytes": 3883254
+      },
+      "approved_concept": {
+        "path": "projects/fishing-2d/assets/source/fish/great_hammerhead/style-concept-20261117.png",
+        "sha256": "7f41e7060bf3417b8917948fa755c205b0939e0432379386826aecaa8b3f59c7",
+        "bytes": 1657385
+      },
+      "previous_model_sha256": "88a1973ea09cf82692d7c02119432ab1076f0c1afc0084647922de4ca64985a4",
+      "non_image_accessors_preserved": 218,
+      "eight_native_fins": true
+    }
+  },
+  "verification": {
+    "path": "projects/fishing-2d/plans/reviews/clean-pixel-shark-pair-20261117/installed.validation.json",
+    "sha256": "562b7b900076da3a036ec941ed74d51ced8b8bc5e8d51e33d99dbb4c8f3f2c78"
+  },
+  "visual_comparison": {
+    "path": "projects/fishing-2d/plans/reviews/clean-pixel-shark-pair-20261117/material-before-after.jpg",
+    "sha256": "601c173e2d09a0e5b90c0bf7f6358d7aaee0c2fb733a12c294f9b823ebef929e"
+  },
+  "handoff": "projects/fishing-2d/plans/reviews/clean-pixel-shark-pair-20261117/HANDOFF.md",
+  "new_style_confirmed": 26,
+  "rebake_remaining": [
+    "scalloped_hammerhead",
+    "smooth_hammerhead"
+  ],
+  "full_production_sop_passed": false,
+  "publication": {
+    "ok": true,
+    "lfs_backend": "baidu",
+    "commit": "cb0b8b21b1e768f1fe34c2ab7532a6130778985f",
+    "isolated_download_verified": true,
+    "objects": [
+      {
+        "path": "assets/source/fish/blacktip_reef_shark/fish.blend",
+        "oid": "4b96a2f400311ff7095f607286ada9f223687c45ad61d2271ab26fa7f15e038e",
+        "bytes": 9731311
+      },
+      {
+        "path": "assets/source/fish/blacktip_reef_shark/style-concept-20261117.png",
+        "oid": "095842abb0387d2c4bf23c2144dcdbf82d532b0088c6a631c544d3809e276a2e",
+        "bytes": 1504989
+      },
+      {
+        "path": "assets/source/fish/great_hammerhead/fish.blend",
+        "oid": "b6ccb719e3eb5da742fc2e8aa715aac3083651f121c65377dfd87113f1ccf664",
+        "bytes": 3883254
+      },
+      {
+        "path": "assets/source/fish/great_hammerhead/style-concept-20261117.png",
+        "oid": "7f41e7060bf3417b8917948fa755c205b0939e0432379386826aecaa8b3f59c7",
+        "bytes": 1657385
+      },
+      {
+        "path": "game/assets/models/fish/blacktip_reef_shark.glb",
+        "oid": "73ac89c22d43524c4668fea6acfa4b5f5bd696b0a242dc9d91ac4db30fc5c2cf",
+        "bytes": 6924248
+      },
+      {
+        "path": "game/assets/models/fish/great_hammerhead.glb",
+        "oid": "420e2ca2fa79664848f734c7d2dcee0c1385f1e814ec432f164fd6bde04d1aad",
+        "bytes": 2987384
+      }
+    ]
+  }
+}

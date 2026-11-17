@@ -1,0 +1,38 @@
+{
+  "ok": true,
+  "lfs_backend": "baidu",
+  "commit": "cb0b8b21b1e768f1fe34c2ab7532a6130778985f",
+  "isolated_download_verified": true,
+  "objects": [
+    {
+      "path": "assets/source/fish/blacktip_reef_shark/fish.blend",
+      "oid": "4b96a2f400311ff7095f607286ada9f223687c45ad61d2271ab26fa7f15e038e",
+      "bytes": 9731311
+    },
+    {
+      "path": "assets/source/fish/blacktip_reef_shark/style-concept-20261117.png",
+      "oid": "095842abb0387d2c4bf23c2144dcdbf82d532b0088c6a631c544d3809e276a2e",
+      "bytes": 1504989
+    },
+    {
+      "path": "assets/source/fish/great_hammerhead/fish.blend",
+      "oid": "b6ccb719e3eb5da742fc2e8aa715aac3083651f121c65377dfd87113f1ccf664",
+      "bytes": 3883254
+    },
+    {
+      "path": "assets/source/fish/great_hammerhead/style-concept-20261117.png",
+      "oid": "7f41e7060bf3417b8917948fa755c205b0939e0432379386826aecaa8b3f59c7",
+      "bytes": 1657385
+    },
+    {
+      "path": "game/assets/models/fish/blacktip_reef_shark.glb",
+      "oid": "73ac89c22d43524c4668fea6acfa4b5f5bd696b0a242dc9d91ac4db30fc5c2cf",
+      "bytes": 6924248
+    },
+    {
+      "path": "game/assets/models/fish/great_hammerhead.glb",
+      "oid": "420e2ca2fa79664848f734c7d2dcee0c1385f1e814ec432f164fd6bde04d1aad",
+      "bytes": 2987384
+    }
+  ]
+}
