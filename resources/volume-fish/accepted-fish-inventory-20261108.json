@@ -1,7 +1,7 @@
 {
   "count": 28,
-  "new_style_confirmed": 26,
-  "rebake_remaining": 2,
+  "new_style_confirmed": 28,
+  "rebake_remaining": 0,
   "fish": [
     {
       "species": "african_catfish",
@@ -388,19 +388,20 @@
     {
       "species": "scalloped_hammerhead",
       "model": "game\\assets\\models\\fish\\scalloped_hammerhead.glb",
-      "model_sha256": "06f07e304dd2b702f0d12043bc1153d257c7172691d4d31c038535c92cebbfad",
+      "model_sha256": "a7979cc1e41e949554af9b331c43cc7127dbef564328c5172cc2ec2b84a7cf01",
       "source": "assets\\source\\fish\\scalloped_hammerhead\\fish.blend",
-      "source_sha256": "fcf342cc60c02b9b544633d31a977547b80228186a759370045c20c8dad03504",
+      "source_sha256": "e14ed89fbdffd46a9b9545f445d4bd6d02c3c83d5ef14f6f52458ea46c3a362f",
       "static": {
-        "geometry_uv_skin_sha256": "08d7a967319d70366b22e5e1febc865d66dce8d76d1915c6e0d007531d518744",
-        "material_pixels_sha256": "102adbb98230f3b49578ff0f2b822639ea7170008c6bbd3c98021b58369959ad",
-        "skeleton_rest_bind_sha256": "3aa6161d72937b862882c647a39de939229fd40ff1589ca8e1d322fbd655ffa9",
+        "geometry_uv_skin_sha256": "ebb436bb0bbe3b052050dccd74977a597170e86dfcb26d1b0ad3f9941011c94e",
+        "material_pixels_sha256": "4a32174269fc076a3e3f8249a7869b6135853435d9dfe44df2e754978e8e4127",
+        "skeleton_rest_bind_sha256": "74df38d5e4ff2bf9671ae3a34058a7862213804772cc3af32c7800459e0052cb",
         "triangles": 3994,
-        "bones": 18
+        "bones": 22
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "user_accepted_independent_capture",
+      "new_style_release": "resources/volume-fish/final-hammerheads-20261117/release.json"
     },
     {
       "species": "sea_bass",
@@ -442,19 +443,20 @@
     {
       "species": "smooth_hammerhead",
       "model": "game\\assets\\models\\fish\\smooth_hammerhead.glb",
-      "model_sha256": "e581b46799bfdeb353633ede8e4228261d6ccc9416f4bc175f61346c5267a2af",
+      "model_sha256": "d0c3a84cbfb7b7b3d0f1b570c2d17a1a6f814ae9bf34a61e37ea4afe96857525",
       "source": "assets\\source\\fish\\smooth_hammerhead\\fish.blend",
-      "source_sha256": "f322e532b0e538ffe6d28241e1703655c40074b453231f6e5af1654f80c30f84",
+      "source_sha256": "e9cdde964399ebc5dad7ed5440793423b179422cd35c99e17d926abaf7248096",
       "static": {
-        "geometry_uv_skin_sha256": "a1245bbba62e54e63718524e99cf50eca1782be31cbc995b2eba0433e6fd9d97",
-        "material_pixels_sha256": "7ea029f9055dfba2a14e7dba9c4569b331e8fda15418e8638dd332a10a20bd72",
-        "skeleton_rest_bind_sha256": "51e1e50ecbb750a462e73577a3418f6d3528863edc67757969d8290cffe7c32c",
-        "triangles": 3970,
-        "bones": 18
+        "geometry_uv_skin_sha256": "6568ef4be4324f21ae92d4b662f300392d2d35dce174dff27ee0b7cdf395c074",
+        "material_pixels_sha256": "6a094c2c1466faefc98d6a70ffb014d0485387623bf798344f6e581003084544",
+        "skeleton_rest_bind_sha256": "354d97538aafd2050d83f5098b3fab36ba01e602bad5b1c933ec1115d83ce8e6",
+        "triangles": 3994,
+        "bones": 22
       },
       "model_status": "user_accepted_static_baseline",
-      "new_style_status": "rebake_pending",
-      "animation_quality": "separate_future_review"
+      "new_style_status": "accepted",
+      "animation_quality": "user_accepted_independent_capture",
+      "new_style_release": "resources/volume-fish/final-hammerheads-20261117/release.json"
     },
     {
       "species": "whale_shark",

@@ -2,17 +2,20 @@ extends SceneTree
 ## Actual finished entry against an independent native GLB load; no static builders.
 const EXHIBIT = preload("res://scripts/aquarium/VolumeFishExhibit.gd")
 const BINDER = preload("res://scripts/aquarium/FinalizedHammerPair20261106.gd")
+const SCALLOPED = preload("res://scripts/aquarium/FinalizedScallopedHammerhead.gd")
 var entry: Dictionary
 var direct: Dictionary
 var comparisons := 0
 var species := ""
 var row: Dictionary
+var receipt_key := "final_asset_hammer_pair_receipt"
 
 func _initialize() -> void: call_deferred("run")
 
 func compare_static(a: Node3D, b: Node3D, require_no_override: bool) -> Dictionary:
 	var meshes := a.find_children("*","MeshInstance3D",true,false)
-	assert(meshes.size()==11 and b.find_children("*","MeshInstance3D",true,false).size()==11)
+	var mesh_count := 9 if species == "scalloped_hammerhead" else 11
+	assert(meshes.size()==mesh_count and b.find_children("*","MeshInstance3D",true,false).size()==mesh_count)
 	var triangles := 0; var surfaces := 0; var lods := 0
 	for x in meshes:
 		var y := b.find_child(str(x.name),true,false) as MeshInstance3D
@@ -49,7 +52,15 @@ func delta(a: Dictionary, b: Dictionary) -> float:
 func run() -> void:
 	var args := OS.get_cmdline_user_args()
 	assert(args.size()==2)
-	species=args[0]; assert(BINDER.FISH.has(species)); row=BINDER.FISH[species]
+	species = args[0]
+	var scalloped := species == "scalloped_hammerhead"
+	if scalloped:
+		row = {"length_m":2.5, "triangles":3994, "surfaces":24,
+			"motion_path":SCALLOPED.MOTION_PATH, "model_sha256":SCALLOPED.MODEL_SHA}
+		receipt_key = "final_asset_scalloped_receipt"
+	else:
+		assert(BINDER.FISH.has(species))
+		row = BINDER.FISH[species]
 	var out: String=args[1]; assert(DirAccess.dir_exists_absolute(out))
 	preload("res://scripts/aquarium/FishAppearanceCache.gd").clear()
 	preload("res://scripts/aquarium/FishRuntimeData.gd").clear()
@@ -63,8 +74,8 @@ func run() -> void:
 	# Passing the legacy profile proves the final entry replaces it with the reviewed file.
 	var legacy: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/fish/motion/motion.json")).profiles[species]
 	exhibit._add_fish(world,species,float(row.length_m),legacy); entry=exhibit.fish[0]
-	assert(entry.model.has_meta("final_asset_hammer_pair_receipt") and entry.model.scale==Vector3.ONE)
-	var profile: Dictionary=BINDER.new().motion_profile(species); assert(entry.profile==profile)
+	assert(entry.model.has_meta(receipt_key) and entry.model.scale==Vector3.ONE)
+	var profile: Dictionary=(SCALLOPED.new().motion_profile() if scalloped else BINDER.new().motion_profile(species)); assert(entry.profile==profile)
 	var path: String=entry.model.scene_file_path
 	var doc:=GLTFDocument.new(); var state:=GLTFState.new(); assert(doc.append_from_file(ProjectSettings.globalize_path(path),state)==OK)
 	var model:=doc.generate_scene(state) as Node3D; model.scene_file_path=path
@@ -90,12 +101,16 @@ func run() -> void:
 		camera.position=entry.carrier.global_position+Vector3(0.5,0.4,float(row.length_m)*1.6); camera.look_at(entry.carrier.global_position,Vector3.UP)
 		for route in ["canonical","approved"]:
 			entry.carrier.visible=route=="canonical"; carrier.visible=route=="approved"
-			await process_frame; await process_frame; await RenderingServer.frame_post_draw
+			await process_frame; await process_frame
+			if OS.get_environment("FOUNDRY_MANUAL_RENDER") == "1":
+				RenderingServer.force_draw(false)
+			else:
+				await RenderingServer.frame_post_draw
 			var image_path:=out.path_join(action+"-"+route+".png"); assert(viewport.get_texture().get_image().save_png(image_path)==OK); captures.append(image_path)
 	exhibit._add_fish(world,species,float(row.length_m),legacy)
 	var cached: Dictionary=exhibit.fish[1]; cached.carrier.hide()
 	assert(not exhibit.loading_metrics[0].reused_appearance and exhibit.loading_metrics[1].reused_appearance)
-	assert(cached.profile==profile and cached.model.has_meta("final_asset_hammer_pair_receipt") and cached.model.scale==entry.model.scale and cached.model.position==entry.model.position)
+	assert(cached.profile==profile and cached.model.has_meta(receipt_key) and cached.model.scale==entry.model.scale and cached.model.position==entry.model.position)
 	compare_static(cached.model,model,false)
 	for action in ["Swim","Turn","Ascend","Dive"]:
 		pose(cached,action,1.17); pose(direct,action,1.17); assert(delta(cached,direct)==0.0)
@@ -109,9 +124,9 @@ func run() -> void:
 	var fishing=preload("res://scripts/screens/FishingVolumeFish.gd").new()
 	world.add_child(fishing)
 	assert(fishing.configure(species) and fishing.ready_model)
-	assert(fishing.model.has_meta("final_asset_hammer_pair_receipt") and fishing.model.scale==Vector3.ONE)
+	assert(fishing.model.has_meta(receipt_key) and fishing.model.scale==Vector3.ONE)
 	compare_static(fishing.model,model,true)
-	var socket: Dictionary=BINDER.new().mouth_recipe(species)
+	var socket: Dictionary=SCALLOPED.new().mouth_recipe() if scalloped else BINDER.new().mouth_recipe(species)
 	assert(str(fishing.mouth_mesh.name)==socket.mesh)
 	assert(fishing.mouth_vertex.distance_to(Vector3(socket.position_native[0],socket.position_native[1],socket.position_native[2]))<0.0000001)
 	var max_socket_error := 0.0

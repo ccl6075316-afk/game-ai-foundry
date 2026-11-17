@@ -1,0 +1,61 @@
+{
+  "kind": "accepted_final_hammerhead_material_and_feeding_release",
+  "accepted_date": "2026-11-17",
+  "user_acceptance": "这回可以了，路氏和无沟这两条都验收，正式安装后提交推送吧。",
+  "new_style_confirmed": 28,
+  "rebake_remaining": 0,
+  "full_production_sop_passed": false,
+  "handoff": "projects/fishing-2d/plans/reviews/final-hammerheads-20261117/HANDOFF.md",
+  "fish": {
+    "scalloped_hammerhead": {
+      "model": "projects/fishing-2d/game/assets/models/fish/scalloped_hammerhead.glb",
+      "model_sha256": "a7979cc1e41e949554af9b331c43cc7127dbef564328c5172cc2ec2b84a7cf01",
+      "editable_source": "projects/fishing-2d/assets/source/fish/scalloped_hammerhead/fish.blend",
+      "source_sha256": "e14ed89fbdffd46a9b9545f445d4bd6d02c3c83d5ef14f6f52458ea46c3a362f",
+      "source_image": "projects/fishing-2d/assets/source/fish/scalloped_hammerhead/style-concept-20261117.png",
+      "source_image_sha256": "b46a4d994f63887e9b0f82bf5744acb4a5f53bc25bc229775e1a1059621712fa",
+      "triangles": 3994,
+      "bones": 22,
+      "logical_fins": 8,
+      "maximum_lower_jaw_angle_deg": 25,
+      "feeding_capture": "Independent Godot replay, small prey ingestion and large prey hold.",
+      "formal_validation": "projects/fishing-2d/plans/reviews/final-hammerheads-20261117/installed.validation.json",
+      "sop_review": "projects/fishing-2d/plans/reviews/final-hammerheads-20261117/scalloped_hammerhead.review.json",
+      "sop_report": "projects/fishing-2d/plans/reviews/final-hammerheads-20261117/scalloped_hammerhead-sop.validation.json",
+      "runtime_sop": "passed",
+      "motion_profile_sha256": "beb815a882e2f672d655d5e2c38eb6f0ee92762de7956064c539dde79a8fab91"
+    },
+    "smooth_hammerhead": {
+      "model": "projects/fishing-2d/game/assets/models/fish/smooth_hammerhead.glb",
+      "model_sha256": "d0c3a84cbfb7b7b3d0f1b570c2d17a1a6f814ae9bf34a61e37ea4afe96857525",
+      "editable_source": "projects/fishing-2d/assets/source/fish/smooth_hammerhead/fish.blend",
+      "source_sha256": "e9cdde964399ebc5dad7ed5440793423b179422cd35c99e17d926abaf7248096",
+      "source_image": "projects/fishing-2d/assets/source/fish/smooth_hammerhead/style-concept-20261117.png",
+      "source_image_sha256": "bb78120f0b3a130011554c241e103722421e43fb895f885c84003e0ecf411f32",
+      "triangles": 3994,
+      "bones": 22,
+      "logical_fins": 8,
+      "maximum_lower_jaw_angle_deg": 28,
+      "feeding_capture": "Independent Godot replay, small prey ingestion and large prey hold.",
+      "formal_validation": "projects/fishing-2d/plans/reviews/final-hammerheads-20261117/installed.validation.json",
+      "sop_review": "projects/fishing-2d/plans/reviews/final-hammerheads-20261117/smooth_hammerhead.review.json",
+      "sop_report": "projects/fishing-2d/plans/reviews/final-hammerheads-20261117/smooth_hammerhead-sop.validation.json",
+      "runtime_sop": "passed",
+      "motion_profile_sha256": "75f5e9010569755769151999e607ff38ebd513c83a89a98153de17b150246f93"
+    }
+  },
+  "verification": {
+    "path": "projects/fishing-2d/plans/reviews/final-hammerheads-20261117/installed.validation.json",
+    "sha256": "4b39c0e04b6985c36fc9005cf4570254311078703b85e2fad9f427d15a7e579f"
+  },
+  "replay_entry": "resources/volume-fish/final-hammerheads-20261117/replay/joint_feeding_viewer.gd",
+  "swim_controller_sha256": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+  "game_commit": "1f0bc91eb250583e4ab8e8d6893a9850d139c05f",
+  "publication": {
+    "ok": true,
+    "lfs_backend": "baidu",
+    "report": "resources/volume-fish/final-hammerheads-20261117/baidu-lfs.validation.json",
+    "report_sha256": "4b1a1321bd58274a5e6a46bc50f39779ce7dc45a82b8990bde15e3c52f4283b2",
+    "objects_verified": 8
+  }
+}

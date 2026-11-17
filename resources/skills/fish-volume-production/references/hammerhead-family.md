@@ -1,8 +1,13 @@
 # 双髻鲨的同族续做
 
+## 2026-11-17 路氏与无沟当前入口
+
+两鱼正式源和模型以 [本轮发布清单](../../../volume-fish/final-hammerheads-20261117/release.json) 为准，历史 R41/R42 下文为形体来源。尾根色差先用相同视角分别检查原色与受光。若闭壳接触环共点，色彩从该鱼原尾柄各面延拓，共享角法线按两侧可见表面过渡，内部重合封口面上的角法线独立保留。用正反侧与腹视复核，并核对实际三角角点位置、UV、权重、颜色和全部原生动作。
+
+
 ## 2026-11-04 路氏成品入口与历史替代
 
-用户已接受整鱼R41并要求按罗非鱼标准提交。当前唯一入口为 `resources/volume-fish/scalloped-hammerhead-final-20261104.json`，源/原画/保留来源位于游戏 `assets/source/fish/scalloped_hammerhead/`，正式GLB `game/assets/models/fish/scalloped_hammerhead.glb`；账本迁至 `plans/reviews/scalloped-hammerhead-release-20261104/`。3994三角面、18骨、9网格/24surface、完整8鳍，保留已审多材质结构，不为套用罗非鱼单surface重做静态。默认只改动作，静态修改须用户重新打开范围。
+用户已接受整鱼R41并要求按罗非鱼标准提交。当时入口为 `resources/volume-fish/scalloped-hammerhead-final-20261104.json`，源/原画/保留来源位于游戏 `assets/source/fish/scalloped_hammerhead/`，正式GLB `game/assets/models/fish/scalloped_hammerhead.glb`；账本迁至 `plans/reviews/scalloped-hammerhead-release-20261104/`。3994三角面、18骨、9网格/24surface、完整8鳍，保留已审多材质结构，不为套用罗非鱼单surface重做静态。默认只改动作，静态修改须用户重新打开范围。
 
 此前 `scalloped-lowpoly-20261101` 与 `scalloped-art-rebuild-20261102` 的目录和候选参数均已退役；下文对其链接只作历史过程。实际采用参数已提炼进源目录 `production-parameters.json`，旧索引/唯一唇作者基准保留在release历史或源provenance，其余大归档/逐帧/未采用模型删除，不承诺旧临时链原样重放。新工作从普通成品blend与最终GLB开始。
 

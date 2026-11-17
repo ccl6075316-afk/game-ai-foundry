@@ -1,0 +1,49 @@
+{
+  "ok": true,
+  "lfs_backend": "baidu",
+  "commit": "1f0bc91eb250583e4ab8e8d6893a9850d139c05f",
+  "verified_remote_ref": "refs/heads/main",
+  "isolated_download_verified": true,
+  "objects": [
+    {
+      "path": "assets/source/fish/scalloped_hammerhead/fish.blend",
+      "oid": "e14ed89fbdffd46a9b9545f445d4bd6d02c3c83d5ef14f6f52458ea46c3a362f",
+      "bytes": 3654248
+    },
+    {
+      "path": "assets/source/fish/scalloped_hammerhead/style-concept-20261117.png",
+      "oid": "b46a4d994f63887e9b0f82bf5744acb4a5f53bc25bc229775e1a1059621712fa",
+      "bytes": 1400668
+    },
+    {
+      "path": "game/assets/models/fish/scalloped_hammerhead.glb",
+      "oid": "a7979cc1e41e949554af9b331c43cc7127dbef564328c5172cc2ec2b84a7cf01",
+      "bytes": 3894184
+    },
+    {
+      "path": "assets/source/fish/smooth_hammerhead/fish.blend",
+      "oid": "e9cdde964399ebc5dad7ed5440793423b179422cd35c99e17d926abaf7248096",
+      "bytes": 1831920
+    },
+    {
+      "path": "assets/source/fish/smooth_hammerhead/style-concept-20261117.png",
+      "oid": "bb78120f0b3a130011554c241e103722421e43fb895f885c84003e0ecf411f32",
+      "bytes": 1468638
+    },
+    {
+      "path": "game/assets/models/fish/smooth_hammerhead.glb",
+      "oid": "d0c3a84cbfb7b7b3d0f1b570c2d17a1a6f814ae9bf34a61e37ea4afe96857525",
+      "bytes": 1818032
+    },
+    {
+      "path": "plans/reviews/final-hammerheads-20261117/smooth-hammerhead-small-60fps.mp4",
+      "oid": "2b91be7a96fa015d4e2dd52d5c7bda1ae75d75d71d62f745f1da526515068e78",
+      "bytes": 371133
+    },
+    {
+      "path": "plans/reviews/final-hammerheads-20261117/smooth-hammerhead-large-60fps.mp4",
+      "oid": "9891bff656ecc4696cf6516823737b4326c940b23afb0ac013eb762c18dc17e5",
+      "bytes": 408577
+    }
+  ]
+}
