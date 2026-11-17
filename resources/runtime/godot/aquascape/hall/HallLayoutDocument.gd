@@ -29,7 +29,7 @@ func commit_command(state: Dictionary,rules: RefCounted,payload: Dictionary,cont
 
 func _install(state: Dictionary) -> void:
     var normalized: Dictionary=state.duplicate(true)
-    normalized.schema_version=2
+    normalized.schema_version=maxi(2,int(state.schema_version))
     normalized.parcels=normalized.get("parcels",Footprint.initial())
     for row in normalized.objects:
         if row.kind=="tank":row.water=WaterProfile.normalized(row.get("water",{}))
@@ -55,6 +55,9 @@ func _value_tree(value: Variant) -> bool:
 
 func parcels() -> Array:
     return _data.parcels.duplicate(true)
+
+func floor_tiles() -> Array:
+    return _data.get("floor_tiles",[]).duplicate(true)
 
 func style(key: String) -> int:
     return int(_data[key])

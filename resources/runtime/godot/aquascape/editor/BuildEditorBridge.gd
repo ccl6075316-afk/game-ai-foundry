@@ -93,7 +93,7 @@ func tick() -> void:
             var row: Dictionary=host.rocks[host.selected];current=row.node;center=current.global_transform*row.bounds.get_center();key=str(current.get_instance_id())
     elif palette.visible and host.pending_kind=="" and host.selected>=0 and host.selected<host.objects.size():
         var row: Dictionary=host.objects[host.selected]
-        if row.data.kind!="wall":current=row.node;center=current.global_transform*host._bounds(row.data).get_center();key=row.data.id
+        if row.data.kind not in ["wall","stair"]:current=row.node;center=current.global_transform*host._bounds(row.data).get_center();key=row.data.id
     if gizmo.dragging and key!=selection_key:gizmo.cancel()
     selected_node=current;selection_key=key
     gizmo.sync(host.camera if tank else host.editor_camera,current.global_transform if current!=null else Transform3D.IDENTITY,center,current!=null,host.canvas.size/Vector2(host.viewport.size))
@@ -106,11 +106,14 @@ func tick() -> void:
         type_value={"rock":"石头","wood":"沉木"}.get(host.rock_specs[row.id].get("category","decor"),"人工摆件")
     elif not tank and host.pending_kind=="" and host.selected>=0 and host.selected<host.objects.size():
         var row: Dictionary=host.objects[host.selected];inspected=row.node;label=row.data.name;box=host._bounds(row.data)
-        type_value={"tank":"展缸","wall":"隔墙","bench":"家具","plinth":"展示台"}.get(row.data.kind,"")
+        type_value={"tank":"展缸","wall":"隔墙","bench":"家具","plinth":"展示台","stair":"楼梯"}.get(row.data.kind,"")
     inspector.bind_object(label,type_value,inspected,box,not tank,host.metric_scale if tank else 1.0)
     if not tank and inspected!=null and host.objects[host.selected].data.kind=="wall":
         for button in inspector.modes.values():button.disabled=true
         inspector.hint.text="隔墙使用下方的方向与长度调整。"
+    if not tank and inspected!=null and host.objects[host.selected].data.kind=="stair":
+        for button in inspector.modes.values():button.disabled=true
+        inspector.hint.text="拖动楼梯移动，Q/E 转向，Delete 删除。"
 
 func input_event(event: InputEvent) -> bool:
     return gizmo.handle(event) if is_instance_valid(gizmo) else false

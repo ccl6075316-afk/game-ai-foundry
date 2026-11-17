@@ -6,7 +6,7 @@ from catalog_workflows import call
 
 NAMES=['AquariumHall3D.gd','AquariumHall3DReview.gd','HallTank3D.gd','HallTankEditor.gd','HallFloor3D.gdshader','HallFootprint.gd','HallBuildReview.gd','HallStyleReview.gd','HallLighting.gd','HallLightingReview.gd','HallBlueBackdrop.gdshader','HallBlueReview.gd','TankWaterProfile.gd','TankWaterRenderer.gd','TankWaterVolume.gdshader','TankWaterPanel.gd','TankWaterReview.gd','FishRuntimeData.gd','FishAppearanceCache.gd','FishLoadingReview.gd']
 # Modules belong to the same reviewed source deployment as the host.
-NAMES += ['hall/'+name for name in ['HallLayoutRules.gd','HallLayoutStore.gd','HallEditHistory.gd','HallWalkController.gd','HallEditorPanel.gd','HallEditorInput.gd','HallLayoutDocument.gd','HallBuildCommands.gd','HallSceneProjection.gd']]
+NAMES += ['hall/'+name for name in ['HallLayoutRules.gd','HallLayoutStore.gd','HallEditHistory.gd','HallWalkController.gd','HallEditorPanel.gd','HallEditorInput.gd','HallLayoutDocument.gd','HallBuildCommands.gd','HallSceneProjection.gd','HallStoreys.gd']]
 
 NAMES += ['visitors/'+name for name in ['HallVisitorCrowd.gd','HallVisitorNavigation.gd','VisitorMaterialV2.gdshader']]
 

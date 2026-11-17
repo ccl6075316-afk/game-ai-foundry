@@ -1,6 +1,7 @@
 extends RefCounted
 ## Shared conservative grid. Every edge stays inside the inflated free-cell union.
 const Footprint = preload("res://scripts/aquarium/HallFootprint.gd")
+const Storeys = preload("res://scripts/aquarium/hall/HallStoreys.gd")
 const CELL := .2
 # V2's eighteen appearance/pose sweeps reach .3567 m; reserve over 13 mm.
 const RADIUS := .37
@@ -48,6 +49,7 @@ func rebuild(new_parcels: Array, rows: Array) -> void:
             else: _obstacle(transform, Rect2(-length / 2, -.09, length, .18))
         elif data.kind == "tank": _obstacle(transform, Rect2(-3.1, -1.6, 6.2, 3.2))
         elif data.kind == "bench": _obstacle(transform, Rect2(-1, -.34, 2, .68))
+        elif data.kind == "stair": _obstacle(transform, Rect2(-Storeys.RUN*.5, -Storeys.WIDTH*.5, Storeys.RUN, Storeys.WIDTH))
         else: _obstacle(transform, Rect2(-.55, -.55, 1.1, 1.1))
     for y in range(first.y, last.y):
         for x in range(first.x, last.x):

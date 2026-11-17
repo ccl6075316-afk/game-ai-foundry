@@ -11,7 +11,7 @@ func _label(parent: Control,text: String,at: Vector2,size:=18) -> Label:
 func build(host: Control) -> void:
     var header := ColorRect.new();header.name="HallHeader";header.color=Color("102a34");header.position=Vector2.ZERO;header.size=Vector2(1920,96);host.add_child(header)
     _label(header,"潮汐馆  /  可编辑 3D 大厅",Vector2(30,12),28)
-    _label(header,"室内建造 · 地块扩建 / 展缸 / 隔墙 · 独立保存",Vector2(32,55),17)
+    _label(header,"室内建造 · 地块 / 楼层 / 展缸 · 独立保存",Vector2(32,55),17)
     _label(header,"游客（本次逛馆）",Vector2(520,4),15)
     host.visitor_spin=SpinBox.new();host.visitor_spin.position=Vector2(520,30);host.visitor_spin.size=Vector2(125,36)
     host.visitor_spin.min_value=0;host.visitor_spin.max_value=200;host.visitor_spin.step=1;host.visitor_spin.value=24
@@ -25,6 +25,27 @@ func build(host: Control) -> void:
     _button(header,"读取大厅",Vector2(1360,26),150,func():host._load_layout(host.save_path))
     _button(header,"撤销",Vector2(1525,26),85,host._undo)
     _button(header,"重做",Vector2(1620,26),85,host._redo)
+    var floors := Panel.new();floors.name="FloorTools";floors.position=Vector2(30,112);floors.size=Vector2(388,106)
+    var panel_style := StyleBoxFlat.new();panel_style.bg_color=Color("14313b");panel_style.set_corner_radius_all(9)
+    floors.add_theme_stylebox_override("panel",panel_style);host.add_child(floors);host.floor_panel=floors
+    host.floor_down=_button(floors,"PgDn  低一层",Vector2(12,10),120,func():host._change_level(-1))
+    host.floor_label=_label(floors,"1 层",Vector2(132,15),23)
+    host.floor_label.size.x=124;host.floor_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+    host.floor_up=_button(floors,"PgUp  高一层",Vector2(256,10),120,func():host._change_level(1))
+    _button(floors,"放楼梯",Vector2(12,56),112,func():host._set_tool("stair"))
+    host.floor_pave=_button(floors,"铺地板",Vector2(138,56),112,func():host._set_tool("floor"))
+    host.floor_erase=_button(floors,"拆地板",Vector2(264,56),112,func():host._set_tool("floor_erase"))
+    var lower_life := Control.new();lower_life.name="LowerLifeTools";lower_life.position=Vector2(12,102);lower_life.size=Vector2(364,40)
+    lower_life.mouse_filter=Control.MOUSE_FILTER_IGNORE;floors.add_child(lower_life);host.lower_life_tools=lower_life
+    _label(lower_life,"楼下游客和鱼",Vector2(0,9),18)
+    var life_modes := ButtonGroup.new()
+    var show_life := _button(lower_life,"显示",Vector2(176,0),88,func():host._set_lower_life(true))
+    var hide_life := _button(lower_life,"隐藏",Vector2(276,0),88,func():host._set_lower_life(false))
+    var selected_mode := StyleBoxFlat.new();selected_mode.bg_color=Color("315763");selected_mode.set_corner_radius_all(4)
+    for button in [show_life,hide_life]:
+        button.toggle_mode=true;button.button_group=life_modes
+        button.add_theme_stylebox_override("pressed",selected_mode)
+    hide_life.set_pressed_no_signal(true)
     host.side=ColorRect.new();host.side.color=Color("14313b");host.side.position=Vector2(1570,108);host.side.size=Vector2(330,866);host.add_child(host.side)
     _label(host.side,"大厅建造",Vector2(18,10),24)
     host.parcel_label=_label(host.side,"",Vector2(18,47),17)

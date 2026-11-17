@@ -20,8 +20,14 @@ func canvas_input(host: Control,event: InputEvent) -> void:
     if event.pressed and event.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN]:
         host.view_size=clampf(host.view_size*(.9 if event.button_index==MOUSE_BUTTON_WHEEL_UP else 1.1),10,65);host._camera();host._preview(host._floor_hit(host.pointer))
     if event.button_index==MOUSE_BUTTON_LEFT:
-        if not event.pressed:host.dragging=false;return
         var at: Variant=host._floor_hit(host.pointer)
+        if host.pending_kind in ["floor","floor_erase"]:
+            if event.pressed:host.floor_anchor=at;host._preview(at)
+            elif host.floor_anchor!=null:
+                if at!=null:host._commit_floor(at)
+                else:host.floor_anchor=null;host._preview(null)
+            return
+        if not event.pressed:host.dragging=false;return
         if host.pending_kind=="parcel":
             if at!=null:host._expand_at(at);host._preview(host._floor_hit(host.pointer))
         elif host.pending_kind=="wall":

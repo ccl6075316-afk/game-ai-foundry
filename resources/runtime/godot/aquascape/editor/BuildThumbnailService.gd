@@ -18,6 +18,8 @@ static func tool_icon(id: String) -> Texture2D:
     return ImageTexture.create_from_image(image)
 
 func generate(host: Control,items: Array) -> void:
+    if not is_inside_tree():return
+    var tree := get_tree()
     var view := SubViewport.new();view.size=Vector2i(224,144);view.own_world_3d=true;view.render_target_update_mode=SubViewport.UPDATE_ALWAYS;add_child(view)
     var world := Node3D.new();view.add_child(world)
     var lighting=preload("res://scripts/aquarium/HallLighting.gd").new();world.add_child(lighting)
@@ -38,8 +40,11 @@ func generate(host: Control,items: Array) -> void:
             var row: Dictionary=projection._create(data);node=row.node;bounds=host._transform(data)*host._bounds(data)
         var center := bounds.get_center();camera.size=maxf(bounds.size.x,bounds.size.y)*1.5+1
         camera.position=center+Vector3(9,7,11);camera.look_at(center)
-        for i in 3:await get_tree().process_frame
+        for i in 3:
+            await tree.process_frame
+            if not is_inside_tree():return
         await RenderingServer.frame_post_draw
+        if not is_inside_tree():return
         preview_ready.emit(item.id,ImageTexture.create_from_image(view.get_texture().get_image()))
         node.hide();node.queue_free()
     complete=true;view.queue_free()

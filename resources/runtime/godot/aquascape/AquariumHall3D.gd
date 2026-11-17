@@ -93,6 +93,22 @@ var wall_anchor: Variant=null
 var wall_with_door := false
 var panning := false
 var placement_error := ""
+const Storeys=preload("res://scripts/aquarium/hall/HallStoreys.gd")
+var active_level := 0
+var highest_level := 0
+var floor_views: Dictionary={}
+var floor_cells: Dictionary={}
+var floor_anchor: Variant=null
+var floor_preview_key: Array=[]
+var visible_objects: Array=[]
+var floor_panel: Control
+var floor_label: Label
+var floor_up: Button
+var floor_down: Button
+var floor_pave: Button
+var floor_erase: Button
+var lower_life_tools: Control
+var show_lower_life := false
 const MAX_OBJECTS := 80
 const MAX_TANKS := 8
 const FLOOR_COLORS := [Color("778d8b"),Color("b4b5a5"),Color("4c626d")]
@@ -205,7 +221,7 @@ func _expand_at(at: Vector3) -> bool:
 func _fit_hall() -> void:
     var rect: Rect2=Footprint.extent(parcels)
     # Keep the hall in the visible space to the left of the inspector.
-    camera_target=Vector3(rect.get_center().x+1.8,1.0,rect.get_center().y-.6)
+    camera_target=Vector3(rect.get_center().x+1.8,Storeys.elevation(active_level)+1.0,rect.get_center().y-.6)
     view_size=clampf(maxf(rect.size.y*1.45,rect.size.x*.98),20.5,58)
     _camera()
 
@@ -243,6 +259,7 @@ func _transform(data: Dictionary) -> Transform3D:
 
 func _valid_placement(data: Dictionary,rows: Array,ignore_id: String="",cells: Array=[]) -> bool:
     var valid := layout_rules._valid_placement(data,rows,ignore_id,parcels if cells.is_empty() else cells)
+    if valid:valid=layout_rules._valid_level_support(data,floor_cells)
     placement_error=layout_rules.placement_error
     return valid
 
@@ -263,11 +280,28 @@ func _restore(state: Dictionary) -> void:
     _apply_document(true)
 
 func _apply_document(reset_selection: bool=false,change: Dictionary={}) -> void:
-    if reset_selection or change.get("kind")=="expand":_rebuild_room()
-    objects=scene_projection.apply_layout(objects,document.snapshot(),change)
+    var kind: String=change.get("kind","")
+    if reset_selection or kind=="expand":_rebuild_room()
+    var layout := _state()
+    if reset_selection or kind=="floor":
+        var tiles: Array=layout.get("floor_tiles",[])
+        floor_cells=Storeys.index(tiles)
+        scene_projection.rebuild_floors(tiles,floor_paint)
+    objects=scene_projection.apply_layout(objects,layout,change)
     document.materialize_initial_content(scene_projection.initial_contents(objects),layout_rules)
     for row in objects:row.data=document.object_data(row.data.id)
+    if reset_selection:
+        floor_anchor=null;floor_preview_key=[]
+        if is_instance_valid(build_preview):_clear_geometry(build_preview)
     if reset_selection or selected>=objects.size():selected=-1
+    highest_level=Storeys.top_level(layout)
+    var level_changed := active_level>highest_level
+    if level_changed:
+        camera_target.y+=Storeys.elevation(highest_level-active_level)
+        active_level=highest_level;_set_tool("");_camera()
+    var update_guides: bool=reset_selection or kind in ["floor","expand","add","remove"] or (
+        kind=="patch" and ("at" in change.fields or "yaw" in change.fields))
+    _refresh_floor_view(update_guides,reset_selection or level_changed)
     _finishes();_sync_panel()
     var spatial: bool=reset_selection or change.get("kind") in ["add","remove","expand"]
     for field in change.get("fields",[]):
@@ -301,7 +335,7 @@ func _finishes() -> void:
 func _floor_hit(screen: Vector2) -> Variant:
     var origin := editor_camera.project_ray_origin(screen);var ray := editor_camera.project_ray_normal(screen)
     if absf(ray.y)<.001:return null
-    var t: float=-origin.y/ray.y
+    var t: float=(Storeys.elevation(active_level)-origin.y)/ray.y
     if t<0:return null
     return origin+ray*t
 
@@ -318,18 +352,22 @@ func _pick(screen: Vector2) -> int:
 
 func _move_selected(at: Vector3) -> bool:
     if selected<0:return false
-    return _execute_build("patch",{"id":objects[selected].data.id,"patch":{"at":[snappedf(at.x,.25),snappedf(at.z,.25)]}},false)
+    var row: Dictionary=objects[selected].data
+    var snap := 1.0 if row.kind=="stair" else .25
+    return _execute_build("patch",{"id":row.id,"patch":{"at":[snappedf(at.x,snap),snappedf(at.z,snap)]}},false)
 
 func _rotate_selected(direction: float) -> bool:
     if selected<0:return false
     var data: Dictionary=objects[selected].data
-    if not _execute_build("patch",{"id":data.id,"patch":{"yaw":data.yaw+(PI/2 if data.kind=="wall" else deg_to_rad(15))*direction}}):
+    var interval := PI/2 if data.kind in ["wall","stair"] else deg_to_rad(15)
+    if not _execute_build("patch",{"id":data.id,"patch":{"yaw":data.yaw+interval*direction}}):
         notice="旋转后会碰到其他物件或墙。";return false
     return true
 
 func _resize_selected(value: float) -> bool:
     if panel_sync or selected<0:return false
     var data: Dictionary=objects[selected].data
+    if data.kind=="stair":return false
     var patch: Dictionary={}
     if data.kind=="wall":patch.length=snappedf(clampf(value,3 if data.get("door",false) else .5,18),.5)
     else:patch.scale=clampf(value,.4,1.3)
@@ -339,7 +377,9 @@ func _resize_selected(value: float) -> bool:
 func _candidate(kind: String,at: Vector3) -> Dictionary:
     var preset := [.5,.65,1.0]
     var choice: int=tank_size_choice.selected if is_instance_valid(tank_size_choice) else 1
-    var data := {"id":"placement-preview","kind":kind,"name":{"tank":"新展缸","bench":"观赏长凳","plinth":"石灯展示台"}.get(kind,"隔墙"),"at":[snappedf(at.x,.25),snappedf(at.z,.25)],"yaw":pending_yaw,"scale":float(preset[choice]) if kind=="tank" else 1.0}
+    var snap := 1.0 if kind=="stair" else .25
+    var data := {"id":"placement-preview","kind":kind,"name":{"tank":"新展缸","bench":"观赏长凳","plinth":"石灯展示台","stair":"楼梯"}.get(kind,"隔墙"),"at":[snappedf(at.x,snap),snappedf(at.z,snap)],"yaw":pending_yaw,"scale":float(preset[choice]) if kind=="tank" else 1.0}
+    if active_level>0:data.level=active_level
     if kind=="tank":data.fish_count=0;data.content={}
     return data
 
@@ -349,7 +389,9 @@ func _add_at(kind: String,at: Vector3) -> bool:
     var id: String="hall-%d-%d" % [Time.get_unix_time_from_system(),id_serial];id_serial+=1
     var data := _candidate(kind,at);data.id=id
     if not _execute_build("add",{"object":data}):return false
-    selected=objects.size()-1;_set_tool("");_sync_panel();notice="已添加，可拖动调整位置。";return true
+    selected=objects.size()-1;_set_tool("");_sync_panel()
+    notice="楼梯已放置。按 Page Up 到上层，在黄色出口铺地板。" if kind=="stair" else "已添加，可拖动调整位置。"
+    return true
 
 func _wall_candidate(start: Vector3,finish: Vector3) -> Dictionary:
     start=Vector3(snappedf(start.x,.5),0,snappedf(start.z,.5))
@@ -357,7 +399,9 @@ func _wall_candidate(start: Vector3,finish: Vector3) -> Dictionary:
     var along_x := absf(finish.x-start.x)>=absf(finish.z-start.z)
     if along_x:finish.z=start.z;finish.x=start.x+clampf(finish.x-start.x,-18,18)
     else:finish.x=start.x;finish.z=start.z+clampf(finish.z-start.z,-18,18)
-    return {"id":"wall-preview","kind":"wall","name":"门洞隔墙" if wall_with_door else "馆内隔墙","at":[(start.x+finish.x)/2,(start.z+finish.z)/2],"yaw":0.0 if along_x else PI/2,"scale":1.0,"length":start.distance_to(finish),"door":wall_with_door}
+    var data := {"id":"wall-preview","kind":"wall","name":"门洞隔墙" if wall_with_door else "馆内隔墙","at":[(start.x+finish.x)/2,(start.z+finish.z)/2],"yaw":0.0 if along_x else PI/2,"scale":1.0,"length":start.distance_to(finish),"door":wall_with_door}
+    if active_level>0:data.level=active_level
+    return data
 
 func _commit_wall(start: Vector3,finish: Vector3) -> bool:
     var data := _wall_candidate(start,finish)
@@ -370,15 +414,22 @@ func _commit_wall(start: Vector3,finish: Vector3) -> bool:
     return true
 
 func _set_tool(kind: String) -> void:
+    if kind in ["floor","floor_erase"] and active_level==0:
+        notice="一层使用地基。放置楼梯后，按 Page Up 在上层铺地板。";return
+    if kind=="parcel" and active_level>0:_change_level(-active_level)
     pending_kind=kind;pending_yaw=0;wall_anchor=null;dragging=false
+    floor_anchor=null;floor_preview_key=[]
     if is_instance_valid(build_preview):_clear_geometry(build_preview)
     _refresh_parcel_hints()
-    notice={"parcel":"点击浅绿色相邻地块扩建；每块 6×7 米。","wall":"先点墙起点，再点终点；自动取直线，Esc 取消。","tank":"移动鼠标预览新展缸；Q/E 转向，点击放下，Esc 取消。","bench":"点击空地放长凳。","plinth":"点击空地放展示台。","":"已切回选择，可拖动物件。"}.get(kind,"")
+    notice={"parcel":"点击浅绿色相邻地块扩建；每块 6×7 米。","wall":"先点墙起点，再点终点；自动取直线，Esc 取消。","tank":"移动鼠标预览新展缸；Q/E 转向，点击放下，Esc 取消。","bench":"点击空地放长凳。","plinth":"点击空地放展示台。","stair":"点击放楼梯，Q/E 转向，箭头指向上层出口。","floor":"点击铺一格，拖动铺一片。黄色标记是楼梯出口。","floor_erase":"点击或拖动拆除楼板，留下挑空。","":"已切回选择，可拖动物件。"}.get(kind,"")
     if kind=="parcel":
         var extent: Rect2=Footprint.extent(parcels)
         view_size=clampf(maxf(extent.size.y*1.45,extent.size.x*.98)+13,30,65);_camera()
 
 func _preview(at: Variant) -> void:
+    if at!=null and editing and pending_kind in ["floor","floor_erase"]:
+        _preview_floor(at);return
+    floor_preview_key=[]
     _clear_geometry(build_preview)
     if at==null or pending_kind=="" or not editing:return
     var box: AABB
@@ -388,7 +439,7 @@ func _preview(at: Variant) -> void:
         box=AABB(Vector3(rect.position.x,.03,rect.position.y),Vector3(6,.06,7));allowed=Footprint.can_add(parcels,cell)
     elif pending_kind=="wall":
         if wall_anchor==null:
-            box=AABB(Vector3(snappedf(at.x,.5)-.12,0,snappedf(at.z,.5)-.12),Vector3(.24,.12,.24));allowed=Footprint.contains(parcels,box)
+            box=AABB(Vector3(snappedf(at.x,.5)-.12,at.y,snappedf(at.z,.5)-.12),Vector3(.24,.12,.24));allowed=Footprint.contains(parcels,box)
         else:
             var data := _wall_candidate(wall_anchor,at)
             box=_transform(data)*_bounds(data);allowed=data.length>=(3 if data.door else .5) and _valid_placement(data,objects)
@@ -399,7 +450,83 @@ func _preview(at: Variant) -> void:
     var paint := _paint(Color(.3,.9,.65,.24) if allowed else Color(1,.28,.26,.30),true)
     paint.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA;paint.cull_mode=BaseMaterial3D.CULL_DISABLED
     _box(build_preview,box.get_center(),box.size,paint)
+    if pending_kind=="stair":
+        var marker := Label3D.new()
+        marker.text="上层出口 ↑";marker.billboard=BaseMaterial3D.BILLBOARD_ENABLED
+        marker.position=_transform(_candidate("stair",at))*Storeys.stair_landing(true).get_center()
+        marker.pixel_size=.012;marker.font_size=32;build_preview.add_child(marker)
     if is_instance_valid(tool_label):tool_label.text=("可放置" if allowed else "不可放置")+" · "+{"parcel":"扩建地块","wall":"画隔墙","tank":"放展缸","bench":"放长凳","plinth":"放展示台"}.get(pending_kind,"")
+
+func _floor_payload(at: Vector3) -> Dictionary:
+    var start: Vector3=at if floor_anchor==null else floor_anchor
+    return {"start":[floori(start.x),active_level,floori(start.z)],"end":[floori(at.x),active_level,floori(at.z)],
+        "erase":pending_kind=="floor_erase"}
+
+func _preview_floor(at: Vector3) -> void:
+    var payload := _floor_payload(at)
+    var key := [document.revision,payload]
+    if floor_preview_key==key:return
+    floor_preview_key=key
+    _clear_geometry(build_preview)
+    var result: Dictionary=build_commands.floor_proposal(_state(),payload)
+    var a := Storeys.key(payload.start)
+    var b := Storeys.key(payload.end)
+    var lo := a.min(b)
+    var hi := a.max(b)
+    var size := Vector3(hi.x-lo.x+1,.035,hi.z-lo.z+1)
+    var paint := _paint(Color(.30,.91,.65,.4) if result.ok else Color(1,.32,.27,.47),true)
+    paint.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA
+    _box(build_preview,Vector3(lo.x+size.x*.5,Storeys.elevation(active_level)+.05,lo.z+size.z*.5),size,paint)
+
+func _commit_floor(at: Vector3) -> void:
+    var payload := _floor_payload(at)
+    floor_anchor=null
+    if _execute_build("floor",payload):
+        notice="已拆除选区楼板。" if payload.erase else "已铺设选区地板。"
+    if pending_kind in ["floor","floor_erase"]:_preview_floor(at)
+
+func _change_level(direction: int) -> bool:
+    if not editing or inspecting or active_editor!=null:return false
+    var next := clampi(active_level+direction,0,highest_level)
+    if next==active_level:return false
+    if build_editor!=null:build_editor.gizmo.cancel()
+    floor_views[active_level]=camera_target
+    var target := camera_target+Vector3.UP*Storeys.elevation(next-active_level)
+    if not floor_views.has(next) and next>active_level:
+        # The first visit to a storey starts at the entrance the player just built.
+        for i in range(objects.size()-1,-1,-1):
+            var row: Dictionary=objects[i]
+            if row.data.kind=="stair" and Storeys.level(row.data)+1==next:
+                var landing := Storeys.stair_landing(true).get_center()
+                target=row.node.transform*Vector3(landing.x,.5+Storeys.HEIGHT,landing.z)
+                break
+    camera_target=floor_views.get(next,target)
+    active_level=next;selected=-1;_set_tool("")
+    _refresh_floor_view(true,true);_camera();_sync_panel()
+    notice="当前查看 %d 层。" % (active_level+1)
+    return true
+
+func _set_lower_life(value: bool) -> void:
+    show_lower_life=value
+    _refresh_floor_view(false)
+
+func _refresh_floor_view(update_guides: bool,update_reference: bool=false) -> void:
+    scene_projection.show_floors(active_level,editing)
+    if update_reference:scene_projection.show_floor_below(active_level,editing,objects)
+    visible_objects=[]
+    for row in objects:
+        var level := Storeys.level(row.data)
+        var current: bool=not editing or level==active_level
+        var incoming: bool=editing and row.data.kind=="stair" and level+1==active_level
+        var lower_fish: bool=editing and show_lower_life and row.tank!=null and level+1==active_level
+        row.node.visible=current or incoming or lower_fish
+        if row.tank!=null:
+            row.tank.visible=current
+            row.tank.fish_visuals.visible=current or lower_fish
+        row.body.collision_layer=2 if current else 0
+        if current or incoming:visible_objects.append(row)
+    if is_instance_valid(visitor_crowd):visitor_crowd.visible=not editing or active_level==0 or (active_level==1 and show_lower_life)
+    if update_guides:scene_projection.show_floor_guides(active_level,editing,parcels,objects,floor_cells)
 
 func _delete_selected() -> void:
     if selected<0:return
@@ -422,6 +549,7 @@ func _mode(value: bool) -> void:
     _rebuild_room()
     Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
     side.visible=editing;editor_camera.current=editing;eye.current=not editing
+    _refresh_floor_view(true,true)
     if not editing:_safe_spawn()
     _camera();_sync_panel()
 
@@ -444,9 +572,19 @@ func _camera() -> void:
 func _physics_process(delta: float) -> void:
     if editing or inspecting or active_editor!=null:return
     WalkController.tick(player,delta)
+    if player.position.y< -3:_safe_spawn()
 
 func _input(event: InputEvent) -> void:
     if active_editor!=null:return
+    if editing and not inspecting and event is InputEventKey and event.pressed and not event.echo and not event.ctrl_pressed:
+        if event.keycode in [KEY_PAGEUP,KEY_PAGEDOWN]:
+            _change_level(1 if event.keycode==KEY_PAGEUP else -1);get_viewport().set_input_as_handled();return
+        if event.keycode in [KEY_Q,KEY_E] and (pending_kind=="stair" or (pending_kind=="" and selected>=0 and objects[selected].data.kind=="stair")):
+            var direction := -1 if event.keycode==KEY_Q else 1
+            if pending_kind=="stair":
+                pending_yaw+=direction*PI/2;_preview(_floor_hit(pointer))
+            else:_rotate_selected(direction)
+            get_viewport().set_input_as_handled();return
     if build_editor!=null and build_editor.gizmo.dragging and (event is InputEventMouseMotion or event is InputEventMouseButton):
         var local_event: InputEvent=event.duplicate()
         local_event.position=get_global_transform_with_canvas().affine_inverse()*event.position
@@ -524,6 +662,7 @@ func _close_content_editor() -> void:
     get_window().content_scale_size=Vector2i(1920,1080)
     DisplayServer.window_set_title("潮汐馆 · 可编辑 3D 大厅")
     editor_camera.current=editing;eye.current=not editing
+    _refresh_floor_view(false)
 
 func _ui() -> void:
     preload("res://scripts/aquarium/hall/HallEditorPanel.gd").new().build(self)
@@ -531,7 +670,7 @@ func _ui() -> void:
 func _open_water_panel() -> void:
     if selected<0 or objects[selected].tank==null:
         for i in objects.size():
-            if objects[i].tank!=null:selected=i;break
+            if objects[i].tank!=null and objects[i].tank.visible:selected=i;break
     if selected<0 or objects[selected].tank==null:notice="先放置一个展缸，再调整水体。";return
     _set_tool("");dragging=false;_sync_panel();water_panel.show()
 
@@ -550,7 +689,7 @@ func _start_inspection(reset: bool=true) -> void:
     if selected<0 or objects[selected].tank==null:return
     inspection_tank_id=objects[selected].data.id;inspecting=true;looking=false;dragging=false
     if reset:inspection_distance=2.4*objects[selected].node.scale.x;inspection_yaw=0;inspection_pitch=.08;inspection_fish=0
-    side.hide();editor_camera.current=false;eye.current=false;inspection_camera.current=true
+    side.hide();floor_panel.hide();editor_camera.current=false;eye.current=false;inspection_camera.current=true
     Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
     notice="近景观察：滚轮推进缸内，右键环绕，Esc 返回。"
     _update_inspection()
@@ -569,7 +708,7 @@ func _update_inspection() -> void:
 func _stop_inspection() -> void:
     if not inspecting:return
     inspecting=false;looking=false;Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
-    inspection_camera.current=false;editor_camera.current=editing;eye.current=not editing;side.visible=editing
+    inspection_camera.current=false;editor_camera.current=editing;eye.current=not editing;side.visible=editing;floor_panel.visible=editing
     notice="已返回大厅视角。"
 
 func _fish_count_changed(value: float) -> void:
@@ -582,13 +721,19 @@ func _sync_panel() -> void:
     parcel_label.text="地块 %d / 24  ·  面积 %d m²" % [parcels.size(),parcels.size()*42]
     if pending_kind=="":tool_label.text="选择物件进行编辑"
     mode_button.text="切换逛馆  Tab" if editing else "编辑大厅  Tab"
+    floor_panel.visible=editing and not inspecting and active_editor==null
+    floor_label.text="%d 层" % (active_level+1)
+    floor_up.disabled=active_level>=highest_level;floor_down.disabled=active_level==0
+    floor_pave.disabled=active_level==0;floor_erase.disabled=active_level==0
+    lower_life_tools.visible=active_level>0
+    floor_panel.size.y=152 if active_level>0 else 106
     if selected<0:
         detail.text="未选中物件\n点击展缸、家具或隔墙"
         size_spin.editable=false;fish_spin.editable=false
     else:
         var data: Dictionary=objects[selected].data
         detail.text="%s\n位置 %.2f / %.2f m" % [data.name,data.at[0],data.at[1]]
-        size_spin.editable=true
+        size_spin.editable=data.kind!="stair"
         size_spin.min_value=3 if data.kind=="wall" and data.get("door",false) else (.5 if data.kind=="wall" else .4)
         size_spin.max_value=18 if data.kind=="wall" else 1.3;size_spin.step=.5 if data.kind=="wall" else .05
         size_spin.set_value_no_signal(float(data.length) if data.kind=="wall" else float(data.scale))
@@ -597,11 +742,11 @@ func _sync_panel() -> void:
     panel_sync=false;_selection()
 
 func _visitor_layout_changed() -> void:
-    if is_instance_valid(visitor_crowd):visitor_crowd.set_layout(parcels,objects)
+    if is_instance_valid(visitor_crowd):visitor_crowd.set_layout(parcels,objects.filter(func(row):return Storeys.level(row.data)==0))
 
 func _process(delta: float) -> void:
     if build_editor!=null:build_editor.tick()
-    if is_instance_valid(water_renderer):water_renderer.sync(objects,delta)
+    if is_instance_valid(water_renderer):water_renderer.sync(visible_objects,delta)
     if inspecting:_update_inspection()
     statistics_clock+=delta
     if statistics_clock>.15:statistics_clock=0;status.text=notice
@@ -628,7 +773,7 @@ func _load_layout(path: String) -> bool:
     if not FileAccess.file_exists(path):notice="还没有大厅存档。";return false
     var state: Variant=LayoutStore.read_layout(path,layout_rules)
     if state==null:notice="存档无效，当前布局保持不变。";return false
-    _remember();_set_tool("");_restore(state);_fit_hall();saved_digest=JSON.stringify(_state()).sha256_text();notice="已读取地块、隔墙与全部展缸。旧版布局仅在主动保存时升级。";return true
+    _remember();_set_tool("");active_level=0;floor_views.clear();_restore(state);_fit_hall();saved_digest=JSON.stringify(_state()).sha256_text();notice="已读取大厅布局。";return true
 
 func _request_return() -> void:
     if JSON.stringify(_state()).sha256_text()==saved_digest:return_requested.emit();return

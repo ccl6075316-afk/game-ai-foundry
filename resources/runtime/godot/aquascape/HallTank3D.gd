@@ -6,6 +6,7 @@ var content_snapshot: Dictionary={}
 var exterior_base: MeshInstance3D
 var exterior_rim: Array=[]
 var backdrop_paint: ShaderMaterial
+var fish_visuals: Node3D
 
 func _ready() -> void:
     layout=JSON.parse_string(FileAccess.get_file_as_string(LAYOUT))
@@ -46,11 +47,12 @@ func _fish() -> void:
     if fish_limit<=0:return
     factory=load("res://scripts/aquarium/VolumeFishExhibit.gd").new()
     factory._load_profiles()
+    var fish_parent := fish_visuals if is_instance_valid(fish_visuals) else self
     var species := ["red_emperor","red_seabream","black_seabream","yellow_croaker"]
     for i in fish_limit:
         var id: String=species[i%species.size()]
         var profile: Dictionary=factory.profiles[id]
-        factory._add_fish(self,id,float(profile.real_length_cm)/100,profile,Vector3.ZERO,i*.37)
+        factory._add_fish(fish_parent,id,float(profile.real_length_cm)/100,profile,Vector3.ZERO,i*.37)
         var row: Dictionary=factory.fish[-1]
         row["bounds"]=_model_bounds(row.model)
         row["lane"]=i%3
