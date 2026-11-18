@@ -52,6 +52,32 @@ class SopTests(unittest.TestCase):
             'static_builders_disabled':True, 'runtime_static_build_calls':0, 'errors':[],
             'checks':{k:True for k in COLD_CHECKS}}
         write(self.cold_path, self.cold)
+        self.lod_path = self.root / 'lod.json'
+        self.data['stages']['runtime']['lod_entries'] = {
+            'exhibit': {'entry_role': 'model', 'mode': 'tiered', 'tiers': ['near', 'middle', 'far']},
+            'fishing': {'entry_role': 'model', 'mode': 'full_detail_only', 'tiers': ['near'],
+                        'reason': 'Fixture requires full detail at the hook camera'},
+        }
+        tier = {'actual_gpu_selection': True, 'visual_passed': True, 'body_coverage_passed': True,
+                'material_anchor_passed': True, 'contact': {
+                    'method': 'retested', 'scope': ['mouth', 'fin_roots', 'fin_membrane'],
+                    'pose_samples': 20, 'evidence': [{'path': paths['report'].name, 'sha256': sha(paths['report'])}],
+                }}
+        entry = {'entry_role': 'model', 'fresh_process': True, 'cache': 'verified',
+                 'observation': 'Fixture only, not a Godot run'}
+        self.lod = {'ok': True, 'kind': 'fish_runtime_lod_acceptance', 'species': self.data['species'],
+                    'bound_inputs': dict(frozen), 'entries': {
+                        'exhibit': {
+                            **entry,
+                            'levels': [{**tier, 'id': t, 'triangles': n} for t, n in
+                                       [('near', 200), ('middle', 140), ('far', 80)]],
+                            'transitions': [{'near': a, 'far': b, 'both_directions': True, 'visual_passed': True}
+                                            for a, b in [('near', 'middle'), ('middle', 'far')]],
+                        },
+                        'fishing': {**entry, 'cache': 'not_used_verified', 'transitions': [],
+                                    'levels': [{**tier, 'id': 'near', 'triangles': 200}]},
+                    }}
+        write(self.lod_path, self.lod)
         self.fin_volume_path=self.root/'fin-volume.json'
         self.fin_volume={'ok':True,'kind':'actual_authored_fin_volume_and_tail_section','species':'fixture_only','model_sha256':frozen['model'],'profile_sha256':frozen['species_profile'],'original_basal_domains_preserved':True,
             'current':{'ok':True,'fin_inventory':['Fixture_fin'],'fins':[{'name':'Fixture_fin','ok':True,'proximal_to_distal_median_ratio':2,
@@ -75,6 +101,8 @@ class SopTests(unittest.TestCase):
                 if criterion=='reference_shape_verdict':path=shape_path
                 if criterion=='actual_normal_thickness_and_tail_section':path=self.fin_volume_path
                 if criterion=='complete_native_lip_domain_and_front_exclusion':path=self.lip_path
+                if criterion == 'material_anchor_and_actual_lod':
+                    path = self.lod_path
                 self.data['evidence'][eid] = {'path': path.name, 'sha256': sha(path),
                     'kind': kind, 'bound_inputs': dict(frozen), 'observation': 'Fixture only'}
         write(self.review, self.data)
@@ -104,6 +132,47 @@ class SopTests(unittest.TestCase):
         self.assertTrue(report['ok'], report['failures'])
         self.assertEqual(report['next_action'], 'human_review')
         self.assertNotIn('accepted', report)
+
+    def rewrite_lod(self, report):
+        write(self.lod_path, report)
+        self.data['evidence']['runtime.material_anchor_and_actual_lod']['sha256'] = sha(self.lod_path)
+        write(self.review, self.data)
+        return {failure['code'] for failure in check(self.review)['failures']}
+
+    def test_lod_gate_requires_actual_entries_and_both_switch_directions(self):
+        self.populated_fixture()
+        self.assertIn('invalid_runtime_lod_report', self.rewrite_lod({'ok': True}))
+        self.lod['entries']['exhibit']['transitions'][1]['both_directions'] = False
+        self.assertIn('unverified_lod_transitions', self.rewrite_lod(self.lod))
+        self.lod['entries'].pop('fishing')
+        self.assertIn('wrong_runtime_lod_entries', self.rewrite_lod(self.lod))
+
+    def test_lod_snapshots_and_protected_faces_alone_cannot_prove_contact(self):
+        self.populated_fixture()
+        far = self.lod['entries']['exhibit']['levels'][-1]
+        far['actual_gpu_selection'] = False
+        far['contact'] = {**far['contact'], 'method': 'exact_preserved', 'interacting_geometry_exact': False}
+        codes = self.rewrite_lod(self.lod)
+        self.assertIn('unverified_lod_level', codes)
+        self.assertIn('unverified_lod_contact', codes)
+
+    def test_full_detail_only_needs_an_explicit_reason(self):
+        self.populated_fixture()
+        self.data['stages']['runtime']['lod_entries']['fishing'].pop('reason')
+        self.assertIn('invalid_runtime_lod_mode', self.rewrite_lod(self.lod))
+
+    def test_lod_contact_links_require_a_passing_report_and_protect_it_from_overwrite(self):
+        self.populated_fixture()
+        contact = self.root / 'lod-contact.json'
+        write(contact, {'ok': False})
+        self.lod['entries']['exhibit']['levels'][-1]['contact'] = {
+            'method': 'retested', 'scope': ['mouth', 'fin_roots', 'fin_membrane'], 'pose_samples': 10,
+            'evidence': [{'path': contact.name, 'sha256': sha(contact)}],
+        }
+        self.assertIn('failed_lod_contact_report', self.rewrite_lod(self.lod))
+        with self.assertRaises(ValueError):
+            check(self.review, contact)
+        self.assertEqual(json.loads(contact.read_text()), {'ok': False})
 
     def test_generic_pass_flag_cannot_replace_actual_fin_volume(self):
         self.populated_fixture();write(self.fin_volume_path,{'ok':True})
@@ -294,8 +363,11 @@ class SopTests(unittest.TestCase):
         frozen={k:v['sha256'] for k,v in self.data['candidate_files'].items()}
         self.cold['bound_inputs']=frozen
         write(self.cold_path,self.cold)
+        self.lod['bound_inputs'] = frozen
+        write(self.lod_path, self.lod)
         for row in self.data['evidence'].values():row['bound_inputs']=dict(frozen)
         self.data['evidence']['runtime.final_asset_cold_load']['sha256']=sha(self.cold_path)
+        self.data['evidence']['runtime.material_anchor_and_actual_lod']['sha256'] = sha(self.lod_path)
         write(self.review,self.data)
         self.assertTrue(check(self.review)['ok'])
 
@@ -385,6 +457,8 @@ def attach_complete_fixture(handoff):
     d['candidate_files']['material_author_model']=dict(d['candidate_files']['model'])
     frozen={k:r['sha256'] for k,r in d['candidate_files'].items()}
     fixture.cold.update(species=species,bound_inputs=frozen)
+    fixture.lod.update(species=species, bound_inputs=frozen)
+    write(fixture.lod_path, fixture.lod)
     shape_path=fixture.root/'shape.json'
     shape_report=json.loads(shape_path.read_text())
     shape_report.update(species=species,model_sha256=frozen['model'])

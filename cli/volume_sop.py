@@ -4,6 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 from volume_finalization import check_finalization, pending_finalization
+from volume_lod_acceptance import check_lod_acceptance
 
 # Each key names an observation/evidence obligation, not a generic success score.
 STAGES = {
@@ -124,7 +125,7 @@ def check_reference_shape(report, candidates, species, artifact, fail, label):
             fail('unreviewed_reference_shape', label + '.' + key)
 
 
-STANDARD_VERSION = '2026-11-05-reference-shape-v2'
+STANDARD_VERSION = '2026-11-18-runtime-lod-v4'
 TASK_TYPES = ('new', 'rebuild', 'repair', 'local_godot_static_merge')
 
 
@@ -135,6 +136,7 @@ def standard_snapshot():
              'source-surface-repair.md', 'final-asset-export.md', 'mouth-first-review.md',
              'production-workflow-gates.md')]
     paths += [Path(__file__), Path(__file__).with_name('volume_finalization.py'),
+              Path(__file__).with_name('volume_lod_acceptance.py'),
               Path(__file__).with_name('volume_packed_acceptance.py'),
               Path(__file__).with_name('volume_repair_preservation.py')]
     return {'version': STANDARD_VERSION, 'files': {p.relative_to(root).as_posix(): sha(p) for p in paths},
@@ -152,13 +154,16 @@ def initialize(species: str, output: Path, task_type='new'):
     data['stages']['mouth']['implementation'] = {'branch':'pending','body_resource_role':'',
         'cut_line':'','upper_jaw':'','lower_jaw':'','method_reference':''}
     data['stages']['runtime']['finalization'] = pending_finalization()
+    data['stages']['runtime']['lod_entries'] = {}
     write(output,data)
     return data
 
 def check(review: Path, output: Path | None=None):
-    if output and output.resolve() == review.resolve():
+    output_target = output.resolve() if output else None
+    if output_target == review.resolve():
         raise ValueError('Output must not overwrite the review')
     failures=[];rows=[]
+    referenced_paths = set()
     def fail(code,message):failures.append({'kind':'validation','code':code,'message':message})
     def resolve(value):
         p=Path(value);return p if p.is_absolute() else review.parent/p
@@ -166,6 +171,8 @@ def check(review: Path, output: Path | None=None):
         if not isinstance(row,dict) or not row.get('path') or not row.get('sha256'):
             fail('missing_artifact',label);return None
         p=resolve(row['path'])
+        if output_target is not None:
+            referenced_paths.add(p.resolve())
         if not p.is_file():fail('missing_artifact',label+': '+str(p));return None
         if sha(p)!=row['sha256']:fail('stale_artifact',label+': '+str(p));return None
         return p
@@ -253,6 +260,8 @@ def check(review: Path, output: Path | None=None):
                             profile=read(resolve(candidates['species_profile']['path']))
                             check_fin_volume_report(content,candidates,data['species'],fail,label,profile,preservation)
                         if stage=='mouth'and criterion=='complete_native_lip_domain_and_front_exclusion':check_native_lip_report(content,candidates,data['species'],fail,label)
+                        if stage == 'runtime' and criterion == 'material_anchor_and_actual_lod':
+                            check_lod_acceptance(content, entry.get('lod_entries'), data['species'], frozen, artifact, fail, label)
                     except (ValueError,AttributeError,OSError,KeyError,TypeError):fail('invalid_report',label)
                 elif kind=='image':
                     from PIL import Image
@@ -267,8 +276,11 @@ def check(review: Path, output: Path | None=None):
             'review_sha256':sha(review),'checker_sha256':sha(Path(__file__)),
             'finalization_checker_sha256':sha(Path(__file__).with_name('volume_finalization.py')), 'candidate_files':candidates,
             'stages':rows,'evidence_count':len(used),'failures':failures,
-            'scope':'Checks required evidence, declared candidate bindings, integrated jaw-cut resource and description or justified anatomical branch, final asset declarations and bound fresh-process/no-static-builder report fields, file freshness and operator observations. Does not export assets, run Godot, prove undisclosed-builder absence, report semantics or visual quality. Actual cold-load capture, specialized gates and visual review remain required. No asset/user acceptance.'}
-    if output:write(output,report)
+            'scope':'Checks required evidence, declared candidate bindings, integrated jaw-cut resource and description or justified anatomical branch, final asset declarations, bound cold-load and production LOD report fields, file freshness and operator observations. Does not export assets, run Godot, prove undisclosed-builder absence, report semantics or visual quality. Actual cold-load capture, specialized gates and visual review remain required. No asset/user acceptance.'}
+    if output:
+        if output_target in referenced_paths:
+            raise ValueError('Output must not overwrite referenced evidence')
+        write(output,report)
     return report
 
 

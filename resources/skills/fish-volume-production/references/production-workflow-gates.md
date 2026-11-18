@@ -30,6 +30,19 @@ candidate_files 的每一项填写实际文件路径和 SHA256。证据 bound_in
 
 仅流程文案改变也会触发上述标准哈希失效。恢复工作时先逐项审阅差异：缺的新要求补实际证据，已覆盖且输入/判据未变的专项说明保留依据，再显式更新清单标准；不为文案改动无差别重跑昂贵物理门，也不批量重签历史通过。专项报告复用仍须实际工具支持并满足当前绑定检查，不能手改模型SHA。用户暂停制作、仅要求改SOP期间，不自动迁移旧鱼或启动重验。
 
+## 提交前的 LOD 报告
+
+`stages.runtime.lod_entries` 按适用正式入口登记。每个入口有 `entry_role`（`candidate_files` 中真实场景、加载器或正式直读入口的角色）、`mode` 和由近到远的有序 `tiers`。多档用 `tiered`；确认只用完整档的入口用 `full_detail_only`，填一个档名和具体 `reason`。已有适用的生产入口均须登记。
+
+`runtime.checks.material_anchor_and_actual_lod` 引用 `kind=fish_runtime_lod_acceptance` 的逐鱼报告。报告内填 `ok`、`species`、完整 `bound_inputs` 和与清单同名的 `entries`。每个入口记录：
+
+- `entry_role`、`fresh_process=true`、`cache=verified|not_used_verified`、`observation`。观察说明要能定位真实入口、机位/投影尺度与证据。
+- `levels` 按清单的 `tiers` 顺序登记，每项有 `id`、同可见范围下实际 `triangles`、`actual_gpu_selection`、`visual_passed`、`body_coverage_passed` 和 `material_anchor_passed`。后四项须通过。多个简化档的可见三角数须逐档下降。
+- 每档的 `contact` 记录 `scope`（含 `mouth`、`fin_roots`、`fin_membrane`），以及本档可追溯的 `evidence`。证据项填路径和 SHA256，引用通过的专项 JSON；相对路径以逐鱼清单位置为准。重验填 `method=retested` 与实际 `pose_samples`；保留既有结论填 `method=exact_preserved` 和 `interacting_geometry_exact=true`，附双方面片与姿态等同的证明及原专项报告。有重验和保留混用时，在重验报告中分别表明涉及部位及依据。
+- `transitions` 顺序覆盖全部相邻档，每条有 `near`、`far`、`both_directions=true`、`visual_passed=true`。单完整档填空列表。
+
+正式成品提交前跑 `volume sop-check --review <逐鱼清单> --output <报告> --json`。清单门核对声明、绑定、档位、切换和专项收据；实际运行、物理测量、操作者看图或用户接受由相应证据决定。某档只做过 GPU 对照或受保护索引对比而尚缺受影响接触面的专项时，保持待验。
+
 ## 验证与边界
 
 单测使用合成图片/文件与报告，只证明软件门接通，不证明真实鱼外观。负例覆盖缺项但手填 done/passed、伪装专用报告、变更模型/标准/物种、技术专项全通过但整鱼缺证据、已接受后缺项、归档不能继承新制作通过。volume 测试仅模拟昂贵 Blender 进程，接受出口运行真实 SOP 检查；portable 测试直接执行交付实际调用的 finish_delivery，运行真实 SOP 检查，无全局 gate mock。

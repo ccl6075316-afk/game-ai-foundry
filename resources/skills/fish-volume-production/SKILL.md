@@ -51,6 +51,8 @@ description: Build or repair rigged, source-art-based 3D fish in Game AI Foundry
 
 准备本轮交付主动执行[最终源固化与导出](references/final-asset-export.md)：静态几何/UV/权重/纹理进可编辑源与最终GLB，保存引擎资源；新进程关闭实验静态造型链直接读最终入口并检查真实动作/缓存。完整门和实际图审后跑 `volume sop-check --review <清单> --output <报告> --json`，再按来源/接受合同使用 `volume accept`；这是操作者审核，不等于用户接受。完整门未通过仍按[工作流状态规则](references/production-workflow-gates.md)保留候选/局部结果。
 
+正式成品提交前按[生产 SOP 的 LOD 验收](references/production-sop.md#提交前-lod-验收)查真实档位、双向切换和受影响接触证据，并以同一冻结候选运行 `volume sop-check`。
+
 ## 知识与产物收尾
 
 每轮按[知识收尾卡](../../../docs/3D-ASSET-KNOWLEDGE.md#每轮修改后的知识收尾卡)回写三层：通用SOP/方法，本鱼profile/标注，本次handoff/验证/实际图审与用户反馈。没有新方法就引用原卡和参数差异；新分支明确替代关系并接入知识索引。逐鱼数值、鳍数、原图坐标和接受不跨鱼继承。
