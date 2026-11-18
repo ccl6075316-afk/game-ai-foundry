@@ -15,27 +15,40 @@
   ],
   "swimming_artistic_acceptance": "deferred_by_user",
   "runtime_lod": {
-    "game_commit": "6c761f8d14724883636b5113a02788087c6069a5",
+    "game_commit": "d5cbe3945d1793623b04777ee7f948326332f0b5",
+    "prior_lod_release": "6c761f8d14724883636b5113a02788087c6069a5",
+    "handoff": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/HANDOFF.md",
     "resource": {
       "path": "projects/fishing-2d/game/assets/models/fish/motion/fish-lod.res",
-      "sha256": "d7922fa22325881d23c8e3227471705b7d94911eade926fb8c2ceb16b633878a"
+      "sha256": "2a2cc37f3fa080363487bea85e1527c071c7780fe9d6cbc303233608c499412b"
     },
-    "handoff": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/HANDOFF.md",
-    "runtime_validation": {
-      "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/runtime.validation.json",
-      "sha256": "7835a09fe48b9468646ef69e262a54c5d17ea043f9a92085f718e0172c3a5248"
+    "contact_support_locks": {
+      "path": "resources/volume-fish/fish-runtime-lod-20261118/contact-locks.json",
+      "sha256": "1df1e94e1eb8d054e00e6bb2cc3944d5ef915f3eb0f718fe442c3981ca4d596a"
+    },
+    "physical_contact_validation": {
+      "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/physical.validation.json",
+      "sha256": "d9d044d115e60a7ae36898074f3b6df703e3e12321f6679a09b915ea49701666"
+    },
+    "formal_entry_validation": {
+      "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/formal-entries.validation.json",
+      "sha256": "002121c56bdfa587235b08ed601c011e983a67611da72f93127dd69e81343a09"
     },
     "release_validation": {
-      "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/release.validation.json",
-      "sha256": "2f082516d5f451600034852b6dcde90338cc40013399f59002e4434436f4c002"
+      "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/animated-gpu.validation.json",
+      "sha256": "b98e79b567913dc99dbef11dfbffff88b549225af414671d7602b1e8659560c7"
     },
-    "protected_geometry_validation": {
-      "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/protection.validation.json",
-      "sha256": "1ba43857babfae2c7fe9b70567191e57857cfc7a34d0bc224ef4d0e9a224df38"
+    "body_coverage_validation": {
+      "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/body-gpu.validation.json",
+      "sha256": "ac52da4d4af19fd0d869e5ec4c6778207c36b2860451407576b47efc72d0e8a5"
+    },
+    "directional_switch_validation": {
+      "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/switches.validation.json",
+      "sha256": "691dfc9961b221693f01de05dea5e08526a4ea68d77f97fd64eacadd3ffbd02d"
     },
     "sweep_animated_gpu_comparisons": 2144,
     "exhibit_full_primitives": 76558,
-    "exhibit_lod_primitives": 63914,
+    "exhibit_lod_primitives": 70288,
     "mobile_validation": "pending_no_online_device"
   },
   "fish": [
@@ -63,8 +76,16 @@
       },
       "lod_triangles_observed": {
         "near": 2000,
-        "middle": 1856,
-        "far": 1726
+        "middle": 1938,
+        "far": 1804
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 635,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/african_catfish.json",
+          "sha256": "60d5de94ea259d633806e2171242dc7fe9c44af508d3a005eafd687a251a925b"
+        }
       }
     },
     {
@@ -91,8 +112,16 @@
       },
       "lod_triangles_observed": {
         "near": 3972,
-        "middle": 2886,
-        "far": 2638
+        "middle": 3722,
+        "far": 3348
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 635,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/arapaima.json",
+          "sha256": "991f1f6f294dba1f13d1d855e30efd4b7aa1788e5e13dc4e72a90ddcbb3ef872"
+        }
       }
     },
     {
@@ -120,7 +149,15 @@
       "lod_triangles_observed": {
         "near": 3982,
         "middle": 3482,
-        "far": 3152
+        "far": 3168
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 635,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/atlantic_sailfish.json",
+          "sha256": "d2c6b725467559df6c084b8e259dc0d6fe3dfeaba990c6c652aa592ae66ecca0"
+        }
       }
     },
     {
@@ -147,8 +184,16 @@
       },
       "lod_triangles_observed": {
         "near": 1988,
-        "middle": 1896,
-        "far": 1804
+        "middle": 1938,
+        "far": 1890
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 635,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/atlantic_salmon.json",
+          "sha256": "b95ae32bbaa4a7648812a626c0705683cf43642eb8b47ce19aa7d212fdd351bf"
+        }
       }
     },
     {
@@ -175,8 +220,16 @@
       },
       "lod_triangles_observed": {
         "near": 1988,
-        "middle": 1866,
-        "far": 1860
+        "middle": 1970,
+        "far": 1952
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 635,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/black_seabream.json",
+          "sha256": "ebf399073467cff8c784ccc299dc34c3b329c8c3c2b07970f84072b0d85da7d5"
+        }
       }
     },
     {
@@ -204,8 +257,16 @@
       },
       "lod_triangles_observed": {
         "near": 3962,
-        "middle": 3468,
-        "far": 3322
+        "middle": 3756,
+        "far": 3408
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 490,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/blacktip_reef_shark.json",
+          "sha256": "e63b754bc75f9fde9d2556786b4b787d9cc9ee086a2fd24971eb7c3ea50eda22"
+        }
       }
     },
     {
@@ -232,8 +293,16 @@
       },
       "lod_triangles_observed": {
         "near": 1520,
-        "middle": 1266,
-        "far": 1238
+        "middle": 1464,
+        "far": 1452
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 635,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/bluegill.json",
+          "sha256": "ff0fe3831ca913c0e30a7a41bbda6ba3b03904ace6df4d9c2ac1b722512567ba"
+        }
       }
     },
     {
@@ -260,8 +329,16 @@
       },
       "lod_triangles_observed": {
         "near": 1960,
-        "middle": 1826,
-        "far": 1818
+        "middle": 1876,
+        "far": 1872
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 635,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/brown_trout.json",
+          "sha256": "6ae262ff88463feffeb8360bd1be046b182526986247f079f2a77489912a1cf6"
+        }
       }
     },
     {
@@ -288,8 +365,16 @@
       },
       "lod_triangles_observed": {
         "near": 1522,
-        "middle": 1428,
-        "far": 1420
+        "middle": 1498,
+        "far": 1494
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 635,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/carp.json",
+          "sha256": "0309c7fee1873b970665c6a4bf24fe6e2fd3473e1092151dbf53b2be11a4d22c"
+        }
       }
     },
     {
@@ -316,8 +401,16 @@
       },
       "lod_triangles_observed": {
         "near": 1716,
-        "middle": 1454,
-        "far": 1410
+        "middle": 1636,
+        "far": 1620
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 635,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/crucian.json",
+          "sha256": "a64cbf782b64164f03451f811c77940e9f8f5796a4722674b62e74f113ec4363"
+        }
       }
     },
     {
@@ -344,8 +437,16 @@
       },
       "lod_triangles_observed": {
         "near": 1918,
-        "middle": 1304,
-        "far": 1264
+        "middle": 1604,
+        "far": 1594
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 635,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/grass_carp.json",
+          "sha256": "a50866a604fe34a2430c9bc192d0db329d9f7c5577031924bfcae030063a13ab"
+        }
       }
     },
     {
@@ -373,8 +474,16 @@
       },
       "lod_triangles_observed": {
         "near": 4668,
-        "middle": 4250,
+        "middle": 4594,
         "far": 4150
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 490,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/great_hammerhead.json",
+          "sha256": "6b048ada7ed877f3586cb162d2005ffd17ab9f2ebc0db58c131339f84bab8237"
+        }
       }
     },
     {
@@ -402,6 +511,14 @@
         "near": 2000,
         "middle": 1970,
         "far": 1940
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 490,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/hairtail.json",
+          "sha256": "87b477e539d4b20411c29f8736a30f6f1fe2285a3d5e55ec1f48ec7637ba38dc"
+        }
       }
     },
     {
@@ -428,8 +545,16 @@
       },
       "lod_triangles_observed": {
         "near": 1990,
-        "middle": 1840,
-        "far": 1698
+        "middle": 1988,
+        "far": 1854
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 635,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/mahi_mahi.json",
+          "sha256": "0ad93e5d9eb4b76d268036e76711d9e207536d78f2e8dabfbcad3dbc5216fa4b"
+        }
       }
     },
     {
@@ -456,8 +581,16 @@
       },
       "lod_triangles_observed": {
         "near": 1734,
-        "middle": 1386,
-        "far": 1376
+        "middle": 1500,
+        "far": 1472
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 635,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/nile_tilapia.json",
+          "sha256": "9eed87fa0981022391a6ad14d9187656d37b17b14ed5d52f1a7a9c1cfbbaba1c"
+        }
       }
     },
     {
@@ -484,8 +617,16 @@
       },
       "lod_triangles_observed": {
         "near": 3976,
-        "middle": 3760,
-        "far": 3540
+        "middle": 3818,
+        "far": 3658
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 635,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/pacific_bluefin_tuna.json",
+          "sha256": "c3b0e567ee7535c06034ba22d32b2ee81e7b75f9e43b6074d52e99e1e925d44a"
+        }
       }
     },
     {
@@ -512,8 +653,16 @@
       },
       "lod_triangles_observed": {
         "near": 1892,
-        "middle": 1700,
-        "far": 1574
+        "middle": 1866,
+        "far": 1630
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 490,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/peacock_bass.json",
+          "sha256": "613bd4bef6f40df051f318bcd02d2cf6c7049a36d285dbe97327afb1faeaeb37"
+        }
       }
     },
     {
@@ -540,8 +689,16 @@
       },
       "lod_triangles_observed": {
         "near": 2000,
-        "middle": 1848,
-        "far": 1844
+        "middle": 1920,
+        "far": 1916
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 635,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/piranha.json",
+          "sha256": "ec72c828e023085c8c570f4b21e04e4d751e7b3fd3e25b25c75b6f71c14146b3"
+        }
       }
     },
     {
@@ -568,8 +725,16 @@
       },
       "lod_triangles_observed": {
         "near": 1896,
-        "middle": 1620,
-        "far": 1610
+        "middle": 1804,
+        "far": 1800
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 635,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/rainbow_trout.json",
+          "sha256": "479a1c4e9787796f10465c531c8d135454d5307f043aadcf970ca61fc67dbe5d"
+        }
       }
     },
     {
@@ -596,8 +761,16 @@
       },
       "lod_triangles_observed": {
         "near": 1742,
-        "middle": 1592,
-        "far": 1588
+        "middle": 1714,
+        "far": 1706
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 635,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/red_emperor.json",
+          "sha256": "91ff346a2e124206122a013330834465d14858b5be7735d6af39128a39952218"
+        }
       }
     },
     {
@@ -624,8 +797,16 @@
       },
       "lod_triangles_observed": {
         "near": 1940,
-        "middle": 1734,
-        "far": 1722
+        "middle": 1920,
+        "far": 1902
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 635,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/red_seabream.json",
+          "sha256": "b0dd081b20f36db6fec4959fed30afc7ad0c2e906020bad40b95555709ba28d4"
+        }
       }
     },
     {
@@ -653,8 +834,16 @@
       },
       "lod_triangles_observed": {
         "near": 3994,
-        "middle": 3692,
-        "far": 3526
+        "middle": 3800,
+        "far": 3550
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 490,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/scalloped_hammerhead.json",
+          "sha256": "acbd463e8302a230b8482080ec434246c9aa6bf7a6b55a6c3181da0c155557e6"
+        }
       }
     },
     {
@@ -681,8 +870,16 @@
       },
       "lod_triangles_observed": {
         "near": 1994,
-        "middle": 1840,
-        "far": 1834
+        "middle": 1896,
+        "far": 1892
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 635,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/sea_bass.json",
+          "sha256": "a54eaeb67b863576b64673a8873457f2ff3b90d030b15ffc564a72d81c2a763f"
+        }
       }
     },
     {
@@ -709,8 +906,16 @@
       },
       "lod_triangles_observed": {
         "near": 1984,
-        "middle": 1874,
-        "far": 1796
+        "middle": 1922,
+        "far": 1900
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 635,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/silver_arowana.json",
+          "sha256": "40ce9abc523c74e3f14d444c8a53ad388b4e3de95bbf108d8ce8abf2cfb729ef"
+        }
       }
     },
     {
@@ -738,8 +943,16 @@
       },
       "lod_triangles_observed": {
         "near": 3994,
-        "middle": 3650,
+        "middle": 3884,
         "far": 3580
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 490,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/smooth_hammerhead.json",
+          "sha256": "5f250e3791b075e723f0cbc34a50c0f09470a945861013721b2a497e674bc821"
+        }
       }
     },
     {
@@ -766,8 +979,16 @@
       },
       "lod_triangles_observed": {
         "near": 9990,
-        "middle": 6930,
-        "far": 6762
+        "middle": 9966,
+        "far": 9944
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 1121,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/whale_shark.json",
+          "sha256": "79804a36103ec6577f8b5e75923c25846a75b6be7a7b238c1d40ff8324b059f4"
+        }
       }
     },
     {
@@ -794,8 +1015,16 @@
       },
       "lod_triangles_observed": {
         "near": 2000,
-        "middle": 1816,
-        "far": 1662
+        "middle": 1978,
+        "far": 1820
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 635,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/yellow_croaker.json",
+          "sha256": "85fdcf36e4c1c30ba0f53dc8a95b8b4f9931b1fa4f680b0b4fdc7d9ad8a8b2f6"
+        }
       }
     },
     {
@@ -822,8 +1051,16 @@
       },
       "lod_triangles_observed": {
         "near": 2000,
-        "middle": 1808,
-        "far": 1656
+        "middle": 1978,
+        "far": 1714
+      },
+      "lod_contact_verification": {
+        "status": "passed",
+        "poses": 635,
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/zander.json",
+          "sha256": "1bd6d75322118dcdd84152f0ec2d5412d4a1207aed1387073c699f2b71165d63"
+        }
       }
     }
   ]

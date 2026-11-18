@@ -90,7 +90,7 @@ def protect_geometry(surface, positions, indices, extent, attachment_positions, 
     return held_faces
 
 
-def surface_levels(simplifier, surface, extent, attachments, is_fin=False):
+def surface_levels(simplifier, surface, extent, attachments, is_fin=False, contact_lock=None):
     length = extent[1] - extent[0]
     positions = np.asarray(surface["positions"], dtype=np.float32).reshape(-1, 3)
     indices = np.asarray(surface["indices"], dtype=np.uint32)
@@ -107,9 +107,17 @@ def surface_levels(simplifier, surface, extent, attachments, is_fin=False):
     _, welded = np.unique(positions, axis=0, return_inverse=True)
     base_edges = topology(indices, welded)
     held_faces = protect_geometry(surface, positions, indices, extent, attachments, is_fin)
+    contact_lock = contact_lock or {}
+    contact_faces = np.asarray(contact_lock.get("faces", []), dtype=int).reshape(-1, 3)
+    if not face_set(contact_faces).issubset(face_set(indices)):
+        raise ValueError("Contact support must match the original surface indices")
+    held_faces = np.concatenate([held_faces, contact_faces])
     protected_faces = face_set(held_faces.ravel())
     locks = np.zeros(len(positions), dtype=np.uint8)
-    locks[np.isin(welded, welded[held_faces].ravel())] = LOCK_VERTEX
+    held_vertices = np.concatenate([held_faces.ravel(), contact_lock.get("vertices", [])]).astype(int)
+    if len(held_vertices) and (held_vertices.min() < 0 or held_vertices.max() >= len(positions)):
+        raise ValueError("Contact vertex outside the original surface")
+    locks[np.isin(welded, welded[held_vertices])] = LOCK_VERTEX
     base_boundary = {edge: count for edge, count in base_edges.items() if count != 2}
     boundary_vertices = np.array(list(base_boundary), dtype=int).ravel()
     locks[np.isin(welded, boundary_vertices)] = LOCK_VERTEX
@@ -161,7 +169,8 @@ def surface_levels(simplifier, surface, extent, attachments, is_fin=False):
     }
 
 
-def build(source, simplifier):
+def build(source, simplifier, contact_locks=None):
+    contact_locks = contact_locks or {}
     result = {}
     for species, entry in sorted(source.items()):
         meshes = entry["meshes"]
@@ -183,7 +192,8 @@ def build(source, simplifier):
 
         def add_mesh(name, near_points, is_fin=False):
             for index, surface in enumerate(meshes[name]):
-                levels, record = surface_levels(simplifier, surface, extent, near_points, is_fin)
+                locked = contact_locks.get(species, {}).get(name, {}).get(str(index))
+                levels, record = surface_levels(simplifier, surface, extent, near_points, is_fin, locked)
                 if levels:
                     rows.setdefault(name, {})[str(index)] = {
                         "index_sha256": surface["index_sha256"],
@@ -216,9 +226,11 @@ def main():
     parser.add_argument("input", type=Path)
     parser.add_argument("library", type=Path)
     parser.add_argument("output", type=Path)
+    parser.add_argument("--contact-locks", type=Path, help="Additional per-surface vertices selected from posed contact checks")
     args = parser.parse_args()
     source = json.loads(args.input.read_text())
-    result = build(source, Simplifier(args.library))
+    locks = json.loads(args.contact_locks.read_text()) if args.contact_locks else None
+    result = build(source, Simplifier(args.library), locks)
     args.output.write_text(json.dumps(result, indent=2) + "\n")
 
 
