@@ -1,5 +1,7 @@
 # 3D 鱼、水草与布景：知识维护入口
 
+**2026-11-18 正式鱼总表与 LOD 发布**：[当前 28 条鱼总表](../resources/volume-fish/current-fish-inventory-20261118.json)绑定逐鱼当前 Blender / GLB 哈希、最近验收记录、实际嘴部或摄食入口及近中远档数据。11月8日总表用于历史溯源。展厅、水族箱和 3D 钓鱼共用 LOD 索引资源。正式展厅同屏三角面、动作中切档和受保护三角核对见[运行时 LOD 交接](../projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/HANDOFF.md)。
+
 **2026-11-08 静态成品与动作分开接受**：用户明确接受当前大西洋旗鱼 R4、鲸鲨 R8 材质模型以及罗非鱼 C，并要求本地成品改动提交推送、清理实验；游动不满意不否定静态模型。当前共 28 条静态基线，入口 `resources/volume-fish/static-fish-release-20261108.json`、`resources/volume-fish/accepted-fish-inventory-20261108.json`，游戏交接 `plans/reviews/static-fish-release-20261108/HANDOFF.md`。旗鱼/鲸鲨正式源和 GLB 已安装、冷导逐字节相同；当前三鱼正式/缓存/挂钩 91 项通过，旗鱼当前 490/072 通过。鲸鲨完整动作专项及完整生产 SOP 未伪称通过，动作质量另做。只确认这三条已采用本轮新风格；其余 25 条授权材质重烘焙，保持静态几何/UV/骨权，不能把“28 条模型接受”写成“28 条新材质完成”。B/C 清爽像素风格样板、当前源/模型、必要原图、共享资料库和 PDF 保留；旧实验图片/模型/日志退休，不恢复旧实验链。
 
 2026-11-06 双髻鲨 R42 已获用户整鱼成品接受并静态冻结：[正式入口](../resources/volume-fish/final-hammer-pair-20261106.json)。大双髻鲨4524面、无沟双髻鲨3970面，完整8鳍/18骨，正式首读、缓存及垂钓入口直接读取源固化GLB；当前维护看游戏 `plans/reviews/hammer-pair-release-20261106/HANDOFF.md`。尾根端盖法线、共享二维供体接缝方法与逐鱼限制已回写，不恢复旧实验链。

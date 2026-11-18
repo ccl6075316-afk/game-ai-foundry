@@ -1,0 +1,830 @@
+{
+  "schema_version": 1,
+  "kind": "current_accepted_fish_inventory",
+  "date": "2026-11-18",
+  "count": 28,
+  "historical_inventory": "resources/volume-fish/accepted-fish-inventory-20261108.json",
+  "source_and_glb_match_accepted_release_count": 28,
+  "new_style_confirmed": 28,
+  "rebake_remaining": 0,
+  "regular_actions": [
+    "Swim",
+    "Turn",
+    "Ascend",
+    "Dive"
+  ],
+  "swimming_artistic_acceptance": "deferred_by_user",
+  "runtime_lod": {
+    "game_commit": "6c761f8d14724883636b5113a02788087c6069a5",
+    "resource": {
+      "path": "projects/fishing-2d/game/assets/models/fish/motion/fish-lod.res",
+      "sha256": "d7922fa22325881d23c8e3227471705b7d94911eade926fb8c2ceb16b633878a"
+    },
+    "handoff": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/HANDOFF.md",
+    "runtime_validation": {
+      "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/runtime.validation.json",
+      "sha256": "7835a09fe48b9468646ef69e262a54c5d17ea043f9a92085f718e0172c3a5248"
+    },
+    "release_validation": {
+      "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/release.validation.json",
+      "sha256": "2f082516d5f451600034852b6dcde90338cc40013399f59002e4434436f4c002"
+    },
+    "protected_geometry_validation": {
+      "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/protection.validation.json",
+      "sha256": "1ba43857babfae2c7fe9b70567191e57857cfc7a34d0bc224ef4d0e9a224df38"
+    },
+    "sweep_animated_gpu_comparisons": 2144,
+    "exhibit_full_primitives": 76558,
+    "exhibit_lod_primitives": 63914,
+    "mobile_validation": "pending_no_online_device"
+  },
+  "fish": [
+    {
+      "species": "african_catfish",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/african_catfish.glb",
+        "sha256": "d361e3f26ae612bd3cfd07f125db64f8df3387f58b2a4cf96550c06f4f9ec2a7"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/african_catfish/fish.blend",
+        "sha256": "89a606604a109ca90250b661d06a78e64f1ed92ebc38af649b292d4289e54443"
+      },
+      "bones": 19,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/non-shark-mouth-finish-20261116/release.json",
+        "sha256": "6e5045f08d258a2e8faa42e5ed910d3a34d8e469aeff825a8d270392e433fd07"
+      },
+      "latest_accepted_release_date": "2026-11-16",
+      "handoff": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "open_mouth_button",
+        "label": "张嘴"
+      },
+      "lod_triangles_observed": {
+        "near": 2000,
+        "middle": 1856,
+        "far": 1726
+      }
+    },
+    {
+      "species": "arapaima",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/arapaima.glb",
+        "sha256": "14ebf18dfa7c06518cc59ea4b952a90a5c8d9f66c7b1db9e05b02a691712b9a0"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/arapaima/fish.blend",
+        "sha256": "67eb27a3ddf529e82a50420f0102fb14da44f5a81c95fea9045e084e52e65611"
+      },
+      "bones": 33,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/arapaima-jaw-20261116/release.json",
+        "sha256": "609919806e1c2d6d46d1623fb3c10bc9d483a498f88b8adaf722420badeaf8e8"
+      },
+      "latest_accepted_release_date": "2026-11-16",
+      "handoff": "projects/fishing-2d/plans/reviews/arapaima-jaw-20261116/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "open_mouth_button",
+        "label": "张嘴"
+      },
+      "lod_triangles_observed": {
+        "near": 3972,
+        "middle": 2886,
+        "far": 2638
+      }
+    },
+    {
+      "species": "atlantic_sailfish",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/atlantic_sailfish.glb",
+        "sha256": "6eeb1cf28996b786fd2bcef06905673673574b01e462124a74a572a288ac118c"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/atlantic_sailfish/fish.blend",
+        "sha256": "5c9ff9ded08992b6b4fbae467874fa48deffc6a952096ec49bcade3fd787d02b"
+      },
+      "bones": 21,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/non-shark-mouth-finish-20261116/release.json",
+        "sha256": "6e5045f08d258a2e8faa42e5ed910d3a34d8e469aeff825a8d270392e433fd07"
+      },
+      "latest_accepted_release_date": "2026-11-16",
+      "handoff": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "open_mouth_button",
+        "label": "张嘴"
+      },
+      "lod_triangles_observed": {
+        "near": 3982,
+        "middle": 3482,
+        "far": 3152
+      }
+    },
+    {
+      "species": "atlantic_salmon",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/atlantic_salmon.glb",
+        "sha256": "d11e117d760d331fb4810e025b6df65d86b99ce06ca0ca8624e620eb7fb8c4f6"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/atlantic_salmon/fish.blend",
+        "sha256": "f7890f46564e0ea116a04655af66830ad878ebc7cadd51996d1f904647c48fe5"
+      },
+      "bones": 20,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/non-shark-mouth-finish-20261116/release.json",
+        "sha256": "6e5045f08d258a2e8faa42e5ed910d3a34d8e469aeff825a8d270392e433fd07"
+      },
+      "latest_accepted_release_date": "2026-11-16",
+      "handoff": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "open_mouth_button",
+        "label": "张嘴"
+      },
+      "lod_triangles_observed": {
+        "near": 1988,
+        "middle": 1896,
+        "far": 1804
+      }
+    },
+    {
+      "species": "black_seabream",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/black_seabream.glb",
+        "sha256": "d25b0b8ccf1cd73cd42a1cb45bf6a6bf0e120118e2d3642b6f29fa7900d06638"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/black_seabream/fish.blend",
+        "sha256": "dc8a1c1b824a19518ecf3b6dde7e1a105d4c517feb72534e151d862f53dbb0dc"
+      },
+      "bones": 19,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/black-seabream-jaw-20261116/release.json",
+        "sha256": "28dac6b53414d39a9099c350140ddfd3d44077a843826dd472295992a9724e72"
+      },
+      "latest_accepted_release_date": "2026-11-16",
+      "handoff": "projects/fishing-2d/plans/reviews/clean-pixel-black-seabream-20261111/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "open_mouth_button",
+        "label": "张嘴"
+      },
+      "lod_triangles_observed": {
+        "near": 1988,
+        "middle": 1866,
+        "far": 1860
+      }
+    },
+    {
+      "species": "blacktip_reef_shark",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark.glb",
+        "sha256": "73ac89c22d43524c4668fea6acfa4b5f5bd696b0a242dc9d91ac4db30fc5c2cf"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/blacktip_reef_shark/fish.blend",
+        "sha256": "4b96a2f400311ff7095f607286ada9f223687c45ad61d2271ab26fa7f15e038e"
+      },
+      "bones": 22,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/clean-pixel-shark-pair-20261117/release.json",
+        "sha256": "e6479b428cceb7b9f454c325825dc8288026312a3a1cfac4c1265658386c5ab9"
+      },
+      "latest_accepted_release_date": "2026-11-17",
+      "handoff": "projects/fishing-2d/plans/reviews/clean-pixel-shark-pair-20261117/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "independent_feeding_replay",
+        "exhibit_button": false,
+        "replay_reference": "resources/volume-fish/blacktip-feeding-20261115/release.json"
+      },
+      "lod_triangles_observed": {
+        "near": 3962,
+        "middle": 3468,
+        "far": 3322
+      }
+    },
+    {
+      "species": "bluegill",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/bluegill.glb",
+        "sha256": "d74d684490d925abb8f1bc98f798e34ca3dc0dd04ec3c2495140d69e438a12f1"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/bluegill/fish.blend",
+        "sha256": "537cff031972dbfa37db919333ed57f353854b3371c9f00ef342a5ebec366796"
+      },
+      "bones": 19,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/bluegill-jaw-20261116/release.json",
+        "sha256": "80844d52d17004180c66d2bbffbd790b466e6a86814cb9c77777cf22a91bb57e"
+      },
+      "latest_accepted_release_date": "2026-11-16",
+      "handoff": "projects/fishing-2d/plans/reviews/bluegill-jaw-20261116/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "open_mouth_button",
+        "label": "张嘴"
+      },
+      "lod_triangles_observed": {
+        "near": 1520,
+        "middle": 1266,
+        "far": 1238
+      }
+    },
+    {
+      "species": "brown_trout",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/brown_trout.glb",
+        "sha256": "4fa8147be65f2bf2d6fdeb60de3b48ebe0b1b9a29bfff0ea95e74ab842e3abd9"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/brown_trout/fish.blend",
+        "sha256": "c91eb8f04d9ddf5ab39b1a67c1ed27a69220044d6e086849d5c64faf7e0bc726"
+      },
+      "bones": 20,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/five-fish-jaws-20261116/release.json",
+        "sha256": "38f0499863b0de7df2a03f57e7e1025d94a3bdebc7a790eaeb11f05333fbf1b1"
+      },
+      "latest_accepted_release_date": "2026-11-16",
+      "handoff": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "open_mouth_button",
+        "label": "张嘴"
+      },
+      "lod_triangles_observed": {
+        "near": 1960,
+        "middle": 1826,
+        "far": 1818
+      }
+    },
+    {
+      "species": "carp",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/carp.glb",
+        "sha256": "c02e8674168977d10105359b5d7a20bc182cdf32dcb8cfbef482a4de20b20b2c"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/carp/fish.blend",
+        "sha256": "8d081e3d216213b02a19fef1f6db7c0e60bc0a74c5809fe4eb09b7146382eb21"
+      },
+      "bones": 19,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/five-fish-jaws-20261116/release.json",
+        "sha256": "38f0499863b0de7df2a03f57e7e1025d94a3bdebc7a790eaeb11f05333fbf1b1"
+      },
+      "latest_accepted_release_date": "2026-11-16",
+      "handoff": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "open_mouth_button",
+        "label": "张嘴"
+      },
+      "lod_triangles_observed": {
+        "near": 1522,
+        "middle": 1428,
+        "far": 1420
+      }
+    },
+    {
+      "species": "crucian",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/crucian.glb",
+        "sha256": "697c0d3acf150fd620f0419cd323fff4b173a5d6b41e9962071d10a5092afb9a"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/crucian/fish.blend",
+        "sha256": "144259277cf19e5043030876661f0450d3bab60a06375f5744b02ea56c8941fe"
+      },
+      "bones": 19,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/three-fish-jaws-20261116/release.json",
+        "sha256": "9108fca1d0def753692abc3558fca70736333e7d72145b526865fd0318182e56"
+      },
+      "latest_accepted_release_date": "2026-11-16",
+      "handoff": "projects/fishing-2d/plans/reviews/three-fish-jaws-20261116/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "open_mouth_button",
+        "label": "张嘴"
+      },
+      "lod_triangles_observed": {
+        "near": 1716,
+        "middle": 1454,
+        "far": 1410
+      }
+    },
+    {
+      "species": "grass_carp",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/grass_carp.glb",
+        "sha256": "491e7c0222152f61cdba0bf9f383dce15d602d4e056d95d4f3a4e9cdd403b024"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/grass_carp/fish.blend",
+        "sha256": "334ebd019e22a0352cc61d3a79240d640df8d615efd4aed9a3394eb78d45a1d0"
+      },
+      "bones": 19,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/five-fish-jaws-20261116/release.json",
+        "sha256": "38f0499863b0de7df2a03f57e7e1025d94a3bdebc7a790eaeb11f05333fbf1b1"
+      },
+      "latest_accepted_release_date": "2026-11-16",
+      "handoff": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "open_mouth_button",
+        "label": "张嘴"
+      },
+      "lod_triangles_observed": {
+        "near": 1918,
+        "middle": 1304,
+        "far": 1264
+      }
+    },
+    {
+      "species": "great_hammerhead",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/great_hammerhead.glb",
+        "sha256": "420e2ca2fa79664848f734c7d2dcee0c1385f1e814ec432f164fd6bde04d1aad"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/great_hammerhead/fish.blend",
+        "sha256": "b6ccb719e3eb5da742fc2e8aa715aac3083651f121c65377dfd87113f1ccf664"
+      },
+      "bones": 22,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/clean-pixel-shark-pair-20261117/release.json",
+        "sha256": "e6479b428cceb7b9f454c325825dc8288026312a3a1cfac4c1265658386c5ab9"
+      },
+      "latest_accepted_release_date": "2026-11-17",
+      "handoff": "projects/fishing-2d/plans/reviews/clean-pixel-shark-pair-20261117/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "independent_feeding_replay",
+        "exhibit_button": false,
+        "replay_reference": "resources/volume-fish/great-hammerhead-feeding-20261116/release-r5.json"
+      },
+      "lod_triangles_observed": {
+        "near": 4668,
+        "middle": 4250,
+        "far": 4150
+      }
+    },
+    {
+      "species": "hairtail",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/hairtail.glb",
+        "sha256": "31f9308f454af3b5b2573de2a51b4f9a2be11911381eb276df91364b0b258b64"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/hairtail/fish.blend",
+        "sha256": "0344855ceba1c102b8a420b0d26c4840f9286b9387a45f61957cb4834d32ac2c"
+      },
+      "bones": 67,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/non-shark-mouth-finish-20261116/release.json",
+        "sha256": "6e5045f08d258a2e8faa42e5ed910d3a34d8e469aeff825a8d270392e433fd07"
+      },
+      "latest_accepted_release_date": "2026-11-16",
+      "handoff": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "lip_repair_with_jaw_action_disabled_by_user"
+      },
+      "lod_triangles_observed": {
+        "near": 2000,
+        "middle": 1970,
+        "far": 1940
+      }
+    },
+    {
+      "species": "mahi_mahi",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/mahi_mahi.glb",
+        "sha256": "da22d376669f6703e258a5f3e5fbdceb2fb594f0b4fe645abde8993baed4f745"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/mahi_mahi/fish.blend",
+        "sha256": "821f935cd748437b0dc531453c2bddfa741ece956f742bb64b9d26237a005bb3"
+      },
+      "bones": 19,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/non-shark-mouth-finish-20261116/release.json",
+        "sha256": "6e5045f08d258a2e8faa42e5ed910d3a34d8e469aeff825a8d270392e433fd07"
+      },
+      "latest_accepted_release_date": "2026-11-16",
+      "handoff": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "open_mouth_button",
+        "label": "张嘴"
+      },
+      "lod_triangles_observed": {
+        "near": 1990,
+        "middle": 1840,
+        "far": 1698
+      }
+    },
+    {
+      "species": "nile_tilapia",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/nile_tilapia.glb",
+        "sha256": "28a20e9cc8a2acf4c06570922cd2a6ddf41e86418875c15fea27ef85d2379755"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/nile_tilapia/fish.blend",
+        "sha256": "1ae6a45118be00f1f316aab98d6ae41f01b029740c99a10dc91317a0613be53d"
+      },
+      "bones": 19,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/non-shark-mouth-finish-20261116/release.json",
+        "sha256": "6e5045f08d258a2e8faa42e5ed910d3a34d8e469aeff825a8d270392e433fd07"
+      },
+      "latest_accepted_release_date": "2026-11-16",
+      "handoff": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "open_mouth_button",
+        "label": "张嘴"
+      },
+      "lod_triangles_observed": {
+        "near": 1734,
+        "middle": 1386,
+        "far": 1376
+      }
+    },
+    {
+      "species": "pacific_bluefin_tuna",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/pacific_bluefin_tuna.glb",
+        "sha256": "232c8c0ed86c12e348a6715366da043e6eeebe0fe2124e088971f371a30369a0"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "e7fe86ab7c91ae871fd0cb949d99a1f4e90bfa81e94eabe466b88f4bde0be421"
+      },
+      "bones": 36,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/clean-pixel-pacific-bluefin-tuna-20261116/release.json",
+        "sha256": "9db07e40a776239510b51b762e0df78d0c6c146adf076c80e360f9105d9a5c6c"
+      },
+      "latest_accepted_release_date": "2026-11-16",
+      "handoff": "projects/fishing-2d/plans/reviews/pacific-bluefin-tuna-20261116/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "open_mouth_button",
+        "label": "张嘴"
+      },
+      "lod_triangles_observed": {
+        "near": 3976,
+        "middle": 3760,
+        "far": 3540
+      }
+    },
+    {
+      "species": "peacock_bass",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/peacock_bass.glb",
+        "sha256": "bb26fbb4b8cdd8de66c8f72f0941c7755eac514df873df108353d3516765012f"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/peacock_bass/fish.blend",
+        "sha256": "163d5080075738324c2b4d481b61780f5e22d958ff2a02d072454a52b8474339"
+      },
+      "bones": 18,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/clean-pixel-peacock-bass-20261111/release.json",
+        "sha256": "cb440c17fa6bed2cfb5136342e20ddb9d7010efda4ccbf1ea6ccc851df380250"
+      },
+      "latest_accepted_release_date": "2026-11-11",
+      "handoff": "projects/fishing-2d/plans/reviews/clean-pixel-peacock-bass-20261111/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "accepted_articulated_jaw",
+        "exhibit_button": false
+      },
+      "lod_triangles_observed": {
+        "near": 1892,
+        "middle": 1700,
+        "far": 1574
+      }
+    },
+    {
+      "species": "piranha",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/piranha.glb",
+        "sha256": "310eb305534b00e1cca1c7431abc73b593430576db453463d4dcc1976ac9f622"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/piranha/fish.blend",
+        "sha256": "a4513b3475ea68aba83b1672483030415efc33e0a9969750a36dbee66b385207"
+      },
+      "bones": 20,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/three-fish-jaws-20261116/release.json",
+        "sha256": "9108fca1d0def753692abc3558fca70736333e7d72145b526865fd0318182e56"
+      },
+      "latest_accepted_release_date": "2026-11-16",
+      "handoff": "projects/fishing-2d/plans/reviews/three-fish-jaws-20261116/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "open_mouth_button",
+        "label": "张嘴"
+      },
+      "lod_triangles_observed": {
+        "near": 2000,
+        "middle": 1848,
+        "far": 1844
+      }
+    },
+    {
+      "species": "rainbow_trout",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/rainbow_trout.glb",
+        "sha256": "3f861bfad7029fe5bc890c0fa95bd56e6378de510bb90232a6b6f742f1f4d5ee"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/rainbow_trout/fish.blend",
+        "sha256": "4a231214e37b060c0e91caf85793885f7013e1be576c4401cca3d6037555999b"
+      },
+      "bones": 20,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/non-shark-mouth-finish-20261116/release.json",
+        "sha256": "6e5045f08d258a2e8faa42e5ed910d3a34d8e469aeff825a8d270392e433fd07"
+      },
+      "latest_accepted_release_date": "2026-11-16",
+      "handoff": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "open_mouth_button",
+        "label": "张嘴"
+      },
+      "lod_triangles_observed": {
+        "near": 1896,
+        "middle": 1620,
+        "far": 1610
+      }
+    },
+    {
+      "species": "red_emperor",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/red_emperor.glb",
+        "sha256": "dd32e6b2b207b717034ee55eef25657c7677efd2b928760c5996e8b67adec713"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/red_emperor/fish.blend",
+        "sha256": "41e34c20764dd75cb2eb914490513d704b6c7d70f6b1b51faef3fc3bba635981"
+      },
+      "bones": 19,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/non-shark-mouth-finish-20261116/release.json",
+        "sha256": "6e5045f08d258a2e8faa42e5ed910d3a34d8e469aeff825a8d270392e433fd07"
+      },
+      "latest_accepted_release_date": "2026-11-16",
+      "handoff": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "open_mouth_button",
+        "label": "张嘴"
+      },
+      "lod_triangles_observed": {
+        "near": 1742,
+        "middle": 1592,
+        "far": 1588
+      }
+    },
+    {
+      "species": "red_seabream",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/red_seabream.glb",
+        "sha256": "b04ec7b3db374b0a3eb8afd10b3d5d4bff0e2f22610076d59cd2c4cf6b026285"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/red_seabream/fish.blend",
+        "sha256": "e41a70b999455c905c37f2f01cd6d0f40932337fa09f5953d86d80c398c1e4cc"
+      },
+      "bones": 19,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/three-fish-jaws-20261116/release.json",
+        "sha256": "9108fca1d0def753692abc3558fca70736333e7d72145b526865fd0318182e56"
+      },
+      "latest_accepted_release_date": "2026-11-16",
+      "handoff": "projects/fishing-2d/plans/reviews/three-fish-jaws-20261116/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "open_mouth_button",
+        "label": "张嘴"
+      },
+      "lod_triangles_observed": {
+        "near": 1940,
+        "middle": 1734,
+        "far": 1722
+      }
+    },
+    {
+      "species": "scalloped_hammerhead",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/scalloped_hammerhead.glb",
+        "sha256": "a7979cc1e41e949554af9b331c43cc7127dbef564328c5172cc2ec2b84a7cf01"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/scalloped_hammerhead/fish.blend",
+        "sha256": "e14ed89fbdffd46a9b9545f445d4bd6d02c3c83d5ef14f6f52458ea46c3a362f"
+      },
+      "bones": 22,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/final-hammerheads-20261117/release.json",
+        "sha256": "3da057f2addc73f3548fe2210974c929bf7771c188b3eb794cca45fef2b9348e"
+      },
+      "latest_accepted_release_date": "2026-11-17",
+      "handoff": "projects/fishing-2d/plans/reviews/final-hammerheads-20261117/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "independent_feeding_replay",
+        "exhibit_button": false,
+        "replay_reference": "resources/volume-fish/final-hammerheads-20261117/release.json"
+      },
+      "lod_triangles_observed": {
+        "near": 3994,
+        "middle": 3692,
+        "far": 3526
+      }
+    },
+    {
+      "species": "sea_bass",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/sea_bass.glb",
+        "sha256": "dab6589792309f8e7ed6658b505e1ac75e3c5952296d6bec903414882ba287ae"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/sea_bass/fish.blend",
+        "sha256": "5d188ae85c5ff414eb8638c5e5318ca4cb409647c375c321c806147884214fef"
+      },
+      "bones": 20,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/five-fish-jaws-20261116/release.json",
+        "sha256": "38f0499863b0de7df2a03f57e7e1025d94a3bdebc7a790eaeb11f05333fbf1b1"
+      },
+      "latest_accepted_release_date": "2026-11-16",
+      "handoff": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "open_mouth_button",
+        "label": "张嘴"
+      },
+      "lod_triangles_observed": {
+        "near": 1994,
+        "middle": 1840,
+        "far": 1834
+      }
+    },
+    {
+      "species": "silver_arowana",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/silver_arowana.glb",
+        "sha256": "9ab1e4487b22cc10df40302f791a19a3717027cc24eaa4dbba4eec6c20b97dbd"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/silver_arowana/fish.blend",
+        "sha256": "0f2ee3ef9e405966f9576898f4e64ef0998e8c9ec9c6bf57a89a2bec1ae8e66f"
+      },
+      "bones": 36,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/non-shark-mouth-finish-20261116/release.json",
+        "sha256": "6e5045f08d258a2e8faa42e5ed910d3a34d8e469aeff825a8d270392e433fd07"
+      },
+      "latest_accepted_release_date": "2026-11-16",
+      "handoff": "projects/fishing-2d/plans/reviews/non-shark-mouth-finish-20261116/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "open_mouth_button",
+        "label": "张嘴"
+      },
+      "lod_triangles_observed": {
+        "near": 1984,
+        "middle": 1874,
+        "far": 1796
+      }
+    },
+    {
+      "species": "smooth_hammerhead",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/smooth_hammerhead.glb",
+        "sha256": "d0c3a84cbfb7b7b3d0f1b570c2d17a1a6f814ae9bf34a61e37ea4afe96857525"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/smooth_hammerhead/fish.blend",
+        "sha256": "e9cdde964399ebc5dad7ed5440793423b179422cd35c99e17d926abaf7248096"
+      },
+      "bones": 22,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/final-hammerheads-20261117/release.json",
+        "sha256": "3da057f2addc73f3548fe2210974c929bf7771c188b3eb794cca45fef2b9348e"
+      },
+      "latest_accepted_release_date": "2026-11-17",
+      "handoff": "projects/fishing-2d/plans/reviews/final-hammerheads-20261117/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "independent_feeding_replay",
+        "exhibit_button": false,
+        "replay_reference": "resources/volume-fish/final-hammerheads-20261117/release.json"
+      },
+      "lod_triangles_observed": {
+        "near": 3994,
+        "middle": 3650,
+        "far": 3580
+      }
+    },
+    {
+      "species": "whale_shark",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/whale_shark.glb",
+        "sha256": "a553fc2a082fbccbf7a0cca040c1f4b3d36f35ae308e9e7daac55fbda755741d"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/whale_shark/fish.blend",
+        "sha256": "84f756ba2c145072338708a7688b7d4250ff7621ed41d9bfdfcd0ac87d7a7074"
+      },
+      "bones": 7,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/whale-shark-suction-20261116/release.json",
+        "sha256": "e67c768aba3d6960f6e08266a9460ec396683ab8d099e891cf067fa2b77f3366"
+      },
+      "latest_accepted_release_date": "2026-11-16",
+      "handoff": "projects/fishing-2d/plans/reviews/whale-shark-suction-20261116/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "suction_button",
+        "label": "吸滤"
+      },
+      "lod_triangles_observed": {
+        "near": 9990,
+        "middle": 6930,
+        "far": 6762
+      }
+    },
+    {
+      "species": "yellow_croaker",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/yellow_croaker.glb",
+        "sha256": "17b229f11997aeb187895e6ab75fd33f17ffd3c5f8f04403618f1ceeb5f51455"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/yellow_croaker/fish.blend",
+        "sha256": "9d416009332e4e3cde1ca7c1814242ec8612b11ab29cfdb6ca8d509d0abf28eb"
+      },
+      "bones": 19,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/yellow-croaker-jaw-20261115/release.json",
+        "sha256": "0f9c4e06f8c3594ce0c32788f5c67a84a9d37dd25c79f1dc88c4aee2dde91683"
+      },
+      "latest_accepted_release_date": "2026-11-15",
+      "handoff": "projects/fishing-2d/plans/reviews/yellow-croaker-jaw-20261115/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "open_mouth_button",
+        "label": "张嘴"
+      },
+      "lod_triangles_observed": {
+        "near": 2000,
+        "middle": 1816,
+        "far": 1662
+      }
+    },
+    {
+      "species": "zander",
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/zander.glb",
+        "sha256": "0e9204d8125d1f3ef370da90429071994c8e4fdcbc09da965cdde9b03c800e9e"
+      },
+      "editable_source": {
+        "path": "projects/fishing-2d/assets/source/fish/zander/fish.blend",
+        "sha256": "0331a67d5c67c09b252efa9453dc4fc7dd813d6f861d9af1967da4975a5db122"
+      },
+      "bones": 20,
+      "latest_accepted_release": {
+        "path": "resources/volume-fish/five-fish-jaws-20261116/release.json",
+        "sha256": "38f0499863b0de7df2a03f57e7e1025d94a3bdebc7a790eaeb11f05333fbf1b1"
+      },
+      "latest_accepted_release_date": "2026-11-16",
+      "handoff": "projects/fishing-2d/plans/reviews/five-fish-jaws-20261116/HANDOFF.md",
+      "static_model_and_new_material": "accepted",
+      "mouth_or_feeding": {
+        "kind": "open_mouth_button",
+        "label": "张嘴"
+      },
+      "lod_triangles_observed": {
+        "near": 2000,
+        "middle": 1808,
+        "far": 1656
+      }
+    }
+  ]
+}
