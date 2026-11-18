@@ -49,6 +49,8 @@ description: Build or repair rigged, source-art-based 3D fish in Game AI Foundry
 - 后续逐鱼制作动作时，按根 AGENTS.md 的 2026-11-15 要求，在四项基础动作之外为本鱼增加取食或张嘴动作之一。在 Godot 实际看起口、张口、回位及与游动的衔接。取食另看食物与嘴的接触。
 - 原像素/nearest、两侧同光照侧腹覆盖、隐藏活动鳍后的身体残影、实际唇/眼/鳃区域与背腹接头都要看。技术计数、源RGB一致、UV未变或旧profile approved不能代替视觉审核。
 
+正式提交前完成[网格与材质合批](references/final-asset-export.md#提交前验收网格与材质合批)，实测最终网格、surface、材质和贴图数量，处理可合并部件，记录必要的保留分组和 Godot 对照。
+
 准备本轮交付主动执行[最终源固化与导出](references/final-asset-export.md)：静态几何/UV/权重/纹理进可编辑源与最终GLB，保存引擎资源；新进程关闭实验静态造型链直接读最终入口并检查真实动作/缓存。完整门和实际图审后跑 `volume sop-check --review <清单> --output <报告> --json`，再按来源/接受合同使用 `volume accept`；这是操作者审核，不等于用户接受。完整门未通过仍按[工作流状态规则](references/production-workflow-gates.md)保留候选/局部结果。
 
 正式成品提交前按[生产 SOP 的 LOD 验收](references/production-sop.md#提交前-lod-验收)查真实档位、双向切换和受影响接触证据，并以同一冻结候选运行 `volume sop-check`。

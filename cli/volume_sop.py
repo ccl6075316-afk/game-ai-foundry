@@ -15,7 +15,7 @@ STAGES = {
     'skin': {'dorsal_material':'image','ventral_material':'image','hidden_fin_skin':'image','native_2d_donors_and_exclusions':'data','surface_opacity_inventory':'data','body_owned_fin_base_marks':'image'},
     'fins': {'complete_species_fin_inventory_and_roots':'data','source_cutout_and_shape_comparison':'image','installed_visibility_and_body_occlusion':'data','all_fin_root_gate':'report','whole_fin_membrane_gate':'report','expanded_fin_visual_review':'image','actual_normal_thickness_and_tail_section':'report','fin_volume_end_on_and_top_clay':'image'},
     'motion': {'native_loop':'report','swim':'image','turn':'image','ascend':'image','dive':'image','real_transitions_and_control_ranges':'report','jaw_or_other_action_branch':'data'},
-    'runtime': {'body_integrity_gpu_gate':'report','material_anchor_and_actual_lod':'report','motion_and_surface_gate':'report','cold_import_and_install_binding':'report','final_asset_cold_load':'report','exported_vs_experiment_comparison':'image'},
+    'runtime': {'body_integrity_gpu_gate':'report','material_anchor_and_actual_lod':'report','motion_and_surface_gate':'report','cold_import_and_install_binding':'report','final_asset_cold_load':'report','mesh_and_material_batching':'report','exported_vs_experiment_comparison':'image'},
     'presentation': {'source_style_final_comparison':'image','normal_and_close_game_views':'image','water_readability':'image','orbit_and_motion_video':'video','final_files_and_remaining_limits':'data'},
 }
 INPUT_ROLES = ('source_image','model','species_profile','runtime_manifest','motion_config')
@@ -125,6 +125,36 @@ def check_reference_shape(report, candidates, species, artifact, fail, label):
             fail('unreviewed_reference_shape', label + '.' + key)
 
 
+def check_mesh_material_batching(report, candidates, species, fail, label):
+    model_sha = candidates.get('model', {}).get('sha256')
+    if (report.get('kind') != 'fish_mesh_material_batching' or not model_sha
+            or report.get('species') != species or report.get('model_sha256') != model_sha):
+        fail('invalid_mesh_material_batching', label + ': current fish and final model required')
+        return
+
+    count_keys = ('mesh_count', 'surface_count', 'material_count', 'texture_count')
+    for phase in ('before', 'after'):
+        counts = report.get(phase)
+        if not isinstance(counts, dict) or any(
+            type(counts.get(key)) is not int or counts[key] < (0 if key == 'texture_count' else 1)
+            for key in count_keys
+        ):
+            fail('invalid_batching_inventory', label + '.' + phase)
+            return
+        if counts['surface_count'] < counts['mesh_count']:
+            fail('invalid_batching_inventory', label + '.' + phase + ': inconsistent surface count')
+            return
+
+    after = report['after']
+    groups = report.get('retained_groups')
+    if (not isinstance(groups, list)
+            or (max(after[key] for key in count_keys[:3]) > 1 and not groups)
+            or any(not isinstance(group, dict) or not all(
+                isinstance(group.get(key), str) and group[key].strip() for key in ('parts', 'reason')
+            ) for group in groups)):
+        fail('unexplained_batching_groups', label + ': record the parts and reasons for remaining splits')
+
+
 STANDARD_VERSION = '2026-11-18-runtime-lod-v4'
 TASK_TYPES = ('new', 'rebuild', 'repair', 'local_godot_static_merge')
 
@@ -134,7 +164,7 @@ def standard_snapshot():
     refs = root / 'resources/skills/fish-volume-production/references'
     paths = [refs / name for name in ('production-sop.md', 'fin-types-thickness-tail.md',
              'source-surface-repair.md', 'final-asset-export.md', 'mouth-first-review.md',
-             'production-workflow-gates.md')]
+             'production-workflow-gates.md', 'single-material-source-finalization.md')]
     paths += [Path(__file__), Path(__file__).with_name('volume_finalization.py'),
               Path(__file__).with_name('volume_lod_acceptance.py'),
               Path(__file__).with_name('volume_packed_acceptance.py'),
@@ -262,6 +292,8 @@ def check(review: Path, output: Path | None=None):
                         if stage=='mouth'and criterion=='complete_native_lip_domain_and_front_exclusion':check_native_lip_report(content,candidates,data['species'],fail,label)
                         if stage == 'runtime' and criterion == 'material_anchor_and_actual_lod':
                             check_lod_acceptance(content, entry.get('lod_entries'), data['species'], frozen, artifact, fail, label)
+                        if stage == 'runtime' and criterion == 'mesh_and_material_batching':
+                            check_mesh_material_batching(content, candidates, data['species'], fail, label)
                     except (ValueError,AttributeError,OSError,KeyError,TypeError):fail('invalid_report',label)
                 elif kind=='image':
                     from PIL import Image

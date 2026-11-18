@@ -78,6 +78,15 @@ class SopTests(unittest.TestCase):
                                     'levels': [{**tier, 'id': 'near', 'triangles': 200}]},
                     }}
         write(self.lod_path, self.lod)
+        self.batching_path = self.root / 'batching.json'
+        self.batching = {
+            'ok': True, 'kind': 'fish_mesh_material_batching', 'species': self.data['species'],
+            'model_sha256': frozen['model'],
+            'before': {'mesh_count': 4, 'surface_count': 5, 'material_count': 4, 'texture_count': 4},
+            'after': {'mesh_count': 1, 'surface_count': 1, 'material_count': 1, 'texture_count': 1},
+            'retained_groups': [],
+        }
+        write(self.batching_path, self.batching)
         self.fin_volume_path=self.root/'fin-volume.json'
         self.fin_volume={'ok':True,'kind':'actual_authored_fin_volume_and_tail_section','species':'fixture_only','model_sha256':frozen['model'],'profile_sha256':frozen['species_profile'],'original_basal_domains_preserved':True,
             'current':{'ok':True,'fin_inventory':['Fixture_fin'],'fins':[{'name':'Fixture_fin','ok':True,'proximal_to_distal_median_ratio':2,
@@ -103,6 +112,8 @@ class SopTests(unittest.TestCase):
                 if criterion=='complete_native_lip_domain_and_front_exclusion':path=self.lip_path
                 if criterion == 'material_anchor_and_actual_lod':
                     path = self.lod_path
+                if criterion == 'mesh_and_material_batching':
+                    path = self.batching_path
                 self.data['evidence'][eid] = {'path': path.name, 'sha256': sha(path),
                     'kind': kind, 'bound_inputs': dict(frozen), 'observation': 'Fixture only'}
         write(self.review, self.data)
@@ -173,6 +184,44 @@ class SopTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             check(self.review, contact)
         self.assertEqual(json.loads(contact.read_text()), {'ok': False})
+
+    def test_batching_evidence_is_required_and_cannot_be_generic(self):
+        self.populated_fixture()
+        criterion = 'mesh_and_material_batching'
+        ids = self.data['stages']['runtime']['checks'][criterion]
+        self.data['stages']['runtime']['checks'][criterion] = []
+        write(self.review, self.data)
+        self.assertIn({'kind': 'validation', 'code': 'missing_evidence', 'message': 'runtime.' + criterion},
+                      check(self.review)['failures'])
+        self.data['stages']['runtime']['checks'][criterion] = ids
+        for report in ({'ok': True}, {**self.batching, 'model_sha256': '0' * 64}):
+            write(self.batching_path, report)
+            self.data['evidence'][ids[0]]['sha256'] = sha(self.batching_path)
+            write(self.review, self.data)
+            self.assertIn('invalid_mesh_material_batching', [f['code'] for f in check(self.review)['failures']])
+
+    def test_batching_inventory_requires_reasons_for_retained_surfaces(self):
+        self.populated_fixture()
+        evidence = self.data['evidence']['runtime.mesh_and_material_batching']
+        self.batching['after'].update(surface_count=2, material_count=2)
+        for groups, code in (([], 'unexplained_batching_groups'),
+                             ([{'parts': 'Fins', 'reason': ''}], 'unexplained_batching_groups'),
+                             ([{'parts': 'Fins', 'reason': 'Separate alpha cutout'}], None)):
+            self.batching['retained_groups'] = groups
+            write(self.batching_path, self.batching)
+            evidence['sha256'] = sha(self.batching_path)
+            write(self.review, self.data)
+            report = check(self.review)
+            if code:
+                self.assertIn(code, [f['code'] for f in report['failures']])
+            else:
+                self.assertTrue(report['ok'], report['failures'])
+
+        self.batching['before']['mesh_count'] = True
+        write(self.batching_path, self.batching)
+        evidence['sha256'] = sha(self.batching_path)
+        write(self.review, self.data)
+        self.assertIn('invalid_batching_inventory', [f['code'] for f in check(self.review)['failures']])
 
     def test_generic_pass_flag_cannot_replace_actual_fin_volume(self):
         self.populated_fixture();write(self.fin_volume_path,{'ok':True})
@@ -457,6 +506,8 @@ def attach_complete_fixture(handoff):
     d['candidate_files']['material_author_model']=dict(d['candidate_files']['model'])
     frozen={k:r['sha256'] for k,r in d['candidate_files'].items()}
     fixture.cold.update(species=species,bound_inputs=frozen)
+    fixture.batching.update(model_sha256=frozen['model'])
+    write(fixture.batching_path, fixture.batching)
     fixture.lod.update(species=species, bound_inputs=frozen)
     write(fixture.lod_path, fixture.lod)
     shape_path=fixture.root/'shape.json'

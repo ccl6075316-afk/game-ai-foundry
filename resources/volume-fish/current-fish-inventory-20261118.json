@@ -4,7 +4,7 @@
   "date": "2026-11-18",
   "count": 28,
   "historical_inventory": "resources/volume-fish/accepted-fish-inventory-20261108.json",
-  "source_and_glb_match_accepted_release_count": 28,
+  "source_and_glb_match_accepted_release_count": 13,
   "new_style_confirmed": 28,
   "rebake_remaining": 0,
   "regular_actions": [
@@ -15,40 +15,46 @@
   ],
   "swimming_artistic_acceptance": "deferred_by_user",
   "runtime_lod": {
-    "game_commit": "d5cbe3945d1793623b04777ee7f948326332f0b5",
-    "prior_lod_release": "6c761f8d14724883636b5113a02788087c6069a5",
-    "handoff": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/HANDOFF.md",
+    "game_commit": "fd8445ab387f2c20be80ae034096c7d410914a2c",
+    "base_game_commit": "d5cbe3945d1793623b04777ee7f948326332f0b5",
+    "handoff": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/HANDOFF.md",
     "resource": {
       "path": "projects/fishing-2d/game/assets/models/fish/motion/fish-lod.res",
-      "sha256": "2a2cc37f3fa080363487bea85e1527c071c7780fe9d6cbc303233608c499412b"
+      "sha256": "ecde0658f53ddb355a9933a69449be8b9f9c49a3834c8a824de1a7ad4a40660e"
     },
-    "contact_support_locks": {
+    "baseline_contact_handoff": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/HANDOFF.md",
+    "baseline_unbatched_contact_support_locks": {
       "path": "resources/volume-fish/fish-runtime-lod-20261118/contact-locks.json",
       "sha256": "1df1e94e1eb8d054e00e6bb2cc3944d5ef915f3eb0f718fe442c3981ca4d596a"
     },
     "physical_contact_validation": {
-      "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/physical.validation.json",
-      "sha256": "d9d044d115e60a7ae36898074f3b6df703e3e12321f6679a09b915ea49701666"
+      "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/evidence/physical-contact.json",
+      "sha256": "2c127f7c9775209fb707a60d9764523c570bb39be7fcf5e6a90bf4551ad7a03d"
     },
     "formal_entry_validation": {
-      "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/formal-entries.validation.json",
-      "sha256": "002121c56bdfa587235b08ed601c011e983a67611da72f93127dd69e81343a09"
+      "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/evidence/formal-entries.json",
+      "sha256": "61511af583dd089242fe8619ac3605c585fb66757e8f48f30eff73ef9ee5ecc4"
+    },
+    "aquarium_entry_validation": {
+      "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/evidence/aquarium-entries.json",
+      "sha256": "6cd943d13fad0228e9bcdcf047a92643e4c79ab04151d167d3b55c4f06872808"
     },
     "release_validation": {
-      "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/animated-gpu.validation.json",
-      "sha256": "b98e79b567913dc99dbef11dfbffff88b549225af414671d7602b1e8659560c7"
+      "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/evidence/animated-lod.json",
+      "sha256": "b4bf852045acc3f4a875faa136493760e4dbd921dfab137b748e2b60595563b1"
     },
     "body_coverage_validation": {
-      "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/body-gpu.validation.json",
-      "sha256": "ac52da4d4af19fd0d869e5ec4c6778207c36b2860451407576b47efc72d0e8a5"
+      "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/evidence/body-077.json",
+      "sha256": "7f7c0a4a272e298353d0c8ff4c145accda04f5629bb309badb706b87c6534251"
     },
     "directional_switch_validation": {
-      "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/switches.validation.json",
-      "sha256": "691dfc9961b221693f01de05dea5e08526a4ea68d77f97fd64eacadd3ffbd02d"
+      "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/evidence/gpu-switches.json",
+      "sha256": "22de4d17251c28935c826dbedcfe4181568f648f96455a3dcb429ff8647bb08b"
     },
-    "sweep_animated_gpu_comparisons": 2144,
-    "exhibit_full_primitives": 76558,
-    "exhibit_lod_primitives": 70288,
+    "local_batching_runtime_sop": {
+      "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop-summary.json",
+      "sha256": "54231d1a88337bab45bde29b6117ec46f9fe4b4b01ea88ac15fc4a0d4e19c1e5"
+    },
     "mobile_validation": "pending_no_online_device"
   },
   "fish": [
@@ -56,11 +62,11 @@
       "species": "african_catfish",
       "model": {
         "path": "projects/fishing-2d/game/assets/models/fish/african_catfish.glb",
-        "sha256": "d361e3f26ae612bd3cfd07f125db64f8df3387f58b2a4cf96550c06f4f9ec2a7"
+        "sha256": "e09b4b7d8cadfb77478dd047e90ca2733ebc3392a0f2f04ceb1cd0247a3f5072"
       },
       "editable_source": {
         "path": "projects/fishing-2d/assets/source/fish/african_catfish/fish.blend",
-        "sha256": "89a606604a109ca90250b661d06a78e64f1ed92ebc38af649b292d4289e54443"
+        "sha256": "695d689e52d510f5e1cd8c4fcf8e34698dc51133459b7284efc330d51daa6bb9"
       },
       "bones": 19,
       "latest_accepted_release": {
@@ -76,15 +82,31 @@
       },
       "lod_triangles_observed": {
         "near": 2000,
-        "middle": 1938,
+        "middle": 1898,
         "far": 1804
       },
       "lod_contact_verification": {
         "status": "passed",
         "poses": 635,
+        "method": "root_membrane_retested",
         "report": {
-          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/african_catfish.json",
-          "sha256": "60d5de94ea259d633806e2171242dc7fe9c44af508d3a005eafd687a251a925b"
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/african_catfish.lod.json",
+          "sha256": "25e1f2ec6d049b03034fc26b27023a65e4abd440687026f3ff4c8d92e0ef4045"
+        },
+        "contact_evidence": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/evidence/contacts/african_catfish.json",
+          "sha256": "78f03e75c5b3781bcd4202977eb74c2359eebdfb5c0f45c665d7f7c1c55d4891"
+        }
+      },
+      "technical_batching": {
+        "status": "installed_locally_runtime_verified",
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/african_catfish.batching.json",
+          "sha256": "d67bcd103beb5318f9f7be21b80223a1d6cf10709d2a78d60ccb2f5577b5c906"
+        },
+        "accepted_geometry_parent": {
+          "path": "projects/fishing-2d/game/assets/models/fish/african_catfish.glb",
+          "sha256": "d361e3f26ae612bd3cfd07f125db64f8df3387f58b2a4cf96550c06f4f9ec2a7"
         }
       }
     },
@@ -92,11 +114,11 @@
       "species": "arapaima",
       "model": {
         "path": "projects/fishing-2d/game/assets/models/fish/arapaima.glb",
-        "sha256": "14ebf18dfa7c06518cc59ea4b952a90a5c8d9f66c7b1db9e05b02a691712b9a0"
+        "sha256": "4cc9e695fc0127a0c85844789df741300d5ade4469074eeed0d871948f2d3b40"
       },
       "editable_source": {
         "path": "projects/fishing-2d/assets/source/fish/arapaima/fish.blend",
-        "sha256": "67eb27a3ddf529e82a50420f0102fb14da44f5a81c95fea9045e084e52e65611"
+        "sha256": "d7fcee52866129aa2834e46c384819b919e4e9aa8934e6d247aa37327f390f21"
       },
       "bones": 33,
       "latest_accepted_release": {
@@ -112,15 +134,31 @@
       },
       "lod_triangles_observed": {
         "near": 3972,
-        "middle": 3722,
+        "middle": 3392,
         "far": 3348
       },
       "lod_contact_verification": {
         "status": "passed",
         "poses": 635,
+        "method": "root_membrane_retested",
         "report": {
-          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/arapaima.json",
-          "sha256": "991f1f6f294dba1f13d1d855e30efd4b7aa1788e5e13dc4e72a90ddcbb3ef872"
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/arapaima.lod.json",
+          "sha256": "aaa3bc23016f561a6750528d13f0a136bd97706681d372496bba9c45cf227ae1"
+        },
+        "contact_evidence": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/evidence/contacts/arapaima.json",
+          "sha256": "cdcb8a37868aea925bc67fb7b8de638824d97acf90452039b22b7c28eb413716"
+        }
+      },
+      "technical_batching": {
+        "status": "installed_locally_runtime_verified",
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/arapaima.batching.json",
+          "sha256": "2d3288b8ff8c3f04af9fc70ab12b336aab9a9fe55d25ea19bdc93c401e0f3d86"
+        },
+        "accepted_geometry_parent": {
+          "path": "projects/fishing-2d/game/assets/models/fish/arapaima.glb",
+          "sha256": "14ebf18dfa7c06518cc59ea4b952a90a5c8d9f66c7b1db9e05b02a691712b9a0"
         }
       }
     },
@@ -128,11 +166,11 @@
       "species": "atlantic_sailfish",
       "model": {
         "path": "projects/fishing-2d/game/assets/models/fish/atlantic_sailfish.glb",
-        "sha256": "6eeb1cf28996b786fd2bcef06905673673574b01e462124a74a572a288ac118c"
+        "sha256": "ae166d22da98b766da16228d6254fee508f733e5ba18b75dfdc3fa8a16b7b6cb"
       },
       "editable_source": {
         "path": "projects/fishing-2d/assets/source/fish/atlantic_sailfish/fish.blend",
-        "sha256": "5c9ff9ded08992b6b4fbae467874fa48deffc6a952096ec49bcade3fd787d02b"
+        "sha256": "6c2a5a86355209518596dda3dc344e04b9acd5bff4d66916d9a18a5d46743a3a"
       },
       "bones": 21,
       "latest_accepted_release": {
@@ -154,9 +192,25 @@
       "lod_contact_verification": {
         "status": "passed",
         "poses": 635,
+        "method": "all_sampled_poses_and_contact_geometry_exact",
         "report": {
-          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/atlantic_sailfish.json",
-          "sha256": "d2c6b725467559df6c084b8e259dc0d6fe3dfeaba990c6c652aa592ae66ecca0"
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/atlantic_sailfish.lod.json",
+          "sha256": "12df4b5a179ff0c581eb06b646861cdb1d5a61cb8090eec8094bee5af5f129e0"
+        },
+        "contact_evidence": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/evidence/contact-transport.json",
+          "sha256": "5cd51b3aa21f7093bd861591b905c43237e1c321f3e6d668287f663b52e158ea"
+        }
+      },
+      "technical_batching": {
+        "status": "installed_locally_runtime_verified",
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/atlantic_sailfish.batching.json",
+          "sha256": "d34b2d643a215f67eeec80d75fefb8069d9b7bfd277e32ea4702c5f0d4aabbec"
+        },
+        "accepted_geometry_parent": {
+          "path": "projects/fishing-2d/game/assets/models/fish/atlantic_sailfish.glb",
+          "sha256": "6eeb1cf28996b786fd2bcef06905673673574b01e462124a74a572a288ac118c"
         }
       }
     },
@@ -236,11 +290,11 @@
       "species": "blacktip_reef_shark",
       "model": {
         "path": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark.glb",
-        "sha256": "73ac89c22d43524c4668fea6acfa4b5f5bd696b0a242dc9d91ac4db30fc5c2cf"
+        "sha256": "509b8c258a170022f45ff32ca401bba1203ac717fb44f8f6a74383219eb2957c"
       },
       "editable_source": {
         "path": "projects/fishing-2d/assets/source/fish/blacktip_reef_shark/fish.blend",
-        "sha256": "4b96a2f400311ff7095f607286ada9f223687c45ad61d2271ab26fa7f15e038e"
+        "sha256": "27683db34494bc5b748bce9ec51b3b6d4e4af372fa4f9a653b1e1e9bf632d6c5"
       },
       "bones": 22,
       "latest_accepted_release": {
@@ -257,15 +311,31 @@
       },
       "lod_triangles_observed": {
         "near": 3962,
-        "middle": 3756,
+        "middle": 3520,
         "far": 3408
       },
       "lod_contact_verification": {
         "status": "passed",
         "poses": 490,
+        "method": "root_membrane_retested",
         "report": {
-          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/blacktip_reef_shark.json",
-          "sha256": "e63b754bc75f9fde9d2556786b4b787d9cc9ee086a2fd24971eb7c3ea50eda22"
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/blacktip_reef_shark.lod.json",
+          "sha256": "c365d56ddcb80c2dee3d34512bc7554b86154077f760571cdc8f278c852413f2"
+        },
+        "contact_evidence": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/evidence/contacts/blacktip_reef_shark.json",
+          "sha256": "6e242ad06b6fb0634faa7e8e23c4eec8c8c9e254ae6d0ff60e66abe51a1bb506"
+        }
+      },
+      "technical_batching": {
+        "status": "installed_locally_runtime_verified",
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/blacktip_reef_shark.batching.json",
+          "sha256": "691b77c64e05b8df7e4ff816f93684403f08289f947cf5cf18b9a810d4914b77"
+        },
+        "accepted_geometry_parent": {
+          "path": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark.glb",
+          "sha256": "73ac89c22d43524c4668fea6acfa4b5f5bd696b0a242dc9d91ac4db30fc5c2cf"
         }
       }
     },
@@ -453,11 +523,11 @@
       "species": "great_hammerhead",
       "model": {
         "path": "projects/fishing-2d/game/assets/models/fish/great_hammerhead.glb",
-        "sha256": "420e2ca2fa79664848f734c7d2dcee0c1385f1e814ec432f164fd6bde04d1aad"
+        "sha256": "55a43b04436d93324692c79376e71a6609c45b43d1d0c27ae684a0c054a4a5cc"
       },
       "editable_source": {
         "path": "projects/fishing-2d/assets/source/fish/great_hammerhead/fish.blend",
-        "sha256": "b6ccb719e3eb5da742fc2e8aa715aac3083651f121c65377dfd87113f1ccf664"
+        "sha256": "7e158bc718155f651976e93b674145e46a0f157a3e05c501096580a51ad1c86f"
       },
       "bones": 22,
       "latest_accepted_release": {
@@ -474,15 +544,31 @@
       },
       "lod_triangles_observed": {
         "near": 4668,
-        "middle": 4594,
+        "middle": 4250,
         "far": 4150
       },
       "lod_contact_verification": {
         "status": "passed",
         "poses": 490,
+        "method": "all_sampled_poses_and_contact_geometry_exact",
         "report": {
-          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/great_hammerhead.json",
-          "sha256": "6b048ada7ed877f3586cb162d2005ffd17ab9f2ebc0db58c131339f84bab8237"
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/great_hammerhead.lod.json",
+          "sha256": "eef7afb2b9e5a33b9a328124bdf57c8f804a756ec728f45b980727c1ccc914c2"
+        },
+        "contact_evidence": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/evidence/contact-transport.json",
+          "sha256": "5cd51b3aa21f7093bd861591b905c43237e1c321f3e6d668287f663b52e158ea"
+        }
+      },
+      "technical_batching": {
+        "status": "installed_locally_runtime_verified",
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/great_hammerhead.batching.json",
+          "sha256": "dd84f431f512c96ef4ca83df0912157ee3564c0fc83c95b307b77d0dad825ee1"
+        },
+        "accepted_geometry_parent": {
+          "path": "projects/fishing-2d/game/assets/models/fish/great_hammerhead.glb",
+          "sha256": "420e2ca2fa79664848f734c7d2dcee0c1385f1e814ec432f164fd6bde04d1aad"
         }
       }
     },
@@ -490,11 +576,11 @@
       "species": "hairtail",
       "model": {
         "path": "projects/fishing-2d/game/assets/models/fish/hairtail.glb",
-        "sha256": "31f9308f454af3b5b2573de2a51b4f9a2be11911381eb276df91364b0b258b64"
+        "sha256": "d8ed7c139297a4e734d753a4d13a5b19f260cb5e3f64266901be15b1cd05e7b2"
       },
       "editable_source": {
         "path": "projects/fishing-2d/assets/source/fish/hairtail/fish.blend",
-        "sha256": "0344855ceba1c102b8a420b0d26c4840f9286b9387a45f61957cb4834d32ac2c"
+        "sha256": "e6b9011834aaf042eb5b676b628ccc2483683266025e7d22335b0ec7937818a0"
       },
       "bones": 67,
       "latest_accepted_release": {
@@ -515,9 +601,25 @@
       "lod_contact_verification": {
         "status": "passed",
         "poses": 490,
+        "method": "all_sampled_poses_and_contact_geometry_exact",
         "report": {
-          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/hairtail.json",
-          "sha256": "87b477e539d4b20411c29f8736a30f6f1fe2285a3d5e55ec1f48ec7637ba38dc"
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/hairtail.lod.json",
+          "sha256": "dce4de45775e54ef4eb63a7164915f28d92f61c719f15df0f66cc14170d4e3c1"
+        },
+        "contact_evidence": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/evidence/contact-transport.json",
+          "sha256": "5cd51b3aa21f7093bd861591b905c43237e1c321f3e6d668287f663b52e158ea"
+        }
+      },
+      "technical_batching": {
+        "status": "installed_locally_runtime_verified",
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/hairtail.batching.json",
+          "sha256": "9ce05ce08ddd1da18c698ee5b23517569da15d668ed6270c39de1898c45b4af4"
+        },
+        "accepted_geometry_parent": {
+          "path": "projects/fishing-2d/game/assets/models/fish/hairtail.glb",
+          "sha256": "31f9308f454af3b5b2573de2a51b4f9a2be11911381eb276df91364b0b258b64"
         }
       }
     },
@@ -525,11 +627,11 @@
       "species": "mahi_mahi",
       "model": {
         "path": "projects/fishing-2d/game/assets/models/fish/mahi_mahi.glb",
-        "sha256": "da22d376669f6703e258a5f3e5fbdceb2fb594f0b4fe645abde8993baed4f745"
+        "sha256": "3767ad7111b7f7e1cb6d68f875a8391ab19a5dbee6dd6762b227a8ec1b60e3e5"
       },
       "editable_source": {
         "path": "projects/fishing-2d/assets/source/fish/mahi_mahi/fish.blend",
-        "sha256": "821f935cd748437b0dc531453c2bddfa741ece956f742bb64b9d26237a005bb3"
+        "sha256": "cb618fa86125294c45ef375e22feefbe3d22c8e59ba98d7e302dae40d8f39c81"
       },
       "bones": 19,
       "latest_accepted_release": {
@@ -545,15 +647,31 @@
       },
       "lod_triangles_observed": {
         "near": 1990,
-        "middle": 1988,
+        "middle": 1936,
         "far": 1854
       },
       "lod_contact_verification": {
         "status": "passed",
         "poses": 635,
+        "method": "all_sampled_poses_and_contact_geometry_exact",
         "report": {
-          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/mahi_mahi.json",
-          "sha256": "0ad93e5d9eb4b76d268036e76711d9e207536d78f2e8dabfbcad3dbc5216fa4b"
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/mahi_mahi.lod.json",
+          "sha256": "cd44fc7c8e23e2d2ad9290cbf61ef921f24fabca476c8772b75b8488bf27343f"
+        },
+        "contact_evidence": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/evidence/contact-transport.json",
+          "sha256": "5cd51b3aa21f7093bd861591b905c43237e1c321f3e6d668287f663b52e158ea"
+        }
+      },
+      "technical_batching": {
+        "status": "installed_locally_runtime_verified",
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/mahi_mahi.batching.json",
+          "sha256": "359dc5647b7d119056ee041fb7b143e63ef2ac9d012beb28383fb19cdafa05e9"
+        },
+        "accepted_geometry_parent": {
+          "path": "projects/fishing-2d/game/assets/models/fish/mahi_mahi.glb",
+          "sha256": "da22d376669f6703e258a5f3e5fbdceb2fb594f0b4fe645abde8993baed4f745"
         }
       }
     },
@@ -597,11 +715,11 @@
       "species": "pacific_bluefin_tuna",
       "model": {
         "path": "projects/fishing-2d/game/assets/models/fish/pacific_bluefin_tuna.glb",
-        "sha256": "232c8c0ed86c12e348a6715366da043e6eeebe0fe2124e088971f371a30369a0"
+        "sha256": "f3f582fc80d08bf18e008b6fd2180f94d58eb5d80d67d472843e59416d7b9660"
       },
       "editable_source": {
         "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
-        "sha256": "e7fe86ab7c91ae871fd0cb949d99a1f4e90bfa81e94eabe466b88f4bde0be421"
+        "sha256": "38613c307214954c0ba0b13a56cf5de4caf5c3706bbe5eaaf093a06d4eac2771"
       },
       "bones": 36,
       "latest_accepted_release": {
@@ -617,15 +735,31 @@
       },
       "lod_triangles_observed": {
         "near": 3976,
-        "middle": 3818,
+        "middle": 3794,
         "far": 3658
       },
       "lod_contact_verification": {
         "status": "passed",
         "poses": 635,
+        "method": "root_membrane_retested",
         "report": {
-          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/pacific_bluefin_tuna.json",
-          "sha256": "c3b0e567ee7535c06034ba22d32b2ee81e7b75f9e43b6074d52e99e1e925d44a"
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/pacific_bluefin_tuna.lod.json",
+          "sha256": "c81b00e6c9441379b56d9939fb8cf43a54e1c4f39fb8422cf1d42eb332d3c3b2"
+        },
+        "contact_evidence": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/evidence/contacts/pacific_bluefin_tuna.json",
+          "sha256": "92ab31be09df5baed2fe5a529e10b343e6526e4c5d89ffc3f1298013e3245c33"
+        }
+      },
+      "technical_batching": {
+        "status": "installed_locally_runtime_verified",
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/pacific_bluefin_tuna.batching.json",
+          "sha256": "f8ed27de760940c41f7c7f145f25a18f376b9ea0fe090bb2b6e7643db69df47d"
+        },
+        "accepted_geometry_parent": {
+          "path": "projects/fishing-2d/game/assets/models/fish/pacific_bluefin_tuna.glb",
+          "sha256": "232c8c0ed86c12e348a6715366da043e6eeebe0fe2124e088971f371a30369a0"
         }
       }
     },
@@ -633,11 +767,11 @@
       "species": "peacock_bass",
       "model": {
         "path": "projects/fishing-2d/game/assets/models/fish/peacock_bass.glb",
-        "sha256": "bb26fbb4b8cdd8de66c8f72f0941c7755eac514df873df108353d3516765012f"
+        "sha256": "1047cbfb902a4b66ffdfc8c5bc8aeb2509b91e0a0e0de1cbf7836e17246d0ffe"
       },
       "editable_source": {
         "path": "projects/fishing-2d/assets/source/fish/peacock_bass/fish.blend",
-        "sha256": "163d5080075738324c2b4d481b61780f5e22d958ff2a02d072454a52b8474339"
+        "sha256": "3a16cbdafd83942d91012e6162069ae58f3408b73359dcf22ff6d67030d30aee"
       },
       "bones": 18,
       "latest_accepted_release": {
@@ -653,15 +787,31 @@
       },
       "lod_triangles_observed": {
         "near": 1892,
-        "middle": 1866,
+        "middle": 1692,
         "far": 1630
       },
       "lod_contact_verification": {
         "status": "passed",
         "poses": 490,
+        "method": "all_sampled_poses_and_contact_geometry_exact",
         "report": {
-          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/peacock_bass.json",
-          "sha256": "613bd4bef6f40df051f318bcd02d2cf6c7049a36d285dbe97327afb1faeaeb37"
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/peacock_bass.lod.json",
+          "sha256": "8280868b1d79d74852d6e5da0e8775ed422eb07bbbc7201180fc4a471dcbf29c"
+        },
+        "contact_evidence": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/evidence/contact-transport.json",
+          "sha256": "5cd51b3aa21f7093bd861591b905c43237e1c321f3e6d668287f663b52e158ea"
+        }
+      },
+      "technical_batching": {
+        "status": "installed_locally_runtime_verified",
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/peacock_bass.batching.json",
+          "sha256": "81ca652248b62a464d2ed25f61e7cd943179fd239e3251630598ff14dac4c688"
+        },
+        "accepted_geometry_parent": {
+          "path": "projects/fishing-2d/game/assets/models/fish/peacock_bass.glb",
+          "sha256": "bb26fbb4b8cdd8de66c8f72f0941c7755eac514df873df108353d3516765012f"
         }
       }
     },
@@ -813,11 +963,11 @@
       "species": "scalloped_hammerhead",
       "model": {
         "path": "projects/fishing-2d/game/assets/models/fish/scalloped_hammerhead.glb",
-        "sha256": "a7979cc1e41e949554af9b331c43cc7127dbef564328c5172cc2ec2b84a7cf01"
+        "sha256": "4cb75a17cefbdc4d055239aeb264be4aefd8446673a0b30ff1031ae7045afdd2"
       },
       "editable_source": {
         "path": "projects/fishing-2d/assets/source/fish/scalloped_hammerhead/fish.blend",
-        "sha256": "e14ed89fbdffd46a9b9545f445d4bd6d02c3c83d5ef14f6f52458ea46c3a362f"
+        "sha256": "6c2b1cfa52708d4973d960cc17282deaa0072dd68142e73c25ef4288e163b5b4"
       },
       "bones": 22,
       "latest_accepted_release": {
@@ -834,15 +984,31 @@
       },
       "lod_triangles_observed": {
         "near": 3994,
-        "middle": 3800,
+        "middle": 3706,
         "far": 3550
       },
       "lod_contact_verification": {
         "status": "passed",
         "poses": 490,
+        "method": "all_sampled_poses_and_contact_geometry_exact",
         "report": {
-          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/scalloped_hammerhead.json",
-          "sha256": "acbd463e8302a230b8482080ec434246c9aa6bf7a6b55a6c3181da0c155557e6"
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/scalloped_hammerhead.lod.json",
+          "sha256": "99a7f433d2f10bcb838e41edd59c04a7ce9e5987c297f2f7eed5d3cfe45a321a"
+        },
+        "contact_evidence": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/evidence/contact-transport.json",
+          "sha256": "5cd51b3aa21f7093bd861591b905c43237e1c321f3e6d668287f663b52e158ea"
+        }
+      },
+      "technical_batching": {
+        "status": "installed_locally_runtime_verified",
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/scalloped_hammerhead.batching.json",
+          "sha256": "4480d4eb2b1d9ac3e399910447d1e986ea8837e777e57f436c8190e53ffad74e"
+        },
+        "accepted_geometry_parent": {
+          "path": "projects/fishing-2d/game/assets/models/fish/scalloped_hammerhead.glb",
+          "sha256": "a7979cc1e41e949554af9b331c43cc7127dbef564328c5172cc2ec2b84a7cf01"
         }
       }
     },
@@ -886,11 +1052,11 @@
       "species": "silver_arowana",
       "model": {
         "path": "projects/fishing-2d/game/assets/models/fish/silver_arowana.glb",
-        "sha256": "9ab1e4487b22cc10df40302f791a19a3717027cc24eaa4dbba4eec6c20b97dbd"
+        "sha256": "01a574fc09470955f470b44fc06cfd3e3961d8e82455d3d9df053af29e9611f1"
       },
       "editable_source": {
         "path": "projects/fishing-2d/assets/source/fish/silver_arowana/fish.blend",
-        "sha256": "0f2ee3ef9e405966f9576898f4e64ef0998e8c9ec9c6bf57a89a2bec1ae8e66f"
+        "sha256": "ebacb385ac91ff22712ef180a83336b00672e97732956cc923468bc1ae301fab"
       },
       "bones": 36,
       "latest_accepted_release": {
@@ -912,9 +1078,25 @@
       "lod_contact_verification": {
         "status": "passed",
         "poses": 635,
+        "method": "root_membrane_retested",
         "report": {
-          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/silver_arowana.json",
-          "sha256": "40ce9abc523c74e3f14d444c8a53ad388b4e3de95bbf108d8ce8abf2cfb729ef"
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/silver_arowana.lod.json",
+          "sha256": "8e2b2fc7d86e96891cd9e9f0c36f3b828ffe4f8e5af95c2f989514c215f14989"
+        },
+        "contact_evidence": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/evidence/contacts/silver_arowana.json",
+          "sha256": "fd22335554acbf62146cc2c8a85c8eadb4fd90d6dfa2f08b7a63fb4ca1088b25"
+        }
+      },
+      "technical_batching": {
+        "status": "installed_locally_runtime_verified",
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/silver_arowana.batching.json",
+          "sha256": "b4634bc545946016d0859a9fa8300c6e195ed942cf00f1ca65c32f692f63f42f"
+        },
+        "accepted_geometry_parent": {
+          "path": "projects/fishing-2d/game/assets/models/fish/silver_arowana.glb",
+          "sha256": "9ab1e4487b22cc10df40302f791a19a3717027cc24eaa4dbba4eec6c20b97dbd"
         }
       }
     },
@@ -922,11 +1104,11 @@
       "species": "smooth_hammerhead",
       "model": {
         "path": "projects/fishing-2d/game/assets/models/fish/smooth_hammerhead.glb",
-        "sha256": "d0c3a84cbfb7b7b3d0f1b570c2d17a1a6f814ae9bf34a61e37ea4afe96857525"
+        "sha256": "a3a98e2a278b8b9abbe6fcb1a15c4fd644a3df95796f78c87246a149d69b9608"
       },
       "editable_source": {
         "path": "projects/fishing-2d/assets/source/fish/smooth_hammerhead/fish.blend",
-        "sha256": "e9cdde964399ebc5dad7ed5440793423b179422cd35c99e17d926abaf7248096"
+        "sha256": "0fe5091f97e5ac82f4f26f2dad02de9fb23e285508695a8131cabc5127736746"
       },
       "bones": 22,
       "latest_accepted_release": {
@@ -943,15 +1125,31 @@
       },
       "lod_triangles_observed": {
         "near": 3994,
-        "middle": 3884,
+        "middle": 3594,
         "far": 3580
       },
       "lod_contact_verification": {
         "status": "passed",
         "poses": 490,
+        "method": "all_sampled_poses_and_contact_geometry_exact",
         "report": {
-          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/smooth_hammerhead.json",
-          "sha256": "5f250e3791b075e723f0cbc34a50c0f09470a945861013721b2a497e674bc821"
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/smooth_hammerhead.lod.json",
+          "sha256": "2a201d6f86371f5daf6a806f8e782ce42073f59a409c44706639bc77e4a7cf32"
+        },
+        "contact_evidence": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/evidence/contact-transport.json",
+          "sha256": "5cd51b3aa21f7093bd861591b905c43237e1c321f3e6d668287f663b52e158ea"
+        }
+      },
+      "technical_batching": {
+        "status": "installed_locally_runtime_verified",
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/smooth_hammerhead.batching.json",
+          "sha256": "5610eac4ddb12c72b779fc870b1ba4768ee6aa6fcd51110894bde669204abd5a"
+        },
+        "accepted_geometry_parent": {
+          "path": "projects/fishing-2d/game/assets/models/fish/smooth_hammerhead.glb",
+          "sha256": "d0c3a84cbfb7b7b3d0f1b570c2d17a1a6f814ae9bf34a61e37ea4afe96857525"
         }
       }
     },
@@ -959,11 +1157,11 @@
       "species": "whale_shark",
       "model": {
         "path": "projects/fishing-2d/game/assets/models/fish/whale_shark.glb",
-        "sha256": "a553fc2a082fbccbf7a0cca040c1f4b3d36f35ae308e9e7daac55fbda755741d"
+        "sha256": "1bc4022a77fda041a69c3dddd10f976ad433123dc7ba7738f1cdd9f295123ba1"
       },
       "editable_source": {
         "path": "projects/fishing-2d/assets/source/fish/whale_shark/fish.blend",
-        "sha256": "84f756ba2c145072338708a7688b7d4250ff7621ed41d9bfdfcd0ac87d7a7074"
+        "sha256": "8274ad2aabb6fe7b52091ada42a22dd1c120488451b1482c4415a289b7b62a90"
       },
       "bones": 7,
       "latest_accepted_release": {
@@ -985,9 +1183,25 @@
       "lod_contact_verification": {
         "status": "passed",
         "poses": 1121,
+        "method": "integrated_shell_lod_retested",
         "report": {
-          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/whale_shark.json",
-          "sha256": "79804a36103ec6577f8b5e75923c25846a75b6be7a7b238c1d40ff8324b059f4"
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/whale_shark.lod.json",
+          "sha256": "e64a3167ea196f2fa4c6439c3b64c337ce73dfba90029d08e6dcc2821933aca4"
+        },
+        "contact_evidence": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/evidence/contacts/whale_shark.json",
+          "sha256": "17007dca87bd31cbb6a22833a76d172c8ae6f927d99f710fa7a41d97e5a7cbf2"
+        }
+      },
+      "technical_batching": {
+        "status": "installed_locally_runtime_verified",
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/whale_shark.batching.json",
+          "sha256": "a313e110e830f5cbf84e4224e2547b66bbf99df02163cc8406b68263de6e9ad0"
+        },
+        "accepted_geometry_parent": {
+          "path": "projects/fishing-2d/game/assets/models/fish/whale_shark.glb",
+          "sha256": "a553fc2a082fbccbf7a0cca040c1f4b3d36f35ae308e9e7daac55fbda755741d"
         }
       }
     },
@@ -995,11 +1209,11 @@
       "species": "yellow_croaker",
       "model": {
         "path": "projects/fishing-2d/game/assets/models/fish/yellow_croaker.glb",
-        "sha256": "17b229f11997aeb187895e6ab75fd33f17ffd3c5f8f04403618f1ceeb5f51455"
+        "sha256": "e8b2c624ca799eac46dc0c38f709295dc150c0d1be6a1e969e9fb9e482d6f8a2"
       },
       "editable_source": {
         "path": "projects/fishing-2d/assets/source/fish/yellow_croaker/fish.blend",
-        "sha256": "9d416009332e4e3cde1ca7c1814242ec8612b11ab29cfdb6ca8d509d0abf28eb"
+        "sha256": "8122b6ac83574ad5728b0c7be92fedd9101fc829b9ec74eefe3ac501705b4ec9"
       },
       "bones": 19,
       "latest_accepted_release": {
@@ -1015,15 +1229,31 @@
       },
       "lod_triangles_observed": {
         "near": 2000,
-        "middle": 1978,
+        "middle": 1924,
         "far": 1820
       },
       "lod_contact_verification": {
         "status": "passed",
         "poses": 635,
+        "method": "root_membrane_retested",
         "report": {
-          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/yellow_croaker.json",
-          "sha256": "85fdcf36e4c1c30ba0f53dc8a95b8b4f9931b1fa4f680b0b4fdc7d9ad8a8b2f6"
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/yellow_croaker.lod.json",
+          "sha256": "fd123883fa5dfa70a3a0bc1a651eeafdd2943f08b16e18f115c9e207ce99f117"
+        },
+        "contact_evidence": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/evidence/contacts/yellow_croaker.json",
+          "sha256": "ef97dbd3d108567081cd61e908bb109272764d606975736f6566d54e9767cd3f"
+        }
+      },
+      "technical_batching": {
+        "status": "installed_locally_runtime_verified",
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/yellow_croaker.batching.json",
+          "sha256": "fff5f0c8ae3e2d343d88ca67ea43506f65d30fd507095e1daff92cd3b00dcef3"
+        },
+        "accepted_geometry_parent": {
+          "path": "projects/fishing-2d/game/assets/models/fish/yellow_croaker.glb",
+          "sha256": "17b229f11997aeb187895e6ab75fd33f17ffd3c5f8f04403618f1ceeb5f51455"
         }
       }
     },
@@ -1031,11 +1261,11 @@
       "species": "zander",
       "model": {
         "path": "projects/fishing-2d/game/assets/models/fish/zander.glb",
-        "sha256": "0e9204d8125d1f3ef370da90429071994c8e4fdcbc09da965cdde9b03c800e9e"
+        "sha256": "c110a9252496d11eaee5eb60a50bd6d81332cbb64843ccce739184202dcad3a9"
       },
       "editable_source": {
         "path": "projects/fishing-2d/assets/source/fish/zander/fish.blend",
-        "sha256": "0331a67d5c67c09b252efa9453dc4fc7dd813d6f861d9af1967da4975a5db122"
+        "sha256": "f900796e1add6c0252d815d7c47200160c341b0a91f3dd9e9df27b7602dcc952"
       },
       "bones": 20,
       "latest_accepted_release": {
@@ -1051,17 +1281,34 @@
       },
       "lod_triangles_observed": {
         "near": 2000,
-        "middle": 1978,
+        "middle": 1834,
         "far": 1714
       },
       "lod_contact_verification": {
         "status": "passed",
         "poses": 635,
+        "method": "all_sampled_poses_and_contact_geometry_exact",
         "report": {
-          "path": "projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/contacts/sop/zander.json",
-          "sha256": "1bd6d75322118dcdd84152f0ec2d5412d4a1207aed1387073c699f2b71165d63"
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/zander.lod.json",
+          "sha256": "9b3ac32d0b74e91ddaf9172eab89ad2ea61455c187b230a13b7e288bff63155e"
+        },
+        "contact_evidence": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/evidence/contact-transport.json",
+          "sha256": "5cd51b3aa21f7093bd861591b905c43237e1c321f3e6d668287f663b52e158ea"
+        }
+      },
+      "technical_batching": {
+        "status": "installed_locally_runtime_verified",
+        "report": {
+          "path": "projects/fishing-2d/plans/reviews/fish-batching-runtime-20261118/sop/zander.batching.json",
+          "sha256": "3f57d2856baf420f7abe7e40c125cd34a11351610ed0df2a88b5a8ad6baa4100"
+        },
+        "accepted_geometry_parent": {
+          "path": "projects/fishing-2d/game/assets/models/fish/zander.glb",
+          "sha256": "0e9204d8125d1f3ef370da90429071994c8e4fdcbc09da965cdde9b03c800e9e"
         }
       }
     }
-  ]
+  ],
+  "technical_batching_installed_count": 15
 }
