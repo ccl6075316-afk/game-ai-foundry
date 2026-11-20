@@ -2,9 +2,6 @@ extends RefCounted
 ## Authored foundation cells, independent of exhibit transforms and camera.
 const CELL := Vector2(6,7)
 const ORIGIN := Vector2(-9,-7)
-const MIN_CELL := Vector2i(-2,-2)
-const MAX_CELL := Vector2i(4,3)
-const LIMIT := 24
 
 static func initial() -> Array:
     return [[0,0],[1,0],[2,0],[0,1],[1,1],[2,1]]
@@ -24,47 +21,40 @@ static func has(cells: Array,cell: Array) -> bool:
         if key(owned)==key(cell):return true
     return false
 
-static func in_range(cell: Array) -> bool:
-    var p := key(cell)
-    return p.x>=MIN_CELL.x and p.y>=MIN_CELL.y and p.x<=MAX_CELL.x and p.y<=MAX_CELL.y
-
 static func neighbors(cell: Array) -> Array:
     var p := key(cell)
     return [[p.x-1,p.y],[p.x+1,p.y],[p.x,p.y-1],[p.x,p.y+1]]
 
 static func can_add(cells: Array,cell: Array) -> bool:
-    if cells.size()>=LIMIT or not in_range(cell) or has(cells,cell):return false
-    for near in neighbors(cell):
-        if has(cells,near):return true
-    return false
+    return not has(cells,cell)
 
 static func candidates(cells: Array) -> Array:
-    var result: Array=[]
+    var occupied := {}
+    var result := {}
+    for cell in cells:
+        occupied[key(cell)] = true
     for cell in cells:
         for next in neighbors(cell):
-            if can_add(cells,next) and not has(result,next):result.append(next)
-    return result
+            var p := key(next)
+            if not occupied.has(p):result[p] = next
+    return result.values()
+
+static func valid_coordinate(value: Variant) -> bool:
+    # Parcel and slab keys use signed 32-bit Godot grid coordinates.
+    return (value is int or value is float) and is_finite(float(value)) and value >= -2147483648 and value <= 2147483647 and value == int(value)
 
 static func valid(cells: Variant) -> bool:
-    if not cells is Array or cells.is_empty() or cells.size()>LIMIT:return false
-    var seen: Dictionary={}
+    if not cells is Array or cells.is_empty():return false
+    var seen := {}
     for cell in cells:
         if not cell is Array or cell.size()!=2:return false
-        for n in cell:
-            if not (n is int or n is float) or not is_finite(float(n)) or n!=int(n) or absf(float(n))>10:return false
-        if not in_range(cell) or seen.has(key(cell)):return false
-        seen[key(cell)]=true
-    # The initial six parcels are never sold or silently relocated.
+        if not valid_coordinate(cell[0]) or not valid_coordinate(cell[1]):return false
+        var p := key(cell)
+        if seen.has(p):return false
+        seen[p]=true
     for cell in initial():
         if not seen.has(key(cell)):return false
-    var reached: Dictionary={key(cells[0]):true}
-    var queue: Array=[cells[0]]
-    while not queue.is_empty():
-        var cell: Array=queue.pop_front()
-        for n in neighbors(cell):
-            var p := key(n)
-            if seen.has(p) and not reached.has(p):reached[p]=true;queue.append(n)
-    return reached.size()==cells.size()
+    return true
 
 static func contains(cells: Array,box: AABB,margin: float=.18) -> bool:
     # Sum coverage rather than accepting the outer rectangle of an L-shaped hall.

@@ -10,7 +10,6 @@ func _ready() -> void:
     DirAccess.make_dir_recursive_absolute(directory)
     save_path=directory+"/not-a-user-save.json";read_only=true
     super._ready()
-    capture_active=true
     call_deferred("_capture")
 
 func _check(id: String,okay: bool) -> void:
@@ -33,7 +32,7 @@ func _same(a: Variant,b: Variant) -> bool:
     return a==b
 
 func _image(name: String) -> void:
-    status.text=notice
+    panel.status.text=notice
     for i in 6:await get_tree().process_frame
     await RenderingServer.frame_post_draw
     var path := directory+"/"+name+".png"
@@ -51,9 +50,20 @@ func _capture() -> void:
     var bench_center: Vector3=objects[2].node.transform*_bounds(objects[2].data).get_center()
     click.position=editor_camera.unproject_position(bench_center)*canvas.size/Vector2(viewport.size)
     canvas.gui_input.emit(click)
-    _check("canvas_mouse_selects_real_3d_collider",selected==2 and dragging)
+    _check("canvas_mouse_selects_real_3d_collider",selected==2 and not editor.dragging)
+    var motion := InputEventMouseMotion.new()
+    motion.button_mask=MOUSE_BUTTON_MASK_LEFT
+    motion.position=click.position+Vector2(48,0)
+    var original_at: Array=objects[2].data.at.duplicate()
+    canvas.gui_input.emit(motion)
+    _check("first_press_cannot_move_selection",objects[2].data.at==original_at)
     click.pressed=false;canvas.gui_input.emit(click)
-    _check("canvas_mouse_release_stops_drag",not dragging)
+    click.pressed=true;canvas.gui_input.emit(click)
+    canvas.gui_input.emit(motion)
+    _check("second_press_drags_selected_object",editor.dragging and objects[2].data.at!=original_at)
+    click.pressed=false;canvas.gui_input.emit(click)
+    _check("canvas_mouse_release_stops_drag",not editor.dragging)
+    _undo()
     _mode(false)
     var start: Vector3=player.position
     Input.action_press("hall_forward")
@@ -78,39 +88,39 @@ func _capture() -> void:
     selected=2
     var initial := _state()
     _remember()
-    _check("move_selected_snaps_to_grid",_move_selected(Vector3(2.1,0,2.2)) and objects[2].data.at==[2.0,2.25])
+    _check("move_selected_snaps_to_grid",editor._move_selected(Vector3(2.1,0,2.2)) and objects[2].data.at==[2.0,2.25])
     var moved := _state()
     _undo();_check("undo_restores_hall_layout",_same(_state(),initial))
     _redo();_check("redo_restores_hall_layout",_same(_state(),moved))
     selected=2
     var angle: float=objects[2].data.yaw
-    _check("rotate_selected_object",_rotate_selected(1) and absf(objects[2].data.yaw-angle-deg_to_rad(15))<.00001)
-    _check("resize_selected_object",_resize_selected(1.1) and absf(objects[2].data.scale-1.1)<.00001)
+    _check("rotate_selected_object",editor._rotate_selected(1) and absf(objects[2].data.yaw-angle-deg_to_rad(15))<.00001)
+    _check("resize_selected_object",editor._resize_selected(1.1) and absf(objects[2].data.scale-1.1)<.00001)
     var before := _state()
-    _check("reject_overlapping_tank_placement",not _move_selected(Vector3(0,0,-4.8)) and _same(_state(),before))
-    _check("reject_outside_room",not _move_selected(Vector3(20,0,20)))
-    _check("add_third_tank",_add_at("tank",Vector3(5.8,0,3.8)) and objects.size()==5 and objects[-1].tank.fish.is_empty())
+    _check("reject_overlapping_tank_placement",not editor._move_selected(Vector3(0,0,-4.8)) and _same(_state(),before))
+    _check("reject_outside_room",not editor._move_selected(Vector3(20,0,20)))
+    _check("add_third_tank",editor._add_at("tank",Vector3(5.8,0,3.8)) and objects.size()==5 and objects[-1].tank.fish.is_empty())
     _check("new_tank_content_is_editable_3d",objects[-1].tank.bed.chunks.size()==16)
-    _delete_selected();_check("delete_selected_object",objects.size()==4)
+    editor._delete_selected();_check("delete_selected_object",objects.size()==4)
     _undo();_check("undo_deletion_recreates_exhibit",objects.size()==5)
     _redo();_check("redo_deletion",objects.size()==4)
     _remember();floor_style=1;wall_style=1;_finishes()
     _check("surface_finishes_change",wall_paint.albedo_color==WALL_COLORS[1])
     _undo();_check("surface_finish_undo",floor_style==0 and wall_style==0)
     selected=0;_sync_panel()
-    _check("open_real_tank_editor",_open_content_editor() and active_editor!=null)
+    _check("open_real_tank_editor",_open_content_editor() and tank_session.active_editor!=null)
     for i in 6:await get_tree().process_frame
-    _check("embedded_3d_canvas_has_real_extent",active_editor.canvas.size==Vector2(1440,900))
+    _check("embedded_3d_canvas_has_real_extent",tank_session.active_editor.canvas.size==Vector2(1440,900))
     var original_content: Dictionary=objects[0].tank.content_state()
-    var local_heights: PackedFloat32Array=active_editor.bed.heights.duplicate()
-    active_editor.bed.brush(Vector3(.02,0,.12),.08,.6,"pour")
-    _check("embedded_editor_sculpts_actual_bed",active_editor.bed.heights!=local_heights)
-    var prop_count: int=active_editor.rocks.size()
-    active_editor._add_rock("terracotta_jar",Vector3(.35,0,.17),.6,.2)
-    _check("embedded_editor_places_generated_prop",active_editor.rocks.size()==prop_count+1)
+    var local_heights: PackedFloat32Array=tank_session.active_editor.bed.heights.duplicate()
+    tank_session.active_editor.bed.brush(Vector3(.02,0,.12),.08,.6,"pour")
+    _check("embedded_editor_sculpts_actual_bed",tank_session.active_editor.bed.heights!=local_heights)
+    var prop_count: int=tank_session.active_editor.rocks.size()
+    tank_session.active_editor._add_rock("terracotta_jar",Vector3(.35,0,.17),.6,.2)
+    _check("embedded_editor_places_generated_prop",tank_session.active_editor.rocks.size()==prop_count+1)
     await _image("03-in-tank-editor")
-    var edited: Dictionary=active_editor._state()
-    _apply_content_editor(edited)
+    var edited: Dictionary=tank_session.active_editor._state()
+    tank_session._apply_content_editor(edited)
     _check("apply_updates_selected_tank_contents",objects[0].tank.bed.heights==PackedFloat32Array(edited.heights) and objects[0].tank.props.size()==prop_count+1)
     _check("second_tank_not_modified",objects[1].tank.props.size()==13)
     _undo();_check("undo_tank_content_edit",_same(objects[0].tank.content_state(),original_content))
@@ -118,8 +128,8 @@ func _capture() -> void:
     selected=0
     var before_cancel: Dictionary=objects[0].tank.content_state()
     _open_content_editor()
-    active_editor.bed.brush(Vector3(.1,0,0),.08,.6,"remove")
-    _close_content_editor()
+    tank_session.active_editor.bed.brush(Vector3(.1,0,0),.08,.6,"remove")
+    tank_session._close_content_editor()
     _check("cancel_discards_tank_edit",_same(objects[0].tank.content_state(),before_cancel))
     var saved := _state()
     _check("atomic_save_written",_write_layout(directory+"/hall-save.json"))

@@ -7,7 +7,8 @@ const CELL := .2
 const RADIUS := .37
 const CLEARANCE := RADIUS + CELL * .5
 const NEIGHBORS := [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP, Vector2i.DOWN]
-var grid := AStarGrid2D.new()
+var graph := AStar2D.new()
+var point_ids := {}
 var cells: Array[Vector2i] = []
 var components: Dictionary = {}
 var component_cells: Dictionary = {}
@@ -22,19 +23,10 @@ func rebuild(new_parcels: Array, rows: Array) -> void:
     revision += 1
     parcels = new_parcels.duplicate(true)
     cells.clear(); components.clear(); component_cells.clear(); viewing_goals.clear(); obstacles.clear()
+    graph.clear(); point_ids.clear()
     if parcels.is_empty():
         rebuild_usec = Time.get_ticks_usec() - started
         return
-    var extent: Rect2 = Footprint.extent(parcels)
-    var first := Vector2i(floori(extent.position.x / CELL), floori(extent.position.y / CELL))
-    var last := Vector2i(ceili(extent.end.x / CELL), ceili(extent.end.y / CELL))
-    grid.region = Rect2i(first, last - first)
-    grid.cell_size = Vector2.ONE * CELL
-    grid.offset = Vector2.ZERO
-    grid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
-    grid.default_compute_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
-    grid.default_estimate_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
-    grid.update()
     for row in rows:
         var data: Dictionary = row.get("data", row)
         var scale_factor := float(data.get("scale", 1.0))
@@ -51,28 +43,39 @@ func rebuild(new_parcels: Array, rows: Array) -> void:
         elif data.kind == "bench": _obstacle(transform, Rect2(-1, -.34, 2, .68))
         elif data.kind == "stair": _obstacle(transform, Rect2(-Storeys.RUN*.5, -Storeys.WIDTH*.5, Storeys.RUN, Storeys.WIDTH))
         else: _obstacle(transform, Rect2(-.55, -.55, 1.1, 1.1))
-    for y in range(first.y, last.y):
-        for x in range(first.x, last.x):
-            var id := Vector2i(x, y)
-            var point := position_of(id)
-            # Include the .1 m exterior half-wall width, including concave parcel corners.
-            var radius := CLEARANCE + .1
-            var box := AABB(Vector3(point.x - radius, 0, point.y - radius), Vector3(radius * 2, 1, radius * 2))
-            grid.set_point_solid(id, not Footprint.contains(parcels, box, 0))
+    # Index only owned ground so two distant parcels cost the same as adjacent ones.
+    var owned := {}
+    for parcel in parcels:
+        owned[Footprint.key(parcel)] = true
+    var walkable := {}
+    for parcel in parcels:
+        var bounds := Footprint.rect(parcel)
+        var first := cell_at(bounds.position)
+        var end := cell_at(bounds.end)
+        for y in range(first.y, end.y):
+            for x in range(first.x, end.x):
+                var id := Vector2i(x, y)
+                if _ground_clear(owned, position_of(id)):
+                    walkable[id] = true
     # Rasterize only each obstacle's inflated bounding rectangle; no scene scans during walking.
     for obstacle in obstacles:
         var rect: Rect2 = obstacle.inflated_bounds
         var lo := Vector2i(floori(rect.position.x / CELL), floori(rect.position.y / CELL))
         var hi := Vector2i(ceili(rect.end.x / CELL), ceili(rect.end.y / CELL))
-        for y in range(maxi(lo.y, first.y), mini(hi.y + 1, last.y)):
-            for x in range(maxi(lo.x, first.x), mini(hi.x + 1, last.x)):
+        for y in range(lo.y, hi.y + 1):
+            for x in range(lo.x, hi.x + 1):
                 var id := Vector2i(x, y)
                 if obstacle.rect.grow(CLEARANCE / obstacle.scale).has_point(obstacle.inverse * position_of(id)):
-                    grid.set_point_solid(id)
-    for y in range(first.y, last.y):
-        for x in range(first.x, last.x):
-            var id := Vector2i(x, y)
-            if not grid.is_point_solid(id): cells.append(id)
+                    walkable.erase(id)
+    cells.assign(walkable.keys())
+    for i in cells.size():
+        point_ids[cells[i]] = i
+        graph.add_point(i, position_of(cells[i]))
+    for id in cells:
+        for direction in [Vector2i.RIGHT, Vector2i.DOWN]:
+            var neighbor: Vector2i = id + direction
+            if point_ids.has(neighbor):
+                graph.connect_points(point_ids[id], point_ids[neighbor])
     _label_components()
     for row in rows:
         var data: Dictionary = row.get("data", row)
@@ -85,6 +88,16 @@ func rebuild(new_parcels: Array, rows: Array) -> void:
             if not viewing_goals.has(component): viewing_goals[component] = []
             viewing_goals[component].append({"point": position_of(id), "face": transform.origin})
     rebuild_usec = Time.get_ticks_usec() - started
+
+func _ground_clear(owned: Dictionary, point: Vector2) -> bool:
+    # A visitor's clearance box spans at most two parcels per axis.
+    var radius := CLEARANCE + .1
+    var first := ((point - Vector2.ONE * radius - Footprint.ORIGIN) / Footprint.CELL).floor()
+    var last := ((point + Vector2.ONE * radius - Footprint.ORIGIN) / Footprint.CELL).floor()
+    for y in range(int(first.y), int(last.y) + 1):
+        for x in range(int(first.x), int(last.x) + 1):
+            if not owned.has(Vector2i(x, y)):return false
+    return true
 
 func _obstacle(transform: Transform2D, rect: Rect2) -> void:
     var scale_factor := transform.x.length()
@@ -102,7 +115,7 @@ func _label_components() -> void:
             var current := queue[head]; head += 1
             for direction in NEIGHBORS:
                 var next: Vector2i = current + direction
-                if not grid.region.has_point(next) or grid.is_point_solid(next) or components.has(next): continue
+                if not point_ids.has(next) or components.has(next): continue
                 components[next] = component; queue.append(next)
         component_cells[component] = queue
         component += 1
@@ -119,7 +132,7 @@ func is_walkable(point: Vector2) -> bool:
 func route(start: Vector2, finish: Vector2) -> PackedVector2Array:
     var from := cell_at(start); var to := cell_at(finish)
     if not components.has(from) or not components.has(to) or components[from] != components[to]: return PackedVector2Array()
-    return grid.get_point_path(from, to)
+    return graph.get_point_path(point_ids[from], point_ids[to])
 
 func choose_goal(point: Vector2, rng: RandomNumberGenerator) -> Dictionary:
     var component: int = components.get(cell_at(point), -1)

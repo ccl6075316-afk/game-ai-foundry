@@ -163,7 +163,7 @@ def main():
     args.review.mkdir(parents=True, exist_ok=True)
     target = args.review / "validation-report.json"
     state = read(target) if target.exists() else {"schema_version": 1, "command": "fish.school.experiment", "cases": []}
-    roster_text = (args.game / "scripts/aquarium/VolumeFishExhibit.gd").read_text(encoding="utf-8-sig")
+    roster_text = (args.game / "scripts/aquarium/FishDisplayCatalog.gd").read_text(encoding="utf-8-sig")
     roster = json.loads(re.search(r"const SPECIES := (\[[^\r\n]+\])", roster_text).group(1))
     exclusions = [v for v in args.exclude_species.split(",") if v]
     if any(v not in roster for v in exclusions): parser.error("Unknown excluded species")

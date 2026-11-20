@@ -37,8 +37,8 @@ func execute(kind: String,payload: Dictionary,remember: bool=true,expected_revis
             var cell: Variant=payload.get("cell")
             if not cell is Array or cell.size()!=2:return {"ok":false,"error":"地块坐标无效。"}
             for coordinate in cell:
-                if not rules._finite_number(coordinate) or coordinate!=int(coordinate):return {"ok":false,"error":"地块坐标无效。"}
-            if not Footprint.can_add(next.parcels,cell):return {"ok":false,"error":"只能扩建相邻的空地块；起始 6 块，最多 24 块。"}
+                if not Footprint.valid_coordinate(coordinate):return {"ok":false,"error":"地块坐标无效。"}
+            if not Footprint.can_add(next.parcels,cell):return {"ok":false,"error":"这里已经铺过地块了。"}
             next.parcels.append(payload.cell.duplicate())
         "style":
             if payload.get("key") not in ["floor_style","wall_style"]:return {"ok":false,"error":"未知表面样式。"}

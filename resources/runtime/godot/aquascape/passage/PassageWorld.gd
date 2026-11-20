@@ -57,13 +57,15 @@ func _ready() -> void:
     water_renderer=load("res://scripts/aquarium/TankWaterRenderer.gd").new();add_child(water_renderer)
     cover=load("res://scripts/aquarium/passage/PassageMesh.gd").new();add_child(cover)
     ports=Node3D.new();add_child(ports)
-    factory=load("res://scripts/aquarium/VolumeFishExhibit.gd").new();factory._load_profiles()
+    factory=load("res://scripts/aquarium/AquariumFishStock.gd").new()
     var species := ["red_emperor","red_seabream","black_seabream","yellow_croaker"]
     for i in 24:
-        var id: String=species[i%species.size()];var profile: Dictionary=factory.profiles[id]
-        factory._add_fish(self,id,float(profile.real_length_cm)/100,profile,Vector3.ZERO,i*.37)
-        var row: Dictionary=factory.fish[-1];row.phase=float(i)*TAU/24
-        row.radius=float(profile.real_length_cm)/100*.55+.12
+        var id: String = species[i % species.size()]
+        var row: Dictionary = factory.add_stock(self, id, Vector3.ZERO, i * .37)
+        if row.is_empty():
+            continue
+        row.phase = float(i) * TAU / 24
+        row.radius = float(row.length_m) * .55 + .12
         row.carrier.position=_fish_target(i,0);fish.append(row)
 
 func apply_route(data: Dictionary) -> void:

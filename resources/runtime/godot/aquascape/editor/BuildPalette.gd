@@ -10,6 +10,7 @@ var tabs: TabBar
 var search: LineEdit
 var cards: HBoxContainer
 var hint: Label
+var header: HBoxContainer
 var selected_asset := ""
 
 func setup(title_value: String,items: Array,scope_value: String) -> void:
@@ -17,8 +18,9 @@ func setup(title_value: String,items: Array,scope_value: String) -> void:
     var compact := scope=="tank"
     var style := StyleBoxFlat.new();style.bg_color=Color("122e39");style.border_color=Color("355563");style.set_border_width_all(1)
     style.content_margin_left=14;style.content_margin_right=14;style.content_margin_top=8;style.content_margin_bottom=6;add_theme_stylebox_override("panel",style)
+    if not compact and theme!=null:add_theme_stylebox_override("panel",theme.get_stylebox("panel","PanelContainer"))
     var body := VBoxContainer.new();body.add_theme_constant_override("separation",5);add_child(body)
-    var header := HBoxContainer.new();header.add_theme_constant_override("separation",16);body.add_child(header)
+    header=HBoxContainer.new();header.add_theme_constant_override("separation",16);body.add_child(header)
     var title := Label.new();title.text=title_value;title.add_theme_font_size_override("font_size",19 if compact else 22);header.add_child(title)
     category=OptionButton.new();category.add_item("全部");category.hide();header.add_child(category)
     tabs=TabBar.new();tabs.tab_alignment=TabBar.ALIGNMENT_LEFT;tabs.size_flags_horizontal=Control.SIZE_EXPAND_FILL
@@ -35,6 +37,7 @@ func setup(title_value: String,items: Array,scope_value: String) -> void:
     cards=HBoxContainer.new();cards.add_theme_constant_override("separation",9);scroll.add_child(cards)
     hint=Label.new();hint.text="拖出卡片放入场景，或点击卡片后放置。选中物件后，在右侧调整属性。"
     hint.add_theme_font_size_override("font_size",13 if compact else 15);body.add_child(hint)
+    if not compact:hint.hide()
     refresh()
 
 func set_preview(id: String,texture: Texture2D) -> void:
@@ -45,11 +48,12 @@ func set_preview(id: String,texture: Texture2D) -> void:
 
 func refresh() -> void:
     for child in cards.get_children():cards.remove_child(child);child.queue_free()
+    var card_group := ButtonGroup.new()
     for item in entries:
         if category.selected>0 and category.get_item_text(category.selected)!=item.category:continue
         if not search.text.is_empty() and not item.label.to_lower().contains(search.text.to_lower()):continue
         var b=preload("res://scripts/aquarium/editor/BuildAssetCard.gd").new()
         b.asset=item;b.owner_palette=self;b.setup_content(scope=="tank")
         b.tooltip_text=item.label+" · "+item.category+"\n拖入场景放置";b.focus_mode=Control.FOCUS_NONE
-        b.toggle_mode=true;b.button_pressed=item.id==selected_asset
+        b.toggle_mode=true;b.button_group=card_group;b.button_pressed=item.id==selected_asset
         b.pressed.connect(func():selected_asset=item.id;chosen.emit(item.id));cards.add_child(b)

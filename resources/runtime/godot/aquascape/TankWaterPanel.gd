@@ -3,9 +3,6 @@ signal changed(key: String,value: Variant)
 signal preset_selected(index: int)
 signal interaction_started
 signal interaction_ended
-signal inspect_requested
-signal next_fish_requested
-signal return_requested
 const Profile=preload("res://scripts/aquarium/TankWaterProfile.gd")
 var sliders: Dictionary={}
 var labels: Dictionary={}
@@ -44,9 +41,6 @@ func _ready() -> void:
         slider.value_changed.connect(func(value):
             _value_label(key,value)
             if not syncing:changed.emit(key,value))
-    for row in [["近景观察选中缸",inspect_requested],["观察下一条鱼",next_fish_requested],["返回大厅视角",return_requested]]:
-        var button := Button.new();button.text=row[0];button.custom_minimum_size.y=34;button.focus_mode=Control.FOCUS_NONE;list.add_child(button);button.pressed.connect(func():row[1].emit())
-    var help := Label.new();help.text="近景：滚轮推近 / 拉远\n按住右键环绕 · Esc 返回\n仅调整外观，不改变养殖水质";help.add_theme_font_size_override("font_size",14);list.add_child(help)
     var close := Button.new();close.text="收起水体面板";list.add_child(close);close.pressed.connect(hide)
 
 func _value_label(key: String,value: float) -> void:

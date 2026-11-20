@@ -18,5 +18,5 @@ func _capture() -> void:
     _mode(true);camera_target=Vector3(1,0,1.5);view_size=5;pitch=.9;yaw=.4;_camera()
     notice="近距离查看：木凳与地砖。"
     await _image("13-materials-furniture-close")
-    eye.rotation.x=0;_fit_hall();pitch=.83;yaw=.48;_camera()
+    eye.rotation.x=0;editor._fit_hall();pitch=.83;yaw=.48;_camera()
     await super._capture()

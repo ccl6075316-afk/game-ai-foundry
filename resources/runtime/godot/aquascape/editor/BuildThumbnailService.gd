@@ -23,15 +23,19 @@ func generate(host: Control,items: Array) -> void:
     var view := SubViewport.new();view.size=Vector2i(224,144);view.own_world_3d=true;view.render_target_update_mode=SubViewport.UPDATE_ALWAYS;add_child(view)
     var world := Node3D.new();view.add_child(world)
     var lighting=preload("res://scripts/aquarium/HallLighting.gd").new();world.add_child(lighting)
-    lighting.environment.environment.background_color=Color("173b48");lighting.environment.environment.ambient_light_energy=.8
+    lighting.environment.environment.background_color=Color("#779790");lighting.environment.environment.ambient_light_energy=.8
     var projection=preload("res://scripts/aquarium/hall/HallSceneProjection.gd").new(world,host.layout_rules,host._surface,lighting)
     projection.wall_paint=host.wall_paint
     var camera := Camera3D.new();camera.projection=Camera3D.PROJECTION_ORTHOGONAL;camera.near=.02;camera.far=80;world.add_child(camera)
     for item in items:
         var data: Dictionary;var node: Node3D;var bounds: AABB
-        if item.id=="parcel":
+        if item.id in ["parcel","floor","floor_erase"]:
             node=Node3D.new();world.add_child(node);projection._box(node,Vector3(0,-.1,0),Vector3(6,.2,7),host.floor_paint)
             bounds=AABB(Vector3(-3,-.2,-3.5),Vector3(6,.2,7))
+            if item.id!="parcel":
+                var paint:Material=host._paint(Color("#ae5143") if item.id=="floor_erase" else Color("#248774"),true)
+                projection._box(node,Vector3(0,.02,0),Vector3(3,.12,.55),paint)
+                if item.id=="floor":projection._box(node,Vector3(0,.03,0),Vector3(.55,.14,3),paint)
         else:
             var kind: String="tank" if item.id.begins_with("tank_") else ("wall" if item.id in ["wall","door"] else item.id)
             data={"id":"thumbnail-"+item.id,"kind":kind,"name":"预览","at":[0.0,0.0],"yaw":0.0,"scale":1.0}

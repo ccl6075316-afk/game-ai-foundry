@@ -30,6 +30,11 @@ func bind_object(name_value: String,type_value: String,node: Node3D,box: AABB,pl
     details.text=type_value if node!=null else "从场景中选择物件，查看和调整属性。"
     for button in modes.values():button.disabled=node==null
     if node==null:measurements.text="";hint.text="底部选择素材，右侧调整选中物件。";return
+    if planar:
+        var span := box.size * node.scale * metric_scale
+        measurements.text="长 %.2f   宽 %.2f   高 %.2f 米" % [span.x,span.z,span.y]
+        hint.text="位置  X %.2f   Z %.2f 米" % [node.position.x,node.position.z]
+        return
     var p := node.position*metric_scale;var r := node.rotation_degrees;var s := node.scale
     for axis in 3:
         if absf(r[axis])<.5:r[axis]=0

@@ -3,11 +3,13 @@ extends RefCounted
 const Footprint=preload("res://scripts/aquarium/HallFootprint.gd")
 const Storeys=preload("res://scripts/aquarium/hall/HallStoreys.gd")
 const WaterProfile=preload("res://scripts/aquarium/TankWaterProfile.gd")
+const ShellDesign = preload("../tank_design/ShellDesign.gd")
 const MAX_OBJECTS=80
 const MAX_TANKS=8
 var placement_error := ""
 
 func _bounds(data: Dictionary) -> AABB:
+    if data.kind=="shell":return ShellDesign.bounds(data.design)
     if data.kind=="stair":return Storeys.stair_bounds()
     if data.kind=="wall":return AABB(Vector3(-float(data.length)/2,0,-.09),Vector3(float(data.length),3.2,.18))
     if data.kind=="tank":return AABB(Vector3(-3.1,0,-1.6),Vector3(6.2,3.3,3.2))
@@ -58,8 +60,11 @@ func _valid_level_support(data: Dictionary,tiles: Dictionary) -> bool:
             if not tiles.has(cell):
                 placement_error="请先铺好这一层的承托地板。"
                 return false
-    if data.kind=="stair" or footprint.end.y>Storeys.elevation(storey+1)-Storeys.SLAB+.0001:
-        for cell in Storeys.cells_in(footprint,storey+1):
+    if tiles.is_empty():return true
+    for upper in range(storey+1,Storeys.MAX_LEVEL+1):
+        var landing: bool=data.kind=="stair" and upper==storey+1
+        if not landing and footprint.end.y<=Storeys.elevation(upper)-Storeys.SLAB+.0001:break
+        for cell in Storeys.cells_in(footprint,upper):
             if tiles.has(cell):
                 placement_error="这里需要为楼梯留开口。" if data.kind=="stair" else "物件会穿过上层楼板。"
                 return false
@@ -67,7 +72,7 @@ func _valid_level_support(data: Dictionary,tiles: Dictionary) -> bool:
 
 func _valid_storeys(layout: Dictionary) -> bool:
     var tiles: Variant=layout.get("floor_tiles")
-    if not tiles is Array or tiles.size()>Footprint.LIMIT*int(Footprint.CELL.x*Footprint.CELL.y)*Storeys.MAX_LEVEL:return false
+    if not tiles is Array or tiles.size()>layout.parcels.size()*int(Footprint.CELL.x*Footprint.CELL.y)*Storeys.MAX_LEVEL:return false
     var occupied := {}
     for tile in tiles:
         if not Storeys.valid_tile(tile):return false
@@ -121,7 +126,7 @@ func _valid_state(data: Variant,content_ids: Variant=null) -> bool:
     var ids: Array=[];var rows: Array=[];var tanks := 0
     for row in data.objects:
         if not row is Dictionary or not row.get("id") is String or row.id.is_empty() or row.id in ids:return false
-        if row.get("kind") not in ["tank","bench","plinth","wall","stair"] or not row.get("name") is String or row.name.length()>80:return false
+        if row.get("kind") not in ["tank","shell","bench","plinth","wall","stair"] or not row.get("name") is String or row.name.length()>80:return false
         var level: Variant=row.get("level",0)
         if not _finite_number(level) or level!=int(level) or level<0 or level>Storeys.MAX_LEVEL:return false
         if version<3 and (level!=0 or row.kind=="stair"):return false
@@ -137,6 +142,13 @@ func _valid_state(data: Variant,content_ids: Variant=null) -> bool:
             if not _finite_number(row.get("length")) or not row.get("door") is bool or row.scale!=1:return false
             if row.length<(3 if row.door else .5) or row.length>18:return false
             if absf(sin(float(row.yaw)*2))>.0001:return false
+        if row.kind=="shell":
+            if not ShellDesign.valid(row.get("design")):return false
+            if row.has("interior"):
+                if not preload("../tank_design/FinishedShell.gd").valid_interior(row.interior):return false
+                if not preload("../tank_design/ShellInterior.gd").fits(row.design,row.interior):return false
+            tanks+=1
+            if tanks>MAX_TANKS:return false
         if row.kind=="tank":
             tanks+=1
             if row.has("water") and not WaterProfile.valid(row.water):return false

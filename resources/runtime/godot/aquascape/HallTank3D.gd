@@ -45,15 +45,14 @@ func _unhandled_input(_event: InputEvent) -> void:pass
 
 func _fish() -> void:
     if fish_limit<=0:return
-    factory=load("res://scripts/aquarium/VolumeFishExhibit.gd").new()
-    factory._load_profiles()
+    factory=load("res://scripts/aquarium/AquariumFishStock.gd").new()
     var fish_parent := fish_visuals if is_instance_valid(fish_visuals) else self
     var species := ["red_emperor","red_seabream","black_seabream","yellow_croaker"]
     for i in fish_limit:
         var id: String=species[i%species.size()]
-        var profile: Dictionary=factory.profiles[id]
-        factory._add_fish(fish_parent,id,float(profile.real_length_cm)/100,profile,Vector3.ZERO,i*.37)
-        var row: Dictionary=factory.fish[-1]
+        var row: Dictionary = factory.add_stock(fish_parent, id, Vector3.ZERO, i * .37)
+        if row.is_empty():
+            continue
         row["bounds"]=_model_bounds(row.model)
         row["lane"]=i%3
         row["phase"]=float(i)/maxi(1,fish_limit)

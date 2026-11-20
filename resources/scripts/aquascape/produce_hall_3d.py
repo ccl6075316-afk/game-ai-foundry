@@ -6,7 +6,14 @@ from catalog_workflows import call
 
 NAMES=['AquariumHall3D.gd','AquariumHall3DReview.gd','HallTank3D.gd','HallTankEditor.gd','HallFloor3D.gdshader','HallFootprint.gd','HallBuildReview.gd','HallStyleReview.gd','HallLighting.gd','HallLightingReview.gd','HallBlueBackdrop.gdshader','HallBlueReview.gd','TankWaterProfile.gd','TankWaterRenderer.gd','TankWaterVolume.gdshader','TankWaterPanel.gd','TankWaterReview.gd','FishRuntimeData.gd','FishAppearanceCache.gd','FishLoadingReview.gd']
 # Modules belong to the same reviewed source deployment as the host.
-NAMES += ['hall/'+name for name in ['HallLayoutRules.gd','HallLayoutStore.gd','HallEditHistory.gd','HallWalkController.gd','HallEditorPanel.gd','HallEditorInput.gd','HallLayoutDocument.gd','HallBuildCommands.gd','HallSceneProjection.gd','HallStoreys.gd']]
+NAMES += ['hall/'+name for name in ['HallLayoutRules.gd','HallLayoutStore.gd','HallEditHistory.gd','HallWalkController.gd','HallEditorPanel.gd','HallEditorController.gd','HallEditorInput.gd','HallTankSession.gd','HallLayoutDocument.gd','HallBuildCommands.gd','HallSceneProjection.gd','HallStoreys.gd']]
+
+NAMES += ['hall/HallInterfaceStyle.gd', 'hall/HallWallJoints.gd']
+NAMES += ['tank_design/'+name for name in [
+    'FinishedShell.gd', 'Footprint.gd', 'HallShellCatalog.gd', 'HallShellHandles.gd',
+    'HallShellInspector.gd', 'HallShellSession.gd', 'PlanCanvas.gd', 'ShellBedMesh.gd',
+    'ShellContentsView.gd', 'ShellDesign.gd', 'ShellGlass.gdshader', 'ShellInterior.gd',
+    'ShellInteriorPanel.gd', 'ShellMesh.gd', 'TankPreview.gd', 'Workshop.gd']]
 
 NAMES += ['visitors/'+name for name in ['HallVisitorCrowd.gd','HallVisitorNavigation.gd','VisitorMaterialV2.gdshader']]
 
@@ -89,7 +96,7 @@ def main():
             if 'ERROR:' in path.read_text(encoding='utf-8'):raise ValueError('Errors in '+str(path))
         if a.build_tools:
             for path in [game/'scenes/aquarium_hall_build_review.tscn',root/'projects/fishing-2d/plans/changes/aquarium-hall-build-v2.production-delta.json',review/'godot/build-layout.json',review/'godot/legacy-layout.json']:add(path)
-        report={'schema_version':1,'command':'aquarium.hall-3d-review','ok':True,'status':'done','next_action':'human_review','outputs':{'launcher':str(root/'projects/fishing-2d/open-aquarium-hall-3d.cmd'),'hall':str(review/('godot/08-expanded-hall-build.png' if a.build_tools else 'godot/01-hall-editor.png')),'walk':str(review/'godot/02-first-person.png'),'tank_editor':str(review/'godot/03-in-tank-editor.png')},'summary':native['summary'],'native_checks_passed':len(native['checks']),'router_checks_passed':len(router['checks']),'visual_review':{'status':'operator_reviewed_trial','at':datetime.now(timezone.utc).isoformat(),'note':a.record_note},'user_acceptance':'pending','limitations':native['limitations']+['Legacy 2D source classes remain for data compatibility and historical tooling; the normal aquarium/tank routes do not mount them.','Native preview only; existing fish source-ink export and GLB fallback UID warnings are inherited.'],'hashes':hashes,'failures':[]}
+        report={'schema_version':1,'command':'aquarium.hall-3d-review','ok':True,'status':'done','next_action':'human_review','outputs':{'launcher':str(root/'projects/fishing-2d/open-aquarium-hall-3d.cmd'),'hall':str(review/('godot/08-expanded-hall-build.png' if a.build_tools else 'godot/01-hall-editor.png')),'walk':str(review/'godot/02-first-person.png'),'tank_editor':str(review/'godot/03-in-tank-editor.png')},'summary':native['summary'],'native_checks_passed':len(native['checks']),'router_checks_passed':len(router['checks']),'visual_review':{'status':'operator_reviewed_trial','at':datetime.now(timezone.utc).isoformat(),'note':a.record_note},'user_acceptance':'pending','limitations':native['limitations']+['Both aquarium routes mount the shared 3D hall. Legacy save data and the separate tank lighting preview are maintained.','Native preview only; existing fish source-ink export and GLB fallback UID warnings are inherited.'],'hashes':hashes,'failures':[]}
         if a.lighting:
             for path in review.glob('rejected-r*/*'):
                 if path.is_file():add(path)
@@ -115,7 +122,7 @@ def main():
         target=game/'scripts/aquarium'/name;target.parent.mkdir(parents=True,exist_ok=True)
         shutil.copyfile(source/name,target)
     inherited={}
-    for name in ['EditableSandBed.gd','EditableSubstrateBed.gd','SubstrateGravel.gd','SandPlacementLab.gd','SubstratePlacementLab.gd','DecorPlacementLab.gd','MarineShowcase.gd','VolumeFishExhibit.gd','FishSurfaceOwnership.gd']:
+    for name in ['EditableSandBed.gd','EditableSubstrateBed.gd','SubstrateGravel.gd','SandPlacementLab.gd','SubstratePlacementLab.gd','DecorPlacementLab.gd','MarineShowcase.gd','VolumeFishExhibit.gd','AquariumFishStock.gd','FishInstanceFactory.gd','FishDisplayCatalog.gd','FishSurfaceOwnership.gd']:
         path=game/'scripts/aquarium'/name;inherited[path.relative_to(root).as_posix()]=sha(path)
     for species in ['red_emperor','red_seabream','black_seabream','yellow_croaker']:
         path=game/'assets/models/fish'/(species+'.glb');inherited[path.relative_to(root).as_posix()]=sha(path)

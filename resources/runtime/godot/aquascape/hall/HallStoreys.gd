@@ -1,5 +1,6 @@
 extends RefCounted
 ## Shared world-space dimensions for floor cells and stairs.
+const Footprint = preload("res://scripts/aquarium/HallFootprint.gd")
 const HEIGHT := 3.6
 const SLAB := .22
 const RUN := 6.0
@@ -24,7 +25,7 @@ static func top_level(state: Dictionary) -> int:
 static func valid_tile(tile: Variant) -> bool:
     if not tile is Array or tile.size()!=3:return false
     for n in tile:
-        if not (n is int or n is float) or not is_finite(float(n)) or absf(float(n))>128 or n!=int(n):return false
+        if not Footprint.valid_coordinate(n):return false
     return tile[1]>=1 and tile[1]<=MAX_LEVEL
 
 static func key(tile: Array) -> Vector3i:

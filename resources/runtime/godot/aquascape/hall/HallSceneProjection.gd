@@ -2,6 +2,7 @@ extends RefCounted
 ## Materialize a document into live geometry. No UI, history or file writes.
 const WaterProfile=preload("res://scripts/aquarium/TankWaterProfile.gd")
 const Footprint=preload("res://scripts/aquarium/HallFootprint.gd")
+const WallJoints=preload("HallWallJoints.gd")
 const Storeys=preload("res://scripts/aquarium/hall/HallStoreys.gd")
 var world: Node3D
 var rules: RefCounted
@@ -45,6 +46,20 @@ func _clear_geometry(node: Node3D) -> void:
         if child is StaticBody3D:child.collision_layer=0
         node.remove_child(child);child.queue_free()
 
+func _update_shell(row: Dictionary,data: Dictionary) -> void:
+    var mesh: MeshInstance3D=row.node.get_node("Shell")
+    mesh.mesh=preload("../tank_design/FinishedShell.gd").build(data)
+    var contents := mesh.get_node_or_null("Contents")
+    if contents==null:
+        contents=preload("../tank_design/ShellContentsView.gd").new()
+        contents.name="Contents"
+        mesh.add_child(contents)
+    contents.sync(data,data.get("interior",preload("../tank_design/FinishedShell.gd").DEFAULT_BED))
+    var bounds := _bounds(data)
+    var collision: CollisionShape3D=row.body.get_child(0)
+    collision.shape.size=bounds.size
+    collision.position=bounds.get_center()
+
 func _create(data: Dictionary) -> Dictionary:
     var root := Node3D.new();root.name=data.id;world.add_child(root)
     var tank
@@ -57,6 +72,10 @@ func _create(data: Dictionary) -> Dictionary:
         tank.fish_visuals=fish_visuals;exhibit_origin.add_child(tank)
         tank.apply_exterior_materials(_surface(Color("132e38"),"hall_floor",Color("456e79")),_surface(Color("48747c"),"hall_wall"))
         hall_lighting.attach_tank(tank)
+    elif data.kind=="shell":
+        var shell := MeshInstance3D.new()
+        shell.name="Shell"
+        root.add_child(shell)
     elif data.kind=="wall":
         _wall_geometry(root,data)
     elif data.kind=="stair":
@@ -84,6 +103,7 @@ func _create(data: Dictionary) -> Dictionary:
     elif data.kind=="stair":body=root.get_meta("stair_body")
     else:body=_collision(root,box.get_center(),box.size,2);body.set_meta("hall_id",data.id)
     var row := {"data":data.duplicate(true),"node":root,"body":body,"tank":tank}
+    if data.kind=="shell":_update_shell(row,data)
     if data.kind=="tank":row.data.water=WaterProfile.normalized(data.get("water",{}))
     root.transform=_transform(data)
     return row
@@ -268,28 +288,57 @@ func show_floor_guides(storey: int,editing: bool,parcels: Array,objects: Array,t
             var guide := _box(floor_guides,Vector3(spot.x+.5,y+.01,spot.z+.5),Vector3(.92,.018,.92),marker)
             guide.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
-func _wall_geometry(root: Node3D,data: Dictionary) -> void:
-    var body := StaticBody3D.new();body.collision_layer=2;body.collision_mask=0;body.set_meta("hall_id",data.id);root.add_child(body);root.set_meta("wall_body",body)
-    var length: float=data.length
-    var pieces: Array=[]
+func _wall_geometry(root: Node3D,data: Dictionary,ends:=Vector2.ZERO) -> void:
+    var body := StaticBody3D.new()
+    body.collision_layer=2
+    body.collision_mask=0
+    body.set_meta("hall_id",data.id)
+    root.add_child(body)
+    root.set_meta("wall_body",body)
+    root.set_meta("wall_profile",[data.length,data.get("door",false),ends])
+    var half_length: float=data.length*.5
+    var left := -half_length-ends.x*.09
+    var right := half_length+ends.y*.09
     if data.get("door",false):
-        var wing: float=(length-1.2)/2
-        pieces=[[Vector3(-(length+1.2)/4,1.6,0),Vector3(wing,3.2,.18)],[Vector3((length+1.2)/4,1.6,0),Vector3(wing,3.2,.18)],[Vector3(0,2.7,0),Vector3(1.2,1,.18)]]
-    else:pieces=[[Vector3(0,1.6,0),Vector3(length,3.2,.18)]]
-    for piece in pieces:
-        _box(root,piece[0],piece[1],wall_paint)
-        var shape := CollisionShape3D.new();var box := BoxShape3D.new();box.size=piece[1];shape.shape=box;shape.position=piece[0];body.add_child(shape)
-    var trim := _surface(Color("35535b"),"hall_wall")
-    _box(root,Vector3(0,3.16,0),Vector3(length,.08,.22),trim)
+        _wall_piece(root,body,left,-.6,0,3.12)
+        _wall_piece(root,body,-.6,.6,2.2,3.12)
+        _wall_piece(root,body,.6,right,0,3.12)
+    else:
+        _wall_piece(root,body,left,right,0,3.12)
+    # Cap and side meet at 3.12 m. Only the cap owns the visible 3.20 m surface.
+    var cap_left := -half_length-ends.x*.11
+    var cap_right := half_length+ends.y*.11
+    _box(root,Vector3((cap_left+cap_right)*.5,3.16,0),Vector3(cap_right-cap_left,.08,.22),_surface(Color("35535b"),"hall_wall"))
 
-func _refresh_wall(row: Dictionary) -> void:
-    _clear_geometry(row.node);_wall_geometry(row.node,row.data);row.body=row.node.get_meta("wall_body")
+func _wall_piece(root: Node3D,body: StaticBody3D,left: float,right: float,bottom: float,top: float) -> void:
+    var center := Vector3((left+right)*.5,(bottom+top)*.5,0)
+    var size := Vector3(right-left,top-bottom,.18)
+    _box(root,center,size,wall_paint)
+    var shape := CollisionShape3D.new()
+    var box := BoxShape3D.new()
+    box.size=size+Vector3(0,.08,0)
+    shape.shape=box
+    shape.position=center+Vector3.UP*.04
+    body.add_child(shape)
+
+func _join_walls(rows: Array) -> void:
+    var walls := rows.filter(func(row):return row.data.kind=="wall")
+    var parts := walls.map(func(row):return WallJoints.wall(row.data))
+    var joins := WallJoints.offsets(parts)
+    for i in walls.size():
+        var row: Dictionary=walls[i]
+        if row.node.get_meta("wall_profile")==[row.data.length,row.data.get("door",false),joins[i]]:continue
+        _clear_geometry(row.node)
+        _wall_geometry(row.node,row.data,joins[i])
+        row.body=row.node.get_meta("wall_body")
 
 func rebuild_room(parcels: Array,editing: bool,floor_paint: Material,room_wall_paint: StandardMaterial3D) -> void:
     wall_paint=room_wall_paint
     if not is_instance_valid(room_geometry):room_geometry=Node3D.new();world.add_child(room_geometry)
     _clear_geometry(room_geometry)
     var trim := _surface(Color("24434c"),"hall_wall")
+    var boundaries: Array=[]
+    var parts: Array=[]
     for cell in parcels:
         var rect: Rect2=Footprint.rect(cell)
         var center := rect.get_center()
@@ -298,35 +347,61 @@ func rebuild_room(parcels: Array,editing: bool,floor_paint: Material,room_wall_p
         var edges := [[[-1,0],Vector3(rect.position.x,2.3,center.y),Vector3(.2,4.6,7)],[[1,0],Vector3(rect.end.x,2.3,center.y),Vector3(.2,4.6,7)],[[0,-1],Vector3(center.x,2.3,rect.position.y),Vector3(6,4.6,.2)],[[0,1],Vector3(center.x,2.3,rect.end.y),Vector3(6,4.6,.2)]]
         for edge in edges:
             if Footprint.has(parcels,[cell[0]+edge[0][0],cell[1]+edge[0][1]]):continue
-            _collision(room_geometry,edge[1],edge[2])
-            # A low south cutaway keeps the build view legible; collision remains full height.
-            var size: Vector3=edge[2];var pos: Vector3=edge[1]
-            if edge[0]==[0,1] and editing:size.y=.65;pos.y=.325
-            _box(room_geometry,pos,size,wall_paint)
-            size.y=.16;pos.y=.08;_box(room_geometry,pos,size+Vector3(.02,0,.02),trim)
-            var guide_pos: Vector3=edge[1]-Vector3(edge[0][0],0,edge[0][1])*.116
-            guide_pos.y=.23
-            var guide_size := Vector3(.022,.035,.52) if edge[2].x<1 else Vector3(.52,.035,.022)
-            hall_lighting.add_guide(room_geometry,guide_pos,guide_size)
+            var pos: Vector3=edge[1]
+            var half := Vector2(edge[2].x*.5,0) if edge[0][0]==0 else Vector2(0,edge[2].z*.5)
+            var mid := Vector2(pos.x,pos.z)
+            var height := .65 if editing and edge[0]==[0,1] else 4.6
+            boundaries.append(edge)
+            parts.append(WallJoints.segment(mid-half,mid+half,0,height))
+    var joins := WallJoints.offsets(parts)
+    for i in boundaries.size():
+        var edge: Array=boundaries[i]
+        var pos: Vector3=edge[1]
+        var size: Vector3=edge[2]
+        _collision(room_geometry,pos,size)
+        var axis := 0 if parts[i].axis==0 else 2
+        var ends := joins[i]
+        pos[axis]+=(ends.y-ends.x)*.05
+        size[axis]+=(ends.x+ends.y)*.1
+        size.y=parts[i].height
+        pos.y=size.y*.5
+        _box(room_geometry,pos,size,wall_paint)
+        pos[axis]+=(ends.y-ends.x)*.005
+        size[axis]+=(ends.x+ends.y)*.01
+        size[2-axis]=.22
+        size.y=.16
+        pos.y=.08
+        _box(room_geometry,pos,size,trim)
+        var guide_pos: Vector3=edge[1]-Vector3(edge[0][0],0,edge[0][1])*.116
+        guide_pos.y=.23
+        var guide_size := Vector3(.022,.035,.52) if axis==2 else Vector3(.52,.035,.022)
+        hall_lighting.add_guide(room_geometry,guide_pos,guide_size)
 
 func apply_layout(objects: Array,state: Dictionary,change: Dictionary={}) -> Array:
     var retained: Array=[]
+    var walls_changed := change.is_empty()
     for data in state.objects:
         var found: Dictionary={}
         for row in objects:
             if row.data.id==data.id and row.data.kind==data.kind:found=row;break
-        if found.is_empty():found=_create(data)
+        if found.is_empty():
+            found=_create(data)
+            if data.kind=="wall":walls_changed=true
         elif change.is_empty() or (change.get("kind")=="patch" and change.get("id")==data.id):
             var fields: Array=change.get("fields",[])
             if data.kind=="tank":
                 if (change.is_empty() or "fish_count" in fields) and int(data.fish_count)!=int(found.data.fish_count):found.tank.set_fish_count(int(data.fish_count))
                 if (change.is_empty() or "content" in fields) and not data.get("content",{}).is_empty() and JSON.stringify(found.tank.content_state())!=JSON.stringify(data.content):found.tank.apply_content(data.content)
+            if data.kind=="shell" and (found.data.design!=data.design or found.data.get("interior")!=data.get("interior")):_update_shell(found,data)
             found.data=data.duplicate(true);found.node.transform=_transform(data)
-            if data.kind=="wall" and (change.is_empty() or "length" in fields or "door" in fields):_refresh_wall(found)
+            if data.kind=="wall":walls_changed=true
         if data.kind=="tank":found.data.water=WaterProfile.normalized(data.get("water",{}))
         retained.append(found)
     for row in objects:
-        if not retained.has(row):row.node.hide();row.body.collision_layer=0;row.node.queue_free()
+        if not retained.has(row):
+            if row.data.kind=="wall":walls_changed=true
+            row.node.hide();row.body.collision_layer=0;row.node.queue_free()
+    if walls_changed:_join_walls(retained)
     return retained
 
 func initial_contents(rows: Array) -> Dictionary:

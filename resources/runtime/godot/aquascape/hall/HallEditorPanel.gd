@@ -1,87 +1,204 @@
-extends RefCounted
-## Editor chrome/view wiring. Commands and session ownership stay on host.
+extends Control
+## The hall chrome owns global commands; the object controls follow selection.
+const Style = preload("HallInterfaceStyle.gd")
+var water_panel
+var side: PanelContainer
+var status: Label
+var mode_button: Button
+var size_spin: SpinBox
+var fish_spin: SpinBox
+var visitor_spin: SpinBox
+var parcel_label: Label
+var floor_panel: HBoxContainer
+var floor_label: Label
+var floor_up: Button
+var floor_down: Button
+var lower_life_tools: Button
+var catalog_button: Button
+var settings: PanelContainer
+var inspection_tools: HBoxContainer
+var walk_observe: Button
+var tank_tools: VBoxContainer
+var size_row: HBoxContainer
+var size_caption: Label
+var feedback: Label
+var undo: Button
+var redo: Button
+var panel_sync := false
+var statistics_clock := 0.0
+var catalog_open := true
 
-func _button(parent: Control,text: String,at: Vector2,width: float,callback: Callable) -> Button:
-    var button := Button.new();button.text=text;button.position=at;button.custom_minimum_size=Vector2(width,40)
-    button.focus_mode=Control.FOCUS_NONE;button.pressed.connect(callback);parent.add_child(button);return button
+func label(parent: Control, caption: String, points:=17) -> Label:
+    var item := Label.new()
+    item.text=caption
+    item.add_theme_font_size_override("font_size",points)
+    parent.add_child(item)
+    return item
 
-func _label(parent: Control,text: String,at: Vector2,size:=18) -> Label:
-    var label := Label.new();label.text=text;label.position=at;label.add_theme_font_size_override("font_size",size);label.modulate=Color("d3e0d7");parent.add_child(label);return label
+func button(parent: Control, caption: String, action: Callable) -> Button:
+    var item := Button.new()
+    item.text=caption
+    item.focus_mode=Control.FOCUS_NONE
+    parent.add_child(item)
+    item.pressed.connect(action)
+    return item
 
 func build(host: Control) -> void:
-    var header := ColorRect.new();header.name="HallHeader";header.color=Color("102a34");header.position=Vector2.ZERO;header.size=Vector2(1920,96);host.add_child(header)
-    _label(header,"潮汐馆  /  可编辑 3D 大厅",Vector2(30,12),28)
-    _label(header,"室内建造 · 地块 / 楼层 / 展缸 · 独立保存",Vector2(32,55),17)
-    _label(header,"游客（本次逛馆）",Vector2(520,4),15)
-    host.visitor_spin=SpinBox.new();host.visitor_spin.position=Vector2(520,30);host.visitor_spin.size=Vector2(125,36)
-    host.visitor_spin.min_value=0;host.visitor_spin.max_value=200;host.visitor_spin.step=1;host.visitor_spin.value=24
-    host.visitor_spin.value_changed.connect(func(value):if is_instance_valid(host.visitor_crowd):host.visitor_crowd.set_visitor_count(int(value)))
-    header.add_child(host.visitor_spin)
-    _button(header,"关闭",Vector2(657,26),90,func():host.visitor_spin.value=0)
-    _button(header,"返回海岸",Vector2(1725,26),160,host._request_return)
-    host.mode_button=_button(header,"切换逛馆  Tab",Vector2(1000,26),180,func():host._mode(not host.editing))
-    _button(header,"展缸水体 / 近景",Vector2(780,26),200,host._open_water_panel)
-    _button(header,"保存大厅",Vector2(1195,26),150,host._save_layout)
-    _button(header,"读取大厅",Vector2(1360,26),150,func():host._load_layout(host.save_path))
-    _button(header,"撤销",Vector2(1525,26),85,host._undo)
-    _button(header,"重做",Vector2(1620,26),85,host._redo)
-    var floors := Panel.new();floors.name="FloorTools";floors.position=Vector2(30,112);floors.size=Vector2(388,106)
-    var panel_style := StyleBoxFlat.new();panel_style.bg_color=Color("14313b");panel_style.set_corner_radius_all(9)
-    floors.add_theme_stylebox_override("panel",panel_style);host.add_child(floors);host.floor_panel=floors
-    host.floor_down=_button(floors,"PgDn  低一层",Vector2(12,10),120,func():host._change_level(-1))
-    host.floor_label=_label(floors,"1 层",Vector2(132,15),23)
-    host.floor_label.size.x=124;host.floor_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-    host.floor_up=_button(floors,"PgUp  高一层",Vector2(256,10),120,func():host._change_level(1))
-    _button(floors,"放楼梯",Vector2(12,56),112,func():host._set_tool("stair"))
-    host.floor_pave=_button(floors,"铺地板",Vector2(138,56),112,func():host._set_tool("floor"))
-    host.floor_erase=_button(floors,"拆地板",Vector2(264,56),112,func():host._set_tool("floor_erase"))
-    var lower_life := Control.new();lower_life.name="LowerLifeTools";lower_life.position=Vector2(12,102);lower_life.size=Vector2(364,40)
-    lower_life.mouse_filter=Control.MOUSE_FILTER_IGNORE;floors.add_child(lower_life);host.lower_life_tools=lower_life
-    _label(lower_life,"楼下游客和鱼",Vector2(0,9),18)
-    var life_modes := ButtonGroup.new()
-    var show_life := _button(lower_life,"显示",Vector2(176,0),88,func():host._set_lower_life(true))
-    var hide_life := _button(lower_life,"隐藏",Vector2(276,0),88,func():host._set_lower_life(false))
-    var selected_mode := StyleBoxFlat.new();selected_mode.bg_color=Color("315763");selected_mode.set_corner_radius_all(4)
-    for button in [show_life,hide_life]:
-        button.toggle_mode=true;button.button_group=life_modes
-        button.add_theme_stylebox_override("pressed",selected_mode)
-    hide_life.set_pressed_no_signal(true)
-    host.side=ColorRect.new();host.side.color=Color("14313b");host.side.position=Vector2(1570,108);host.side.size=Vector2(330,866);host.add_child(host.side)
-    _label(host.side,"大厅建造",Vector2(18,10),24)
-    host.parcel_label=_label(host.side,"",Vector2(18,47),17)
-    _button(host.side,"＋ 扩建相邻地块  6×7 m",Vector2(18,77),294,func():host._set_tool("parcel"))
-    host.tank_size_choice=OptionButton.new();host.tank_size_choice.position=Vector2(18,127);host.tank_size_choice.size=Vector2(294,36)
-    for label in ["小缸  3×1.5 m","中缸  3.9×1.95 m","标准缸  6×3 m"]:host.tank_size_choice.add_item(label)
-    host.tank_size_choice.select(1);host.side.add_child(host.tank_size_choice)
-    _button(host.side,"＋ 放置所选规格展缸",Vector2(18,169),294,func():host._set_tool("tank"))
-    host.wall_choice=OptionButton.new();host.wall_choice.position=Vector2(18,218);host.wall_choice.size=Vector2(294,36);host.wall_choice.add_item("实心隔墙  高 3.2 m");host.wall_choice.add_item("门洞隔墙  通道宽 1.2 m")
-    host.wall_choice.item_selected.connect(func(index):host.wall_with_door=index==1;host.wall_anchor=null);host.side.add_child(host.wall_choice)
-    _button(host.side,"＋ 画隔墙  起点 → 终点",Vector2(18,260),294,func():host._set_tool("wall"))
-    _button(host.side,"＋ 长凳",Vector2(18,309),142,func():host._set_tool("bench"))
-    _button(host.side,"＋ 展示台",Vector2(170,309),142,func():host._set_tool("plinth"))
-    _button(host.side,"选择 / 取消建造  Esc",Vector2(18,358),294,func():host._set_tool(""))
-    host.tool_label=_label(host.side,"选择物件进行编辑",Vector2(18,403),17)
-    host.detail=_label(host.side,"未选中物件",Vector2(18,434),18)
-    _button(host.side,"Q  左转",Vector2(18,490),142,func():host._rotate_selected(-1))
-    _button(host.side,"E  右转",Vector2(170,490),142,func():host._rotate_selected(1))
-    _label(host.side,"物件倍率 / 隔墙长度（米）",Vector2(18,536),17)
-    host.size_spin=SpinBox.new();host.size_spin.position=Vector2(18,562);host.size_spin.custom_minimum_size=Vector2(294,34);host.size_spin.min_value=.4;host.size_spin.max_value=1.3;host.size_spin.step=.05;host.size_spin.value=1
-    host.size_spin.value_changed.connect(host._resize_selected);host.side.add_child(host.size_spin)
-    _label(host.side,"展示海鱼数量（0～15）",Vector2(18,603),17)
-    host.fish_spin=SpinBox.new();host.fish_spin.position=Vector2(18,629);host.fish_spin.custom_minimum_size=Vector2(294,34);host.fish_spin.max_value=15;host.fish_spin.step=1
-    host.fish_spin.value_changed.connect(host._fish_count_changed);host.side.add_child(host.fish_spin)
-    _button(host.side,"编辑选中缸内的沙子与摆件",Vector2(18,674),294,host._open_content_editor)
-    _button(host.side,"删除选中物件",Vector2(18,720),294,host._delete_selected)
-    _button(host.side,"更换地砖",Vector2(18,766),142,func():host._change_finish("floor_style"))
-    _button(host.side,"更换墙色",Vector2(170,766),142,func():host._change_finish("wall_style"))
-    _button(host.side,"俯视全馆",Vector2(18,812),142,func():host.pitch=1.30;host.yaw=.01;host._fit_hall())
-    _button(host.side,"斜视全馆",Vector2(170,812),142,func():host.pitch=.83;host.yaw=.48;host._fit_hall())
-    var footer := ColorRect.new();footer.color=Color("102a34");footer.position=Vector2(0,995);footer.size=Vector2(1920,85);host.add_child(footer)
-    host.status=_label(footer,host.notice,Vector2(30,10),18)
-    _label(footer,"编辑：右键环绕 · 中键平移 · 滚轮缩放 · Q/E 转向 · Esc 取消 · Delete 删除   |   Tab 逛馆：WASD 行走 · 右键看向 · Shift 加速",Vector2(30,45),16)
-    host.water_panel=load("res://scripts/aquarium/TankWaterPanel.gd").new();host.add_child(host.water_panel);host.water_panel.hide()
-    host.water_panel.changed.connect(host._water_changed);host.water_panel.preset_selected.connect(host._water_preset)
-    host.water_panel.interaction_started.connect(func():if not host.water_drag:host._remember();host.water_drag=true)
-    host.water_panel.interaction_ended.connect(func():host.water_drag=false)
-    host.water_panel.inspect_requested.connect(host._start_inspection);host.water_panel.return_requested.connect(host._stop_inspection)
-    host.water_panel.next_fish_requested.connect(func():host.inspection_fish+=1;host._start_inspection(false))
+    name="HallEditorPanel"
+    theme=Style.create()
+    set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+    mouse_filter=Control.MOUSE_FILTER_IGNORE
+    var header := PanelContainer.new()
+    header.name="HallHeader"
+    header.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+    header.offset_left=22;header.offset_top=16;header.offset_right=-22
+    add_child(header)
+    var row := HBoxContainer.new()
+    row.add_theme_constant_override("separation",12)
+    header.add_child(row)
+    var emblem := Control.new()
+    emblem.custom_minimum_size=Vector2(42,42)
+    emblem.mouse_filter=Control.MOUSE_FILTER_IGNORE
+    row.add_child(emblem)
+    emblem.draw.connect(func():
+        var mid := emblem.size*.5
+        emblem.draw_circle(mid,19,Style.TEAL,true,-1,true)
+        for j in 2:
+            var wave := PackedVector2Array()
+            for x in range(-13,14):
+                wave.append(mid+Vector2(x,j*6-3+sin(x*.19)*2.8))
+            emblem.draw_polyline(wave,Color("#d3eee0"),2.4,true)
+    )
+    label(row,"潮汐馆",30)
+    parcel_label=label(row,"",16)
+    parcel_label.add_theme_color_override("font_color",Style.MUTED)
+    parcel_label.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+    catalog_button=button(row,"建造目录",func():catalog_open=not catalog_open)
+    catalog_button.toggle_mode=true;catalog_button.button_pressed=true
+    button(row,"场馆设置",func():settings.visible=not settings.visible)
+    walk_observe=button(row,"观察选中缸",host.tank_session._start_inspection)
+    undo=button(row,"撤销",host._undo)
+    redo=button(row,"重做",host._redo)
+    var menu := MenuButton.new()
+    menu.text="大厅菜单 ▾";row.add_child(menu)
+    for title in ["保存大厅","读取大厅","返回海岸"]:menu.get_popup().add_item(title)
+    menu.get_popup().id_pressed.connect(func(id):
+        if id==0:host._save_layout()
+        elif id==1:host._load_layout(host.save_path)
+        else:host._request_return()
+    )
+    mode_button=button(row,"进入逛馆",func():host._mode(not host.editing))
+    Style.primary(mode_button)
+    var views := PanelContainer.new()
+    views.position=Vector2(22,105);add_child(views)
+    floor_panel=HBoxContainer.new();views.add_child(floor_panel)
+    floor_down=button(floor_panel,"−",func():host.editor._change_level(-1))
+    floor_label=label(floor_panel,"1 层",19)
+    floor_up=button(floor_panel,"＋",func():host.editor._change_level(1))
+    button(floor_panel,"正俯视",func():host.pitch=PI/2;host.yaw=0;host.editor._fit_hall())
+    button(floor_panel,"斜视",func():host.pitch=.83;host.yaw=.48;host.editor._fit_hall())
+    lower_life_tools=button(floor_panel,"显示楼下",func():host.editor._set_lower_life(lower_life_tools.button_pressed))
+    lower_life_tools.toggle_mode=true
+    _build_settings(host)
+    _build_object_actions(host)
+    inspection_tools=HBoxContainer.new()
+    inspection_tools.position=Vector2(24,185);add_child(inspection_tools)
+    button(inspection_tools,"下一条鱼",host.tank_session.next_fish)
+    button(inspection_tools,"返回大厅视角",host.tank_session._stop_inspection)
+    var footer := HBoxContainer.new()
+    footer.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+    footer.offset_left=30;footer.offset_top=-42;footer.offset_right=-30;footer.offset_bottom=-8
+    footer.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(footer)
+    status=label(footer,"",17);status.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+    status.add_theme_color_override("font_color",Color("#e5ebe6"))
+    status.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+    feedback=label(footer,"",16)
+    feedback.add_theme_color_override("font_color",Color("#a9d7c7"))
+    water_panel=preload("../TankWaterPanel.gd").new()
+    add_child(water_panel);water_panel.hide()
+    water_panel.position=Vector2(1500,105);water_panel.size=Vector2(398,650)
+    water_panel.add_theme_stylebox_override("panel",theme.get_stylebox("panel","PanelContainer"))
+    water_panel.changed.connect(host.tank_session._water_changed)
+    water_panel.preset_selected.connect(host.tank_session._water_preset)
+    water_panel.interaction_started.connect(func():if not host.tank_session.water_drag:host._remember();host.tank_session.water_drag=true)
+    water_panel.interaction_ended.connect(func():host.tank_session.water_drag=false)
+
+func _build_settings(host: Control) -> void:
+    settings=PanelContainer.new();settings.position=Vector2(22,182)
+    settings.z_index=3;add_child(settings);settings.hide()
+    var body := VBoxContainer.new();body.add_theme_constant_override("separation",10);settings.add_child(body)
+    label(body,"场馆设置",23)
+    var finishes := HBoxContainer.new();body.add_child(finishes)
+    button(finishes,"更换全馆地砖",func():host.editor._change_finish("floor_style"))
+    button(finishes,"更换全馆墙色",func():host.editor._change_finish("wall_style"))
+    var visitors := HBoxContainer.new();body.add_child(visitors)
+    label(visitors,"预览游客人数")
+    visitor_spin=SpinBox.new();visitor_spin.max_value=200;visitor_spin.value=24
+    visitors.add_child(visitor_spin)
+    visitor_spin.value_changed.connect(func(v):if is_instance_valid(host.visitor_crowd):host.visitor_crowd.set_visitor_count(int(v)))
+    button(visitors,"清零",func():visitor_spin.value=0)
+    button(body,"收起设置",settings.hide)
+
+func _build_object_actions(host: Control) -> void:
+    side=PanelContainer.new();add_child(side)
+    side.position=Vector2(1500,372);side.size.x=398
+    var body := VBoxContainer.new();side.add_child(body);body.add_theme_constant_override("separation",9)
+    var actions := HBoxContainer.new();body.add_child(actions)
+    button(actions,"左转",func():host.editor._rotate_selected(-1))
+    button(actions,"右转",func():host.editor._rotate_selected(1))
+    button(actions,"删除物件",host.editor._delete_selected)
+    size_row=HBoxContainer.new();body.add_child(size_row)
+    size_caption=label(size_row,"缩放倍率");size_caption.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+    size_spin=SpinBox.new();size_row.add_child(size_spin)
+    size_spin.value_changed.connect(func(v):if not panel_sync:host.editor._resize_selected(v))
+    tank_tools=VBoxContainer.new();body.add_child(tank_tools)
+    var stock := HBoxContainer.new();tank_tools.add_child(stock)
+    label(stock,"展示鱼数").size_flags_horizontal=Control.SIZE_EXPAND_FILL
+    fish_spin=SpinBox.new();fish_spin.max_value=15;stock.add_child(fish_spin)
+    fish_spin.value_changed.connect(func(v):if not panel_sync:host.editor._fish_count_changed(v))
+    var tank_actions := HBoxContainer.new();tank_tools.add_child(tank_actions)
+    button(tank_actions,"编辑造景",host.tank_session._open_content_editor)
+    button(tank_actions,"水体",host.tank_session._open_water_panel)
+    button(tank_actions,"观察",host.tank_session._start_inspection)
+
+func sync(host: Control) -> void:
+    if not is_instance_valid(side):return
+    panel_sync=true
+    parcel_label.text="  /  %s    ·    %s m²" % ["布展" if host.editing else "逛馆",host.parcels.size()*42]
+    mode_button.text="进入逛馆" if host.editing else "返回布展"
+    floor_panel.get_parent().visible=host.editing and not host.tank_session.inspecting
+    floor_panel.visible=floor_panel.get_parent().visible
+    floor_label.text=" %d 层 " % (host.active_level+1)
+    floor_up.disabled=host.active_level>=host.highest_level
+    floor_down.disabled=host.active_level==0
+    lower_life_tools.visible=host.active_level>0
+    walk_observe.visible=not host.editing and not host.tank_session.inspecting and host.selected>=0 and host.objects[host.selected].tank!=null
+    undo.disabled=host.history.is_empty();redo.disabled=host.future.is_empty()
+    catalog_button.visible=host.editing and not host.tank_session.inspecting
+    if not host.editing:water_panel.hide()
+    if host.selected>=0 and host.selected<host.objects.size():
+        var data: Dictionary=host.objects[host.selected].data
+        size_row.visible=data.kind!="stair"
+        size_caption.text="墙段长度（米）" if data.kind=="wall" else "缩放倍率"
+        size_spin.min_value=3 if data.kind=="wall" and data.get("door",false) else (.5 if data.kind=="wall" else .4)
+        size_spin.max_value=18 if data.kind=="wall" else 1.3
+        size_spin.step=.5 if data.kind=="wall" else .05
+        size_spin.set_value_no_signal(float(data.length) if data.kind=="wall" else float(data.scale))
+        tank_tools.visible=data.kind=="tank"
+        fish_spin.set_value_no_signal(float(data.get("fish_count",0)))
+        if data.kind=="tank":water_panel.bind(data.water,data.name)
+        else:water_panel.hide()
+    else:water_panel.hide()
+    panel_sync=false
+
+func tick(delta: float, notice: String) -> void:
+    statistics_clock+=delta
+    if statistics_clock>.12:
+        statistics_clock=0
+        status.text=notice
+
+func choose_tank_size(host: Control, index: int) -> void:
+    host.editor.set_tank_size(index)
+
+func set_tool_feedback(_kind: String, allowed: bool) -> void:
+    feedback.text="可放置" if allowed else "不可放置"

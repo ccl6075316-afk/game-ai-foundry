@@ -42,7 +42,7 @@ def main():
             if current_hashes[resource]!=digest:
                 failures.append('Current input differs: '+resource)
     labels=json.loads(re.search(r'const LABELS := (\{[^\r\n]+\})',
-        (game/'scripts/aquarium/VolumeFishExhibit.gd').read_text(encoding='utf-8-sig')).group(1))
+        (game/'scripts/aquarium/FishDisplayCatalog.gd').read_text(encoding='utf-8-sig')).group(1))
     rows=[];parts=[]
     for fish in inventory['inventory']:
         raw=fish['raw_import']['totals'];final=fish['final']['totals']

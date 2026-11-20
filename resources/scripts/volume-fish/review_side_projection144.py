@@ -14,7 +14,7 @@ def embedded(p):
 
 ap=argparse.ArgumentParser(); ap.add_argument('--root',type=Path,required=True); ap.add_argument('--godot',required=True); ap.add_argument('--json',action='store_true');args=ap.parse_args()
 root=args.root.resolve(); game=root/'projects/fishing-2d/game'; scripts=root/'resources/scripts/volume-fish'; base=root/'projects/fishing-2d/experiments/blender-fish'; out=base/'side-projection-144';out.mkdir(exist_ok=True)
-hall=(game/'scripts/aquarium/VolumeFishExhibit.gd').read_text(encoding='utf8')
+hall=(game/'scripts/aquarium/FishDisplayCatalog.gd').read_text(encoding='utf8')
 species=json.loads(re.search(r'const SPECIES := (\[.*?\])',hall).group(1)); labels=json.loads(re.search(r'const LABELS := (\{.*?\})',hall).group(1))
 prior={r['species']:r for r in read(base/'fin-rollout-143/scope.validation.json')['records']}
 # Every source is matched to an original embedded image by decoded native RGBA.

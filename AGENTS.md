@@ -1,5 +1,7 @@
 # Game AI Foundry — External Agent One-pager
 
+**2026-11-20 展缸试玩交接**。游戏仓库 `fishing-2d` 的 `main` 包含 Windows 入口 `open-tank-design.cmd`、三鱼矩形缸布局和 [文字交接](https://github.com/ccl6075316-afk/fishing-2d/blob/0fba2969043ef255f353d49575a71147e184f976/docs/HALL-HANDOFF-20261120.md)。本库的大厅部署源通过 `resources/scripts/aquascape/test_hall_source_sync.py` 与游戏校对。
+
 **2026-11-17 路氏与无沟双髻鲨发布**：用户接受联合 Godot 返修版并授权正式安装和提交推送。两鱼均 3994 三角、22 骨、8 鳍。路氏尾鳍与尾柄接色及共享外环法线已顺平，两鱼独立小猎物摄入与大猎物夹持。正式冷导、490/072/077、四动作/缓存/96 次钓鱼上唇以及两支各 241 个口腔和 267 个鳍姿态通过。运行时 SOP 通过，完整资料、形态、原画唇域和全动画展示待补。新风格 28/28，入口 `resources/volume-fish/final-hammerheads-20261117/release.json`。
 
 **macOS Godot 审查窗口**：默认在主屏可用区域内居中，启动时保留当前前台应用与键盘焦点，将审查窗口置于主屏普通窗口的最底层，用户自行点开。GPU 验证优先后台或隐藏执行。启动时读取实际屏幕范围，禁止使用固定的全桌面坐标。

@@ -163,10 +163,9 @@ func _ornaments() -> void:
         props.append({"id":row.id,"node":model,"bounds":box})
 
 func _fish() -> void:
-    # Reuse the exact current exhibit factory, ownership layers and Swim rig.
+    # Use the shared fish instance factory, ownership layers and Swim rig.
     # This scene changes only carrier placement, never fish geometry or skin.
-    factory=load("res://scripts/aquarium/VolumeFishExhibit.gd").new()
-    factory._load_profiles()
+    factory=load("res://scripts/aquarium/AquariumFishStock.gd").new()
     var species: Array=[]
     for row in layout.fish_species:
         for i in int(row.count):species.append(row.id)
@@ -174,10 +173,9 @@ func _fish() -> void:
     var order := [0,3,7,11,4,8,12,1,5,9,13,2,6,10,14]
     for i in order.size():
         var id: String=species[order[i]]
-        var profile: Dictionary=factory.profiles[id]
-        var length_m: float=profile.real_length_cm/100.0
-        factory._add_fish(self,id,length_m,profile,Vector3.ZERO,i*.37)
-        var row: Dictionary=factory.fish[-1]
+        var row: Dictionary = factory.add_stock(self, id, Vector3.ZERO, i * .37)
+        if row.is_empty():
+            continue
         row["bounds"]=_model_bounds(row.model)
         row["lane"]=i/5
         row["phase"]=(i%5)/5.0+(i/5)*.115

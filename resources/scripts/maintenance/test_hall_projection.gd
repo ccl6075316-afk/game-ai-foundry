@@ -35,7 +35,7 @@ func _run() -> void:
     hall._apply_document(false,receipt)
     checks.projection_updates_same_node=hall.objects[0].node.position.x==-3 and hall.objects[0].node.get_instance_id()==bench_id
     checks.unrelated_wall_collision_reused=hall.objects[1].body.get_instance_id()==wall_body
-    hall._change_finish("wall_style")
+    hall.editor._change_finish("wall_style")
     checks.finish_change_does_not_rebuild_collision=hall.objects[1].body.get_instance_id()==wall_body
     var saved := JSON.stringify(hall._state())
     hall.objects[0].data.at[0]=500;hall.objects[0].node.position.x=500
