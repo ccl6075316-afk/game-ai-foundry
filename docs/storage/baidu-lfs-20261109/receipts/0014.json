@@ -1,9 +1,7 @@
 {
   "index": 14,
-  "sha256": "d7cf3069026e1a18b970d5af382bafeeeeb03e7c47a7b4d27eb6fe464d6b5bc5",
-  "bytes": 132659200,
-  "remote": "foundry-lfs-20261109-218c50d7/packs/d7cf3069026e1a18b970d5af382bafeeeeb03e7c47a7b4d27eb6fe464d6b5bc5.tar",
-  "round_trip_verified": true,
-  "upload_seconds": 88.846,
-  "download_seconds": 7.714
+  "sha256": "75234ed66e814f31c49b869c93b876689fd600c4ab4d0838a4d2820f33ec3fab",
+  "bytes": 129720320,
+  "remote": "foundry-lfs-20261109-218c50d7/packs/75234ed66e814f31c49b869c93b876689fd600c4ab4d0838a4d2820f33ec3fab.tar",
+  "round_trip_verified": true
 }

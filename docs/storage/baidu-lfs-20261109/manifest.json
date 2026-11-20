@@ -3,7 +3,7 @@
   "format": "sha256-chunked-ustar-v1",
   "date": "2026-11-09",
   "remote_prefix": "foundry-lfs-20261109-218c50d7",
-  "scope": "Current LFS pointers only, no historical revisions",
+  "scope": "November 9 bootstrap with retired review videos excluded on November 21; later LFS objects are fetched by SHA.",
   "repositories": {
     "foundry": {
       "head": "2d72724f8d117ef97297e150d468b7bdd16bbb50",
@@ -20639,11 +20639,6 @@
           "bytes": 1360159
         },
         {
-          "path": "output/zander-turn-onepass.mp4",
-          "oid": "549850d19bc520cd933922bbc01e0617628038072ad8ac8ef2d6109f84bf4407",
-          "bytes": 954289
-        },
-        {
           "path": "plans/reviews/116-aquarium-pixel-water/3d-fish/close-0.png",
           "oid": "4b16a9a8a368686249fffe27e2b31402b4f87cb22a4362999002ec5930d5d63d",
           "bytes": 278406
@@ -21699,11 +21694,6 @@
           "bytes": 630776
         },
         {
-          "path": "plans/reviews/aquascape-budget-v9/shader-sway.mp4",
-          "oid": "5cb6640cb3d99000b7221c12aeb454cec044ca93c2941cd2433b54bdbc2627e4",
-          "bytes": 314249
-        },
-        {
           "path": "plans/reviews/aquascape-budget-v9/shader-tank/anubias-0.0.png",
           "oid": "b6979eda83465ce264d45a7c68a5438349eca619074ca9c16c5a93ad8da16e6a",
           "bytes": 440073
@@ -22094,11 +22084,6 @@
           "bytes": 521093
         },
         {
-          "path": "plans/reviews/aquascape-catalog-v5/godot/plants-overview.mp4",
-          "oid": "cddf26e8d527dbc6a2704d05f61073a47b3b7ea6b66d24ed8f577c8dab3929a2",
-          "bytes": 1264661
-        },
-        {
           "path": "plans/reviews/aquascape-catalog-v5/godot/red_sandstone-back.png",
           "oid": "ab00874d7c83f4df2dde3f340523110fc7fe5acecfddb7dc313ba05acb11fe97",
           "bytes": 401161
@@ -22257,11 +22242,6 @@
           "path": "plans/reviews/aquascape-catalog-v5/godot/vallisneria-current.gif",
           "oid": "88e8a0b86584a9896635eb3edb7785ffd2c22b28b637c8dbd601d93b876c044c",
           "bytes": 5044549
-        },
-        {
-          "path": "plans/reviews/aquascape-catalog-v5/godot/vallisneria-current.mp4",
-          "oid": "3228e2180502801be23c07f8fe96cb80e76f1b03b4f3beadcf152d7e0bd5a3b3",
-          "bytes": 1813904
         },
         {
           "path": "plans/reviews/aquascape-catalog-v5/godot/vallisneria-front.png",
@@ -23789,11 +23769,6 @@
           "bytes": 159439
         },
         {
-          "path": "plans/reviews/aquascape-expansion-v11/shader-motion.mp4",
-          "oid": "fa35a9f5247e7a7d5bf72d8dab9969a939fd035d6b0aa5f416f5351ed4e65dbb",
-          "bytes": 901628
-        },
-        {
           "path": "plans/reviews/aquascape-expansion-v11/solids-aux-r2.jpg",
           "oid": "30433c8edb339039225f542ef3b822e83ad7519b412a1c460ec1ac2387291188",
           "bytes": 402173
@@ -24449,19 +24424,9 @@
           "bytes": 73616
         },
         {
-          "path": "plans/reviews/aquascape-leaf-contours-v7/godot/plants-overview.mp4",
-          "oid": "6318150834204df45d271e414684d5cd058b90620bdde86dfa83ddb8e9d7749c",
-          "bytes": 1221827
-        },
-        {
           "path": "plans/reviews/aquascape-leaf-contours-v7/godot/vallisneria-current.gif",
           "oid": "bf278f065318fcffaa62cf01e4f61266269268bb9c8b0f9c0ac71b1ff5d9a0c5",
           "bytes": 5051695
-        },
-        {
-          "path": "plans/reviews/aquascape-leaf-contours-v7/godot/vallisneria-current.mp4",
-          "oid": "5fe35e844a6214544fd5b25eeeab1e2993ad02bfdc01053d40d8a52c5b5db99c",
-          "bytes": 1718891
         },
         {
           "path": "plans/reviews/aquascape-leaf-contours-v7/java_fern-contour.png",
@@ -24489,19 +24454,9 @@
           "bytes": 55826
         },
         {
-          "path": "plans/reviews/aquascape-leaf-edges-v6/godot/plants-overview.mp4",
-          "oid": "6c674f2c170d1794d0ec7431d628fd644ac3b49912585d00b4372f2e92e283fd",
-          "bytes": 1220155
-        },
-        {
           "path": "plans/reviews/aquascape-leaf-edges-v6/godot/vallisneria-current.gif",
           "oid": "d8a16ed201a76c2ce7ae55dfa738782521ee2e519af725384276dcbc3e4f6dcd",
           "bytes": 5034135
-        },
-        {
-          "path": "plans/reviews/aquascape-leaf-edges-v6/godot/vallisneria-current.mp4",
-          "oid": "c7fbbf501f1075ee1320e54fe07ae2e1ff387735cdb733d728356b6a7ed9f19e",
-          "bytes": 1750457
         },
         {
           "path": "plans/reviews/aquascape-marine-v1/godot/front.png",
@@ -24632,11 +24587,6 @@
           "path": "plans/reviews/aquascape-natural-v10/motion-visibility/playing-start.png",
           "oid": "064c55c0a9bc6626270c2fb3c415bacde90169dbeb2e0110805524152b809df0",
           "bytes": 295671
-        },
-        {
-          "path": "plans/reviews/aquascape-natural-v10/motion-visibility/shader-sway.mp4",
-          "oid": "36e82ff7d150a936553d5ce0a798d3111060c716b841f6c4577a0c3b2ab92bb5",
-          "bytes": 426845
         },
         {
           "path": "plans/reviews/aquascape-natural-v10/native/closeup-anubias-0.0.png",
@@ -24827,11 +24777,6 @@
           "path": "plans/reviews/aquascape-natural-v10/native/top-vallisneria.png",
           "oid": "ad0374c7cd3989613ffd2818e1660079dc6ee2165ea32f400d61e02620d22ff2",
           "bytes": 80764
-        },
-        {
-          "path": "plans/reviews/aquascape-natural-v10/shader-sway.mp4",
-          "oid": "36e82ff7d150a936553d5ce0a798d3111060c716b841f6c4577a0c3b2ab92bb5",
-          "bytes": 426845
         },
         {
           "path": "plans/reviews/aquascape-natural-v10/sources/fish-game-screenshot-0.jpg",
@@ -25052,11 +24997,6 @@
           "path": "plans/reviews/aquascape-plant-current-v4/plant-current.gif",
           "oid": "c20b9aac3a6667d63bf299057877b6491731eb087a06470dcc5b496cefd3fbb6",
           "bytes": 2365207
-        },
-        {
-          "path": "plans/reviews/aquascape-plant-current-v4/plant-current.mp4",
-          "oid": "6a147c093152506e0c1b66cb405317578d8d547ec06f8d7fcca80f223a7ae929",
-          "bytes": 1261376
         },
         {
           "path": "plans/reviews/aquascape-sand-v1/godot/01-flat-bed.png",
@@ -25729,11 +25669,6 @@
           "bytes": 365216
         },
         {
-          "path": "plans/reviews/fish-school-motion-v2/capture-baseline/motion.mp4",
-          "oid": "52acc03bdb029cdf2ca3ee6f86806b36675761f8bdc904b3872871ebb9187864",
-          "bytes": 2142232
-        },
-        {
           "path": "plans/reviews/fish-school-motion-v2/capture-candidate/at_02s.png",
           "oid": "b66feebd66dc08b3ecdb80eb63a44ca5710f333218a36067b3e271cd2d530b41",
           "bytes": 364870
@@ -25752,16 +25687,6 @@
           "path": "plans/reviews/fish-school-motion-v2/capture-candidate/at_08s.png",
           "oid": "3e89f16071e1605b9678af482066726908caf80d3498fce57212d86c923ebf84",
           "bytes": 365469
-        },
-        {
-          "path": "plans/reviews/fish-school-motion-v2/capture-candidate/motion.mp4",
-          "oid": "cbe19ae1f681cb1d514ef3a6fff2b8a00228ea280ecd489b8ffbbcb16472a629",
-          "bytes": 2592762
-        },
-        {
-          "path": "plans/reviews/fish-school-motion-v2/motion-comparison.mp4",
-          "oid": "f1eaaf7c40c91c24801083aa912a5ec4ac6dc68a27c9ee791ec66e7d9e3fe7c9",
-          "bytes": 2087527
         },
         {
           "path": "plans/reviews/fish-school-motion-v2/school-tiered-200/overview.png",
@@ -44977,11 +44902,6 @@
       "source_repo": "fishing-2d",
       "source_path": "output/visual-target/warehouse/candidate_c.png"
     },
-    "549850d19bc520cd933922bbc01e0617628038072ad8ac8ef2d6109f84bf4407": {
-      "bytes": 954289,
-      "source_repo": "fishing-2d",
-      "source_path": "output/zander-turn-onepass.mp4"
-    },
     "4b16a9a8a368686249fffe27e2b31402b4f87cb22a4362999002ec5930d5d63d": {
       "bytes": 278406,
       "source_repo": "fishing-2d",
@@ -45972,11 +45892,6 @@
       "source_repo": "fishing-2d",
       "source_path": "plans/reviews/aquascape-budget-v9/object-viewer/terracotta_jar.png"
     },
-    "5cb6640cb3d99000b7221c12aeb454cec044ca93c2941cd2433b54bdbc2627e4": {
-      "bytes": 314249,
-      "source_repo": "fishing-2d",
-      "source_path": "plans/reviews/aquascape-budget-v9/shader-sway.mp4"
-    },
     "b6979eda83465ce264d45a7c68a5438349eca619074ca9c16c5a93ad8da16e6a": {
       "bytes": 440073,
       "source_repo": "fishing-2d",
@@ -46367,11 +46282,6 @@
       "source_repo": "fishing-2d",
       "source_path": "plans/reviews/aquascape-catalog-v5/godot/pale_limestone-top.png"
     },
-    "cddf26e8d527dbc6a2704d05f61073a47b3b7ea6b66d24ed8f577c8dab3929a2": {
-      "bytes": 1264661,
-      "source_repo": "fishing-2d",
-      "source_path": "plans/reviews/aquascape-catalog-v5/godot/plants-overview.mp4"
-    },
     "ab00874d7c83f4df2dde3f340523110fc7fe5acecfddb7dc313ba05acb11fe97": {
       "bytes": 401161,
       "source_repo": "fishing-2d",
@@ -46531,11 +46441,6 @@
       "bytes": 5044549,
       "source_repo": "fishing-2d",
       "source_path": "plans/reviews/aquascape-catalog-v5/godot/vallisneria-current.gif"
-    },
-    "3228e2180502801be23c07f8fe96cb80e76f1b03b4f3beadcf152d7e0bd5a3b3": {
-      "bytes": 1813904,
-      "source_repo": "fishing-2d",
-      "source_path": "plans/reviews/aquascape-catalog-v5/godot/vallisneria-current.mp4"
     },
     "ffe23dff933f8d7c1295d4b0098da553b4a250bbd56856c8a0899a58504b62ba": {
       "bytes": 337029,
@@ -48037,11 +47942,6 @@
       "source_repo": "fishing-2d",
       "source_path": "plans/reviews/aquascape-expansion-v11/plants-sources.jpg"
     },
-    "fa35a9f5247e7a7d5bf72d8dab9969a939fd035d6b0aa5f416f5351ed4e65dbb": {
-      "bytes": 901628,
-      "source_repo": "fishing-2d",
-      "source_path": "plans/reviews/aquascape-expansion-v11/shader-motion.mp4"
-    },
     "30433c8edb339039225f542ef3b822e83ad7519b412a1c460ec1ac2387291188": {
       "bytes": 402173,
       "source_repo": "fishing-2d",
@@ -48697,20 +48597,10 @@
       "source_repo": "fishing-2d",
       "source_path": "plans/reviews/aquascape-leaf-contours-v7/dwarf_sagittaria-contour.png"
     },
-    "6318150834204df45d271e414684d5cd058b90620bdde86dfa83ddb8e9d7749c": {
-      "bytes": 1221827,
-      "source_repo": "fishing-2d",
-      "source_path": "plans/reviews/aquascape-leaf-contours-v7/godot/plants-overview.mp4"
-    },
     "bf278f065318fcffaa62cf01e4f61266269268bb9c8b0f9c0ac71b1ff5d9a0c5": {
       "bytes": 5051695,
       "source_repo": "fishing-2d",
       "source_path": "plans/reviews/aquascape-leaf-contours-v7/godot/vallisneria-current.gif"
-    },
-    "5fe35e844a6214544fd5b25eeeab1e2993ad02bfdc01053d40d8a52c5b5db99c": {
-      "bytes": 1718891,
-      "source_repo": "fishing-2d",
-      "source_path": "plans/reviews/aquascape-leaf-contours-v7/godot/vallisneria-current.mp4"
     },
     "26a52cbf06bae115543eec6f575735772fbeb0f45e4a4cc3fee4d33d6b2a58d0": {
       "bytes": 111568,
@@ -48732,20 +48622,10 @@
       "source_repo": "fishing-2d",
       "source_path": "plans/reviews/aquascape-leaf-edges-v6/before-after.png"
     },
-    "6c674f2c170d1794d0ec7431d628fd644ac3b49912585d00b4372f2e92e283fd": {
-      "bytes": 1220155,
-      "source_repo": "fishing-2d",
-      "source_path": "plans/reviews/aquascape-leaf-edges-v6/godot/plants-overview.mp4"
-    },
     "d8a16ed201a76c2ce7ae55dfa738782521ee2e519af725384276dcbc3e4f6dcd": {
       "bytes": 5034135,
       "source_repo": "fishing-2d",
       "source_path": "plans/reviews/aquascape-leaf-edges-v6/godot/vallisneria-current.gif"
-    },
-    "c7fbbf501f1075ee1320e54fe07ae2e1ff387735cdb733d728356b6a7ed9f19e": {
-      "bytes": 1750457,
-      "source_repo": "fishing-2d",
-      "source_path": "plans/reviews/aquascape-leaf-edges-v6/godot/vallisneria-current.mp4"
     },
     "40778ef75593427f7bd10679ddad38eed488cb2ad7bf5c0ae687f58692bc23c4": {
       "bytes": 582899,
@@ -48866,11 +48746,6 @@
       "bytes": 295671,
       "source_repo": "fishing-2d",
       "source_path": "plans/reviews/aquascape-natural-v10/motion-visibility/playing-start.png"
-    },
-    "36e82ff7d150a936553d5ce0a798d3111060c716b841f6c4577a0c3b2ab92bb5": {
-      "bytes": 426845,
-      "source_repo": "fishing-2d",
-      "source_path": "plans/reviews/aquascape-natural-v10/motion-visibility/shader-sway.mp4"
     },
     "459054b8b40ec20729be262efac8149321751ecfc6e5d01fc5b52f94b30ba08c": {
       "bytes": 179030,
@@ -49236,11 +49111,6 @@
       "bytes": 2365207,
       "source_repo": "fishing-2d",
       "source_path": "plans/reviews/aquascape-plant-current-v4/plant-current.gif"
-    },
-    "6a147c093152506e0c1b66cb405317578d8d547ec06f8d7fcca80f223a7ae929": {
-      "bytes": 1261376,
-      "source_repo": "fishing-2d",
-      "source_path": "plans/reviews/aquascape-plant-current-v4/plant-current.mp4"
     },
     "afe173912e0fb7bf552d9684da514b7805e65ba35df8fb7cef0dde5908028073": {
       "bytes": 641565,
@@ -49812,11 +49682,6 @@
       "source_repo": "fishing-2d",
       "source_path": "plans/reviews/fish-school-motion-v2/capture-baseline/at_08s.png"
     },
-    "52acc03bdb029cdf2ca3ee6f86806b36675761f8bdc904b3872871ebb9187864": {
-      "bytes": 2142232,
-      "source_repo": "fishing-2d",
-      "source_path": "plans/reviews/fish-school-motion-v2/capture-baseline/motion.mp4"
-    },
     "b66feebd66dc08b3ecdb80eb63a44ca5710f333218a36067b3e271cd2d530b41": {
       "bytes": 364870,
       "source_repo": "fishing-2d",
@@ -49836,16 +49701,6 @@
       "bytes": 365469,
       "source_repo": "fishing-2d",
       "source_path": "plans/reviews/fish-school-motion-v2/capture-candidate/at_08s.png"
-    },
-    "cbe19ae1f681cb1d514ef3a6fff2b8a00228ea280ecd489b8ffbbcb16472a629": {
-      "bytes": 2592762,
-      "source_repo": "fishing-2d",
-      "source_path": "plans/reviews/fish-school-motion-v2/capture-candidate/motion.mp4"
-    },
-    "f1eaaf7c40c91c24801083aa912a5ec4ac6dc68a27c9ee791ec66e7d9e3fe7c9": {
-      "bytes": 2087527,
-      "source_repo": "fishing-2d",
-      "source_path": "plans/reviews/fish-school-motion-v2/motion-comparison.mp4"
     },
     "b3fc2cdf70bc1f0f10e6cb39aaeae0dbb7b9def744c1aadfbf0a5df7c133b94a": {
       "bytes": 118093,
@@ -56479,8 +56334,8 @@
     },
     {
       "index": 7,
-      "sha256": "eb1d31878b30920206d6291434f742205d456252120b2dd028be08ffb5cc448f",
-      "bytes": 133263360,
+      "sha256": "94a867840b15f79b8694e09864481871138e311bdc5e4a8425dc78344f52301b",
+      "bytes": 131440640,
       "members": [
         {
           "oid": "2efc0d2744a6e430c79787d7a2ab602b5f4a75cc067c7ba237b0768b9cff8020",
@@ -57008,13 +56863,6 @@
           "sha256": "3213d42e37cab6c6432838097e34232d16dc8b483111213811baabc46d908791"
         },
         {
-          "oid": "3228e2180502801be23c07f8fe96cb80e76f1b03b4f3beadcf152d7e0bd5a3b3",
-          "offset": 0,
-          "bytes": 1813904,
-          "name": "3228e2180502801be23c07f8fe96cb80e76f1b03b4f3beadcf152d7e0bd5a3b3/000000000000",
-          "sha256": "3228e2180502801be23c07f8fe96cb80e76f1b03b4f3beadcf152d7e0bd5a3b3"
-        },
-        {
           "oid": "324290684f2e3e8e663b6c2622018373fef9b1ad455cd9947db0baf55728bca2",
           "offset": 0,
           "bytes": 375722,
@@ -57302,12 +57150,12 @@
           "sha256": "33e54f1ada7e11fdf8b7633d5184f2c1f65a7cd698e20b75f856d78666980300"
         }
       ],
-      "remote": "foundry-lfs-20261109-218c50d7/packs/eb1d31878b30920206d6291434f742205d456252120b2dd028be08ffb5cc448f.tar"
+      "remote": "foundry-lfs-20261109-218c50d7/packs/94a867840b15f79b8694e09864481871138e311bdc5e4a8425dc78344f52301b.tar"
     },
     {
       "index": 8,
-      "sha256": "9afca74caac1da30554a8c2fe0af0a61f1ae4ca4e661ff3d0873c6fd15be32ac",
-      "bytes": 118599680,
+      "sha256": "6f1b81c36e07cec08a00df9226c629d6ed0860dceb87d689414b2b470b337523",
+      "bytes": 118169600,
       "members": [
         {
           "oid": "33fdde509b71cdc2ae814b80368318f992c8d43710e3d18588897ededf6298cd",
@@ -57618,13 +57466,6 @@
           "sha256": "36e3d5d5f4addcbe835f7ea5174a70b8ac3f311915c6e373a0b7f4705adf8c9f"
         },
         {
-          "oid": "36e82ff7d150a936553d5ce0a798d3111060c716b841f6c4577a0c3b2ab92bb5",
-          "offset": 0,
-          "bytes": 426845,
-          "name": "36e82ff7d150a936553d5ce0a798d3111060c716b841f6c4577a0c3b2ab92bb5/000000000000",
-          "sha256": "36e82ff7d150a936553d5ce0a798d3111060c716b841f6c4577a0c3b2ab92bb5"
-        },
-        {
           "oid": "36ff3916c7d554ee046371399a8770b3a595d429e6c81fd8453c83b016a4b4ec",
           "offset": 0,
           "bytes": 442281,
@@ -57800,7 +57641,7 @@
           "sha256": "37cf52bcb56c8fe0687110c459a33dcaaa51595632275db705107d5e072cf2bc"
         }
       ],
-      "remote": "foundry-lfs-20261109-218c50d7/packs/9afca74caac1da30554a8c2fe0af0a61f1ae4ca4e661ff3d0873c6fd15be32ac.tar"
+      "remote": "foundry-lfs-20261109-218c50d7/packs/6f1b81c36e07cec08a00df9226c629d6ed0860dceb87d689414b2b470b337523.tar"
     },
     {
       "index": 9,
@@ -60677,8 +60518,8 @@
     },
     {
       "index": 12,
-      "sha256": "744b1130763e083739f26768968d3d58c212b19b970aab5b3d17579d1ae13d44",
-      "bytes": 134297600,
+      "sha256": "ccd99ae929a6792e4d490b7c5ca13d432853f031295abd0f790c5f1c2383c6ff",
+      "bytes": 131194880,
       "members": [
         {
           "oid": "4ea47d8269e646742746d7a257854ee2c619c7c8fe12d13ce00808d004ec2ff7",
@@ -61304,13 +61145,6 @@
           "sha256": "52a24945572349f34897dfe3b95b8ef30d2531a1029efc77385bf0c49aaf1b54"
         },
         {
-          "oid": "52acc03bdb029cdf2ca3ee6f86806b36675761f8bdc904b3872871ebb9187864",
-          "offset": 0,
-          "bytes": 2142232,
-          "name": "52acc03bdb029cdf2ca3ee6f86806b36675761f8bdc904b3872871ebb9187864/000000000000",
-          "sha256": "52acc03bdb029cdf2ca3ee6f86806b36675761f8bdc904b3872871ebb9187864"
-        },
-        {
           "oid": "52ad075b183efaf8808177a40735a2ae00761c17bb883a8dcb37c0b5d94b708f",
           "offset": 0,
           "bytes": 60565,
@@ -61528,13 +61362,6 @@
           "sha256": "5493ce16c8386d879cf87193a60d85731fdfe467bae4cd927de1fd04d5bb6099"
         },
         {
-          "oid": "549850d19bc520cd933922bbc01e0617628038072ad8ac8ef2d6109f84bf4407",
-          "offset": 0,
-          "bytes": 954289,
-          "name": "549850d19bc520cd933922bbc01e0617628038072ad8ac8ef2d6109f84bf4407/000000000000",
-          "sha256": "549850d19bc520cd933922bbc01e0617628038072ad8ac8ef2d6109f84bf4407"
-        },
-        {
           "oid": "54b1bf1dea226f5dfcaa5a03888a18bb068148663b01a49ae336dc1e2c08ed2b",
           "offset": 0,
           "bytes": 248537,
@@ -61696,12 +61523,12 @@
           "sha256": "56161111be976ef2aa872e37846ac12dd8b1578d061abc6e82d94e5f12a1d250"
         }
       ],
-      "remote": "foundry-lfs-20261109-218c50d7/packs/744b1130763e083739f26768968d3d58c212b19b970aab5b3d17579d1ae13d44.tar"
+      "remote": "foundry-lfs-20261109-218c50d7/packs/ccd99ae929a6792e4d490b7c5ca13d432853f031295abd0f790c5f1c2383c6ff.tar"
     },
     {
       "index": 13,
-      "sha256": "a4a0abf28d029180f087db14d3ae09acd0cc115b060bd37202ac687a774fa120",
-      "bytes": 124344320,
+      "sha256": "26cbcffc788906fc3fb1fc7a18bfb7a33df6e3122d3b8bf536d89d8e8eb415ab",
+      "bytes": 124037120,
       "members": [
         {
           "oid": "5617c66df5a9b0ae4e0628b15b2b61e8827d026d48723f8cd5b5bd323cb178c5",
@@ -62523,13 +62350,6 @@
           "sha256": "5cb49f397036db21dc6d36a8692f896bb607fa2b765df02a2aaa4194ce075e4d"
         },
         {
-          "oid": "5cb6640cb3d99000b7221c12aeb454cec044ca93c2941cd2433b54bdbc2627e4",
-          "offset": 0,
-          "bytes": 314249,
-          "name": "5cb6640cb3d99000b7221c12aeb454cec044ca93c2941cd2433b54bdbc2627e4/000000000000",
-          "sha256": "5cb6640cb3d99000b7221c12aeb454cec044ca93c2941cd2433b54bdbc2627e4"
-        },
-        {
           "oid": "5cc01e765df6526394ebf33c44578141f5a8b3089059006cf3d8579c796282e1",
           "offset": 0,
           "bytes": 869456,
@@ -62754,12 +62574,12 @@
           "sha256": "5db4ffc1374ac0cafd33b0f37d326c848d207db9f0f3701a796d5b4d54661e8b"
         }
       ],
-      "remote": "foundry-lfs-20261109-218c50d7/packs/a4a0abf28d029180f087db14d3ae09acd0cc115b060bd37202ac687a774fa120.tar"
+      "remote": "foundry-lfs-20261109-218c50d7/packs/26cbcffc788906fc3fb1fc7a18bfb7a33df6e3122d3b8bf536d89d8e8eb415ab.tar"
     },
     {
       "index": 14,
-      "sha256": "d7cf3069026e1a18b970d5af382bafeeeeb03e7c47a7b4d27eb6fe464d6b5bc5",
-      "bytes": 132659200,
+      "sha256": "75234ed66e814f31c49b869c93b876689fd600c4ab4d0838a4d2820f33ec3fab",
+      "bytes": 129720320,
       "members": [
         {
           "oid": "5dcd4cdce11d74a5dc853f57b074f68d8f4e9a79dc1ecdee0351d0d99b81180d",
@@ -63019,13 +62839,6 @@
           "bytes": 2467160,
           "name": "5fd8621e92cb2d4ff117231f78cff7c5cd7f367cd775fa304d5f7f9e946438dd/000000000000",
           "sha256": "5fd8621e92cb2d4ff117231f78cff7c5cd7f367cd775fa304d5f7f9e946438dd"
-        },
-        {
-          "oid": "5fe35e844a6214544fd5b25eeeab1e2993ad02bfdc01053d40d8a52c5b5db99c",
-          "offset": 0,
-          "bytes": 1718891,
-          "name": "5fe35e844a6214544fd5b25eeeab1e2993ad02bfdc01053d40d8a52c5b5db99c/000000000000",
-          "sha256": "5fe35e844a6214544fd5b25eeeab1e2993ad02bfdc01053d40d8a52c5b5db99c"
         },
         {
           "oid": "5fe7a422cca7e46bd1b5bfb4e76a4fb96ecd9b9bd5b9f947d6045918125371b9",
@@ -63420,13 +63233,6 @@
           "sha256": "63179ee72c9339d8f62ce2ebbbf4fc1a7bd0fcf74106a59e12f325f0186905e1"
         },
         {
-          "oid": "6318150834204df45d271e414684d5cd058b90620bdde86dfa83ddb8e9d7749c",
-          "offset": 0,
-          "bytes": 1221827,
-          "name": "6318150834204df45d271e414684d5cd058b90620bdde86dfa83ddb8e9d7749c/000000000000",
-          "sha256": "6318150834204df45d271e414684d5cd058b90620bdde86dfa83ddb8e9d7749c"
-        },
-        {
           "oid": "632ceec0eb5396703190b91e784b6adc743263d70636c9f73eb3cedddc18082f",
           "offset": 0,
           "bytes": 138934,
@@ -63588,12 +63394,12 @@
           "sha256": "6425ee4b9e86ea63468fb52cbd120c40f0f5d4cbda1cfdd2414b93c9d3daf5e3"
         }
       ],
-      "remote": "foundry-lfs-20261109-218c50d7/packs/d7cf3069026e1a18b970d5af382bafeeeeb03e7c47a7b4d27eb6fe464d6b5bc5.tar"
+      "remote": "foundry-lfs-20261109-218c50d7/packs/75234ed66e814f31c49b869c93b876689fd600c4ab4d0838a4d2820f33ec3fab.tar"
     },
     {
       "index": 15,
-      "sha256": "443a97e6984ddda8865d195328ea874de8bc7d7ee626489c445650fc10104814",
-      "bytes": 133273600,
+      "sha256": "a48d2045c730ab5247dfe54e708b3ede3f27e688eb4b1e52097c98a0dde74df7",
+      "bytes": 132003840,
       "members": [
         {
           "oid": "642718b18727909326e5d2ca642100ebb9e27aa744f9550c91f38eea6abcc320",
@@ -64415,13 +64221,6 @@
           "sha256": "6a0add7ea364780f4ec8e4f2802133e185a996decf744cbad2e71d1b7a9ffd24"
         },
         {
-          "oid": "6a147c093152506e0c1b66cb405317578d8d547ec06f8d7fcca80f223a7ae929",
-          "offset": 0,
-          "bytes": 1261376,
-          "name": "6a147c093152506e0c1b66cb405317578d8d547ec06f8d7fcca80f223a7ae929/000000000000",
-          "sha256": "6a147c093152506e0c1b66cb405317578d8d547ec06f8d7fcca80f223a7ae929"
-        },
-        {
           "oid": "6a34732f7fbbd4808bfc6b918057e8a8b59cb2997bc5d678431f09c5d4c50181",
           "offset": 0,
           "bytes": 1681569,
@@ -64513,12 +64312,12 @@
           "sha256": "6ac8710a55b84cd59729c0164a5f604d40811e41b0b1024a2a96edfdb00603e6"
         }
       ],
-      "remote": "foundry-lfs-20261109-218c50d7/packs/443a97e6984ddda8865d195328ea874de8bc7d7ee626489c445650fc10104814.tar"
+      "remote": "foundry-lfs-20261109-218c50d7/packs/a48d2045c730ab5247dfe54e708b3ede3f27e688eb4b1e52097c98a0dde74df7.tar"
     },
     {
       "index": 16,
-      "sha256": "d022529c54561c35092b43e667f269a0f41aacdd91415cf222e8892aad0c1c16",
-      "bytes": 128798720,
+      "sha256": "9f96d060f2f72312159ae59e4bf7190703f9fc850d7d06cf93e51f9757cc7df5",
+      "bytes": 127580160,
       "members": [
         {
           "oid": "6adbc1377dfcf51d4ae7d8c2758f6c828f7a3c1ee90e02e16cd9d7d745a3cd88",
@@ -64729,13 +64528,6 @@
           "bytes": 361514,
           "name": "6c61748e546b6d4932e0e66e86d3ddb96a629f504445ba8e7d6c4b35d6613867/000000000000",
           "sha256": "6c61748e546b6d4932e0e66e86d3ddb96a629f504445ba8e7d6c4b35d6613867"
-        },
-        {
-          "oid": "6c674f2c170d1794d0ec7431d628fd644ac3b49912585d00b4372f2e92e283fd",
-          "offset": 0,
-          "bytes": 1220155,
-          "name": "6c674f2c170d1794d0ec7431d628fd644ac3b49912585d00b4372f2e92e283fd/000000000000",
-          "sha256": "6c674f2c170d1794d0ec7431d628fd644ac3b49912585d00b4372f2e92e283fd"
         },
         {
           "oid": "6c67f9d77d6da08198015c4fcb90296c89574371c183b763de2e0c9060590a2d",
@@ -65396,7 +65188,7 @@
           "sha256": "7029a40cb31a1f241e467619d029b57d4fa50a5a61635f775093ce6a6556c4ef"
         }
       ],
-      "remote": "foundry-lfs-20261109-218c50d7/packs/d022529c54561c35092b43e667f269a0f41aacdd91415cf222e8892aad0c1c16.tar"
+      "remote": "foundry-lfs-20261109-218c50d7/packs/9f96d060f2f72312159ae59e4bf7190703f9fc850d7d06cf93e51f9757cc7df5.tar"
     },
     {
       "index": 17,
@@ -77322,8 +77114,8 @@
     },
     {
       "index": 46,
-      "sha256": "368204ba5af9c6d665296268fd40b701606de2cb53cbd8b6d80b95dcdd3f1af5",
-      "bytes": 133406720,
+      "sha256": "b14e9d17b2a31980737c73e9eae92cd1b24d1eba3df8d06bce452f0ddb14aa10",
+      "bytes": 127795200,
       "members": [
         {
           "oid": "c7e03af93b690867ab24fe41bcfcd8a91b8988524920bf9220700df8ed6c18df",
@@ -77373,13 +77165,6 @@
           "bytes": 2033297,
           "name": "c7f55bb78ec14c1c9a8c1b0354cc5e967b5915e6e0035449943e1a39fa468dca/000000000000",
           "sha256": "c7f55bb78ec14c1c9a8c1b0354cc5e967b5915e6e0035449943e1a39fa468dca"
-        },
-        {
-          "oid": "c7fbbf501f1075ee1320e54fe07ae2e1ff387735cdb733d728356b6a7ed9f19e",
-          "offset": 0,
-          "bytes": 1750457,
-          "name": "c7fbbf501f1075ee1320e54fe07ae2e1ff387735cdb733d728356b6a7ed9f19e/000000000000",
-          "sha256": "c7fbbf501f1075ee1320e54fe07ae2e1ff387735cdb733d728356b6a7ed9f19e"
         },
         {
           "oid": "c81b8ac300c24217dd40aba6f8813b9636acd2151c68ec40cdf0cc9fcf017602",
@@ -77907,13 +77692,6 @@
           "sha256": "cbd6c8b9198393fdcf71044ae39cfd4370b02373b761b290a74089465d717928"
         },
         {
-          "oid": "cbe19ae1f681cb1d514ef3a6fff2b8a00228ea280ecd489b8ffbbcb16472a629",
-          "offset": 0,
-          "bytes": 2592762,
-          "name": "cbe19ae1f681cb1d514ef3a6fff2b8a00228ea280ecd489b8ffbbcb16472a629/000000000000",
-          "sha256": "cbe19ae1f681cb1d514ef3a6fff2b8a00228ea280ecd489b8ffbbcb16472a629"
-        },
-        {
           "oid": "cbede85a20b09e718bc24041658553c333d64327b0926dbc27a3b71397365f5e",
           "offset": 0,
           "bytes": 442378,
@@ -78187,13 +77965,6 @@
           "sha256": "cdded021e2294621f3fcdbc5326f2977cce6c9cbc6873a52d275c5dee664c96d"
         },
         {
-          "oid": "cddf26e8d527dbc6a2704d05f61073a47b3b7ea6b66d24ed8f577c8dab3929a2",
-          "offset": 0,
-          "bytes": 1264661,
-          "name": "cddf26e8d527dbc6a2704d05f61073a47b3b7ea6b66d24ed8f577c8dab3929a2/000000000000",
-          "sha256": "cddf26e8d527dbc6a2704d05f61073a47b3b7ea6b66d24ed8f577c8dab3929a2"
-        },
-        {
           "oid": "cde03f385727797c23bcf018c6e82029b1a9a0fa98a2e624e97e91b26474de8c",
           "offset": 0,
           "bytes": 380408,
@@ -78215,7 +77986,7 @@
           "sha256": "cdf2c4e536444a37a915ffc5b734ae7e842f7c82f7b1fda052b6ef2ea4ead5a0"
         }
       ],
-      "remote": "foundry-lfs-20261109-218c50d7/packs/368204ba5af9c6d665296268fd40b701606de2cb53cbd8b6d80b95dcdd3f1af5.tar"
+      "remote": "foundry-lfs-20261109-218c50d7/packs/b14e9d17b2a31980737c73e9eae92cd1b24d1eba3df8d06bce452f0ddb14aa10.tar"
     },
     {
       "index": 47,
@@ -82361,8 +82132,8 @@
     },
     {
       "index": 52,
-      "sha256": "ac8d4945decccfb6bc483c5b32715587bbbebabcefc2715118eccbce6e718fd1",
-      "bytes": 132689920,
+      "sha256": "15f903a2741cbfc14d2f6e1d8a023becd34cadd58eabc97199b7bff12733f829",
+      "bytes": 130611200,
       "members": [
         {
           "oid": "ed532a8adef9274112df635b7fba351fd35d9ed9abe458b2300e7ffa709b3526",
@@ -83016,13 +82787,6 @@
           "sha256": "f1df473a34b8aaf6e6762948c8dab2a3454df16d5578ef21abc800b76c6e6c9f"
         },
         {
-          "oid": "f1eaaf7c40c91c24801083aa912a5ec4ac6dc68a27c9ee791ec66e7d9e3fe7c9",
-          "offset": 0,
-          "bytes": 2087527,
-          "name": "f1eaaf7c40c91c24801083aa912a5ec4ac6dc68a27c9ee791ec66e7d9e3fe7c9/000000000000",
-          "sha256": "f1eaaf7c40c91c24801083aa912a5ec4ac6dc68a27c9ee791ec66e7d9e3fe7c9"
-        },
-        {
           "oid": "f1f0e980d6cdb9d3f6af240cf3ba513175231e25f6abe740647c423f7c6be596",
           "offset": 0,
           "bytes": 632025,
@@ -83422,12 +83186,12 @@
           "sha256": "f49a6e600827a23e6f71d9b7109779789d00daf4332364411033845a942b9fd9"
         }
       ],
-      "remote": "foundry-lfs-20261109-218c50d7/packs/ac8d4945decccfb6bc483c5b32715587bbbebabcefc2715118eccbce6e718fd1.tar"
+      "remote": "foundry-lfs-20261109-218c50d7/packs/15f903a2741cbfc14d2f6e1d8a023becd34cadd58eabc97199b7bff12733f829.tar"
     },
     {
       "index": 53,
-      "sha256": "5195b0f2f9445bd17a01c72999071bbd5a58669c9d3aee863ca98980133f23a0",
-      "bytes": 131747840,
+      "sha256": "e866f669117335b55539263c2d75349ffe712884352120a02ed8371f0b98a4b7",
+      "bytes": 130846720,
       "members": [
         {
           "oid": "f4a1324d806e8f4f86e54ca4dbb2d33774209e622c659873e207913d7fac1278",
@@ -84291,13 +84055,6 @@
           "sha256": "fa3412dfb304c30ce1903d5d15febef12e744d2f101fe0091a803ec332188cd7"
         },
         {
-          "oid": "fa35a9f5247e7a7d5bf72d8dab9969a939fd035d6b0aa5f416f5351ed4e65dbb",
-          "offset": 0,
-          "bytes": 901628,
-          "name": "fa35a9f5247e7a7d5bf72d8dab9969a939fd035d6b0aa5f416f5351ed4e65dbb/000000000000",
-          "sha256": "fa35a9f5247e7a7d5bf72d8dab9969a939fd035d6b0aa5f416f5351ed4e65dbb"
-        },
-        {
           "oid": "fa50b9181a5df3f0d175782af8d7e4e99b6193f19fe9a96cf5411a957aead693",
           "offset": 0,
           "bytes": 899953,
@@ -84494,7 +84251,7 @@
           "sha256": "fc2a23c14beb23030b237d13269193cae3006aec806432603ed2a1271b2926ec"
         }
       ],
-      "remote": "foundry-lfs-20261109-218c50d7/packs/5195b0f2f9445bd17a01c72999071bbd5a58669c9d3aee863ca98980133f23a0.tar"
+      "remote": "foundry-lfs-20261109-218c50d7/packs/e866f669117335b55539263c2d75349ffe712884352120a02ed8371f0b98a4b7.tar"
     },
     {
       "index": 54,
@@ -85044,8 +84801,8 @@
       "remote": "foundry-lfs-20261109-218c50d7/packs/0abcb006c1c76fed9355c49fd5604a9612b1205dc09b0bcd432643377ee07f3f.tar"
     }
   ],
-  "unique_objects": 4816,
-  "unique_bytes": 7185747760,
-  "path_count": 5266,
+  "unique_objects": 4802,
+  "unique_bytes": 7166076957,
+  "path_count": 5251,
   "production_filters_changed": false
 }

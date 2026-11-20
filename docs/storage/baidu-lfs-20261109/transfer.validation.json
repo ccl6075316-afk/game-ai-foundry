@@ -2,5 +2,6 @@
   "ok": true,
   "errors": [],
   "packs": 55,
-  "manifest_sha256": "9f0c70f93575736dea39d3a89687b25462898593a02e82f48901bfb6114883af"
+  "round_tripped_this_update": 10,
+  "manifest_sha256": "caa6a090ee38e281885808f58552aef72f6e85823d387aa43b951d4d0df3c2c8"
 }

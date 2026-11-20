@@ -1,11 +1,14 @@
 {
   "ok": true,
-  "manifest_sha256": "9f0c70f93575736dea39d3a89687b25462898593a02e82f48901bfb6114883af",
-  "objects_reconstructed_sha256": 4816,
-  "paths_covered": 5266,
-  "unique_bytes": 7185747760,
-  "packs_downloaded_verified": 55,
-  "all_current_lfs_sources_unchanged": true,
+  "manifest_sha256": "caa6a090ee38e281885808f58552aef72f6e85823d387aa43b951d4d0df3c2c8",
+  "previous_manifest_sha256": "9f0c70f93575736dea39d3a89687b25462898593a02e82f48901bfb6114883af",
+  "removed_review_video_oids": 14,
+  "objects_retained_with_identical_chunks": 4802,
+  "paths_covered": 5251,
+  "unique_bytes": 7166076957,
+  "packs_downloaded_verified_this_update": 10,
+  "unchanged_packs": 45,
+  "restored_sample_objects": 10,
   "second_physical_computer_tested": false,
   "git_filters_changed": false
 }
