@@ -1,0 +1,26 @@
+{
+  "body_source": "surface-motion-01",
+  "eye_source": "surface-motion-02",
+  "eye_tile_png_xyxy": [
+    0,
+    837,
+    220,
+    1017
+  ],
+  "non_eye_rgb_texels_exact": 2057552,
+  "ocular_tile_texels_exact": 39600,
+  "exact_accessors": 77,
+  "sha256": "0468bcc8acd46cf103b0c0d7674db2d6f70faaa97afa9ee76110606e76728da2",
+  "triangles": 4952,
+  "bones": 17,
+  "actions": [
+    "Cruise",
+    "FilterFeed"
+  ],
+  "godot_pixel_differences_vs_01": {
+    "whole": 1666,
+    "eye": 71422,
+    "ventral": 40,
+    "oral": 7438
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "glb_sha256": "2fc8010036e60390a873887e0e228b9ebcac16777df633fe0d51a6f85751557a",
+  "blend_sha256": "2d7919ef4ceb81d102f4fc8b7e1d0a9d101ed277ab5264897efafeccf1a9b98a",
+  "atlas_sha256": "7ab07f906351ca1075108011b62c9049d35da362136b827b070efc57b5a845f3",
+  "mesh_count": 1,
+  "primitive_count": 1,
+  "triangles": 4438,
+  "gltf_vertices": 3262,
+  "materials": 1,
+  "images": 1,
+  "uv_channels": [
+    "TEXCOORD_0"
+  ],
+  "joints": 10,
+  "clip": "Loggerhead_Swim",
+  "duration_s": 3.5,
+  "reimported_frames": [
+    1,
+    106
+  ],
+  "max_loop_error_m": 0.0,
+  "foretip_vertical_travel_m": [
+    0.729024201631546,
+    0.7295522391796112
+  ],
+  "preview": "Blender cold-imported GLB, 30 fps"
+}

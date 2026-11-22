@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-23",
+  "scope": "两只动物的当前独立资产。Blender 冷开后纹理内嵌，Godot 4.6.1 隔离工程冷导并验证三段动作均驱动骨骼。正式展缸、钓鱼行为和目标硬件性能未验。",
+  "animals": {
+    "loggerhead": {
+      "foundry_source": "resources/volume-fish/loggerhead-start-20261119/surfacing-motion-r1/loggerhead-swim.blend",
+      "game_source": "assets/source/fish/loggerhead/fish.blend",
+      "game_model": "game/assets/models/fish/loggerhead.glb",
+      "source_sha256": "2d7919ef4ceb81d102f4fc8b7e1d0a9d101ed277ab5264897efafeccf1a9b98a",
+      "glb_sha256": "2fc8010036e60390a873887e0e228b9ebcac16777df633fe0d51a6f85751557a",
+      "triangles": 4438,
+      "joints": 10,
+      "clips": [
+        "Loggerhead_Swim"
+      ]
+    },
+    "skye_manta": {
+      "foundry_source": "resources/volume-fish/manta-start-20261119/surface-motion-03/manta.blend",
+      "game_source": "assets/source/fish/skye_manta/fish.blend",
+      "game_model": "game/assets/models/fish/skye_manta.glb",
+      "source_sha256": "fa138364423c12417e0cc948ea7434a6c8a81710de35704aa13c2984bd95abce",
+      "glb_sha256": "0468bcc8acd46cf103b0c0d7674db2d6f70faaa97afa9ee76110606e76728da2",
+      "triangles": 4952,
+      "joints": 17,
+      "clips": [
+        "Cruise",
+        "FilterFeed"
+      ]
+    }
+  }
+}

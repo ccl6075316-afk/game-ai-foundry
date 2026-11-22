@@ -215,3 +215,14 @@ resources/fish-database/references/recovered-history-20261108/**/*.glb filter=lf
 /resources/fish-database/catalogs/hookem-fishing-xiaomi-4-3-20261114/** -text whitespace=cr-at-eol
 /resources/fish-database/catalogs/national-fishing-2-2-6-7-20261114/** -text whitespace=cr-at-eol
 /resources/fish-database/evidence/fishing-model-comparison-20261114/audit.json -text whitespace=cr-at-eol
+
+# Loggerhead turtle and Skye manta model assets.
+/resources/volume-fish/loggerhead-start-20261119/surfacing-motion-r1/loggerhead-swim.blend filter=lfs diff=lfs merge=lfs -text
+/resources/volume-fish/loggerhead-start-20261119/surfacing-motion-r1/loggerhead-swim.glb filter=lfs diff=lfs merge=lfs -text
+/resources/volume-fish/loggerhead-start-20261119/surfacing-motion-r1/loggerhead-albedo.png filter=lfs diff=lfs merge=lfs -text
+/resources/volume-fish/loggerhead-start-20261119/surfacing-motion-r1/swim-phases.jpg filter=lfs diff=lfs merge=lfs -text
+/resources/volume-fish/manta-start-20261119/surface-motion-03/manta.blend filter=lfs diff=lfs merge=lfs -text
+/resources/volume-fish/manta-start-20261119/surface-motion-03/manta.glb filter=lfs diff=lfs merge=lfs -text
+/resources/volume-fish/manta-start-20261119/surface-motion-03/manta-albedo.png filter=lfs diff=lfs merge=lfs -text
+/resources/volume-fish/manta-start-20261119/surface-motion-03/comparison.jpg filter=lfs diff=lfs merge=lfs -text
+/resources/volume-fish/manta-start-20261119/lighting-study-20261120/lighting-comparison.jpg filter=lfs diff=lfs merge=lfs -text

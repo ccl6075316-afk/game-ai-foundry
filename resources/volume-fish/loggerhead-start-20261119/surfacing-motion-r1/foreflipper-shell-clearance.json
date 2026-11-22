@@ -1,0 +1,8 @@
+{
+  "scope": "106 evaluated source frames, designed free foreflipper vertices only, rest abs(y)>=0.32 m; nearest signed distance to evaluated closed shell",
+  "sample_vertices": 144,
+  "frames": 106,
+  "min_signed_m": 0.021720806136727333,
+  "penetrations_below_minus_0_1mm": 0,
+  "minimum_frame": 63
+}
