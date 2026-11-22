@@ -1,0 +1,87 @@
+{
+  "date": "2026-11-19",
+  "scope": "制作前选材。",
+  "remote": {
+    "海龟": [
+      {
+        "source": "ffishasia-3d-20261111",
+        "title": "CC0 アカウミガメ 🐢 Loggerhead Sea Turtle, C. caretta",
+        "url": "https://sketchfab.com/3d-models/162c2c1391424d91b6c770614bd8f7ff",
+        "api": "https://api.sketchfab.com/v3/models/162c2c1391424d91b6c770614bd8f7ff",
+        "license": "cc0",
+        "face_count": 1976701,
+        "animation_count": 0,
+        "downloadable": true,
+        "asset_downloaded": false
+      },
+      {
+        "source": "digitallife3d-20261111",
+        "title": "Model 47A - Loggerhead Sea Turtle",
+        "url": "https://sketchfab.com/3d-models/c438e81e796d41d9a6ae4cc147ef8d4f",
+        "api": "https://api.sketchfab.com/v3/models/c438e81e796d41d9a6ae4cc147ef8d4f",
+        "license": "by-nc",
+        "face_count": 12496,
+        "animation_count": 1,
+        "downloadable": true,
+        "asset_downloaded": false
+      },
+      {
+        "source": "digitallife3d-20261111",
+        "title": "Model 46A - Subadult Green Sea Turtle",
+        "url": "https://sketchfab.com/3d-models/79d10dc4aa45412ca40f7cf6f099230c",
+        "api": "https://api.sketchfab.com/v3/models/79d10dc4aa45412ca40f7cf6f099230c",
+        "license": "by-nc",
+        "face_count": 7604,
+        "animation_count": 1,
+        "downloadable": true,
+        "asset_downloaded": false
+      }
+    ],
+    "魔鬼鱼": [
+      {
+        "source": "digitallife3d-20261111",
+        "title": "Model 84C - Manta Ray Mesh",
+        "url": "https://sketchfab.com/3d-models/38fa168e96944e518fe15e702ad79ee0",
+        "api": "https://api.sketchfab.com/v3/models/38fa168e96944e518fe15e702ad79ee0",
+        "license": "by-nc",
+        "face_count": 68784,
+        "animation_count": 0,
+        "downloadable": true,
+        "asset_downloaded": false
+      },
+      {
+        "source": "digitallife3d-20261111",
+        "title": "Model 84B - Manta Ray Swimming",
+        "url": "https://sketchfab.com/3d-models/73e539c7ac5940e5aad4c58257df9725",
+        "api": "https://api.sketchfab.com/v3/models/73e539c7ac5940e5aad4c58257df9725",
+        "license": "by-nc",
+        "face_count": 17164,
+        "animation_count": 1,
+        "downloadable": true,
+        "asset_downloaded": false
+      },
+      {
+        "source": "digitallife3d-20261111",
+        "title": "Model 84A - Manta Ray Feeding",
+        "url": "https://sketchfab.com/3d-models/7dfe925693d24f7395ea8166c3de042c",
+        "api": "https://api.sketchfab.com/v3/models/7dfe925693d24f7395ea8166c3de042c",
+        "license": "by-nc",
+        "face_count": 17164,
+        "animation_count": 1,
+        "downloadable": true,
+        "asset_downloaded": false
+      }
+    ]
+  },
+  "local_manta": {
+    "reference": "references/fishing-master-cdn-cnformal1-20261102-manta.json",
+    "mesh": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/e38ab4a0f5659f02f2faadfbe5234e194a16a306064c491bdc4afee1bb76487c.obj",
+    "sha256": "e38ab4a0f5659f02f2faadfbe5234e194a16a306064c491bdc4afee1bb76487c",
+    "triangles": 8192,
+    "use": "竞品怪物变体，供游戏造型比较"
+  },
+  "notes": {
+    "海龟": "蠵龟优先。47A 的 86 cm 为该个体的直线背甲长。核对喙、背甲侧拱及前肢根部。",
+    "魔鬼鱼": "优先参考 Skye，原作者标 Mobula c.f. birostris，盘宽 2.5 m。84C 为形体，84B 游泳，84A 摄食。"
+  }
+}

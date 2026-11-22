@@ -41,6 +41,8 @@ func begin(kind: String,data: Dictionary,existing: Dictionary={}) -> bool:
         hall.camera_target=box.get_center()+hall.editor_camera.global_basis.x*hall.view_size*.09
         hall._camera()
     refresh()
+    if contents!=null and not source.is_empty():
+        contents.resume_fish_from(source.node.get_node_or_null("Shell/Contents"))
     hall.notice="调整后保存缸形，Esc 取消。" if mode=="shape" else "完成布置后保存内部，Esc 取消。"
     return true
 
@@ -82,6 +84,11 @@ func save() -> bool:
             if draft.has(key) and draft[key]!=source.data.get(key):patch[key]=draft[key]
         if not patch.is_empty():ok=hall._execute_build("patch",{"id":id,"patch":patch})
     if not ok:return false
+    if contents!=null:
+        for row in hall.objects:
+            if row.data.id==id:
+                row.node.get_node("Shell/Contents").resume_fish_from(contents)
+                break
     var message:="缸形已保存。" if mode=="shape" else "缸内布置已保存。"
     close()
     for i in hall.objects.size():

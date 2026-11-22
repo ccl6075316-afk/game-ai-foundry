@@ -29,7 +29,8 @@ class HallSourceSyncTests(unittest.TestCase):
             self.assertIn("hall/" + name + ".gd", NAMES)
         self.assertIn("visitors/HallVisitorCrowd.gd", NAMES)
         self.assertIn("visitors/HallVisitorNavigation.gd", NAMES)
-        self.assertIn("visitors/VisitorMaterialV2.gdshader", NAMES)
+        self.assertIn("visitors/VisitorMaterialV4.gdshader", NAMES)
+        self.assertIn("visitors/GuestContactShadow.gdshader", NAMES)
 
 
 if __name__ == "__main__":

@@ -50,6 +50,7 @@ func sync(data: Dictionary,bed: Dictionary) -> void:
         var p:=box.position+box.size*Vector2(entry.item.u,entry.item.v)
         entry.center=Vector3(p.x,lerpf(bed_top,Interior.waterline(height),.54),p.y)
         entry.radius=minf(Interior.clearance(p,path)-entry.length*.61,entry.length*1.4)
+        if entry.has("arapaima"):entry.arapaima.fit(entry,box,bed,height,props)
     set_process(not swimmers.is_empty())
     if not swimmers.is_empty():_process(0)
 
@@ -66,6 +67,16 @@ func reconcile(entries: Array[Dictionary],items: Array,fish: bool) -> void:
         old.root.hide()
         old.root.queue_free()
 
+func resume_fish_from(other: Node3D) -> void:
+    if other==null:return
+    var remaining: Array=other.swimmers.duplicate()
+    for entry in swimmers:
+        if not entry.has("arapaima"):continue
+        var index:=remaining.find_custom(func(e):return e.item==entry.item)
+        if index>=0:
+            entry.arapaima.resume_from(remaining.pop_at(index).arapaima)
+            entry.arapaima.advance(entry,0.0)
+
 func make_prop(item: Dictionary) -> Dictionary:
     var asset:Dictionary=Interior.assets()[item.id]
     var model: Node3D=(load(asset.model) as PackedScene).instantiate()
@@ -79,9 +90,10 @@ func make_prop(item: Dictionary) -> Dictionary:
         box=extent if first else box.merge(extent)
         first=false
     var factor:=1.0/maxf(.001,box.size[box.size.max_axis_index()])
+    var original_transform:=model.transform
     model.scale*=factor
     model.position-=Vector3(box.get_center().x,box.position.y,box.get_center().z)*factor
-    return {"item":item,"root":anchor}
+    return {"item":item,"root":anchor,"bounds":(model.transform*original_transform.affine_inverse())*box}
 
 func make_fish(item: Dictionary,index: int) -> Dictionary:
     if factory==null:factory=Factory.new()
@@ -92,12 +104,20 @@ func make_fish(item: Dictionary,index: int) -> Dictionary:
     if rig.is_empty():return {}
     for mesh: MeshInstance3D in rig.model.find_children("*","MeshInstance3D",true,false):
         mesh.layers=light_layer | 1
-    return {"item":item,"root":rig.carrier,"controller":rig.controller,"length":length_m,"sign":rig.profile.head_sign,"phase":phase}
+    var entry: Dictionary={"item":item,"root":rig.carrier,"controller":rig.controller,"length":length_m,"sign":rig.profile.head_sign,"phase":phase}
+    if item.id=="arapaima":
+        entry.arapaima=preload("ArapaimaTankMotion.gd").new()
+        var release=factory._release(factory.model_path(item.id),item.id)
+        entry.arapaima.setup(rig,phase,factory._recipe(release,item.id))
+    return entry
 
 func _process(delta: float) -> void:
     if not is_visible_in_tree():return
     elapsed+=delta
     for entry in swimmers:
+        if entry.has("arapaima"):
+            entry.arapaima.advance(entry,delta)
+            continue
         entry.controller.step(delta)
         var a:float=entry.phase+elapsed*.58
         var tangent:=Vector2(-sin(a),cos(a))*float(entry.sign)

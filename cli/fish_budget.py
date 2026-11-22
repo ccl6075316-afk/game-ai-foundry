@@ -19,6 +19,10 @@ def triangle_policy(real_length_cm, *, species=None, anatomical_group=None):
     if species == 'whale_shark' and real_length_cm == 800:
         hard = 10000
         policy_id = 'user-whale-shark-800cm-20261106'
+    if species in ('loggerhead', 'loggerhead_sea_turtle', 'skye_manta'):
+        hard = 5000
+        preferred = min(preferred, hard)
+        policy_id = 'user-loggerhead-skye-manta-20261119'
     return {'policy_id':policy_id,'real_length_cm':real_length_cm,'preferred_triangles':preferred,'hard_triangles':hard,'anatomical_group':'shark' if shark else anatomical_group,'species':species}
 
 def check_triangle_budget(triangles,real_length_cm,declared_hard=None, *, species=None, anatomical_group=None):

@@ -12,10 +12,11 @@ NAMES += ['hall/HallInterfaceStyle.gd', 'hall/HallWallJoints.gd']
 NAMES += ['tank_design/'+name for name in [
     'FinishedShell.gd', 'Footprint.gd', 'HallShellCatalog.gd', 'HallShellHandles.gd',
     'HallShellInspector.gd', 'HallShellSession.gd', 'PlanCanvas.gd', 'ShellBedMesh.gd',
-    'ShellContentsView.gd', 'ShellDesign.gd', 'ShellGlass.gdshader', 'ShellInterior.gd',
+    'ShellContentsView.gd', 'ArapaimaTankMotion.gd', 'ShellDesign.gd', 'ShellGlass.gdshader', 'ShellInterior.gd',
     'ShellInteriorPanel.gd', 'ShellMesh.gd', 'TankPreview.gd', 'Workshop.gd']]
 
-NAMES += ['visitors/'+name for name in ['HallVisitorCrowd.gd','HallVisitorNavigation.gd','VisitorMaterialV2.gdshader']]
+NAMES += ['individual_swim/ArapaimaPose.gd', 'individual_swim/PectoralPose.gd', 'fish_school/FishSchoolMotionAdapter.gd']
+NAMES += ['visitors/'+name for name in ['HallVisitorCrowd.gd','HallVisitorNavigation.gd','VisitorMaterialV4.gdshader','GuestContactShadow.gdshader']]
 
 NAMES += ['passage/'+name for name in ['PassageRoute.gd','PassageSession.gd','PassageMesh.gd','PassageWorld.gd','PassagePanel.gd','PassageLab.gd','PassageDryVolume.gdshaderinc','PassageOuterGlass.gdshader']]
 

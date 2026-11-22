@@ -1,15 +1,14 @@
 extends Node3D
-## Six archetype draw groups share three appearances; visitors are data, never nodes.
+## One instanced hall guest mesh supports three appearances.
 const Navigation = preload("res://scripts/aquarium/visitors/HallVisitorNavigation.gd")
 # Session trial limit; this does not define future hall or simulation capacity.
 const MAX_VISITORS := 200
 const ROUTES_PER_FRAME := 2
 const BUCKET := .8
 const SEPARATION := Navigation.RADIUS * 2.0 + .02
-const MESH_NAMES := ["adult_male", "adult_female", "elderly_male", "elderly_female", "boy", "girl"]
+const MESH_NAMES := ["adult_male"]
 const APPEARANCE_NAMES := ["white", "east_asian", "black"]
-const ASSET_ROOT := "res://assets/visitors-v2/"
-const VARIANT_COUNT := 18
+const ASSET_ROOT := "res://assets/visitors-v4/"
 var navigation = Navigation.new()
 var requested_count := 24
 var agents: Array = []
@@ -41,19 +40,21 @@ func _ready() -> void:
     var atlas = paint.get_shader_parameter("visitor_atlas") if paint is ShaderMaterial else null
     if not validate_resources(meshes, paint, atlas): return
     material = paint.duplicate()
+    material.set_shader_parameter("distance_driven", true)
     for index in MESH_NAMES.size():
         var node := MultiMeshInstance3D.new()
         node.name = "Visitors_" + MESH_NAMES[index]
         var multimesh := MultiMesh.new()
         multimesh.transform_format = MultiMesh.TRANSFORM_3D
         multimesh.use_custom_data = true
-        multimesh.mesh = meshes[index]
+        # The second surface keeps its own contact-shadow material.
+        multimesh.mesh = meshes[index].duplicate()
+        multimesh.mesh.surface_set_material(0, material)
         multimesh.instance_count = ceili(float(MAX_VISITORS) / MESH_NAMES.size())
         multimesh.visible_instance_count = 0
         node.multimesh = multimesh
         node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
         node.custom_aabb = AABB(Vector3(-24, -.1, -22), Vector3(48, 3, 44))
-        node.material_override = material
         add_child(node); groups.append(node)
 
 func validate_resources(meshes: Array, paint: Variant, atlas: Variant) -> bool:
@@ -61,7 +62,7 @@ func validate_resources(meshes: Array, paint: Variant, atlas: Variant) -> bool:
     if meshes.size() != MESH_NAMES.size(): resource_error = "缺少游客模型。"
     else:
         for index in meshes.size():
-            if not meshes[index] is Mesh or meshes[index].get_surface_count() == 0:
+            if not meshes[index] is Mesh or meshes[index].get_surface_count() < 2:
                 resource_error = "游客模型无效：" + MESH_NAMES[index]
                 break
     if resource_error.is_empty() and (not paint is ShaderMaterial or paint.shader == null):
@@ -126,7 +127,7 @@ func _populate() -> void:
         var agent := {"position": point, "target": point, "face": point, "path": PackedVector2Array(), "waypoint": 0,
             "yaw": rng.randf_range(-PI, PI), "phase": rng.randf_range(0, TAU), "palette": index % 8,
             "appearance": (index / MESH_NAMES.size() + group_index) % APPEARANCE_NAMES.size(), "group": group_index, "motion": 0.0,
-            "timer": rng.randf_range(0, 1.5), "stuck": 0.0, "state": "waiting", "speed": rng.randf_range(.62, .9)}
+            "timer": rng.randf_range(0, 1.5), "stuck": 0.0, "velocity": 0.0, "state": "waiting", "speed": rng.randf_range(.62, .9)}
         agents.append(agent); _occupy(point, index)
     _upload()
 
@@ -164,7 +165,7 @@ func _process(delta: float) -> void:
         dirty = false; _populate()
     var step := minf(delta, .05)
     crowd_time += step
-    if material != null: material.set_shader_parameter("crowd_time", crowd_time)
+    material.set_shader_parameter("crowd_time", crowd_time)
     # Rotate scheduling order so sustained congestion cannot starve later visitors.
     for offset in agents.size():
         var index := (route_cursor + offset) % agents.size()
@@ -181,15 +182,24 @@ func _process(delta: float) -> void:
         var moving := false
         if not agent.path.is_empty():
             var target: Vector2 = agent.path[agent.waypoint]
-            var next: Vector2 = agent.position.move_toward(target, agent.speed * step)
+            var heading: Vector2 = target - Vector2(agent.position)
+            var desired_speed: float = agent.speed
+            if heading.length_squared() > .000001:
+                var target_yaw := atan2(-heading.x, -heading.y)
+                agent.yaw = rotate_toward(agent.yaw, target_yaw, step * 5.5)
+                desired_speed *= maxf(0.0, cos(angle_difference(agent.yaw, target_yaw)))
+            if agent.waypoint == agent.path.size() - 1:
+                desired_speed = minf(desired_speed, sqrt(3.2 * heading.length()))
+            agent.velocity = move_toward(agent.velocity, desired_speed, step * 1.8)
+            var next: Vector2 = agent.position.move_toward(target, agent.velocity * step)
             if _space_free(next, index):
                 var before: Vector2 = agent.position
                 occupancy[_bucket(before)].erase(index)
                 agent.position = next; _occupy(next, index)
-                moving = before.distance_squared_to(next) > .000001
+                moving = before != next
                 if moving:
-                    var direction := next - before
-                    agent.yaw = lerp_angle(agent.yaw, atan2(-direction.x, -direction.y), minf(1, step * 8))
+                    var distance := before.distance_to(next)
+                    agent.phase = fmod(agent.phase + distance * TAU / .84, TAU)
                 agent.stuck = 0.0
                 if next.distance_squared_to(target) < .000001:
                     agent.waypoint += 1
@@ -204,7 +214,8 @@ func _process(delta: float) -> void:
         elif agent.state == "watching":
             var direction: Vector2 = agent.face - agent.position
             if direction.length_squared() > .01: agent.yaw = lerp_angle(agent.yaw, atan2(-direction.x, -direction.y), minf(1, step * 5))
-        agent.motion = move_toward(agent.motion, 1.0 if moving else 0.0, step * 5)
+        if not moving: agent.velocity = 0.0
+        agent.motion = move_toward(agent.motion, 1.0 if moving else 0.0, step * 4)
     if not agents.is_empty(): route_cursor = (route_cursor + ROUTES_PER_FRAME) % agents.size()
     _upload()
     last_update_usec = Time.get_ticks_usec() - started
@@ -236,7 +247,8 @@ func get_review_snapshot() -> Dictionary:
             "appearance_group": agent.appearance, "appearance": appearance})
     return {"active_count": agents.size(), "requested_count": requested_count, "walking": walking, "watching": watching,
         "group_count": groups.size(), "active_group_count": active_groups.size() if visible and not paused else 0, "active_variant_count": variants.size(),
-        "variant_capacity": VARIANT_COUNT, "trial_population_cap": MAX_VISITORS, "asset_directory": ASSET_ROOT.trim_suffix("/"),
+        "variant_capacity": APPEARANCE_NAMES.size(), "trial_population_cap": MAX_VISITORS, "asset_directory": ASSET_ROOT.trim_suffix("/"),
+        "guest_asset_directory": ASSET_ROOT.trim_suffix("/"),
         "last_update_usec": last_update_usec, "nav_rebuild_usec": navigation.rebuild_usec,
         "layout_revision": navigation.revision, "dirty": dirty, "paused": paused, "last_route_requests": last_route_requests,
         "resources_ready": resources_ready, "resource_error": resource_error, "instances": instances}

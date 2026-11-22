@@ -4,13 +4,15 @@
 
 ## 可复用入口
 
+2026-11-19，面向 PC 发售的目标是至少 60% 的目标玩家电脑可玩，评估基线为原生 1920×1080。记录实际 3D 渲染分辨率、画质、设备和帧率门槛。以目标市场的硬件调查选取候选测试机，在代表性整机上测带水体、动画、鱼群与交互的实际场景，记录整帧时间及慢帧。按覆盖到的性能档与调查份额估算覆盖率，注明平台、调查月份和不确定范围。本文历史 720p 或单资产计时仅用于各自实验内的比较。
+
 Foundry `resources/scripts/volume-fish/audit_runtime_performance.gd` 在目标游戏项目下直接调用当前 `VolumeFishExhibit` 工厂；依次检查原导入和实际最终身体/眼/嘴/鳍/材质，统计顶点、三角面、隐藏部件、surface、骨骼、实际LOD、未引用顶点、零面积/重合候选、材质/shader/纹理对象。使用自带合成退化/重合/未引用顶点反例检查计数器；这不是解剖或视觉验收。
 
 ```powershell
 # <review>须是当前游戏 plans/reviews 下已核对的绝对目录。
-<godot> --path <game> --rendering-method gl_compatibility --windowed --resolution 1280x720 --log-file <review>/inventory.log --script <Foundry绝对路径>/resources/scripts/volume-fish/audit_runtime_performance.gd -- --mode=inventory --output=<review>
+<godot> --path <game> --rendering-method gl_compatibility --windowed --resolution 1920x1080 --log-file <review>/inventory.log --script <Foundry绝对路径>/resources/scripts/volume-fish/audit_runtime_performance.gd -- --mode=inventory --output=<review>
 # 每种鱼单独子目录，避免覆盖记录。
-<godot> --path <game> --rendering-method gl_compatibility --windowed --resolution 1280x720 --log-file <review>/<species>/benchmark.log --script <同上脚本> -- --mode=benchmark --species=<id> --samples=180 --output=<review>/<species>
+<godot> --path <game> --rendering-method gl_compatibility --windowed --resolution 1920x1080 --log-file <review>/<species>/benchmark.log --script <同上脚本> -- --mode=benchmark --species=<id> --samples=180 --output=<review>/<species>
 ```
 
 对照分别是空场、1/10/50条同种鱼的静止/原控制器游动，关闭VSync，60帧预热后采180帧。记录整帧、直接动作调用、renderer CPU/GPU区间、绘制批次与primitive中位数/P95。各鱼全部放入可见网格，使用固定1/60模拟步长，摆放不参与路径成本；没有鱼缸/水/阴影/碰撞/寻路。不同数量的屏幕覆盖不同，不能当纯三角面线性测试；不能据此承诺正常游戏FPS或一万六千条容量。

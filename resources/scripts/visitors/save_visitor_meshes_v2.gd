@@ -3,13 +3,13 @@ extends SceneTree
 
 func _initialize() -> void:
 	var args := OS.get_cmdline_user_args()
-	if args.size() != 1:
+	if args.size() not in [1, 3]:
 		quit(2)
 		return
 	var directory: String = args[0]
-	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(directory.path_join("mesh_build.json")))
+	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(args[1] if args.size() == 3 else directory.path_join("mesh_build.json")))
 	var material := ShaderMaterial.new()
-	material.shader = load("res://scripts/aquarium/visitors/VisitorMaterialV2.gdshader")
+	material.shader = load(args[2] if args.size() == 3 else "res://scripts/aquarium/visitors/VisitorMaterialV2.gdshader")
 	var image := Image.load_from_file(directory.path_join("visitor_atlas.png"))
 	var texture := ImageTexture.create_from_image(image)
 	ResourceSaver.save(texture,directory.path_join("visitor_atlas.res"),ResourceSaver.FLAG_COMPRESS)
@@ -24,6 +24,8 @@ func _initialize() -> void:
 		arrays[Mesh.ARRAY_NORMAL]=v3(entry.normals)
 		arrays[Mesh.ARRAY_TEX_UV]=v2(entry.uv)
 		arrays[Mesh.ARRAY_TEX_UV2]=v2(entry.uv2)
+		if entry.has("indices"):
+			arrays[Mesh.ARRAY_INDEX]=PackedInt32Array(entry.indices)
 		var format := 0
 		for index in 4:
 			arrays[Mesh.ARRAY_CUSTOM0+index]=PackedFloat32Array(entry["custom%d" % index])
@@ -35,6 +37,14 @@ func _initialize() -> void:
 			quit(2)
 			return
 		mesh.surface_set_material(0,material)
+		if entry.has("contact_shadow"):
+			var footprint := PlaneMesh.new()
+			footprint.size = Vector2(.74,.96)
+			footprint.center_offset = Vector3(0,.002,0)
+			mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,footprint.get_mesh_arrays())
+			var shadow := ShaderMaterial.new()
+			shadow.shader = load(entry.contact_shadow)
+			mesh.surface_set_material(1,shadow)
 		mesh.custom_aabb=AABB(Vector3(-0.6,-0.08,-0.65),Vector3(1.2,2.1,1.3))
 		var path:=directory.path_join("visitor_%s.res" % key)
 		if ResourceSaver.save(mesh,path,ResourceSaver.FLAG_COMPRESS)!=OK:
@@ -42,6 +52,10 @@ func _initialize() -> void:
 			return
 		var cold:=ResourceLoader.load(path,"ArrayMesh",ResourceLoader.CACHE_MODE_IGNORE) as ArrayMesh
 		var saved:=cold.surface_get_arrays(0)
+		if entry.has("indices") and saved[Mesh.ARRAY_INDEX] != arrays[Mesh.ARRAY_INDEX]:
+			push_error("Index buffer changed on save: "+key)
+			quit(2)
+			return
 		for index in 4:
 			var actual: PackedFloat32Array=saved[Mesh.ARRAY_CUSTOM0+index]
 			var expected: Array=entry["custom%d" % index]
@@ -53,7 +67,8 @@ func _initialize() -> void:
 					push_error("Attribute changed on save: "+key)
 					quit(2)
 					return
-		print("VISITOR_V2_MESH ",key," triangles=",mesh.surface_get_array_len(0)/3)
+		var corners := mesh.surface_get_array_index_len(0) if entry.has("indices") else mesh.surface_get_array_len(0)
+		print("VISITOR_MESH ",key," triangles=",corners/3," vertices=",mesh.surface_get_array_len(0))
 	quit(0)
 
 func v3(values: Array) -> PackedVector3Array:

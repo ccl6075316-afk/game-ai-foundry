@@ -70,27 +70,29 @@ func _run() -> void:
         {"kind": "plinth", "at": [5.8, -3.5], "yaw": 0.0, "scale": 1.0}]
     crowd.set_layout(parcels, rows); crowd._process(.2)
     check(crowd.agents.size() == 24, "default hall spawns 24")
-    check(crowd.groups.size() == 6 and crowd.get_child_count() == 6, "six nodes independent of eighteen appearances")
+    check(crowd.groups.size() == 1 and crowd.get_child_count() == 1, "one batch for all hall guests")
     var initial_snapshot: Dictionary = crowd.get_review_snapshot()
-    check(initial_snapshot.active_variant_count == 18 and initial_snapshot.active_group_count == 6, "default24 covers all18 archetype-appearance variants")
+    check(initial_snapshot.active_variant_count == 3 and initial_snapshot.active_group_count == 1, "default 24 covers all three appearances on one mesh")
     var observed: Dictionary = {}; var appearance_population := [0, 0, 0]
     for instance in initial_snapshot.instances:
         observed[instance.variant] = true
         appearance_population[instance.appearance_group] += 1
     check(appearance_population == [8, 8, 8], "default24 balances the three appearance groups")
-    for archetype in ["adult_male", "adult_female", "elderly_male", "elderly_female", "boy", "girl"]:
+    for archetype in ["adult_male"]:
         for appearance in ["white", "east_asian", "black"]:
             check(observed.has(archetype + "_" + appearance), "present variant " + archetype + "_" + appearance)
     var material_shared := true; var appearances_uploaded := true
     var gpu_readback := DisplayServer.get_name() != "headless"
     for group in crowd.groups:
-        if group.material_override != crowd.material: material_shared = false
+        var expected = crowd.material
+        var actual = group.material_override if group.material_override else group.multimesh.mesh.surface_get_material(0)
+        if actual != expected: material_shared = false
         if gpu_readback:
             var appearance_channels: Dictionary = {}
             for index in group.multimesh.visible_instance_count:
                 appearance_channels[roundi(group.multimesh.get_instance_custom_data(index).a)] = true
             if not (appearance_channels.has(0) and appearance_channels.has(1) and appearance_channels.has(2)): appearances_uploaded = false
-    check(material_shared, "all six groups share exactly one material")
+    check(material_shared, "each archetype batches all appearances with its assigned material")
     if gpu_readback: check(appearances_uploaded, "each sharedmesh uploads allthree appearance selectors in INSTANCE_CUSTOM.w")
     var initial_positions: Array = []
     for agent in crowd.agents: initial_positions.append(agent.position)
@@ -136,13 +138,13 @@ func _run() -> void:
     check(crowd.requested_count == 200 and crowd.agents.size() == 200, "hard cap 200 and default hall capacity (actual %d)" % crowd.agents.size())
     for frame in 120: crowd._process(1.0 / 60)
     check(crowd.navigation.revision == population_revision, "population and appearance distribution changes reuse geometry navigation")
-    check(crowd.get_child_count() == 6, "trial stress population still six nodes")
+    check(crowd.get_child_count() == 1, "trial stress population still one node")
     var allocated_instances := 0; var visible_instances := 0
     for group in crowd.groups:
         allocated_instances += group.multimesh.instance_count
         visible_instances += group.multimesh.visible_instance_count
         check(group.multimesh.visible_instance_count <= group.multimesh.instance_count, "nondivisible trialcap fits group buffer")
-    check(allocated_instances == 204 and visible_instances == crowd.agents.size(), "six shared groups allocate bounded buffers and report actual visible population")
+    check(allocated_instances == 200 and visible_instances == crowd.agents.size(), "a shared batch allocate bounded buffers and report actual visible population")
     crowd.set_visitor_count(-1)
     check(crowd.requested_count == 0 and crowd.agents.is_empty(), "negative count clamps to off")
     check(crowd.get_review_snapshot().active_group_count == 0, "off has no active draw groups")
@@ -155,16 +157,14 @@ func _run() -> void:
     var valid_meshes: Array = []
     for group in crowd.groups: valid_meshes.append(group.multimesh.mesh)
     var valid_atlas = crowd.material.get_shader_parameter("visitor_atlas")
-    var missing_meshes := valid_meshes.duplicate(); missing_meshes[4] = null
-    check(not crowd.validate_resources(missing_meshes, crowd.material, valid_atlas), "missing child mesh rejects entire crowd")
+    var missing_meshes := valid_meshes.duplicate(); missing_meshes[0] = null
+    check(not crowd.validate_resources(missing_meshes, crowd.material, valid_atlas), "missing guest mesh rejects entire crowd")
     crowd.set_visitor_count(24); crowd._process(.2)
     var resource_status: Dictionary = crowd.get_review_snapshot()
     check(resource_status.active_count == 0 and not resource_status.resources_ready and not resource_status.resource_error.is_empty(), "invalid resources report zero active visitors with explicit error")
     for group in crowd.groups: check(group.multimesh.visible_instance_count == 0, "resource failure hides all groups")
     check(not crowd.validate_resources(valid_meshes, null, valid_atlas), "missing shared material safely rejected")
     check(not crowd.validate_resources(valid_meshes, crowd.material, null), "missing atlas safely rejected")
-    missing_meshes = valid_meshes.duplicate(); missing_meshes[3] = null
-    check(not crowd.validate_resources(missing_meshes, crowd.material, valid_atlas), "missing dedicated elderly mesh rejects entire crowd")
     check(crowd.validate_resources(valid_meshes, crowd.material, valid_atlas), "complete actual resources pass validation")
     crowd.set_visitor_count(24)
     check(crowd.agents.size() == 24, "valid resource recovery restores visible population")
@@ -186,10 +186,7 @@ func _run() -> void:
     for path in ["res://scripts/aquarium/visitors/HallVisitorNavigation.gd", "res://scripts/aquarium/visitors/HallVisitorCrowd.gd",
         "res://scripts/aquarium/AquariumHall3D.gd", crowd.material.shader.resource_path, get_script().resource_path]:
         report.source_sha256[path] = FileAccess.get_sha256(path)
-    for group in crowd.groups:
-        var path: String = group.multimesh.mesh.resource_path
-        report.source_sha256[path] = FileAccess.get_sha256(path)
-    for path in [Crowd.ASSET_ROOT + "visitor_material.tres", valid_atlas.resource_path]:
+    for path in [Crowd.ASSET_ROOT + "visitor_adult_male.res", Crowd.ASSET_ROOT + "visitor_material.tres", valid_atlas.resource_path, "res://scripts/aquarium/visitors/GuestContactShadow.gdshader"]:
         report.source_sha256[path] = FileAccess.get_sha256(path)
     print(JSON.stringify(report))
     for argument in OS.get_cmdline_user_args():
