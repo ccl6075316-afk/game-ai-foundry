@@ -4,7 +4,7 @@
 
 ## 鱼在水里做什么
 
-2026-11-21 起，游动回放逐鱼附上可核对的真实影像或原始研究，注明游速、发力部位、守位情况和测量条件。正式库的 28 种均有可播放的观察场景。各篇资料标明哪些速度来自野外跟踪、短片投影或水槽实验，哪些数值是展缸调校。[游戏项目的 28 篇逐鱼实证资料](../projects/fishing-2d/docs/swim-evidence/README.md) · [逐鱼实机与回放入口](../projects/fishing-2d/plans/reviews/individual-swim-20261121/HANDOFF.md)
+2026-11-21 起，游动回放逐鱼附上可核对的真实影像或原始研究，注明游速、发力部位、守位情况和测量条件。正式库的 28 种均有可播放的观察场景。各篇资料标明哪些速度来自野外跟踪、短片投影或水槽实验，哪些数值是展缸调校。[游戏项目的 28 篇逐鱼实证资料](https://github.com/ccl6075316-afk/fishing-2d/blob/cd1af059/docs/swim-evidence/README.md) · [逐鱼实机与回放入口](https://github.com/ccl6075316-afk/fishing-2d/blob/cd1af059/plans/reviews/individual-swim-20261121/HANDOFF.md)
 
 2026-11-19 补充了[普通鲤鱼的逐项行为资料](COMMON-CARP-BEHAVIOUR.md)和本文的[28 种鱼群体设定](#28-种鱼的群体设定)。鲤鱼卡给出水层、停驻、体姿、发力、冲刺触发和社会行为各自的依据。
 
@@ -144,4 +144,4 @@
 
 未来做同群或同缸测试时，先确定一个具体地点或生境、目标生活阶段和环境条件，再选有依据的参与物种。盐度相同仍要看地理分布、水温、水层、水流、空间和食性。跨盐度生活的鱼需要记录此次展示的阶段。要测试天敌响应，还要验证同域、体长和猎物关系。两万条大黄鱼的旧实验提供负载参照；这十条独立回放提供近景动作参照，两项的测量对象不同。
 
-回放控制、时间点及 Godot 验证见[单鱼交接](../projects/fishing-2d/plans/reviews/individual-swim-20261121/HANDOFF.md)。
+回放控制、时间点及 Godot 验证见[单鱼交接](https://github.com/ccl6075316-afk/fishing-2d/blob/cd1af059/plans/reviews/individual-swim-20261121/HANDOFF.md)。
