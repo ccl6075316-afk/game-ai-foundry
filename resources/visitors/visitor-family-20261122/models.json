@@ -1,0 +1,18 @@
+{
+  "woman": {
+    "triangles": 979,
+    "height_m": 1.597
+  },
+  "man": {
+    "triangles": 1072,
+    "height_m": 1.746
+  },
+  "child": {
+    "triangles": 1152,
+    "height_m": 1.135
+  },
+  "elder": {
+    "triangles": 1072,
+    "height_m": 1.488
+  }
+}
