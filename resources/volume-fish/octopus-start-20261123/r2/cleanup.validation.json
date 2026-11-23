@@ -1,0 +1,21 @@
+{
+  "deleted": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/octopus-gray.blend1",
+      "bytes": 1912273,
+      "reason": "R2 overwritten backup / verified identical cold export / failed HTTP page"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/octopus-gray.cold.glb",
+      "bytes": 135736,
+      "reason": "R2 overwritten backup / verified identical cold export / failed HTTP page"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/references/fao-record.html",
+      "bytes": 239,
+      "reason": "R2 overwritten backup / verified identical cold export / failed HTTP page"
+    }
+  ],
+  "deleted_bytes": 2048248,
+  "retained": "Current R2 source/model/measurements/views and acquired primary PDFs; R1 files retained as prior rejected candidate. No unrelated files touched."
+}

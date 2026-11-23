@@ -1,0 +1,136 @@
+{
+  "kind": "octopus_gray_turn_cleanup",
+  "deleted": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/octopus-gray.blend1",
+      "bytes": 1906565
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/octopus-gray.cold.glb",
+      "bytes": 135808
+    },
+    {
+      "path": "work/octopus-real-60.png",
+      "bytes": 944640
+    },
+    {
+      "path": "work/octopus-real-70.png",
+      "bytes": 1173488
+    },
+    {
+      "path": "work/octopus-real-80.png",
+      "bytes": 1188782
+    },
+    {
+      "path": "work/octopus-real-110.png",
+      "bytes": 1041228
+    },
+    {
+      "path": "work/octopus-real-130.png",
+      "bytes": 1238847
+    },
+    {
+      "path": "work/octopus-real-165.png",
+      "bytes": 1004901
+    },
+    {
+      "path": "work/octopus-real-175.png",
+      "bytes": 1226387
+    },
+    {
+      "path": "work/octopus-swim-15.png",
+      "bytes": 1011090
+    },
+    {
+      "path": "work/octopus-swim-35.png",
+      "bytes": 1067281
+    },
+    {
+      "path": "work/octopus-swim-60.png",
+      "bytes": 978341
+    },
+    {
+      "path": "work/octopus-swim-100.png",
+      "bytes": 972009
+    },
+    {
+      "path": "work/octopus-swim-150.png",
+      "bytes": 878393
+    },
+    {
+      "path": "work/octopus-swim-210.png",
+      "bytes": 813999
+    },
+    {
+      "path": "work/octopus-swim-260.png",
+      "bytes": 624842
+    },
+    {
+      "path": "work/octopus-swim-seq-245.png",
+      "bytes": 550701
+    },
+    {
+      "path": "work/octopus-swim-seq-248.png",
+      "bytes": 570326
+    },
+    {
+      "path": "work/octopus-swim-seq-251.png",
+      "bytes": 565278
+    },
+    {
+      "path": "work/octopus-swim-seq-254.png",
+      "bytes": 619610
+    },
+    {
+      "path": "work/octopus-swim-seq-257.png",
+      "bytes": 609864
+    },
+    {
+      "path": "work/octopus-swim-seq-260.png",
+      "bytes": 624842
+    },
+    {
+      "path": "work/octopus-swim-seq-263.png",
+      "bytes": 692520
+    },
+    {
+      "path": "work/octopus-swim-seq-266.png",
+      "bytes": 766166
+    },
+    {
+      "path": "work/octopus-real-045.png",
+      "bytes": 1253303
+    },
+    {
+      "path": "work/octopus-real-playback.png",
+      "bytes": 1102971
+    },
+    {
+      "path": "work/octopus-swim-playback-end.png",
+      "bytes": 267839
+    },
+    {
+      "path": "work/octopus-static-rotated.png",
+      "bytes": 326092
+    },
+    {
+      "path": "work/octopus-static-under-current.png",
+      "bytes": 352262
+    },
+    {
+      "path": "work/octopus-real-contact.jpg",
+      "bytes": 337987
+    },
+    {
+      "path": "work/octopus-swim-contact.jpg",
+      "bytes": 346600
+    },
+    {
+      "path": "work/octopus-swim-sequence.jpg",
+      "bytes": 185158
+    }
+  ],
+  "deleted_bytes": 25378120,
+  "retained_task_bytes": 15766090,
+  "reason": "Keep current editable source, GLB, four-view images and compact source observation sheets; retire known first grey backup, byte-identical cold export and redundant frame captures."
+}

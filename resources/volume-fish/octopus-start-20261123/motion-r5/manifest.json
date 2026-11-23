@@ -1,0 +1,194 @@
+{
+  "kind": "octopus_arm_thickness_trial",
+  "date": "2026-11-23",
+  "status": "awaiting_user_review",
+  "user_accepted": false,
+  "production_installed": false,
+  "species_basis": "Enteroctopus dofleini",
+  "budget": 50000,
+  "triangles": 50000,
+  "bones": 513,
+  "arm_segments": 64,
+  "representative_suckers": 512,
+  "source": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r5/octopus-actions.blend",
+    "sha256": "fd7122d6b8fdd3ef6f3d62422edbd5a3e9d50a2c9a48f54fea036d5c28c14ea5"
+  },
+  "model": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r5/octopus-actions.glb",
+    "sha256": "15db763d8aa8618e8074be4077da48b5564bded18ccfcf6180f667e17b749013"
+  },
+  "baseline_source": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r4/octopus-actions.blend",
+    "sha256": "62ff45aa5acbca18db0eb854551800fe814fb802229deac09a82c1f412ecb3a0"
+  },
+  "clips": [
+    {
+      "name": "TightRoll",
+      "duration": 10.0
+    },
+    {
+      "name": "ProbeTouch",
+      "duration": 16.0
+    },
+    {
+      "name": "AlternatingTouch",
+      "duration": 16.0
+    }
+  ],
+  "viewer": {
+    "path": "resources/volume-fish/octopus-start-20261123/open-motion-review.command",
+    "sha256": "3f310673c18b442a081f028429aafecadbff85fd942bcaed55d1e62cbde892b6"
+  },
+  "viewer_script": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r5/review/Actions.gd",
+    "sha256": "f0b29e5bda15ac8e5826847528fc2ab005e6e3d9212aad827145aa387ca53b5f"
+  },
+  "video": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r5/octopus-actions-review.mp4",
+    "sha256": "88d2464a21e3c6ff24f72d7d0369ae8222d721bdef4f24a79922f9c7431b260b"
+  },
+  "closeup": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r5/tight-coil-close.png",
+    "sha256": "73aaf74fb3e37255b4e134418c4810bb1f7e9cadcb14f3125de72ebe9f80d2d5"
+  },
+  "tip_view": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r5/tip-straight-close.png",
+    "sha256": "ce8d49d948a3f364a7dd72bf0fb98d41ac94ba68331f3b70cde0f29868782008"
+  },
+  "before_after": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r5/thickness-before-after.jpg",
+    "sha256": "ba6c5e71e53ed43219a31b6ea89b37075c0fee8b6d047a009a018e8a4085f5e4"
+  },
+  "phase_sheet": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r5/action-phases.jpg",
+    "sha256": "6872a6e5e21382ca4c344de64bab46cfd3f5a394b516b63025b871ca8a598d78"
+  },
+  "notes": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r5/motion-evidence.md",
+    "sha256": "38d4b06b0056c25f682aeb6f93f71c335b67826a5973e793b5fb4bb87046ccbd"
+  },
+  "diagnostic_notes": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r5/diagnostic-notes.md",
+    "sha256": "9a98feab2a8009e63d18d2b5a0e87f485fb59854445e04ffd3285d88813c24e6"
+  },
+  "reference_playback": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r4/reference-touch-playback.json",
+    "sha256": "1af0ec428f27e8b19c8de5d6f4be1b87b72ac17382591ad8facbf9dbd4aeabf5"
+  },
+  "reference_sheet": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r4/reference-touch-contact.jpg",
+    "sha256": "b2b3cab3898901d8b3c25bccbcdd34af04ad47b598a18515de911413779d5e45"
+  },
+  "validation": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/build.validation.json",
+      "sha256": "703c82803a4bdbe590be3a2b498189d6c0ade1179c64e349c94138b9b4cd84c7"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/cleanup.validation.json",
+      "sha256": "c2dc0f23a76bd561f454b73c6bdbd4442bb9e353a8f6bd5c2a9bbb8f23527a36"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/contacts.validation.json",
+      "sha256": "096c5eb26003d222da971e05e7e20ac3ed82fd45366c04eb8c3d34badc4bfa71"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/controls.validation.json",
+      "sha256": "eb52cec0a139ccc91e4cdb0c34387007dbfbf97c8e65c540e4f496fcb14aa7df"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/geometry-change.validation.json",
+      "sha256": "580c69f0aef35367eaf6ed7c46b96ad7a4fe6de36c56706963c89a05ec915fb8"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/godot.validation.json",
+      "sha256": "a71e3a4a3a4ada1703146357a8bf38c86f43aa142a000970d0cc994ca41312fc"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/ground.validation.json",
+      "sha256": "0f18814fefaa3e3a84387dc8d31df09d5738db617cc7ae64d9e4de9165db769b"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/motion.validation.json",
+      "sha256": "9f2b20a199f0f285e3ccbe9832fca01aa551410106ceb643854b95429503dcb3"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/proportions.validation.json",
+      "sha256": "deb9d1d1c44a0c8e2c0944a11416baa4c3c9bb36844d8d6e5b326d8fd7d1214c"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/range.validation.json",
+      "sha256": "23f6df9486a3664e36b726b125fac5c746f51e0c8159a97d8705dce83f4e2d45"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/shape-change.validation.json",
+      "sha256": "92203aae21be7a437d286bda519f7e70829eb51a2b11f7088312633695742981"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/source.validation.json",
+      "sha256": "c94122f9adb948bc88ea507d355eb1db8ea207472692952ffb82e244fb542bc5"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/support.validation.json",
+      "sha256": "0cc1186bc4b7dd03fd0136bd625dbdaea105a9d9eb9073a5139a5db061065c65"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/video.validation.json",
+      "sha256": "26d4d1e71f9a3940f9caf6b0548f9e8bf685e78d63d67d4de2ca48a670c30f0c"
+    }
+  ],
+  "authoring_scripts": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/thicken_octopus_arms.py",
+      "sha256": "ab9da91544a3c53514f67a9fee18362f27feba3fbecc5adb46e24312fd81ad0c"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/build_thicker_actions.py",
+      "sha256": "f36b97ff877e5ae08a055b9abb0ef5d4976c5ae9020b74d109e2266a41dd9d75"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_thicker_motion.py",
+      "sha256": "46eb47443a1498637ea8ce7316ea4e084755ce7035e99edcb24cad708a6065d3"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_thicker_contacts.py",
+      "sha256": "3275983c6b960c8d02cea88b7699c5d40955476d1a31f5a450c69ab7a846a1a7"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_thicker_source.py",
+      "sha256": "897eadc789fdb9c14af0177c301db78fcd8f05a9535e229bd10723912553164b"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_thicker_range.py",
+      "sha256": "993c307c9666c453af6333397f22c69d4819cc66415481e1b81fdf8b715480f1"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_thicker_ground.py",
+      "sha256": "d88ac592d683ebc7914700320a74993069910c0fc9ca251671f6eb0498a94b41"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_thicker_support.py",
+      "sha256": "fb9f807756d7f15530af14d602020cd7e64e50882eef3a9a4157c5341a9a07bc"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/measure_thicker_gap.py",
+      "sha256": "cf52e63f07029cf245c4e8b448abca142ce57656c39a5874c71d996243aaa32a"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/measure_thicker_proportions.py",
+      "sha256": "7587808df315cddcece04a029826e55894ec967df20f758585bcdf64cb37e82b"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/make_thickness_review.py",
+      "sha256": "e77a9398146de6c87fd19271492c977c93c832f8adc87f61d755902922881aac"
+    }
+  ],
+  "limits": [
+    "Authored thickness and tip adjustment; no claim all octopus species lack thin tips",
+    "Thin coil gaps remain; no exact all-layer skin contact or suction claim",
+    "Root fixed reach/contact trial; no locomotion or swimming",
+    "Sampled mesh/cup/floor checks not exhaustive continuous collision proof",
+    "Full SOP and user acceptance pending"
+  ]
+}

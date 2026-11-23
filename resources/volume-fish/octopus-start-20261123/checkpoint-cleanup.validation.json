@@ -1,0 +1,1108 @@
+{
+  "date": "2026-11-23",
+  "scope": "提交前只退休章鱼旧候选二进制、旧逐姿态图和冗余日志；保留全部原始参考、R7当前完整源/GLB、R5重建输入、方法和报告及少量对比图。",
+  "deleted_bytes": 182779128,
+  "retired_files": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/godot-side.png",
+      "sha256": "5ab44f4d61c292dae9d8d5ce05adb7bebf354dcc3eb491bcf94ce684ce4c9515",
+      "bytes": 79309
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/source-check.log",
+      "sha256": "5c620a63ebb4c0de7938491b776fad155d1311d4a47365ea65870b6d84feae52",
+      "bytes": 1929
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/godot-top.png",
+      "sha256": "bfcfd0faedefc0ffa5cb91308def8bd1ac6942d04df9699ab0b7a149496172d0",
+      "bytes": 145918
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/godot-capture.log",
+      "sha256": "a5a3dc7cd48a1d7c6f49eb2afbe603c70808021187802fdf5f7af1cc303a3389",
+      "bytes": 509
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/godot-underside.png",
+      "sha256": "dcb24a5920232a9753be2a52ad6b43bdb955b6fc06b87f3096234f38f09a833d",
+      "bytes": 166794
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/octopus-gray.blend",
+      "sha256": "989d61fd56805de7a497c647409c7234516b3833eb591f829f122281087cf1ab",
+      "bytes": 1906857
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/godot-final-capture.log",
+      "sha256": "a40a61b9df3d93915d77f102884e89a67b65aa8e993676561d8b9aedc8607160",
+      "bytes": 155
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-build.log",
+      "sha256": "81e1bbcd6bcb565fec4f0dea3856a49c3fdf26ef480e37009705434abc750e1c",
+      "bytes": 3110
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/gray-underside.png",
+      "sha256": "5878751c7109da55c018cf9cecc0b21e1efcf180d772c7cf47f48d9ea3e207ef",
+      "bytes": 1644705
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/godot-oblique.png",
+      "sha256": "bf0b068af36ff4a24198914c3b3ec9ecfd9e4be46b35cbb6acb7e7c9128506e2",
+      "bytes": 116557
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/tighter-build.log",
+      "sha256": "b439ba3cc018dbc64653e28cee566ab892b42401e87ccabdbcd50707338756a3",
+      "bytes": 2197
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/roll-rest-build.log",
+      "sha256": "c9b68955d91cce54fd3fd6710288d1ace9861e98807aa649303de2b28d95c629",
+      "bytes": 3297
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/octopus-gray.glb",
+      "sha256": "3306a41e7449a62e1f04ded4f2218fa6762ee2da4e1376ba105a0c4a02eb0b6b",
+      "bytes": 135808
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/gray-top.png",
+      "sha256": "a7ec254f4b21f943febca650eeee7be663babe09008afb4e184af79d408ec9de",
+      "bytes": 1627692
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/gray-oblique.png",
+      "sha256": "10320e7b5028f6fbe142cba8bdfce5e377a2f1d3fd1cd332be772b76d1ac9446",
+      "bytes": 1605582
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/gray-side.png",
+      "sha256": "6b7b42d4a9e12812a08e9644c7c2d8280f2954ea57bdfb51b6dcd127918c9d38",
+      "bytes": 1566937
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/contact-probe.log",
+      "sha256": "fea5fb1e857de46f2c060d38d1b1dc90dce369ee0fc3e6a3e34d2dd92cb6542e",
+      "bytes": 6092
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/build.log",
+      "sha256": "5e2c727379894b134d6877378f206b4a1ea425b6c782c09a423a7c9b035a3b2a",
+      "bytes": 3246
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/controls.log",
+      "sha256": "936ce223e8c2aa75425e58dd216f8fb98daa6416c93d6b222483f626cb896721",
+      "bytes": 209
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/closeup.log",
+      "sha256": "936ce223e8c2aa75425e58dd216f8fb98daa6416c93d6b222483f626cb896721",
+      "bytes": 209
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/source.log",
+      "sha256": "3a92ce99305293772d94e7d34fa50590c69d808aae376740d38c53c7b4184a4d",
+      "bytes": 3104
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/range.log",
+      "sha256": "2b0488b1a501b2db80559849270347e7a2c2cb4a8b997a81b0e0588c1b3c6773",
+      "bytes": 4621
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/contacts.log",
+      "sha256": "10f22885c1f053723617ae481d639cd28349817d1ce39cd130bb5f84e906ef40",
+      "bytes": 715
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/pose-0270.png",
+      "sha256": "32bf25ca8c1f196f608e0d6ec03e5d1d67811f0491683e3341b2e3bd25522e04",
+      "bytes": 143790
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/pose-0660.png",
+      "sha256": "8e31f022eee1af8e83890e192173b78101045fcb7d188a21eb4dd4e4f1cd634a",
+      "bytes": 153236
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/pose-0210.png",
+      "sha256": "f00903de2bacc7c8056591f4aa3f5aa58849408a9522c05cd818ea381ac19980",
+      "bytes": 148509
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/godot.log",
+      "sha256": "936ce223e8c2aa75425e58dd216f8fb98daa6416c93d6b222483f626cb896721",
+      "bytes": 209
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/probe.log",
+      "sha256": "93b68cd000e492cf2a0185a6b5a4bd3b14d1b268ebddbb2575c6c1b9917112df",
+      "bytes": 2546
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/octopus-actions.glb",
+      "sha256": "40a57d1132f1ebcd57b44a3a982d15aa608c35d25263106d41be1868cba2d3c7",
+      "bytes": 3728948
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/pose-0570.png",
+      "sha256": "e43405edfabb61690170e5a7783a6dce8fd89bcb3e0efff828e2f037dd98d639",
+      "bytes": 149105
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/pose-0000.png",
+      "sha256": "febf506e0dcc6950c59396c593b1e20cef696de46e3a7d2aca51b9100022bd02",
+      "bytes": 146151
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/ground.log",
+      "sha256": "5db3281904361c99c8bf2444204b5e33874149d0be81fafa7f9a6c7eaa7f20a1",
+      "bytes": 1350
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/pose-0360.png",
+      "sha256": "ef6e6bb98bad122d60642368d64006b029a16dc90e0c6d8371874c57600123fb",
+      "bytes": 145145
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/octopus-actions.blend",
+      "sha256": "62ff45aa5acbca18db0eb854551800fe814fb802229deac09a82c1f412ecb3a0",
+      "bytes": 34998877
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/pose-0959.png",
+      "sha256": "df31b1f648c2259f8d1ef3133109963c0ff0790a50418a51a3669129e5dc55b8",
+      "bytes": 149033
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/pose-0810.png",
+      "sha256": "dfbaf4fdbffbc29a24d90f602026c03c23cea462c5133d2195144e821dddc6b0",
+      "bytes": 150294
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/shape-change.log",
+      "sha256": "ccf8ae7e8c08137a62c0b9a1adf3562d03725f5bdad93086b99d9481e6cba9e7",
+      "bytes": 3534
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/pose-0180.png",
+      "sha256": "f2e91504c1ebfaa18c77ae688bf754756dd539413975a33206c913ec829dc7d0",
+      "bytes": 148451
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/check.log",
+      "sha256": "09fc0236f96d199fa7cebcc5ee7e2e5d750c81be5a6c43b981b736b425e43696",
+      "bytes": 1193
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/pose-0090.png",
+      "sha256": "7fc46867f76916e0e5016a49e7f408eed4e0b3b72f7bc879cff6259546be220f",
+      "bytes": 144779
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/pose-0480.png",
+      "sha256": "8a7edff9336bcb00bc7355faf080f4efffe17e6b60adbaf0a9a3156cff7c9263",
+      "bytes": 149278
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/pose-0720.png",
+      "sha256": "93fd1d10aa5f9ada50a3e55899aa56c266b06945cbbde78e6a86966fd3b17aa8",
+      "bytes": 149928
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/tight-coil-close.png",
+      "sha256": "7ba434c416c45cc497b57952ca851e5dfaf47a5804bc13d465083255308f578f",
+      "bytes": 153039
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/octopus-actions-review.mp4",
+      "sha256": "10d3ea5de1f38f69b8125265810b8cce5d9ff4bb8e2af5be1bde061f2d43c6ec",
+      "bytes": 860931
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/pose-0900.png",
+      "sha256": "4a7ed7eb9bdcc2030df1270ee3010e34ee1ce9fe057d606dd7bf34571a3af65a",
+      "bytes": 149031
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/pose-0135.png",
+      "sha256": "82d9c140fe5a15c99572675c9f098fd4c661c4a475c7e8778e9002239b11a176",
+      "bytes": 143349
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/pose-0450.png",
+      "sha256": "12a80c285152a3af69e63cd1a1d96d2df7d35cbdd1492d93dc7984c6212117d4",
+      "bytes": 145874
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/build.log",
+      "sha256": "acd69b031a07dcc491c9340bcd7ce5b0e0680f5246b33dcf290fa604ecada53d",
+      "bytes": 5180
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/controls.log",
+      "sha256": "36a9559e51d1c5018a9e1cf636e8d82136861c569cf8fd2cf3508de9ce99d703",
+      "bytes": 196
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/closeup.log",
+      "sha256": "36a9559e51d1c5018a9e1cf636e8d82136861c569cf8fd2cf3508de9ce99d703",
+      "bytes": 196
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/source.log",
+      "sha256": "d400eed463b296cbda2e6de89299beec3659bba404ca77647e164691a3631f41",
+      "bytes": 2912
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/range.log",
+      "sha256": "55fcc5398a0e5339e47702651b909cd67c20de26df686f73667ed56f3972cb5e",
+      "bytes": 4704
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/contacts.log",
+      "sha256": "c5cc88f6beb2c47f73c337b1b9111f9ac62faeb4ff5c3315ef92d881d06159fc",
+      "bytes": 715
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/octopus-roll.blend",
+      "sha256": "5e7c3c24494ff449a6d465884d92aedf01572de7aba7cf5fc6016a27e37282cd",
+      "bytes": 15787101
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/pose-0300.png",
+      "sha256": "e4352d594252cffd63065b4bba276c29a179c6c96b89a537bd1675251e8548c0",
+      "bytes": 101468
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/pose-0510.png",
+      "sha256": "60c7ee3ead5b92a8b84f3d2019d3979590ef5bc25a79607f459c9aa2ef35f1ce",
+      "bytes": 98808
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/pose-0075.png",
+      "sha256": "c1ededffde5d7005c5342abba9002810fd85bee1d69e9adc750108e311e199b7",
+      "bytes": 130406
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/godot.log",
+      "sha256": "36a9559e51d1c5018a9e1cf636e8d82136861c569cf8fd2cf3508de9ce99d703",
+      "bytes": 196
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/pose-0615.png",
+      "sha256": "be6df57196ff0d4dc1644417cc88c9710f5d028b34b5dcabca14edc3f8b03fed",
+      "bytes": 100044
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/octopus-roll.glb",
+      "sha256": "2237250b3ecde6758a897015573160aecccc5610bba671bed31a9d04351d3e79",
+      "bytes": 5238768
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/pose-0000.png",
+      "sha256": "3f3d5c9449a61cae898af28d7a2385fe5f22f910d8e36f2b5b4531ab58a915a9",
+      "bytes": 131737
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/pose-0405.png",
+      "sha256": "9a687e9cffd377eaee3de0b57fe8ba78f9a5365c6a3ab91a0835555422c91d59",
+      "bytes": 100972
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/rest-build.log",
+      "sha256": "d299b1e8e6a5bbe1708027a4ba15e31082011539d39e3178de13ed88d3299fe0",
+      "bytes": 3296
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/refine-triangles.log",
+      "sha256": "5027b0618ae08dbe46f3657e48a81eb25a49ce6c6744ccbdcf41c81e70ed888d",
+      "bytes": 1426
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/shape-change.log",
+      "sha256": "fe358864fdf2fbc3c02f75fdf5b4baf30cfc2ef4bdf9413abd48f1a49bbf1888",
+      "bytes": 3554
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/refine.log",
+      "sha256": "e577644ffc0fc56a7665728a215e2065e9ddc94add330177d18aeb8876832ca3",
+      "bytes": 1583
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/cleanup-refine.log",
+      "sha256": "58bff8ef7c2e64d5fc03687427798a26f79a0d5dbdd321181b7408b212297619",
+      "bytes": 1334
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/check.log",
+      "sha256": "619092f8ba3e9581a6ff9a496563ef8068901aeb9133d4a9b9e8ef9b17b1b5e3",
+      "bytes": 1088
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/rebind.log",
+      "sha256": "aff45855479553b1a237b495eceec1da6489fad01f41a7e0d8d8417fbe1e0f21",
+      "bytes": 2133
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/octopus-tight-review.mp4",
+      "sha256": "69906323426ef866b1b8f44f47d229f7f6ad6c8a15ac271b282a4fe6edb4e661",
+      "bytes": 418357
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/tight-coil-close.png",
+      "sha256": "935d813162aed0c70fed71f83a1944fdab76f307864cb4e07a083a80be4f2116",
+      "bytes": 154679
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/pose-0240.png",
+      "sha256": "3f3d5c9449a61cae898af28d7a2385fe5f22f910d8e36f2b5b4531ab58a915a9",
+      "bytes": 131737
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/pose-0719.png",
+      "sha256": "8f0501195bf994481b13bc3fd75340794bf02a1d3688f9d0f656f652161faeec",
+      "bytes": 101244
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/pose-0135.png",
+      "sha256": "bce7d1c25045478e93627e5717e691699a1a615252ed0f6145544e8425495ad0",
+      "bytes": 128635
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/build.log",
+      "sha256": "ddf1dc5fb5d11f0451a1093d67ee07254bdd5ba75b5e66b5a586f078ec55fd54",
+      "bytes": 4869
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/controls.log",
+      "sha256": "36a9559e51d1c5018a9e1cf636e8d82136861c569cf8fd2cf3508de9ce99d703",
+      "bytes": 196
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/source.log",
+      "sha256": "12e3d5cd7ffa992ccc6ae89ae3238c041ae3ba8d8ed4cbab91fa67cbddefefee",
+      "bytes": 2918
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/range.log",
+      "sha256": "dfc47134f3f9dd525914f88359660dae75faf8ff43d39577e6e47f8954b028c9",
+      "bytes": 4721
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/contacts.log",
+      "sha256": "382a605c2e40f757af6628604a798498001c6e5d8dce7846dab27b33fc54b434",
+      "bytes": 717
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/octopus-roll.blend",
+      "sha256": "a9f3c5dc28b3a7aa93f38ec98b111ce14f2c60883e44f4ed8ad6173d30f07d7c",
+      "bytes": 10269196
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/pose-0300.png",
+      "sha256": "dc66330e46d5e4cdc2f8573b2c50c29529dc552f725a70f91e871ce6d0377d91",
+      "bytes": 96902
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/pose-0510.png",
+      "sha256": "e92a5b29a07cfeff18ad05b6b4c0961d0a3f38f1854d64142d59dbfab143b301",
+      "bytes": 97862
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/pose-0075.png",
+      "sha256": "9f89fcd75a72066c17151e0f599bede236a725a2a06736613cac1b1d21e04ed4",
+      "bytes": 128034
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/godot.log",
+      "sha256": "36a9559e51d1c5018a9e1cf636e8d82136861c569cf8fd2cf3508de9ce99d703",
+      "bytes": 196
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/pose-0615.png",
+      "sha256": "d3f97608a76b6d3ffa3276229a5b0df9da679dc986734cd02ea4b4683aaa759b",
+      "bytes": 96379
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/octopus-roll.glb",
+      "sha256": "a3b81073799275473355501d5da7899b07ac4037139096127cd480dc2261ff59",
+      "bytes": 3674988
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/pose-0000.png",
+      "sha256": "684497d610cee9601baba337ba1a685217e957d7b0edb56ba2b9d687200be7d2",
+      "bytes": 129271
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/pose-0405.png",
+      "sha256": "651c894cee1b070d0c755dee1f6f1659ae26817d9471c3d6ef585d0ec1f24b27",
+      "bytes": 97232
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/octopus-roll-review.mp4",
+      "sha256": "fef0c21179a6389cd5a97ed7183d980a672a1db247f172fe85337667e1640a3e",
+      "bytes": 464305
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/check.log",
+      "sha256": "4059aa4b34531cb36e2522ea5500d67112b9b912e7981da5076f3dfaaa033458",
+      "bytes": 1090
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/pose-0240.png",
+      "sha256": "684497d610cee9601baba337ba1a685217e957d7b0edb56ba2b9d687200be7d2",
+      "bytes": 129271
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/pose-0719.png",
+      "sha256": "646b075a6bb33a7d37f5d3e5d5906b4a6deabfa33badb07ef73110bc320d19ea",
+      "bytes": 96963
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/pose-0135.png",
+      "sha256": "f1f872424c6e0d326415e4e5b7f61af80a442f2eaa7a8d7ccac72cc48a8cd0e3",
+      "bytes": 126655
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/build.log",
+      "sha256": "3beea5f88c785f7c86e2cbaa08dd71f4f2a4fe4eba004a12f1a4af4cf2feb927",
+      "bytes": 3013
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/controls.log",
+      "sha256": "936ce223e8c2aa75425e58dd216f8fb98daa6416c93d6b222483f626cb896721",
+      "bytes": 209
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/closeup.log",
+      "sha256": "936ce223e8c2aa75425e58dd216f8fb98daa6416c93d6b222483f626cb896721",
+      "bytes": 209
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/source.log",
+      "sha256": "89a8c19498c8dbde6b803774be5d294b0cc72eb031e3d55094308fde02dff308",
+      "bytes": 3011
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/range.log",
+      "sha256": "765d3d91c4cbaca53b27e318feec6db4e00d0de6a83d2871583458180eb69810",
+      "bytes": 4623
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/contacts.log",
+      "sha256": "5f73b3ec7690b7d80fed17ddc4a2bfd2dcfd4dfdb24cdd07158adb2ac1bac6de",
+      "bytes": 715
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/pose-0270.png",
+      "sha256": "92e3a49003efd41b2c14d74dccfda42e1f3b374dec7c534f031c0f4b56632203",
+      "bytes": 144190
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/pose-0660.png",
+      "sha256": "4481443802f66ae46b8c2a1442fdb5c7b82c68e5ed088b080f617cac2c21e5ca",
+      "bytes": 153594
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/diagnose.log",
+      "sha256": "42954de46a653123d24f2aa0498fbca22aa1547cf0591024cb40f7ce85970f27",
+      "bytes": 3059
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/tip.log",
+      "sha256": "936ce223e8c2aa75425e58dd216f8fb98daa6416c93d6b222483f626cb896721",
+      "bytes": 209
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/pose-0210.png",
+      "sha256": "2e6d13446027fc67aefaf8da14ca84fabac9d48dec74a002093e4a7bf238fb39",
+      "bytes": 148957
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/godot.log",
+      "sha256": "936ce223e8c2aa75425e58dd216f8fb98daa6416c93d6b222483f626cb896721",
+      "bytes": 209
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/probe.log",
+      "sha256": "9a46ce768ad4585cd03e802bae6588edae71ef6e5fb43f900e2213db9d780821",
+      "bytes": 2962
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/pose-0570.png",
+      "sha256": "291a6cebb241b8a8296932374572053c3da7aa19f6afda6dfd95661ed7031121",
+      "bytes": 149505
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/pose-0000.png",
+      "sha256": "21071b8b3d13e3fd69903d767a3bbba4c8c872ffd98a1c73e29211f5ae32dbb6",
+      "bytes": 146438
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/motion.log",
+      "sha256": "e509b4b826f4e1e5fcec196bbc6aa65629e6133bb3a11f101cabf0da89b11f87",
+      "bytes": 1193
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/ground.log",
+      "sha256": "cc41cdd369a8cf29ac2c2d7e3b14a796ce4c4c01ef4617927611a8cf431ad54b",
+      "bytes": 1350
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/pose-0360.png",
+      "sha256": "20325571bf713b0af290b37c94e93e978ef88e5a8d25fc606864958bc2dde613",
+      "bytes": 145319
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/pose-0959.png",
+      "sha256": "7b755e954a931f0395af51d2c04a1429ef6c50adba3945248b234abc264b1880",
+      "bytes": 148883
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/proportions.log",
+      "sha256": "d055f95b78e2f8449a65f6654df29fe435903f345bd3edae0979d6c45d938e54",
+      "bytes": 6887
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/pose-0810.png",
+      "sha256": "7e3e551618f84c36506bdd40bd87fd834a8b583a9ce73d03182d704b416fef41",
+      "bytes": 150556
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/baseline-tip.log",
+      "sha256": "936ce223e8c2aa75425e58dd216f8fb98daa6416c93d6b222483f626cb896721",
+      "bytes": 209
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/pose-0180.png",
+      "sha256": "d4fdb363a5e0b96b22408692fb049e3cb2041b48a38cca2407a4cb74e68420cb",
+      "bytes": 148997
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/shape.log",
+      "sha256": "56c29e0c27b5a5ff2bd8c577154621b4f7d65e9d6e994a29ad852183ec5d8c1e",
+      "bytes": 3867
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/baseline-coil.log",
+      "sha256": "936ce223e8c2aa75425e58dd216f8fb98daa6416c93d6b222483f626cb896721",
+      "bytes": 209
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/support.log",
+      "sha256": "a43e27d74fdbc403752b8c9e712069dbc21eb8dfbb831dfd4979ab1cab466e03",
+      "bytes": 739
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/pose-0090.png",
+      "sha256": "0e0e456165f6e9c5d5297e88644731d4aa379166b22e83017a4f1b748d1f3fca",
+      "bytes": 144804
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/pose-0480.png",
+      "sha256": "e3858d684f8be30576602a0774af5a8ada46b6a3910af0791f25f8bd6cdef060",
+      "bytes": 149085
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/pose-0720.png",
+      "sha256": "44b0e90f8dfaf7b865c1bd87a811410ac7985e9da635e0e2dfaee3f53793aaae",
+      "bytes": 150253
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/pose-0900.png",
+      "sha256": "e7c3b60763ff382a9c8e5f883f7914fd0609379221ee445ab9ed69ac5d6b4aa9",
+      "bytes": 149004
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/pose-0135.png",
+      "sha256": "8b03f6264e574e1615561e5b0070d9a7647deea444ff20c5f528212d661f6226",
+      "bytes": 143735
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/pose-0450.png",
+      "sha256": "396c80be14bb16b907639fcef16f12378c6fe84b65ceddaf8bfd32ec6133d344",
+      "bytes": 146001
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/build.log",
+      "sha256": "843feaf141c88eea1b2ab2964cee53ca9314af28d1c67c9584133f99be77964d",
+      "bytes": 5230
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/capture.log",
+      "sha256": "936ce223e8c2aa75425e58dd216f8fb98daa6416c93d6b222483f626cb896721",
+      "bytes": 209
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/source.log",
+      "sha256": "2b39c43c3d690ae7d3209c19254dd1d32b8655207846fa5ebcb43142d92a98e3",
+      "bytes": 2768
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/godot.log",
+      "sha256": "936ce223e8c2aa75425e58dd216f8fb98daa6416c93d6b222483f626cb896721",
+      "bytes": 209
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/export.log",
+      "sha256": "140fb6aed9321008ba2f451e7963751810350054a3f86cebbc1b103ba73c9ca3",
+      "bytes": 5231
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/closeup.log",
+      "sha256": "936ce223e8c2aa75425e58dd216f8fb98daa6416c93d6b222483f626cb896721",
+      "bytes": 209
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/source.log",
+      "sha256": "5c81fcaf8b5768a6267d2f6be1496283f3a78d7860a87a5d929372eaef4511a7",
+      "bytes": 2876
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/morph-controls.log",
+      "sha256": "936ce223e8c2aa75425e58dd216f8fb98daa6416c93d6b222483f626cb896721",
+      "bytes": 209
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/pairs.log",
+      "sha256": "7ce1e71fee4c2a0b5953355e177f4541fc82c4941d619789d805d201ba35753c",
+      "bytes": 4533
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/target-compare.log",
+      "sha256": "4a2544f2d90a662821e81a60fcb04ad805e443a9ec07ec27a91b9f023f1067eb",
+      "bytes": 1359
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/pose-0300.png",
+      "sha256": "82fae7f491c0197ebb475797e6af87905beeefacabe19dc284ff3e1c54cf9665",
+      "bytes": 67973
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/pose-0510.png",
+      "sha256": "4fe0dc0679f6965888cc7a94611f302d7e7d32d3db94ae9db0b1effc9bc380fa",
+      "bytes": 145027
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/pose-0060.png",
+      "sha256": "71c6d81ef0cf9c031545b5506005b03f3815aa1a107af471d8a1e5c8bf1d8e46",
+      "bytes": 149916
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/full.log",
+      "sha256": "b9159be228681ab5b2661da8fc136bc52a6c92d76a604c6e070da00024895d02",
+      "bytes": 1438
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/godot.log",
+      "sha256": "936ce223e8c2aa75425e58dd216f8fb98daa6416c93d6b222483f626cb896721",
+      "bytes": 209
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/octopus-actions.glb",
+      "sha256": "66105e405029f8b1d3357535b26e965d0b570f1eaa96b55bc821abf051612a0a",
+      "bytes": 4072096
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/pose-0000.png",
+      "sha256": "910fea506082f06ddbfe90cd3d86eea44f7d19054eee38d7bc4895aec0ea5d9b",
+      "bytes": 144926
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/contact-targets.npz",
+      "sha256": "89b8f5449a624e250c5fd3f018bc84007d378751e14ec66c81102e6ec2bb870f",
+      "bytes": 337878
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/local.log",
+      "sha256": "3fbc688f03465f14b35ae0c2e69818e2b80def709e5e895bf711de861f0270f0",
+      "bytes": 1352
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/octopus-actions.blend",
+      "sha256": "714dec9f76eeab0dbfcb8a029d67e06ef1c55fc736e767cbe0b564fa8667c3e4",
+      "bytes": 35451552
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/pose-0599.png",
+      "sha256": "5a2eaae8e374a786b1eae7815f2f6c0d26da09f1f080616ab2510610d883c4dd",
+      "bytes": 144915
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/pose-0540.png",
+      "sha256": "910fea506082f06ddbfe90cd3d86eea44f7d19054eee38d7bc4895aec0ea5d9b",
+      "bytes": 144926
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/pose-0024.png",
+      "sha256": "cf66c90543e47db2e04b099746b770345201452ed68bc9b0501f3b0bcfa7d485",
+      "bytes": 146398
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/pose-0150.png",
+      "sha256": "a7d203b0b7f474348daa80b8d1cd9cfa6405e92c5c5fc6c04cfe70879cb06d14",
+      "bytes": 77478
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/pose-0420.png",
+      "sha256": "1ebe6765022c590a125bd09d73d8ae08e1e3450af18256336214be99af95d317",
+      "bytes": 76762
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/inspect.log",
+      "sha256": "8dd253c1d2782a76a0a963bbd1fa04417fdf9dc87384c03990dafeff9e40dcd2",
+      "bytes": 3001
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/octopus-contact-trial.mp4",
+      "sha256": "1e01fc65a9de97104123b12ffc34145f5a22744fa523dccbc9a1da9985831606",
+      "bytes": 536326
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/pose-0045.png",
+      "sha256": "3581992ce36e793ecfa270d776b63a278a3e854d0e27c794dc12961deb983cd7",
+      "bytes": 147408
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/pose-0090.png",
+      "sha256": "81200c4c5410a968b8cac814d5e8b2df12dae705fad4993d73c013d1b52251a9",
+      "bytes": 98864
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/pose-0480.png",
+      "sha256": "08b88c0bdedc887dcec65fb32fa5be57cedf482bc1ce088a1953b40f3b771ce4",
+      "bytes": 147603
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/pose-0240.png",
+      "sha256": "f3cd69ab5a51339de50451d2b1db5fe76ce441f1c03d6825618fb1445f19920a",
+      "bytes": 69358
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/source-inspect.log",
+      "sha256": "65a94df2e10b86e3e76e910c0b03d790bd7e5fcfbd7fd78571523205fad62f4c",
+      "bytes": 697
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/solver.log",
+      "sha256": "bf34a3a79d71b9337c2eef32f6a821c4d56ad77e372a5865d537dc96f1326afc",
+      "bytes": 2155
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/build.log",
+      "sha256": "78ef3a3b3f37088f3a19892388dd7fc960beda83dcc1eaf04a69f7fd79aa65c9",
+      "bytes": 4307
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/source-check.log",
+      "sha256": "59422497f9f7a1e777badcedd8077212829b4c4f4147beeeca22d8d6b475b956",
+      "bytes": 2927
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/octopus-motion.blend",
+      "sha256": "b5cb81ace5fc5cfb0373ce3057f7c99983dc6d35af76a95fd7ea174fba2ed7bd",
+      "bytes": 5996086
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0504.png",
+      "sha256": "2c3be1deeed777d43c8a64ac32b1a409ca1ab6891253427fdb75fd61f0ce5b33",
+      "bytes": 106405
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0288.png",
+      "sha256": "3d5246a6445d9760b5989457bbffc45fc317c6a3623729ff6e0425f171b70671",
+      "bytes": 131961
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0576.png",
+      "sha256": "88bbccf4c335929427046e145425371dac32375a6ef53eec0431de6dc63675e5",
+      "bytes": 107141
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/godot.log",
+      "sha256": "8b698e3e2f1e4f3e9aa5cc59ac92c1e89841cd53c30012e6516d98de6298a554",
+      "bytes": 188
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0216.png",
+      "sha256": "67f4972d436443acd92fc1d8aa0b0c60008e4a6e74b6920e6073f273d1f47827",
+      "bytes": 132302
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0000.png",
+      "sha256": "aa3365ea4a78de57bbc601a820a8476106494f8aac38e59b19925da04bfdbd50",
+      "bytes": 135202
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/rest-build.log",
+      "sha256": "9062236367a186eedcfeb59c5eac2c2764084a012c9dab0e26d92a5eb95ec24b",
+      "bytes": 3306
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0611.png",
+      "sha256": "1a09473c618ca00ff800a0a6c4ffe96e6dafb0731ef52e021317a3b738ad51fc",
+      "bytes": 105239
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0360.png",
+      "sha256": "da66bbf33fe533c2824c0ba39089cfcf2f9d0d2e16b8cd2b01437cb15fdb99d3",
+      "bytes": 113586
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/octopus-motion.glb",
+      "sha256": "c39c8b48822305b967bdc7ed480dd87ed0fcf5da1aed7e320c575710ea575fe4",
+      "bytes": 1260308
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0540.png",
+      "sha256": "36b6263724f658bb3b85476e69fedf548bf8a94386ab0bd5a891d6536a30e556",
+      "bytes": 108201
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/proportions.log",
+      "sha256": "8b23f5b6a3fbb3f38b59042ba645d31dc76d551a2b3aff5660d33d7e3f0c342d",
+      "bytes": 6914
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/motion-contact.png",
+      "sha256": "f91da3f1cedba5c8d51a3b5dff785738331e609f9dc5d5e471ffbe05a31f310e",
+      "bytes": 416108
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0432.png",
+      "sha256": "fedf487911ff28493f01896ecb09db19eb07f012f95ce02d501da73d4da3c32e",
+      "bytes": 113745
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0396.png",
+      "sha256": "43ff281979c27efa1257cb0f472189ce1d72fe2fac3939a386506b983435c4ce",
+      "bytes": 109435
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0180.png",
+      "sha256": "1e085c0b62232e22d8ca61b374677e2c3026182cad318fdba63cc31483a37711",
+      "bytes": 133435
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0252.png",
+      "sha256": "36c9dbe43540db3aab157a1c844517c087ea7eccbec733b00fb1929444060518",
+      "bytes": 131174
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0468.png",
+      "sha256": "c44c33e8cee006b1e81c4121072e17d323c995ab002ce697a4ad1c3d8fee1194",
+      "bytes": 105357
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/check.log",
+      "sha256": "ea8ed14438e53695b1a8fb1ad9d4dba719991dea74d3ccfa059db114ef6358fd",
+      "bytes": 1051
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0045.png",
+      "sha256": "6f722eb0b4b000ef5ce3b39d26a28c9b0c4a2f591ad7376fa4f1c581fa61de06",
+      "bytes": 135944
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0090.png",
+      "sha256": "ed5c41e120a2632e47b6f8b29722ce66a24e88f59b4bc32875604a22f512515a",
+      "bytes": 135976
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0324.png",
+      "sha256": "a8df6406bc888b99310a81162e1062a416e388c06a29cfbf3efe0f00ec7aaa51",
+      "bytes": 117413
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/octopus-motion-preview.mp4",
+      "sha256": "9e8b8dae7d9f3692871b4052aa6bbc4d6d6dedfcff91f695a353dfaa7ff61b2c",
+      "bytes": 1486009
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0135.png",
+      "sha256": "03e0649680c123041195ff6444a6e0614645a30b2d70c076206fecf0bdfc4d42",
+      "bytes": 135427
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/godot-side.png",
+      "sha256": "731e33dc152fba68171225f26d6bacebea0378e94be76f074ec4714b2915f483",
+      "bytes": 72841
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/measure.log",
+      "sha256": "3dcf181027025c32cb7907546a070e84d1a01c67ad7bcd918e3ce10346ea832a",
+      "bytes": 6911
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/render.log",
+      "sha256": "055c04d419f1ca243282dde56176003fab5a43556ea56b0fcd85651d7acb75bb",
+      "bytes": 2002
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/godot-top.png",
+      "sha256": "9896f2e57eedf386bb25bc98a4a2cb725f9e9b0465b2b2331dc4317d4385a3e4",
+      "bytes": 121677
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/godot-capture.log",
+      "sha256": "a40a61b9df3d93915d77f102884e89a67b65aa8e993676561d8b9aedc8607160",
+      "bytes": 155
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/godot-underside.png",
+      "sha256": "9a826c56c127eae0e8ace6fe22e3f31bf2fbacea8e64a5f39134f1c6bc2e6715",
+      "bytes": 135758
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/octopus-gray.blend",
+      "sha256": "35e31fa8bca9d5101390db0a79a978f6076747ef5250d80e9b00331fed9a4a00",
+      "bytes": 1883717
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/gray-underside.png",
+      "sha256": "43aca3d7419f3966445a7d91adfb31879b3edec9a9d78b98844b3c62ad198991",
+      "bytes": 1613103
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/godot-oblique.png",
+      "sha256": "43dfa09c81c4a906acfe61866eba96201785c04cd94f28ac7bda8a6b12639966",
+      "bytes": 101563
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/octopus-gray.glb",
+      "sha256": "94ae5b126514ce94a2daea4153e13f57fefc55731833a9d5065f6085e646e05a",
+      "bytes": 135736
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/gray-top.png",
+      "sha256": "819b9733f586b6614349738f6d1426ad3505e1c938bae0986b7e773e1a2944c0",
+      "bytes": 1621022
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/gray-oblique.png",
+      "sha256": "aded407db7af0915c1debe30419803f87a453c90ac83dbd0917ef38ca3b91f8f",
+      "bytes": 1624560
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/cold-export.log",
+      "sha256": "5e6dca1dab41a704a786150921c3cd3bd0fb331cae672f7483144881b24bb5ca",
+      "bytes": 1932
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/gray-side.png",
+      "sha256": "7bec4f8b25b6ff4c12e456d658bdfda5384e03d324cc3d03d1216b0b1be65298",
+      "bytes": 1578230
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/build.log",
+      "sha256": "efe03c5c504d319c3bf3427fc3d5117597c3813096d17c24e906055a394d6461",
+      "bytes": 3258
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/rest/octopus-gray.blend",
+      "sha256": "48cd38c39edd562db31bf9e99c7408b506f27f0c391e9d1e8e173ba6eb0e1e92",
+      "bytes": 2004049
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/rest/gray-underside.png",
+      "sha256": "80afe9397ce212aef2045be191d29b93be802028021ccf955964d81fef6cbe3c",
+      "bytes": 1614473
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/rest/octopus-gray.glb",
+      "sha256": "392890c11864658d2b1fb57d328d0191fe3ce1e55ec27cb7f49548785398380b",
+      "bytes": 171740
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/rest/gray-top.png",
+      "sha256": "4b500917579f5067276e838a59e730f69f04f8b6066756e49173f23f5081f16c",
+      "bytes": 1619035
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/rest/gray-oblique.png",
+      "sha256": "9978812617b3551f17d18f270781778914105991e4494354f33fb2ad626b1c8e",
+      "bytes": 1622619
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/rest/gray-side.png",
+      "sha256": "6a91ee1ee2ef8e5963a33a4a1c5b097b0507c6065f27b2083c69948053f76dd3",
+      "bytes": 1579001
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/rest/octopus-gray.blend",
+      "sha256": "4538dbe1418127fa47e4e0450485debfcfedf781b154771c9ba75e29a1ee8281",
+      "bytes": 4552057
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/rest/proportions.log",
+      "sha256": "45bcdba7d0c8aa83151c2eff62a4b32ad5eec2bf59b67aa4c11c54fd5ae2ea98",
+      "bytes": 6883
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/rest/gray-underside.png",
+      "sha256": "40c5a2d26a62f3e2d776f95ff96f4d6606ea2af84c12ac67451be57cc98819da",
+      "bytes": 1644378
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/rest/octopus-gray.glb",
+      "sha256": "cd795a6b3f187f16c2fb63226997cafa0b2f8c937eafabca6352795bdb379551",
+      "bytes": 903620
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/rest/gray-top.png",
+      "sha256": "485ad0557638018a89f29dd737eddadbe272444ca42d430a434b5e6b7773fdd3",
+      "bytes": 1623637
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/rest/gray-oblique.png",
+      "sha256": "3519c79ca4caae40a8dd7e125b93959c4f75ef884af3916f5744426cec421a23",
+      "bytes": 1604989
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/rest/gray-side.png",
+      "sha256": "a0e758a18efb31a94f76f2812fff93e0680970621b8b0496c07a01bcd6d247cc",
+      "bytes": 1562892
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/rest/octopus-gray.blend",
+      "sha256": "49f4aabeeb6d199a40ac2629753b10b5f85f1287c34bf40306efcdbf1f8c9d46",
+      "bytes": 1383677
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/rest/proportions.log",
+      "sha256": "9b832143d33d8716d96d879df2ed83cb5aa06a4d7522ef58ce3648ebf00225d3",
+      "bytes": 6874
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/rest/gray-underside.png",
+      "sha256": "2f4e9f575de15cd90f9adf322350222b65be54203c5541094547be01f3d7a10d",
+      "bytes": 1655086
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/rest/octopus-gray.glb",
+      "sha256": "166b06d50094190e02c4e5c8a337379245b6be7e1dabfd237b0f5c32a4afe021",
+      "bytes": 974180
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/rest/gray-top.png",
+      "sha256": "9e89aac71d0019e2e27ccdabe11c4a68d26d2b40becdee137021826500ffe61e",
+      "bytes": 1628425
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/rest/gray-oblique.png",
+      "sha256": "31fbd6cdb3ae954e1e8a1bcb6a20bc5b4f5b59ff6b960e49f25658d2aec39ceb",
+      "bytes": 1610627
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/rest/gray-side.png",
+      "sha256": "b9932f709ef7b461cd88daf6754f92af99acb19bb710f32b83ba8bc72683b464",
+      "bytes": 1563823
+    }
+  ],
+  "historical_replay": "旧manifest中已退休路径/SHA只作历史，不再声称可重放；R7源可直接编辑，R7作者脚本仍以保留R5源重建。"
+}

@@ -1,0 +1,1209 @@
+{
+  "deleted": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0298.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0267.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0273.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0065.png",
+      "bytes": 78076
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0071.png",
+      "bytes": 76817
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0059.png",
+      "bytes": 79408
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0111.png",
+      "bytes": 71488
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0105.png",
+      "bytes": 71488
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0139.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0138.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0104.png",
+      "bytes": 71488
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0110.png",
+      "bytes": 71488
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0058.png",
+      "bytes": 79732
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0070.png",
+      "bytes": 77024
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0064.png",
+      "bytes": 78132
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0272.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0266.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0299.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0270.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0264.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0258.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0099.png",
+      "bytes": 71597
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0072.png",
+      "bytes": 76574
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0066.png",
+      "bytes": 77878
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0106.png",
+      "bytes": 71488
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0112.png",
+      "bytes": 71488
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0113.png",
+      "bytes": 71488
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0107.png",
+      "bytes": 71488
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0067.png",
+      "bytes": 77691
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0073.png",
+      "bytes": 76297
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0098.png",
+      "bytes": 71701
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0259.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0265.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0271.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0249.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0275.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0261.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0088.png",
+      "bytes": 73435
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0077.png",
+      "bytes": 75347
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0063.png",
+      "bytes": 78432
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0103.png",
+      "bytes": 71488
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0117.png",
+      "bytes": 71488
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0116.png",
+      "bytes": 71488
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0102.png",
+      "bytes": 71525
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0062.png",
+      "bytes": 78480
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0076.png",
+      "bytes": 75806
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0089.png",
+      "bytes": 73178
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0260.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0274.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0248.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0289.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0262.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0276.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0048.png",
+      "bytes": 89179
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0060.png",
+      "bytes": 79006
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0074.png",
+      "bytes": 75971
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0128.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0114.png",
+      "bytes": 71488
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0100.png",
+      "bytes": 71520
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0101.png",
+      "bytes": 71535
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0115.png",
+      "bytes": 71488
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0129.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0075.png",
+      "bytes": 75861
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0061.png",
+      "bytes": 78662
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0049.png",
+      "bytes": 87501
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0277.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0263.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0288.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0204.png",
+      "bytes": 77715
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0210.png",
+      "bytes": 78862
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0238.png",
+      "bytes": 142577
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0006.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0012.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0199.png",
+      "bytes": 76657
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0172.png",
+      "bytes": 71524
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0166.png",
+      "bytes": 71303
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0167.png",
+      "bytes": 71303
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0173.png",
+      "bytes": 71434
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0198.png",
+      "bytes": 76409
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0013.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0007.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0239.png",
+      "bytes": 143737
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0211.png",
+      "bytes": 79255
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0205.png",
+      "bytes": 77916
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0213.png",
+      "bytes": 79770
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0207.png",
+      "bytes": 78278
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0011.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0005.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0039.png",
+      "bytes": 117343
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0165.png",
+      "bytes": 71303
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0171.png",
+      "bytes": 71418
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0159.png",
+      "bytes": 71303
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0158.png",
+      "bytes": 71303
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0170.png",
+      "bytes": 71338
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0164.png",
+      "bytes": 71303
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0038.png",
+      "bytes": 122279
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0004.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0010.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0206.png",
+      "bytes": 77976
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0212.png",
+      "bytes": 79517
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0216.png",
+      "bytes": 81842
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0202.png",
+      "bytes": 77506
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0028.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0014.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0000.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0148.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0160.png",
+      "bytes": 71303
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0174.png",
+      "bytes": 71635
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0175.png",
+      "bytes": 71962
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0161.png",
+      "bytes": 71303
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0149.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0001.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0015.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0029.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0203.png",
+      "bytes": 77524
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0217.png",
+      "bytes": 82748
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0229.png",
+      "bytes": 108882
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0201.png",
+      "bytes": 77228
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0215.png",
+      "bytes": 81056
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0003.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0017.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0188.png",
+      "bytes": 74297
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0177.png",
+      "bytes": 72261
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0163.png",
+      "bytes": 71303
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0162.png",
+      "bytes": 71303
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0176.png",
+      "bytes": 72092
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0189.png",
+      "bytes": 74542
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0016.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0002.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0214.png",
+      "bytes": 80527
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0200.png",
+      "bytes": 76870
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0228.png",
+      "bytes": 104610
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0225.png",
+      "bytes": 95743
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0231.png",
+      "bytes": 117207
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0219.png",
+      "bytes": 84842
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0027.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0033.png",
+      "bytes": 139896
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0190.png",
+      "bytes": 74528
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0184.png",
+      "bytes": 73642
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0153.png",
+      "bytes": 71303
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0147.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0146.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0152.png",
+      "bytes": 71303
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0185.png",
+      "bytes": 73821
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0191.png",
+      "bytes": 74764
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0032.png",
+      "bytes": 142723
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0026.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0218.png",
+      "bytes": 83625
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0230.png",
+      "bytes": 113237
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0224.png",
+      "bytes": 93389
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0232.png",
+      "bytes": 122158
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0226.png",
+      "bytes": 98695
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0030.png",
+      "bytes": 144556
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0024.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0018.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0187.png",
+      "bytes": 74028
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0193.png",
+      "bytes": 75181
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0144.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0150.png",
+      "bytes": 71303
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0178.png",
+      "bytes": 72484
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0179.png",
+      "bytes": 72638
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0151.png",
+      "bytes": 71303
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0145.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0192.png",
+      "bytes": 75050
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0186.png",
+      "bytes": 74060
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0019.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0025.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0031.png",
+      "bytes": 143889
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0227.png",
+      "bytes": 101328
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0233.png",
+      "bytes": 125204
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0237.png",
+      "bytes": 139746
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0223.png",
+      "bytes": 91015
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0009.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0035.png",
+      "bytes": 132714
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0021.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0182.png",
+      "bytes": 73286
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0196.png",
+      "bytes": 75814
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0169.png",
+      "bytes": 71353
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0141.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0155.png",
+      "bytes": 71303
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0154.png",
+      "bytes": 71303
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0140.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0168.png",
+      "bytes": 71349
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0197.png",
+      "bytes": 76140
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0183.png",
+      "bytes": 73398
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0020.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0034.png",
+      "bytes": 136326
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0008.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0222.png",
+      "bytes": 89044
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0236.png",
+      "bytes": 136167
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0208.png",
+      "bytes": 78323
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0220.png",
+      "bytes": 86189
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0234.png",
+      "bytes": 129410
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0022.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0036.png",
+      "bytes": 129523
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0195.png",
+      "bytes": 75688
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0181.png",
+      "bytes": 73026
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0156.png",
+      "bytes": 71303
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0142.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0143.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0157.png",
+      "bytes": 71303
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0180.png",
+      "bytes": 72994
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0194.png",
+      "bytes": 75652
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0037.png",
+      "bytes": 125411
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0023.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0235.png",
+      "bytes": 132551
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0221.png",
+      "bytes": 87363
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0209.png",
+      "bytes": 78501
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0285.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0291.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0246.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0252.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0087.png",
+      "bytes": 73544
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0093.png",
+      "bytes": 72438
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0044.png",
+      "bytes": 98798
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0050.png",
+      "bytes": 86338
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0078.png",
+      "bytes": 75222
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0130.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0124.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0118.png",
+      "bytes": 71488
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0119.png",
+      "bytes": 71488
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0125.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0131.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0079.png",
+      "bytes": 74931
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0051.png",
+      "bytes": 84990
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0045.png",
+      "bytes": 95921
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0092.png",
+      "bytes": 72647
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0086.png",
+      "bytes": 73794
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0253.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0247.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0290.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0284.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0292.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0286.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0251.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0245.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0279.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0090.png",
+      "bytes": 73146
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0084.png",
+      "bytes": 74207
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0053.png",
+      "bytes": 82885
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0047.png",
+      "bytes": 91148
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0127.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0133.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0132.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0126.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0046.png",
+      "bytes": 93596
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0052.png",
+      "bytes": 83783
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0085.png",
+      "bytes": 73988
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0091.png",
+      "bytes": 72782
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0278.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0244.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0250.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0287.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0293.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0297.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0283.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0268.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0254.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0240.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0095.png",
+      "bytes": 72142
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0081.png",
+      "bytes": 74688
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0056.png",
+      "bytes": 80682
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0042.png",
+      "bytes": 104781
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0122.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0136.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0137.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0123.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0043.png",
+      "bytes": 101484
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0057.png",
+      "bytes": 79978
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0080.png",
+      "bytes": 74682
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0094.png",
+      "bytes": 72273
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0241.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0255.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0269.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0282.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0296.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0280.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0294.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0243.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0257.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0082.png",
+      "bytes": 74445
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0096.png",
+      "bytes": 71816
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0069.png",
+      "bytes": 77388
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0041.png",
+      "bytes": 109092
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0055.png",
+      "bytes": 81200
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0109.png",
+      "bytes": 71488
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0135.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0121.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0120.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0134.png",
+      "bytes": 72950
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0108.png",
+      "bytes": 71488
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0054.png",
+      "bytes": 81985
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0040.png",
+      "bytes": 113386
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0068.png",
+      "bytes": 77676
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0097.png",
+      "bytes": 71612
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0083.png",
+      "bytes": 74178
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0256.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0242.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0295.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/frames/0281.png",
+      "bytes": 146843
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/octopus-actions.cold.glb",
+      "bytes": 3735164
+    }
+  ],
+  "deleted_bytes": 34199553
+}

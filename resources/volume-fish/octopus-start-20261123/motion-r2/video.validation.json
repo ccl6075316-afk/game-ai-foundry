@@ -1,0 +1,28 @@
+{
+  "ok": true,
+  "video": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r2/octopus-roll-review.mp4",
+    "sha256": "fef0c21179a6389cd5a97ed7183d980a672a1db247f172fe85337667e1640a3e"
+  },
+  "probe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1100,
+        "height": 800,
+        "r_frame_rate": "30/1",
+        "nb_read_frames": "720"
+      }
+    ],
+    "format": {
+      "duration": "24.000000",
+      "size": "464305"
+    }
+  },
+  "inspected_phase_contact": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r2/motion-contact.jpg",
+    "sha256": "c876378678d90f09ddf54a71d6b13db707c6a5dbe5952cc52d10da750131c203"
+  }
+}

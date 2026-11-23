@@ -1,0 +1,585 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-23",
+  "scope": "Reference availability review before octopus modelling, following user request to select from library first",
+  "status": "r2_reference_constrained_gray_awaiting_user_review",
+  "preferred_species": "Enteroctopus dofleini",
+  "preferred_reference": "7fb48f6cbcd54149bb23837a3ac09b2e",
+  "selection_basis": "Visual first-pass comparison: broad mantle, separated proximal arms and visible suckers; long-arm reference has strongly interlaced slender arms. Not a completed anatomy or mesh review.",
+  "records": [
+    {
+      "id": "04e13f6fc8304c34b7928a7c7879a39a",
+      "source_title": "CC0 イイダコ 🐙 Webfoot Octopus, Octopus ocellatus",
+      "url": "https://sketchfab.com/3d-models/04e13f6fc8304c34b7928a7c7879a39a",
+      "license": "cc0",
+      "face_count": 751820,
+      "downloadable_metadata": true,
+      "model_file_acquired": false,
+      "metadata_file": "references/04e13f6fc8304c34b7928a7c7879a39a.metadata.json",
+      "metadata_sha256": "442aa2e4f438deda66dda53f16976c9d31966e510cc24074658a9db710e16ed4",
+      "animation_count_verified_20261123": 0
+    },
+    {
+      "id": "7860bbb4a7044522a308e5b527121a62",
+      "source_title": "CC0 マダコ 🐙 Common Octopus, Octopus vulgaris",
+      "url": "https://sketchfab.com/3d-models/7860bbb4a7044522a308e5b527121a62",
+      "license": "cc0",
+      "face_count": 924663,
+      "downloadable_metadata": true,
+      "model_file_acquired": false,
+      "metadata_file": "references/7860bbb4a7044522a308e5b527121a62.metadata.json",
+      "metadata_sha256": "d60c925ec98eac6e6557c1f6b78d4b28b81aaa8fb34916675414ff3694dbcd0f",
+      "animation_count_verified_20261123": 0
+    },
+    {
+      "id": "7fb48f6cbcd54149bb23837a3ac09b2e",
+      "source_title": "CC0 ミズダコ 🐙 North Pacific Giant Octopus",
+      "url": "https://sketchfab.com/3d-models/7fb48f6cbcd54149bb23837a3ac09b2e",
+      "license": "cc0",
+      "face_count": 718002,
+      "downloadable_metadata": true,
+      "model_file_acquired": false,
+      "metadata_file": "references/7fb48f6cbcd54149bb23837a3ac09b2e.metadata.json",
+      "metadata_sha256": "ef47c42ecb3d4bb6a5fe9dea0d7547d6e150eecf8883e8b5fb1818956000b8d0",
+      "animation_count_verified_20261123": 0
+    },
+    {
+      "id": "acf183a0a0214b58b86b6ad2eeb2eefb",
+      "source_title": "CC0 テナガダコ 🐙 Long Arm Octopus, Octopus minor",
+      "url": "https://sketchfab.com/3d-models/acf183a0a0214b58b86b6ad2eeb2eefb",
+      "license": "cc0",
+      "face_count": 705542,
+      "downloadable_metadata": true,
+      "model_file_acquired": false,
+      "metadata_file": "references/acf183a0a0214b58b86b6ad2eeb2eefb.metadata.json",
+      "metadata_sha256": "be21ea763f9e03d2e2651cf34d6a5c1143344b671d55f1ad767d568bd42236c6",
+      "animation_count_verified_20261123": 0
+    },
+    {
+      "id": "da0eaebf853e45d0af191bf0b6978fd6",
+      "source_title": "CC0 イイダコ 🐙 Webfoot Octopus, Octopus ocellatus",
+      "url": "https://sketchfab.com/3d-models/da0eaebf853e45d0af191bf0b6978fd6",
+      "license": "cc0",
+      "face_count": 897080,
+      "downloadable_metadata": true,
+      "model_file_acquired": false,
+      "metadata_file": "references/da0eaebf853e45d0af191bf0b6978fd6.metadata.json",
+      "metadata_sha256": "599b5ddb1620805a645fa98c004f16453bac0947fac4287311189d42a012d49f",
+      "animation_count_verified_20261123": 0
+    },
+    {
+      "id": "db7cab212b95485d8257deaf951e3706",
+      "source_title": "CC0 マダコ 🐙 ♂ Common Octopus, Octopus vulgaris",
+      "url": "https://sketchfab.com/3d-models/db7cab212b95485d8257deaf951e3706",
+      "license": "cc0",
+      "face_count": 1238896,
+      "downloadable_metadata": true,
+      "model_file_acquired": false,
+      "metadata_file": "references/db7cab212b95485d8257deaf951e3706.metadata.json",
+      "metadata_sha256": "754dd64e1ba47d39369b424762660ae112180ed0d384b9a0a603149249b73f5d",
+      "animation_count_verified_20261123": 0
+    },
+    {
+      "id": "eb98c72af58447fdb72d480e6e741555",
+      "source_title": "CC0 マダコ 🐙 Common Octopus, Octopus vulgaris",
+      "url": "https://sketchfab.com/3d-models/eb98c72af58447fdb72d480e6e741555",
+      "license": "cc0",
+      "face_count": 1078144,
+      "downloadable_metadata": true,
+      "model_file_acquired": false,
+      "metadata_file": "references/eb98c72af58447fdb72d480e6e741555.metadata.json",
+      "metadata_sha256": "65a60aa06ec9293f711199238cae4b887bf695574640708f80cb22c016001d14",
+      "animation_count_verified_20261123": 0
+    }
+  ],
+  "images": [
+    {
+      "path": "references/octopus-reference-common.png",
+      "sha256": "9d508ef0f4aec36a942319dc155c4271bc0e85ce3aaeea17f1ac202df95e1145"
+    },
+    {
+      "path": "references/octopus-reference-giant.png",
+      "sha256": "8dbfb7c66e5f938dbe76d39d116e0cfca66cd936a9aced9a783cd4e2a4acc619"
+    },
+    {
+      "path": "references/octopus-reference-longarm.png",
+      "sha256": "0919fa9797ae5f5a84029b1119679d6cd3445c789307673513457c71cdc63504"
+    },
+    {
+      "path": "references/octopus-reference-webfoot.png",
+      "sha256": "9b33bba1dba1582681a0dfdef7efed74c3d9eb503e49a97181c9341fb0f94b91"
+    },
+    {
+      "path": "references/octopus-reference-giant-under.png",
+      "sha256": "7ecb2b1a200127f44db2df665297cf290737e1b1bd97d8c556b69c976b44f6e3"
+    },
+    {
+      "path": "references/octopus-reference-giant-oblique.png",
+      "sha256": "5b20b1ddc092a3955883f2d1ac8044a25fe32942546465a61c2ffb96b149eb97"
+    },
+    {
+      "path": "references/octopus-reference-giant-reverse.png",
+      "sha256": "ed2839f1aed453e86649be923639814d909bd05a363ac1947e47de0f0ed910c5"
+    },
+    {
+      "path": "references/octopus-animated-zacxophone-a.png",
+      "sha256": "2af294ef3edadac00371b5c766f35c46b25421a78d4701eab7a69ce18161976e"
+    },
+    {
+      "path": "references/octopus-animated-zacxophone-b.png",
+      "sha256": "90380274b056fbe6b0b63ff767bf200afeb488ff2308edc9ebe5e1e8128c16aa"
+    },
+    {
+      "path": "references/octopus-free-rkuhlf.png",
+      "sha256": "7da01869b6be1f729f90d4dfd3cb7e72d060439adc75565408d5a94d084fe288"
+    },
+    {
+      "path": "references/octopus-free-mushyday.png",
+      "sha256": "b514664e2d8fa61315f625eb92d486e6eccacc303dbed9cb3c95c2609894f7aa"
+    },
+    {
+      "path": "references/octopus-free-bluering.png",
+      "sha256": "1e81ad05c1afe60e996ef5d0630f780540c8ffd0f26750566b7914542d993e66"
+    },
+    {
+      "path": "references/octopus-free-cheli.png",
+      "sha256": "ffd55731e26bb136e512894ea1978dfbb132070836fcc9a6b8ed54ef29b53e64"
+    },
+    {
+      "path": "references/octopus-free-julianfiol.png",
+      "sha256": "e236309e93be5c75866765a018ffa86e7c2cfba35a9ab754c0be9150080d72af"
+    }
+  ],
+  "observed_views": "Four species previewed; giant reference rotated/reframed. Filenames under/reverse denote attempted views, NOT verified orthographic underside. Oral centre and all arm roots are not fully resolved.",
+  "limitations": [
+    "Metadata and rendered preview only; raw mesh not acquired.",
+    "Source specimen length, sex, capture provenance and posture not documented in item descriptions.",
+    "Common Octopus source label has not been independently taxonomically verified.",
+    "No self-authored model, material, rig or animation has been built or accepted.",
+    "Existing fish-specific jaw/fin checks do not automatically apply to octopus."
+  ],
+  "primary_anatomy_sources": [
+    "https://www.montereybayaquarium.org/animals-the-ocean/animals-a-to-z/giant-pacific-octopus",
+    "https://www.fao.org/4/i3489e/i3489e.pdf"
+  ],
+  "next_action": "用户先审阅灰模轮廓、腕长、蹼深及姿态；后续按反馈修形，再进入绑定和动作，不能把本轮静态候选当动作成品。",
+  "download_attempt": {
+    "url": "https://sketchfab.com/3d-models/7fb48f6cbcd54149bb23837a3ac09b2e",
+    "result": "Download 3D Model opened Log in to Sketchfab modal",
+    "raw_model_acquired": false,
+    "browser_task_space": 7,
+    "user_handoff": true
+  },
+  "current_user_priority": "综合不同模型的不同部位、腕足状态、腕间蹼、拉伸状态及真实行为视频；免费动画候选继续优先，不要求单一来源包办整只章鱼。",
+  "animated_candidates": [
+    {
+      "author": "Zacxophone",
+      "title": "Animated octopus",
+      "preview": "https://sketchfab.com/3d-models/animated-octopus-b504d8355d884c83bce1858b7da33386",
+      "product": "https://superhivemarket.com/products/animated-octopus",
+      "api_animation_count": 6,
+      "api_triangles": 41842,
+      "seller_claim": {
+        "clips": "1 idle, 2 swimming cycles, 3 transitions",
+        "bones": 136,
+        "fps": 60,
+        "formats": [
+          "blend",
+          "fbx"
+        ],
+        "price_usd": 39.99
+      },
+      "observed": "Online viewer playing; current clip labels included Armature|Swim2_To_Idle and Armature|Swim1_To_Swim2. Two poses captured and viewed. Not a complete six-clip quality review.",
+      "purchased": false,
+      "downloaded": false,
+      "godot_tested": false,
+      "species_identity": "not specified by seller; not verified as Enteroctopus dofleini"
+    },
+    {
+      "author": "BeshMesh",
+      "title": "Giant Pacific Octopus Rigged and Animated",
+      "product": "https://www.fab.com/listings/1bd7307a-4571-4020-9773-34ba130a9a61?lang=en",
+      "seller_claim": {
+        "species": "Enteroctopus dofleini",
+        "animation": "grounded pose into swimming cycle",
+        "polygons_subdivision_off": 41860,
+        "formats": [
+          "blend",
+          "fbx",
+          "obj"
+        ]
+      },
+      "browser_price_cny_range": [
+        534.05,
+        1068.18
+      ],
+      "price_note": "License-dependent, tax excluded; observed 2026-11-23",
+      "animation_playback_reviewed": false,
+      "purchased": false,
+      "downloaded": false,
+      "godot_tested": false
+    }
+  ],
+  "free_animated_search_20261123": {
+    "candidates": [
+      {
+        "uid": "f9c0186d5ac54bcfada2b6113de40ede",
+        "name": "Octopus",
+        "author": "rkuhlf",
+        "url": "https://sketchfab.com/3d-models/octopus-f9c0186d5ac54bcfada2b6113de40ede",
+        "animation_count": 4,
+        "triangles": 874,
+        "downloadable_flag": true,
+        "license": {
+          "uri": "https://api.sketchfab.com/v3/licenses/322a749bcfa841b29dff1e8a1bb74b0b",
+          "label": "CC Attribution",
+          "fullName": "Creative Commons Attribution",
+          "requirements": "Author must be credited. Commercial use is allowed.",
+          "url": "http://creativecommons.org/licenses/by/4.0/",
+          "slug": "by"
+        },
+        "metadata_path": "references/f9c0186d5ac54bcfada2b6113de40ede.metadata.json",
+        "metadata_sha256": "8b35140091db6a9a098c8be27758f156d6619b63d9d07f1748145ccf5caa951a",
+        "file_downloaded": false
+      },
+      {
+        "uid": "52870f0c8cec4b29992bfda0854c7a30",
+        "name": "Octopus : Lowpoly & Rigged",
+        "author": "MushyDay",
+        "url": "https://sketchfab.com/3d-models/octopus-lowpoly-rigged-52870f0c8cec4b29992bfda0854c7a30",
+        "animation_count": 1,
+        "triangles": 1740,
+        "downloadable_flag": true,
+        "license": {
+          "uri": "https://api.sketchfab.com/v3/licenses/322a749bcfa841b29dff1e8a1bb74b0b",
+          "label": "CC Attribution",
+          "fullName": "Creative Commons Attribution",
+          "requirements": "Author must be credited. Commercial use is allowed.",
+          "url": "http://creativecommons.org/licenses/by/4.0/",
+          "slug": "by"
+        },
+        "metadata_path": "references/52870f0c8cec4b29992bfda0854c7a30.metadata.json",
+        "metadata_sha256": "a736117b42031a1fb7c7a6e9db1c9ae325563b973d894d1d48afcd71e6cbe872",
+        "file_downloaded": false
+      },
+      {
+        "uid": "ac85becda709471494d049ab346136f0",
+        "name": "Blue Ringed Octopus - Inktober Day 1",
+        "author": "lesliestowe",
+        "url": "https://sketchfab.com/3d-models/blue-ringed-octopus-inktober-day-1-ac85becda709471494d049ab346136f0",
+        "animation_count": 1,
+        "triangles": 668,
+        "downloadable_flag": true,
+        "license": {
+          "uri": "https://api.sketchfab.com/v3/licenses/322a749bcfa841b29dff1e8a1bb74b0b",
+          "label": "CC Attribution",
+          "fullName": "Creative Commons Attribution",
+          "requirements": "Author must be credited. Commercial use is allowed.",
+          "url": "http://creativecommons.org/licenses/by/4.0/",
+          "slug": "by"
+        },
+        "metadata_path": "references/ac85becda709471494d049ab346136f0.metadata.json",
+        "metadata_sha256": "25b571b6ca8786bf27c2ccb79bd8f793855e77352b5b9bb7d730bf00e941d6f5",
+        "file_downloaded": false
+      },
+      {
+        "uid": "27c322f512514830b03eeeb489ed12ac",
+        "name": "Octopus",
+        "author": "cheli_sanjuan",
+        "url": "https://sketchfab.com/3d-models/octopus-27c322f512514830b03eeeb489ed12ac",
+        "animation_count": 1,
+        "triangles": 1914,
+        "downloadable_flag": true,
+        "license": {
+          "uri": "https://api.sketchfab.com/v3/licenses/322a749bcfa841b29dff1e8a1bb74b0b",
+          "label": "CC Attribution",
+          "fullName": "Creative Commons Attribution",
+          "requirements": "Author must be credited. Commercial use is allowed.",
+          "url": "http://creativecommons.org/licenses/by/4.0/",
+          "slug": "by"
+        },
+        "metadata_path": "references/27c322f512514830b03eeeb489ed12ac.metadata.json",
+        "metadata_sha256": "d4f7df76e06fc5acb8194dfe5bcd8cbe8ecb961d6a675129321fa20ecebc37ba",
+        "file_downloaded": false
+      },
+      {
+        "uid": "7b7bf4821dd74ed0bfde155a40786f8b",
+        "name": "Octopus Animated",
+        "author": "julianfiol",
+        "url": "https://sketchfab.com/3d-models/octopus-animated-7b7bf4821dd74ed0bfde155a40786f8b",
+        "animation_count": 1,
+        "triangles": 11984,
+        "downloadable_flag": true,
+        "license": {
+          "uri": "https://api.sketchfab.com/v3/licenses/322a749bcfa841b29dff1e8a1bb74b0b",
+          "label": "CC Attribution",
+          "fullName": "Creative Commons Attribution",
+          "requirements": "Author must be credited. Commercial use is allowed.",
+          "url": "http://creativecommons.org/licenses/by/4.0/",
+          "slug": "by"
+        },
+        "metadata_path": "references/7b7bf4821dd74ed0bfde155a40786f8b.metadata.json",
+        "metadata_sha256": "c6d68c42b9eeb70d1756038b6adfe32b9d258c014105efbb01cf9fe525507ba2",
+        "file_downloaded": false
+      },
+      {
+        "uid": "330402cc0ade4fc5bb147f3d618e58c3",
+        "name": "Octopus",
+        "author": "kenchoo",
+        "url": "https://sketchfab.com/3d-models/octopus-330402cc0ade4fc5bb147f3d618e58c3",
+        "animation_count": 1,
+        "triangles": 58640,
+        "downloadable_flag": true,
+        "license": {
+          "uri": "https://api.sketchfab.com/v3/licenses/322a749bcfa841b29dff1e8a1bb74b0b",
+          "label": "CC Attribution",
+          "fullName": "Creative Commons Attribution",
+          "requirements": "Author must be credited. Commercial use is allowed.",
+          "url": "http://creativecommons.org/licenses/by/4.0/",
+          "slug": "by"
+        },
+        "metadata_path": "references/330402cc0ade4fc5bb147f3d618e58c3.metadata.json",
+        "metadata_sha256": "086b53ab411998df8511a9141bee5b85c991e73a46576a48dccf5f9c773b9a5a",
+        "file_downloaded": false
+      },
+      {
+        "uid": "0b0cc6f5bc654129a78bbd3188c86fd8",
+        "name": "Octopus",
+        "author": "boxgizmo",
+        "url": "https://sketchfab.com/3d-models/octopus-0b0cc6f5bc654129a78bbd3188c86fd8",
+        "animation_count": 0,
+        "triangles": 97736,
+        "downloadable_flag": true,
+        "license": {
+          "uri": "https://api.sketchfab.com/v3/licenses/72eb2b1960364637901eacce19283624",
+          "label": "Free Standard",
+          "fullName": "Free Standard",
+          "requirements": "Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works",
+          "url": "https://sketchfab.com/licenses",
+          "slug": "free-st"
+        },
+        "metadata_path": "references/0b0cc6f5bc654129a78bbd3188c86fd8.metadata.json",
+        "metadata_sha256": "50ddecb7f00c76b01c799ebf887f183f543756ae26617de840eac9d6ad83739b",
+        "file_downloaded": false
+      }
+    ],
+    "best_motion_trial": "f9c0186d5ac54bcfada2b6113de40ede",
+    "best_coloured_alternative": "ac85becda709471494d049ab346136f0",
+    "notes": [
+      "rkuhlf API lists 4 clips; author explicitly names Idle, Walk, Dart; only Idle playback and menu labels observed, fourth clip role unknown.",
+      "MushyDay viewer playing Octopus.armature|Octopus.armatureAction; author states no UVW.",
+      "Blue-ring viewer exposes one Take 001; full motion quality not reviewed.",
+      "julianfiol is a top-hatted moustached cartoon; not prioritised for current natural aquarium goal.",
+      "kenchoo reuses boxgizmo source; original Free Standard differs from uploader CC BY; do not assume redistribution rights cleared.",
+      "Riley itch pack offers name-your-price FBX/blend, but browser connection reset; no local file acquired. Itch pack license differs from Sketchfab CC BY: no asset redistribution.",
+      "No candidate tested in Godot; no biological motion acceptance."
+    ],
+    "itch_source": "https://rkuhlf-assets.itch.io/aquatic-animal-models"
+  },
+  "multi_reference_plan_20261123": {
+    "status": "reference_roles_assigned_not_motion_validated",
+    "user_direction": "可分别参考不同模型的不同部分与游动视频，综合考虑",
+    "parts": [
+      {
+        "part": "外套膜、头、腕根、吸盘与整体比例",
+        "sources": [
+          "7fb48f6cbcd54149bb23837a3ac09b2e"
+        ],
+        "role": "同种静态形态基准；遮挡部位和标本变形仍待核实"
+      },
+      {
+        "part": "卷腕、展开、腕间蹼连接和变形",
+        "sources": [
+          "52870f0c8cec4b29992bfda0854c7a30",
+          "7fb48f6cbcd54149bb23837a3ac09b2e"
+        ],
+        "role": "动画候选用于变形方案观察，同种标本用于形态约束；未完成极限姿态/网格检查"
+      },
+      {
+        "part": "待机、爬行、冲游及衔接",
+        "sources": [
+          "f9c0186d5ac54bcfada2b6113de40ede"
+        ],
+        "role": "作者命名Idle/Walk/Dart的工程参考；目前只实际观察Idle，其他片段待完整观看，不能当生物证据"
+      },
+      {
+        "part": "腕部简化与带材质运动观感",
+        "sources": [
+          "ac85becda709471494d049ab346136f0"
+        ],
+        "role": "蓝环章鱼单片段低面参考；不采用其物种花纹或比例作为巨型章鱼依据"
+      },
+      {
+        "part": "伸展、触碰、吸附与取食",
+        "sources": [
+          "https://www.youtube.com/watch?v=CYBFRu4gkdA"
+        ],
+        "role": "Monterey Bay Aquarium同种原始录像候选；标题、作者及章节已查，视频画面尚未实际审阅"
+      },
+      {
+        "part": "游动、爬行、漏斗与身体位移配合",
+        "sources": [
+          "https://teara.govt.nz/en/video/7906/octopus-movement"
+        ],
+        "role": "NHNZ署名录像入口；页面说明已读，画面未审阅，具体物种未核准，只作补充行为候选"
+      }
+    ],
+    "integration_checks": [
+      "统一目标物种和尺度；相邻部位在同一灰模上验证",
+      "弯曲与轴向伸长分开观察，伸长同时检查粗细和吸盘间距",
+      "腕间蹼随相邻腕展开/收拢，检查根部连续、膜面折叠和穿插",
+      "记录每段动作来源及实际观察时间码，不将作者动画作为同种实测",
+      "跨物种只作明确部位或工程方法参考，不直接拼接比例、花纹与行为参数"
+    ],
+    "pending": [
+      "同种游动完整片段及速度/守位证据",
+      "源模型文件和可编辑绑定检查",
+      "各候选极限姿态与过渡审阅",
+      "自有灰模及Godot动作验证"
+    ]
+  },
+  "actual_observation_20261123": {
+    "method": "浏览器实际模型播放与截图；原视频按时间点逐段定位、逐帧取样比较。不是全片连续观看，也不是运动捕捉或尺度测量。",
+    "videos": [
+      {
+        "url": "https://www.youtube.com/watch?v=CYBFRu4gkdA",
+        "author": "Monterey Bay Aquarium",
+        "sample_seconds": [
+          60,
+          70,
+          80,
+          110,
+          130,
+          165,
+          175,
+          201
+        ],
+        "observations": [
+          "60/70/80秒腕部朝不同方向伸出，卷曲集中在不同腕段，近端较粗，末端渐细",
+          "110/201秒可见眼周隆起和头—外套膜关系",
+          "165/175秒腕部包覆手臂，双列吸盘朝接触面；腕间组织随腕位置展开和折叠"
+        ],
+        "limits": "水族馆训练与取食情境，不用于估算日常自由游速度；未测拉伸倍率"
+      },
+      {
+        "url": "https://www.youtube.com/watch?v=9ClNSh3YEUw",
+        "author": "Rendezvousdiving / Peter Mieras (画面署名2011)",
+        "sample_seconds": [
+          15,
+          35,
+          60,
+          100,
+          150,
+          210,
+          245,
+          248,
+          251,
+          254,
+          257,
+          260,
+          263,
+          266
+        ],
+        "observations": [
+          "15/35/60秒岩面附近伸腕、卷腕与支撑姿态变化",
+          "100秒可见吸盘双列与近端蹼",
+          "245–266秒离底水中姿态：腕聚拢、末端卷曲、不同方向展开，身体姿态随之变化，蹼的展开状态明显改变"
+        ],
+        "limits": "按作者标记巨型太平洋章鱼；镜头运动、透视和潜水员接近影响，不能由这些帧推出速度/力或常规巡游循环"
+      }
+    ],
+    "models": [
+      {
+        "id": "f9c0186d5ac54bcfada2b6113de40ede",
+        "watched": [
+          "Idle",
+          "Walk",
+          "Dart"
+        ],
+        "scope": "实际切换三段并看代表播放姿态；未做全相位录屏分析",
+        "finding": "腕部张开程度及主体姿态随动作变化，但低面尖腕缺少吸盘和细致卷曲，不作为最终形体依据"
+      },
+      {
+        "id": "52870f0c8cec4b29992bfda0854c7a30",
+        "watched": [
+          "Octopus.armature|Octopus.armatureAction"
+        ],
+        "scope": "比较收拢和展开的实际播放姿态，保留线框视图",
+        "finding": "可观察连续多段卷腕和蹼随相邻腕展开的外观；不是骨架源文件检查，也未证实轴向伸长实现"
+      },
+      {
+        "id": "7fb48f6cbcd54149bb23837a3ac09b2e",
+        "scope": "同种静态标本侧斜与旋转观察",
+        "finding": "外套膜后置、头与眼位置、近端蹼和长腕渐细；标本姿态与未覆盖腹部仍有限制"
+      }
+    ],
+    "unavailable": "Te Ara浏览器遇人机验证，未处理或绕过；该视频没有计入实际画面证据。另用独立公开原作者录像。",
+    "evidence": [
+      {
+        "path": "resources/volume-fish/octopus-start-20261123/references/octopus-real-contact.jpg",
+        "sha256": "44a9296f261097d35b4e301e6c5f50db9437599e94fcbc8b0ba02adf0cd6b608"
+      },
+      {
+        "path": "resources/volume-fish/octopus-start-20261123/references/octopus-swim-sequence.jpg",
+        "sha256": "0a0828c7b3949a3cc1bfb206d27b97eaea6ba1cd1c440a89e4be72bfaab57a82"
+      },
+      {
+        "path": "resources/volume-fish/octopus-start-20261123/references/octopus-static-current.png",
+        "sha256": "fde4a1c7e9fb055ce281e9e4ce90ab2157eb61efdc69b0c3e3ded3a09bcff438"
+      },
+      {
+        "path": "resources/volume-fish/octopus-start-20261123/references/model-motion-observations.jpg",
+        "sha256": "c43b9c95ccac3aa61598d21901bbda9213dacb4abcc2d4977ce60e2a34156433"
+      }
+    ]
+  },
+  "proportion_revision_20261123": {
+    "species": "Enteroctopus dofleini",
+    "constraints": {
+      "path": "resources/volume-fish/octopus-start-20261123/proportion-constraints.json",
+      "sha256": "0e9bec27b4b891bd4d6a9a6829991befba24489eedc8a945d95ffa7f9a938bdf"
+    },
+    "actual_export_measurement": {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/proportions.validation.json",
+      "sha256": "94a8d183d2637e44020077446eb3de4cf67eb020ab772311e1d7721a5ea7472f"
+    },
+    "sources": [
+      {
+        "url": "https://www.fao.org/4/i3489e/i3489e.pdf",
+        "local": "resources/volume-fish/octopus-start-20261123/references/fao-cephalopods-volume3.pdf",
+        "sha256": "24c31a489d4cd2a57c4ec2067ab43fd9ba18c6bc03b41a904676d40cd0105eb4",
+        "pages": [
+          22,
+          124
+        ],
+        "role": "length diagram and same-species proportions"
+      },
+      {
+        "url": "https://decapoda.nhm.org/pdfs/14509/14509-001.pdf",
+        "local": "resources/volume-fish/octopus-start-20261123/references/fao-cephalopod-measurements.pdf",
+        "sha256": "55234a75c8389727d49d3ceb135aecebc77d86cc1b8f4b0a4488ff89fe4af1d5",
+        "pages": [
+          690,
+          698
+        ],
+        "role": "arm numbering, mantle landmarks and oral web-depth definition"
+      }
+    ],
+    "visually_inspected_pdf_pages": [
+      "FAO vol3 printed22/PDF42 and printed124/PDF144",
+      "FAO WCP printed690/PDF11 and printed698/PDF19"
+    ],
+    "distinction": "Published species ranges and qualitative ordering constrain selected engineering targets. No specimen-specific exact match claimed. Prior ellipsoid-axis audit used a different ML definition and is superseded."
+  },
+  "motion_trial_20261123": {
+    "evidence_note": {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/swim-evidence.md",
+      "sha256": "120eac506bffebcc28f1894650f0435584646cce02681542e27c03d874d57c3d"
+    },
+    "actual_reference_review": "Re-read stored original-video sequence and model-motion observation sheets; institutional prose read online. No new continuous video playback this turn.",
+    "status": "gray_motion_trial_awaiting_user",
+    "measured_speed_available": false,
+    "station_holding_evidence_sufficient": false,
+    "motion_parameters": "authored trial values; not biological measurements"
+  }
+}

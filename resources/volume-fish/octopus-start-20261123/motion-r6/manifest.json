@@ -1,0 +1,146 @@
+{
+  "kind": "octopus_contact_corrective_trial",
+  "revision": 6,
+  "date": "2026-11-23",
+  "status": "contact_proof_passed_visual_refinement_pending",
+  "user_accepted": false,
+  "production_installed": false,
+  "full_sop_passed": false,
+  "triangles": 50000,
+  "bones": 513,
+  "representative_suckers": 512,
+  "scope": "右IV腕两处接触形态键；原三动作骨曲线保持；仅技术试版，整体造型尚未达到要求",
+  "model": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r6/octopus-actions.glb",
+    "sha256": "66105e405029f8b1d3357535b26e965d0b570f1eaa96b55bc821abf051612a0a"
+  },
+  "editable_source": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r6/octopus-actions.blend",
+    "sha256": "714dec9f76eeab0dbfcb8a029d67e06ef1c55fc736e767cbe0b564fa8667c3e4"
+  },
+  "baseline": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r5/octopus-actions.blend",
+    "sha256": "fd7122d6b8fdd3ef6f3d62422edbd5a3e9d50a2c9a48f54fea036d5c28c14ea5"
+  },
+  "viewer": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r6/review/Actions.gd",
+    "sha256": "14e09871488a780f2a94247c3d2c0786908327627c78d6919db40266a4eed14d"
+  },
+  "launcher": {
+    "path": "resources/volume-fish/octopus-start-20261123/open-motion-review.command",
+    "sha256": "bb2893229c739a8c4c06f1e469801b723a4ca7d16652b2d50709cb3376e8170e"
+  },
+  "video": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r6/octopus-contact-trial.mp4",
+    "sha256": "1e01fc65a9de97104123b12ffc34145f5a22744fa523dccbc9a1da9985831606"
+  },
+  "images": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/contact-before-after.jpg",
+      "sha256": "19c91d41fd68078eeffccd4334070e4f15fb71c7a6c62c028de766c43e709fa3"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/contact-phases.jpg",
+      "sha256": "fef45714fa1ecc15b7f4d967b4028638e5747a1e845f30333e289027a7f482ee"
+    }
+  ],
+  "evidence": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r6/motion-evidence.md",
+    "sha256": "56d0a8a8ed4fefee744d88eea385e8ab583ac874aaa61f12c12004216c8b33fc"
+  },
+  "diagnostics": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r6/diagnostic-notes.md",
+    "sha256": "610fb27aff7ac7c2c92877e36324425949380b32f4984889b5891d7f805a4bcc"
+  },
+  "validation": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/build.validation.json",
+      "sha256": "181d4a5cb837a95a047639de682a810aaa2dc291dfc1bb0784e5f2ad78059967"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/source.validation.json",
+      "sha256": "143ffaad76d8db2fda272ec374163d668e06c8a562df92b3580dfd9479b15b4c"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/contact-local.validation.json",
+      "sha256": "b1d58cdde90cf184e77d7ae31d7348156429907c76ccb57153c179c0deb21518"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/contact-full.validation.json",
+      "sha256": "312d6f6a5a73e700ee1ddb2c3371cc0af0ddfbbc9133c87cba4a5f7dfbed92b9"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/target.validation.json",
+      "sha256": "9aed71602ba5e7a34829f2979d8b141f3a71928721519463fb96351d0c613870"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/export.validation.json",
+      "sha256": "b9d430ddbf85da05ef746167d6fb60316cedebf9995181efb1e5fbe8d6756db2"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/morph-controls.validation.json",
+      "sha256": "6055ce864877e635d6fdc021923da997fa9fbbb2e08c602f03442bbb6cff7cfe"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/godot.validation.json",
+      "sha256": "4325d6d8c28cf5270bcfaf2769a957029013787d1a0fb16e6869c5368cdaa801"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/video.validation.json",
+      "sha256": "be71ae16bcf0949f99995caf29a8c0b86d51f84022024dab79082d4c86644ef9"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/cleanup.validation.json",
+      "sha256": "381f6c50036165d02b85af8c101a42f7f468c67d68e7c3756162fcb5b99408ba"
+    }
+  ],
+  "authoring": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/build_contact_shape.py",
+      "sha256": "f844f7c8a9ea28f5f90b4cae4069239399674fbd3770bcce52f92959a6a3c4b1"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/probe_contact_shape.py",
+      "sha256": "2aa01e0a92ff7e8698d3efc9c862dfe7e041b7d3db6ad59a8f8872a76f43aabd"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_contact_corrective.py",
+      "sha256": "224f519ad2c2e54608a2792fcfe504b24ecfd390b65562161b55bcbcc7a42b85"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_contact_source.py",
+      "sha256": "6618135d380b830cd2f594617b581880d806b87c3a6d29fcee67c1fcfe675341"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_contact_export.py",
+      "sha256": "eb691660d5a13f4f135c9b551db8aa1091b7032caed6ea2442b6700ca1df0bf3"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/compare_contact_target.py",
+      "sha256": "ba2827e991b0dd0bee1a90f0e9dca0b6cac5732eef9fa3f32cb69c1d6a4c2ea0"
+    }
+  ],
+  "replay_inputs": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/contact-probe.json",
+      "sha256": "788d0de86f020ab04c88cc6d758e6e9cc4296827273a3d43839d6ee6a936b65f"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/contact-targets.npz",
+      "sha256": "89b8f5449a624e250c5fd3f018bc84007d378751e14ec66c81102e6ec2bb870f"
+    }
+  ],
+  "contact": {
+    "upper_area_ML_squared": 0.00025073782633755086,
+    "lower_area_ML_squared": 0,
+    "lower_type": "line_contact",
+    "native_samples": 285
+  },
+  "limitations": [
+    "压合轮廓偏方偏硬，视觉修形待完成",
+    "仅右IV两处；其余卷层间隙和另七腕尚未解决",
+    "不是连续时间自接触物理或吸附模拟",
+    "根位固定，无全身游动或推进验证",
+    "完整SOP及用户接受待定"
+  ]
+}

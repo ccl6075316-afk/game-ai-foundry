@@ -1,0 +1,3307 @@
+{
+  "kind": "octopus_full_roll_trial",
+  "status": "candidate",
+  "triangles": 50000,
+  "bones": 513,
+  "arm_segments": 64,
+  "suckers": 512,
+  "clips": [
+    {
+      "name": "SingleArmRoll",
+      "duration": 10.0
+    },
+    {
+      "name": "EightArmReach",
+      "duration": 14.0
+    }
+  ],
+  "source_sha256": "5e7c3c24494ff449a6d465884d92aedf01572de7aba7cf5fc6016a27e37282cd",
+  "model_sha256": "2237250b3ecde6758a897015573160aecccc5610bba671bed31a9d04351d3e79",
+  "mechanism": {
+    "curl_start_fraction": 0.35,
+    "spiral_profiles": [
+      {
+        "arm": "L_IV",
+        "spiral_polar_turns": 2.7459002331645563,
+        "outer_radius": 0.29321226816173274,
+        "inner_radius": 0.025,
+        "packing_factor": 1.1,
+        "envelope": "max(0.83*radius,0.69*radius+cup rim height)+0.002 ML",
+        "gap_allowance_ML": 0.006
+      },
+      {
+        "arm": "L_III",
+        "spiral_polar_turns": 2.765953755994136,
+        "outer_radius": 0.295042099417649,
+        "inner_radius": 0.025,
+        "packing_factor": 1.1,
+        "envelope": "max(0.83*radius,0.69*radius+cup rim height)+0.002 ML",
+        "gap_allowance_ML": 0.006
+      },
+      {
+        "arm": "L_II",
+        "spiral_polar_turns": 2.7974664347263323,
+        "outer_radius": 0.29792779405113323,
+        "inner_radius": 0.025,
+        "packing_factor": 1.1,
+        "envelope": "max(0.83*radius,0.69*radius+cup rim height)+0.002 ML",
+        "gap_allowance_ML": 0.006
+      },
+      {
+        "arm": "L_I",
+        "spiral_polar_turns": 2.790304462287197,
+        "outer_radius": 0.29730147004143104,
+        "inner_radius": 0.025,
+        "packing_factor": 1.1,
+        "envelope": "max(0.83*radius,0.69*radius+cup rim height)+0.002 ML",
+        "gap_allowance_ML": 0.006
+      },
+      {
+        "arm": "R_I",
+        "spiral_polar_turns": 2.7874396733115425,
+        "outer_radius": 0.29700364777002514,
+        "inner_radius": 0.025,
+        "packing_factor": 1.1,
+        "envelope": "max(0.83*radius,0.69*radius+cup rim height)+0.002 ML",
+        "gap_allowance_ML": 0.006
+      },
+      {
+        "arm": "R_II",
+        "spiral_polar_turns": 2.798421364384884,
+        "outer_radius": 0.2980326667653244,
+        "inner_radius": 0.025,
+        "packing_factor": 1.1,
+        "envelope": "max(0.83*radius,0.69*radius+cup rim height)+0.002 ML",
+        "gap_allowance_ML": 0.006
+      },
+      {
+        "arm": "R_III",
+        "spiral_polar_turns": 2.7712058691161685,
+        "outer_radius": 0.29553523749112515,
+        "inner_radius": 0.025,
+        "packing_factor": 1.1,
+        "envelope": "max(0.83*radius,0.69*radius+cup rim height)+0.002 ML",
+        "gap_allowance_ML": 0.006
+      },
+      {
+        "arm": "R_IV",
+        "spiral_polar_turns": 2.7459002331645563,
+        "outer_radius": 0.29321226816173274,
+        "inner_radius": 0.025,
+        "packing_factor": 1.1,
+        "envelope": "max(0.83*radius,0.69*radius+cup rim height)+0.002 ML",
+        "gap_allowance_ML": 0.006
+      }
+    ],
+    "bend_front_width_ML": 0.12,
+    "arc_length_scaling": false
+  },
+  "sampled_control_metrics": [
+    {
+      "clip": "SingleArmRoll",
+      "time": 0.0,
+      "arm": "L_IV",
+      "extension": 0.17,
+      "turns": 2.543082069889713,
+      "root_to_tip_over_arm_arc": 0.4680765846665721
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 0.0,
+      "arm": "L_III",
+      "extension": 0.09000000000000001,
+      "turns": 2.6836238324271706,
+      "root_to_tip_over_arm_arc": 0.40761497707253136
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 0.0,
+      "arm": "L_II",
+      "extension": 0.23,
+      "turns": 2.4932125395715823,
+      "root_to_tip_over_arm_arc": 0.5112010639518572
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 0.0,
+      "arm": "L_I",
+      "extension": 0.11000000000000001,
+      "turns": 2.67703862952471,
+      "root_to_tip_over_arm_arc": 0.4214328856789602
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 0.0,
+      "arm": "R_I",
+      "extension": 0.2,
+      "turns": 2.53378754937482,
+      "root_to_tip_over_arm_arc": 0.4888891540565777
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 0.0,
+      "arm": "R_II",
+      "extension": 0.13,
+      "turns": 2.654539238458854,
+      "root_to_tip_over_arm_arc": 0.4358574051334956
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 0.0,
+      "arm": "R_III",
+      "extension": 0.16,
+      "turns": 2.582397477643157,
+      "root_to_tip_over_arm_arc": 0.45936855885973116
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 0.0,
+      "arm": "R_IV",
+      "extension": 0.0,
+      "turns": 2.7313238779964313,
+      "root_to_tip_over_arm_arc": 0.37444206713800926
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 0.5,
+      "arm": "L_IV",
+      "extension": 0.17,
+      "turns": 2.543082069889713,
+      "root_to_tip_over_arm_arc": 0.4680765846665721
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 0.5,
+      "arm": "L_III",
+      "extension": 0.09000000000000001,
+      "turns": 2.6836238324271706,
+      "root_to_tip_over_arm_arc": 0.40761497707253136
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 0.5,
+      "arm": "L_II",
+      "extension": 0.23,
+      "turns": 2.4932125395715823,
+      "root_to_tip_over_arm_arc": 0.5112010639518572
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 0.5,
+      "arm": "L_I",
+      "extension": 0.11000000000000001,
+      "turns": 2.67703862952471,
+      "root_to_tip_over_arm_arc": 0.4214328856789602
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 0.5,
+      "arm": "R_I",
+      "extension": 0.2,
+      "turns": 2.53378754937482,
+      "root_to_tip_over_arm_arc": 0.4888891540565777
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 0.5,
+      "arm": "R_II",
+      "extension": 0.13,
+      "turns": 2.654539238458854,
+      "root_to_tip_over_arm_arc": 0.4358574051334956
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 0.5,
+      "arm": "R_III",
+      "extension": 0.16,
+      "turns": 2.582397477643157,
+      "root_to_tip_over_arm_arc": 0.45936855885973116
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 0.5,
+      "arm": "R_IV",
+      "extension": 0.0,
+      "turns": 2.7313238779964313,
+      "root_to_tip_over_arm_arc": 0.37444206713800926
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 1.0,
+      "arm": "L_IV",
+      "extension": 0.17,
+      "turns": 2.543082069889713,
+      "root_to_tip_over_arm_arc": 0.4680765846665721
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 1.0,
+      "arm": "L_III",
+      "extension": 0.09000000000000001,
+      "turns": 2.6836238324271706,
+      "root_to_tip_over_arm_arc": 0.40761497707253136
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 1.0,
+      "arm": "L_II",
+      "extension": 0.23,
+      "turns": 2.4932125395715823,
+      "root_to_tip_over_arm_arc": 0.5112010639518572
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 1.0,
+      "arm": "L_I",
+      "extension": 0.11000000000000001,
+      "turns": 2.67703862952471,
+      "root_to_tip_over_arm_arc": 0.4214328856789602
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 1.0,
+      "arm": "R_I",
+      "extension": 0.2,
+      "turns": 2.53378754937482,
+      "root_to_tip_over_arm_arc": 0.4888891540565777
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 1.0,
+      "arm": "R_II",
+      "extension": 0.13,
+      "turns": 2.654539238458854,
+      "root_to_tip_over_arm_arc": 0.4358574051334956
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 1.0,
+      "arm": "R_III",
+      "extension": 0.16,
+      "turns": 2.582397477643157,
+      "root_to_tip_over_arm_arc": 0.45936855885973116
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 1.0,
+      "arm": "R_IV",
+      "extension": 0.0,
+      "turns": 2.7313238779964313,
+      "root_to_tip_over_arm_arc": 0.37444206713800926
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 1.5,
+      "arm": "L_IV",
+      "extension": 0.17,
+      "turns": 2.543082069889713,
+      "root_to_tip_over_arm_arc": 0.4680765846665721
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 1.5,
+      "arm": "L_III",
+      "extension": 0.09000000000000001,
+      "turns": 2.6836238324271706,
+      "root_to_tip_over_arm_arc": 0.40761497707253136
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 1.5,
+      "arm": "L_II",
+      "extension": 0.23,
+      "turns": 2.4932125395715823,
+      "root_to_tip_over_arm_arc": 0.5112010639518572
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 1.5,
+      "arm": "L_I",
+      "extension": 0.11000000000000001,
+      "turns": 2.67703862952471,
+      "root_to_tip_over_arm_arc": 0.4214328856789602
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 1.5,
+      "arm": "R_I",
+      "extension": 0.2,
+      "turns": 2.53378754937482,
+      "root_to_tip_over_arm_arc": 0.4888891540565777
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 1.5,
+      "arm": "R_II",
+      "extension": 0.13,
+      "turns": 2.654539238458854,
+      "root_to_tip_over_arm_arc": 0.4358574051334956
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 1.5,
+      "arm": "R_III",
+      "extension": 0.16,
+      "turns": 2.582397477643157,
+      "root_to_tip_over_arm_arc": 0.45936855885973116
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 1.5,
+      "arm": "R_IV",
+      "extension": 0.035493827160493825,
+      "turns": 2.728782694029764,
+      "root_to_tip_over_arm_arc": 0.375712571370373
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 2.0,
+      "arm": "L_IV",
+      "extension": 0.17,
+      "turns": 2.543082069889713,
+      "root_to_tip_over_arm_arc": 0.4680765846665721
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 2.0,
+      "arm": "L_III",
+      "extension": 0.09000000000000001,
+      "turns": 2.6836238324271706,
+      "root_to_tip_over_arm_arc": 0.40761497707253136
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 2.0,
+      "arm": "L_II",
+      "extension": 0.23,
+      "turns": 2.4932125395715823,
+      "root_to_tip_over_arm_arc": 0.5112010639518572
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 2.0,
+      "arm": "L_I",
+      "extension": 0.11000000000000001,
+      "turns": 2.67703862952471,
+      "root_to_tip_over_arm_arc": 0.4214328856789602
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 2.0,
+      "arm": "R_I",
+      "extension": 0.2,
+      "turns": 2.53378754937482,
+      "root_to_tip_over_arm_arc": 0.4888891540565777
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 2.0,
+      "arm": "R_II",
+      "extension": 0.13,
+      "turns": 2.654539238458854,
+      "root_to_tip_over_arm_arc": 0.4358574051334956
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 2.0,
+      "arm": "R_III",
+      "extension": 0.16,
+      "turns": 2.582397477643157,
+      "root_to_tip_over_arm_arc": 0.45936855885973116
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 2.0,
+      "arm": "R_IV",
+      "extension": 0.20987654320987653,
+      "turns": 2.479359265995025,
+      "root_to_tip_over_arm_arc": 0.4982578311181268
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 2.5,
+      "arm": "L_IV",
+      "extension": 0.17,
+      "turns": 2.543082069889713,
+      "root_to_tip_over_arm_arc": 0.4680765846665721
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 2.5,
+      "arm": "L_III",
+      "extension": 0.09000000000000001,
+      "turns": 2.6836238324271706,
+      "root_to_tip_over_arm_arc": 0.40761497707253136
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 2.5,
+      "arm": "L_II",
+      "extension": 0.23,
+      "turns": 2.4932125395715823,
+      "root_to_tip_over_arm_arc": 0.5112010639518572
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 2.5,
+      "arm": "L_I",
+      "extension": 0.11000000000000001,
+      "turns": 2.67703862952471,
+      "root_to_tip_over_arm_arc": 0.4214328856789602
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 2.5,
+      "arm": "R_I",
+      "extension": 0.2,
+      "turns": 2.53378754937482,
+      "root_to_tip_over_arm_arc": 0.4888891540565777
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 2.5,
+      "arm": "R_II",
+      "extension": 0.13,
+      "turns": 2.654539238458854,
+      "root_to_tip_over_arm_arc": 0.4358574051334956
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 2.5,
+      "arm": "R_III",
+      "extension": 0.16,
+      "turns": 2.582397477643157,
+      "root_to_tip_over_arm_arc": 0.45936855885973116
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 2.5,
+      "arm": "R_IV",
+      "extension": 0.5,
+      "turns": 1.9273760678061573,
+      "root_to_tip_over_arm_arc": 0.6940049481104534
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 3.0,
+      "arm": "L_IV",
+      "extension": 0.17,
+      "turns": 2.543082069889713,
+      "root_to_tip_over_arm_arc": 0.4680765846665721
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 3.0,
+      "arm": "L_III",
+      "extension": 0.09000000000000001,
+      "turns": 2.6836238324271706,
+      "root_to_tip_over_arm_arc": 0.40761497707253136
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 3.0,
+      "arm": "L_II",
+      "extension": 0.23,
+      "turns": 2.4932125395715823,
+      "root_to_tip_over_arm_arc": 0.5112010639518572
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 3.0,
+      "arm": "L_I",
+      "extension": 0.11000000000000001,
+      "turns": 2.67703862952471,
+      "root_to_tip_over_arm_arc": 0.4214328856789602
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 3.0,
+      "arm": "R_I",
+      "extension": 0.2,
+      "turns": 2.53378754937482,
+      "root_to_tip_over_arm_arc": 0.4888891540565777
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 3.0,
+      "arm": "R_II",
+      "extension": 0.13,
+      "turns": 2.654539238458854,
+      "root_to_tip_over_arm_arc": 0.4358574051334956
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 3.0,
+      "arm": "R_III",
+      "extension": 0.16,
+      "turns": 2.582397477643157,
+      "root_to_tip_over_arm_arc": 0.45936855885973116
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 3.0,
+      "arm": "R_IV",
+      "extension": 0.7901234567901235,
+      "turns": 1.051620259145833,
+      "root_to_tip_over_arm_arc": 0.904886610399674
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 3.5,
+      "arm": "L_IV",
+      "extension": 0.17,
+      "turns": 2.543082069889713,
+      "root_to_tip_over_arm_arc": 0.4680765846665721
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 3.5,
+      "arm": "L_III",
+      "extension": 0.09000000000000001,
+      "turns": 2.6836238324271706,
+      "root_to_tip_over_arm_arc": 0.40761497707253136
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 3.5,
+      "arm": "L_II",
+      "extension": 0.23,
+      "turns": 2.4932125395715823,
+      "root_to_tip_over_arm_arc": 0.5112010639518572
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 3.5,
+      "arm": "L_I",
+      "extension": 0.11000000000000001,
+      "turns": 2.67703862952471,
+      "root_to_tip_over_arm_arc": 0.4214328856789602
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 3.5,
+      "arm": "R_I",
+      "extension": 0.2,
+      "turns": 2.53378754937482,
+      "root_to_tip_over_arm_arc": 0.4888891540565777
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 3.5,
+      "arm": "R_II",
+      "extension": 0.13,
+      "turns": 2.654539238458854,
+      "root_to_tip_over_arm_arc": 0.4358574051334956
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 3.5,
+      "arm": "R_III",
+      "extension": 0.16,
+      "turns": 2.582397477643157,
+      "root_to_tip_over_arm_arc": 0.45936855885973116
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 3.5,
+      "arm": "R_IV",
+      "extension": 0.964506172839506,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000939876963
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 4.0,
+      "arm": "L_IV",
+      "extension": 0.17,
+      "turns": 2.543082069889713,
+      "root_to_tip_over_arm_arc": 0.4680765846665721
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 4.0,
+      "arm": "L_III",
+      "extension": 0.09000000000000001,
+      "turns": 2.6836238324271706,
+      "root_to_tip_over_arm_arc": 0.40761497707253136
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 4.0,
+      "arm": "L_II",
+      "extension": 0.23,
+      "turns": 2.4932125395715823,
+      "root_to_tip_over_arm_arc": 0.5112010639518572
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 4.0,
+      "arm": "L_I",
+      "extension": 0.11000000000000001,
+      "turns": 2.67703862952471,
+      "root_to_tip_over_arm_arc": 0.4214328856789602
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 4.0,
+      "arm": "R_I",
+      "extension": 0.2,
+      "turns": 2.53378754937482,
+      "root_to_tip_over_arm_arc": 0.4888891540565777
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 4.0,
+      "arm": "R_II",
+      "extension": 0.13,
+      "turns": 2.654539238458854,
+      "root_to_tip_over_arm_arc": 0.4358574051334956
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 4.0,
+      "arm": "R_III",
+      "extension": 0.16,
+      "turns": 2.582397477643157,
+      "root_to_tip_over_arm_arc": 0.45936855885973116
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 4.0,
+      "arm": "R_IV",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000939876963
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 4.5,
+      "arm": "L_IV",
+      "extension": 0.17,
+      "turns": 2.543082069889713,
+      "root_to_tip_over_arm_arc": 0.4680765846665721
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 4.5,
+      "arm": "L_III",
+      "extension": 0.09000000000000001,
+      "turns": 2.6836238324271706,
+      "root_to_tip_over_arm_arc": 0.40761497707253136
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 4.5,
+      "arm": "L_II",
+      "extension": 0.23,
+      "turns": 2.4932125395715823,
+      "root_to_tip_over_arm_arc": 0.5112010639518572
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 4.5,
+      "arm": "L_I",
+      "extension": 0.11000000000000001,
+      "turns": 2.67703862952471,
+      "root_to_tip_over_arm_arc": 0.4214328856789602
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 4.5,
+      "arm": "R_I",
+      "extension": 0.2,
+      "turns": 2.53378754937482,
+      "root_to_tip_over_arm_arc": 0.4888891540565777
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 4.5,
+      "arm": "R_II",
+      "extension": 0.13,
+      "turns": 2.654539238458854,
+      "root_to_tip_over_arm_arc": 0.4358574051334956
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 4.5,
+      "arm": "R_III",
+      "extension": 0.16,
+      "turns": 2.582397477643157,
+      "root_to_tip_over_arm_arc": 0.45936855885973116
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 4.5,
+      "arm": "R_IV",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000939876963
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 5.0,
+      "arm": "L_IV",
+      "extension": 0.17,
+      "turns": 2.543082069889713,
+      "root_to_tip_over_arm_arc": 0.4680765846665721
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 5.0,
+      "arm": "L_III",
+      "extension": 0.09000000000000001,
+      "turns": 2.6836238324271706,
+      "root_to_tip_over_arm_arc": 0.40761497707253136
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 5.0,
+      "arm": "L_II",
+      "extension": 0.23,
+      "turns": 2.4932125395715823,
+      "root_to_tip_over_arm_arc": 0.5112010639518572
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 5.0,
+      "arm": "L_I",
+      "extension": 0.11000000000000001,
+      "turns": 2.67703862952471,
+      "root_to_tip_over_arm_arc": 0.4214328856789602
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 5.0,
+      "arm": "R_I",
+      "extension": 0.2,
+      "turns": 2.53378754937482,
+      "root_to_tip_over_arm_arc": 0.4888891540565777
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 5.0,
+      "arm": "R_II",
+      "extension": 0.13,
+      "turns": 2.654539238458854,
+      "root_to_tip_over_arm_arc": 0.4358574051334956
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 5.0,
+      "arm": "R_III",
+      "extension": 0.16,
+      "turns": 2.582397477643157,
+      "root_to_tip_over_arm_arc": 0.45936855885973116
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 5.0,
+      "arm": "R_IV",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000939876963
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 5.5,
+      "arm": "L_IV",
+      "extension": 0.17,
+      "turns": 2.543082069889713,
+      "root_to_tip_over_arm_arc": 0.4680765846665721
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 5.5,
+      "arm": "L_III",
+      "extension": 0.09000000000000001,
+      "turns": 2.6836238324271706,
+      "root_to_tip_over_arm_arc": 0.40761497707253136
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 5.5,
+      "arm": "L_II",
+      "extension": 0.23,
+      "turns": 2.4932125395715823,
+      "root_to_tip_over_arm_arc": 0.5112010639518572
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 5.5,
+      "arm": "L_I",
+      "extension": 0.11000000000000001,
+      "turns": 2.67703862952471,
+      "root_to_tip_over_arm_arc": 0.4214328856789602
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 5.5,
+      "arm": "R_I",
+      "extension": 0.2,
+      "turns": 2.53378754937482,
+      "root_to_tip_over_arm_arc": 0.4888891540565777
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 5.5,
+      "arm": "R_II",
+      "extension": 0.13,
+      "turns": 2.654539238458854,
+      "root_to_tip_over_arm_arc": 0.4358574051334956
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 5.5,
+      "arm": "R_III",
+      "extension": 0.16,
+      "turns": 2.582397477643157,
+      "root_to_tip_over_arm_arc": 0.45936855885973116
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 5.5,
+      "arm": "R_IV",
+      "extension": 0.9645061728395061,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000939876963
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 6.0,
+      "arm": "L_IV",
+      "extension": 0.17,
+      "turns": 2.543082069889713,
+      "root_to_tip_over_arm_arc": 0.4680765846665721
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 6.0,
+      "arm": "L_III",
+      "extension": 0.09000000000000001,
+      "turns": 2.6836238324271706,
+      "root_to_tip_over_arm_arc": 0.40761497707253136
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 6.0,
+      "arm": "L_II",
+      "extension": 0.23,
+      "turns": 2.4932125395715823,
+      "root_to_tip_over_arm_arc": 0.5112010639518572
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 6.0,
+      "arm": "L_I",
+      "extension": 0.11000000000000001,
+      "turns": 2.67703862952471,
+      "root_to_tip_over_arm_arc": 0.4214328856789602
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 6.0,
+      "arm": "R_I",
+      "extension": 0.2,
+      "turns": 2.53378754937482,
+      "root_to_tip_over_arm_arc": 0.4888891540565777
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 6.0,
+      "arm": "R_II",
+      "extension": 0.13,
+      "turns": 2.654539238458854,
+      "root_to_tip_over_arm_arc": 0.4358574051334956
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 6.0,
+      "arm": "R_III",
+      "extension": 0.16,
+      "turns": 2.582397477643157,
+      "root_to_tip_over_arm_arc": 0.45936855885973116
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 6.0,
+      "arm": "R_IV",
+      "extension": 0.7901234567901234,
+      "turns": 1.051620259145834,
+      "root_to_tip_over_arm_arc": 0.904886610399674
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 6.5,
+      "arm": "L_IV",
+      "extension": 0.17,
+      "turns": 2.543082069889713,
+      "root_to_tip_over_arm_arc": 0.4680765846665721
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 6.5,
+      "arm": "L_III",
+      "extension": 0.09000000000000001,
+      "turns": 2.6836238324271706,
+      "root_to_tip_over_arm_arc": 0.40761497707253136
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 6.5,
+      "arm": "L_II",
+      "extension": 0.23,
+      "turns": 2.4932125395715823,
+      "root_to_tip_over_arm_arc": 0.5112010639518572
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 6.5,
+      "arm": "L_I",
+      "extension": 0.11000000000000001,
+      "turns": 2.67703862952471,
+      "root_to_tip_over_arm_arc": 0.4214328856789602
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 6.5,
+      "arm": "R_I",
+      "extension": 0.2,
+      "turns": 2.53378754937482,
+      "root_to_tip_over_arm_arc": 0.4888891540565777
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 6.5,
+      "arm": "R_II",
+      "extension": 0.13,
+      "turns": 2.654539238458854,
+      "root_to_tip_over_arm_arc": 0.4358574051334956
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 6.5,
+      "arm": "R_III",
+      "extension": 0.16,
+      "turns": 2.582397477643157,
+      "root_to_tip_over_arm_arc": 0.45936855885973116
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 6.5,
+      "arm": "R_IV",
+      "extension": 0.5,
+      "turns": 1.9273760678061573,
+      "root_to_tip_over_arm_arc": 0.6940049481104534
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 7.0,
+      "arm": "L_IV",
+      "extension": 0.17,
+      "turns": 2.543082069889713,
+      "root_to_tip_over_arm_arc": 0.4680765846665721
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 7.0,
+      "arm": "L_III",
+      "extension": 0.09000000000000001,
+      "turns": 2.6836238324271706,
+      "root_to_tip_over_arm_arc": 0.40761497707253136
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 7.0,
+      "arm": "L_II",
+      "extension": 0.23,
+      "turns": 2.4932125395715823,
+      "root_to_tip_over_arm_arc": 0.5112010639518572
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 7.0,
+      "arm": "L_I",
+      "extension": 0.11000000000000001,
+      "turns": 2.67703862952471,
+      "root_to_tip_over_arm_arc": 0.4214328856789602
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 7.0,
+      "arm": "R_I",
+      "extension": 0.2,
+      "turns": 2.53378754937482,
+      "root_to_tip_over_arm_arc": 0.4888891540565777
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 7.0,
+      "arm": "R_II",
+      "extension": 0.13,
+      "turns": 2.654539238458854,
+      "root_to_tip_over_arm_arc": 0.4358574051334956
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 7.0,
+      "arm": "R_III",
+      "extension": 0.16,
+      "turns": 2.582397477643157,
+      "root_to_tip_over_arm_arc": 0.45936855885973116
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 7.0,
+      "arm": "R_IV",
+      "extension": 0.20987654320987648,
+      "turns": 2.479359265995025,
+      "root_to_tip_over_arm_arc": 0.4982578311181268
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 7.5,
+      "arm": "L_IV",
+      "extension": 0.17,
+      "turns": 2.543082069889713,
+      "root_to_tip_over_arm_arc": 0.4680765846665721
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 7.5,
+      "arm": "L_III",
+      "extension": 0.09000000000000001,
+      "turns": 2.6836238324271706,
+      "root_to_tip_over_arm_arc": 0.40761497707253136
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 7.5,
+      "arm": "L_II",
+      "extension": 0.23,
+      "turns": 2.4932125395715823,
+      "root_to_tip_over_arm_arc": 0.5112010639518572
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 7.5,
+      "arm": "L_I",
+      "extension": 0.11000000000000001,
+      "turns": 2.67703862952471,
+      "root_to_tip_over_arm_arc": 0.4214328856789602
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 7.5,
+      "arm": "R_I",
+      "extension": 0.2,
+      "turns": 2.53378754937482,
+      "root_to_tip_over_arm_arc": 0.4888891540565777
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 7.5,
+      "arm": "R_II",
+      "extension": 0.13,
+      "turns": 2.654539238458854,
+      "root_to_tip_over_arm_arc": 0.4358574051334956
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 7.5,
+      "arm": "R_III",
+      "extension": 0.16,
+      "turns": 2.582397477643157,
+      "root_to_tip_over_arm_arc": 0.45936855885973116
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 7.5,
+      "arm": "R_IV",
+      "extension": 0.035493827160493985,
+      "turns": 2.728782694029764,
+      "root_to_tip_over_arm_arc": 0.375712571370373
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 8.0,
+      "arm": "L_IV",
+      "extension": 0.17,
+      "turns": 2.543082069889713,
+      "root_to_tip_over_arm_arc": 0.4680765846665721
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 8.0,
+      "arm": "L_III",
+      "extension": 0.09000000000000001,
+      "turns": 2.6836238324271706,
+      "root_to_tip_over_arm_arc": 0.40761497707253136
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 8.0,
+      "arm": "L_II",
+      "extension": 0.23,
+      "turns": 2.4932125395715823,
+      "root_to_tip_over_arm_arc": 0.5112010639518572
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 8.0,
+      "arm": "L_I",
+      "extension": 0.11000000000000001,
+      "turns": 2.67703862952471,
+      "root_to_tip_over_arm_arc": 0.4214328856789602
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 8.0,
+      "arm": "R_I",
+      "extension": 0.2,
+      "turns": 2.53378754937482,
+      "root_to_tip_over_arm_arc": 0.4888891540565777
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 8.0,
+      "arm": "R_II",
+      "extension": 0.13,
+      "turns": 2.654539238458854,
+      "root_to_tip_over_arm_arc": 0.4358574051334956
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 8.0,
+      "arm": "R_III",
+      "extension": 0.16,
+      "turns": 2.582397477643157,
+      "root_to_tip_over_arm_arc": 0.45936855885973116
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 8.0,
+      "arm": "R_IV",
+      "extension": 0.0,
+      "turns": 2.7313238779964313,
+      "root_to_tip_over_arm_arc": 0.37444206713800926
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 8.5,
+      "arm": "L_IV",
+      "extension": 0.17,
+      "turns": 2.543082069889713,
+      "root_to_tip_over_arm_arc": 0.4680765846665721
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 8.5,
+      "arm": "L_III",
+      "extension": 0.09000000000000001,
+      "turns": 2.6836238324271706,
+      "root_to_tip_over_arm_arc": 0.40761497707253136
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 8.5,
+      "arm": "L_II",
+      "extension": 0.23,
+      "turns": 2.4932125395715823,
+      "root_to_tip_over_arm_arc": 0.5112010639518572
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 8.5,
+      "arm": "L_I",
+      "extension": 0.11000000000000001,
+      "turns": 2.67703862952471,
+      "root_to_tip_over_arm_arc": 0.4214328856789602
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 8.5,
+      "arm": "R_I",
+      "extension": 0.2,
+      "turns": 2.53378754937482,
+      "root_to_tip_over_arm_arc": 0.4888891540565777
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 8.5,
+      "arm": "R_II",
+      "extension": 0.13,
+      "turns": 2.654539238458854,
+      "root_to_tip_over_arm_arc": 0.4358574051334956
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 8.5,
+      "arm": "R_III",
+      "extension": 0.16,
+      "turns": 2.582397477643157,
+      "root_to_tip_over_arm_arc": 0.45936855885973116
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 8.5,
+      "arm": "R_IV",
+      "extension": 0.0,
+      "turns": 2.7313238779964313,
+      "root_to_tip_over_arm_arc": 0.37444206713800926
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 9.0,
+      "arm": "L_IV",
+      "extension": 0.17,
+      "turns": 2.543082069889713,
+      "root_to_tip_over_arm_arc": 0.4680765846665721
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 9.0,
+      "arm": "L_III",
+      "extension": 0.09000000000000001,
+      "turns": 2.6836238324271706,
+      "root_to_tip_over_arm_arc": 0.40761497707253136
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 9.0,
+      "arm": "L_II",
+      "extension": 0.23,
+      "turns": 2.4932125395715823,
+      "root_to_tip_over_arm_arc": 0.5112010639518572
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 9.0,
+      "arm": "L_I",
+      "extension": 0.11000000000000001,
+      "turns": 2.67703862952471,
+      "root_to_tip_over_arm_arc": 0.4214328856789602
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 9.0,
+      "arm": "R_I",
+      "extension": 0.2,
+      "turns": 2.53378754937482,
+      "root_to_tip_over_arm_arc": 0.4888891540565777
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 9.0,
+      "arm": "R_II",
+      "extension": 0.13,
+      "turns": 2.654539238458854,
+      "root_to_tip_over_arm_arc": 0.4358574051334956
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 9.0,
+      "arm": "R_III",
+      "extension": 0.16,
+      "turns": 2.582397477643157,
+      "root_to_tip_over_arm_arc": 0.45936855885973116
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 9.0,
+      "arm": "R_IV",
+      "extension": 0.0,
+      "turns": 2.7313238779964313,
+      "root_to_tip_over_arm_arc": 0.37444206713800926
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 9.5,
+      "arm": "L_IV",
+      "extension": 0.17,
+      "turns": 2.543082069889713,
+      "root_to_tip_over_arm_arc": 0.4680765846665721
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 9.5,
+      "arm": "L_III",
+      "extension": 0.09000000000000001,
+      "turns": 2.6836238324271706,
+      "root_to_tip_over_arm_arc": 0.40761497707253136
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 9.5,
+      "arm": "L_II",
+      "extension": 0.23,
+      "turns": 2.4932125395715823,
+      "root_to_tip_over_arm_arc": 0.5112010639518572
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 9.5,
+      "arm": "L_I",
+      "extension": 0.11000000000000001,
+      "turns": 2.67703862952471,
+      "root_to_tip_over_arm_arc": 0.4214328856789602
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 9.5,
+      "arm": "R_I",
+      "extension": 0.2,
+      "turns": 2.53378754937482,
+      "root_to_tip_over_arm_arc": 0.4888891540565777
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 9.5,
+      "arm": "R_II",
+      "extension": 0.13,
+      "turns": 2.654539238458854,
+      "root_to_tip_over_arm_arc": 0.4358574051334956
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 9.5,
+      "arm": "R_III",
+      "extension": 0.16,
+      "turns": 2.582397477643157,
+      "root_to_tip_over_arm_arc": 0.45936855885973116
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 9.5,
+      "arm": "R_IV",
+      "extension": 0.0,
+      "turns": 2.7313238779964313,
+      "root_to_tip_over_arm_arc": 0.37444206713800926
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 10.0,
+      "arm": "L_IV",
+      "extension": 0.17,
+      "turns": 2.543082069889713,
+      "root_to_tip_over_arm_arc": 0.4680765846665721
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 10.0,
+      "arm": "L_III",
+      "extension": 0.09000000000000001,
+      "turns": 2.6836238324271706,
+      "root_to_tip_over_arm_arc": 0.40761497707253136
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 10.0,
+      "arm": "L_II",
+      "extension": 0.23,
+      "turns": 2.4932125395715823,
+      "root_to_tip_over_arm_arc": 0.5112010639518572
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 10.0,
+      "arm": "L_I",
+      "extension": 0.11000000000000001,
+      "turns": 2.67703862952471,
+      "root_to_tip_over_arm_arc": 0.4214328856789602
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 10.0,
+      "arm": "R_I",
+      "extension": 0.2,
+      "turns": 2.53378754937482,
+      "root_to_tip_over_arm_arc": 0.4888891540565777
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 10.0,
+      "arm": "R_II",
+      "extension": 0.13,
+      "turns": 2.654539238458854,
+      "root_to_tip_over_arm_arc": 0.4358574051334956
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 10.0,
+      "arm": "R_III",
+      "extension": 0.16,
+      "turns": 2.582397477643157,
+      "root_to_tip_over_arm_arc": 0.45936855885973116
+    },
+    {
+      "clip": "SingleArmRoll",
+      "time": 10.0,
+      "arm": "R_IV",
+      "extension": 0.0,
+      "turns": 2.7313238779964313,
+      "root_to_tip_over_arm_arc": 0.37444206713800926
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 0.0,
+      "arm": "L_IV",
+      "extension": 0.0,
+      "turns": 2.7313238779964313,
+      "root_to_tip_over_arm_arc": 0.3744422098983968
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 0.0,
+      "arm": "L_III",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000002107306627
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 0.0,
+      "arm": "L_II",
+      "extension": 0.3466194058641976,
+      "turns": 2.2854491645254638,
+      "root_to_tip_over_arm_arc": 0.5966244379932346
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 0.0,
+      "arm": "L_I",
+      "extension": 0.2255459427833557,
+      "turns": 2.493864794559792,
+      "root_to_tip_over_arm_arc": 0.5081514494655301
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 0.0,
+      "arm": "R_I",
+      "extension": 0.9645061728395062,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000001426752574
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 0.0,
+      "arm": "R_II",
+      "extension": 0.005087770061727559,
+      "turns": 2.7847709515831784,
+      "root_to_tip_over_arm_arc": 0.3728455596546633
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 0.0,
+      "arm": "R_III",
+      "extension": 0.8608239293098451,
+      "turns": 0.6895455175336616,
+      "root_to_tip_over_arm_arc": 0.9478824455342042
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 0.0,
+      "arm": "R_IV",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000939876963
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 0.5,
+      "arm": "L_IV",
+      "extension": 0.0,
+      "turns": 2.7313238779964313,
+      "root_to_tip_over_arm_arc": 0.3744422098983968
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 0.5,
+      "arm": "L_III",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000002107306627
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 0.5,
+      "arm": "L_II",
+      "extension": 0.1869338662592961,
+      "turns": 2.564195471971088,
+      "root_to_tip_over_arm_arc": 0.47853948792838064
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 0.5,
+      "arm": "L_I",
+      "extension": 0.41673844158667156,
+      "turns": 2.141213900890997,
+      "root_to_tip_over_arm_arc": 0.6430902385933792
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 0.5,
+      "arm": "R_I",
+      "extension": 0.8790401559068027,
+      "turns": 0.5681365630329892,
+      "root_to_tip_over_arm_arc": 0.9644743666373388
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 0.5,
+      "arm": "R_II",
+      "extension": 0.0,
+      "turns": 2.7847709737333313,
+      "root_to_tip_over_arm_arc": 0.3728455338439672
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 0.5,
+      "arm": "R_III",
+      "extension": 0.9627591924848369,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000955846446
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 0.5,
+      "arm": "R_IV",
+      "extension": 0.9967349913726423,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000939876963
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 1.0,
+      "arm": "L_IV",
+      "extension": 0.0,
+      "turns": 2.7313238779964313,
+      "root_to_tip_over_arm_arc": 0.3744422098983968
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 1.0,
+      "arm": "L_III",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000002107306627
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 1.0,
+      "arm": "L_II",
+      "extension": 0.07290013066569401,
+      "turns": 2.739225232507621,
+      "root_to_tip_over_arm_arc": 0.39457120874921586
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 1.0,
+      "arm": "L_I",
+      "extension": 0.6240647034372149,
+      "turns": 1.6504061934714995,
+      "root_to_tip_over_arm_arc": 0.7814780325349695
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 1.0,
+      "arm": "R_I",
+      "extension": 0.7409642512528888,
+      "turns": 1.2754746720282824,
+      "root_to_tip_over_arm_arc": 0.8752734597451999
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 1.0,
+      "arm": "R_II",
+      "extension": 0.0,
+      "turns": 2.7847709737333313,
+      "root_to_tip_over_arm_arc": 0.3728455338439672
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 1.0,
+      "arm": "R_III",
+      "extension": 0.9982114891375522,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000955846446
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 1.0,
+      "arm": "R_IV",
+      "extension": 0.9621658861209963,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000939876963
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 1.5,
+      "arm": "L_IV",
+      "extension": 0.005352519574479978,
+      "turns": 2.731323854041857,
+      "root_to_tip_over_arm_arc": 0.3744422098983968
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 1.5,
+      "arm": "L_III",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000002107306627
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 1.5,
+      "arm": "L_II",
+      "extension": 0.01400246957653617,
+      "turns": 2.783986010746923,
+      "root_to_tip_over_arm_arc": 0.37286829294336005
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 1.5,
+      "arm": "L_I",
+      "extension": 0.8074396782218716,
+      "turns": 0.9984904428252027,
+      "root_to_tip_over_arm_arc": 0.9137399400512453
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 1.5,
+      "arm": "R_I",
+      "extension": 0.5667368646620461,
+      "turns": 1.8003166289591774,
+      "root_to_tip_over_arm_arc": 0.7384758846161954
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 1.5,
+      "arm": "R_II",
+      "extension": 0.0,
+      "turns": 2.7847709737333313,
+      "root_to_tip_over_arm_arc": 0.3728455338439672
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 1.5,
+      "arm": "R_III",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000955846446
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 1.5,
+      "arm": "R_IV",
+      "extension": 0.874461729690661,
+      "turns": 0.5791283061527513,
+      "root_to_tip_over_arm_arc": 0.9619539021851009
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 2.0,
+      "arm": "L_IV",
+      "extension": 0.055213857861726126,
+      "turns": 2.7129590032585638,
+      "root_to_tip_over_arm_arc": 0.38369843134450493
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 2.0,
+      "arm": "L_III",
+      "extension": 0.9933999334558871,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000002107306627
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 2.0,
+      "arm": "L_II",
+      "extension": 7.580405358997844e-05,
+      "turns": 2.783997834568712,
+      "root_to_tip_over_arm_arc": 0.3728624441833668
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 2.0,
+      "arm": "L_I",
+      "extension": 0.9342590409761639,
+      "turns": 0.03461854787421065,
+      "root_to_tip_over_arm_arc": 0.9999598425986072
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 2.0,
+      "arm": "R_I",
+      "extension": 0.38222594953358136,
+      "turns": 2.2083680358190327,
+      "root_to_tip_over_arm_arc": 0.6207493746007839
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 2.0,
+      "arm": "R_II",
+      "extension": 0.0,
+      "turns": 2.7847709737333313,
+      "root_to_tip_over_arm_arc": 0.3728455338439672
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 2.0,
+      "arm": "R_III",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000955846446
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 2.0,
+      "arm": "R_IV",
+      "extension": 0.7345385692170998,
+      "turns": 1.2725739049234914,
+      "root_to_tip_over_arm_arc": 0.8718662458723325
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 2.5,
+      "arm": "L_IV",
+      "extension": 0.17387259928923526,
+      "turns": 2.536996179908117,
+      "root_to_tip_over_arm_arc": 0.4710114483221048
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 2.5,
+      "arm": "L_III",
+      "extension": 0.9491334812728678,
+      "turns": 0.0001395848503063969,
+      "root_to_tip_over_arm_arc": 1.0000002290553678
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 2.5,
+      "arm": "L_II",
+      "extension": 0.0,
+      "turns": 2.783997834568712,
+      "root_to_tip_over_arm_arc": 0.3728624441833668
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 2.5,
+      "arm": "L_I",
+      "extension": 0.9918670671319676,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000711181813
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 2.5,
+      "arm": "R_I",
+      "extension": 0.21579022187078067,
+      "turns": 2.507845842671359,
+      "root_to_tip_over_arm_arc": 0.5008717806291515
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 2.5,
+      "arm": "R_II",
+      "extension": 0.0,
+      "turns": 2.7847709737333313,
+      "root_to_tip_over_arm_arc": 0.3728455338439672
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 2.5,
+      "arm": "R_III",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000955846446
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 2.5,
+      "arm": "R_IV",
+      "extension": 0.5593640330614064,
+      "turns": 1.7876945942347549,
+      "root_to_tip_over_arm_arc": 0.7337696923596448
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 3.0,
+      "arm": "L_IV",
+      "extension": 0.35190469255309503,
+      "turns": 2.231393137017542,
+      "root_to_tip_over_arm_arc": 0.6004410871161701
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 3.0,
+      "arm": "L_III",
+      "extension": 0.850298959159671,
+      "turns": 0.7539128961652137,
+      "root_to_tip_over_arm_arc": 0.9394615197128762
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 3.0,
+      "arm": "L_II",
+      "extension": 0.0,
+      "turns": 2.783997834568712,
+      "root_to_tip_over_arm_arc": 0.3728624441833668
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 3.0,
+      "arm": "L_I",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000711181813
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 3.0,
+      "arm": "R_I",
+      "extension": 0.09136037526985763,
+      "turns": 2.7024628842063523,
+      "root_to_tip_over_arm_arc": 0.40798035014266587
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 3.0,
+      "arm": "R_II",
+      "extension": 0.0008312094152707864,
+      "turns": 2.7847709737333313,
+      "root_to_tip_over_arm_arc": 0.3728455338439672
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 3.0,
+      "arm": "R_III",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000955846446
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 3.0,
+      "arm": "R_IV",
+      "extension": 0.37503854579926077,
+      "turns": 2.187356444106408,
+      "root_to_tip_over_arm_arc": 0.6157172570961885
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 3.5,
+      "arm": "L_IV",
+      "extension": 0.5584413409233091,
+      "turns": 1.7899648578423277,
+      "root_to_tip_over_arm_arc": 0.7331125618980463
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 3.5,
+      "arm": "L_III",
+      "extension": 0.7015762332977702,
+      "turns": 1.399491653218125,
+      "root_to_tip_over_arm_arc": 0.846418222419995
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 3.5,
+      "arm": "L_II",
+      "extension": 0.0,
+      "turns": 2.783997834568712,
+      "root_to_tip_over_arm_arc": 0.3728624441833668
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 3.5,
+      "arm": "L_I",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000711181813
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 3.5,
+      "arm": "R_I",
+      "extension": 0.02152029590890614,
+      "turns": 2.7736807816428595,
+      "root_to_tip_over_arm_arc": 0.3731841568074409
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 3.5,
+      "arm": "R_II",
+      "extension": 0.02976506948471052,
+      "turns": 2.783630475302289,
+      "root_to_tip_over_arm_arc": 0.37339276371553154
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 3.5,
+      "arm": "R_III",
+      "extension": 0.9997944966786059,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000955846446
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 3.5,
+      "arm": "R_IV",
+      "extension": 0.20987654320987648,
+      "turns": 2.479359265995025,
+      "root_to_tip_over_arm_arc": 0.4982578311181268
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 4.0,
+      "arm": "L_IV",
+      "extension": 0.7536368774915213,
+      "turns": 1.2014151252018623,
+      "root_to_tip_over_arm_arc": 0.8844202812297137
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 4.0,
+      "arm": "L_III",
+      "extension": 0.5223129940920597,
+      "turns": 1.8917369310170082,
+      "root_to_tip_over_arm_arc": 0.7085574072017637
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 4.0,
+      "arm": "L_II",
+      "extension": 0.0,
+      "turns": 2.783997834568712,
+      "root_to_tip_over_arm_arc": 0.3728624441833668
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 4.0,
+      "arm": "L_I",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000711181813
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 4.0,
+      "arm": "R_I",
+      "extension": 0.0005882775368543092,
+      "turns": 2.773848795934905,
+      "root_to_tip_over_arm_arc": 0.37310269313285954
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 4.0,
+      "arm": "R_II",
+      "extension": 0.12323830393981108,
+      "turns": 2.6648823597368954,
+      "root_to_tip_over_arm_arc": 0.4308786666979374
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 4.0,
+      "arm": "R_III",
+      "extension": 0.9832259622870417,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000955846446
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 4.0,
+      "arm": "R_IV",
+      "extension": 0.08748768726495482,
+      "turns": 2.667814799686301,
+      "root_to_tip_over_arm_arc": 0.40644153571723546
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 4.5,
+      "arm": "L_IV",
+      "extension": 0.9011366404187375,
+      "turns": 0.35022593095672566,
+      "root_to_tip_over_arm_arc": 0.9884755546400721
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 4.5,
+      "arm": "L_III",
+      "extension": 0.3396059711598104,
+      "turns": 2.2716283802141772,
+      "root_to_tip_over_arm_arc": 0.5920524021524339
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 4.5,
+      "arm": "L_II",
+      "extension": 8.83777967035218e-07,
+      "turns": 2.783997834568712,
+      "root_to_tip_over_arm_arc": 0.3728624441833668
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 4.5,
+      "arm": "L_I",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000711181813
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 4.5,
+      "arm": "R_I",
+      "extension": 0.0,
+      "turns": 2.773848795934905,
+      "root_to_tip_over_arm_arc": 0.37310269313285954
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 4.5,
+      "arm": "R_II",
+      "extension": 0.2825991056906931,
+      "turns": 2.4031732853431538,
+      "root_to_tip_over_arm_arc": 0.5506280547302029
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 4.5,
+      "arm": "R_III",
+      "extension": 0.9199871787305518,
+      "turns": 0.15398929772292747,
+      "root_to_tip_over_arm_arc": 0.9985750955531978
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 4.5,
+      "arm": "R_IV",
+      "extension": 0.019858081117636206,
+      "turns": 2.731233749398283,
+      "root_to_tip_over_arm_arc": 0.3744872872986323
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 5.0,
+      "arm": "L_IV",
+      "extension": 0.9805448481830479,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000939876963
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 5.0,
+      "arm": "L_III",
+      "extension": 0.18138214831961763,
+      "turns": 2.543850535552621,
+      "root_to_tip_over_arm_arc": 0.4757710744531694
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 5.0,
+      "arm": "L_II",
+      "extension": 0.013041566240586847,
+      "turns": 2.7839903149273786,
+      "root_to_tip_over_arm_arc": 0.37286619672998333
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 5.0,
+      "arm": "L_I",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000711181813
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 5.0,
+      "arm": "R_I",
+      "extension": 0.0,
+      "turns": 2.773848795934905,
+      "root_to_tip_over_arm_arc": 0.37310269313285954
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 5.0,
+      "arm": "R_II",
+      "extension": 0.4832624871322111,
+      "turns": 2.0058552904944356,
+      "root_to_tip_over_arm_arc": 0.684508999692944
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 5.0,
+      "arm": "R_III",
+      "extension": 0.8017396263138208,
+      "turns": 1.0141813169103813,
+      "root_to_tip_over_arm_arc": 0.9108343941859041
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 5.0,
+      "arm": "R_IV",
+      "extension": 0.000431484091448775,
+      "turns": 2.7313238779964313,
+      "root_to_tip_over_arm_arc": 0.37444206713800926
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 5.5,
+      "arm": "L_IV",
+      "extension": 0.9998924748273517,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000939876963
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 5.5,
+      "arm": "L_III",
+      "extension": 0.06947997858035337,
+      "turns": 2.713457191864392,
+      "root_to_tip_over_arm_arc": 0.39282172562494627
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 5.5,
+      "arm": "L_II",
+      "extension": 0.08138681750738136,
+      "turns": 2.726802814924602,
+      "root_to_tip_over_arm_arc": 0.40058314763225467
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 5.5,
+      "arm": "L_I",
+      "extension": 0.9933999334558871,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000711181813
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 5.5,
+      "arm": "R_I",
+      "extension": 0.0,
+      "turns": 2.773848795934905,
+      "root_to_tip_over_arm_arc": 0.37310269313285954
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 5.5,
+      "arm": "R_II",
+      "extension": 0.6871781553916831,
+      "turns": 1.4677447092954319,
+      "root_to_tip_over_arm_arc": 0.833175375789674
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 5.5,
+      "arm": "R_III",
+      "extension": 0.6392406319720265,
+      "turns": 1.594279810036715,
+      "root_to_tip_over_arm_arc": 0.794624481629544
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 5.5,
+      "arm": "R_IV",
+      "extension": 0.0,
+      "turns": 2.7313238779964313,
+      "root_to_tip_over_arm_arc": 0.37444206713800926
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 6.0,
+      "arm": "L_IV",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000939876963
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 6.0,
+      "arm": "L_III",
+      "extension": 0.012730599130120646,
+      "turns": 2.7518573831404938,
+      "root_to_tip_over_arm_arc": 0.373731329719475
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 6.0,
+      "arm": "L_II",
+      "extension": 0.21877291133460966,
+      "turns": 2.511993405547257,
+      "root_to_tip_over_arm_arc": 0.5026847974254122
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 6.0,
+      "arm": "L_I",
+      "extension": 0.9491334812728678,
+      "turns": 0.0002455768160610227,
+      "root_to_tip_over_arm_arc": 1.0000001066784157
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 6.0,
+      "arm": "R_I",
+      "extension": 0.0,
+      "turns": 2.773848795934905,
+      "root_to_tip_over_arm_arc": 0.37310269313285954
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 6.0,
+      "arm": "R_II",
+      "extension": 0.8552983875766049,
+      "turns": 0.7410449417401862,
+      "root_to_tip_over_arm_arc": 0.9423943764589315
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 6.0,
+      "arm": "R_III",
+      "extension": 0.45542458425979215,
+      "turns": 2.0450328671328646,
+      "root_to_tip_over_arm_arc": 0.6668008569484718
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 6.0,
+      "arm": "R_IV",
+      "extension": 0.0,
+      "turns": 2.7313238779964313,
+      "root_to_tip_over_arm_arc": 0.37444206713800926
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 6.5,
+      "arm": "L_IV",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000939876963
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 6.5,
+      "arm": "L_III",
+      "extension": 3.904632520224105e-05,
+      "turns": 2.7518631565462885,
+      "root_to_tip_over_arm_arc": 0.37372835567322843
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 6.5,
+      "arm": "L_II",
+      "extension": 0.4085145058740837,
+      "turns": 2.1641391738437,
+      "root_to_tip_over_arm_arc": 0.637946801367898
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 6.5,
+      "arm": "L_I",
+      "extension": 0.8502989591596707,
+      "turns": 0.7676553617997047,
+      "root_to_tip_over_arm_arc": 0.9388200019897531
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 6.5,
+      "arm": "R_I",
+      "extension": 0.0,
+      "turns": 2.773848795934905,
+      "root_to_tip_over_arm_arc": 0.37310269313285954
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 6.5,
+      "arm": "R_II",
+      "extension": 0.9600459060223794,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 0.9999998152306427
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 6.5,
+      "arm": "R_III",
+      "extension": 0.2784841483401369,
+      "turns": 2.3863582053878343,
+      "root_to_tip_over_arm_arc": 0.548463909586138
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 6.5,
+      "arm": "R_IV",
+      "extension": 0.0,
+      "turns": 2.7313238779964313,
+      "root_to_tip_over_arm_arc": 0.37444206713800926
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 7.0,
+      "arm": "L_IV",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000939876963
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 7.0,
+      "arm": "L_III",
+      "extension": 0.0,
+      "turns": 2.7518631565462885,
+      "root_to_tip_over_arm_arc": 0.37372835567322843
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 7.0,
+      "arm": "L_II",
+      "extension": 0.6159725189208984,
+      "turns": 1.6781233278098149,
+      "root_to_tip_over_arm_arc": 0.7747955954103983
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 7.0,
+      "arm": "L_I",
+      "extension": 0.7015762332977702,
+      "turns": 1.415288869242131,
+      "root_to_tip_over_arm_arc": 0.8453554392938188
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 7.0,
+      "arm": "R_I",
+      "extension": 0.007124483585357579,
+      "turns": 2.7738486705645715,
+      "root_to_tip_over_arm_arc": 0.3731027760364388
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 7.0,
+      "arm": "R_II",
+      "extension": 0.9977817535400377,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 0.9999998152306427
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 7.0,
+      "arm": "R_III",
+      "extension": 0.1349514809734288,
+      "turns": 2.621157068122707,
+      "root_to_tip_over_arm_arc": 0.44056887824632074
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 7.0,
+      "arm": "R_IV",
+      "extension": 0.0,
+      "turns": 2.7313238779964313,
+      "root_to_tip_over_arm_arc": 0.37444206713800926
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 7.5,
+      "arm": "L_IV",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000939876963
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 7.5,
+      "arm": "L_III",
+      "extension": 0.0,
+      "turns": 2.7518631565462885,
+      "root_to_tip_over_arm_arc": 0.37372835567322843
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 7.5,
+      "arm": "L_II",
+      "extension": 0.8010220031611464,
+      "turns": 1.033167795903804,
+      "root_to_tip_over_arm_arc": 0.9104946125641108
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 7.5,
+      "arm": "L_I",
+      "extension": 0.5223129940920597,
+      "turns": 1.9101208353492527,
+      "root_to_tip_over_arm_arc": 0.7087771868671393
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 7.5,
+      "arm": "R_I",
+      "extension": 0.06211699288711454,
+      "turns": 2.744955374571282,
+      "root_to_tip_over_arm_arc": 0.38722432240772375
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 7.5,
+      "arm": "R_II",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 0.9999998152306427
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 7.5,
+      "arm": "R_III",
+      "extension": 0.0427794455063365,
+      "turns": 2.750314950226823,
+      "root_to_tip_over_arm_arc": 0.37689380621210605
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 7.5,
+      "arm": "R_IV",
+      "extension": 0.0,
+      "turns": 2.7313238779964313,
+      "root_to_tip_over_arm_arc": 0.37444206713800926
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 8.0,
+      "arm": "L_IV",
+      "extension": 0.9980748397681338,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000939876963
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 8.0,
+      "arm": "L_III",
+      "extension": 0.0,
+      "turns": 2.7518631565462885,
+      "root_to_tip_over_arm_arc": 0.37372835567322843
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 8.0,
+      "arm": "L_II",
+      "extension": 0.9305200214196466,
+      "turns": 0.06165896153113376,
+      "root_to_tip_over_arm_arc": 0.9998443500891078
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 8.0,
+      "arm": "L_I",
+      "extension": 0.33960597115981106,
+      "turns": 2.2922416744003393,
+      "root_to_tip_over_arm_arc": 0.5918304796400663
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 8.0,
+      "arm": "R_I",
+      "extension": 0.18623579125433606,
+      "turns": 2.5560919937016098,
+      "root_to_tip_over_arm_arc": 0.4784597565271138
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 8.0,
+      "arm": "R_II",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 0.9999998152306427
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 8.0,
+      "arm": "R_III",
+      "extension": 0.0044228268607795496,
+      "turns": 2.7570797298674408,
+      "root_to_tip_over_arm_arc": 0.3735667908547149
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 8.0,
+      "arm": "R_IV",
+      "extension": 0.008132932868031932,
+      "turns": 2.731323601469039,
+      "root_to_tip_over_arm_arc": 0.3744421698941179
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 8.5,
+      "arm": "L_IV",
+      "extension": 0.9689249653113591,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000939876963
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 8.5,
+      "arm": "L_III",
+      "extension": 0.0,
+      "turns": 2.7518631565462885,
+      "root_to_tip_over_arm_arc": 0.37372835567322843
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 8.5,
+      "arm": "L_II",
+      "extension": 0.9907735219076683,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000352274612
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 8.5,
+      "arm": "L_I",
+      "extension": 0.18138214831961763,
+      "turns": 2.5661764071989315,
+      "root_to_tip_over_arm_arc": 0.4746767752504368
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 8.5,
+      "arm": "R_I",
+      "extension": 0.36788242993990555,
+      "turns": 2.2363213731082103,
+      "root_to_tip_over_arm_arc": 0.6112024677277026
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 8.5,
+      "arm": "R_II",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 0.9999998152306427
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 8.5,
+      "arm": "R_III",
+      "extension": 0.0,
+      "turns": 2.757079738691649,
+      "root_to_tip_over_arm_arc": 0.3735668236000205
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 8.5,
+      "arm": "R_IV",
+      "extension": 0.06574095902383661,
+      "turns": 2.6990894608800335,
+      "root_to_tip_over_arm_arc": 0.39071360708825476
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 9.0,
+      "arm": "L_IV",
+      "extension": 0.8879373395406066,
+      "turns": 0.4720344943703267,
+      "root_to_tip_over_arm_arc": 0.9758344773140424
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 9.0,
+      "arm": "L_III",
+      "extension": 7.022815222487577e-06,
+      "turns": 2.7518631565462885,
+      "root_to_tip_over_arm_arc": 0.37372835567322843
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 9.0,
+      "arm": "L_II",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000352274612
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 9.0,
+      "arm": "L_I",
+      "extension": 0.06947997858035315,
+      "turns": 2.736886862786714,
+      "root_to_tip_over_arm_arc": 0.39229799183929576
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 9.0,
+      "arm": "R_I",
+      "extension": 0.5750111447904442,
+      "turns": 1.7793569086060137,
+      "root_to_tip_over_arm_arc": 0.744341159223776
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 9.0,
+      "arm": "R_II",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 0.9999998152306427
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 9.0,
+      "arm": "R_III",
+      "extension": 0.0,
+      "turns": 2.757079738691649,
+      "root_to_tip_over_arm_arc": 0.3735668236000205
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 9.0,
+      "arm": "R_IV",
+      "extension": 0.19256032177812804,
+      "turns": 2.5073205627085597,
+      "root_to_tip_over_arm_arc": 0.48515898463555723
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 9.5,
+      "arm": "L_IV",
+      "extension": 0.7536368774915214,
+      "turns": 1.2014151252018623,
+      "root_to_tip_over_arm_arc": 0.8844202812297137
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 9.5,
+      "arm": "L_III",
+      "extension": 0.014498809027687392,
+      "turns": 2.7518498977546675,
+      "root_to_tip_over_arm_arc": 0.3737350024270798
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 9.5,
+      "arm": "L_II",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000352274612
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 9.5,
+      "arm": "L_I",
+      "extension": 0.012730599130120646,
+      "turns": 2.776350909684357,
+      "root_to_tip_over_arm_arc": 0.3730437664589225
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 9.5,
+      "arm": "R_I",
+      "extension": 0.7675967314940264,
+      "turns": 1.1721123694278275,
+      "root_to_tip_over_arm_arc": 0.892407950062461
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 9.5,
+      "arm": "R_II",
+      "extension": 0.9998697999878063,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 0.9999998152306427
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 9.5,
+      "arm": "R_III",
+      "extension": 0.0,
+      "turns": 2.757079738691649,
+      "root_to_tip_over_arm_arc": 0.3735668236000205
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 9.5,
+      "arm": "R_IV",
+      "extension": 0.3759352965627854,
+      "turns": 2.1856259471313315,
+      "root_to_tip_over_arm_arc": 0.6163003744419678
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 10.0,
+      "arm": "L_IV",
+      "extension": 0.5814303296267056,
+      "turns": 1.7323625357287669,
+      "root_to_tip_over_arm_arc": 0.7499082099106358
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 10.0,
+      "arm": "L_III",
+      "extension": 0.08558510704129067,
+      "turns": 2.6900926360234454,
+      "root_to_tip_over_arm_arc": 0.40440327302509954
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 10.0,
+      "arm": "L_II",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000352274612
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 10.0,
+      "arm": "L_I",
+      "extension": 3.904632520224105e-05,
+      "turns": 2.776357171804801,
+      "root_to_tip_over_arm_arc": 0.37304057615378416
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 10.0,
+      "arm": "R_I",
+      "extension": 0.9101024208279077,
+      "turns": 0.2791097082138098,
+      "root_to_tip_over_arm_arc": 0.9937561112618122
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 10.0,
+      "arm": "R_II",
+      "extension": 0.9846501696340858,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 0.9999998152306427
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 10.0,
+      "arm": "R_III",
+      "extension": 0.0,
+      "turns": 2.757079738691649,
+      "root_to_tip_over_arm_arc": 0.3735668236000205
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 10.0,
+      "arm": "R_IV",
+      "extension": 0.583261558413329,
+      "turns": 1.7276774114610813,
+      "root_to_tip_over_arm_arc": 0.7512856651508196
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 10.5,
+      "arm": "L_IV",
+      "extension": 0.3966874968246712,
+      "turns": 2.1450862103879795,
+      "root_to_tip_over_arm_arc": 0.6296480936490482
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 10.5,
+      "arm": "L_III",
+      "extension": 0.22554594278335546,
+      "turns": 2.4719970882844486,
+      "root_to_tip_over_arm_arc": 0.5091972986872674
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 10.5,
+      "arm": "L_II",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000352274612
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 10.5,
+      "arm": "L_I",
+      "extension": 0.0,
+      "turns": 2.776357171804801,
+      "root_to_tip_over_arm_arc": 0.37304057615378416
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 10.5,
+      "arm": "R_I",
+      "extension": 0.9839477539062497,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000001426752574
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 10.5,
+      "arm": "R_II",
+      "extension": 0.9235888838083629,
+      "turns": 0.12753749035101125,
+      "root_to_tip_over_arm_arc": 0.9991144844299409
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 10.5,
+      "arm": "R_III",
+      "extension": 0.0,
+      "turns": 2.757079738691649,
+      "root_to_tip_over_arm_arc": 0.3735668236000205
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 10.5,
+      "arm": "R_IV",
+      "extension": 0.7744540572166443,
+      "turns": 1.1184648466381464,
+      "root_to_tip_over_arm_arc": 0.8965790752522027
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 11.0,
+      "arm": "L_IV",
+      "extension": 0.22782244536879148,
+      "turns": 2.4498983896581206,
+      "root_to_tip_over_arm_arc": 0.511755881686153
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 11.0,
+      "arm": "L_III",
+      "extension": 0.4167384415866719,
+      "turns": 2.1215044632296447,
+      "root_to_tip_over_arm_arc": 0.6426803976117637
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 11.0,
+      "arm": "L_II",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000352274612
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 11.0,
+      "arm": "L_I",
+      "extension": 0.0,
+      "turns": 2.776357171804801,
+      "root_to_tip_over_arm_arc": 0.37304057615378416
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 11.0,
+      "arm": "R_I",
+      "extension": 0.9999764574278387,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000001426752574
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 11.0,
+      "arm": "R_II",
+      "extension": 0.807439678221872,
+      "turns": 1.0033488448703478,
+      "root_to_tip_over_arm_arc": 0.9137454516985214
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 11.0,
+      "arm": "R_III",
+      "extension": 0.0010987070354791305,
+      "turns": 2.757079738691649,
+      "root_to_tip_over_arm_arc": 0.3735668236000205
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 11.0,
+      "arm": "R_IV",
+      "extension": 0.9144148929587089,
+      "turns": 0.2042852850807431,
+      "root_to_tip_over_arm_arc": 0.9970896759001765
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 11.5,
+      "arm": "L_IV",
+      "extension": 0.09937472193625219,
+      "turns": 2.650406647274061,
+      "root_to_tip_over_arm_arc": 0.41518084895564217
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 11.5,
+      "arm": "L_III",
+      "extension": 0.6240647034372142,
+      "turns": 1.6334327354555644,
+      "root_to_tip_over_arm_arc": 0.782474020348272
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 11.5,
+      "arm": "L_II",
+      "extension": 0.9941871479938038,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000352274612
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 11.5,
+      "arm": "L_I",
+      "extension": 0.0,
+      "turns": 2.776357171804801,
+      "root_to_tip_over_arm_arc": 0.37304057615378416
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 11.5,
+      "arm": "R_I",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000001426752574
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 11.5,
+      "arm": "R_II",
+      "extension": 0.6463288866167838,
+      "turns": 1.5926644109622414,
+      "root_to_tip_over_arm_arc": 0.7991897430819088
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 11.5,
+      "arm": "R_III",
+      "extension": 0.03214721716002823,
+      "turns": 2.755469299170943,
+      "root_to_tip_over_arm_arc": 0.37435630262274133
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 11.5,
+      "arm": "R_IV",
+      "extension": 0.9855011909723128,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000939876963
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 12.0,
+      "arm": "L_IV",
+      "extension": 0.025090568587004092,
+      "turns": 2.7309552155390633,
+      "root_to_tip_over_arm_arc": 0.3746264172272397
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 12.0,
+      "arm": "L_III",
+      "extension": 0.8074396782218716,
+      "turns": 0.9843243836513729,
+      "root_to_tip_over_arm_arc": 0.9137282810981475
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 12.0,
+      "arm": "L_II",
+      "extension": 0.9519189250544011,
+      "turns": 1.5499210703080216e-05,
+      "root_to_tip_over_arm_arc": 1.0000000352274632
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 12.0,
+      "arm": "L_I",
+      "extension": 0.0,
+      "turns": 2.776357171804801,
+      "root_to_tip_over_arm_arc": 0.37304057615378416
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 12.0,
+      "arm": "R_I",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000001426752574
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 12.0,
+      "arm": "R_II",
+      "extension": 0.4628366557551564,
+      "turns": 2.0507728814832062,
+      "root_to_tip_over_arm_arc": 0.6719558607441418
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 12.0,
+      "arm": "R_III",
+      "extension": 0.1284433434796427,
+      "turns": 2.631085337193251,
+      "root_to_tip_over_arm_arc": 0.4357281446684077
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 12.0,
+      "arm": "R_IV",
+      "extension": 0.9999929771847774,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000939876963
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 12.5,
+      "arm": "L_IV",
+      "extension": 0.0010041377527145734,
+      "turns": 2.7313238779964313,
+      "root_to_tip_over_arm_arc": 0.3744422098983968
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 12.5,
+      "arm": "L_III",
+      "extension": 0.9342590409761641,
+      "turns": 0.02980301967008296,
+      "root_to_tip_over_arm_arc": 0.9999712410347791
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 12.5,
+      "arm": "L_II",
+      "extension": 0.8552983875766045,
+      "turns": 0.7406127785457031,
+      "root_to_tip_over_arm_arc": 0.9424168565559964
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 12.5,
+      "arm": "L_I",
+      "extension": 7.022815222487577e-06,
+      "turns": 2.776357171804801,
+      "root_to_tip_over_arm_arc": 0.37304057615378416
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 12.5,
+      "arm": "R_I",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000001426752574
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 12.5,
+      "arm": "R_II",
+      "extension": 0.28507816040788403,
+      "turns": 2.3987828940827716,
+      "root_to_tip_over_arm_arc": 0.5524617324895544
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 12.5,
+      "arm": "R_III",
+      "extension": 0.2900585684790775,
+      "turns": 2.3659956480580657,
+      "root_to_tip_over_arm_arc": 0.5569179478122849
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 12.5,
+      "arm": "R_IV",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000939876963
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 13.0,
+      "arm": "L_IV",
+      "extension": 0.0,
+      "turns": 2.7313238779964313,
+      "root_to_tip_over_arm_arc": 0.3744422098983968
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 13.0,
+      "arm": "L_III",
+      "extension": 0.9918670671319676,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000002107306627
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 13.0,
+      "arm": "L_II",
+      "extension": 0.7082747780447227,
+      "turns": 1.397729629968668,
+      "root_to_tip_over_arm_arc": 0.850400015311899
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 13.0,
+      "arm": "L_I",
+      "extension": 0.014498809027687392,
+      "turns": 2.7763428035795195,
+      "root_to_tip_over_arm_arc": 0.37304756738442296
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 13.0,
+      "arm": "R_I",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000001426752574
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 13.0,
+      "arm": "R_II",
+      "extension": 0.13978481834365397,
+      "turns": 2.639460559016344,
+      "root_to_tip_over_arm_arc": 0.4430928470695445
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 13.0,
+      "arm": "R_III",
+      "extension": 0.4916299091377303,
+      "turns": 1.9658681456382867,
+      "root_to_tip_over_arm_arc": 0.6891513117609644
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 13.0,
+      "arm": "R_IV",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000939876963
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 13.5,
+      "arm": "L_IV",
+      "extension": 0.0,
+      "turns": 2.7313238779964313,
+      "root_to_tip_over_arm_arc": 0.3744422098983968
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 13.5,
+      "arm": "L_III",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000002107306627
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 13.5,
+      "arm": "L_II",
+      "extension": 0.5297419145669252,
+      "turns": 1.898274031351066,
+      "root_to_tip_over_arm_arc": 0.7136231686458496
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 13.5,
+      "arm": "L_I",
+      "extension": 0.08558510704129067,
+      "turns": 2.7133623016086523,
+      "root_to_tip_over_arm_arc": 0.4037548751174525
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 13.5,
+      "arm": "R_I",
+      "extension": 0.9972322288927917,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000001426752574
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 13.5,
+      "arm": "R_II",
+      "extension": 0.0453855053178952,
+      "turns": 2.775425381093733,
+      "root_to_tip_over_arm_arc": 0.37734829221196625
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 13.5,
+      "arm": "R_III",
+      "extension": 0.6948277921773662,
+      "turns": 1.4249968643038402,
+      "root_to_tip_over_arm_arc": 0.8407475295837943
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 13.5,
+      "arm": "R_IV",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000939876963
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 14.0,
+      "arm": "L_IV",
+      "extension": 0.0,
+      "turns": 2.7313238779964313,
+      "root_to_tip_over_arm_arc": 0.3744422098983968
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 14.0,
+      "arm": "L_III",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000002107306627
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 14.0,
+      "arm": "L_II",
+      "extension": 0.3466194058641976,
+      "turns": 2.2854491645254638,
+      "root_to_tip_over_arm_arc": 0.5966244379932346
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 14.0,
+      "arm": "L_I",
+      "extension": 0.22554594278335546,
+      "turns": 2.493864794559793,
+      "root_to_tip_over_arm_arc": 0.5081514494655301
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 14.0,
+      "arm": "R_I",
+      "extension": 0.9645061728395065,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000001426752574
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 14.0,
+      "arm": "R_II",
+      "extension": 0.005087770061728558,
+      "turns": 2.7847709515831784,
+      "root_to_tip_over_arm_arc": 0.3728455596546633
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 14.0,
+      "arm": "R_III",
+      "extension": 0.8608239293098449,
+      "turns": 0.6895455175336638,
+      "root_to_tip_over_arm_arc": 0.9478824455342042
+    },
+    {
+      "clip": "EightArmReach",
+      "time": 14.0,
+      "arm": "R_IV",
+      "extension": 1.0,
+      "turns": 0.0,
+      "root_to_tip_over_arm_arc": 1.0000000939876963
+    }
+  ],
+  "limits": [
+    "A full-range reach demonstration; not a swimming or crawling cycle",
+    "Curl amount, duration and coordinated sequence are authored targets; cross-species research supports the mechanism, not exact GPO kinematics",
+    "512 simplified cups; not an anatomical count"
+  ],
+  "budget_basis": "User explicitly allows <=50000 triangles"
+}

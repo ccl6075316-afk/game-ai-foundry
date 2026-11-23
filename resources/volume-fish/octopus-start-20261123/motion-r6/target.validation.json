@@ -1,0 +1,8 @@
+{
+  "ok": true,
+  "model_sha256": "66105e405029f8b1d3357535b26e965d0b570f1eaa96b55bc821abf051612a0a",
+  "matched_vertices": 14962,
+  "misses": 0,
+  "maximum_cold_to_intended_surface_error_ML": 4.924151790695877e-06,
+  "method": "Cold native bone plus morph evaluation; rest Basis nearest matching to saved intended source target"
+}

@@ -1,0 +1,355 @@
+{
+  "model_sha256": "a3b81073799275473355501d5da7899b07ac4037139096127cd480dc2261ff59",
+  "ok": true,
+  "method": "Cold GLB posed triangles. Report cup/skin and cup/cup triangle intersections only when rest triangle centers are >0.15 ML apart; attached local cup/skin overlap deliberately excluded",
+  "samples": [
+    {
+      "clip": "SingleArmRoll",
+      "frame": 0,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 30,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 45,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 60,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 75,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 90,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 105,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 120,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 135,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 150,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 180,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 210,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 240,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 300,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 0,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 15,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 30,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 45,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 60,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 75,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 90,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 105,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 120,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 135,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 150,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 165,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 180,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 195,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 210,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 225,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 240,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 255,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 270,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 285,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 300,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 315,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 330,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 345,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 360,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 375,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 390,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 405,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 420,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    }
+  ],
+  "limitations": [
+    "43 poses, not continuous collision proof",
+    "Local overlaps within 0.15 ML excluded; does not validate all cup attachment margins or suction dynamics"
+  ]
+}

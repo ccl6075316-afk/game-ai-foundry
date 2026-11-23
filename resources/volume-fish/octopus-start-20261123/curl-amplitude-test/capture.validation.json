@@ -1,0 +1,48 @@
+{
+  "arm": "R_IV",
+  "bones": 513,
+  "collision_acceptance": "not_claimed",
+  "duration": 6,
+  "fixed_camera": true,
+  "fps": 30,
+  "frames": 180,
+  "kind": "native_godot_curl_amplitude_diagnostic",
+  "model_sha256": "66105e405029f8b1d3357535b26e965d0b570f1eaa96b55bc821abf051612a0a",
+  "modified_bones": 63,
+  "morph_weight": 0,
+  "samples": [
+    {
+      "factor": 1.0,
+      "tip": [
+        0.683325350284576,
+        0.0246395617723465,
+        1.36664962768555
+      ]
+    },
+    {
+      "factor": 1.03,
+      "tip": [
+        0.679658710956573,
+        0.0437094047665596,
+        1.35931706428528
+      ]
+    },
+    {
+      "factor": 1.06,
+      "tip": [
+        0.678846180438995,
+        0.0639434605836868,
+        1.35769069194794
+      ]
+    },
+    {
+      "factor": 1.09,
+      "tip": [
+        0.680809676647186,
+        0.0821798890829086,
+        1.36161887645721
+      ]
+    }
+  ],
+  "user_accepted": false
+}

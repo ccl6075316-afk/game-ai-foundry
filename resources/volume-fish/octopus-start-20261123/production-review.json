@@ -1,0 +1,301 @@
+{
+  "standard": {
+    "version": "2026-11-18-runtime-lod-v4",
+    "files": {
+      "resources/skills/fish-volume-production/references/production-sop.md": "52821a42da1bad7c9707155ce70870ae71302137ac5ad1a6c7f3fda715371bf6",
+      "resources/skills/fish-volume-production/references/fin-types-thickness-tail.md": "eb60e1f0606330bc4e8492463d066cfd46bf4e0aa1341b43c40f6a90968fbaea",
+      "resources/skills/fish-volume-production/references/source-surface-repair.md": "0695300f5b79df9ebd543d55a46b7fdbe92c79247a37984cb05765b6a15d956d",
+      "resources/skills/fish-volume-production/references/final-asset-export.md": "9fa81cfff9d42be5299eeb8dbde6e1ffc6a25874cfddb41396830f3d427e58a0",
+      "resources/skills/fish-volume-production/references/mouth-first-review.md": "b4b8eeb2d167b1f93e13f65414e10e3f2772ce86d38dd90489fe506d5ca53ebe",
+      "resources/skills/fish-volume-production/references/production-workflow-gates.md": "05a02a94600954a2e754d9ac6d2bc03238ee7be99aea74f8c5205a9e6b4ec311",
+      "resources/skills/fish-volume-production/references/single-material-source-finalization.md": "ef00fba4aef8de7cbcc94ee98def9228ee6b12ebc18cad8ead0a823d9d9c0b7e",
+      "cli/volume_sop.py": "cb380facf2a45ccbdfd1af5ef798d7f019d46c3c7e761968c7a3cd46a132e8fa",
+      "cli/volume_finalization.py": "937461e4e86398f409c01ffd6f375afa0584fbe1033f349e0162e364aa7ecc56",
+      "cli/volume_lod_acceptance.py": "478ddc7fb2a50a316969fa0ed4445922e838378159d039f9e81510ffaa613786",
+      "cli/volume_packed_acceptance.py": "7846babdbf9ec5e8c6346c1b3a7a841e3b9f630cb19cb61f433f39911249e004",
+      "cli/volume_repair_preservation.py": "fc3fcd8cd3bdd57ede655c0dca0740167627ed68afcfd6a3bccbe843180dfcda"
+    },
+    "criteria": {
+      "preparation": {
+        "research_and_measurements": "data",
+        "source_views_and_purposes": "data",
+        "accepted_source_provenance": "data",
+        "landmarks_and_part_inventory": "image",
+        "native_fin_cutouts_and_part_ownership": "data"
+      },
+      "head": {
+        "reference_side_comparison": "image",
+        "reference_top_comparison": "image",
+        "reference_shape_verdict": "report",
+        "source_pose_comparison": "image",
+        "clay_side": "image",
+        "clay_front": "image",
+        "clay_top": "image",
+        "clay_bottom": "image",
+        "clay_oblique": "image",
+        "transverse_constraints": "data"
+      },
+      "mouth": {
+        "structure_branch_and_constraints": "data",
+        "whole_snout_and_chin": "image",
+        "integrated_upper_lower_jaws_and_cut": "image",
+        "misplaced_outline_ownership": "image",
+        "native_pixel_cover_and_actual_uv_joins": "image",
+        "source_donors_and_mouth_gap": "data",
+        "complete_native_lip_domain_and_front_exclusion": "report"
+      },
+      "eyes": {
+        "source_eye_and_ownership_domains": "image",
+        "opposite_and_top_views": "image",
+        "overlay_attachment_and_lod": "data"
+      },
+      "skin": {
+        "dorsal_material": "image",
+        "ventral_material": "image",
+        "hidden_fin_skin": "image",
+        "native_2d_donors_and_exclusions": "data",
+        "surface_opacity_inventory": "data",
+        "body_owned_fin_base_marks": "image"
+      },
+      "fins": {
+        "complete_species_fin_inventory_and_roots": "data",
+        "source_cutout_and_shape_comparison": "image",
+        "installed_visibility_and_body_occlusion": "data",
+        "all_fin_root_gate": "report",
+        "whole_fin_membrane_gate": "report",
+        "expanded_fin_visual_review": "image",
+        "actual_normal_thickness_and_tail_section": "report",
+        "fin_volume_end_on_and_top_clay": "image"
+      },
+      "motion": {
+        "native_loop": "report",
+        "swim": "image",
+        "turn": "image",
+        "ascend": "image",
+        "dive": "image",
+        "real_transitions_and_control_ranges": "report",
+        "jaw_or_other_action_branch": "data"
+      },
+      "runtime": {
+        "body_integrity_gpu_gate": "report",
+        "material_anchor_and_actual_lod": "report",
+        "motion_and_surface_gate": "report",
+        "cold_import_and_install_binding": "report",
+        "final_asset_cold_load": "report",
+        "mesh_and_material_batching": "report",
+        "exported_vs_experiment_comparison": "image"
+      },
+      "presentation": {
+        "source_style_final_comparison": "image",
+        "normal_and_close_game_views": "image",
+        "water_readability": "image",
+        "orbit_and_motion_video": "video",
+        "final_files_and_remaining_limits": "data"
+      }
+    }
+  },
+  "task_type": "new",
+  "schema_version": 1,
+  "kind": "fish_production_sop_review",
+  "species": "giant_pacific_octopus",
+  "candidate_files": {
+    "source_image": {
+      "path": "",
+      "sha256": ""
+    },
+    "model": {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/octopus-actions.glb",
+      "sha256": "5cce92c54d8257f4d7c7a0d06dba4069b30b2ae3303005a060d29b61e0fa1a9f"
+    },
+    "species_profile": {
+      "path": "resources/volume-fish/octopus-start-20261123/proportion-constraints.json",
+      "sha256": "0e9bec27b4b891bd4d6a9a6829991befba24489eedc8a945d95ffa7f9a938bdf"
+    },
+    "runtime_manifest": {
+      "path": "",
+      "sha256": ""
+    },
+    "motion_config": {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/build.validation.json",
+      "sha256": "e6facc751ddf08cabda530da878c2f76e1a39ae3fded5c261b530022e12e2c10"
+    }
+  },
+  "evidence": {
+    "roll_trial_manifest": {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/manifest.json",
+      "sha256": "2a8e3000c7fb163354d26c5b74ce5275723948dd68d6d877eff23b6e34c41040"
+    },
+    "contact_actions_manifest": {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/manifest.json",
+      "sha256": "83b9c182dcafe6fb8fad2053b4fbfe7eace4fde5179237a5d55950e305ec6eb6"
+    },
+    "thicker_arm_manifest": {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r5/manifest.json",
+      "sha256": "41f5b0900f7dd9a67cd5a1e5f77a31b13ec15fb5c30b438ca3cfd1fa308e4852"
+    },
+    "contact_corrective_manifest": {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/manifest.json",
+      "sha256": "0c3b4eb2ee5eec3a84628dd17d93e59475b15835fce2f9d36f9cf885e9c5261a"
+    },
+    "tighter_roll_manifest": {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/manifest.json",
+      "sha256": "1675cd09cf66b2c2cd664ac6c8c5998f800a6db39f4b4fa79c76a9b72984af65"
+    }
+  },
+  "stages": {
+    "preparation": {
+      "result": "pending",
+      "method": "",
+      "reviewer": "",
+      "observations": "R2补核FAO同种腕长3–5 ML、最深蹼18–28%腕长及测位定义；目标选择、来源SHA和最终网格复量分别入库。宽厚、个体尺寸、游速及拉伸倍率未实测。",
+      "checks": {
+        "research_and_measurements": [],
+        "source_views_and_purposes": [],
+        "accepted_source_provenance": [],
+        "landmarks_and_part_inventory": [],
+        "native_fin_cutouts_and_part_ownership": []
+      }
+    },
+    "head": {
+      "result": "pending",
+      "method": "",
+      "reviewer": "",
+      "observations": "R5头身/蹼/近端7620皮肤点不变，7327远端点修改；口侧腕长3.7949–4.0005ML，蹼深20.04–23.29%最长腕，当前比例通过。中后段约加粗6%，98%站0.04559→0.06410ML；参数非生物实测。",
+      "checks": {
+        "reference_side_comparison": [],
+        "reference_top_comparison": [],
+        "reference_shape_verdict": [],
+        "source_pose_comparison": [],
+        "clay_side": [],
+        "clay_front": [],
+        "clay_top": [],
+        "clay_bottom": [],
+        "clay_oblique": [],
+        "transverse_constraints": []
+      }
+    },
+    "mouth": {
+      "result": "pending",
+      "method": "",
+      "reviewer": "",
+      "observations": "",
+      "checks": {
+        "structure_branch_and_constraints": [],
+        "whole_snout_and_chin": [],
+        "integrated_upper_lower_jaws_and_cut": [],
+        "misplaced_outline_ownership": [],
+        "native_pixel_cover_and_actual_uv_joins": [],
+        "source_donors_and_mouth_gap": [],
+        "complete_native_lip_domain_and_front_exclusion": []
+      },
+      "implementation": {
+        "branch": "pending",
+        "body_resource_role": "",
+        "cut_line": "",
+        "upper_jaw": "",
+        "lower_jaw": "",
+        "method_reference": ""
+      }
+    },
+    "eyes": {
+      "result": "pending",
+      "method": "",
+      "reviewer": "",
+      "observations": "",
+      "checks": {
+        "source_eye_and_ownership_domains": [],
+        "opposite_and_top_views": [],
+        "overlay_attachment_and_lod": []
+      }
+    },
+    "skin": {
+      "result": "pending",
+      "method": "",
+      "reviewer": "",
+      "observations": "",
+      "checks": {
+        "dorsal_material": [],
+        "ventral_material": [],
+        "hidden_fin_skin": [],
+        "native_2d_donors_and_exclusions": [],
+        "surface_opacity_inventory": [],
+        "body_owned_fin_base_marks": []
+      }
+    },
+    "fins": {
+      "result": "pending",
+      "method": "",
+      "reviewer": "",
+      "observations": "",
+      "checks": {
+        "complete_species_fin_inventory_and_roots": [],
+        "source_cutout_and_shape_comparison": [],
+        "installed_visibility_and_body_occlusion": [],
+        "all_fin_root_gate": [],
+        "whole_fin_membrane_gate": [],
+        "expanded_fin_visual_review": [],
+        "actual_normal_thickness_and_tail_section": [],
+        "fin_volume_end_on_and_top_clay": []
+      }
+    },
+    "motion": {
+      "result": "pending",
+      "method": "",
+      "reviewer": "",
+      "observations": "R7右IV TightRoll增加9%局部弯曲；3动作循环闭合，另两动作/其他腕骨曲线保持。R6压平停用，允许内部少量重叠，不声称零穿插。",
+      "checks": {
+        "native_loop": [],
+        "swim": [],
+        "turn": [],
+        "ascend": [],
+        "dive": [],
+        "real_transitions_and_control_ranges": [],
+        "jaw_or_other_action_branch": []
+      }
+    },
+    "runtime": {
+      "result": "pending",
+      "method": "",
+      "reviewer": "",
+      "observations": "R7源冷导逐字节一致，50000三角/513骨，R5网格/拓扑/UV/骨权/休止骨架保持；Godot原生10秒300帧记录。",
+      "checks": {
+        "body_integrity_gpu_gate": [],
+        "material_anchor_and_actual_lod": [],
+        "motion_and_surface_gate": [],
+        "cold_import_and_install_binding": [],
+        "final_asset_cold_load": [],
+        "mesh_and_material_batching": [],
+        "exported_vs_experiment_comparison": []
+      },
+      "finalization": {
+        "state": "pending",
+        "editable_source_role": "",
+        "model_role": "model",
+        "entry_role": "",
+        "static_parts": {
+          "body": {},
+          "eyes": {},
+          "mouth": {},
+          "fins": {}
+        },
+        "engine_resource_roles": [],
+        "runtime_behaviors": []
+      },
+      "lod_entries": {}
+    },
+    "presentation": {
+      "result": "pending",
+      "method": "",
+      "reviewer": "",
+      "observations": "已看R7收放6相位图，卷形更紧且无R6方形压平；单腕侧视试版，未扩展到七腕或所有视角。",
+      "checks": {
+        "source_style_final_comparison": [],
+        "normal_and_close_game_views": [],
+        "water_readability": [],
+        "orbit_and_motion_video": [],
+        "final_files_and_remaining_limits": []
+      }
+    }
+  },
+  "scope": "用户认可R7右前腕紧卷基础并授权提交，后续动作由用户继续。允许卷层内部少量重叠；完整SOP仍pending，未安装游戏。"
+}

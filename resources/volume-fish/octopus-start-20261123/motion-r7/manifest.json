@@ -1,0 +1,78 @@
+{
+  "kind": "octopus_tighter_roll_trial",
+  "revision": 7,
+  "status": "accepted_right_arm_motion_checkpoint",
+  "user_accepted": true,
+  "production_installed": false,
+  "triangles": 50000,
+  "bones": 513,
+  "source": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r7/octopus-actions.blend",
+    "sha256": "0ee04c707e43299aa7101e5120a0e3d1c85dc93f629c1710639e7f51d2a706e3"
+  },
+  "model": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r7/octopus-actions.glb",
+    "sha256": "5cce92c54d8257f4d7c7a0d06dba4069b30b2ae3303005a060d29b61e0fa1a9f"
+  },
+  "viewer": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r7/review/Actions.gd",
+    "sha256": "8783d80b4c3984a1896299ad6ddf9d0413ae3707921c2ef264dc280f439fb5ac"
+  },
+  "launcher": {
+    "path": "resources/volume-fish/octopus-start-20261123/open-motion-review.command",
+    "sha256": "2c6c7328380409665792e48c4afec3cb3d95cae6695482d431a638170df88454"
+  },
+  "video": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r7/tighter-roll.mp4",
+    "sha256": "18c4df9ad00ec71bf7ee81808da87448de67ce0dfad2b0279795b7ce5f8a8e58"
+  },
+  "preview": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r7/phases.jpg",
+    "sha256": "7ed7632febd27e8c83d08291263d60a0dd63eb8b5e9589a238dabda9aa99c7c2"
+  },
+  "authoring": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/build_tighter_roll.py",
+      "sha256": "a51ea517031e706777b571066c68e26010e1526df3e4a594fb52520e4f05a5e4"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_tighter_source.py",
+      "sha256": "ccaf97f3103a29778bcfea39043c7254ccdaaaa174505d50541792d7d5554e71"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_tighter_export.py",
+      "sha256": "e16ff2922d997565174c60f261d508e447c2e9262d4c2a05e44603fef3fa4a8c"
+    }
+  ],
+  "validation": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/build.validation.json",
+      "sha256": "e6facc751ddf08cabda530da878c2f76e1a39ae3fded5c261b530022e12e2c10"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/source.validation.json",
+      "sha256": "2d642381dee559fbadb841569594e4201340ba26421969d136f30793e2205367"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/export.validation.json",
+      "sha256": "87f17177f0292ee9589cac5bfb240382138256fe2780f729ff9295538b7b4eb9"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/godot.validation.json",
+      "sha256": "944fea0281e8b770d057cc70bca94d734d74159432fc63254fa651a8791a30e7"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/visual.validation.json",
+      "sha256": "86a7bb099fe43856ff870f27a035ed9232bc37a8d974e72c520e6ef9005c32c9"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r7/cleanup.validation.json",
+      "sha256": "1c0bb53ee40b7bc4bc9fa0f37afb5711cc67d9af3ef32be80cf269b54139482c"
+    }
+  ],
+  "scope": "R_IV TightRoll局部弯曲角1.09倍，完整10秒收放；其余七腕/两动作保持；R5网格不变，R6压平补偿停用",
+  "user_policy": "卷紧允许少量内部穿插，优先卷拢外观；显眼交叉、杯体穿出外表和动作突变另修",
+  "full_sop_passed": false,
+  "acceptance_scope": "右前腕紧卷/收放作为继续制作动作的基础；不是全身动作、材质、游戏安装或完整SOP接受",
+  "user_feedback": "没什么问题，软体动物有一些穿模很正常；先提交吧，回去我做动作"
+}

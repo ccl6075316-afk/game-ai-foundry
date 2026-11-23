@@ -1,0 +1,169 @@
+{
+  "model_sha256": "a3b81073799275473355501d5da7899b07ac4037139096127cd480dc2261ff59",
+  "method": "Cold imported native GLB skeleton evaluated at every frame; no authoring control metrics used",
+  "checks": {
+    "all_eight_can_fully_straighten": true,
+    "all_eight_can_coil_over_one_turn": true,
+    "single_coiled_then_straight_then_coiled": true,
+    "bone_chain_lengths_preserved": true,
+    "bone_chains_connected": true
+  },
+  "ok": true,
+  "evaluated_arm_poses": 5776,
+  "max_relative_length_error": 9.151686276980175e-07,
+  "max_head_gap": 9.834766387939453e-07,
+  "ranges": [
+    {
+      "arm": "L_IV",
+      "min_chord_over_arc": 0.4338726974301967,
+      "max_chord_over_arc": 0.9999995685921443,
+      "max_turns": 1.2617726419228963
+    },
+    {
+      "arm": "L_III",
+      "min_chord_over_arc": 0.4338725411912017,
+      "max_chord_over_arc": 1.0000006694219108,
+      "max_turns": 1.261772779475317
+    },
+    {
+      "arm": "L_II",
+      "min_chord_over_arc": 0.4338729297906886,
+      "max_chord_over_arc": 1.0000003383212628,
+      "max_turns": 1.2617729004265836
+    },
+    {
+      "arm": "L_I",
+      "min_chord_over_arc": 0.4338734299894199,
+      "max_chord_over_arc": 1.0000004263144817,
+      "max_turns": 1.2617725280864103
+    },
+    {
+      "arm": "R_I",
+      "min_chord_over_arc": 0.4338726605484614,
+      "max_chord_over_arc": 0.9999999467256588,
+      "max_turns": 1.2617726893547656
+    },
+    {
+      "arm": "R_II",
+      "min_chord_over_arc": 0.43387294071686755,
+      "max_chord_over_arc": 1.0000000913939253,
+      "max_turns": 1.2617729241425184
+    },
+    {
+      "arm": "R_III",
+      "min_chord_over_arc": 0.43387288749709296,
+      "max_chord_over_arc": 1.0000004486787006,
+      "max_turns": 1.261772788961691
+    },
+    {
+      "arm": "R_IV",
+      "min_chord_over_arc": 0.433872296272171,
+      "max_chord_over_arc": 0.999999464426557,
+      "max_turns": 1.2617726822399853
+    }
+  ],
+  "single_arm_key_samples": [
+    {
+      "clip": "SingleArmRoll",
+      "frame": 0,
+      "arm": "R_IV",
+      "chord_over_arc": 0.4338726444459493,
+      "turns": 1.2617726158353684,
+      "length_relative_error": 4.853907194990174e-07,
+      "max_head_gap": 4.097141946812725e-07
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 30,
+      "arm": "R_IV",
+      "chord_over_arc": 0.4338726444459493,
+      "turns": 1.2617726158353684,
+      "length_relative_error": 4.853907194990174e-07,
+      "max_head_gap": 4.097141946812725e-07
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 60,
+      "arm": "R_IV",
+      "chord_over_arc": 0.5329829198353625,
+      "turns": 1.0993574426186243,
+      "length_relative_error": 4.3643500315469594e-07,
+      "max_head_gap": 4.702727150338739e-07
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 75,
+      "arm": "R_IV",
+      "chord_over_arc": 0.6689060144051862,
+      "turns": 0.7820463007072582,
+      "length_relative_error": 2.7498530031703993e-07,
+      "max_head_gap": 5.331201499700045e-07
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 90,
+      "arm": "R_IV",
+      "chord_over_arc": 0.9432675161227411,
+      "turns": 0.31570411684037464,
+      "length_relative_error": 2.447785817216075e-07,
+      "max_head_gap": 5.339525004377638e-07
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 120,
+      "arm": "R_IV",
+      "chord_over_arc": 0.9999994932625923,
+      "turns": 0.0,
+      "length_relative_error": 1.4270070508876693e-07,
+      "max_head_gap": 5.339525004377638e-07
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 135,
+      "arm": "R_IV",
+      "chord_over_arc": 0.9999994932625923,
+      "turns": 0.0,
+      "length_relative_error": 1.4270070508876693e-07,
+      "max_head_gap": 5.339525004377638e-07
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 150,
+      "arm": "R_IV",
+      "chord_over_arc": 0.9999994932625923,
+      "turns": 0.0,
+      "length_relative_error": 1.4270070508876693e-07,
+      "max_head_gap": 5.339525004377638e-07
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 180,
+      "arm": "R_IV",
+      "chord_over_arc": 0.9432675161227411,
+      "turns": 0.31570411684037464,
+      "length_relative_error": 2.447785817216075e-07,
+      "max_head_gap": 5.339525004377638e-07
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 240,
+      "arm": "R_IV",
+      "chord_over_arc": 0.4338726444459493,
+      "turns": 1.2617726158353684,
+      "length_relative_error": 4.853907194990174e-07,
+      "max_head_gap": 4.097141946812725e-07
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 300,
+      "arm": "R_IV",
+      "chord_over_arc": 0.4338726444459493,
+      "turns": 1.2617726158353684,
+      "length_relative_error": 4.853907194990174e-07,
+      "max_head_gap": 4.097141946812725e-07
+    }
+  ],
+  "limits": [
+    "Skeleton arclength/chord/unsigned turning, not exact skin strain or biological articulation measurement"
+  ]
+}

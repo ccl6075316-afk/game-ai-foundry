@@ -1,0 +1,34 @@
+{
+  "ok": true,
+  "video": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r3/octopus-tight-review.mp4",
+    "sha256": "69906323426ef866b1b8f44f47d229f7f6ad6c8a15ac271b282a4fe6edb4e661"
+  },
+  "probe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1100,
+        "height": 800,
+        "r_frame_rate": "30/1",
+        "nb_read_frames": "720"
+      }
+    ],
+    "format": {
+      "duration": "24.000000",
+      "size": "418357"
+    }
+  },
+  "model_sha256": "2237250b3ecde6758a897015573160aecccc5610bba671bed31a9d04351d3e79",
+  "phase_contact": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r3/motion-contact.jpg",
+    "sha256": "a4bfb7584acd05a491f2c1c8b7720f555c2af73746ec0c52aa33947d46d026d6"
+  },
+  "closeup": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r3/tight-coil-close.png",
+    "sha256": "935d813162aed0c70fed71f83a1944fdab76f307864cb4e07a083a80be4f2116"
+  },
+  "closeup_method": "Display filtering of the same native GLB right IV arm, original vertices/skinning/animation retained; full video displays all arms"
+}

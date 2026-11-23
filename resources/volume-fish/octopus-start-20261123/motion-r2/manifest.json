@@ -1,0 +1,127 @@
+{
+  "kind": "octopus_roll_trial",
+  "date": "2026-11-23",
+  "status": "needs_tip_and_tight_coil_review",
+  "user_accepted": false,
+  "previous_motion_status": "motion-r1 rejected_by_user",
+  "budget": 50000,
+  "triangles": 46080,
+  "bones": 321,
+  "representative_suckers": 512,
+  "species_basis": "Enteroctopus dofleini",
+  "source": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r2/octopus-roll.blend",
+    "sha256": "a9f3c5dc28b3a7aa93f38ec98b111ce14f2c60883e44f4ed8ad6173d30f07d7c"
+  },
+  "model": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r2/octopus-roll.glb",
+    "sha256": "a3b81073799275473355501d5da7899b07ac4037139096127cd480dc2261ff59"
+  },
+  "clips": [
+    {
+      "name": "SingleArmRoll",
+      "duration": 10
+    },
+    {
+      "name": "EightArmReach",
+      "duration": 14
+    }
+  ],
+  "viewer": {
+    "path": "resources/volume-fish/octopus-start-20261123/open-motion-review.command",
+    "sha256": "d2d631e7c0a06a5b62519ced5ed3f5f66cf9238053c12d600de435f100451d79"
+  },
+  "viewer_script": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r2/review/Roll.gd",
+    "sha256": "529ca53b93ccbb7d403083a8c9d03a65eb73992a88af8402692a68d0f31bd34e"
+  },
+  "video": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r2/octopus-roll-review.mp4",
+    "sha256": "fef0c21179a6389cd5a97ed7183d980a672a1db247f172fe85337667e1640a3e"
+  },
+  "reference_review": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r2/references.validation.json",
+    "sha256": "7cef176494acfc426e9a5c31ba099a7333b2e5fdc2e0f5d988828cd7d82707f2"
+  },
+  "validation": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/rest/proportions.validation.json",
+      "sha256": "8456c454ebb7517c64e68b152734192268350bcddfd442c3c2f0f12d4ecde235"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/source.validation.json",
+      "sha256": "7f47409003bef71af35deeab34a144d69c7053b4eb88559db2df755d0ddd9291"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/motion.validation.json",
+      "sha256": "b55293c532ec52ee77c7e7f8bfe6433b8154b8ddf7aa05227c51d63614ca461d"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/range.validation.json",
+      "sha256": "573c4a46b8b85c77c853909b447e47e3a1666a7c5c32c21213697513a3ca8846"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/contacts.validation.json",
+      "sha256": "092d524cb277fca2c03b1f52c8b8e55e572020a3886cd22481efc27c28fc462d"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/controls.validation.json",
+      "sha256": "2c7c08374624168bae9eccdac17df030dc880d5b95bf7da2d0fcdf6147739b0e"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/godot.validation.json",
+      "sha256": "56accdee2cda14db29d2dcc903454d93468084d146fb99ae6d36ce36cd77119a"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r2/video.validation.json",
+      "sha256": "980445f55f1698701b3986ccbfc81f1e1ce9414a8976cd8288cd4d6565419ae7"
+    }
+  ],
+  "production_installed": false,
+  "limits": [
+    "Full-range articulation trial, not natural swimming acceptance",
+    "Authored duration/phase/curl amount; cross-species motion-method reference",
+    "Root fixed; no suction/contact locomotion or hydrodynamics",
+    "Full production SOP pending"
+  ],
+  "authoring_scripts": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/build_roll_rest.py",
+      "sha256": "6e9d108c63756d7704f95fadcc621012a8684e5567c189158aad2f304f88bb99"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/build_roll_motion.py",
+      "sha256": "7550c484bcbfcf9acb401ea6d860b0e87b409ed885d6070f825c9cc0c4207dc4"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/measure_roll_rest.py",
+      "sha256": "6fca8248e27da080c315f2c01c0a22550cd1e33e1637a649f0e6b1ad7aa7dca7"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_roll.py",
+      "sha256": "e0e073f477cdfec9c70833acdff86bd2f1546bfb42dc6e124efa9c36d0a8f86e"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_roll_source.py",
+      "sha256": "230ec148bc77496a9e22592c35fc735a96dd8b112ff8ae117ff36fe815de0421"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_roll_range.py",
+      "sha256": "e3bf318a53682fbbfc6c3cbd32d8cc24e44894bcca60d7078ba956e120a08311"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_roll_contacts.py",
+      "sha256": "e0fd2d85dee005c5faecc6cc6552765587ec722043a2e3caf2e096cde02359ba"
+    }
+  ],
+  "user_feedback": {
+    "date": "2026-11-23",
+    "issue": "腕尖过尖；用户询问盘卷时腕段是否应贴近/接触、能否形成盘状卷曲",
+    "assessment": "当前1.28圈范围试验未验证紧卷时的接触和卷层间距；不能将展开范围通过视作紧卷形态通过",
+    "next_shape_checks": [
+      "参考约束下的腕尖渐细长度与最末端体积",
+      "区别松卷、紧卷、接触与吸附；按腕厚和吸盘突出量控制卷层间距"
+    ],
+    "geometry_changed_this_review": false
+  }
+}

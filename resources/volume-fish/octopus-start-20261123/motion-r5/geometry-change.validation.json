@@ -1,0 +1,27 @@
+{
+  "kind": "octopus_local_arm_thickening",
+  "changed_skin_vertices_by_arm": {
+    "L_III": 920,
+    "L_IV": 920,
+    "L_II": 900,
+    "L_I": 960,
+    "R_IV": 914,
+    "R_III": 860,
+    "R_I": 957,
+    "R_II": 911
+  },
+  "max_skin_vertex_shift_ML": 0.012645567614936877,
+  "translated_cup_components": 383,
+  "cross_section_scale": {
+    "proximal_0_35": 1,
+    "fraction_0_65_to_0_92": 1.06,
+    "at_end": 1.45
+  },
+  "tip_shortening_max_ML": 0.012,
+  "tip_transition_length_ML": 0.06,
+  "topology_uv_weights_rest_bones": "preserved",
+  "scope": "Distal arms and their cup support only; head/mantle/web/proximal arms protected",
+  "limits": [
+    "Authored local form adjustment, not a specimen-measured width profile"
+  ]
+}

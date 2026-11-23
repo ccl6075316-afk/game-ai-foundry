@@ -1,5 +1,8 @@
 # 3D 鱼、水草与布景：知识维护入口
 
+**2026-11-23 章鱼动作基础**：[当前交接](../resources/volume-fish/octopus-start-20261123/README.md)与[release.json](../resources/volume-fish/octopus-start-20261123/release.json)保存R7可编辑源/GLB（50,000三角、513骨）。用户认可右前腕紧卷并允许卷层内部少量重叠，后续动作由用户继续；未安装游戏、未完成整章鱼动作或完整SOP。
+
+
 2026-11-21 用户确认实验录像和截图留在本机。交接记录提交当前可用的代码或资产、复跑方式和数值结论。只有用户点名要求上传的评审媒体才加入版本库或百度 LFS。游戏实际加载的图像、模型和其他运行资源继续按项目的资产规则保存。
 
 **2026-11-18 正式鱼总表与 LOD 接触复验**。[当前 28 条鱼总表](../resources/volume-fish/current-fish-inventory-20261118.json)绑定逐鱼当前 Blender / GLB 哈希、嘴部或摄食入口、实测近中远档及逐鱼接触报告。展厅、水族箱和 3D 钓鱼共用修订后的 LOD 索引资源。修正方法、身体与鳍混合档位的实测、鲸鲨连续外壳证明及双向 GPU 切档见[运行时 LOD 交接](../projects/fishing-2d/plans/reviews/fish-runtime-lod-20261118/HANDOFF.md)。游动观感按用户要求后续验收。11 月 8 日总表用于历史溯源。

@@ -1,0 +1,45 @@
+{
+  "kind": "octopus_motion_trial_visual_review",
+  "status": "trial_ready_pending_user",
+  "views_reviewed": [
+    "Godot sampled oblique, side and underside poses",
+    "Godot phase contact sheet, 0–20.4s",
+    "real octopus 245–266s stored reference sequence"
+  ],
+  "observations": [
+    "Eight separately phased arm chains visibly bend; cups follow the bound arms",
+    "Web stays attached through the sampled moderate motion; stronger gathering was rejected for surface intersections",
+    "Mantle no longer pulls into a flap after body weight-domain correction",
+    "Body/arm length and web-depth ranges remeasured after thicker membrane remesh",
+    "Display cuts between two separate clips; no transition acceptance claimed"
+  ],
+  "limitations": [
+    "Only current small-fold envelope checked",
+    "Reference footage does not calibrate period or speed",
+    "Sucker interiors, individual cup clearance and full physical volume preservation not comprehensively validated",
+    "Still a grey deformation prototype; full morphology and animation quality await user review"
+  ],
+  "user_accepted": false,
+  "model_sha256": "c39c8b48822305b967bdc7ed480dd87ed0fcf5da1aed7e320c575710ea575fe4",
+  "video": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r1/octopus-motion-preview.mp4",
+    "sha256": "9e8b8dae7d9f3692871b4052aa6bbc4d6d6dedfcff91f695a353dfaa7ff61b2c"
+  },
+  "video_probe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "width": 1100,
+        "height": 800,
+        "r_frame_rate": "30/1",
+        "nb_frames": "612"
+      }
+    ],
+    "format": {
+      "duration": "20.400000",
+      "size": "1486009"
+    }
+  },
+  "final_presentation": "Anatomical views follow model orientation; oral view zoomed out to include all eight tips. Grid hidden in oral view to avoid foreground lines."
+}

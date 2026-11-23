@@ -1,0 +1,707 @@
+{
+  "model_sha256": "15db763d8aa8618e8074be4077da48b5564bded18ccfcf6180f667e17b749013",
+  "ok": true,
+  "method": "Cold GLB posed triangles. Report cup/skin and cup/cup triangle intersections only when rest triangle centers are >0.15 ML apart; attached local cup/skin overlap deliberately excluded",
+  "samples": [
+    {
+      "clip": "TightRoll",
+      "frame": 0,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 15,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 30,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 45,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 60,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 75,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 90,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 105,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 120,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 135,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 150,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 165,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 180,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 195,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 210,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 225,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 240,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 255,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 270,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 285,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 300,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 0,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 15,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 30,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 45,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 60,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 75,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 90,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 105,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 120,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 135,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 150,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 165,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 180,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 195,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 210,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 225,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 240,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 255,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 270,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 285,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 300,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 315,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 330,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 345,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 360,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 375,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 390,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 405,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 420,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 435,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 450,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 465,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 480,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 0,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 15,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 30,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 45,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 60,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 75,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 90,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 105,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 120,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 135,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 150,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 165,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 180,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 195,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 210,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 225,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 240,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 255,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 270,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 285,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 300,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 315,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 330,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 345,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 360,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 375,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 390,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 405,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 420,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 435,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 450,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 465,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 480,
+      "nonlocal_cup_skin_intersections": 0,
+      "nonlocal_cup_cup_intersections": 0,
+      "examples_skin": [],
+      "examples_cups": []
+    }
+  ],
+  "limitations": [
+    "87 poses, not continuous collision proof",
+    "Local overlaps within 0.15 ML excluded; does not validate all cup attachment margins or suction dynamics"
+  ]
+}

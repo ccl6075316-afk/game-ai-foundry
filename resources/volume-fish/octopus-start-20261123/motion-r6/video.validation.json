@@ -1,0 +1,35 @@
+{
+  "ok": true,
+  "model": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r6/octopus-actions.glb",
+    "sha256": "66105e405029f8b1d3357535b26e965d0b570f1eaa96b55bc821abf051612a0a"
+  },
+  "video": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r6/octopus-contact-trial.mp4",
+    "sha256": "1e01fc65a9de97104123b12ffc34145f5a22744fa523dccbc9a1da9985831606"
+  },
+  "native_capture": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r6/godot.validation.json",
+    "sha256": "4325d6d8c28cf5270bcfaf2769a957029013787d1a0fb16e6869c5368cdaa801"
+  },
+  "stream": {
+    "width": 1100,
+    "height": 800,
+    "r_frame_rate": "30/1",
+    "duration": "20.000000",
+    "nb_frames": "600"
+  },
+  "model_duration_seconds": 10,
+  "playback_speed": 0.5,
+  "visual_review": "右IV单腕试验；上方面接触、下方线接触。压合轮廓偏方偏硬，其余卷层有空隙，不能认定自然整圈贴合。",
+  "reviewed_images": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/contact-before-after.jpg",
+      "sha256": "19c91d41fd68078eeffccd4334070e4f15fb71c7a6c62c028de766c43e709fa3"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r6/contact-phases.jpg",
+      "sha256": "fef45714fa1ecc15b7f4d967b4028638e5747a1e845f30333e289027a7f482ee"
+    }
+  ]
+}

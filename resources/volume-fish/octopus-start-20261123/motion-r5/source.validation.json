@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "checks": {
+    "topology_uv_weights_rest_bones_preserved": true,
+    "head_body_web_proximal_skin_unchanged": true,
+    "non_arm_accessories_unchanged": true,
+    "all_vertices_weighted": true,
+    "weights_normalized": true,
+    "maximum_four_weights": true,
+    "closed_skin": true,
+    "rest_nonzero_faces": true,
+    "budget": true,
+    "source_cold_export_identical": true
+  },
+  "changed_skin_vertices": 7327,
+  "protected_skin_vertices": 7620,
+  "triangles": 50000,
+  "bones": 513,
+  "source_sha256": "fd7122d6b8fdd3ef6f3d62422edbd5a3e9d50a2c9a48f54fea036d5c28c14ea5",
+  "model_sha256": "15db763d8aa8618e8074be4077da48b5564bded18ccfcf6180f667e17b749013",
+  "cold_sha256": "15db763d8aa8618e8074be4077da48b5564bded18ccfcf6180f667e17b749013",
+  "baseline_source_sha256": "62ff45aa5acbca18db0eb854551800fe814fb802229deac09a82c1f412ecb3a0"
+}

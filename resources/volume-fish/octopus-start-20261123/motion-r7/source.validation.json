@@ -1,0 +1,15 @@
+{
+  "ok": true,
+  "checks": {
+    "R5_geometry_topology_uv_weights_rest_bones_preserved": true,
+    "budget": true,
+    "bones": true,
+    "no_flattening_shape_keys": true,
+    "source_cold_export_identical": true
+  },
+  "correctives": [],
+  "model_sha256": "5cce92c54d8257f4d7c7a0d06dba4069b30b2ae3303005a060d29b61e0fa1a9f",
+  "source_sha256": "0ee04c707e43299aa7101e5120a0e3d1c85dc93f629c1710639e7f51d2a706e3",
+  "cold_sha256": "5cce92c54d8257f4d7c7a0d06dba4069b30b2ae3303005a060d29b61e0fa1a9f",
+  "baseline_source_sha256": "fd7122d6b8fdd3ef6f3d62422edbd5a3e9d50a2c9a48f54fea036d5c28c14ea5"
+}

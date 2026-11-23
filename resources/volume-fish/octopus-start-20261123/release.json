@@ -1,0 +1,40 @@
+{
+  "kind": "octopus_editable_motion_checkpoint",
+  "date": "2026-11-23",
+  "status": "user_accepted_right_arm_checkpoint",
+  "user_accepted": true,
+  "production_installed": false,
+  "full_sop_passed": false,
+  "manifest": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r7/manifest.json",
+    "sha256": "1675cd09cf66b2c2cd664ac6c8c5998f800a6db39f4b4fa79c76a9b72984af65"
+  },
+  "source": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r7/octopus-actions.blend",
+    "sha256": "0ee04c707e43299aa7101e5120a0e3d1c85dc93f629c1710639e7f51d2a706e3"
+  },
+  "model": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r7/octopus-actions.glb",
+    "sha256": "5cce92c54d8257f4d7c7a0d06dba4069b30b2ae3303005a060d29b61e0fa1a9f"
+  },
+  "handoff": {
+    "path": "resources/volume-fish/octopus-start-20261123/README.md",
+    "sha256": "301278956b76cf2a21a13d277ba6789a6f22afa82a69712d17d70c0d7bd16aca"
+  },
+  "history": {
+    "path": "resources/volume-fish/octopus-start-20261123/handoff.md",
+    "sha256": "b1e91bdb0a3a634665d9ea78bbf3ea9d343c534dbde1411b970065ce1a19d2e9"
+  },
+  "cleanup": {
+    "path": "resources/volume-fish/octopus-start-20261123/checkpoint-cleanup.validation.json",
+    "sha256": "fdee7176bb0ef53938587bef2e46faf69311289fe01099b38ee42dae4e146233"
+  },
+  "triangles": 50000,
+  "bones": 513,
+  "next_owner": "user continues animation",
+  "acceptance_scope": "用户认可R7右前腕紧卷基础并授权提交，后续动作由用户继续。允许卷层内部少量重叠；完整SOP仍pending，未安装游戏。",
+  "preserved_r5_baseline": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r5/octopus-actions.blend",
+    "sha256": "fd7122d6b8fdd3ef6f3d62422edbd5a3e9d50a2c9a48f54fea036d5c28c14ea5"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "kind": "octopus_gray_proportion_audit",
+  "status": "needs_shape_correction",
+  "method": "1000-step arc integration of saved authored Catmull-Rom arm control curves. Mantle nominal authoring long-axis length 0.94. Not landmark measurements of the exported skin.",
+  "model_sha256": "3306a41e7449a62e1f04ded4f2218fa6762ee2da4e1376ba105a0c4a02eb0b6b",
+  "rows": [
+    {
+      "arm": 1,
+      "centerline_length": 2.372,
+      "arm_per_authored_mantle": 2.523,
+      "web_side_extent_fraction_of_arm": 0.545,
+      "web_mid_parameter_arm_fraction": 0.317
+    },
+    {
+      "arm": 2,
+      "centerline_length": 2.5166,
+      "arm_per_authored_mantle": 2.677,
+      "web_side_extent_fraction_of_arm": 0.54,
+      "web_mid_parameter_arm_fraction": 0.287
+    },
+    {
+      "arm": 3,
+      "centerline_length": 2.4893,
+      "arm_per_authored_mantle": 2.648,
+      "web_side_extent_fraction_of_arm": 0.464,
+      "web_mid_parameter_arm_fraction": 0.225
+    },
+    {
+      "arm": 4,
+      "centerline_length": 2.0621,
+      "arm_per_authored_mantle": 2.194,
+      "web_side_extent_fraction_of_arm": 0.547,
+      "web_mid_parameter_arm_fraction": 0.297
+    },
+    {
+      "arm": 5,
+      "centerline_length": 2.2551,
+      "arm_per_authored_mantle": 2.399,
+      "web_side_extent_fraction_of_arm": 0.523,
+      "web_mid_parameter_arm_fraction": 0.286
+    },
+    {
+      "arm": 6,
+      "centerline_length": 2.3151,
+      "arm_per_authored_mantle": 2.463,
+      "web_side_extent_fraction_of_arm": 0.487,
+      "web_mid_parameter_arm_fraction": 0.272
+    },
+    {
+      "arm": 7,
+      "centerline_length": 2.4723,
+      "arm_per_authored_mantle": 2.63,
+      "web_side_extent_fraction_of_arm": 0.493,
+      "web_mid_parameter_arm_fraction": 0.263
+    },
+    {
+      "arm": 8,
+      "centerline_length": 2.4017,
+      "arm_per_authored_mantle": 2.555,
+      "web_side_extent_fraction_of_arm": 0.484,
+      "web_mid_parameter_arm_fraction": 0.269
+    }
+  ],
+  "reference": {
+    "url": "https://www.fao.org/4/i3489e/i3489e.pdf",
+    "printed_page": 124,
+    "species": "Enteroctopus dofleini",
+    "arm_to_mantle_range": [
+      3,
+      5
+    ],
+    "deepest_web_fraction_of_arm": [
+      0.18,
+      0.28
+    ],
+    "sectors": "Lateral sectors slightly deeper; dorsal and ventral shallowest."
+  },
+  "findings": [
+    "Arms are short relative to nominal mantle, compared with species diagnostic range.",
+    "Uniform per-sector web parameter profile does not encode documented dorsal/lateral/ventral depth differences.",
+    "Web side attachment fraction is not the same anatomical measurement as deepest web depth; do not compare t=0.38 directly to 38% biological web depth.",
+    "Circumoral arm-base landmarks and mantle anterior border still require anatomical registration."
+  ],
+  "acceptance": "No proportional match demonstrated; prior static topology checks do not imply morphology acceptance."
+}

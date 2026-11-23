@@ -1,0 +1,28 @@
+{
+  "ok": true,
+  "checks": {
+    "all_exported_float_accessors_finite": true,
+    "native_bone_curves_exactly_preserved": true,
+    "two_native_morph_tracks_per_clip": true,
+    "skin_Basis_position_stream_preserved": true
+  },
+  "clips": [
+    {
+      "clip": "TightRoll",
+      "native_bone_curves_exact": true,
+      "weight_tracks": 2
+    },
+    {
+      "clip": "ProbeTouch",
+      "native_bone_curves_exact": true,
+      "weight_tracks": 2
+    },
+    {
+      "clip": "AlternatingTouch",
+      "native_bone_curves_exact": true,
+      "weight_tracks": 2
+    }
+  ],
+  "model_sha256": "66105e405029f8b1d3357535b26e965d0b570f1eaa96b55bc821abf051612a0a",
+  "nonfinite_accessors": []
+}

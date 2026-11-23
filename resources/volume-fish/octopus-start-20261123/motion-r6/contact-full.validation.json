@@ -1,0 +1,5757 @@
+{
+  "kind": "contact_corrective_cold_glb",
+  "ok": true,
+  "checks": {
+    "positive_contact_area": true,
+    "sampled_floor_clearance": true,
+    "loops_close": true,
+    "morph_applied_at_full_curl": true,
+    "skin_contact_both_sides": true,
+    "no_transverse_body_crossings": true,
+    "no_transverse_nonlocal_cup_skin_crossings": true,
+    "no_nonlocal_cup_cup_crossings": true,
+    "released_at_extension_and_touch_clips": true,
+    "nondegenerate": true
+  },
+  "model_sha256": "66105e405029f8b1d3357535b26e965d0b570f1eaa96b55bc821abf051612a0a",
+  "contact_area_ML_squared": 0.00025073782633755086,
+  "loop_max_vertex_errors": {
+    "TightRoll": 0.0,
+    "ProbeTouch": 0.0,
+    "AlternatingTouch": 0.0
+  },
+  "contact_patches": [
+    {
+      "center": [
+        0.6795022487640381,
+        -1.3583292961120605,
+        0.15092164278030396
+      ],
+      "contact_area_ML_squared": 0.00025073782633755086,
+      "flat_faces_a": 7,
+      "flat_faces_b": 27,
+      "plane_vertices": 41,
+      "side_a": 11,
+      "side_b": 30
+    },
+    {
+      "center": [
+        0.6936632394790649,
+        -1.385864019393921,
+        -0.11438627541065216
+      ],
+      "contact_area_ML_squared": 0,
+      "flat_faces_a": 0,
+      "flat_faces_b": 0,
+      "plane_vertices": 10,
+      "side_a": 5,
+      "side_b": 5
+    }
+  ],
+  "samples": [
+    {
+      "clip": "TightRoll",
+      "frame": 0,
+      "morph_weights": [
+        1.0,
+        1.0
+      ],
+      "body_overlap_pairs": 48,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        2.7808493996417383e-06
+      ],
+      "minimum_ground_clearance": 0.0460529625415802
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 5,
+      "morph_weights": [
+        1.0,
+        1.0
+      ],
+      "body_overlap_pairs": 48,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        2.7808493996417383e-06
+      ],
+      "minimum_ground_clearance": 0.0460529625415802
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 10,
+      "morph_weights": [
+        1.0,
+        1.0
+      ],
+      "body_overlap_pairs": 48,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        2.7808493996417383e-06
+      ],
+      "minimum_ground_clearance": 0.0460529625415802
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 12,
+      "morph_weights": [
+        1.0,
+        1.0
+      ],
+      "body_overlap_pairs": 48,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        2.7808493996417383e-06
+      ],
+      "minimum_ground_clearance": 0.0460529625415802
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 13,
+      "morph_weights": [
+        0.9910836815834045,
+        0.9910836815834045
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        2.7918279101868393e-06
+      ],
+      "minimum_ground_clearance": 0.04598301649093628
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 14,
+      "morph_weights": [
+        0.965706467628479,
+        0.965706467628479
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        2.822852820827393e-06
+      ],
+      "minimum_ground_clearance": 0.04578408598899841
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 15,
+      "morph_weights": [
+        0.9259259104728699,
+        0.9259259104728699
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        2.87089028461196e-06
+      ],
+      "minimum_ground_clearance": 0.04547199606895447
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 16,
+      "morph_weights": [
+        0.873799741268158,
+        0.873799741268158
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        2.9350831027841195e-06
+      ],
+      "minimum_ground_clearance": 0.045063287019729614
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 17,
+      "morph_weights": [
+        0.811385452747345,
+        0.811385452747345
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.017348490175209e-06
+      ],
+      "minimum_ground_clearance": 0.04457378387451172
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 18,
+      "morph_weights": [
+        0.7407407164573669,
+        0.7407407164573669
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.110341822321061e-06
+      ],
+      "minimum_ground_clearance": 0.04401978850364685
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 19,
+      "morph_weights": [
+        0.6639232039451599,
+        0.6639232039451599
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.214454181943438e-06
+      ],
+      "minimum_ground_clearance": 0.04283788800239563
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 20,
+      "morph_weights": [
+        0.5829904079437256,
+        0.5829904079437256
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.3219725992239546e-06
+      ],
+      "minimum_ground_clearance": 0.04153278470039368
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 21,
+      "morph_weights": [
+        0.5,
+        0.5
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.3934393286472186e-06
+      ],
+      "minimum_ground_clearance": 0.040194571018218994
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 22,
+      "morph_weights": [
+        0.4170095920562744,
+        0.4170095920562744
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.4672734727791976e-06
+      ],
+      "minimum_ground_clearance": 0.03885635733604431
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 23,
+      "morph_weights": [
+        0.3360768258571625,
+        0.3360768258571625
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5418599964032182e-06
+      ],
+      "minimum_ground_clearance": 0.03755125403404236
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 24,
+      "morph_weights": [
+        0.25925925374031067,
+        0.25925925374031067
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.0363125205039978
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 25,
+      "morph_weights": [
+        0.18861454725265503,
+        0.18861454725265503
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.03517335653305054
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 26,
+      "morph_weights": [
+        0.12620027363300323,
+        0.12620027363300323
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.034166932106018066
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 27,
+      "morph_weights": [
+        0.07407407462596893,
+        0.07407407462596893
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.03332638740539551
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 28,
+      "morph_weights": [
+        0.03429355099797249,
+        0.03429355099797249
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.032684922218322754
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 29,
+      "morph_weights": [
+        0.008916324004530907,
+        0.008916324004530907
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.03227570652961731
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 30,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.03213194012641907
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 35,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.03213194012641907
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 40,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.032132893800735474
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 45,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.0331137478351593
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 50,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.046085894107818604
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 55,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.07296308875083923
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 60,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 65,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 70,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 75,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 80,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 85,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 90,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 95,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 100,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 105,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 110,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 115,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 120,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 125,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 130,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 135,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 140,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 145,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 150,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 155,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 160,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 165,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 170,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 175,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 180,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 185,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 190,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 195,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 200,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 205,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 210,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.08436998724937439
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 215,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.07296308875083923
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 220,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.046085894107818604
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 225,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.0331137478351593
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 230,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.032132893800735474
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 235,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.03213194012641907
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 240,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.03213194012641907
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 241,
+      "morph_weights": [
+        0.008916324004530907,
+        0.008916324004530907
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.03227570652961731
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 242,
+      "morph_weights": [
+        0.03429355099797249,
+        0.03429355099797249
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.032684922218322754
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 243,
+      "morph_weights": [
+        0.07407407462596893,
+        0.07407407462596893
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.03332638740539551
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 244,
+      "morph_weights": [
+        0.12620027363300323,
+        0.12620027363300323
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.034166932106018066
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 245,
+      "morph_weights": [
+        0.18861454725265503,
+        0.18861454725265503
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.03517335653305054
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 246,
+      "morph_weights": [
+        0.25925925374031067,
+        0.25925925374031067
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.0363125205039978
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 247,
+      "morph_weights": [
+        0.3360768258571625,
+        0.3360768258571625
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5418599964032182e-06
+      ],
+      "minimum_ground_clearance": 0.03755125403404236
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 248,
+      "morph_weights": [
+        0.4170095920562744,
+        0.4170095920562744
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.4672734727791976e-06
+      ],
+      "minimum_ground_clearance": 0.03885635733604431
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 249,
+      "morph_weights": [
+        0.5,
+        0.5
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.3934393286472186e-06
+      ],
+      "minimum_ground_clearance": 0.040194571018218994
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 250,
+      "morph_weights": [
+        0.5829904079437256,
+        0.5829904079437256
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.3219725992239546e-06
+      ],
+      "minimum_ground_clearance": 0.04153278470039368
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 251,
+      "morph_weights": [
+        0.6639232039451599,
+        0.6639232039451599
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.214454181943438e-06
+      ],
+      "minimum_ground_clearance": 0.04283788800239563
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 252,
+      "morph_weights": [
+        0.7407407164573669,
+        0.7407407164573669
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.110341822321061e-06
+      ],
+      "minimum_ground_clearance": 0.04401978850364685
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 253,
+      "morph_weights": [
+        0.811385452747345,
+        0.811385452747345
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.017348490175209e-06
+      ],
+      "minimum_ground_clearance": 0.04457378387451172
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 254,
+      "morph_weights": [
+        0.873799741268158,
+        0.873799741268158
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        2.9350831027841195e-06
+      ],
+      "minimum_ground_clearance": 0.045063287019729614
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 255,
+      "morph_weights": [
+        0.9259259104728699,
+        0.9259259104728699
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        2.87089028461196e-06
+      ],
+      "minimum_ground_clearance": 0.04547199606895447
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 256,
+      "morph_weights": [
+        0.965706467628479,
+        0.965706467628479
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        2.822852820827393e-06
+      ],
+      "minimum_ground_clearance": 0.04578408598899841
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 257,
+      "morph_weights": [
+        0.9910836815834045,
+        0.9910836815834045
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        2.7918279101868393e-06
+      ],
+      "minimum_ground_clearance": 0.04598301649093628
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 258,
+      "morph_weights": [
+        1.0,
+        1.0
+      ],
+      "body_overlap_pairs": 48,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        2.7808493996417383e-06
+      ],
+      "minimum_ground_clearance": 0.0460529625415802
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 260,
+      "morph_weights": [
+        1.0,
+        1.0
+      ],
+      "body_overlap_pairs": 48,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        2.7808493996417383e-06
+      ],
+      "minimum_ground_clearance": 0.0460529625415802
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 265,
+      "morph_weights": [
+        1.0,
+        1.0
+      ],
+      "body_overlap_pairs": 48,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        2.7808493996417383e-06
+      ],
+      "minimum_ground_clearance": 0.0460529625415802
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 270,
+      "morph_weights": [
+        1.0,
+        1.0
+      ],
+      "body_overlap_pairs": 48,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        2.7808493996417383e-06
+      ],
+      "minimum_ground_clearance": 0.0460529625415802
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 275,
+      "morph_weights": [
+        1.0,
+        1.0
+      ],
+      "body_overlap_pairs": 48,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        2.7808493996417383e-06
+      ],
+      "minimum_ground_clearance": 0.0460529625415802
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 280,
+      "morph_weights": [
+        1.0,
+        1.0
+      ],
+      "body_overlap_pairs": 48,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        2.7808493996417383e-06
+      ],
+      "minimum_ground_clearance": 0.0460529625415802
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 285,
+      "morph_weights": [
+        1.0,
+        1.0
+      ],
+      "body_overlap_pairs": 48,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        2.7808493996417383e-06
+      ],
+      "minimum_ground_clearance": 0.0460529625415802
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 290,
+      "morph_weights": [
+        1.0,
+        1.0
+      ],
+      "body_overlap_pairs": 48,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        2.7808493996417383e-06
+      ],
+      "minimum_ground_clearance": 0.0460529625415802
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 295,
+      "morph_weights": [
+        1.0,
+        1.0
+      ],
+      "body_overlap_pairs": 48,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        2.7808493996417383e-06
+      ],
+      "minimum_ground_clearance": 0.0460529625415802
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 300,
+      "morph_weights": [
+        1.0,
+        1.0
+      ],
+      "body_overlap_pairs": 48,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        2.7808493996417383e-06
+      ],
+      "minimum_ground_clearance": 0.0460529625415802
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 0,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.0635162889957428
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 5,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5568498333304888e-06
+      ],
+      "minimum_ground_clearance": 0.06556627154350281
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 10,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5558432500693016e-06
+      ],
+      "minimum_ground_clearance": 0.07257315516471863
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 15,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5569544252211927e-06
+      ],
+      "minimum_ground_clearance": 0.07747921347618103
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 20,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5565922189562116e-06
+      ],
+      "minimum_ground_clearance": 0.07954645156860352
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 25,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556618139555212e-06
+      ],
+      "minimum_ground_clearance": 0.07954645156860352
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 30,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5562777611630736e-06
+      ],
+      "minimum_ground_clearance": 0.07747921347618103
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 35,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5564669360610424e-06
+      ],
+      "minimum_ground_clearance": 0.07257315516471863
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 40,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5563002711569425e-06
+      ],
+      "minimum_ground_clearance": 0.06556627154350281
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 45,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5569178180594463e-06
+      ],
+      "minimum_ground_clearance": 0.0635162889957428
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 50,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556514911906561e-06
+      ],
+      "minimum_ground_clearance": 0.06416353583335876
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 55,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5564130484999623e-06
+      ],
+      "minimum_ground_clearance": 0.06935712695121765
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 60,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5570349155022996e-06
+      ],
+      "minimum_ground_clearance": 0.07923927903175354
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 65,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556649289748748e-06
+      ],
+      "minimum_ground_clearance": 0.08493271470069885
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 70,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556456022124621e-06
+      ],
+      "minimum_ground_clearance": 0.08504810929298401
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 75,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.557157242539688e-06
+      ],
+      "minimum_ground_clearance": 0.08519402146339417
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 80,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5570296859077644e-06
+      ],
+      "minimum_ground_clearance": 0.08537527918815613
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 85,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5562050015869318e-06
+      ],
+      "minimum_ground_clearance": 0.0855969488620758
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 90,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5564382869779365e-06
+      ],
+      "minimum_ground_clearance": 0.08586463332176208
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 95,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556774117896566e-06
+      ],
+      "minimum_ground_clearance": 0.08618369698524475
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 100,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5564501104090596e-06
+      ],
+      "minimum_ground_clearance": 0.08656063675880432
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 105,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.55658880835108e-06
+      ],
+      "minimum_ground_clearance": 0.0870000422000885
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 110,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5569821648095967e-06
+      ],
+      "minimum_ground_clearance": 0.08744263648986816
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 115,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556131787263439e-06
+      ],
+      "minimum_ground_clearance": 0.08781540393829346
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 120,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556198862497695e-06
+      ],
+      "minimum_ground_clearance": 0.08734092116355896
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 125,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5567004488257226e-06
+      ],
+      "minimum_ground_clearance": 0.08674117922782898
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 130,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.55607335222885e-06
+      ],
+      "minimum_ground_clearance": 0.086210697889328
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 135,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.55668112206331e-06
+      ],
+      "minimum_ground_clearance": 0.0857531726360321
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 140,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.555951252565137e-06
+      ],
+      "minimum_ground_clearance": 0.08537015318870544
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 145,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5558739455154864e-06
+      ],
+      "minimum_ground_clearance": 0.08506181836128235
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 150,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5560767628339818e-06
+      ],
+      "minimum_ground_clearance": 0.08482697606086731
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 155,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556182491593063e-06
+      ],
+      "minimum_ground_clearance": 0.08466199040412903
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 160,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5561308777687373e-06
+      ],
+      "minimum_ground_clearance": 0.084562748670578
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 165,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556317551556276e-06
+      ],
+      "minimum_ground_clearance": 0.08452209830284119
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 170,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556072670107824e-06
+      ],
+      "minimum_ground_clearance": 0.037973612546920776
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 175,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.555676812538877e-06
+      ],
+      "minimum_ground_clearance": 0.0063686370849609375
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 180,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556873025445384e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 185,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5557770843297476e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 190,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556167257556808e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 195,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.557126547093503e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 200,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556046522135148e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 205,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5565085454436485e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 210,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.55658380613022e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 215,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556134288373869e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 220,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.55642714566784e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 225,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.55660426976101e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 230,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5566035876399837e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 235,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.55637075699633e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 240,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5562050015869318e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 245,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5558477975428104e-06
+      ],
+      "minimum_ground_clearance": 0.003254234790802002
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 250,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5566567930800375e-06
+      ],
+      "minimum_ground_clearance": 0.017999112606048584
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 255,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5564412428357173e-06
+      ],
+      "minimum_ground_clearance": 0.05131414532661438
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 260,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5556263355829287e-06
+      ],
+      "minimum_ground_clearance": 0.077068030834198
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 265,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556172714525019e-06
+      ],
+      "minimum_ground_clearance": 0.07718402147293091
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 270,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556373485480435e-06
+      ],
+      "minimum_ground_clearance": 0.07736361026763916
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 275,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556041519914288e-06
+      ],
+      "minimum_ground_clearance": 0.07760906219482422
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 280,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5554687656258466e-06
+      ],
+      "minimum_ground_clearance": 0.0779234766960144
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 285,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5554292026063194e-06
+      ],
+      "minimum_ground_clearance": 0.07831054925918579
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 290,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5562422908697044e-06
+      ],
+      "minimum_ground_clearance": 0.07877355813980103
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 295,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5562145512813004e-06
+      ],
+      "minimum_ground_clearance": 0.07931625843048096
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 300,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5560078686103225e-06
+      ],
+      "minimum_ground_clearance": 0.07854878902435303
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 305,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5565942653192906e-06
+      ],
+      "minimum_ground_clearance": 0.07785874605178833
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 310,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5560262858780334e-06
+      ],
+      "minimum_ground_clearance": 0.07724320888519287
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 315,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556270257831784e-06
+      ],
+      "minimum_ground_clearance": 0.07669878005981445
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 320,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556511273927754e-06
+      ],
+      "minimum_ground_clearance": 0.07622122764587402
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 325,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556340061550145e-06
+      ],
+      "minimum_ground_clearance": 0.07580763101577759
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 330,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5568029943533475e-06
+      ],
+      "minimum_ground_clearance": 0.07545530796051025
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 335,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5568159546528477e-06
+      ],
+      "minimum_ground_clearance": 0.07516151666641235
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 340,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556561750883702e-06
+      ],
+      "minimum_ground_clearance": 0.0749245285987854
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 345,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5561931781558087e-06
+      ],
+      "minimum_ground_clearance": 0.07474207878112793
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 350,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5563689380069263e-06
+      ],
+      "minimum_ground_clearance": 0.07461303472518921
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 355,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556578576535685e-06
+      ],
+      "minimum_ground_clearance": 0.07453596591949463
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 360,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5566013139032293e-06
+      ],
+      "minimum_ground_clearance": 0.07451039552688599
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 365,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556087222023052e-06
+      ],
+      "minimum_ground_clearance": 0.07453596591949463
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 370,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5562829907576088e-06
+      ],
+      "minimum_ground_clearance": 0.07461303472518921
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 375,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556685896910494e-06
+      ],
+      "minimum_ground_clearance": 0.07474207878112793
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 380,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5566115457186243e-06
+      ],
+      "minimum_ground_clearance": 0.0749245285987854
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 385,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5565972211770713e-06
+      ],
+      "minimum_ground_clearance": 0.07516151666641235
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 390,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5561813547246857e-06
+      ],
+      "minimum_ground_clearance": 0.07545530796051025
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 395,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5563512028602418e-06
+      ],
+      "minimum_ground_clearance": 0.0670003592967987
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 400,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5572020351537503e-06
+      ],
+      "minimum_ground_clearance": 0.06392344832420349
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 405,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556108140401193e-06
+      ],
+      "minimum_ground_clearance": 0.0635162889957428
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 410,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5563521123549435e-06
+      ],
+      "minimum_ground_clearance": 0.0635162889957428
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 415,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5563778055802686e-06
+      ],
+      "minimum_ground_clearance": 0.0635162889957428
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 420,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5568737075664103e-06
+      ],
+      "minimum_ground_clearance": 0.0635162889957428
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 425,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556133378879167e-06
+      ],
+      "minimum_ground_clearance": 0.0635162889957428
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 430,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556424189810059e-06
+      ],
+      "minimum_ground_clearance": 0.0635162889957428
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 435,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5566931728681084e-06
+      ],
+      "minimum_ground_clearance": 0.0635162889957428
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 440,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5560099149734015e-06
+      ],
+      "minimum_ground_clearance": 0.0635162889957428
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 445,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5561151889851317e-06
+      ],
+      "minimum_ground_clearance": 0.0635162889957428
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 450,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5565105918067275e-06
+      ],
+      "minimum_ground_clearance": 0.0635162889957428
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 455,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5563916753744707e-06
+      ],
+      "minimum_ground_clearance": 0.0635162889957428
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 460,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5564378322305856e-06
+      ],
+      "minimum_ground_clearance": 0.0635162889957428
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 465,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5567568374972325e-06
+      ],
+      "minimum_ground_clearance": 0.0635162889957428
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 470,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556224100975669e-06
+      ],
+      "minimum_ground_clearance": 0.0635162889957428
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 475,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5566511087381514e-06
+      ],
+      "minimum_ground_clearance": 0.0635162889957428
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 480,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.0635162889957428
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 0,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.0007996559143066406
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 5,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5568498333304888e-06
+      ],
+      "minimum_ground_clearance": 0.003253757953643799
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 10,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5558432500693016e-06
+      ],
+      "minimum_ground_clearance": 0.01799875497817993
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 15,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5569544252211927e-06
+      ],
+      "minimum_ground_clearance": 0.051313817501068115
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 20,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5565922189562116e-06
+      ],
+      "minimum_ground_clearance": 0.07954645156860352
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 25,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556618139555212e-06
+      ],
+      "minimum_ground_clearance": 0.07954645156860352
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 30,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5562777611630736e-06
+      ],
+      "minimum_ground_clearance": 0.07747921347618103
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 35,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5564669360610424e-06
+      ],
+      "minimum_ground_clearance": 0.07257315516471863
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 40,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5563002711569425e-06
+      ],
+      "minimum_ground_clearance": 0.06556627154350281
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 45,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5569178180594463e-06
+      ],
+      "minimum_ground_clearance": 0.0635162889957428
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 50,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556514911906561e-06
+      ],
+      "minimum_ground_clearance": 0.06416353583335876
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 55,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5564130484999623e-06
+      ],
+      "minimum_ground_clearance": 0.06935712695121765
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 60,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5570349155022996e-06
+      ],
+      "minimum_ground_clearance": 0.07923927903175354
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 65,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556649289748748e-06
+      ],
+      "minimum_ground_clearance": 0.08493271470069885
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 70,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556456022124621e-06
+      ],
+      "minimum_ground_clearance": 0.08504810929298401
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 75,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.557157242539688e-06
+      ],
+      "minimum_ground_clearance": 0.08519402146339417
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 80,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5570296859077644e-06
+      ],
+      "minimum_ground_clearance": 0.08537527918815613
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 85,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5562050015869318e-06
+      ],
+      "minimum_ground_clearance": 0.0855969488620758
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 90,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5564382869779365e-06
+      ],
+      "minimum_ground_clearance": 0.08586463332176208
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 95,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556774117896566e-06
+      ],
+      "minimum_ground_clearance": 0.08618369698524475
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 100,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5564501104090596e-06
+      ],
+      "minimum_ground_clearance": 0.08656063675880432
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 105,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.55658880835108e-06
+      ],
+      "minimum_ground_clearance": 0.0870000422000885
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 110,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5569821648095967e-06
+      ],
+      "minimum_ground_clearance": 0.08744263648986816
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 115,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556131787263439e-06
+      ],
+      "minimum_ground_clearance": 0.08781540393829346
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 120,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556198862497695e-06
+      ],
+      "minimum_ground_clearance": 0.08734092116355896
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 125,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5567004488257226e-06
+      ],
+      "minimum_ground_clearance": 0.08674117922782898
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 130,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.55607335222885e-06
+      ],
+      "minimum_ground_clearance": 0.086210697889328
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 135,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.55668112206331e-06
+      ],
+      "minimum_ground_clearance": 0.0857531726360321
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 140,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.555951252565137e-06
+      ],
+      "minimum_ground_clearance": 0.08537015318870544
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 145,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5558739455154864e-06
+      ],
+      "minimum_ground_clearance": 0.08506181836128235
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 150,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5560767628339818e-06
+      ],
+      "minimum_ground_clearance": 0.0774223804473877
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 155,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556182491593063e-06
+      ],
+      "minimum_ground_clearance": 0.07123076915740967
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 160,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5561308777687373e-06
+      ],
+      "minimum_ground_clearance": 0.06997048854827881
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 165,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556317551556276e-06
+      ],
+      "minimum_ground_clearance": 0.06984519958496094
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 170,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556072670107824e-06
+      ],
+      "minimum_ground_clearance": 0.037973612546920776
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 175,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.555676812538877e-06
+      ],
+      "minimum_ground_clearance": 0.0063686370849609375
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 180,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556873025445384e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 185,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5557770843297476e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 190,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556167257556808e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 195,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.557126547093503e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 200,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556046522135148e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 205,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5565085454436485e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 210,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.55658380613022e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 215,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556134288373869e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 220,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.55642714566784e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 225,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.55660426976101e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 230,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5566035876399837e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 235,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.55637075699633e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 240,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5562050015869318e-06
+      ],
+      "minimum_ground_clearance": 0.000800013542175293
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 245,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5558477975428104e-06
+      ],
+      "minimum_ground_clearance": 0.003254234790802002
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 250,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5566567930800375e-06
+      ],
+      "minimum_ground_clearance": 0.017999112606048584
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 255,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5564412428357173e-06
+      ],
+      "minimum_ground_clearance": 0.05131414532661438
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 260,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5556263355829287e-06
+      ],
+      "minimum_ground_clearance": 0.077068030834198
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 265,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556172714525019e-06
+      ],
+      "minimum_ground_clearance": 0.07718402147293091
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 270,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556373485480435e-06
+      ],
+      "minimum_ground_clearance": 0.07736361026763916
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 275,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556041519914288e-06
+      ],
+      "minimum_ground_clearance": 0.07425564527511597
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 280,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5554687656258466e-06
+      ],
+      "minimum_ground_clearance": 0.0705869197845459
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 285,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5554292026063194e-06
+      ],
+      "minimum_ground_clearance": 0.06984519958496094
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 290,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5562422908697044e-06
+      ],
+      "minimum_ground_clearance": 0.07005029916763306
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 295,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5562145512813004e-06
+      ],
+      "minimum_ground_clearance": 0.07243132591247559
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 300,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5560078686103225e-06
+      ],
+      "minimum_ground_clearance": 0.0799415111541748
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 305,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5565942653192906e-06
+      ],
+      "minimum_ground_clearance": 0.08065253496170044
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 310,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5560262858780334e-06
+      ],
+      "minimum_ground_clearance": 0.08145123720169067
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 315,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556270257831784e-06
+      ],
+      "minimum_ground_clearance": 0.08233851194381714
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 320,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556511273927754e-06
+      ],
+      "minimum_ground_clearance": 0.08331620693206787
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 325,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556340061550145e-06
+      ],
+      "minimum_ground_clearance": 0.08438444137573242
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 330,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5568029943533475e-06
+      ],
+      "minimum_ground_clearance": 0.08460316061973572
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 335,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5568159546528477e-06
+      ],
+      "minimum_ground_clearance": 0.08454057574272156
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 340,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556561750883702e-06
+      ],
+      "minimum_ground_clearance": 0.08452019095420837
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 345,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5561931781558087e-06
+      ],
+      "minimum_ground_clearance": 0.08454921841621399
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 350,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5563689380069263e-06
+      ],
+      "minimum_ground_clearance": 0.08463487029075623
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 355,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556578576535685e-06
+      ],
+      "minimum_ground_clearance": 0.08478489518165588
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 360,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5566013139032293e-06
+      ],
+      "minimum_ground_clearance": 0.08500418066978455
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 365,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556087222023052e-06
+      ],
+      "minimum_ground_clearance": 0.08529606461524963
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 370,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5562829907576088e-06
+      ],
+      "minimum_ground_clearance": 0.08566281199455261
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 375,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556685896910494e-06
+      ],
+      "minimum_ground_clearance": 0.08610400557518005
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 380,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5566115457186243e-06
+      ],
+      "minimum_ground_clearance": 0.08661887049674988
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 385,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5565972211770713e-06
+      ],
+      "minimum_ground_clearance": 0.08084726333618164
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 390,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5561813547246857e-06
+      ],
+      "minimum_ground_clearance": 0.07618799805641174
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 395,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5563512028602418e-06
+      ],
+      "minimum_ground_clearance": 0.0670003592967987
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 400,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5572020351537503e-06
+      ],
+      "minimum_ground_clearance": 0.06392344832420349
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 405,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556108140401193e-06
+      ],
+      "minimum_ground_clearance": 0.0635162889957428
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 410,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5563521123549435e-06
+      ],
+      "minimum_ground_clearance": 0.037973225116729736
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 415,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5563778055802686e-06
+      ],
+      "minimum_ground_clearance": 0.00636821985244751
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 420,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5568737075664103e-06
+      ],
+      "minimum_ground_clearance": 0.0007996559143066406
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 425,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556133378879167e-06
+      ],
+      "minimum_ground_clearance": 0.0007996559143066406
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 430,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556424189810059e-06
+      ],
+      "minimum_ground_clearance": 0.0007996559143066406
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 435,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5566931728681084e-06
+      ],
+      "minimum_ground_clearance": 0.0007996559143066406
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 440,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5560099149734015e-06
+      ],
+      "minimum_ground_clearance": 0.0007996559143066406
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 445,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5561151889851317e-06
+      ],
+      "minimum_ground_clearance": 0.0007996559143066406
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 450,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5565105918067275e-06
+      ],
+      "minimum_ground_clearance": 0.0007996559143066406
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 455,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5563916753744707e-06
+      ],
+      "minimum_ground_clearance": 0.0007996559143066406
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 460,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5564378322305856e-06
+      ],
+      "minimum_ground_clearance": 0.0007996559143066406
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 465,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5567568374972325e-06
+      ],
+      "minimum_ground_clearance": 0.0007996559143066406
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 470,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556224100975669e-06
+      ],
+      "minimum_ground_clearance": 0.0007996559143066406
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 475,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.5566511087381514e-06
+      ],
+      "minimum_ground_clearance": 0.0007996559143066406
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 480,
+      "morph_weights": [
+        0.0,
+        0.0
+      ],
+      "body_overlap_pairs": 0,
+      "body_transverse_crossings": 0,
+      "cup_skin_overlap_pairs": 0,
+      "cup_skin_transverse_crossings": 0,
+      "cup_cup_transverse_crossings": 0,
+      "body_examples": [],
+      "cup_examples": [],
+      "minimum_areas": [
+        1.665280713325501e-08,
+        3.556485125955078e-06
+      ],
+      "minimum_ground_clearance": 0.0007996559143066406
+    }
+  ],
+  "limits": [
+    "Known contact planes separate complete triangles within 0.000002 ML (2e-6); only these certified contacts excluded before transverse-crossing test at2e-5 ML",
+    "Not continuous-time or full soft-body validation"
+  ]
+}

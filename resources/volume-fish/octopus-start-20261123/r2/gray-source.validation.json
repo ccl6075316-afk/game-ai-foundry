@@ -1,0 +1,16 @@
+{
+  "skin_connected_components": 1,
+  "skin_component_sizes": [
+    1400
+  ],
+  "skin_boundary_edges": 0,
+  "skin_nonmanifold_edges": 0,
+  "skin_degenerate_faces": 0,
+  "finite_vertices": true,
+  "source_sha256": "35e31fa8bca9d5101390db0a79a978f6076747ef5250d80e9b00331fed9a4a00",
+  "model_sha256": "94ae5b126514ce94a2daea4153e13f57fefc55731833a9d5065f6085e646e05a",
+  "cold_sha256": "94ae5b126514ce94a2daea4153e13f57fefc55731833a9d5065f6085e646e05a",
+  "cold_export_byte_identical": true,
+  "ok": true,
+  "scope": "Static grey skin topology and source cold export only; cups, oral opening, anatomy, rig and motions are not accepted."
+}

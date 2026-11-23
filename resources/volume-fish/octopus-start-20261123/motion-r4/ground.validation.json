@@ -1,0 +1,2768 @@
+{
+  "kind": "native_octopus_ground_contact",
+  "model_sha256": "40a57d1132f1ebcd57b44a3a982d15aa608c35d25263106d41be1868cba2d3c7",
+  "floor_z": -0.25,
+  "checks": {
+    "no_sampled_skin_or_cup_ground_penetration": true,
+    "contact_patch_present": true,
+    "contact_within_0_003_ML": true,
+    "contact_patch_does_not_slide": true
+  },
+  "ok": true,
+  "body_cup_samples": [
+    {
+      "clip": "ProbeTouch",
+      "frame": 0,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 3,
+      "minimum_clearance": 0.07166785001754761
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 6,
+      "minimum_clearance": 0.0736132264137268
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 9,
+      "minimum_clearance": 0.07728761434555054
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 12,
+      "minimum_clearance": 0.08255165815353394
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 15,
+      "minimum_clearance": 0.08573442697525024
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 18,
+      "minimum_clearance": 0.08718138933181763
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 21,
+      "minimum_clearance": 0.08827823400497437
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 24,
+      "minimum_clearance": 0.08827823400497437
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 27,
+      "minimum_clearance": 0.08718138933181763
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 30,
+      "minimum_clearance": 0.08573442697525024
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 33,
+      "minimum_clearance": 0.08255165815353394
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 36,
+      "minimum_clearance": 0.07728761434555054
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 39,
+      "minimum_clearance": 0.0736132264137268
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 42,
+      "minimum_clearance": 0.07166785001754761
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 45,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 48,
+      "minimum_clearance": 0.07120215892791748
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 51,
+      "minimum_clearance": 0.07201439142227173
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 54,
+      "minimum_clearance": 0.0745353102684021
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 57,
+      "minimum_clearance": 0.08067667484283447
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 60,
+      "minimum_clearance": 0.08704215288162231
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 63,
+      "minimum_clearance": 0.09097427129745483
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 66,
+      "minimum_clearance": 0.09196299314498901
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 69,
+      "minimum_clearance": 0.09200835227966309
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 72,
+      "minimum_clearance": 0.09206199645996094
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 75,
+      "minimum_clearance": 0.0921248197555542
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 78,
+      "minimum_clearance": 0.09219801425933838
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 81,
+      "minimum_clearance": 0.09228259325027466
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 84,
+      "minimum_clearance": 0.09237974882125854
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 87,
+      "minimum_clearance": 0.0924910306930542
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 90,
+      "minimum_clearance": 0.09261715412139893
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 93,
+      "minimum_clearance": 0.09275960922241211
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 96,
+      "minimum_clearance": 0.09291982650756836
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 99,
+      "minimum_clearance": 0.09309899806976318
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 102,
+      "minimum_clearance": 0.09329843521118164
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 105,
+      "minimum_clearance": 0.09351933002471924
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 108,
+      "minimum_clearance": 0.09376275539398193
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 111,
+      "minimum_clearance": 0.09403014183044434
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 114,
+      "minimum_clearance": 0.09432244300842285
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 117,
+      "minimum_clearance": 0.09431236982345581
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 120,
+      "minimum_clearance": 0.09398919343948364
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 123,
+      "minimum_clearance": 0.0936894416809082
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 126,
+      "minimum_clearance": 0.09341418743133545
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 129,
+      "minimum_clearance": 0.09316414594650269
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 132,
+      "minimum_clearance": 0.09293979406356812
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 135,
+      "minimum_clearance": 0.09274178743362427
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 138,
+      "minimum_clearance": 0.09257054328918457
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 141,
+      "minimum_clearance": 0.09242534637451172
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 144,
+      "minimum_clearance": 0.09230649471282959
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 147,
+      "minimum_clearance": 0.09221363067626953
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 150,
+      "minimum_clearance": 0.09214591979980469
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 153,
+      "minimum_clearance": 0.09210240840911865
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 156,
+      "minimum_clearance": 0.09208208322525024
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 159,
+      "minimum_clearance": 0.09208416938781738
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 162,
+      "minimum_clearance": 0.09210646152496338
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 165,
+      "minimum_clearance": 0.09214723110198975
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 168,
+      "minimum_clearance": 0.06071847677230835
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 171,
+      "minimum_clearance": 0.029054105281829834
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 174,
+      "minimum_clearance": 0.010120809078216553
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 177,
+      "minimum_clearance": 0.002095460891723633
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 180,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 183,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 186,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 189,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 192,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 195,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 198,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 201,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 204,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 207,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 210,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 213,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 216,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 219,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 222,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 225,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 228,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 231,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 234,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 237,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 240,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 243,
+      "minimum_clearance": 0.0013606548309326172
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 246,
+      "minimum_clearance": 0.004945933818817139
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 249,
+      "minimum_clearance": 0.013722658157348633
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 252,
+      "minimum_clearance": 0.029054105281829834
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 255,
+      "minimum_clearance": 0.0515972375869751
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 258,
+      "minimum_clearance": 0.08136072754859924
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 261,
+      "minimum_clearance": 0.08292308449745178
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 264,
+      "minimum_clearance": 0.08298501372337341
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 267,
+      "minimum_clearance": 0.08306726813316345
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 270,
+      "minimum_clearance": 0.08317020535469055
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 273,
+      "minimum_clearance": 0.08329454064369202
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 276,
+      "minimum_clearance": 0.08344075083732605
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 279,
+      "minimum_clearance": 0.0836096704006195
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 282,
+      "minimum_clearance": 0.08380207419395447
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 285,
+      "minimum_clearance": 0.08401891589164734
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 288,
+      "minimum_clearance": 0.08426055312156677
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 291,
+      "minimum_clearance": 0.08452817797660828
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 294,
+      "minimum_clearance": 0.08471876382827759
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 297,
+      "minimum_clearance": 0.08427727222442627
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 300,
+      "minimum_clearance": 0.08386343717575073
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 303,
+      "minimum_clearance": 0.08347636461257935
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 306,
+      "minimum_clearance": 0.08311504125595093
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 309,
+      "minimum_clearance": 0.08277875185012817
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 312,
+      "minimum_clearance": 0.08246654272079468
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 315,
+      "minimum_clearance": 0.08217751979827881
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 318,
+      "minimum_clearance": 0.08191096782684326
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 321,
+      "minimum_clearance": 0.08166587352752686
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 324,
+      "minimum_clearance": 0.08144164085388184
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 327,
+      "minimum_clearance": 0.08123791217803955
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 330,
+      "minimum_clearance": 0.0810539722442627
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 333,
+      "minimum_clearance": 0.08088940382003784
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 336,
+      "minimum_clearance": 0.08074349164962769
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 339,
+      "minimum_clearance": 0.08061599731445312
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 342,
+      "minimum_clearance": 0.08050626516342163
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 345,
+      "minimum_clearance": 0.08041411638259888
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 348,
+      "minimum_clearance": 0.08033913373947144
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 351,
+      "minimum_clearance": 0.08028101921081543
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 354,
+      "minimum_clearance": 0.08023971319198608
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 357,
+      "minimum_clearance": 0.08021503686904907
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 360,
+      "minimum_clearance": 0.08020681142807007
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 363,
+      "minimum_clearance": 0.08021503686904907
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 366,
+      "minimum_clearance": 0.08023971319198608
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 369,
+      "minimum_clearance": 0.08028101921081543
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 372,
+      "minimum_clearance": 0.08033913373947144
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 375,
+      "minimum_clearance": 0.08041411638259888
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 378,
+      "minimum_clearance": 0.08050626516342163
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 381,
+      "minimum_clearance": 0.08061599731445312
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 384,
+      "minimum_clearance": 0.08074349164962769
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 387,
+      "minimum_clearance": 0.08088940382003784
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 390,
+      "minimum_clearance": 0.0810539722442627
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 393,
+      "minimum_clearance": 0.07657700777053833
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 396,
+      "minimum_clearance": 0.07314878702163696
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 399,
+      "minimum_clearance": 0.07166427373886108
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 402,
+      "minimum_clearance": 0.07116025686264038
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 405,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 408,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 411,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 414,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 417,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 420,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 423,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 426,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 429,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 432,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 435,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 438,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 441,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 444,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 447,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 450,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 453,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 456,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 459,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 462,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 465,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 468,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 471,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 474,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 477,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "ProbeTouch",
+      "frame": 480,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 0,
+      "minimum_clearance": 0.0007999539375305176
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 3,
+      "minimum_clearance": 0.0013595819473266602
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 6,
+      "minimum_clearance": 0.004944741725921631
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 9,
+      "minimum_clearance": 0.0137215256690979
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 12,
+      "minimum_clearance": 0.02905285358428955
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 15,
+      "minimum_clearance": 0.05159631371498108
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 18,
+      "minimum_clearance": 0.08135965466499329
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 21,
+      "minimum_clearance": 0.08827823400497437
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 24,
+      "minimum_clearance": 0.08827823400497437
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 27,
+      "minimum_clearance": 0.08718138933181763
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 30,
+      "minimum_clearance": 0.08573442697525024
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 33,
+      "minimum_clearance": 0.08255165815353394
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 36,
+      "minimum_clearance": 0.07728761434555054
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 39,
+      "minimum_clearance": 0.0736132264137268
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 42,
+      "minimum_clearance": 0.07166785001754761
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 45,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 48,
+      "minimum_clearance": 0.07120215892791748
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 51,
+      "minimum_clearance": 0.07201439142227173
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 54,
+      "minimum_clearance": 0.0745353102684021
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 57,
+      "minimum_clearance": 0.08067667484283447
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 60,
+      "minimum_clearance": 0.08704215288162231
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 63,
+      "minimum_clearance": 0.09097427129745483
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 66,
+      "minimum_clearance": 0.09196299314498901
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 69,
+      "minimum_clearance": 0.09200835227966309
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 72,
+      "minimum_clearance": 0.09206199645996094
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 75,
+      "minimum_clearance": 0.0921248197555542
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 78,
+      "minimum_clearance": 0.09219801425933838
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 81,
+      "minimum_clearance": 0.09228259325027466
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 84,
+      "minimum_clearance": 0.09237974882125854
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 87,
+      "minimum_clearance": 0.0924910306930542
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 90,
+      "minimum_clearance": 0.09261715412139893
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 93,
+      "minimum_clearance": 0.09275960922241211
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 96,
+      "minimum_clearance": 0.09291982650756836
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 99,
+      "minimum_clearance": 0.09309899806976318
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 102,
+      "minimum_clearance": 0.09329843521118164
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 105,
+      "minimum_clearance": 0.09351933002471924
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 108,
+      "minimum_clearance": 0.09376275539398193
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 111,
+      "minimum_clearance": 0.09403014183044434
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 114,
+      "minimum_clearance": 0.09432244300842285
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 117,
+      "minimum_clearance": 0.09431236982345581
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 120,
+      "minimum_clearance": 0.09398919343948364
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 123,
+      "minimum_clearance": 0.0936894416809082
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 126,
+      "minimum_clearance": 0.09341418743133545
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 129,
+      "minimum_clearance": 0.09316414594650269
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 132,
+      "minimum_clearance": 0.09293979406356812
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 135,
+      "minimum_clearance": 0.09274178743362427
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 138,
+      "minimum_clearance": 0.09257054328918457
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 141,
+      "minimum_clearance": 0.09242534637451172
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 144,
+      "minimum_clearance": 0.09230649471282959
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 147,
+      "minimum_clearance": 0.08882614970207214
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 150,
+      "minimum_clearance": 0.08283489942550659
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 153,
+      "minimum_clearance": 0.07865285873413086
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 156,
+      "minimum_clearance": 0.07696419954299927
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 159,
+      "minimum_clearance": 0.07642078399658203
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 162,
+      "minimum_clearance": 0.07628202438354492
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 165,
+      "minimum_clearance": 0.07626467943191528
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 168,
+      "minimum_clearance": 0.06071847677230835
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 171,
+      "minimum_clearance": 0.029054105281829834
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 174,
+      "minimum_clearance": 0.010120809078216553
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 177,
+      "minimum_clearance": 0.002095460891723633
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 180,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 183,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 186,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 189,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 192,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 195,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 198,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 201,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 204,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 207,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 210,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 213,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 216,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 219,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 222,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 225,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 228,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 231,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 234,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 237,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 240,
+      "minimum_clearance": 0.0008009672164916992
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 243,
+      "minimum_clearance": 0.0013606548309326172
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 246,
+      "minimum_clearance": 0.004945933818817139
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 249,
+      "minimum_clearance": 0.013722658157348633
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 252,
+      "minimum_clearance": 0.029054105281829834
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 255,
+      "minimum_clearance": 0.0515972375869751
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 258,
+      "minimum_clearance": 0.08136072754859924
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 261,
+      "minimum_clearance": 0.08292308449745178
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 264,
+      "minimum_clearance": 0.08298501372337341
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 267,
+      "minimum_clearance": 0.08306726813316345
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 270,
+      "minimum_clearance": 0.08317020535469055
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 273,
+      "minimum_clearance": 0.08223676681518555
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 276,
+      "minimum_clearance": 0.07904821634292603
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 279,
+      "minimum_clearance": 0.07716453075408936
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 282,
+      "minimum_clearance": 0.07642179727554321
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 285,
+      "minimum_clearance": 0.07626467943191528
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 288,
+      "minimum_clearance": 0.07629239559173584
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 291,
+      "minimum_clearance": 0.07653307914733887
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 294,
+      "minimum_clearance": 0.07759344577789307
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 297,
+      "minimum_clearance": 0.08105713129043579
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 300,
+      "minimum_clearance": 0.08549389243125916
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 303,
+      "minimum_clearance": 0.08587226271629333
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 306,
+      "minimum_clearance": 0.0862797200679779
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 309,
+      "minimum_clearance": 0.08671721816062927
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 312,
+      "minimum_clearance": 0.08718428015708923
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 315,
+      "minimum_clearance": 0.08768168091773987
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 318,
+      "minimum_clearance": 0.0882098376750946
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 321,
+      "minimum_clearance": 0.08876869082450867
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 324,
+      "minimum_clearance": 0.0893583595752716
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 327,
+      "minimum_clearance": 0.08997896313667297
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 330,
+      "minimum_clearance": 0.09063038229942322
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 333,
+      "minimum_clearance": 0.0913134515285492
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 336,
+      "minimum_clearance": 0.09202787280082703
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 339,
+      "minimum_clearance": 0.0921860933303833
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 342,
+      "minimum_clearance": 0.0921332836151123
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 345,
+      "minimum_clearance": 0.09209764003753662
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 348,
+      "minimum_clearance": 0.09208130836486816
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 351,
+      "minimum_clearance": 0.09208589792251587
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 354,
+      "minimum_clearance": 0.09211301803588867
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 357,
+      "minimum_clearance": 0.09216368198394775
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 360,
+      "minimum_clearance": 0.0922389030456543
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 363,
+      "minimum_clearance": 0.09233963489532471
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 366,
+      "minimum_clearance": 0.09246647357940674
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 369,
+      "minimum_clearance": 0.09261935949325562
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 372,
+      "minimum_clearance": 0.09279870986938477
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 375,
+      "minimum_clearance": 0.09300458431243896
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 378,
+      "minimum_clearance": 0.09323680400848389
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 381,
+      "minimum_clearance": 0.09349453449249268
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 384,
+      "minimum_clearance": 0.09097427129745483
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 387,
+      "minimum_clearance": 0.08792084455490112
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 390,
+      "minimum_clearance": 0.08324259519577026
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 393,
+      "minimum_clearance": 0.07657700777053833
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 396,
+      "minimum_clearance": 0.07314878702163696
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 399,
+      "minimum_clearance": 0.07166427373886108
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 402,
+      "minimum_clearance": 0.07116025686264038
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 405,
+      "minimum_clearance": 0.07108801603317261
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 408,
+      "minimum_clearance": 0.06071755290031433
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 411,
+      "minimum_clearance": 0.02905285358428955
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 414,
+      "minimum_clearance": 0.01011967658996582
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 417,
+      "minimum_clearance": 0.0020943284034729004
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 420,
+      "minimum_clearance": 0.0007999539375305176
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 423,
+      "minimum_clearance": 0.0007999539375305176
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 426,
+      "minimum_clearance": 0.0007999539375305176
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 429,
+      "minimum_clearance": 0.0007999539375305176
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 432,
+      "minimum_clearance": 0.0007999539375305176
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 435,
+      "minimum_clearance": 0.0007999539375305176
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 438,
+      "minimum_clearance": 0.0007999539375305176
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 441,
+      "minimum_clearance": 0.0007999539375305176
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 444,
+      "minimum_clearance": 0.0007999539375305176
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 447,
+      "minimum_clearance": 0.0007999539375305176
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 450,
+      "minimum_clearance": 0.0007999539375305176
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 453,
+      "minimum_clearance": 0.0007999539375305176
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 456,
+      "minimum_clearance": 0.0007999539375305176
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 459,
+      "minimum_clearance": 0.0007999539375305176
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 462,
+      "minimum_clearance": 0.0007999539375305176
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 465,
+      "minimum_clearance": 0.0007999539375305176
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 468,
+      "minimum_clearance": 0.0007999539375305176
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 471,
+      "minimum_clearance": 0.0007999539375305176
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 474,
+      "minimum_clearance": 0.0007999539375305176
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 477,
+      "minimum_clearance": 0.0007999539375305176
+    },
+    {
+      "clip": "AlternatingTouch",
+      "frame": 480,
+      "minimum_clearance": 0.0007999539375305176
+    }
+  ],
+  "contact_patches": [
+    {
+      "clip": "ProbeTouch",
+      "arm": "R_IV",
+      "window_seconds": [
+        6.0,
+        8.0
+      ],
+      "patch_vertices": 14,
+      "max_lateral_drift": 0.0,
+      "max_height_change": 0.0,
+      "samples": [
+        {
+          "frame": 180,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 181,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 182,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 183,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 184,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 185,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 186,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 187,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 188,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 189,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 190,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 191,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 192,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 193,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 194,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 195,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 196,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 197,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 198,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 199,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 200,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 201,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 202,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 203,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 204,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 205,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 206,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 207,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 208,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 209,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 210,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 211,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 212,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 213,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 214,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 215,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 216,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 217,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 218,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 219,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 220,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 221,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 222,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 223,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 224,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 225,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 226,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 227,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 228,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 229,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 230,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 231,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 232,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 233,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 234,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 235,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 236,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 237,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 238,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 239,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 240,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "arm": "R_IV",
+      "window_seconds": [
+        6.0,
+        8.0
+      ],
+      "patch_vertices": 14,
+      "max_lateral_drift": 0.0,
+      "max_height_change": 0.0,
+      "samples": [
+        {
+          "frame": 180,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 181,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 182,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 183,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 184,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 185,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 186,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 187,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 188,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 189,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 190,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 191,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 192,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 193,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 194,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 195,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 196,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 197,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 198,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 199,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 200,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 201,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 202,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 203,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 204,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 205,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 206,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 207,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 208,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 209,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 210,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 211,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 212,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 213,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 214,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 215,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 216,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 217,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 218,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 219,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 220,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 221,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 222,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 223,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 224,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 225,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 226,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 227,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 228,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 229,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 230,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 231,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 232,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 233,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 234,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 235,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 236,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 237,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 238,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 239,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 240,
+          "minimum_contact_clearance": 0.0008009672164916992,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "arm": "L_IV",
+      "window_seconds": [
+        14.0,
+        16.0
+      ],
+      "patch_vertices": 14,
+      "max_lateral_drift": 0.0,
+      "max_height_change": 0.0,
+      "samples": [
+        {
+          "frame": 420,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 421,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 422,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 423,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 424,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 425,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 426,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 427,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 428,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 429,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 430,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 431,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 432,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 433,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 434,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 435,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 436,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 437,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 438,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 439,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 440,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 441,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 442,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 443,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 444,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 445,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 446,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 447,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 448,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 449,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 450,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 451,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 452,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 453,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 454,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 455,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 456,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 457,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 458,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 459,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 460,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 461,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 462,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 463,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 464,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 465,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 466,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 467,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 468,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 469,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 470,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 471,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 472,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 473,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 474,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 475,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 476,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 477,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 478,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 479,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        },
+        {
+          "frame": 480,
+          "minimum_contact_clearance": 0.0007999539375305176,
+          "patch_lateral_drift": 0.0,
+          "patch_max_height_change": 0.0
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Kinematic reach/contact, no suction force or body locomotion",
+    "Floor clearance includes authored 0.0008 ML margin",
+    "Global ground samples every3 frames; holds each frame; not continuous proof"
+  ]
+}

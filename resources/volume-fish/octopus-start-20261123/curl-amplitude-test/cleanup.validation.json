@@ -1,0 +1,726 @@
+{
+  "deleted": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0065.png",
+      "bytes": 132794
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0071.png",
+      "bytes": 132639
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0059.png",
+      "bytes": 133377
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0111.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0105.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0139.png",
+      "bytes": 131293
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0138.png",
+      "bytes": 130773
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0104.png",
+      "bytes": 131181
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0110.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0058.png",
+      "bytes": 133250
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0070.png",
+      "bytes": 132358
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0064.png",
+      "bytes": 132381
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0099.png",
+      "bytes": 131265
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0072.png",
+      "bytes": 132742
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0066.png",
+      "bytes": 132746
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0106.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0112.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0113.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0107.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0067.png",
+      "bytes": 132881
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0073.png",
+      "bytes": 132806
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0098.png",
+      "bytes": 130644
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0088.png",
+      "bytes": 131938
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0077.png",
+      "bytes": 132773
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0063.png",
+      "bytes": 132954
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0103.png",
+      "bytes": 131202
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0117.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0116.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0102.png",
+      "bytes": 131280
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0062.png",
+      "bytes": 132539
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0076.png",
+      "bytes": 132461
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0089.png",
+      "bytes": 131140
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0048.png",
+      "bytes": 134522
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0060.png",
+      "bytes": 133474
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0074.png",
+      "bytes": 132338
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0128.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0114.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0100.png",
+      "bytes": 131192
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0101.png",
+      "bytes": 131172
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0115.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0129.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0075.png",
+      "bytes": 132466
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0061.png",
+      "bytes": 133264
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0049.png",
+      "bytes": 134159
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0006.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0012.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0172.png",
+      "bytes": 134627
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0166.png",
+      "bytes": 134484
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0167.png",
+      "bytes": 135194
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0173.png",
+      "bytes": 134630
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0013.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0007.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0011.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0005.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0039.png",
+      "bytes": 135016
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0165.png",
+      "bytes": 134416
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0171.png",
+      "bytes": 134782
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0159.png",
+      "bytes": 133902
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0158.png",
+      "bytes": 133392
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0170.png",
+      "bytes": 134931
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0164.png",
+      "bytes": 134446
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0038.png",
+      "bytes": 134456
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0004.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0010.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0028.png",
+      "bytes": 134456
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0014.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0000.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0148.png",
+      "bytes": 132304
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0160.png",
+      "bytes": 134068
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0174.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0175.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0161.png",
+      "bytes": 134010
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0149.png",
+      "bytes": 132245
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0001.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0015.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0029.png",
+      "bytes": 134624
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0003.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0017.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0177.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0163.png",
+      "bytes": 133852
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0162.png",
+      "bytes": 134235
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0176.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0016.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0002.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0027.png",
+      "bytes": 134753
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0033.png",
+      "bytes": 134991
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0153.png",
+      "bytes": 132690
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0147.png",
+      "bytes": 132012
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0146.png",
+      "bytes": 131606
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0152.png",
+      "bytes": 132473
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0032.png",
+      "bytes": 134570
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0026.png",
+      "bytes": 134587
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0030.png",
+      "bytes": 134597
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0024.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0018.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0144.png",
+      "bytes": 131609
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0150.png",
+      "bytes": 132729
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0178.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0179.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0151.png",
+      "bytes": 132575
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0145.png",
+      "bytes": 131154
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0019.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0025.png",
+      "bytes": 134626
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0031.png",
+      "bytes": 134828
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0009.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0035.png",
+      "bytes": 134426
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0021.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0169.png",
+      "bytes": 134381
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0141.png",
+      "bytes": 131479
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0155.png",
+      "bytes": 132812
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0154.png",
+      "bytes": 132666
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0140.png",
+      "bytes": 131531
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0168.png",
+      "bytes": 134964
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0020.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0034.png",
+      "bytes": 134616
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0008.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0022.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0036.png",
+      "bytes": 134502
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0156.png",
+      "bytes": 133054
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0142.png",
+      "bytes": 131742
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0143.png",
+      "bytes": 131656
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0157.png",
+      "bytes": 133197
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0037.png",
+      "bytes": 134851
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0023.png",
+      "bytes": 134553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0087.png",
+      "bytes": 131429
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0093.png",
+      "bytes": 131250
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0044.png",
+      "bytes": 134213
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0050.png",
+      "bytes": 133600
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0078.png",
+      "bytes": 132304
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0130.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0124.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0118.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0119.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0125.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0131.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0079.png",
+      "bytes": 132553
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0051.png",
+      "bytes": 134010
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0045.png",
+      "bytes": 134419
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0092.png",
+      "bytes": 131172
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0086.png",
+      "bytes": 130870
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0090.png",
+      "bytes": 131620
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0084.png",
+      "bytes": 131318
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0053.png",
+      "bytes": 134043
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0047.png",
+      "bytes": 134250
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0127.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0133.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0132.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0126.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0046.png",
+      "bytes": 134486
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0052.png",
+      "bytes": 133558
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0085.png",
+      "bytes": 131297
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0091.png",
+      "bytes": 131640
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0095.png",
+      "bytes": 131558
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0081.png",
+      "bytes": 131672
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0056.png",
+      "bytes": 133148
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0042.png",
+      "bytes": 134011
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0122.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0136.png",
+      "bytes": 131142
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0137.png",
+      "bytes": 131213
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0123.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0043.png",
+      "bytes": 134492
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0057.png",
+      "bytes": 133058
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0080.png",
+      "bytes": 132065
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0094.png",
+      "bytes": 131632
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0082.png",
+      "bytes": 131414
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0096.png",
+      "bytes": 131417
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0069.png",
+      "bytes": 132364
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0041.png",
+      "bytes": 134594
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0055.png",
+      "bytes": 133947
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0109.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0135.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0121.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0120.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0134.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0108.png",
+      "bytes": 131173
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0054.png",
+      "bytes": 134076
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0040.png",
+      "bytes": 134945
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0068.png",
+      "bytes": 132231
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0097.png",
+      "bytes": 131073
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/frames/0083.png",
+      "bytes": 131136
+    }
+  ],
+  "deleted_bytes": 23928477,
+  "retained": "模型引用R6原件；保留脚本、四档原生截图、对照图、6秒视频、原生报告"
+}

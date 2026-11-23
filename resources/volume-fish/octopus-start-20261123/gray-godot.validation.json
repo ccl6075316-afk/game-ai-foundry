@@ -1,0 +1,46 @@
+{
+  "animations": 0,
+  "capture_mode": "hidden GPU, GLB cold read",
+  "kind": "octopus_gray_godot_cold_load",
+  "meshes": [
+    {
+      "name": "Octopus_gray_skin",
+      "triangles": 2800
+    },
+    {
+      "name": "Paired_sucker_rows_160_proxy_cups",
+      "triangles": 2560
+    },
+    {
+      "name": "Eye_-1",
+      "triangles": 120
+    },
+    {
+      "name": "Eye_slit_-1",
+      "triangles": 48
+    },
+    {
+      "name": "Eye_1",
+      "triangles": 120
+    },
+    {
+      "name": "Eye_slit_1",
+      "triangles": 48
+    },
+    {
+      "name": "Open_siphon",
+      "triangles": 120
+    },
+    {
+      "name": "Oral_mound",
+      "triangles": 120
+    },
+    {
+      "name": "Oral_aperture",
+      "triangles": 48
+    }
+  ],
+  "ok": true,
+  "triangles": 5984,
+  "user_accepted": false
+}

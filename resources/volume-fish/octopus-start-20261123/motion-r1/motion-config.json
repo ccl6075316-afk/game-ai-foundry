@@ -1,0 +1,52 @@
+{
+  "kind": "octopus_trial_motion_parameters",
+  "species": "Enteroctopus dofleini",
+  "stage": "experimental_gray_motion",
+  "rest_source": "rest/octopus-gray.blend",
+  "arm_segments": 18,
+  "bones": 146,
+  "clips": {
+    "ArmExplore": {
+      "duration_s": 6,
+      "base_fold_rad": [
+        0.02,
+        0.18
+      ],
+      "distal_fold_amplitude_rad": 0.5,
+      "arm_phase_offsets_rad": [
+        0,
+        1.8,
+        3.6,
+        0.9,
+        4.8,
+        2.7,
+        5.5,
+        4.1
+      ]
+    },
+    "JetGlide": {
+      "duration_s": 4.8,
+      "base_fold_rad": [
+        0.1,
+        0.32
+      ],
+      "distal_fold_amplitude_rad": 0.24,
+      "mantle_transverse_scale": [
+        0.975,
+        1.0
+      ],
+      "root_path": "x=0.38*t+0.14*sin(2*pi*t/4.8)",
+      "root_speed_ML_per_s": [
+        0.1967404,
+        0.5632596
+      ]
+    }
+  },
+  "classification": "All numeric motion values are authored trial parameters, not biological measurements",
+  "restriction": "Large gathering/folding is not accepted; current mesh self-intersects at the rejected stronger fold envelope. No feeding, crawling/contact, turn/ascend/dive integration or natural transitions.",
+  "membrane_half_thickness_ML": [
+    0.028,
+    0.053
+  ],
+  "triangles": 7980
+}

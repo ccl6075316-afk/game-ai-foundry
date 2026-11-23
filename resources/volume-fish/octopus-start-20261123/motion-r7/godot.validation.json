@@ -1,0 +1,113 @@
+{
+  "animations": [
+    "AlternatingTouch",
+    "ProbeTouch",
+    "TightRoll"
+  ],
+  "capture_mode": "hidden GPU native skeletal animation; isolated right IV display",
+  "duration": 10.0,
+  "fps": 30,
+  "frames": 300,
+  "kind": "octopus_tighter_roll_native_godot",
+  "meshes": [
+    {
+      "name": "Eye_-1",
+      "triangles": 120
+    },
+    {
+      "name": "Eye_1",
+      "triangles": 120
+    },
+    {
+      "name": "Eye_slit_-1",
+      "triangles": 48
+    },
+    {
+      "name": "Eye_slit_1",
+      "triangles": 48
+    },
+    {
+      "name": "Octopus_gray_skin",
+      "triangles": 29920
+    },
+    {
+      "name": "Open_siphon",
+      "triangles": 120
+    },
+    {
+      "name": "Oral_aperture",
+      "triangles": 48
+    },
+    {
+      "name": "Oral_mound",
+      "triangles": 120
+    },
+    {
+      "name": "Paired_sucker_rows_512_cups",
+      "triangles": 19456
+    }
+  ],
+  "model_sha256": "5cce92c54d8257f4d7c7a0d06dba4069b30b2ae3303005a060d29b61e0fa1a9f",
+  "ok": true,
+  "playback_speed": 1.0,
+  "probe_only": false,
+  "samples": [
+    {
+      "clip": "TightRoll",
+      "frame": 0,
+      "time": 0.0
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 30,
+      "time": 1.0
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 60,
+      "time": 2.0
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 90,
+      "time": 3.0
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 120,
+      "time": 4.0
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 150,
+      "time": 5.0
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 180,
+      "time": 6.0
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 210,
+      "time": 7.0
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 240,
+      "time": 8.0
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 270,
+      "time": 9.0
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 299,
+      "time": 9.96666666666667
+    }
+  ],
+  "triangles": 50000,
+  "user_accepted": false
+}

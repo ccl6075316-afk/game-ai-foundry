@@ -1,0 +1,101 @@
+{
+  "animations": [
+    "EightArmReach",
+    "SingleArmRoll"
+  ],
+  "capture_mode": "hidden GPU deterministic native animation evaluation",
+  "duration": 24.0,
+  "fps": 30,
+  "frames": 720,
+  "kind": "octopus_motion_godot_cold_load",
+  "meshes": [
+    {
+      "name": "Eye_-1",
+      "triangles": 120
+    },
+    {
+      "name": "Eye_1",
+      "triangles": 120
+    },
+    {
+      "name": "Eye_slit_-1",
+      "triangles": 48
+    },
+    {
+      "name": "Eye_slit_1",
+      "triangles": 48
+    },
+    {
+      "name": "Octopus_gray_skin",
+      "triangles": 29920
+    },
+    {
+      "name": "Open_siphon",
+      "triangles": 120
+    },
+    {
+      "name": "Oral_aperture",
+      "triangles": 48
+    },
+    {
+      "name": "Oral_mound",
+      "triangles": 120
+    },
+    {
+      "name": "Paired_sucker_rows_512_cups",
+      "triangles": 19456
+    }
+  ],
+  "model_sha256": "2237250b3ecde6758a897015573160aecccc5610bba671bed31a9d04351d3e79",
+  "ok": true,
+  "probe_only": false,
+  "samples": [
+    {
+      "clip": "SingleArmRoll",
+      "frame": 0,
+      "time": 0.0
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 75,
+      "time": 2.5
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 135,
+      "time": 4.5
+    },
+    {
+      "clip": "SingleArmRoll",
+      "frame": 240,
+      "time": 8.0
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 300,
+      "time": 0.0
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 405,
+      "time": 3.5
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 510,
+      "time": 7.0
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 615,
+      "time": 10.5
+    },
+    {
+      "clip": "EightArmReach",
+      "frame": 719,
+      "time": 13.9666666666667
+    }
+  ],
+  "triangles": 50000,
+  "user_accepted": false
+}

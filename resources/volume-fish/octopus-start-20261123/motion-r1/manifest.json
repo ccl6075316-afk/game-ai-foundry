@@ -1,0 +1,176 @@
+{
+  "kind": "octopus_gray_motion_trial_manifest",
+  "date": "2026-11-23",
+  "status": "rejected_by_user",
+  "species": "Enteroctopus dofleini",
+  "static_reference": {
+    "path": "resources/volume-fish/octopus-start-20261123/r2/octopus-gray.glb",
+    "sha256": "94ae5b126514ce94a2daea4153e13f57fefc55731833a9d5065f6085e646e05a"
+  },
+  "motion_rest": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r1/rest/octopus-gray.blend",
+    "sha256": "48cd38c39edd562db31bf9e99c7408b506f27f0c391e9d1e8e173ba6eb0e1e92"
+  },
+  "source": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r1/octopus-motion.blend",
+    "sha256": "b5cb81ace5fc5cfb0373ce3057f7c99983dc6d35af76a95fd7ea174fba2ed7bd"
+  },
+  "model": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r1/octopus-motion.glb",
+    "sha256": "c39c8b48822305b967bdc7ed480dd87ed0fcf5da1aed7e320c575710ea575fe4"
+  },
+  "motion_config": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r1/motion-config.json",
+    "sha256": "c5846a37590b3f2c033d0210b92cc7cd549ddf82e72291273a5bab86904a1e65"
+  },
+  "authoring": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/build_motion_rest.py",
+      "sha256": "ed463a298d53a7dded6bcf4c08102228ac0e01d75ed4b3fae9c09c7fb921570a"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/build_motion.py",
+      "sha256": "bd79007b0284e34fae7e0da64c1e9036ac48d9b5cbbb1c88b1a36717acd38052"
+    }
+  ],
+  "viewer": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/open-motion-review.command",
+      "sha256": "e02d3ccac71dc2bda1ba8628e4177e05e806095a642f3d96393b96cf8c8cccf3"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/review/Motion.gd",
+      "sha256": "c23cbc793feb4a0d68a5f86faf59263082bfe8eab76f217490dfe3b607f34985"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/review/project.godot",
+      "sha256": "432d9c92d5f408631b32b837194d572f512f640ce629141a9c4c8cc0dc73ea96"
+    }
+  ],
+  "video": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r1/octopus-motion-preview.mp4",
+    "sha256": "9e8b8dae7d9f3692871b4052aa6bbc4d6d6dedfcff91f695a353dfaa7ff61b2c"
+  },
+  "evidence_note": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r1/swim-evidence.md",
+    "sha256": "120eac506bffebcc28f1894650f0435584646cce02681542e27c03d874d57c3d"
+  },
+  "validation": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/build.validation.json",
+      "sha256": "8b4fe06d7ce575c0b65a3d2465f01d32b9beed590fcf1ef139314daa852078ef"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/source.validation.json",
+      "sha256": "4fa18edea1f4377ebe4cc1e7cda9adc666298e65c2ecbcecf649d7a1a5730953"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/proportions.validation.json",
+      "sha256": "8c960ce0cbe24097a48145f365926ee7a7aed0c5b98e9828e1424daf82c884be"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/motion.validation.json",
+      "sha256": "a886c35259399451531f90a7e631c5329dbbac3635ade34bb2c63e73568f6b36"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/godot.validation.json",
+      "sha256": "8b445f1cc54f1414898f3cdd93993c683dd5ea545093a3ffd7773a6f68ea3f84"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/visual-review.validation.json",
+      "sha256": "b01ccdb0674a816900b6e0a847b0c8bc906e802bd81e0b350b10a220a473a0ab"
+    }
+  ],
+  "views": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/motion-contact.png",
+      "sha256": "f91da3f1cedba5c8d51a3b5dff785738331e609f9dc5d5e471ffbe05a31f310e"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0000.png",
+      "sha256": "aa3365ea4a78de57bbc601a820a8476106494f8aac38e59b19925da04bfdbd50"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0045.png",
+      "sha256": "6f722eb0b4b000ef5ce3b39d26a28c9b0c4a2f591ad7376fa4f1c581fa61de06"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0090.png",
+      "sha256": "ed5c41e120a2632e47b6f8b29722ce66a24e88f59b4bc32875604a22f512515a"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0135.png",
+      "sha256": "03e0649680c123041195ff6444a6e0614645a30b2d70c076206fecf0bdfc4d42"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0180.png",
+      "sha256": "1e085c0b62232e22d8ca61b374677e2c3026182cad318fdba63cc31483a37711"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0216.png",
+      "sha256": "67f4972d436443acd92fc1d8aa0b0c60008e4a6e74b6920e6073f273d1f47827"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0252.png",
+      "sha256": "36c9dbe43540db3aab157a1c844517c087ea7eccbec733b00fb1929444060518"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0288.png",
+      "sha256": "3d5246a6445d9760b5989457bbffc45fc317c6a3623729ff6e0425f171b70671"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0324.png",
+      "sha256": "a8df6406bc888b99310a81162e1062a416e388c06a29cfbf3efe0f00ec7aaa51"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0360.png",
+      "sha256": "da66bbf33fe533c2824c0ba39089cfcf2f9d0d2e16b8cd2b01437cb15fdb99d3"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0396.png",
+      "sha256": "43ff281979c27efa1257cb0f472189ce1d72fe2fac3939a386506b983435c4ce"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0432.png",
+      "sha256": "fedf487911ff28493f01896ecb09db19eb07f012f95ce02d501da73d4da3c32e"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0468.png",
+      "sha256": "c44c33e8cee006b1e81c4121072e17d323c995ab002ce697a4ad1c3d8fee1194"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0504.png",
+      "sha256": "2c3be1deeed777d43c8a64ac32b1a409ca1ab6891253427fdb75fd61f0ce5b33"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0540.png",
+      "sha256": "36b6263724f658bb3b85476e69fedf548bf8a94386ab0bd5a891d6536a30e556"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0576.png",
+      "sha256": "88bbccf4c335929427046e145425371dac32375a6ef53eec0431de6dc63675e5"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r1/pose-0611.png",
+      "sha256": "1a09473c618ca00ff800a0a6c4ffe96e6dafb0731ef52e021317a3b738ad51fc"
+    }
+  ],
+  "triangles": 7980,
+  "bones": 146,
+  "animations": [
+    "ArmExplore",
+    "JetGlide"
+  ],
+  "production_installed": false,
+  "user_accepted": false,
+  "limitations": [
+    "Small-fold envelope only; strong gathering causes intersections and needs a different web deformation solution",
+    "Timing and root speed are authored trial values, not measured biological speed",
+    "Full contact/crawling/feeding, natural transitions, production LOD and whole-species morphology remain pending"
+  ],
+  "cleanup": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r1/cleanup.validation.json",
+    "sha256": "8837a432704eedfa12e11c16c143489cc99b1eeb6421902080a79abc61d6c65f"
+  },
+  "user_feedback": "动作不符合章鱼；未实现完全卷曲到伸直；参考和验证不足。用户允许后续5万三角以内提高精细度。"
+}

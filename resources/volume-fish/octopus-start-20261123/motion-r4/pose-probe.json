@@ -1,0 +1,109 @@
+{
+  "packing": 1.06,
+  "floor_z": -0.25,
+  "contact_angles": {
+    "0": 0.6688133239746095,
+    "7": 0.6688133239746095
+  },
+  "samples": [
+    {
+      "clip": "TightRoll",
+      "time": 0,
+      "intersections": 0,
+      "example_pairs": [],
+      "skin_min_z": -0.21068453788757324,
+      "right_contact_z": -0.09652295708656311,
+      "left_contact_z": -0.051885753870010376
+    },
+    {
+      "clip": "TightRoll",
+      "time": 2.5,
+      "intersections": 0,
+      "example_pairs": [],
+      "skin_min_z": -0.1594705581665039,
+      "right_contact_z": -0.015331774950027466,
+      "left_contact_z": -0.051885753870010376
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 0,
+      "intersections": 0,
+      "example_pairs": [],
+      "skin_min_z": -0.17891207337379456,
+      "right_contact_z": -0.06466427445411682,
+      "left_contact_z": -0.051885753870010376
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 4.5,
+      "intersections": 0,
+      "example_pairs": [],
+      "skin_min_z": -0.15725812315940857,
+      "right_contact_z": 0.28070250153541565,
+      "left_contact_z": -0.07221248745918274
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 6,
+      "intersections": 0,
+      "example_pairs": [],
+      "skin_min_z": -0.24643465876579285,
+      "right_contact_z": -0.24919888377189636,
+      "left_contact_z": -0.06272593140602112
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 7,
+      "intersections": 0,
+      "example_pairs": [],
+      "skin_min_z": -0.24643465876579285,
+      "right_contact_z": -0.24919888377189636,
+      "left_contact_z": -0.050617873668670654
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 9,
+      "intersections": 0,
+      "example_pairs": [],
+      "skin_min_z": -0.16684696078300476,
+      "right_contact_z": 0.007240355014801025,
+      "left_contact_z": -0.055669546127319336
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 11,
+      "intersections": 0,
+      "example_pairs": [],
+      "skin_min_z": -0.16894564032554626,
+      "right_contact_z": 0.23430249094963074,
+      "left_contact_z": -0.058868348598480225
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 0,
+      "intersections": 0,
+      "example_pairs": [],
+      "skin_min_z": -0.24603044986724854,
+      "right_contact_z": -0.06466427445411682,
+      "left_contact_z": -0.24919888377189636
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 6,
+      "intersections": 0,
+      "example_pairs": [],
+      "skin_min_z": -0.24643465876579285,
+      "right_contact_z": -0.24919888377189636,
+      "left_contact_z": -0.06293028593063354
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 14,
+      "intersections": 0,
+      "example_pairs": [],
+      "skin_min_z": -0.24603044986724854,
+      "right_contact_z": -0.06466427445411682,
+      "left_contact_z": -0.24919888377189636
+    }
+  ]
+}

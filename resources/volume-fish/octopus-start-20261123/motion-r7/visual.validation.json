@@ -1,0 +1,20 @@
+{
+  "status": "local_trial_reviewed",
+  "model": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r7/octopus-actions.glb",
+    "sha256": "5cce92c54d8257f4d7c7a0d06dba4069b30b2ae3303005a060d29b61e0fa1a9f"
+  },
+  "video": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r7/tighter-roll.mp4",
+    "sha256": "18c4df9ad00ec71bf7ee81808da87448de67ce0dfad2b0279795b7ce5f8a8e58"
+  },
+  "stream": {
+    "duration": "10.000000",
+    "nb_frames": "300"
+  },
+  "image": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r7/phases.jpg",
+    "sha256": "7ed7632febd27e8c83d08291263d60a0dd63eb8b5e9589a238dabda9aa99c7c2"
+  },
+  "observations": "右IV卷圈更紧；展开到伸直后可回卷，代表姿态未见R6的方形压平轮廓。按用户指示接受卷层内部少量重叠，不以全局零交叉为门。此处仅单腕侧视动作审阅，不代表所有视角/七腕完成。"
+}

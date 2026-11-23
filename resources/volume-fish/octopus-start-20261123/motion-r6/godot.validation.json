@@ -1,0 +1,123 @@
+{
+  "animations": [
+    "AlternatingTouch",
+    "ProbeTouch",
+    "TightRoll"
+  ],
+  "capture_mode": "hidden GPU native skeletal and morph animation; isolated right IV display",
+  "duration": 20.0,
+  "fps": 30,
+  "frames": 600,
+  "kind": "octopus_contact_corrective_native_godot",
+  "meshes": [
+    {
+      "name": "Eye_-1",
+      "triangles": 120
+    },
+    {
+      "name": "Eye_1",
+      "triangles": 120
+    },
+    {
+      "name": "Eye_slit_-1",
+      "triangles": 48
+    },
+    {
+      "name": "Eye_slit_1",
+      "triangles": 48
+    },
+    {
+      "name": "Octopus_gray_skin",
+      "triangles": 29920
+    },
+    {
+      "name": "Open_siphon",
+      "triangles": 120
+    },
+    {
+      "name": "Oral_aperture",
+      "triangles": 48
+    },
+    {
+      "name": "Oral_mound",
+      "triangles": 120
+    },
+    {
+      "name": "Paired_sucker_rows_512_cups",
+      "triangles": 19456
+    }
+  ],
+  "model_sha256": "66105e405029f8b1d3357535b26e965d0b570f1eaa96b55bc821abf051612a0a",
+  "ok": true,
+  "playback_speed": 0.5,
+  "probe_only": false,
+  "samples": [
+    {
+      "clip": "TightRoll",
+      "frame": 0,
+      "time": 0.0
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 24,
+      "time": 0.4
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 45,
+      "time": 0.75
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 60,
+      "time": 1.0
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 90,
+      "time": 1.5
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 150,
+      "time": 2.5
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 240,
+      "time": 4.0
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 300,
+      "time": 5.0
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 420,
+      "time": 7.0
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 480,
+      "time": 8.0
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 510,
+      "time": 8.5
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 540,
+      "time": 9.0
+    },
+    {
+      "clip": "TightRoll",
+      "frame": 599,
+      "time": 9.98333333333333
+    }
+  ],
+  "triangles": 50000,
+  "user_accepted": false
+}

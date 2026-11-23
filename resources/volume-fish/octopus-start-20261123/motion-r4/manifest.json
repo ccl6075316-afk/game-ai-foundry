@@ -1,0 +1,155 @@
+{
+  "kind": "octopus_contact_actions_trial",
+  "date": "2026-11-23",
+  "status": "superseded_by_requested_arm_thickness_and_tip_revision",
+  "user_accepted": false,
+  "production_installed": false,
+  "species_basis": "Enteroctopus dofleini",
+  "budget": 50000,
+  "triangles": 50000,
+  "bones": 513,
+  "arm_segments": 64,
+  "representative_suckers": 512,
+  "source": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r4/octopus-actions.blend",
+    "sha256": "62ff45aa5acbca18db0eb854551800fe814fb802229deac09a82c1f412ecb3a0"
+  },
+  "model": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r4/octopus-actions.glb",
+    "sha256": "40a57d1132f1ebcd57b44a3a982d15aa608c35d25263106d41be1868cba2d3c7"
+  },
+  "baseline": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r3/octopus-roll.blend",
+    "sha256": "5e7c3c24494ff449a6d465884d92aedf01572de7aba7cf5fc6016a27e37282cd"
+  },
+  "clips": [
+    {
+      "name": "TightRoll",
+      "duration": 10.0
+    },
+    {
+      "name": "ProbeTouch",
+      "duration": 16.0
+    },
+    {
+      "name": "AlternatingTouch",
+      "duration": 16.0
+    }
+  ],
+  "viewer": {
+    "path": "resources/volume-fish/octopus-start-20261123/open-motion-review.command",
+    "sha256": "a0f73cdfaa4f0cbbc4fb44d86937b7a2fff6053abbba0fa3f2588c604b0ec887"
+  },
+  "viewer_script": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r4/review/Actions.gd",
+    "sha256": "4a1c719272ae6369a7f0e160973f67c75fa0636dfe1d28facf86dca3cd28ad85"
+  },
+  "video": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r4/octopus-actions-review.mp4",
+    "sha256": "10d3ea5de1f38f69b8125265810b8cce5d9ff4bb8e2af5be1bde061f2d43c6ec"
+  },
+  "closeup": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r4/tight-coil-close.png",
+    "sha256": "7ba434c416c45cc497b57952ca851e5dfaf47a5804bc13d465083255308f578f"
+  },
+  "phase_sheet": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r4/action-phases.jpg",
+    "sha256": "08c3ee55532368de7f6c1996765d28b677413c3e00537ec0e9876a98d91507b5"
+  },
+  "notes": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r4/motion-evidence.md",
+    "sha256": "3d5b753b41b6895a40669102a96afe520a2eb1310ff7639c59056e7b68e06c98"
+  },
+  "reference_playback": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r4/reference-touch-playback.json",
+    "sha256": "1af0ec428f27e8b19c8de5d6f4be1b87b72ac17382591ad8facbf9dbd4aeabf5"
+  },
+  "reference_sheet": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r4/reference-touch-contact.jpg",
+    "sha256": "b2b3cab3898901d8b3c25bccbcdd34af04ad47b598a18515de911413779d5e45"
+  },
+  "validation": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/build.validation.json",
+      "sha256": "fe45c744e482df180a2ddba4fd578bf806c900cc0d27bf95971d1dca547f5791"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/cleanup.validation.json",
+      "sha256": "510567b9b45b35e74b0592e35846aa6f6559d534a25c0f2b488664d8863effff"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/contacts.validation.json",
+      "sha256": "685491b1764e2a9e1b05f0d77b03e8d8a1cfd3b019cb317c0ba4221792216b6e"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/controls.validation.json",
+      "sha256": "da0f414b1c5f200965b750def1764f3cf8e06236029db5bae617857ab5ddfab1"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/godot.validation.json",
+      "sha256": "b514544a1f276290dcb26cf71c3a0006439b276326d37eba78358813c5460a2e"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/ground.validation.json",
+      "sha256": "39f5f00b36716831981006bc94a71c77882cec951845d10314c86909559b268f"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/motion.validation.json",
+      "sha256": "9e981d66c3b352e4856e9cf817ffd9ca0cd494768daca0ee221a6a9f6eda49ca"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/range.validation.json",
+      "sha256": "e3ad0506f00f446264c7db2e1226787c87b2bee73df13ddbb324b5dc4bd051d6"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/shape-change.validation.json",
+      "sha256": "953f544e9720e3b7b1ae10ce32b0d6b78fe47dde2c556f1436f89402a831dfd2"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/source.validation.json",
+      "sha256": "9590d37c67e8747a141053fc741f064267a046ca302a4742021a2ebecfea7130"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r4/video.validation.json",
+      "sha256": "1a4d8259fc0d1271ea93ce12b454e73ffd87decbf48311503acc0c785aca6847"
+    }
+  ],
+  "authoring_scripts": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/build_octopus_actions.py",
+      "sha256": "1ef6ab3be8ffb18bdf4f80c8053eec952a032620aae98886fb17e50744ee48b4"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_actions.py",
+      "sha256": "b37904a97cc9c1cf5d2a9a1917595eb223540dfab72cff9e49741298ec19f3ba"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_actions_contacts.py",
+      "sha256": "b4843955fc2fc332b5805263f3cb4b1b52ecd254f5f39b505ef68bb3ae8fec03"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_actions_source.py",
+      "sha256": "415905772dd431de1bf4d12d3057a7d3a98ec40575ca3a042164912d02e7ef5d"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_actions_range.py",
+      "sha256": "d1cfa5e63eaa6c8d00f040f85b302446a4ac8345e8c59bf7b2d415a094667988"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_action_ground.py",
+      "sha256": "eaf0f078b37b5f173010dd5c4fe3c25fcec25cdcda5c284db2e44a92dbd34d33"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/measure_action_gap.py",
+      "sha256": "06fb774c8d749964a40aa9a300892720743223772f21cdd035de8c9003919666"
+    }
+  ],
+  "limits": [
+    "Root fixed contact trial; no crawling locomotion, suction force or jet swimming",
+    "Tighter layers retain thin gaps; 45.4% reduction concerns nearest sampled skin vertices only",
+    "Motion timings/packing/floor are authored, not specimen measurements",
+    "Sampled body and nonlocal cup checks are not exhaustive continuous contact proof",
+    "Full SOP, material, LOD and user acceptance pending"
+  ],
+  "user_feedback": "用户建议略加粗腕足改善贴合，并指出末端过尖；R5接续，未追认R4视觉接受。"
+}

@@ -1,0 +1,6284 @@
+{
+  "kind": "user_authorized_tighter_roll",
+  "status": "candidate",
+  "triangles": 50000,
+  "bones": 513,
+  "arm_segments": 64,
+  "suckers": 512,
+  "clips": [
+    {
+      "name": "TightRoll",
+      "duration": 10.0
+    },
+    {
+      "name": "ProbeTouch",
+      "duration": 16.0
+    },
+    {
+      "name": "AlternatingTouch",
+      "duration": 16.0
+    }
+  ],
+  "source_sha256": "0ee04c707e43299aa7101e5120a0e3d1c85dc93f629c1710639e7f51d2a706e3",
+  "model_sha256": "5cce92c54d8257f4d7c7a0d06dba4069b30b2ae3303005a060d29b61e0fa1a9f",
+  "floor_z": -0.25,
+  "contact_angles": {
+    "0": 0.6656776428222656,
+    "7": 0.6656776428222656
+  },
+  "contact_targets": {
+    "0": [
+      -1.3111437559127808,
+      -2.6400270462036133,
+      -0.24919965863227844
+    ],
+    "7": [
+      1.3253356218338013,
+      -2.6329307556152344,
+      -0.24919965863227844
+    ]
+  },
+  "packing_factor": 1.02,
+  "spiral_profiles": [
+    {
+      "arm": "L_IV",
+      "spiral_polar_turns": 2.703883328188294,
+      "outer_radius": 0.2879665842437055,
+      "inner_radius": 0.025,
+      "packing_factor": 1.02,
+      "envelope": "max(0.83*radius,0.69*radius+cup rim height)+0.002 ML",
+      "gap_allowance_ML": 0.006
+    },
+    {
+      "arm": "L_III",
+      "spiral_polar_turns": 2.6781002274074064,
+      "outer_radius": 0.2953466925173615,
+      "inner_radius": 0.025,
+      "packing_factor": 1.06,
+      "envelope": "max(0.83*radius,0.69*radius+cup rim height)+0.002 ML",
+      "gap_allowance_ML": 0.006
+    },
+    {
+      "arm": "L_II",
+      "spiral_polar_turns": 2.7549720649207945,
+      "outer_radius": 0.29272852563978524,
+      "inner_radius": 0.025,
+      "packing_factor": 1.02,
+      "envelope": "max(0.83*radius,0.69*radius+cup rim height)+0.002 ML",
+      "gap_allowance_ML": 0.006
+    },
+    {
+      "arm": "L_I",
+      "spiral_polar_turns": 2.7473326276523835,
+      "outer_radius": 0.292000250141208,
+      "inner_radius": 0.025,
+      "packing_factor": 1.02,
+      "envelope": "max(0.83*radius,0.69*radius+cup rim height)+0.002 ML",
+      "gap_allowance_ML": 0.006
+    },
+    {
+      "arm": "R_I",
+      "spiral_polar_turns": 2.7449453035060047,
+      "outer_radius": 0.2917811990706025,
+      "inner_radius": 0.025,
+      "packing_factor": 1.02,
+      "envelope": "max(0.83*radius,0.69*radius+cup rim height)+0.002 ML",
+      "gap_allowance_ML": 0.006
+    },
+    {
+      "arm": "R_II",
+      "spiral_polar_turns": 2.7554495297500705,
+      "outer_radius": 0.2927532289455938,
+      "inner_radius": 0.025,
+      "packing_factor": 1.02,
+      "envelope": "max(0.83*radius,0.69*radius+cup rim height)+0.002 ML",
+      "gap_allowance_ML": 0.006
+    },
+    {
+      "arm": "R_III",
+      "spiral_polar_turns": 2.728711499310631,
+      "outer_radius": 0.2902702879939532,
+      "inner_radius": 0.025,
+      "packing_factor": 1.02,
+      "envelope": "max(0.83*radius,0.69*radius+cup rim height)+0.002 ML",
+      "gap_allowance_ML": 0.006
+    },
+    {
+      "arm": "R_IV",
+      "spiral_polar_turns": 2.6924241722856777,
+      "outer_radius": 0.28936548387860395,
+      "inner_radius": 0.025,
+      "packing_factor": 1.03,
+      "envelope": "max(0.83*radius,0.69*radius+cup rim height)+0.002 ML",
+      "gap_allowance_ML": 0.006
+    }
+  ],
+  "sampled_control_metrics": [
+    {
+      "clip": "TightRoll",
+      "time": 0.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.0,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.6822705141584198,
+          "chord_over_chain": 0.3752771988600729
+        }
+      ]
+    },
+    {
+      "clip": "TightRoll",
+      "time": 0.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.0,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.6822705141584198,
+          "chord_over_chain": 0.3752771988600729
+        }
+      ]
+    },
+    {
+      "clip": "TightRoll",
+      "time": 1.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.0,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.6822705141584198,
+          "chord_over_chain": 0.3752771988600729
+        }
+      ]
+    },
+    {
+      "clip": "TightRoll",
+      "time": 1.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.035493827160493825,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.6796967083054555,
+          "chord_over_chain": 0.37657825996161315
+        }
+      ]
+    },
+    {
+      "clip": "TightRoll",
+      "time": 2.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.20987654320987653,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.427667066090217,
+          "chord_over_chain": 0.4998330458577859
+        }
+      ]
+    },
+    {
+      "clip": "TightRoll",
+      "time": 2.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.5,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.874157196080494,
+          "chord_over_chain": 0.6923458838399158
+        }
+      ]
+    },
+    {
+      "clip": "TightRoll",
+      "time": 3.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.7901234567901235,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.009523890806591,
+          "chord_over_chain": 0.9028363648193088
+        }
+      ]
+    },
+    {
+      "clip": "TightRoll",
+      "time": 3.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.964506172839506,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 1.0000000939876963
+        }
+      ]
+    },
+    {
+      "clip": "TightRoll",
+      "time": 4.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 1.0000000939876963
+        }
+      ]
+    },
+    {
+      "clip": "TightRoll",
+      "time": 4.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 1.0000000939876963
+        }
+      ]
+    },
+    {
+      "clip": "TightRoll",
+      "time": 5.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 1.0000000939876963
+        }
+      ]
+    },
+    {
+      "clip": "TightRoll",
+      "time": 5.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.9645061728395061,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 1.0000000939876963
+        }
+      ]
+    },
+    {
+      "clip": "TightRoll",
+      "time": 6.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.7901234567901234,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.0095238908065918,
+          "chord_over_chain": 0.9028363648193088
+        }
+      ]
+    },
+    {
+      "clip": "TightRoll",
+      "time": 6.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.5,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.874157196080494,
+          "chord_over_chain": 0.6923458838399158
+        }
+      ]
+    },
+    {
+      "clip": "TightRoll",
+      "time": 7.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.20987654320987648,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.427667066090217,
+          "chord_over_chain": 0.4998330458577859
+        }
+      ]
+    },
+    {
+      "clip": "TightRoll",
+      "time": 7.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.035493827160493985,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.6796967083054555,
+          "chord_over_chain": 0.37657825996161315
+        }
+      ]
+    },
+    {
+      "clip": "TightRoll",
+      "time": 8.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.0,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.6822705141584198,
+          "chord_over_chain": 0.3752771988600729
+        }
+      ]
+    },
+    {
+      "clip": "TightRoll",
+      "time": 8.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.0,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.6822705141584198,
+          "chord_over_chain": 0.3752771988600729
+        }
+      ]
+    },
+    {
+      "clip": "TightRoll",
+      "time": 9.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.0,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.6822705141584198,
+          "chord_over_chain": 0.3752771988600729
+        }
+      ]
+    },
+    {
+      "clip": "TightRoll",
+      "time": 9.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.0,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.6822705141584198,
+          "chord_over_chain": 0.3752771988600729
+        }
+      ]
+    },
+    {
+      "clip": "TightRoll",
+      "time": 10.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.0,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.6822705141584198,
+          "chord_over_chain": 0.3752771988600729
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 0.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.569400355228089,
+          "chord_over_chain": 0.43227119554631754
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 0.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.1648772580504032,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5102709246166426,
+          "chord_over_chain": 0.4655493410770876
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.4234208711597325,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.030353713434442,
+          "chord_over_chain": 0.6434141955869284
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23035559511005324,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449052884810187,
+          "chord_over_chain": 0.5127822037962538
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5471230771237892,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8033563502565988,
+          "chord_over_chain": 0.72440817042315
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.31524362091936686,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.2902693700898102,
+          "chord_over_chain": 0.5745463337617626
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.4756011641170397,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.97564856775545,
+          "chord_over_chain": 0.6775494125917353
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.19802754856417543,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4796289373152973,
+          "chord_over_chain": 0.48950785508689715
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.14625,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.529160219538454,
+          "chord_over_chain": 0.4520561083435049
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 1.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16956708580912724,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5028266395532346,
+          "chord_over_chain": 0.46909356921576284
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.4260913570482655,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0249414001454347,
+          "chord_over_chain": 0.645069602976565
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.2297507678875251,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4500826982756045,
+          "chord_over_chain": 0.5123279612045626
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5435273964836409,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8121117471403,
+          "chord_over_chain": 0.7218886998656873
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.3103481916507201,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.2992568560441233,
+          "chord_over_chain": 0.5711417804830163
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.47170838309813123,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9842483331262009,
+          "chord_over_chain": 0.6751282162375464
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.1969682515345793,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.481367931287882,
+          "chord_over_chain": 0.48870805823431285
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.14625,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.529160219538454,
+          "chord_over_chain": 0.4520561083435049
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 1.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.17388925582549006,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4959388972991685,
+          "chord_over_chain": 0.472362602894272
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42790883239052846,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.021247900261552,
+          "chord_over_chain": 0.6461973975295477
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.2282087615033864,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.452704452811072,
+          "chord_over_chain": 0.5111694968175787
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5393511380700753,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8222218431452848,
+          "chord_over_chain": 0.7189869734183493
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.3055018407954653,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.308108625979966,
+          "chord_over_chain": 0.5677519008580941
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.4684712543347346,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9913673290460823,
+          "chord_over_chain": 0.6731215120290776
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.1968628171019984,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4815409818667904,
+          "chord_over_chain": 0.4886286629164944
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.569400355228089,
+          "chord_over_chain": 0.43227119554631754
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 2.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.17767766952966368,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4898801276940494,
+          "chord_over_chain": 0.4752269545216836
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42880345262837016,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.019427292740377,
+          "chord_over_chain": 0.6467529549636195
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.2257888343982124,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.456813057205829,
+          "chord_over_chain": 0.5093498931892131
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.534754793151853,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8332763517551762,
+          "chord_over_chain": 0.715826958517695
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.3008908108991051,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.3164908904278874,
+          "chord_over_chain": 0.5645127264310701
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.4660141788698243,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.996751131902225,
+          "chord_over_chain": 0.6716014579351114
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.19771529705254853,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.480141586247588,
+          "chord_over_chain": 0.489272157184688
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.15123456790123457,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5214146268702406,
+          "chord_over_chain": 0.4558237217431562
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 2.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.18078674030756364,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4848922636462123,
+          "chord_over_chain": 0.4775747987003732
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42874083800775914,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.019554769218835,
+          "chord_over_chain": 0.6467141595971796
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.2225839830135442,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4622398638696246,
+          "chord_over_chain": 0.5069394086877981
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5299149966865213,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8448360027797042,
+          "chord_over_chain": 0.7125340021920606
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.2966923012546613,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.324089465659461,
+          "chord_over_chain": 0.5615537340864903
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.4644315807355731,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.000210216208777,
+          "chord_over_chain": 0.6706230392178422
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.1994929310598063,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.477221174557912,
+          "chord_over_chain": 0.4906139177962816
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.3046913580246914,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.2651066146373884,
+          "chord_over_chain": 0.5675764403331289
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 3.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.18309698831278218,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.481177289650353,
+          "chord_over_chain": 0.4793163313576109
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.4277233947734508,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.02162512155754,
+          "chord_over_chain": 0.646082281488703
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.21871736799079322,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.468765922477937,
+          "chord_over_chain": 0.5040308913272067
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5250177393380538,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8564508853573467,
+          "chord_over_chain": 0.7092330355086839
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.29306765823321845,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.3306246979285743,
+          "chord_over_chain": 0.558988760362588
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.46378427829074903,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0016228358195725,
+          "chord_over_chain": 0.6702229798755999
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2021274056457814,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4728833848243053,
+          "chord_over_chain": 0.4926025335830505
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.56,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7333400689684768,
+          "chord_over_chain": 0.734670133909898
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 3.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.18451963201008076,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4788855999834882,
+          "chord_over_chain": 0.4803878349722393
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.4257902226983508,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.02555242617119,
+          "chord_over_chain": 0.644882673122628
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.2143375811768611,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4761308056950035,
+          "chord_over_chain": 0.5007346524574708
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5202512199599386,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8676777616361313,
+          "chord_over_chain": 0.7060485274271434
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.2901561748333675,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.335857774544112,
+          "chord_over_chain": 0.5569195695440152
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.46409714700529525,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0009401866779077,
+          "chord_over_chain": 0.6704163954502719
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.20551747942956522,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4672864872073936,
+          "chord_over_chain": 0.49515911544803226
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.8153086419753087,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.8962167548537245,
+          "chord_over_chain": 0.9164902970432315
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 4.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.185,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.478111381229685,
+          "chord_over_chain": 0.48074934933139485
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.4230156125011699,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.031173408839257,
+          "chord_over_chain": 0.6431630891079505
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.20961293532279454,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.48404394792535,
+          "chord_over_chain": 0.4971704047108869
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5157986132187817,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8780964490076513,
+          "chord_over_chain": 0.7031010134832462
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.28806973772938593,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.339599052954884,
+          "chord_over_chain": 0.5554314608613593
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.46535816350997056,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.998186015683852,
+          "chord_over_chain": 0.6711956259931837
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2095328737768222,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4606352581613127,
+          "chord_over_chain": 0.4981806316321606
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.9687654320987653,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 1.0000000939876963
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 4.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.18451963201008076,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4788855999834882,
+          "chord_over_chain": 0.4803878349722393
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.41950619089576646,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.038256576679679,
+          "chord_over_chain": 0.6409899873016661
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.20472499591915336,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.492193908422576,
+          "chord_over_chain": 0.49347238498299395
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5118310302945953,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8873261526714569,
+          "chord_over_chain": 0.7004969494958233
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.2868885275290924,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.341713752375937,
+          "chord_over_chain": 0.5545871847584287
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.4675188676476865,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9934561528522117,
+          "chord_over_chain": 0.6725318981654874
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.21401927933464635,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.453174577321019,
+          "chord_over_chain": 0.501546048052937
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 1.0000000939876963
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 5.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.18309698831278218,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.481177289650353,
+          "chord_over_chain": 0.4793163313576109
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.4153968229863298,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0465143129048338,
+          "chord_over_chain": 0.6384446658631755
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.19986160373603148,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.500268381606432,
+          "chord_over_chain": 0.48978530979401436
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5085009431741095,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.895033164570209,
+          "chord_over_chain": 0.6983256664515848
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.2866579374780538,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.3421262841922035,
+          "chord_over_chain": 0.5544221530412452
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.47049622477016745,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9869175396489576,
+          "chord_over_chain": 0.6743757409544406
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.21880428605345573,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4451845349807075,
+          "chord_over_chain": 0.5051253248847142
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.13971012256763599,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 0.9988198234814284
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 5.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.18078674030756364,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4848922636462123,
+          "chord_over_chain": 0.4775747987003732
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.4108454294770595,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0556144631530335,
+          "chord_over_chain": 0.6356228111859937
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.19520965620760455,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5079586124089075,
+          "chord_over_chain": 0.4862591396584108
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5059363252378304,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9009447233404095,
+          "chord_over_chain": 0.6966609973350998
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.2873868290226152,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.3408219830890693,
+          "chord_over_chain": 0.5549436234227066
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.47417581671291764,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.978802461513881,
+          "chord_over_chain": 0.6766619909105892
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.22370400880850913,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4369671634164995,
+          "chord_over_chain": 0.508785215866039
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.5259675202546297,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 0.9833863482023897
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 6.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.17767766952966368,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4898801276940494,
+          "chord_over_chain": 0.4752269545216836
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.4060269178680659,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0651971315769866,
+          "chord_over_chain": 0.6326299250180399
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.19094792506854777,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.514975267358747,
+          "chord_over_chain": 0.4830327173374241
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5042357333147948,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9048529140088206,
+          "chord_over_chain": 0.6955603366946554
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.2890471912694862,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.33784717659376,
+          "chord_over_chain": 0.5561292456270273
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.47841623882111606,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9694028654538462,
+          "chord_over_chain": 0.6793062922311497
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2285301540021261,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4288369090121003,
+          "chord_over_chain": 0.5123870085497058
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.6656776428222656,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 0.9735106452532019
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 6.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.17388925582549006,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4959388972991685,
+          "chord_over_chain": 0.472362602894272
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.4011264608582302,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.074888384271888,
+          "chord_over_chain": 0.6295842717184824
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.18724018625652875,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5210585917717467,
+          "chord_over_chain": 0.48022699040427286
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5034645201989021,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9066226653201361,
+          "chord_over_chain": 0.695061923899135
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.29157521742866144,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.3333091290251056,
+          "chord_over_chain": 0.5579289562442976
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48305453405120075,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9590624782087054,
+          "chord_over_chain": 0.6822081308747292
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.23309725558104927,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.421110685952668,
+          "chord_over_chain": 0.5157874156978368
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.6656776428222656,
+          "tip_lift": 0.09999999999999998,
+          "turns": 0.0,
+          "chord_over_chain": 0.9720996633375203
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 7.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16956708580912724,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5028266395532346,
+          "chord_over_chain": 0.46909356921576284
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.3963323802622325,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0843179923530366,
+          "chord_over_chain": 0.6266042794260436
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.18422892609476949,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5259845732583823,
+          "chord_over_chain": 0.4779469865146777
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5036523231776946,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9061918976516021,
+          "chord_over_chain": 0.6951833199312276
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.29487375687257716,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.3273713055922225,
+          "chord_over_chain": 0.5602680850255619
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48791245531866556,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9481652601959003,
+          "chord_over_chain": 0.6852585846486393
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.23722980239286073,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4140913711098566,
+          "chord_over_chain": 0.5188532845896228
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.6656776428222656,
+          "tip_lift": 0.2,
+          "turns": 0.0,
+          "chord_over_chain": 0.9701726551317642
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 7.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.1648772580504032,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5102709246166426,
+          "chord_over_chain": 0.4655493410770876
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.3918289099088255,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0931288702259017,
+          "chord_over_chain": 0.6237999279260072
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.18202986562255224,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5295738704343775,
+          "chord_over_chain": 0.4762801058978161
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5047919250880186,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9035754765125668,
+          "chord_over_chain": 0.6959199792963845
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.2988160485802459,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.3202496014152034,
+          "chord_over_chain": 0.5630519903203565
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.4928033154335554,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9371237016627665,
+          "chord_over_chain": 0.6883438481131847
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.24076898298114155,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.408058822066308,
+          "chord_over_chain": 0.5214688138098909
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.6656776428222656,
+          "tip_lift": 0.10000000000000003,
+          "turns": 0.0,
+          "chord_over_chain": 0.9720996633375203
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 8.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.3877891156381154,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.100995392530525,
+          "chord_over_chain": 0.621276005591645
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.180727513500577,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.531695622478845,
+          "chord_over_chain": 0.47529251016998847
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5068395316675564,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.89886501813387,
+          "chord_over_chain": 0.6972464759136648
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.30325059249220476,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.312205973476308,
+          "chord_over_chain": 0.5661715957704692
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.49753916138448095,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9263632958322785,
+          "chord_over_chain": 0.6913520414816289
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2435787886206794,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4032556976788446,
+          "chord_over_chain": 0.5235395127483471
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.6656776428222656,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 0.9735106452532019
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 8.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.1551227419495968,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.525654933941522,
+          "chord_over_chain": 0.4581820013242928
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.38436824447838297,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.107628895457355,
+          "chord_over_chain": 0.619132638285602
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.18037191839052377,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5322745659828314,
+          "chord_over_chain": 0.4750228367075864
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5097164545437672,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8922239777593164,
+          "chord_over_chain": 0.6991169119157213
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.30800697157283785,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.303538543620932,
+          "chord_over_chain": 0.569506472836082
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.5019379972674413,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9163067421222268,
+          "chord_over_chain": 0.6941658350669139
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.245551240056504,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.399876348080676,
+          "chord_over_chain": 0.5249904979383179
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.596769605576992,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 0.9786593452036555
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 9.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.15043291419087276,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.53300461159289,
+          "chord_over_chain": 0.454632883787036
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.38169775858984994,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.1127897041279917,
+          "chord_over_chain": 0.6174560356484483
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.18097674561305188,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5312898035917124,
+          "chord_over_chain": 0.4754813962418722
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5133121351839155,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8838863859754118,
+          "chord_over_chain": 0.7014667926526051
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.3129024008414847,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.2945733303893046,
+          "chord_over_chain": 0.5729210960782111
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.5058307782863497,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9073574831176365,
+          "chord_over_chain": 0.6966694802747192
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.24661053708610012,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.398059205043381,
+          "chord_over_chain": 0.5257689882038634
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.3328388214111328,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 0.993316710592832
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 9.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.14611074417450995,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5397507036654687,
+          "chord_over_chain": 0.4513594003188164
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.37988028324758694,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.116293239476756,
+          "chord_over_chain": 0.6163136542547237
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.18251875199719061,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5287764869044755,
+          "chord_over_chain": 0.4766507344475687
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5174883935974811,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8741504695935665,
+          "chord_over_chain": 0.7042161772429889
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.3177487516967395,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.285652832595174,
+          "chord_over_chain": 0.5762788874849217
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.5090679070497464,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8998790752520127,
+          "chord_over_chain": 0.6987613011647925
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.246715971518681,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.3978782316673817,
+          "chord_over_chain": 0.5258463188146852
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.06890803724527358,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 0.9997129324827507
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 10.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.14232233047033632,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5456430015317055,
+          "chord_over_chain": 0.44849142416349413
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.37898566300974523,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.118015326046611,
+          "chord_over_chain": 0.615751136754962
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.1849386791023646,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5248251071391414,
+          "chord_over_chain": 0.4784843118039867
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5220847385157034,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8633680125450898,
+          "chord_over_chain": 0.7072700593516614
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32235978159309964,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.277122797432645,
+          "chord_over_chain": 0.5794526364001522
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.5115249825146566,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.89418030564414,
+          "chord_over_chain": 0.700355894116397
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.24586349156813087,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.399340898526482,
+          "chord_over_chain": 0.5252198881876321
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 1.0000000939876963
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 10.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.13921325969243636,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5504642577276413,
+          "chord_over_chain": 0.44614079392348416
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.37904827763035626,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.1178948483055438,
+          "chord_over_chain": 0.6157904072652284
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.1881435304870328,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5195786462781298,
+          "chord_over_chain": 0.4809103635664468
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5269245349810351,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8519380973838413,
+          "chord_over_chain": 0.7105148339199702
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.3265582912375435,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.2693201519758146,
+          "chord_over_chain": 0.5823275337686568
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.5131075806489078,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.89049913049558,
+          "chord_over_chain": 0.7013862393170522
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.24408585756087312,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.402387454256098,
+          "chord_over_chain": 0.5239125288502585
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.9795275777949664,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 1.0000000939876963
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 11.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.13690301168721783,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5540387034745513,
+          "chord_over_chain": 0.4443964418112232
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.3800657208646646,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.1159360987413307,
+          "chord_over_chain": 0.6164303465701381
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.1920101455097838,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5132292860203576,
+          "chord_over_chain": 0.4838363342345488
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5318217923295026,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.840291509918592,
+          "chord_over_chain": 0.7138275705038889
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.33018293425898626,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.262555501933782,
+          "chord_over_chain": 0.5848013951716896
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.513754883093732,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8889913624873884,
+          "chord_over_chain": 0.7018081444057491
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.24145138297489802,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4068932877793556,
+          "chord_over_chain": 0.5219722809966867
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.8726625810674125,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.5684972571052622,
+          "chord_over_chain": 0.9618141222105117
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 11.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.13548036798991925,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5562353959629527,
+          "chord_over_chain": 0.4433236469616635
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.38199889293976463,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.112208454035545,
+          "chord_over_chain": 0.6176450608728182
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.19638993232371588,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5060104673716816,
+          "chord_over_chain": 0.4871532198945818
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5365883117076178,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8288757726372415,
+          "chord_over_chain": 0.717083314713008
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.33309441765883724,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.257103052020594,
+          "chord_over_chain": 0.586783025842862
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.5134420143791857,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8897202388086134,
+          "chord_over_chain": 0.7016043059648749
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2380613091911142,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4126756001628054,
+          "chord_over_chain": 0.5194688138695063
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.6762634616528826,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.4166025561591875,
+          "chord_over_chain": 0.8286100903496836
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 12.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.135,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5569766733412056,
+          "chord_over_chain": 0.4429614639967064
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.38477350313694547,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.106844305213585,
+          "chord_over_chain": 0.6193870243398586
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.2011145781777825,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.498191196158695,
+          "chord_over_chain": 0.4907356489490744
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5410409184487747,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8181386766050065,
+          "chord_over_chain": 0.7201578153363167
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.33518085476281884,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.253184870821749,
+          "chord_over_chain": 0.5881993294237887
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.5121809978745104,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.892655537413634,
+          "chord_over_chain": 0.7007825476846711
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.23404591484385723,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4195015148402335,
+          "chord_over_chain": 0.5164924722090429
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.44373653834711724,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9961101186615582,
+          "chord_over_chain": 0.656414583798305
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 12.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.13548036798991925,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5562353959629527,
+          "chord_over_chain": 0.4433236469616635
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.38828292474234893,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.10003562264893,
+          "chord_over_chain": 0.6215850065313585
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.20600251758142366,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.490067727262464,
+          "chord_over_chain": 0.4944397415070151
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5450085013729611,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8085110509664055,
+          "chord_over_chain": 0.7229241740423435
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.3363620649631124,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.250963301937756,
+          "chord_over_chain": 0.5889995149753342
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.5100202937367945,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8976721889109893,
+          "chord_over_chain": 0.6993788192497823
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.22955950928603303,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.427098605311779,
+          "chord_over_chain": 0.5131541238729496
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.24733741893258776,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.3651365345104565,
+          "chord_over_chain": 0.5272922888873064
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 13.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.13690301168721783,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5540387034745513,
+          "chord_over_chain": 0.4443964418112232
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.3923922926517856,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.092029076741764,
+          "chord_over_chain": 0.6241509510058184
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.21086590976454556,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4819482253593113,
+          "chord_over_chain": 0.49811685511745885
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5483385884934469,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.800385926689573,
+          "chord_over_chain": 0.7252642577531715
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.336592655014151,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.2505291302323127,
+          "chord_over_chain": 0.5891558354515487
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.5070429366143134,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9045608796785283,
+          "chord_over_chain": 0.6974518227810521
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2247745025672237,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.435166546186695,
+          "chord_over_chain": 0.5095847520227867
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.1404724222050332,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.538096680192056,
+          "chord_over_chain": 0.4476910704065236
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 13.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.13921325969243636,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5504642577276413,
+          "chord_over_chain": 0.44614079392348416
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.3969436861610559,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.083118400232435,
+          "chord_over_chain": 0.6269844070089775
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.21551785729297246,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4741492721278355,
+          "chord_over_chain": 0.5016233197021163
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.550903206429726,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7941004579235476,
+          "chord_over_chain": 0.7270773165153382
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.33586376346958957,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.2519009847085036,
+          "chord_over_chain": 0.588662203918398
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.5033633446715633,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9130356901227534,
+          "chord_over_chain": 0.6950809771602483
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2198747798121703,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.44339257169464,
+          "chord_over_chain": 0.5059252407339333
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.569400355228089,
+          "chord_over_chain": 0.43227119554631754
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 14.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.14232233047033632,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5456430015317055,
+          "chord_over_chain": 0.44849142416349413
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.4017621977700495,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.073634332151304,
+          "chord_over_chain": 0.6299794535962318
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.21977958843202922,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4669757006014748,
+          "chord_over_chain": 0.504830055388555
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5526037983527616,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.78991885981389,
+          "chord_over_chain": 0.7282850256398616
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.3342034012227186,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.2550212075966614,
+          "chord_over_chain": 0.5875364705320915
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.49912292256336493,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.922749250316502,
+          "chord_over_chain": 0.6923630847806889
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.21504863461855334,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.451458588261328,
+          "chord_over_chain": 0.5023167128273651
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.569400355228089,
+          "chord_over_chain": 0.43227119554631754
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 14.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.14611074417450995,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5397507036654687,
+          "chord_over_chain": 0.4513594003188164
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.4066626547798852,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.06393559877374,
+          "chord_over_chain": 0.6330248854215595
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.22348732724404827,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4607118516414475,
+          "chord_over_chain": 0.5076187012757616
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5533750114686543,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.788019083576324,
+          "chord_over_chain": 0.7288344219180092
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.33167537506354333,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.2597621915954615,
+          "chord_over_chain": 0.5858182148918867
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.4944846273332802,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9333113428184274,
+          "chord_over_chain": 0.6894091064887817
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.21048153303963013,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4590598993796364,
+          "chord_over_chain": 0.4988931837336979
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.569400355228089,
+          "chord_over_chain": 0.43227119554631754
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 15.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.15043291419087274,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.53300461159289,
+          "chord_over_chain": 0.454632883787036
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.41145673537588295,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.054395223434208,
+          "chord_over_chain": 0.6360017602567194
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.22649858740580753,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4556093222500373,
+          "chord_over_chain": 0.5098834025933295
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5531872084898618,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.788481891085118,
+          "chord_over_chain": 0.7287003561331524
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32837683561962766,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.265928973411991,
+          "chord_over_chain": 0.5835697011499537
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48962670606581543,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9443033913683079,
+          "chord_over_chain": 0.6863377800236523
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.20634898622781866,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.465911242738733,
+          "chord_over_chain": 0.49578545476013053
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.569400355228089,
+          "chord_over_chain": 0.43227119554631754
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 15.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.1551227419495968,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.525654933941522,
+          "chord_over_chain": 0.4581820013242928
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.41596020572928993,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0453843257249034,
+          "chord_over_chain": 0.6387941001242127
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.22869764787802477,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4518736090352915,
+          "chord_over_chain": 0.5115368595304584
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5520476065795379,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.791287700221493,
+          "chord_over_chain": 0.7278893184255806
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.3244345439119588,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.273271122845034,
+          "chord_over_chain": 0.5808747170178007
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48473584595092556,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.95529880059875,
+          "chord_over_chain": 0.6832628015913592
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.20280980563953785,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4717583057253596,
+          "chord_over_chain": 0.49311741269277554
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.569400355228089,
+          "chord_over_chain": 0.43227119554631754
+        }
+      ]
+    },
+    {
+      "clip": "ProbeTouch",
+      "time": 16.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.16,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.517978976086985,
+          "chord_over_chain": 0.4618671452159578
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.569400355228089,
+          "chord_over_chain": 0.43227119554631754
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 0.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 1.0,
+          "sag": 0.6656776428222656,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 0.9735106452532019
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.569400355228089,
+          "chord_over_chain": 0.43227119554631754
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 0.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 1.0,
+          "sag": 0.596769605576992,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 0.9786593452036555
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.4234208711597325,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.030353713434442,
+          "chord_over_chain": 0.6434141955869284
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23035559511005324,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449052884810187,
+          "chord_over_chain": 0.5127822037962538
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5471230771237892,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8033563502565988,
+          "chord_over_chain": 0.72440817042315
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.31524362091936686,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.2902693700898102,
+          "chord_over_chain": 0.5745463337617626
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.4756011641170397,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.97564856775545,
+          "chord_over_chain": 0.6775494125917353
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.19802754856417543,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4796289373152973,
+          "chord_over_chain": 0.48950785508689715
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.14625,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.529160219538454,
+          "chord_over_chain": 0.4520561083435049
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 1.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 1.0,
+          "sag": 0.3328388214111328,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 0.993316710592832
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.4260913570482655,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0249414001454347,
+          "chord_over_chain": 0.645069602976565
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.2297507678875251,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4500826982756045,
+          "chord_over_chain": 0.5123279612045626
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5435273964836409,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8121117471403,
+          "chord_over_chain": 0.7218886998656873
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.3103481916507201,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.2992568560441233,
+          "chord_over_chain": 0.5711417804830163
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.47170838309813123,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9842483331262009,
+          "chord_over_chain": 0.6751282162375464
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.1969682515345793,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.481367931287882,
+          "chord_over_chain": 0.48870805823431285
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.14625,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.529160219538454,
+          "chord_over_chain": 0.4520561083435049
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 1.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 1.0,
+          "sag": 0.06890803724527358,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 0.9997129324827507
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42790883239052846,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.021247900261552,
+          "chord_over_chain": 0.6461973975295477
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.2282087615033864,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.452704452811072,
+          "chord_over_chain": 0.5111694968175787
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5393511380700753,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8222218431452848,
+          "chord_over_chain": 0.7189869734183493
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.3055018407954653,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.308108625979966,
+          "chord_over_chain": 0.5677519008580941
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.4684712543347346,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9913673290460823,
+          "chord_over_chain": 0.6731215120290776
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.1968628171019984,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4815409818667904,
+          "chord_over_chain": 0.4886286629164944
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.569400355228089,
+          "chord_over_chain": 0.43227119554631754
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 2.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 1.0,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 1.0000000939876963
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42880345262837016,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.019427292740377,
+          "chord_over_chain": 0.6467529549636195
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.2257888343982124,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.456813057205829,
+          "chord_over_chain": 0.5093498931892131
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.534754793151853,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8332763517551762,
+          "chord_over_chain": 0.715826958517695
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.3008908108991051,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.3164908904278874,
+          "chord_over_chain": 0.5645127264310701
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.4660141788698243,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.996751131902225,
+          "chord_over_chain": 0.6716014579351114
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.19771529705254853,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.480141586247588,
+          "chord_over_chain": 0.489272157184688
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.15123456790123457,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5214146268702406,
+          "chord_over_chain": 0.4558237217431562
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 2.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.9795275777949664,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 1.0000000939876963
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42874083800775914,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.019554769218835,
+          "chord_over_chain": 0.6467141595971796
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.2225839830135442,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4622398638696246,
+          "chord_over_chain": 0.5069394086877981
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5299149966865213,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8448360027797042,
+          "chord_over_chain": 0.7125340021920606
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.2966923012546613,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.324089465659461,
+          "chord_over_chain": 0.5615537340864903
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.4644315807355731,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.000210216208777,
+          "chord_over_chain": 0.6706230392178422
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.1994929310598063,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.477221174557912,
+          "chord_over_chain": 0.4906139177962816
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.3046913580246914,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.2651066146373884,
+          "chord_over_chain": 0.5675764403331289
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 3.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.8726625810674125,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.5699652444792566,
+          "chord_over_chain": 0.9616965743156912
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.4277233947734508,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.02162512155754,
+          "chord_over_chain": 0.646082281488703
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.21871736799079322,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.468765922477937,
+          "chord_over_chain": 0.5040308913272067
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5250177393380538,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8564508853573467,
+          "chord_over_chain": 0.7092330355086839
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.29306765823321845,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.3306246979285743,
+          "chord_over_chain": 0.558988760362588
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.46378427829074903,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0016228358195725,
+          "chord_over_chain": 0.6702229798755999
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2021274056457814,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4728833848243053,
+          "chord_over_chain": 0.4926025335830505
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.56,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7333400689684768,
+          "chord_over_chain": 0.734670133909898
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 3.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.6762634616528826,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.4216957303550786,
+          "chord_over_chain": 0.8283869273869815
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.4257902226983508,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.02555242617119,
+          "chord_over_chain": 0.644882673122628
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.2143375811768611,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4761308056950035,
+          "chord_over_chain": 0.5007346524574708
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5202512199599386,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8676777616361313,
+          "chord_over_chain": 0.7060485274271434
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.2901561748333675,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.335857774544112,
+          "chord_over_chain": 0.5569195695440152
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.46409714700529525,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0009401866779077,
+          "chord_over_chain": 0.6704163954502719
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.20551747942956522,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4672864872073936,
+          "chord_over_chain": 0.49515911544803226
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.8153086419753087,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.8962167548537245,
+          "chord_over_chain": 0.9164902970432315
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 4.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.44373653834711724,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0039164696440843,
+          "chord_over_chain": 0.6566941510154205
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.4230156125011699,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.031173408839257,
+          "chord_over_chain": 0.6431630891079505
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.20961293532279454,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.48404394792535,
+          "chord_over_chain": 0.4971704047108869
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5157986132187817,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8780964490076513,
+          "chord_over_chain": 0.7031010134832462
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.28806973772938593,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.339599052954884,
+          "chord_over_chain": 0.5554314608613593
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.46535816350997056,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.998186015683852,
+          "chord_over_chain": 0.6711956259931837
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2095328737768222,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4606352581613127,
+          "chord_over_chain": 0.4981806316321606
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.9687654320987653,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 1.0000000939876963
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 4.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.24733741893258776,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.3747128581359145,
+          "chord_over_chain": 0.5270245155722224
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.41950619089576646,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.038256576679679,
+          "chord_over_chain": 0.6409899873016661
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.20472499591915336,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.492193908422576,
+          "chord_over_chain": 0.49347238498299395
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5118310302945953,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8873261526714569,
+          "chord_over_chain": 0.7004969494958233
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.2868885275290924,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.341713752375937,
+          "chord_over_chain": 0.5545871847584287
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.4675188676476865,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9934561528522117,
+          "chord_over_chain": 0.6725318981654874
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.21401927933464635,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.453174577321019,
+          "chord_over_chain": 0.501546048052937
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 1.0000000939876963
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 5.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.1404724222050332,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5485137868849677,
+          "chord_over_chain": 0.44709207003086576
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.4153968229863298,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0465143129048338,
+          "chord_over_chain": 0.6384446658631755
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.19986160373603148,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.500268381606432,
+          "chord_over_chain": 0.48978530979401436
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5085009431741095,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.895033164570209,
+          "chord_over_chain": 0.6983256664515848
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.2866579374780538,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.3421262841922035,
+          "chord_over_chain": 0.5544221530412452
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.47049622477016745,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9869175396489576,
+          "chord_over_chain": 0.6743757409544406
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.21880428605345573,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4451845349807075,
+          "chord_over_chain": 0.5051253248847142
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.13971012256763599,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 0.9988198234814284
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 5.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5799699912787584,
+          "chord_over_chain": 0.4316566044100081
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.4108454294770595,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0556144631530335,
+          "chord_over_chain": 0.6356228111859937
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.19520965620760455,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5079586124089075,
+          "chord_over_chain": 0.4862591396584108
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5059363252378304,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9009447233404095,
+          "chord_over_chain": 0.6966609973350998
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.2873868290226152,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.3408219830890693,
+          "chord_over_chain": 0.5549436234227066
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.47417581671291764,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.978802461513881,
+          "chord_over_chain": 0.6766619909105892
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.22370400880850913,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4369671634164995,
+          "chord_over_chain": 0.508785215866039
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.5259675202546297,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 0.9833863482023897
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 6.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5799699912787584,
+          "chord_over_chain": 0.4316566044100081
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.4060269178680659,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0651971315769866,
+          "chord_over_chain": 0.6326299250180399
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.19094792506854777,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.514975267358747,
+          "chord_over_chain": 0.4830327173374241
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5042357333147948,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9048529140088206,
+          "chord_over_chain": 0.6955603366946554
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.2890471912694862,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.33784717659376,
+          "chord_over_chain": 0.5561292456270273
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.47841623882111606,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9694028654538462,
+          "chord_over_chain": 0.6793062922311497
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2285301540021261,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4288369090121003,
+          "chord_over_chain": 0.5123870085497058
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.6656776428222656,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 0.9735106452532019
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 6.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5799699912787584,
+          "chord_over_chain": 0.4316566044100081
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.4011264608582302,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.074888384271888,
+          "chord_over_chain": 0.6295842717184824
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.18724018625652875,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5210585917717467,
+          "chord_over_chain": 0.48022699040427286
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5034645201989021,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9066226653201361,
+          "chord_over_chain": 0.695061923899135
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.29157521742866144,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.3333091290251056,
+          "chord_over_chain": 0.5579289562442976
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48305453405120075,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9590624782087054,
+          "chord_over_chain": 0.6822081308747292
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.23309725558104927,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.421110685952668,
+          "chord_over_chain": 0.5157874156978368
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.6656776428222656,
+          "tip_lift": 0.09999999999999998,
+          "turns": 0.0,
+          "chord_over_chain": 0.9720996633375203
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 7.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5799699912787584,
+          "chord_over_chain": 0.4316566044100081
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.3963323802622325,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0843179923530366,
+          "chord_over_chain": 0.6266042794260436
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.18422892609476949,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5259845732583823,
+          "chord_over_chain": 0.4779469865146777
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5036523231776946,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9061918976516021,
+          "chord_over_chain": 0.6951833199312276
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.29487375687257716,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.3273713055922225,
+          "chord_over_chain": 0.5602680850255619
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48791245531866556,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9481652601959003,
+          "chord_over_chain": 0.6852585846486393
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.23722980239286073,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4140913711098566,
+          "chord_over_chain": 0.5188532845896228
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.6656776428222656,
+          "tip_lift": 0.2,
+          "turns": 0.0,
+          "chord_over_chain": 0.9701726551317642
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 7.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5799699912787584,
+          "chord_over_chain": 0.4316566044100081
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.3918289099088255,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0931288702259017,
+          "chord_over_chain": 0.6237999279260072
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.18202986562255224,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5295738704343775,
+          "chord_over_chain": 0.4762801058978161
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5047919250880186,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9035754765125668,
+          "chord_over_chain": 0.6959199792963845
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.2988160485802459,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.3202496014152034,
+          "chord_over_chain": 0.5630519903203565
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.4928033154335554,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9371237016627665,
+          "chord_over_chain": 0.6883438481131847
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.24076898298114155,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.408058822066308,
+          "chord_over_chain": 0.5214688138098909
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.6656776428222656,
+          "tip_lift": 0.10000000000000003,
+          "turns": 0.0,
+          "chord_over_chain": 0.9720996633375203
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 8.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5799699912787584,
+          "chord_over_chain": 0.4316566044100081
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.3877891156381154,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.100995392530525,
+          "chord_over_chain": 0.621276005591645
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.180727513500577,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.531695622478845,
+          "chord_over_chain": 0.47529251016998847
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5068395316675564,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.89886501813387,
+          "chord_over_chain": 0.6972464759136648
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.30325059249220476,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.312205973476308,
+          "chord_over_chain": 0.5661715957704692
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.49753916138448095,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9263632958322785,
+          "chord_over_chain": 0.6913520414816289
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2435787886206794,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4032556976788446,
+          "chord_over_chain": 0.5235395127483471
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.6656776428222656,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 0.9735106452532019
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 8.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.14625,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5395338073199767,
+          "chord_over_chain": 0.45146477774461663
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.38436824447838297,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.107628895457355,
+          "chord_over_chain": 0.619132638285602
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.18037191839052377,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5322745659828314,
+          "chord_over_chain": 0.4750228367075864
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5097164545437672,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8922239777593164,
+          "chord_over_chain": 0.6991169119157213
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.30800697157283785,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.303538543620932,
+          "chord_over_chain": 0.569506472836082
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.5019379972674413,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9163067421222268,
+          "chord_over_chain": 0.6941658350669139
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.245551240056504,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.399876348080676,
+          "chord_over_chain": 0.5249904979383179
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.596769605576992,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 0.9786593452036555
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 9.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.14625,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5395338073199767,
+          "chord_over_chain": 0.45146477774461663
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.38169775858984994,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.1127897041279917,
+          "chord_over_chain": 0.6174560356484483
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.18097674561305188,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5312898035917124,
+          "chord_over_chain": 0.4754813962418722
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5133121351839155,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8838863859754118,
+          "chord_over_chain": 0.7014667926526051
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.3129024008414847,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.2945733303893046,
+          "chord_over_chain": 0.5729210960782111
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.5058307782863497,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9073574831176365,
+          "chord_over_chain": 0.6966694802747192
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.24661053708610012,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.398059205043381,
+          "chord_over_chain": 0.5257689882038634
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.3328388214111328,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 0.993316710592832
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 9.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5799699912787584,
+          "chord_over_chain": 0.4316566044100081
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.37988028324758694,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.116293239476756,
+          "chord_over_chain": 0.6163136542547237
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.18251875199719061,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5287764869044755,
+          "chord_over_chain": 0.4766507344475687
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5174883935974811,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8741504695935665,
+          "chord_over_chain": 0.7042161772429889
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.3177487516967395,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.285652832595174,
+          "chord_over_chain": 0.5762788874849217
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.5090679070497464,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8998790752520127,
+          "chord_over_chain": 0.6987613011647925
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.246715971518681,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.3978782316673817,
+          "chord_over_chain": 0.5258463188146852
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.06890803724527358,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 0.9997129324827507
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 10.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.15123456790123457,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5317505034922734,
+          "chord_over_chain": 0.4552399393900538
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.37898566300974523,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.118015326046611,
+          "chord_over_chain": 0.615751136754962
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.1849386791023646,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5248251071391414,
+          "chord_over_chain": 0.4784843118039867
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5220847385157034,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8633680125450898,
+          "chord_over_chain": 0.7072700593516614
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32235978159309964,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.277122797432645,
+          "chord_over_chain": 0.5794526364001522
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.5115249825146566,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.89418030564414,
+          "chord_over_chain": 0.700355894116397
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.24586349156813087,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.399340898526482,
+          "chord_over_chain": 0.5252198881876321
+        },
+        {
+          "arm": "R_IV",
+          "extension": 1.0,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 1.0000000939876963
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 10.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.3046913580246914,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.2741976800136374,
+          "chord_over_chain": 0.5675789402914505
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.37904827763035626,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.1178948483055438,
+          "chord_over_chain": 0.6157904072652284
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.1881435304870328,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5195786462781298,
+          "chord_over_chain": 0.4809103635664468
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5269245349810351,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8519380973838413,
+          "chord_over_chain": 0.7105148339199702
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.3265582912375435,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.2693201519758146,
+          "chord_over_chain": 0.5823275337686568
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.5131075806489078,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.89049913049558,
+          "chord_over_chain": 0.7013862393170522
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.24408585756087312,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.402387454256098,
+          "chord_over_chain": 0.5239125288502585
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.9795275777949664,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 1.0000000939876963
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 11.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.56,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.739912410817864,
+          "chord_over_chain": 0.7344963203452659
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.3800657208646646,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.1159360987413307,
+          "chord_over_chain": 0.6164303465701381
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.1920101455097838,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5132292860203576,
+          "chord_over_chain": 0.4838363342345488
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5318217923295026,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.840291509918592,
+          "chord_over_chain": 0.7138275705038889
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.33018293425898626,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.262555501933782,
+          "chord_over_chain": 0.5848013951716896
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.513754883093732,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8889913624873884,
+          "chord_over_chain": 0.7018081444057491
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.24145138297489802,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4068932877793556,
+          "chord_over_chain": 0.5219722809966867
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.8726625810674125,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.5684972571052622,
+          "chord_over_chain": 0.9618141222105117
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 11.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.8153086419753087,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.8989722412511857,
+          "chord_over_chain": 0.9165374289846482
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.38199889293976463,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.112208454035545,
+          "chord_over_chain": 0.6176450608728182
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.19638993232371588,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.5060104673716816,
+          "chord_over_chain": 0.4871532198945818
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5365883117076178,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8288757726372415,
+          "chord_over_chain": 0.717083314713008
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.33309441765883724,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.257103052020594,
+          "chord_over_chain": 0.586783025842862
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.5134420143791857,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8897202388086134,
+          "chord_over_chain": 0.7016043059648749
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2380613091911142,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4126756001628054,
+          "chord_over_chain": 0.5194688138695063
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.6762634616528826,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.4166025561591875,
+          "chord_over_chain": 0.8286100903496836
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 12.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 0.9687654320987653,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 1.0000000939876963
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.38477350313694547,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.106844305213585,
+          "chord_over_chain": 0.6193870243398586
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.2011145781777825,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.498191196158695,
+          "chord_over_chain": 0.4907356489490744
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5410409184487747,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8181386766050065,
+          "chord_over_chain": 0.7201578153363167
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.33518085476281884,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.253184870821749,
+          "chord_over_chain": 0.5881993294237887
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.5121809978745104,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.892655537413634,
+          "chord_over_chain": 0.7007825476846711
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.23404591484385723,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4195015148402335,
+          "chord_over_chain": 0.5164924722090429
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.44373653834711724,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9961101186615582,
+          "chord_over_chain": 0.656414583798305
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 12.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 1.0,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 1.0000000939876963
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.38828292474234893,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.10003562264893,
+          "chord_over_chain": 0.6215850065313585
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.20600251758142366,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.490067727262464,
+          "chord_over_chain": 0.4944397415070151
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5450085013729611,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8085110509664055,
+          "chord_over_chain": 0.7229241740423435
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.3363620649631124,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.250963301937756,
+          "chord_over_chain": 0.5889995149753342
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.5100202937367945,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.8976721889109893,
+          "chord_over_chain": 0.6993788192497823
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.22955950928603303,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.427098605311779,
+          "chord_over_chain": 0.5131541238729496
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.24733741893258776,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.3651365345104565,
+          "chord_over_chain": 0.5272922888873064
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 13.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 1.0,
+          "sag": 0.13971012256763599,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 0.9988198234814284
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.3923922926517856,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.092029076741764,
+          "chord_over_chain": 0.6241509510058184
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.21086590976454556,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4819482253593113,
+          "chord_over_chain": 0.49811685511745885
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5483385884934469,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.800385926689573,
+          "chord_over_chain": 0.7252642577531715
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.336592655014151,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.2505291302323127,
+          "chord_over_chain": 0.5891558354515487
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.5070429366143134,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9045608796785283,
+          "chord_over_chain": 0.6974518227810521
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2247745025672237,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.435166546186695,
+          "chord_over_chain": 0.5095847520227867
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.1404724222050332,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.538096680192056,
+          "chord_over_chain": 0.4476910704065236
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 13.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 1.0,
+          "sag": 0.5259675202546297,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 0.9833863482023897
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.3969436861610559,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.083118400232435,
+          "chord_over_chain": 0.6269844070089775
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.21551785729297246,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4741492721278355,
+          "chord_over_chain": 0.5016233197021163
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.550903206429726,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7941004579235476,
+          "chord_over_chain": 0.7270773165153382
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.33586376346958957,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.2519009847085036,
+          "chord_over_chain": 0.588662203918398
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.5033633446715633,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9130356901227534,
+          "chord_over_chain": 0.6950809771602483
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2198747798121703,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.44339257169464,
+          "chord_over_chain": 0.5059252407339333
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.569400355228089,
+          "chord_over_chain": 0.43227119554631754
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 14.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 1.0,
+          "sag": 0.6656776428222656,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 0.9735106452532019
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.4017621977700495,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.073634332151304,
+          "chord_over_chain": 0.6299794535962318
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.21977958843202922,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4669757006014748,
+          "chord_over_chain": 0.504830055388555
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5526037983527616,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.78991885981389,
+          "chord_over_chain": 0.7282850256398616
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.3342034012227186,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.2550212075966614,
+          "chord_over_chain": 0.5875364705320915
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.49912292256336493,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.922749250316502,
+          "chord_over_chain": 0.6923630847806889
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.21504863461855334,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.451458588261328,
+          "chord_over_chain": 0.5023167128273651
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.569400355228089,
+          "chord_over_chain": 0.43227119554631754
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 14.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 1.0,
+          "sag": 0.6656776428222656,
+          "tip_lift": 0.09999999999999998,
+          "turns": 0.0,
+          "chord_over_chain": 0.9720996633375203
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.4066626547798852,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.06393559877374,
+          "chord_over_chain": 0.6330248854215595
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.22348732724404827,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4607118516414475,
+          "chord_over_chain": 0.5076187012757616
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5533750114686543,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.788019083576324,
+          "chord_over_chain": 0.7288344219180092
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.33167537506354333,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.2597621915954615,
+          "chord_over_chain": 0.5858182148918867
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.4944846273332802,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9333113428184274,
+          "chord_over_chain": 0.6894091064887817
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.21048153303963013,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4590598993796364,
+          "chord_over_chain": 0.4988931837336979
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.569400355228089,
+          "chord_over_chain": 0.43227119554631754
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 15.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 1.0,
+          "sag": 0.6656776428222656,
+          "tip_lift": 0.2,
+          "turns": 0.0,
+          "chord_over_chain": 0.9701726551317642
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.41145673537588295,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.054395223434208,
+          "chord_over_chain": 0.6360017602567194
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.22649858740580753,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4556093222500373,
+          "chord_over_chain": 0.5098834025933295
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5531872084898618,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.788481891085118,
+          "chord_over_chain": 0.7287003561331524
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32837683561962766,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.265928973411991,
+          "chord_over_chain": 0.5835697011499537
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48962670606581543,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.9443033913683079,
+          "chord_over_chain": 0.6863377800236523
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.20634898622781866,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.465911242738733,
+          "chord_over_chain": 0.49578545476013053
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.569400355228089,
+          "chord_over_chain": 0.43227119554631754
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 15.5,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 1.0,
+          "sag": 0.6656776428222656,
+          "tip_lift": 0.10000000000000003,
+          "turns": 0.0,
+          "chord_over_chain": 0.9720996633375203
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.41596020572928993,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0453843257249034,
+          "chord_over_chain": 0.6387941001242127
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.22869764787802477,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4518736090352915,
+          "chord_over_chain": 0.5115368595304584
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.5520476065795379,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.791287700221493,
+          "chord_over_chain": 0.7278893184255806
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.3244345439119588,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.273271122845034,
+          "chord_over_chain": 0.5808747170178007
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48473584595092556,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.95529880059875,
+          "chord_over_chain": 0.6832628015913592
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.20280980563953785,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4717583057253596,
+          "chord_over_chain": 0.49311741269277554
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.569400355228089,
+          "chord_over_chain": 0.43227119554631754
+        }
+      ]
+    },
+    {
+      "clip": "AlternatingTouch",
+      "time": 16.0,
+      "arms": [
+        {
+          "arm": "L_IV",
+          "extension": 1.0,
+          "sag": 0.6656776428222656,
+          "tip_lift": 0.0,
+          "turns": 0.0,
+          "chord_over_chain": 0.9735106452532019
+        },
+        {
+          "arm": "L_III",
+          "extension": 0.42,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.0372618623866097,
+          "chord_over_chain": 0.6412956074875426
+        },
+        {
+          "arm": "L_II",
+          "extension": 0.23,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.449658459123496,
+          "chord_over_chain": 0.5125150863438621
+        },
+        {
+          "arm": "L_I",
+          "extension": 0.55,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.7963167661576736,
+          "chord_over_chain": 0.7264376636911402
+        },
+        {
+          "arm": "R_I",
+          "extension": 0.32,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.281493766015508,
+          "chord_over_chain": 0.5778306941857859
+        },
+        {
+          "arm": "R_II",
+          "extension": 0.48,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 1.965879123374977,
+          "chord_over_chain": 0.6802959377773861
+        },
+        {
+          "arm": "R_III",
+          "extension": 0.2,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.4763868413982135,
+          "chord_over_chain": 0.4909968531425189
+        },
+        {
+          "arm": "R_IV",
+          "extension": 0.12,
+          "sag": 0.0,
+          "tip_lift": 0.0,
+          "turns": 2.569400355228089,
+          "chord_over_chain": 0.43227119554631754
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Authored reference-informed reach/contact sequence; not motion capture",
+    "Root stationary; no locomotion or suction physics",
+    "Distal arm skin thickened and caps shortened; cups translated to support; original topology/UV/weights/rest bones preserved"
+  ],
+  "baseline_source_sha256": "fd7122d6b8fdd3ef6f3d62422edbd5a3e9d50a2c9a48f54fea036d5c28c14ea5",
+  "changed_clip": "TightRoll",
+  "changed_arm": "R_IV",
+  "factor": 1.09,
+  "modified_bones": [
+    "R_IV_01",
+    "R_IV_02",
+    "R_IV_03",
+    "R_IV_04",
+    "R_IV_05",
+    "R_IV_06",
+    "R_IV_07",
+    "R_IV_08",
+    "R_IV_09",
+    "R_IV_10",
+    "R_IV_11",
+    "R_IV_12",
+    "R_IV_13",
+    "R_IV_14",
+    "R_IV_15",
+    "R_IV_16",
+    "R_IV_17",
+    "R_IV_18",
+    "R_IV_19",
+    "R_IV_20",
+    "R_IV_21",
+    "R_IV_22",
+    "R_IV_23",
+    "R_IV_24",
+    "R_IV_25",
+    "R_IV_26",
+    "R_IV_27",
+    "R_IV_28",
+    "R_IV_29",
+    "R_IV_30",
+    "R_IV_31",
+    "R_IV_32",
+    "R_IV_33",
+    "R_IV_34",
+    "R_IV_35",
+    "R_IV_36",
+    "R_IV_37",
+    "R_IV_38",
+    "R_IV_39",
+    "R_IV_40",
+    "R_IV_41",
+    "R_IV_42",
+    "R_IV_43",
+    "R_IV_44",
+    "R_IV_45",
+    "R_IV_46",
+    "R_IV_47",
+    "R_IV_48",
+    "R_IV_49",
+    "R_IV_50",
+    "R_IV_51",
+    "R_IV_52",
+    "R_IV_53",
+    "R_IV_54",
+    "R_IV_55",
+    "R_IV_56",
+    "R_IV_57",
+    "R_IV_58",
+    "R_IV_59",
+    "R_IV_60",
+    "R_IV_61",
+    "R_IV_62",
+    "R_IV_63"
+  ],
+  "contact_policy": "Minor overlap inside coil allowed by user; assess visible intersections, exposed cup penetration and transition continuity; no zero-intersection gate.",
+  "morphs": 0
+}

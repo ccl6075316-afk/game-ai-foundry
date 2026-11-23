@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "video": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r5/octopus-actions-review.mp4",
+    "sha256": "88d2464a21e3c6ff24f72d7d0369ae8222d721bdef4f24a79922f9c7431b260b"
+  },
+  "model_sha256": "15db763d8aa8618e8074be4077da48b5564bded18ccfcf6180f667e17b749013",
+  "stream": {
+    "codec_name": "h264",
+    "width": 1100,
+    "height": 800,
+    "r_frame_rate": "30/1",
+    "duration": "32.000000",
+    "nb_read_frames": "960"
+  },
+  "native_capture": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r5/godot.validation.json",
+    "sha256": "a71e3a4a3a4ada1703146357a8bf38c86f43aa142a000970d0cc994ca41312fc"
+  },
+  "visual_review": "Inspected actual native closeups, identical-camera R4/R5 comparison and 12 phase contact sheet"
+}

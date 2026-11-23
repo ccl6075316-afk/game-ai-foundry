@@ -1,0 +1,20 @@
+{
+  "ok": true,
+  "video": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r4/octopus-actions-review.mp4",
+    "sha256": "10d3ea5de1f38f69b8125265810b8cce5d9ff4bb8e2af5be1bde061f2d43c6ec"
+  },
+  "stream": {
+    "codec_name": "h264",
+    "width": 1100,
+    "height": 800,
+    "r_frame_rate": "30/1",
+    "duration": "32.000000",
+    "nb_read_frames": "960"
+  },
+  "native_capture": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r4/godot.validation.json",
+    "sha256": "b514544a1f276290dcb26cf71c3a0006439b276326d37eba78358813c5460a2e"
+  },
+  "visual_review": "Inspected 12 actual Godot phase images and native isolated-arm closeup; 0-16s ProbeTouch,16-32s AlternatingTouch"
+}

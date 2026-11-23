@@ -1,0 +1,122 @@
+{
+  "ok": true,
+  "checks": {
+    "rest_skin_widths_preserved": true,
+    "closer_sampled_layer_gap": true
+  },
+  "measurements": [
+    {
+      "version": "motion-r3",
+      "model_sha256": "2237250b3ecde6758a897015573160aecccc5610bba671bed31a9d04351d3e79",
+      "width_samples": [
+        {
+          "arm_fraction": 0.7,
+          "actual_skin_width_ML": 0.10707120880397554
+        },
+        {
+          "arm_fraction": 0.8,
+          "actual_skin_width_ML": 0.10226460009732309
+        },
+        {
+          "arm_fraction": 0.9,
+          "actual_skin_width_ML": 0.083406861486164
+        },
+        {
+          "arm_fraction": 0.95,
+          "actual_skin_width_ML": 0.07615088286665496
+        },
+        {
+          "arm_fraction": 0.98,
+          "actual_skin_width_ML": 0.04559136901256449
+        }
+      ],
+      "min_sampled_skin_vertex_gap_between_layers_ML": 0.01773561421613156,
+      "nearest_pair": [
+        [
+          0.6764556169509888,
+          -1.3527741432189941,
+          0.2592025101184845
+        ],
+        [
+          0.6805164217948914,
+          -1.3610553741455078,
+          0.24405381083488464
+        ]
+      ],
+      "complete_curl_turns": 2.7168961364210924,
+      "last_half_bone_bounds": [
+        [
+          0.6085825562477112,
+          0.7510882019996643
+        ],
+        [
+          -1.5021759271621704,
+          -1.2171653509140015
+        ],
+        [
+          -0.0680106058716774,
+          0.19970595836639404
+        ]
+      ]
+    },
+    {
+      "version": "motion-r4",
+      "model_sha256": "40a57d1132f1ebcd57b44a3a982d15aa608c35d25263106d41be1868cba2d3c7",
+      "width_samples": [
+        {
+          "arm_fraction": 0.7,
+          "actual_skin_width_ML": 0.10707120880397554
+        },
+        {
+          "arm_fraction": 0.8,
+          "actual_skin_width_ML": 0.10226460009732309
+        },
+        {
+          "arm_fraction": 0.9,
+          "actual_skin_width_ML": 0.083406861486164
+        },
+        {
+          "arm_fraction": 0.95,
+          "actual_skin_width_ML": 0.07615088286665496
+        },
+        {
+          "arm_fraction": 0.98,
+          "actual_skin_width_ML": 0.04559136901256449
+        }
+      ],
+      "min_sampled_skin_vertex_gap_between_layers_ML": 0.009688475933214922,
+      "nearest_pair": [
+        [
+          0.722223699092865,
+          -1.4446375370025635,
+          0.23781199753284454
+        ],
+        [
+          0.7225937247276306,
+          -1.445660948753357,
+          0.22818483412265778
+        ]
+      ],
+      "complete_curl_turns": 2.759820109264205,
+      "last_half_bone_bounds": [
+        [
+          0.6086527705192566,
+          0.7505931854248047
+        ],
+        [
+          -1.5011861324310303,
+          -1.2173054218292236
+        ],
+        [
+          -0.06172611564397812,
+          0.20373515784740448
+        ]
+      ]
+    }
+  ],
+  "method": "Cold GLB R_IV: rest-surface opposing ray width; pose0 finite skin vertices from different curl layers identified by >=270deg bone turning separation. Vertex gap is an upper bound on true surface gap, not proof of skin contact.",
+  "limits": [
+    "No biological thickness calibration",
+    "No claimed suction attachment or exact zero-gap skin contact"
+  ]
+}

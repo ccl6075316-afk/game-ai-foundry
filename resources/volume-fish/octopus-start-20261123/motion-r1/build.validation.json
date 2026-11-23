@@ -1,0 +1,26 @@
+{
+  "kind": "octopus_motion_trial_build",
+  "source_baseline": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/octopus-start-20261123/motion-r1/rest/octopus-gray.blend",
+  "source_baseline_sha256": "48cd38c39edd562db31bf9e99c7408b506f27f0c391e9d1e8e173ba6eb0e1e92",
+  "bones": 146,
+  "arm_segments": 18,
+  "clips": [
+    {
+      "name": "ArmExplore",
+      "duration": 6.0
+    },
+    {
+      "name": "JetGlide",
+      "duration": 4.8
+    }
+  ],
+  "web_support": "Derived R2 control geometry: web half-thickness 0.028\u20130.053 ML, 4800 skin-triangle target; length constraints retained",
+  "triangles": 7980,
+  "model_sha256": "c39c8b48822305b967bdc7ed480dd87ed0fcf5da1aed7e320c575710ea575fe4",
+  "limitations": [
+    "Trial motion timing and angles are authored, not specimen measurements",
+    "Membrane locally thickened and subdivided for trial deformation; not final production topology",
+    "No suckered contact or crawling/feeding simulation",
+    "Root path is a separate normalized stage demonstration, not calibrated swimming velocity"
+  ]
+}

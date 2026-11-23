@@ -1,0 +1,143 @@
+{
+  "kind": "octopus_tight_coil_trial",
+  "date": "2026-11-23",
+  "status": "accepted_as_articulation_basis_with_remaining_gap_feedback",
+  "user_accepted": false,
+  "production_installed": false,
+  "budget": 50000,
+  "triangles": 50000,
+  "bones": 513,
+  "arm_segments": 64,
+  "representative_suckers": 512,
+  "species_basis": "Enteroctopus dofleini",
+  "source": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r3/octopus-roll.blend",
+    "sha256": "5e7c3c24494ff449a6d465884d92aedf01572de7aba7cf5fc6016a27e37282cd"
+  },
+  "model": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r3/octopus-roll.glb",
+    "sha256": "2237250b3ecde6758a897015573160aecccc5610bba671bed31a9d04351d3e79"
+  },
+  "rest_source": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r3/rest/octopus-gray.blend",
+    "sha256": "49f4aabeeb6d199a40ac2629753b10b5f85f1287c34bf40306efcdbf1f8c9d46"
+  },
+  "clips": [
+    {
+      "name": "SingleArmRoll",
+      "duration": 10.0
+    },
+    {
+      "name": "EightArmReach",
+      "duration": 14.0
+    }
+  ],
+  "viewer": {
+    "path": "resources/volume-fish/octopus-start-20261123/open-motion-review.command",
+    "sha256": "dcd87731e319f423c8302009632100ac3ce59601efe34a6eff6c75a2536bca19"
+  },
+  "viewer_script": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r3/review/Roll.gd",
+    "sha256": "7973539e6cb441b939579a14918f7ccc053aa133016502bdb90d231b80dc491a"
+  },
+  "video": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r3/octopus-tight-review.mp4",
+    "sha256": "69906323426ef866b1b8f44f47d229f7f6ad6c8a15ac271b282a4fe6edb4e661"
+  },
+  "closeup": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r3/tight-coil-close.png",
+    "sha256": "935d813162aed0c70fed71f83a1944fdab76f307864cb4e07a083a80be4f2116"
+  },
+  "notes": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r3/motion-evidence.md",
+    "sha256": "5945715f6498b54091b464bcb6f5b8437457d16754c462054a2f57f2aececa39"
+  },
+  "reference_review": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r2/references.validation.json",
+    "sha256": "7cef176494acfc426e9a5c31ba099a7333b2e5fdc2e0f5d988828cd7d82707f2"
+  },
+  "validation": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/rest/proportions.validation.json",
+      "sha256": "8264aa28657b7b13836640a557ebaf7d636681fad1e74a54a99affcd839f71bb"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/motion.validation.json",
+      "sha256": "65cc3ec14ddf7549a55e470cf1d3aceb70d580ee64ac420726ae1324d0bf4bf3"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/contacts.validation.json",
+      "sha256": "d4b3f07ea6b4392f91182fb9451c5c9746e74975b205855281b6654b9c744d13"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/range.validation.json",
+      "sha256": "dbf8e7bfd2151007a1cdda4a837e6508cb35b7a4b1a0399c27fb936aa72abca1"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/controls.validation.json",
+      "sha256": "186d73948a6e0d8223c093e35161dd76ac8c3939821ee3fe22201057b6927a3b"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/source.validation.json",
+      "sha256": "d702fe1fbdcb6b38f18e48908e66078eed4e51011165690ea8a9a8b580468a1c"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/shape-change.validation.json",
+      "sha256": "7fbe12e1aa0340d5ad61ceb0c89bc3bec00e4ae902fa77053b80b6803528504f"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/godot.validation.json",
+      "sha256": "a4f93c297bcdf1c21945fb6d982641c168021d591936b202478f6309cb805deb"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/motion-r3/video.validation.json",
+      "sha256": "7fba404758af254b43b7fc16f74fb10b94c9181f11f597db81eb5a360ee1104f"
+    }
+  ],
+  "authoring_scripts": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/build_tight_rest.py",
+      "sha256": "2022a4e8d1c4aa82384126872d5b93421ce1d94194e32a741b0910c6fdcb447a"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/refine_tight_triangles.py",
+      "sha256": "2eb193ca705e69e5dfc42bf59e9f67cb3c23f8ee6943261294d2c9929926cc68"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/build_tight_motion.py",
+      "sha256": "e47b6b9e8b45573c68da2adc9acd6502d12a0690e75786e9dff79da0c21a2837"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/measure_tight_rest.py",
+      "sha256": "1c23c7ce20786a963051a84c5add6001161b1ccb5d827239ccb6dd4ed394098f"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/measure_tight_change.py",
+      "sha256": "e7c17af291c4f1e46ebe26d43ae27eb3f86b2a27cd4026435f1465176a3d627a"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_tight.py",
+      "sha256": "45fb3aee7167cf26b7871dd3fb474acbea3c889c1d61217eb68062e3d7ab384f"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_tight_source.py",
+      "sha256": "4c3089d3ff2a76c942a62d9202fb36f40ffaa8125511a970b6ae5dfa659e0f2f"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_tight_range.py",
+      "sha256": "470dc6c264c99b360e9e5f7b822bd0ea9038329dc62e2b4b25516a202bcd967c"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/check_tight_contacts.py",
+      "sha256": "3589850b16a319b477ce2e70fc446054f6d36a4cc3715c6073ab7f740eb8518f"
+    }
+  ],
+  "limits": [
+    "Tight curl and full extension demonstration; natural swimming not finished",
+    "Arm width/packing coefficients are authored values, not biological specimen measurements",
+    "Thin gaps retained; no suction or exact all-layer contact claim",
+    "Sampled collisions; no continuous-time or comprehensive local attachment proof",
+    "Full production SOP and user acceptance pending"
+  ],
+  "acceptance_scope": "用户认可可弯曲基础，授权继续动作；明确卷层仍不够贴近，不表示完整模型/自然动作最终验收"
+}

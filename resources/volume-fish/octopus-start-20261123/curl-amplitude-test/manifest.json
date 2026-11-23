@@ -1,0 +1,41 @@
+{
+  "kind": "curl_amplitude_visual_experiment",
+  "status": "diagnostic_presented_not_accepted",
+  "input": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r6/octopus-actions.glb",
+    "sha256": "66105e405029f8b1d3357535b26e965d0b570f1eaa96b55bc821abf051612a0a"
+  },
+  "script": {
+    "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/review/Actions.gd",
+    "sha256": "9f9105293310b5c69d334293d2445f8fb3b15f9fbd9dc479dfcd0149d710c471"
+  },
+  "capture": {
+    "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/capture.validation.json",
+    "sha256": "07558e529fcb7d4851fe4c0aeda1e8fba09932fdf97d3f88feccc902b1fe4f6a"
+  },
+  "comparison": {
+    "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/curl-comparison.jpg",
+    "sha256": "8a6d3c563ea1fb64706741157a30c89aea55949a448228f2ea8c754eb34e12f9"
+  },
+  "video": {
+    "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/more-curl.mp4",
+    "sha256": "38780949958e3deb5a2b7ada7c946e1dd7e8f490680c12bf7e7c7fef0d0079aa"
+  },
+  "duration_seconds": 6,
+  "frames": 180,
+  "factors": [
+    1,
+    1.03,
+    1.06,
+    1.09
+  ],
+  "morph_weight": 0,
+  "observations": "同机位原生截图：增加角度后卷圈更紧，6%和9%内圈间隙明显缩小；局部吸盘遮挡增加。此处不能仅凭投影认定无穿插。没有增加骨骼，也没有改变网格。",
+  "production_installed": false,
+  "user_accepted": false,
+  "collision_validation": "not_run_for_diagnostic",
+  "cleanup": {
+    "path": "resources/volume-fish/octopus-start-20261123/curl-amplitude-test/cleanup.validation.json",
+    "sha256": "26cacea0e7c47e9282308fe37212bda072973f99b1c99d9f9e31465f367d91d2"
+  }
+}

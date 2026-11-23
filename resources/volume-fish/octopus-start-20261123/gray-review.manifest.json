@@ -1,0 +1,118 @@
+{
+  "kind": "octopus_gray_review_manifest",
+  "date": "2026-11-23",
+  "status": "r2_proportion_checks_passed_awaiting_user_review",
+  "species_basis": "Enteroctopus dofleini",
+  "editable_source": {
+    "path": "resources/volume-fish/octopus-start-20261123/r2/octopus-gray.blend",
+    "sha256": "35e31fa8bca9d5101390db0a79a978f6076747ef5250d80e9b00331fed9a4a00"
+  },
+  "model": {
+    "path": "resources/volume-fish/octopus-start-20261123/r2/octopus-gray.glb",
+    "sha256": "94ae5b126514ce94a2daea4153e13f57fefc55731833a9d5065f6085e646e05a"
+  },
+  "authoring_script": {
+    "path": "resources/volume-fish/octopus-start-20261123/build_gray.py",
+    "sha256": "cd4cbcec01215cb41d04aed1334f04226a354d04d47392415200df7e067603d3"
+  },
+  "viewer": "resources/volume-fish/octopus-start-20261123/open-gray-review.command",
+  "triangles": 5980,
+  "arms": 8,
+  "web_sectors": 8,
+  "representative_suckers": 160,
+  "animations": 0,
+  "production_installed": false,
+  "user_accepted": false,
+  "reference_review": {
+    "path": "resources/volume-fish/octopus-start-20261123/reference-review.validation.json",
+    "sha256": "4d6c53295b16983a3eb26de73d454fad544815eb8004ddf80bda3c43d8194b9b"
+  },
+  "validation": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/gray-build.validation.json",
+      "sha256": "5c1353c63b6504d05f2d5e362633809b09fe70ccdc59b38747aaf8bb981320bc"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/gray-source.validation.json",
+      "sha256": "c7271112ec85b7334b237a3ef9792299d00c8e85bba91c7c3f61417bc7f36cdd"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/proportions.validation.json",
+      "sha256": "94a8d183d2637e44020077446eb3de4cf67eb020ab772311e1d7721a5ea7472f"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/gray-godot.validation.json",
+      "sha256": "3a5b89c7a44cbdb2a935ee68b7c8704d2738f897464ac282fd744533c775915d"
+    }
+  ],
+  "views": [
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/godot-oblique.png",
+      "sha256": "43dfa09c81c4a906acfe61866eba96201785c04cd94f28ac7bda8a6b12639966"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/godot-side.png",
+      "sha256": "731e33dc152fba68171225f26d6bacebea0378e94be76f074ec4714b2915f483"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/godot-top.png",
+      "sha256": "9896f2e57eedf386bb25bc98a4a2cb725f9e9b0465b2b2331dc4317d4385a3e4"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/godot-underside.png",
+      "sha256": "9a826c56c127eae0e8ace6fe22e3f31bf2fbacea8e64a5f39134f1c6bc2e6715"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/gray-oblique.png",
+      "sha256": "aded407db7af0915c1debe30419803f87a453c90ac83dbd0917ef38ca3b91f8f"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/gray-side.png",
+      "sha256": "7bec4f8b25b6ff4c12e456d658bdfda5384e03d324cc3d03d1216b0b1be65298"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/gray-top.png",
+      "sha256": "819b9733f586b6614349738f6d1426ad3505e1c938bae0986b7e773e1a2944c0"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/gray-underside.png",
+      "sha256": "43aca3d7419f3966445a7d91adfb31879b3edec9a9d78b98844b3c62ad198991"
+    },
+    {
+      "path": "resources/volume-fish/octopus-start-20261123/r2/proportion-measurements.png",
+      "sha256": "6f9aea83bf3f598021870bc4c58376ca861e584a937eefdb21cda72bfbbdd6b8"
+    }
+  ],
+  "limitations": [
+    "物种范围内的长度比例校准，不是某只标本精确复原",
+    "III/IV腕差及浅蹼差为公开记录的造型插值；宽度、厚度、姿态角度未经标本测量",
+    "主体静态合并/减面；后续动画仍需重拓扑与绑定",
+    "160个简化吸盘占位，口部未做内部喙或取食",
+    "5980三角为灰模密度，正式展示尺度和预算待定",
+    "未做游动、全部碰撞与完整物种形态/SOP验收"
+  ],
+  "proportion_audit": "resources/volume-fish/octopus-start-20261123/r2/proportions.validation.json",
+  "history": [
+    {
+      "revision": 1,
+      "status": "rejected_proportions_superseded",
+      "model": {
+        "path": "resources/volume-fish/octopus-start-20261123/octopus-gray.glb",
+        "sha256": "3306a41e7449a62e1f04ded4f2218fa6762ee2da4e1376ba105a0c4a02eb0b6b"
+      },
+      "editable_source": {
+        "path": "resources/volume-fish/octopus-start-20261123/octopus-gray.blend",
+        "sha256": "989d61fd56805de7a497c647409c7234516b3833eb591f829f122281087cf1ab"
+      },
+      "audit": "resources/volume-fish/octopus-start-20261123/gray-proportions.validation.json"
+    }
+  ],
+  "revision": 2,
+  "constraints": {
+    "path": "resources/volume-fish/octopus-start-20261123/proportion-constraints.json",
+    "sha256": "0e9bec27b4b891bd4d6a9a6829991befba24489eedc8a945d95ffa7f9a938bdf"
+  },
+  "motion_trial_manifest": "resources/volume-fish/octopus-start-20261123/motion-r7/manifest.json",
+  "motion_trial_status": "accepted_right_arm_motion_checkpoint",
+  "historical_static_assets": "旧R1/R2重型资产已退休；以release.json的R7为当前入口，旧SHA仅作历史"
+}

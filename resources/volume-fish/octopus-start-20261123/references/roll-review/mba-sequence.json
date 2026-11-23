@@ -1,0 +1,58 @@
+{
+  "url": "https://www.youtube.com/watch?v=CYBFRu4gkdA",
+  "mode": "continuous native video playback, normal speed, screenshots every ~2 seconds",
+  "samples": [
+    {
+      "time": 60.007915,
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/octopus-start-20261123/references/roll-review/mba-00.png"
+    },
+    {
+      "time": 62.054117,
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/octopus-start-20261123/references/roll-review/mba-01.png"
+    },
+    {
+      "time": 64.055832,
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/octopus-start-20261123/references/roll-review/mba-02.png"
+    },
+    {
+      "time": 66.07121,
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/octopus-start-20261123/references/roll-review/mba-03.png"
+    },
+    {
+      "time": 68.071714,
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/octopus-start-20261123/references/roll-review/mba-04.png"
+    },
+    {
+      "time": 70.081457,
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/octopus-start-20261123/references/roll-review/mba-05.png"
+    },
+    {
+      "time": 72.086492,
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/octopus-start-20261123/references/roll-review/mba-06.png"
+    },
+    {
+      "time": 74.070309,
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/octopus-start-20261123/references/roll-review/mba-07.png"
+    },
+    {
+      "time": 76.058062,
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/octopus-start-20261123/references/roll-review/mba-08.png"
+    },
+    {
+      "time": 78.042525,
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/octopus-start-20261123/references/roll-review/mba-09.png"
+    },
+    {
+      "time": 80.018875,
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/octopus-start-20261123/references/roll-review/mba-10.png"
+    },
+    {
+      "time": 82.095245,
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/octopus-start-20261123/references/roll-review/mba-11.png"
+    },
+    {
+      "time": 84.055601,
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/octopus-start-20261123/references/roll-review/mba-12.png"
+    }
+  ]
+}

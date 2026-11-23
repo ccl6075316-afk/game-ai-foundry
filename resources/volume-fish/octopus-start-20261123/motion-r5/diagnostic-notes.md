@@ -1,0 +1,7 @@
+# R5 local failure record
+
+First direct width increase on unchanged R4 curve: 36–43 nonadjacent intersections in the 11 probes. Rest faces 4553/18643, 114/554 and 9154/23949 map to different material stations (e.g. R_IV bones54–56 vs38–42), so they are adjacent coil layers intersecting, not merely a cap degeneracy. Do not fix by silently reducing the new thickness or widening thresholds. Next derive the spiral envelope from the thickened radius and translated cup support, with a smaller spacing multiplier to keep layers close. Earlier conversational diagnosis of a local bone-weight fold was preliminary; actual triangles identify cross-layer intersection.
+
+Updated finite-envelope probe: 8 remaining intersections solely on L_III faces114/554/14980. The long outer-layer triangle spans bones38–41 and meets distal layer55–57. Give that arm the original1.06 multiplier for finite-triangle clearance; other arms retain1.02 with the enlarged envelope. This is per-arm authored clearance, not biological data.
+
+First cold candidate SHA5151839b0a08cb45268bba9d5a154dc90b9a3f8e1810a0f8bf6c0f58564804bc: all255 body samples passed, but full TightRoll rightIV had6 cup/skin intersections (skin23934 vs cup17680–17699); the reach clips passed. Increase only rightIV envelope multiplier1.02→1.03, retaining the enlarged skin and cup bowls. Recheck local fullcurl including actual cup triangles before new frozen validation.

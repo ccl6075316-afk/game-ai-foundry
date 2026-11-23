@@ -1,0 +1,58 @@
+{
+  "model_sha256": "66105e405029f8b1d3357535b26e965d0b570f1eaa96b55bc821abf051612a0a",
+  "ok": true,
+  "samples": [
+    {
+      "meshes": [
+        {
+          "name": "Octopus_gray_skin",
+          "value": 1.0
+        },
+        {
+          "name": "Paired_sucker_rows_512_cups",
+          "value": 1.0
+        }
+      ],
+      "time": 0.0
+    },
+    {
+      "meshes": [
+        {
+          "name": "Octopus_gray_skin",
+          "value": 0.0
+        },
+        {
+          "name": "Paired_sucker_rows_512_cups",
+          "value": 0.0
+        }
+      ],
+      "time": 1.0
+    },
+    {
+      "meshes": [
+        {
+          "name": "Octopus_gray_skin",
+          "value": 0.0
+        },
+        {
+          "name": "Paired_sucker_rows_512_cups",
+          "value": 0.0
+        }
+      ],
+      "time": 4.5
+    },
+    {
+      "meshes": [
+        {
+          "name": "Octopus_gray_skin",
+          "value": 1.0
+        },
+        {
+          "name": "Paired_sucker_rows_512_cups",
+          "value": 1.0
+        }
+      ],
+      "time": 8.6
+    }
+  ]
+}

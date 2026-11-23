@@ -1,0 +1,5153 @@
+{
+  "ok": true,
+  "checks": {
+    "all_512_cup_shapes_preserved_by_translation": true,
+    "no_new_detached_anchor": true
+  },
+  "model_sha256": "15db763d8aa8618e8074be4077da48b5564bded18ccfcf6180f667e17b749013",
+  "max_cup_shape_error": 2.384185791015625e-07,
+  "max_anchor_signed_distance_change": 0.0002958072677756718,
+  "versions": [
+    {
+      "version": "motion-r4",
+      "source_sha256": "62ff45aa5acbca18db0eb854551800fe814fb802229deac09a82c1f412ecb3a0",
+      "cup_count": 512,
+      "min_signed_distance": -0.0032558222774241585,
+      "max_signed_distance": -0.00019098341226708726,
+      "samples": [
+        {
+          "first_vertex": 0,
+          "base_anchor_signed_distance": -0.0031453976698685437,
+          "base_anchor_distance": 0.0031453976407647133
+        },
+        {
+          "first_vertex": 24,
+          "base_anchor_signed_distance": -0.003149924632452894,
+          "base_anchor_distance": 0.0031499245669692755
+        },
+        {
+          "first_vertex": 48,
+          "base_anchor_signed_distance": -0.00298856821609661,
+          "base_anchor_distance": 0.0029885682743042707
+        },
+        {
+          "first_vertex": 72,
+          "base_anchor_signed_distance": -0.00300092640100047,
+          "base_anchor_distance": 0.003000926226377487
+        },
+        {
+          "first_vertex": 96,
+          "base_anchor_signed_distance": -0.0028208946605445817,
+          "base_anchor_distance": 0.0028208945877850056
+        },
+        {
+          "first_vertex": 120,
+          "base_anchor_signed_distance": -0.002849901415174827,
+          "base_anchor_distance": 0.0028499015606939793
+        },
+        {
+          "first_vertex": 144,
+          "base_anchor_signed_distance": -0.0027336183266015723,
+          "base_anchor_distance": 0.002733618253841996
+        },
+        {
+          "first_vertex": 168,
+          "base_anchor_signed_distance": -0.0026825062595889904,
+          "base_anchor_distance": 0.0026825061067938805
+        },
+        {
+          "first_vertex": 192,
+          "base_anchor_signed_distance": -0.002542471469496377,
+          "base_anchor_distance": 0.0025424715131521225
+        },
+        {
+          "first_vertex": 216,
+          "base_anchor_signed_distance": -0.0025079907063627616,
+          "base_anchor_distance": 0.00250799092464149
+        },
+        {
+          "first_vertex": 240,
+          "base_anchor_signed_distance": -0.002355984062887728,
+          "base_anchor_distance": 0.0023559839464724064
+        },
+        {
+          "first_vertex": 264,
+          "base_anchor_signed_distance": -0.002392951042565983,
+          "base_anchor_distance": 0.0023929509334266186
+        },
+        {
+          "first_vertex": 288,
+          "base_anchor_signed_distance": -0.002246082673082128,
+          "base_anchor_distance": 0.0022460827603936195
+        },
+        {
+          "first_vertex": 312,
+          "base_anchor_signed_distance": -0.002244631017674692,
+          "base_anchor_distance": 0.0022446310613304377
+        },
+        {
+          "first_vertex": 336,
+          "base_anchor_signed_distance": -0.002098917684634216,
+          "base_anchor_distance": 0.002098917728289962
+        },
+        {
+          "first_vertex": 360,
+          "base_anchor_signed_distance": -0.002043299187789671,
+          "base_anchor_distance": 0.0020432991441339254
+        },
+        {
+          "first_vertex": 384,
+          "base_anchor_signed_distance": -0.0019177223584847525,
+          "base_anchor_distance": 0.0019177224021404982
+        },
+        {
+          "first_vertex": 408,
+          "base_anchor_signed_distance": -0.001915209817525465,
+          "base_anchor_distance": 0.0019152098102495074
+        },
+        {
+          "first_vertex": 432,
+          "base_anchor_signed_distance": -0.001767930094501935,
+          "base_anchor_distance": 0.0017679299926385283
+        },
+        {
+          "first_vertex": 456,
+          "base_anchor_signed_distance": -0.0017753171523509081,
+          "base_anchor_distance": 0.0017753170104697347
+        },
+        {
+          "first_vertex": 480,
+          "base_anchor_signed_distance": -0.0015938977157929912,
+          "base_anchor_distance": 0.001593897701241076
+        },
+        {
+          "first_vertex": 504,
+          "base_anchor_signed_distance": -0.0016310631945088971,
+          "base_anchor_distance": 0.001631063176319003
+        },
+        {
+          "first_vertex": 528,
+          "base_anchor_signed_distance": -0.0015403175566461869,
+          "base_anchor_distance": 0.0015403174329549074
+        },
+        {
+          "first_vertex": 552,
+          "base_anchor_signed_distance": -0.0014962268287490588,
+          "base_anchor_distance": 0.0014962268760427833
+        },
+        {
+          "first_vertex": 576,
+          "base_anchor_signed_distance": -0.0013647741216118447,
+          "base_anchor_distance": 0.0013647741870954633
+        },
+        {
+          "first_vertex": 600,
+          "base_anchor_signed_distance": -0.0013394778652582318,
+          "base_anchor_distance": 0.0013394777197390795
+        },
+        {
+          "first_vertex": 624,
+          "base_anchor_signed_distance": -0.0012380473635857925,
+          "base_anchor_distance": 0.0012380473781377077
+        },
+        {
+          "first_vertex": 648,
+          "base_anchor_signed_distance": -0.0012285908414924052,
+          "base_anchor_distance": 0.001228590845130384
+        },
+        {
+          "first_vertex": 672,
+          "base_anchor_signed_distance": -0.0012243240635143593,
+          "base_anchor_distance": 0.0012243239907547832
+        },
+        {
+          "first_vertex": 696,
+          "base_anchor_signed_distance": -0.001186678677186137,
+          "base_anchor_distance": 0.0011866786517202854
+        },
+        {
+          "first_vertex": 720,
+          "base_anchor_signed_distance": -0.0011500176733534317,
+          "base_anchor_distance": 0.0011500177206471562
+        },
+        {
+          "first_vertex": 744,
+          "base_anchor_signed_distance": -0.0011495291328174062,
+          "base_anchor_distance": 0.0011495292419567704
+        },
+        {
+          "first_vertex": 768,
+          "base_anchor_signed_distance": -0.0011602151244005654,
+          "base_anchor_distance": 0.0011602152371779084
+        },
+        {
+          "first_vertex": 792,
+          "base_anchor_signed_distance": -0.0011448722434579395,
+          "base_anchor_distance": 0.0011448721634224057
+        },
+        {
+          "first_vertex": 816,
+          "base_anchor_signed_distance": -0.00120324027739116,
+          "base_anchor_distance": 0.0012032403610646725
+        },
+        {
+          "first_vertex": 840,
+          "base_anchor_signed_distance": -0.0011762949616240803,
+          "base_anchor_distance": 0.001176294987089932
+        },
+        {
+          "first_vertex": 864,
+          "base_anchor_signed_distance": -0.001156637335952837,
+          "base_anchor_distance": 0.0011566373286768794
+        },
+        {
+          "first_vertex": 888,
+          "base_anchor_signed_distance": -0.0011448325385572389,
+          "base_anchor_distance": 0.0011448325822129846
+        },
+        {
+          "first_vertex": 912,
+          "base_anchor_signed_distance": -0.0011264762179052923,
+          "base_anchor_distance": 0.0011264762142673135
+        },
+        {
+          "first_vertex": 936,
+          "base_anchor_signed_distance": -0.0011120608360215556,
+          "base_anchor_distance": 0.0011120607377961278
+        },
+        {
+          "first_vertex": 960,
+          "base_anchor_signed_distance": -0.001109102460759459,
+          "base_anchor_distance": 0.0011091023916378617
+        },
+        {
+          "first_vertex": 984,
+          "base_anchor_signed_distance": -0.001143075613072142,
+          "base_anchor_distance": 0.0011430756421759725
+        },
+        {
+          "first_vertex": 1008,
+          "base_anchor_signed_distance": -0.0010734501847764477,
+          "base_anchor_distance": 0.0010734500829130411
+        },
+        {
+          "first_vertex": 1032,
+          "base_anchor_signed_distance": -0.0010429642425151542,
+          "base_anchor_distance": 0.0010429642861708999
+        },
+        {
+          "first_vertex": 1056,
+          "base_anchor_signed_distance": -0.0011653003966785036,
+          "base_anchor_distance": 0.0011653003748506308
+        },
+        {
+          "first_vertex": 1080,
+          "base_anchor_signed_distance": -0.001179716935439501,
+          "base_anchor_distance": 0.0011797168990597129
+        },
+        {
+          "first_vertex": 1104,
+          "base_anchor_signed_distance": -0.0010223364588455297,
+          "base_anchor_distance": 0.0010223364224657416
+        },
+        {
+          "first_vertex": 1128,
+          "base_anchor_signed_distance": -0.0009872243499557953,
+          "base_anchor_distance": 0.0009872243972495198
+        },
+        {
+          "first_vertex": 1152,
+          "base_anchor_signed_distance": -0.000969349428487476,
+          "base_anchor_distance": 0.0009693494066596031
+        },
+        {
+          "first_vertex": 1176,
+          "base_anchor_signed_distance": -0.001039335213135928,
+          "base_anchor_distance": 0.0010393352713435888
+        },
+        {
+          "first_vertex": 1200,
+          "base_anchor_signed_distance": -0.000751561761717312,
+          "base_anchor_distance": 0.0007515617762692273
+        },
+        {
+          "first_vertex": 1224,
+          "base_anchor_signed_distance": -0.0007693059269513469,
+          "base_anchor_distance": 0.0007693059160374105
+        },
+        {
+          "first_vertex": 1248,
+          "base_anchor_signed_distance": -0.0009410469283466227,
+          "base_anchor_distance": 0.0009410469210706651
+        },
+        {
+          "first_vertex": 1272,
+          "base_anchor_signed_distance": -0.0008442240505246446,
+          "base_anchor_distance": 0.0008442240068688989
+        },
+        {
+          "first_vertex": 1296,
+          "base_anchor_signed_distance": -0.0008626504095445853,
+          "base_anchor_distance": 0.0008626503986306489
+        },
+        {
+          "first_vertex": 1320,
+          "base_anchor_signed_distance": -0.0008585394098190591,
+          "base_anchor_distance": 0.0008585394825786352
+        },
+        {
+          "first_vertex": 1344,
+          "base_anchor_signed_distance": -0.0007953954591357615,
+          "base_anchor_distance": 0.0007953954045660794
+        },
+        {
+          "first_vertex": 1368,
+          "base_anchor_signed_distance": -0.0007811505747667979,
+          "base_anchor_distance": 0.0007811505347490311
+        },
+        {
+          "first_vertex": 1392,
+          "base_anchor_signed_distance": -0.0007795064775564242,
+          "base_anchor_distance": 0.0007795065175741911
+        },
+        {
+          "first_vertex": 1416,
+          "base_anchor_signed_distance": -0.0007811916148057207,
+          "base_anchor_distance": 0.000781191629357636
+        },
+        {
+          "first_vertex": 1440,
+          "base_anchor_signed_distance": -0.0005216866193222813,
+          "base_anchor_distance": 0.0005216866265982389
+        },
+        {
+          "first_vertex": 1464,
+          "base_anchor_signed_distance": -0.0005366547284211265,
+          "base_anchor_distance": 0.0005366547266021371
+        },
+        {
+          "first_vertex": 1488,
+          "base_anchor_signed_distance": -0.0002303040018887259,
+          "base_anchor_distance": 0.00023030402371659875
+        },
+        {
+          "first_vertex": 1512,
+          "base_anchor_signed_distance": -0.0004837153937842231,
+          "base_anchor_distance": 0.00048371541197411716
+        },
+        {
+          "first_vertex": 1536,
+          "base_anchor_signed_distance": -0.003214743504940998,
+          "base_anchor_distance": 0.003214743686839938
+        },
+        {
+          "first_vertex": 1560,
+          "base_anchor_signed_distance": -0.003205016182619147,
+          "base_anchor_distance": 0.003205015789717436
+        },
+        {
+          "first_vertex": 1584,
+          "base_anchor_signed_distance": -0.003037106587726157,
+          "base_anchor_distance": 0.0030371067114174366
+        },
+        {
+          "first_vertex": 1608,
+          "base_anchor_signed_distance": -0.003017391572939232,
+          "base_anchor_distance": 0.0030173915438354015
+        },
+        {
+          "first_vertex": 1632,
+          "base_anchor_signed_distance": -0.0029122773921699263,
+          "base_anchor_distance": 0.0029122773557901382
+        },
+        {
+          "first_vertex": 1656,
+          "base_anchor_signed_distance": -0.002877818202250637,
+          "base_anchor_distance": 0.002877818187698722
+        },
+        {
+          "first_vertex": 1680,
+          "base_anchor_signed_distance": -0.0027296841144561768,
+          "base_anchor_distance": 0.0027296841144561768
+        },
+        {
+          "first_vertex": 1704,
+          "base_anchor_signed_distance": -0.002722668257774785,
+          "base_anchor_distance": 0.0027226684615015984
+        },
+        {
+          "first_vertex": 1728,
+          "base_anchor_signed_distance": -0.0025412867253180593,
+          "base_anchor_distance": 0.002541286638006568
+        },
+        {
+          "first_vertex": 1752,
+          "base_anchor_signed_distance": -0.0025292973878094926,
+          "base_anchor_distance": 0.002529297722503543
+        },
+        {
+          "first_vertex": 1776,
+          "base_anchor_signed_distance": -0.002399280434474349,
+          "base_anchor_distance": 0.002399280434474349
+        },
+        {
+          "first_vertex": 1800,
+          "base_anchor_signed_distance": -0.002396942683844827,
+          "base_anchor_distance": 0.002396942814812064
+        },
+        {
+          "first_vertex": 1824,
+          "base_anchor_signed_distance": -0.0022791965093347244,
+          "base_anchor_distance": 0.002279196633026004
+        },
+        {
+          "first_vertex": 1848,
+          "base_anchor_signed_distance": -0.002226889875601046,
+          "base_anchor_distance": 0.0022268898319453
+        },
+        {
+          "first_vertex": 1872,
+          "base_anchor_signed_distance": -0.0020617167247110046,
+          "base_anchor_distance": 0.0020617167465388775
+        },
+        {
+          "first_vertex": 1896,
+          "base_anchor_signed_distance": -0.0020705024944618344,
+          "base_anchor_distance": 0.0020705023780465126
+        },
+        {
+          "first_vertex": 1920,
+          "base_anchor_signed_distance": -0.0019565695693017915,
+          "base_anchor_distance": 0.0019565694965422153
+        },
+        {
+          "first_vertex": 1944,
+          "base_anchor_signed_distance": -0.0019677922391565517,
+          "base_anchor_distance": 0.0019677921663969755
+        },
+        {
+          "first_vertex": 1968,
+          "base_anchor_signed_distance": -0.001786333799827844,
+          "base_anchor_distance": 0.0017863338580355048
+        },
+        {
+          "first_vertex": 1992,
+          "base_anchor_signed_distance": -0.0017501260590506718,
+          "base_anchor_distance": 0.0017501258989796042
+        },
+        {
+          "first_vertex": 2016,
+          "base_anchor_signed_distance": -0.0016497168217028957,
+          "base_anchor_distance": 0.0016497168689966202
+        },
+        {
+          "first_vertex": 2040,
+          "base_anchor_signed_distance": -0.0016404959678766318,
+          "base_anchor_distance": 0.0016404959606006742
+        },
+        {
+          "first_vertex": 2064,
+          "base_anchor_signed_distance": -0.0015294118638848886,
+          "base_anchor_distance": 0.0015294118784368038
+        },
+        {
+          "first_vertex": 2088,
+          "base_anchor_signed_distance": -0.0015373803253169172,
+          "base_anchor_distance": 0.0015373803908005357
+        },
+        {
+          "first_vertex": 2112,
+          "base_anchor_signed_distance": -0.001312762666202616,
+          "base_anchor_distance": 0.0013127628481015563
+        },
+        {
+          "first_vertex": 2136,
+          "base_anchor_signed_distance": -0.0013983454773551784,
+          "base_anchor_distance": 0.0013983455719426274
+        },
+        {
+          "first_vertex": 2160,
+          "base_anchor_signed_distance": -0.0012625035633391235,
+          "base_anchor_distance": 0.0012625035597011447
+        },
+        {
+          "first_vertex": 2184,
+          "base_anchor_signed_distance": -0.0011564288579393178,
+          "base_anchor_distance": 0.0011564289452508092
+        },
+        {
+          "first_vertex": 2208,
+          "base_anchor_signed_distance": -0.0012321579706622288,
+          "base_anchor_distance": 0.001232157927006483
+        },
+        {
+          "first_vertex": 2232,
+          "base_anchor_signed_distance": -0.0011341394274495542,
+          "base_anchor_distance": 0.0011341393692418933
+        },
+        {
+          "first_vertex": 2256,
+          "base_anchor_signed_distance": -0.0011948299179493915,
+          "base_anchor_distance": 0.0011948299361392856
+        },
+        {
+          "first_vertex": 2280,
+          "base_anchor_signed_distance": -0.001090064655727474,
+          "base_anchor_distance": 0.0010900647612288594
+        },
+        {
+          "first_vertex": 2304,
+          "base_anchor_signed_distance": -0.0012123118358431384,
+          "base_anchor_distance": 0.0012123119086027145
+        },
+        {
+          "first_vertex": 2328,
+          "base_anchor_signed_distance": -0.001148717932665022,
+          "base_anchor_distance": 0.0011487179435789585
+        },
+        {
+          "first_vertex": 2352,
+          "base_anchor_signed_distance": -0.0012433137599145994,
+          "base_anchor_distance": 0.0012433137744665146
+        },
+        {
+          "first_vertex": 2376,
+          "base_anchor_signed_distance": -0.001171082472865237,
+          "base_anchor_distance": 0.001171082491055131
+        },
+        {
+          "first_vertex": 2400,
+          "base_anchor_signed_distance": -0.00117645034333691,
+          "base_anchor_distance": 0.001176450285129249
+        },
+        {
+          "first_vertex": 2424,
+          "base_anchor_signed_distance": -0.0011599510216910858,
+          "base_anchor_distance": 0.001159951090812683
+        },
+        {
+          "first_vertex": 2448,
+          "base_anchor_signed_distance": -0.0011705212928063702,
+          "base_anchor_distance": 0.0011705212527886033
+        },
+        {
+          "first_vertex": 2472,
+          "base_anchor_signed_distance": -0.0011248909977439325,
+          "base_anchor_distance": 0.001124891103245318
+        },
+        {
+          "first_vertex": 2496,
+          "base_anchor_signed_distance": -0.0011364248894096818,
+          "base_anchor_distance": 0.0011364249512553215
+        },
+        {
+          "first_vertex": 2520,
+          "base_anchor_signed_distance": -0.0011621771081991028,
+          "base_anchor_distance": 0.0011621773010119796
+        },
+        {
+          "first_vertex": 2544,
+          "base_anchor_signed_distance": -0.0011743510549422354,
+          "base_anchor_distance": 0.001174350967630744
+        },
+        {
+          "first_vertex": 2568,
+          "base_anchor_signed_distance": -0.001163045883004088,
+          "base_anchor_distance": 0.0011630459921434522
+        },
+        {
+          "first_vertex": 2592,
+          "base_anchor_signed_distance": -0.0011435640190029517,
+          "base_anchor_distance": 0.0011435640044510365
+        },
+        {
+          "first_vertex": 2616,
+          "base_anchor_signed_distance": -0.0009853033225226682,
+          "base_anchor_distance": 0.0009853033116087317
+        },
+        {
+          "first_vertex": 2640,
+          "base_anchor_signed_distance": -0.0010252529427816626,
+          "base_anchor_distance": 0.00102525285910815
+        },
+        {
+          "first_vertex": 2664,
+          "base_anchor_signed_distance": -0.0009684846445452422,
+          "base_anchor_distance": 0.0009684847318567336
+        },
+        {
+          "first_vertex": 2688,
+          "base_anchor_signed_distance": -0.0009235250909114257,
+          "base_anchor_distance": 0.0009235250181518495
+        },
+        {
+          "first_vertex": 2712,
+          "base_anchor_signed_distance": -0.001056469092873158,
+          "base_anchor_distance": 0.0010564691619947553
+        },
+        {
+          "first_vertex": 2736,
+          "base_anchor_signed_distance": -0.0009161973721347749,
+          "base_anchor_distance": 0.0009161974303424358
+        },
+        {
+          "first_vertex": 2760,
+          "base_anchor_signed_distance": -0.0009365347614220809,
+          "base_anchor_distance": 0.000936534779611975
+        },
+        {
+          "first_vertex": 2784,
+          "base_anchor_signed_distance": -0.0009092254003917333,
+          "base_anchor_distance": 0.0009092253749258816
+        },
+        {
+          "first_vertex": 2808,
+          "base_anchor_signed_distance": -0.0008155691102729179,
+          "base_anchor_distance": 0.0008155691321007907
+        },
+        {
+          "first_vertex": 2832,
+          "base_anchor_signed_distance": -0.0008698438214196358,
+          "base_anchor_distance": 0.000869843817781657
+        },
+        {
+          "first_vertex": 2856,
+          "base_anchor_signed_distance": -0.000814380582596641,
+          "base_anchor_distance": 0.0008143805898725986
+        },
+        {
+          "first_vertex": 2880,
+          "base_anchor_signed_distance": -0.0007451400088029914,
+          "base_anchor_distance": 0.000745140016078949
+        },
+        {
+          "first_vertex": 2904,
+          "base_anchor_signed_distance": -0.0008627674760646187,
+          "base_anchor_distance": 0.0008627674542367458
+        },
+        {
+          "first_vertex": 2928,
+          "base_anchor_signed_distance": -0.0007673718791920692,
+          "base_anchor_distance": 0.0007673718500882387
+        },
+        {
+          "first_vertex": 2952,
+          "base_anchor_signed_distance": -0.0008872255639289506,
+          "base_anchor_distance": 0.0008872256730683148
+        },
+        {
+          "first_vertex": 2976,
+          "base_anchor_signed_distance": -0.0007202062042779289,
+          "base_anchor_distance": 0.000720206240657717
+        },
+        {
+          "first_vertex": 3000,
+          "base_anchor_signed_distance": -0.0007878102551330812,
+          "base_anchor_distance": 0.0007878102478571236
+        },
+        {
+          "first_vertex": 3024,
+          "base_anchor_signed_distance": -0.0005977105624879187,
+          "base_anchor_distance": 0.0005977105465717614
+        },
+        {
+          "first_vertex": 3048,
+          "base_anchor_signed_distance": -0.0007187396804511081,
+          "base_anchor_distance": 0.0007187396986410022
+        },
+        {
+          "first_vertex": 3072,
+          "base_anchor_signed_distance": -0.00319280394614907,
+          "base_anchor_distance": 0.0031928038224577904
+        },
+        {
+          "first_vertex": 3096,
+          "base_anchor_signed_distance": -0.0032558222774241585,
+          "base_anchor_distance": 0.0032558219972997904
+        },
+        {
+          "first_vertex": 3120,
+          "base_anchor_signed_distance": -0.003074818610912189,
+          "base_anchor_distance": 0.0030748185236006975
+        },
+        {
+          "first_vertex": 3144,
+          "base_anchor_signed_distance": -0.0030738972855033353,
+          "base_anchor_distance": 0.003073897445574403
+        },
+        {
+          "first_vertex": 3168,
+          "base_anchor_signed_distance": -0.002864491594664287,
+          "base_anchor_distance": 0.0028644916601479053
+        },
+        {
+          "first_vertex": 3192,
+          "base_anchor_signed_distance": -0.00288138752875966,
+          "base_anchor_distance": 0.0028813874814659357
+        },
+        {
+          "first_vertex": 3216,
+          "base_anchor_signed_distance": -0.002749041304923594,
+          "base_anchor_distance": 0.002749041188508272
+        },
+        {
+          "first_vertex": 3240,
+          "base_anchor_signed_distance": -0.002733960463956464,
+          "base_anchor_distance": 0.0027339605148881674
+        },
+        {
+          "first_vertex": 3264,
+          "base_anchor_signed_distance": -0.0025466727965977043,
+          "base_anchor_distance": 0.0025466731749475002
+        },
+        {
+          "first_vertex": 3288,
+          "base_anchor_signed_distance": -0.0025700122096168343,
+          "base_anchor_distance": 0.0025700123514980078
+        },
+        {
+          "first_vertex": 3312,
+          "base_anchor_signed_distance": -0.002451566862873733,
+          "base_anchor_distance": 0.002451566746458411
+        },
+        {
+          "first_vertex": 3336,
+          "base_anchor_signed_distance": -0.0024309352156706154,
+          "base_anchor_distance": 0.0024309351574629545
+        },
+        {
+          "first_vertex": 3360,
+          "base_anchor_signed_distance": -0.0022909490362508222,
+          "base_anchor_distance": 0.0022909489925950766
+        },
+        {
+          "first_vertex": 3384,
+          "base_anchor_signed_distance": -0.0022504752887471113,
+          "base_anchor_distance": 0.0022504753433167934
+        },
+        {
+          "first_vertex": 3408,
+          "base_anchor_signed_distance": -0.002085245883790776,
+          "base_anchor_distance": 0.0020852459128946066
+        },
+        {
+          "first_vertex": 3432,
+          "base_anchor_signed_distance": -0.0020696448591479566,
+          "base_anchor_distance": 0.0020696448627859354
+        },
+        {
+          "first_vertex": 3456,
+          "base_anchor_signed_distance": -0.0020093658604309894,
+          "base_anchor_distance": 0.0020093657076358795
+        },
+        {
+          "first_vertex": 3480,
+          "base_anchor_signed_distance": -0.001989546282857191,
+          "base_anchor_distance": 0.0019895462319254875
+        },
+        {
+          "first_vertex": 3504,
+          "base_anchor_signed_distance": -0.0017634299219935201,
+          "base_anchor_distance": 0.0017634298419579864
+        },
+        {
+          "first_vertex": 3528,
+          "base_anchor_signed_distance": -0.001786686734703835,
+          "base_anchor_distance": 0.0017866867128759623
+        },
+        {
+          "first_vertex": 3552,
+          "base_anchor_signed_distance": -0.0016839240561239421,
+          "base_anchor_distance": 0.0016839242307469249
+        },
+        {
+          "first_vertex": 3576,
+          "base_anchor_signed_distance": -0.0016981235075945733,
+          "base_anchor_distance": 0.0016981234075501561
+        },
+        {
+          "first_vertex": 3600,
+          "base_anchor_signed_distance": -0.0014965803129598498,
+          "base_anchor_distance": 0.0014965803129598498
+        },
+        {
+          "first_vertex": 3624,
+          "base_anchor_signed_distance": -0.0015103000951057766,
+          "base_anchor_distance": 0.001510299975052476
+        },
+        {
+          "first_vertex": 3648,
+          "base_anchor_signed_distance": -0.0014071931618673261,
+          "base_anchor_distance": 0.0014071933692321181
+        },
+        {
+          "first_vertex": 3672,
+          "base_anchor_signed_distance": -0.0014183725779730594,
+          "base_anchor_distance": 0.0014183726161718369
+        },
+        {
+          "first_vertex": 3696,
+          "base_anchor_signed_distance": -0.0012382682289171498,
+          "base_anchor_distance": 0.0012382683344185352
+        },
+        {
+          "first_vertex": 3720,
+          "base_anchor_signed_distance": -0.001226178981596604,
+          "base_anchor_distance": 0.0012261789524927735
+        },
+        {
+          "first_vertex": 3744,
+          "base_anchor_signed_distance": -0.0011591308430070058,
+          "base_anchor_distance": 0.0011591309448704123
+        },
+        {
+          "first_vertex": 3768,
+          "base_anchor_signed_distance": -0.0011574956333788577,
+          "base_anchor_distance": 0.0011574955424293876
+        },
+        {
+          "first_vertex": 3792,
+          "base_anchor_signed_distance": -0.0011142408020532457,
+          "base_anchor_distance": 0.0011142408475279808
+        },
+        {
+          "first_vertex": 3816,
+          "base_anchor_signed_distance": -0.001158139677500003,
+          "base_anchor_distance": 0.0011581397848203778
+        },
+        {
+          "first_vertex": 3840,
+          "base_anchor_signed_distance": -0.0010355577087466372,
+          "base_anchor_distance": 0.0010355577105656266
+        },
+        {
+          "first_vertex": 3864,
+          "base_anchor_signed_distance": -0.0011744617240765365,
+          "base_anchor_distance": 0.0011744616786018014
+        },
+        {
+          "first_vertex": 3888,
+          "base_anchor_signed_distance": -0.0011673213357425993,
+          "base_anchor_distance": 0.0011673213448375463
+        },
+        {
+          "first_vertex": 3912,
+          "base_anchor_signed_distance": -0.0011181762274645735,
+          "base_anchor_distance": 0.0011181762674823403
+        },
+        {
+          "first_vertex": 3936,
+          "base_anchor_signed_distance": -0.001145443433415494,
+          "base_anchor_distance": 0.0011454434134066105
+        },
+        {
+          "first_vertex": 3960,
+          "base_anchor_signed_distance": -0.0011511487100506201,
+          "base_anchor_distance": 0.001151148695498705
+        },
+        {
+          "first_vertex": 3984,
+          "base_anchor_signed_distance": -0.0011645529011730105,
+          "base_anchor_distance": 0.0011645529884845018
+        },
+        {
+          "first_vertex": 4008,
+          "base_anchor_signed_distance": -0.0011853185460495297,
+          "base_anchor_distance": 0.0011853185715153813
+        },
+        {
+          "first_vertex": 4032,
+          "base_anchor_signed_distance": -0.0010554978016443783,
+          "base_anchor_distance": 0.0010554979089647532
+        },
+        {
+          "first_vertex": 4056,
+          "base_anchor_signed_distance": -0.0011889699999301229,
+          "base_anchor_distance": 0.001188970054499805
+        },
+        {
+          "first_vertex": 4080,
+          "base_anchor_signed_distance": -0.0011860698723467067,
+          "base_anchor_distance": 0.0011860699160024524
+        },
+        {
+          "first_vertex": 4104,
+          "base_anchor_signed_distance": -0.0011788767587859184,
+          "base_anchor_distance": 0.001178876729682088
+        },
+        {
+          "first_vertex": 4128,
+          "base_anchor_signed_distance": -0.001017902402963955,
+          "base_anchor_distance": 0.0010179023956879973
+        },
+        {
+          "first_vertex": 4152,
+          "base_anchor_signed_distance": -0.0011448960685811471,
+          "base_anchor_distance": 0.0011448960285633802
+        },
+        {
+          "first_vertex": 4176,
+          "base_anchor_signed_distance": -0.00102929583954392,
+          "base_anchor_distance": 0.0010292958468198776
+        },
+        {
+          "first_vertex": 4200,
+          "base_anchor_signed_distance": -0.001018816838040948,
+          "base_anchor_distance": 0.001018816838040948
+        },
+        {
+          "first_vertex": 4224,
+          "base_anchor_signed_distance": -0.0009518677015876165,
+          "base_anchor_distance": 0.0009518677252344787
+        },
+        {
+          "first_vertex": 4248,
+          "base_anchor_signed_distance": -0.0008966667210188461,
+          "base_anchor_distance": 0.0008966667810454965
+        },
+        {
+          "first_vertex": 4272,
+          "base_anchor_signed_distance": -0.001090631660190411,
+          "base_anchor_distance": 0.0010906317038461566
+        },
+        {
+          "first_vertex": 4296,
+          "base_anchor_signed_distance": -0.0008087825972324936,
+          "base_anchor_distance": 0.0008087826427072287
+        },
+        {
+          "first_vertex": 4320,
+          "base_anchor_signed_distance": -0.0009841040919127408,
+          "base_anchor_distance": 0.0009841040009632707
+        },
+        {
+          "first_vertex": 4344,
+          "base_anchor_signed_distance": -0.0008493097848258913,
+          "base_anchor_distance": 0.0008493097266182303
+        },
+        {
+          "first_vertex": 4368,
+          "base_anchor_signed_distance": -0.0008209011157305213,
+          "base_anchor_distance": 0.0008209010702557862
+        },
+        {
+          "first_vertex": 4392,
+          "base_anchor_signed_distance": -0.0008128403878799872,
+          "base_anchor_distance": 0.0008128404151648283
+        },
+        {
+          "first_vertex": 4416,
+          "base_anchor_signed_distance": -0.000769697815485415,
+          "base_anchor_distance": 0.0007696978282183409
+        },
+        {
+          "first_vertex": 4440,
+          "base_anchor_signed_distance": -0.0007986442342371447,
+          "base_anchor_distance": 0.0007986442651599646
+        },
+        {
+          "first_vertex": 4464,
+          "base_anchor_signed_distance": -0.0007411929891532054,
+          "base_anchor_distance": 0.0007411929545924067
+        },
+        {
+          "first_vertex": 4488,
+          "base_anchor_signed_distance": -0.0008152291320584482,
+          "base_anchor_distance": 0.0008152291411533952
+        },
+        {
+          "first_vertex": 4512,
+          "base_anchor_signed_distance": -0.0004943617595927208,
+          "base_anchor_distance": 0.0004943617968820035
+        },
+        {
+          "first_vertex": 4536,
+          "base_anchor_signed_distance": -0.0005378513405958074,
+          "base_anchor_distance": 0.0005378513596951962
+        },
+        {
+          "first_vertex": 4560,
+          "base_anchor_signed_distance": -0.000495831929583801,
+          "base_anchor_distance": 0.000495831947773695
+        },
+        {
+          "first_vertex": 4584,
+          "base_anchor_signed_distance": -0.0004732177844744001,
+          "base_anchor_distance": 0.0004732178058475256
+        },
+        {
+          "first_vertex": 4608,
+          "base_anchor_signed_distance": -0.003194394550519064,
+          "base_anchor_distance": 0.0031943945214152336
+        },
+        {
+          "first_vertex": 4632,
+          "base_anchor_signed_distance": -0.003246813896112144,
+          "base_anchor_distance": 0.0032468142453581095
+        },
+        {
+          "first_vertex": 4656,
+          "base_anchor_signed_distance": -0.0031068767711985856,
+          "base_anchor_distance": 0.003106876742094755
+        },
+        {
+          "first_vertex": 4680,
+          "base_anchor_signed_distance": -0.0031106253154575825,
+          "base_anchor_distance": 0.003110625548288226
+        },
+        {
+          "first_vertex": 4704,
+          "base_anchor_signed_distance": -0.0029278078727656975,
+          "base_anchor_distance": 0.0029278078582137823
+        },
+        {
+          "first_vertex": 4728,
+          "base_anchor_signed_distance": -0.0029271829407662153,
+          "base_anchor_distance": 0.0029271829407662153
+        },
+        {
+          "first_vertex": 4752,
+          "base_anchor_signed_distance": -0.002789948703139089,
+          "base_anchor_distance": 0.002789948834106326
+        },
+        {
+          "first_vertex": 4776,
+          "base_anchor_signed_distance": -0.002747313294094056,
+          "base_anchor_distance": 0.002747313352301717
+        },
+        {
+          "first_vertex": 4800,
+          "base_anchor_signed_distance": -0.00258195998321753,
+          "base_anchor_distance": 0.002581960055977106
+        },
+        {
+          "first_vertex": 4824,
+          "base_anchor_signed_distance": -0.0025941577332559973,
+          "base_anchor_distance": 0.0025941578205674887
+        },
+        {
+          "first_vertex": 4848,
+          "base_anchor_signed_distance": -0.0024400589463766664,
+          "base_anchor_distance": 0.0024400586262345314
+        },
+        {
+          "first_vertex": 4872,
+          "base_anchor_signed_distance": -0.002447798033244908,
+          "base_anchor_distance": 0.002447797916829586
+        },
+        {
+          "first_vertex": 4896,
+          "base_anchor_signed_distance": -0.002282261018990539,
+          "base_anchor_distance": 0.0022822609171271324
+        },
+        {
+          "first_vertex": 4920,
+          "base_anchor_signed_distance": -0.002237981345388107,
+          "base_anchor_distance": 0.0022379811853170395
+        },
+        {
+          "first_vertex": 4944,
+          "base_anchor_signed_distance": -0.002151653461623937,
+          "base_anchor_distance": 0.002151653403416276
+        },
+        {
+          "first_vertex": 4968,
+          "base_anchor_signed_distance": -0.0021090223162900656,
+          "base_anchor_distance": 0.002109022345393896
+        },
+        {
+          "first_vertex": 4992,
+          "base_anchor_signed_distance": -0.0019919024489354342,
+          "base_anchor_distance": 0.001991902245208621
+        },
+        {
+          "first_vertex": 5016,
+          "base_anchor_signed_distance": -0.0019639451056718826,
+          "base_anchor_distance": 0.0019639451056718826
+        },
+        {
+          "first_vertex": 5040,
+          "base_anchor_signed_distance": -0.001817858275899198,
+          "base_anchor_distance": 0.0018178581958636642
+        },
+        {
+          "first_vertex": 5064,
+          "base_anchor_signed_distance": -0.0018039331334875897,
+          "base_anchor_distance": 0.0018039331771433353
+        },
+        {
+          "first_vertex": 5088,
+          "base_anchor_signed_distance": -0.0016952253208728507,
+          "base_anchor_distance": 0.0016952253645285964
+        },
+        {
+          "first_vertex": 5112,
+          "base_anchor_signed_distance": -0.0017036827775882557,
+          "base_anchor_distance": 0.0017036828212440014
+        },
+        {
+          "first_vertex": 5136,
+          "base_anchor_signed_distance": -0.001573626730532851,
+          "base_anchor_distance": 0.0015736267669126391
+        },
+        {
+          "first_vertex": 5160,
+          "base_anchor_signed_distance": -0.001586689701071009,
+          "base_anchor_distance": 0.0015866896137595177
+        },
+        {
+          "first_vertex": 5184,
+          "base_anchor_signed_distance": -0.0014167704866849817,
+          "base_anchor_distance": 0.0014167703920975327
+        },
+        {
+          "first_vertex": 5208,
+          "base_anchor_signed_distance": -0.0013764211762463674,
+          "base_anchor_distance": 0.0013764210743829608
+        },
+        {
+          "first_vertex": 5232,
+          "base_anchor_signed_distance": -0.001289899184484966,
+          "base_anchor_distance": 0.0012898992281407118
+        },
+        {
+          "first_vertex": 5256,
+          "base_anchor_signed_distance": -0.0012554918212117627,
+          "base_anchor_distance": 0.0012554917484521866
+        },
+        {
+          "first_vertex": 5280,
+          "base_anchor_signed_distance": -0.001154649507952854,
+          "base_anchor_distance": 0.0011546494206413627
+        },
+        {
+          "first_vertex": 5304,
+          "base_anchor_signed_distance": -0.0012047803975292481,
+          "base_anchor_distance": 0.0012047803029417992
+        },
+        {
+          "first_vertex": 5328,
+          "base_anchor_signed_distance": -0.001156877216999419,
+          "base_anchor_distance": 0.0011568772606551647
+        },
+        {
+          "first_vertex": 5352,
+          "base_anchor_signed_distance": -0.0011496679435367696,
+          "base_anchor_distance": 0.0011496678926050663
+        },
+        {
+          "first_vertex": 5376,
+          "base_anchor_signed_distance": -0.0010329759970773011,
+          "base_anchor_distance": 0.0010329760843887925
+        },
+        {
+          "first_vertex": 5400,
+          "base_anchor_signed_distance": -0.001133865247538779,
+          "base_anchor_distance": 0.0011338652111589909
+        },
+        {
+          "first_vertex": 5424,
+          "base_anchor_signed_distance": -0.00112333085417049,
+          "base_anchor_distance": 0.0011233309051021934
+        },
+        {
+          "first_vertex": 5448,
+          "base_anchor_signed_distance": -0.001139129490184132,
+          "base_anchor_distance": 0.0011391295120120049
+        },
+        {
+          "first_vertex": 5472,
+          "base_anchor_signed_distance": -0.001161090302048251,
+          "base_anchor_distance": 0.0011610903311520815
+        },
+        {
+          "first_vertex": 5496,
+          "base_anchor_signed_distance": -0.0011599606950767338,
+          "base_anchor_distance": 0.0011599607532843947
+        },
+        {
+          "first_vertex": 5520,
+          "base_anchor_signed_distance": -0.0011380820433259942,
+          "base_anchor_distance": 0.001138082123361528
+        },
+        {
+          "first_vertex": 5544,
+          "base_anchor_signed_distance": -0.0011211432938580401,
+          "base_anchor_distance": 0.0011211432283744216
+        },
+        {
+          "first_vertex": 5568,
+          "base_anchor_signed_distance": -0.0011782723740907386,
+          "base_anchor_distance": 0.0011782723013311625
+        },
+        {
+          "first_vertex": 5592,
+          "base_anchor_signed_distance": -0.0012469689900171943,
+          "base_anchor_distance": 0.0012469690991565585
+        },
+        {
+          "first_vertex": 5616,
+          "base_anchor_signed_distance": -0.0011556323952390812,
+          "base_anchor_distance": 0.0011556324316188693
+        },
+        {
+          "first_vertex": 5640,
+          "base_anchor_signed_distance": -0.001071931081241928,
+          "base_anchor_distance": 0.0010719310957938433
+        },
+        {
+          "first_vertex": 5664,
+          "base_anchor_signed_distance": -0.0011678219816531055,
+          "base_anchor_distance": 0.0011678219307214022
+        },
+        {
+          "first_vertex": 5688,
+          "base_anchor_signed_distance": -0.001076865941286087,
+          "base_anchor_distance": 0.0010768658248707652
+        },
+        {
+          "first_vertex": 5712,
+          "base_anchor_signed_distance": -0.0010597506479825824,
+          "base_anchor_distance": 0.001059750677086413
+        },
+        {
+          "first_vertex": 5736,
+          "base_anchor_signed_distance": -0.0009946209247573279,
+          "base_anchor_distance": 0.000994620961137116
+        },
+        {
+          "first_vertex": 5760,
+          "base_anchor_signed_distance": -0.0011900526442332193,
+          "base_anchor_distance": 0.0011900527169927955
+        },
+        {
+          "first_vertex": 5784,
+          "base_anchor_signed_distance": -0.0008531495477654971,
+          "base_anchor_distance": 0.00085314956959337
+        },
+        {
+          "first_vertex": 5808,
+          "base_anchor_signed_distance": -0.0011593652452575043,
+          "base_anchor_distance": 0.0011593651724979281
+        },
+        {
+          "first_vertex": 5832,
+          "base_anchor_signed_distance": -0.0009058605137397535,
+          "base_anchor_distance": 0.0009058605064637959
+        },
+        {
+          "first_vertex": 5856,
+          "base_anchor_signed_distance": -0.0009484057009103708,
+          "base_anchor_distance": 0.0009484057663939893
+        },
+        {
+          "first_vertex": 5880,
+          "base_anchor_signed_distance": -0.0008623256580904126,
+          "base_anchor_distance": 0.0008623256580904126
+        },
+        {
+          "first_vertex": 5904,
+          "base_anchor_signed_distance": -0.000905281885934528,
+          "base_anchor_distance": 0.000905281922314316
+        },
+        {
+          "first_vertex": 5928,
+          "base_anchor_signed_distance": -0.000861162981891539,
+          "base_anchor_distance": 0.000861163018271327
+        },
+        {
+          "first_vertex": 5952,
+          "base_anchor_signed_distance": -0.0008642102766316384,
+          "base_anchor_distance": 0.0008642103057354689
+        },
+        {
+          "first_vertex": 5976,
+          "base_anchor_signed_distance": -0.0008219008013838902,
+          "base_anchor_distance": 0.000821900786831975
+        },
+        {
+          "first_vertex": 6000,
+          "base_anchor_signed_distance": -0.00073828124004649,
+          "base_anchor_distance": 0.0007382812327705324
+        },
+        {
+          "first_vertex": 6024,
+          "base_anchor_signed_distance": -0.0006740974204149097,
+          "base_anchor_distance": 0.0006740973913110793
+        },
+        {
+          "first_vertex": 6048,
+          "base_anchor_signed_distance": -0.00057361451399629,
+          "base_anchor_distance": 0.0005736146122217178
+        },
+        {
+          "first_vertex": 6072,
+          "base_anchor_signed_distance": -0.0005720813824154902,
+          "base_anchor_distance": 0.0005720813642255962
+        },
+        {
+          "first_vertex": 6096,
+          "base_anchor_signed_distance": -0.00047830961284489604,
+          "base_anchor_distance": 0.00047830966650508344
+        },
+        {
+          "first_vertex": 6120,
+          "base_anchor_signed_distance": -0.0008093790311249904,
+          "base_anchor_distance": 0.000809379096608609
+        },
+        {
+          "first_vertex": 6144,
+          "base_anchor_signed_distance": -0.0032080243981909007,
+          "base_anchor_distance": 0.003208024427294731
+        },
+        {
+          "first_vertex": 6168,
+          "base_anchor_signed_distance": -0.0032268041832139716,
+          "base_anchor_distance": 0.0032268045470118523
+        },
+        {
+          "first_vertex": 6192,
+          "base_anchor_signed_distance": -0.0031148630660027266,
+          "base_anchor_distance": 0.003114862833172083
+        },
+        {
+          "first_vertex": 6216,
+          "base_anchor_signed_distance": -0.0030706897377967834,
+          "base_anchor_distance": 0.0030706897377967834
+        },
+        {
+          "first_vertex": 6240,
+          "base_anchor_signed_distance": -0.0028835260454798117,
+          "base_anchor_distance": 0.0028835260309278965
+        },
+        {
+          "first_vertex": 6264,
+          "base_anchor_signed_distance": -0.002925523163867183,
+          "base_anchor_distance": 0.0029255233239382505
+        },
+        {
+          "first_vertex": 6288,
+          "base_anchor_signed_distance": -0.002777261193841696,
+          "base_anchor_distance": 0.002777260961011052
+        },
+        {
+          "first_vertex": 6312,
+          "base_anchor_signed_distance": -0.0028001191531075165,
+          "base_anchor_distance": 0.0028001191094517708
+        },
+        {
+          "first_vertex": 6336,
+          "base_anchor_signed_distance": -0.0026598741533234715,
+          "base_anchor_distance": 0.002659874502569437
+        },
+        {
+          "first_vertex": 6360,
+          "base_anchor_signed_distance": -0.0026077084621647373,
+          "base_anchor_distance": 0.002607708564028144
+        },
+        {
+          "first_vertex": 6384,
+          "base_anchor_signed_distance": -0.0024356086942134425,
+          "base_anchor_distance": 0.0024356087669730186
+        },
+        {
+          "first_vertex": 6408,
+          "base_anchor_signed_distance": -0.0024465182577841915,
+          "base_anchor_distance": 0.0024465180467814207
+        },
+        {
+          "first_vertex": 6432,
+          "base_anchor_signed_distance": -0.002264982438646257,
+          "base_anchor_distance": 0.002264982322230935
+        },
+        {
+          "first_vertex": 6456,
+          "base_anchor_signed_distance": -0.002134630107320845,
+          "base_anchor_distance": 0.002134630223736167
+        },
+        {
+          "first_vertex": 6480,
+          "base_anchor_signed_distance": -0.0021305388800101355,
+          "base_anchor_distance": 0.002130538923665881
+        },
+        {
+          "first_vertex": 6504,
+          "base_anchor_signed_distance": -0.002059856524283532,
+          "base_anchor_distance": 0.002059856429696083
+        },
+        {
+          "first_vertex": 6528,
+          "base_anchor_signed_distance": -0.001975579609279521,
+          "base_anchor_distance": 0.001975579420104623
+        },
+        {
+          "first_vertex": 6552,
+          "base_anchor_signed_distance": -0.001967544107174035,
+          "base_anchor_distance": 0.0019675439689308405
+        },
+        {
+          "first_vertex": 6576,
+          "base_anchor_signed_distance": -0.0018640178022906184,
+          "base_anchor_distance": 0.0018640178022906184
+        },
+        {
+          "first_vertex": 6600,
+          "base_anchor_signed_distance": -0.0018484607571735978,
+          "base_anchor_distance": 0.0018484607571735978
+        },
+        {
+          "first_vertex": 6624,
+          "base_anchor_signed_distance": -0.0016809776716399938,
+          "base_anchor_distance": 0.0016809776425361633
+        },
+        {
+          "first_vertex": 6648,
+          "base_anchor_signed_distance": -0.0017300657636951655,
+          "base_anchor_distance": 0.001730065792798996
+        },
+        {
+          "first_vertex": 6672,
+          "base_anchor_signed_distance": -0.0015733514446765184,
+          "base_anchor_distance": 0.0015733514446765184
+        },
+        {
+          "first_vertex": 6696,
+          "base_anchor_signed_distance": -0.001583399913215544,
+          "base_anchor_distance": 0.0015833999495953321
+        },
+        {
+          "first_vertex": 6720,
+          "base_anchor_signed_distance": -0.0014183134626364335,
+          "base_anchor_distance": 0.001418313360773027
+        },
+        {
+          "first_vertex": 6744,
+          "base_anchor_signed_distance": -0.0014693725970573723,
+          "base_anchor_distance": 0.0014693726552650332
+        },
+        {
+          "first_vertex": 6768,
+          "base_anchor_signed_distance": -0.0012804098150809295,
+          "base_anchor_distance": 0.001280409749597311
+        },
+        {
+          "first_vertex": 6792,
+          "base_anchor_signed_distance": -0.0012807251550839283,
+          "base_anchor_distance": 0.0012807250022888184
+        },
+        {
+          "first_vertex": 6816,
+          "base_anchor_signed_distance": -0.0012055013939971104,
+          "base_anchor_distance": 0.0012055013794451952
+        },
+        {
+          "first_vertex": 6840,
+          "base_anchor_signed_distance": -0.0011394542125344742,
+          "base_anchor_distance": 0.0011394541943445802
+        },
+        {
+          "first_vertex": 6864,
+          "base_anchor_signed_distance": -0.0011221011154702865,
+          "base_anchor_distance": 0.0011221012100577354
+        },
+        {
+          "first_vertex": 6888,
+          "base_anchor_signed_distance": -0.0011804158057202585,
+          "base_anchor_distance": 0.0011804158566519618
+        },
+        {
+          "first_vertex": 6912,
+          "base_anchor_signed_distance": -0.001145117057603784,
+          "base_anchor_distance": 0.0011451171012595296
+        },
+        {
+          "first_vertex": 6936,
+          "base_anchor_signed_distance": -0.0010920244822045788,
+          "base_anchor_distance": 0.0010920246131718159
+        },
+        {
+          "first_vertex": 6960,
+          "base_anchor_signed_distance": -0.0011619174620136619,
+          "base_anchor_distance": 0.0011619174620136619
+        },
+        {
+          "first_vertex": 6984,
+          "base_anchor_signed_distance": -0.0011353180307196453,
+          "base_anchor_distance": 0.001135318074375391
+        },
+        {
+          "first_vertex": 7008,
+          "base_anchor_signed_distance": -0.0011118419715785421,
+          "base_anchor_distance": 0.001111841993406415
+        },
+        {
+          "first_vertex": 7032,
+          "base_anchor_signed_distance": -0.0011661311145871878,
+          "base_anchor_distance": 0.0011661312310025096
+        },
+        {
+          "first_vertex": 7056,
+          "base_anchor_signed_distance": -0.0011568866611924022,
+          "base_anchor_distance": 0.0011568866902962327
+        },
+        {
+          "first_vertex": 7080,
+          "base_anchor_signed_distance": -0.001206263703352306,
+          "base_anchor_distance": 0.001206263666972518
+        },
+        {
+          "first_vertex": 7104,
+          "base_anchor_signed_distance": -0.0011089511172031052,
+          "base_anchor_distance": 0.0011089511681348085
+        },
+        {
+          "first_vertex": 7128,
+          "base_anchor_signed_distance": -0.001197531346406322,
+          "base_anchor_distance": 0.0011975313536822796
+        },
+        {
+          "first_vertex": 7152,
+          "base_anchor_signed_distance": -0.001100638859497849,
+          "base_anchor_distance": 0.0011006387649104
+        },
+        {
+          "first_vertex": 7176,
+          "base_anchor_signed_distance": -0.0010998528196068946,
+          "base_anchor_distance": 0.0010998528450727463
+        },
+        {
+          "first_vertex": 7200,
+          "base_anchor_signed_distance": -0.0010242042408208363,
+          "base_anchor_distance": 0.001024204189889133
+        },
+        {
+          "first_vertex": 7224,
+          "base_anchor_signed_distance": -0.001218339595652651,
+          "base_anchor_distance": 0.0012183396611362696
+        },
+        {
+          "first_vertex": 7248,
+          "base_anchor_signed_distance": -0.0009945480778696947,
+          "base_anchor_distance": 0.0009945482015609741
+        },
+        {
+          "first_vertex": 7272,
+          "base_anchor_signed_distance": -0.0011600945217651315,
+          "base_anchor_distance": 0.0011600945144891739
+        },
+        {
+          "first_vertex": 7296,
+          "base_anchor_signed_distance": -0.0009631200155126862,
+          "base_anchor_distance": 0.0009631200227886438
+        },
+        {
+          "first_vertex": 7320,
+          "base_anchor_signed_distance": -0.0009823577529459726,
+          "base_anchor_distance": 0.0009823577711358666
+        },
+        {
+          "first_vertex": 7344,
+          "base_anchor_signed_distance": -0.0010963774911942892,
+          "base_anchor_distance": 0.0010963774984702468
+        },
+        {
+          "first_vertex": 7368,
+          "base_anchor_signed_distance": -0.000874179331731284,
+          "base_anchor_distance": 0.0008741792407818139
+        },
+        {
+          "first_vertex": 7392,
+          "base_anchor_signed_distance": -0.0010131775488844141,
+          "base_anchor_distance": 0.0010131776798516512
+        },
+        {
+          "first_vertex": 7416,
+          "base_anchor_signed_distance": -0.000890066206920892,
+          "base_anchor_distance": 0.000890066206920892
+        },
+        {
+          "first_vertex": 7440,
+          "base_anchor_signed_distance": -0.0008558774861739948,
+          "base_anchor_distance": 0.0008558774716220796
+        },
+        {
+          "first_vertex": 7464,
+          "base_anchor_signed_distance": -0.0008738778742554132,
+          "base_anchor_distance": 0.0008738778997212648
+        },
+        {
+          "first_vertex": 7488,
+          "base_anchor_signed_distance": -0.0008451633657386992,
+          "base_anchor_distance": 0.0008451633038930595
+        },
+        {
+          "first_vertex": 7512,
+          "base_anchor_signed_distance": -0.0008323819056386128,
+          "base_anchor_distance": 0.0008323818910866976
+        },
+        {
+          "first_vertex": 7536,
+          "base_anchor_signed_distance": -0.0008180982586054597,
+          "base_anchor_distance": 0.00081809819675982
+        },
+        {
+          "first_vertex": 7560,
+          "base_anchor_signed_distance": -0.0007805149216437712,
+          "base_anchor_distance": 0.000780514907091856
+        },
+        {
+          "first_vertex": 7584,
+          "base_anchor_signed_distance": -0.00024738028696447145,
+          "base_anchor_distance": 0.00024738028878346086
+        },
+        {
+          "first_vertex": 7608,
+          "base_anchor_signed_distance": -0.0007513966102123959,
+          "base_anchor_distance": 0.0007513966411352158
+        },
+        {
+          "first_vertex": 7632,
+          "base_anchor_signed_distance": -0.00022165562040754594,
+          "base_anchor_distance": 0.00022165563132148236
+        },
+        {
+          "first_vertex": 7656,
+          "base_anchor_signed_distance": -0.0006341341759252828,
+          "base_anchor_distance": 0.0006341341650113463
+        },
+        {
+          "first_vertex": 7680,
+          "base_anchor_signed_distance": -0.0032290195958921686,
+          "base_anchor_distance": 0.0032290194649249315
+        },
+        {
+          "first_vertex": 7704,
+          "base_anchor_signed_distance": -0.0032203625596594065,
+          "base_anchor_distance": 0.003220362588763237
+        },
+        {
+          "first_vertex": 7728,
+          "base_anchor_signed_distance": -0.003069371341553051,
+          "base_anchor_distance": 0.0030693714506924152
+        },
+        {
+          "first_vertex": 7752,
+          "base_anchor_signed_distance": -0.0030729796562809497,
+          "base_anchor_distance": 0.0030729796271771193
+        },
+        {
+          "first_vertex": 7776,
+          "base_anchor_signed_distance": -0.0029477613061317243,
+          "base_anchor_distance": 0.002947761444374919
+        },
+        {
+          "first_vertex": 7800,
+          "base_anchor_signed_distance": -0.0029381802305579185,
+          "base_anchor_distance": 0.0029381802305579185
+        },
+        {
+          "first_vertex": 7824,
+          "base_anchor_signed_distance": -0.0027793071712949313,
+          "base_anchor_distance": 0.002779307309538126
+        },
+        {
+          "first_vertex": 7848,
+          "base_anchor_signed_distance": -0.0027271950530121103,
+          "base_anchor_distance": 0.002727195154875517
+        },
+        {
+          "first_vertex": 7872,
+          "base_anchor_signed_distance": -0.002578841842478141,
+          "base_anchor_distance": 0.002578841522336006
+        },
+        {
+          "first_vertex": 7896,
+          "base_anchor_signed_distance": -0.0026064583216793835,
+          "base_anchor_distance": 0.0026064582634717226
+        },
+        {
+          "first_vertex": 7920,
+          "base_anchor_signed_distance": -0.0024377076224482153,
+          "base_anchor_distance": 0.0024377075023949146
+        },
+        {
+          "first_vertex": 7944,
+          "base_anchor_signed_distance": -0.002473063679644838,
+          "base_anchor_distance": 0.0024730635341256857
+        },
+        {
+          "first_vertex": 7968,
+          "base_anchor_signed_distance": -0.002198657122789882,
+          "base_anchor_distance": 0.0021986570209264755
+        },
+        {
+          "first_vertex": 7992,
+          "base_anchor_signed_distance": -0.0022754417586838827,
+          "base_anchor_distance": 0.002275441773235798
+        },
+        {
+          "first_vertex": 8016,
+          "base_anchor_signed_distance": -0.002093483039061539,
+          "base_anchor_distance": 0.002093483228236437
+        },
+        {
+          "first_vertex": 8040,
+          "base_anchor_signed_distance": -0.0020120211338507943,
+          "base_anchor_distance": 0.002012021141126752
+        },
+        {
+          "first_vertex": 8064,
+          "base_anchor_signed_distance": -0.0019573220415622927,
+          "base_anchor_distance": 0.0019573222380131483
+        },
+        {
+          "first_vertex": 8088,
+          "base_anchor_signed_distance": -0.0019449285246082582,
+          "base_anchor_distance": 0.0019449284300208092
+        },
+        {
+          "first_vertex": 8112,
+          "base_anchor_signed_distance": -0.0017924717067216989,
+          "base_anchor_distance": 0.0017924716230481863
+        },
+        {
+          "first_vertex": 8136,
+          "base_anchor_signed_distance": -0.0018244425664306618,
+          "base_anchor_distance": 0.0018244425300508738
+        },
+        {
+          "first_vertex": 8160,
+          "base_anchor_signed_distance": -0.0016690376360202208,
+          "base_anchor_distance": 0.0016690376214683056
+        },
+        {
+          "first_vertex": 8184,
+          "base_anchor_signed_distance": -0.0016774873147369362,
+          "base_anchor_distance": 0.0016774872783571482
+        },
+        {
+          "first_vertex": 8208,
+          "base_anchor_signed_distance": -0.001557454754220089,
+          "base_anchor_distance": 0.0015574548160657287
+        },
+        {
+          "first_vertex": 8232,
+          "base_anchor_signed_distance": -0.0015435411332873628,
+          "base_anchor_distance": 0.001543541089631617
+        },
+        {
+          "first_vertex": 8256,
+          "base_anchor_signed_distance": -0.001392515368934255,
+          "base_anchor_distance": 0.0013925154926255345
+        },
+        {
+          "first_vertex": 8280,
+          "base_anchor_signed_distance": -0.0013620049721794203,
+          "base_anchor_distance": 0.001362005015835166
+        },
+        {
+          "first_vertex": 8304,
+          "base_anchor_signed_distance": -0.0012462210906960536,
+          "base_anchor_distance": 0.0012462211307138205
+        },
+        {
+          "first_vertex": 8328,
+          "base_anchor_signed_distance": -0.001282517252548132,
+          "base_anchor_distance": 0.001282517216168344
+        },
+        {
+          "first_vertex": 8352,
+          "base_anchor_signed_distance": -0.00118307898810599,
+          "base_anchor_distance": 0.0011830789735540748
+        },
+        {
+          "first_vertex": 8376,
+          "base_anchor_signed_distance": -0.001206191533128731,
+          "base_anchor_distance": 0.001206191605888307
+        },
+        {
+          "first_vertex": 8400,
+          "base_anchor_signed_distance": -0.0011665571983030532,
+          "base_anchor_distance": 0.0011665571946650743
+        },
+        {
+          "first_vertex": 8424,
+          "base_anchor_signed_distance": -0.001202152321639005,
+          "base_anchor_distance": 0.0012021522270515561
+        },
+        {
+          "first_vertex": 8448,
+          "base_anchor_signed_distance": -0.0010944726964225993,
+          "base_anchor_distance": 0.0010944725945591927
+        },
+        {
+          "first_vertex": 8472,
+          "base_anchor_signed_distance": -0.0011789317868533544,
+          "base_anchor_distance": 0.0011789319105446339
+        },
+        {
+          "first_vertex": 8496,
+          "base_anchor_signed_distance": -0.001141582579293754,
+          "base_anchor_distance": 0.001141582615673542
+        },
+        {
+          "first_vertex": 8520,
+          "base_anchor_signed_distance": -0.001130954555264907,
+          "base_anchor_distance": 0.0011309547116979957
+        },
+        {
+          "first_vertex": 8544,
+          "base_anchor_signed_distance": -0.0011593433846428525,
+          "base_anchor_distance": 0.0011593435192480683
+        },
+        {
+          "first_vertex": 8568,
+          "base_anchor_signed_distance": -0.0011381670701666735,
+          "base_anchor_distance": 0.0011381671065464616
+        },
+        {
+          "first_vertex": 8592,
+          "base_anchor_signed_distance": -0.001103704737033695,
+          "base_anchor_distance": 0.001103704795241356
+        },
+        {
+          "first_vertex": 8616,
+          "base_anchor_signed_distance": -0.0011389285573386587,
+          "base_anchor_distance": 0.0011389285791665316
+        },
+        {
+          "first_vertex": 8640,
+          "base_anchor_signed_distance": -0.001051832878147252,
+          "base_anchor_distance": 0.0010518330382183194
+        },
+        {
+          "first_vertex": 8664,
+          "base_anchor_signed_distance": -0.001124359459936386,
+          "base_anchor_distance": 0.0011243595508858562
+        },
+        {
+          "first_vertex": 8688,
+          "base_anchor_signed_distance": -0.001117765703384066,
+          "base_anchor_distance": 0.0011177656706422567
+        },
+        {
+          "first_vertex": 8712,
+          "base_anchor_signed_distance": -0.0011192609126737807,
+          "base_anchor_distance": 0.0011192609090358019
+        },
+        {
+          "first_vertex": 8736,
+          "base_anchor_signed_distance": -0.0010685803772503277,
+          "base_anchor_distance": 0.0010685804300010204
+        },
+        {
+          "first_vertex": 8760,
+          "base_anchor_signed_distance": -0.0010852290943148546,
+          "base_anchor_distance": 0.0010852291015908122
+        },
+        {
+          "first_vertex": 8784,
+          "base_anchor_signed_distance": -0.0010134814019693295,
+          "base_anchor_distance": 0.0010134812910109758
+        },
+        {
+          "first_vertex": 8808,
+          "base_anchor_signed_distance": -0.0010130530026799534,
+          "base_anchor_distance": 0.0010130529990419745
+        },
+        {
+          "first_vertex": 8832,
+          "base_anchor_signed_distance": -0.0009428945722902426,
+          "base_anchor_distance": 0.0009428946650587022
+        },
+        {
+          "first_vertex": 8856,
+          "base_anchor_signed_distance": -0.0009049943910213187,
+          "base_anchor_distance": 0.0009049943764694035
+        },
+        {
+          "first_vertex": 8880,
+          "base_anchor_signed_distance": -0.0009034532413352281,
+          "base_anchor_distance": 0.0009034532704390585
+        },
+        {
+          "first_vertex": 8904,
+          "base_anchor_signed_distance": -0.0006563798469869653,
+          "base_anchor_distance": 0.0006563798524439335
+        },
+        {
+          "first_vertex": 8928,
+          "base_anchor_signed_distance": -0.0008888946831575595,
+          "base_anchor_distance": 0.0008888947195373476
+        },
+        {
+          "first_vertex": 8952,
+          "base_anchor_signed_distance": -0.0008884568087523803,
+          "base_anchor_distance": 0.0008884567650966346
+        },
+        {
+          "first_vertex": 8976,
+          "base_anchor_signed_distance": -0.0008739420754864113,
+          "base_anchor_distance": 0.0008739421027712524
+        },
+        {
+          "first_vertex": 9000,
+          "base_anchor_signed_distance": -0.0008859059707901906,
+          "base_anchor_distance": 0.0008859059889800847
+        },
+        {
+          "first_vertex": 9024,
+          "base_anchor_signed_distance": -0.000832848822028609,
+          "base_anchor_distance": 0.0008328487747348845
+        },
+        {
+          "first_vertex": 9048,
+          "base_anchor_signed_distance": -0.0008946518755692523,
+          "base_anchor_distance": 0.0008946518646553159
+        },
+        {
+          "first_vertex": 9072,
+          "base_anchor_signed_distance": -0.0007000586520007346,
+          "base_anchor_distance": 0.0007000586483627558
+        },
+        {
+          "first_vertex": 9096,
+          "base_anchor_signed_distance": -0.0008211270614992827,
+          "base_anchor_distance": 0.0008211270323954523
+        },
+        {
+          "first_vertex": 9120,
+          "base_anchor_signed_distance": -0.0005536807229873375,
+          "base_anchor_distance": 0.0005536807584576309
+        },
+        {
+          "first_vertex": 9144,
+          "base_anchor_signed_distance": -0.0006452702709793812,
+          "base_anchor_distance": 0.0006452702218666673
+        },
+        {
+          "first_vertex": 9168,
+          "base_anchor_signed_distance": -0.0003780428387472057,
+          "base_anchor_distance": 0.000378042837837711
+        },
+        {
+          "first_vertex": 9192,
+          "base_anchor_signed_distance": -0.000597274090978317,
+          "base_anchor_distance": 0.0005972741637378931
+        },
+        {
+          "first_vertex": 9216,
+          "base_anchor_signed_distance": -0.0032323188352165744,
+          "base_anchor_distance": 0.0032323189079761505
+        },
+        {
+          "first_vertex": 9240,
+          "base_anchor_signed_distance": -0.003170416435750667,
+          "base_anchor_distance": 0.0031704166904091835
+        },
+        {
+          "first_vertex": 9264,
+          "base_anchor_signed_distance": -0.0030508992058457807,
+          "base_anchor_distance": 0.003050898900255561
+        },
+        {
+          "first_vertex": 9288,
+          "base_anchor_signed_distance": -0.003046863123017829,
+          "base_anchor_distance": 0.0030468630138784647
+        },
+        {
+          "first_vertex": 9312,
+          "base_anchor_signed_distance": -0.002869811563869007,
+          "base_anchor_distance": 0.0028698118403553963
+        },
+        {
+          "first_vertex": 9336,
+          "base_anchor_signed_distance": -0.0029346752307901625,
+          "base_anchor_distance": 0.002934675198048353
+        },
+        {
+          "first_vertex": 9360,
+          "base_anchor_signed_distance": -0.002758677743258886,
+          "base_anchor_distance": 0.002758677816018462
+        },
+        {
+          "first_vertex": 9384,
+          "base_anchor_signed_distance": -0.002745718742517056,
+          "base_anchor_distance": 0.002745718928053975
+        },
+        {
+          "first_vertex": 9408,
+          "base_anchor_signed_distance": -0.0025881387991830707,
+          "base_anchor_distance": 0.002588138682767749
+        },
+        {
+          "first_vertex": 9432,
+          "base_anchor_signed_distance": -0.0025256709814129863,
+          "base_anchor_distance": 0.0025256709195673466
+        },
+        {
+          "first_vertex": 9456,
+          "base_anchor_signed_distance": -0.0023762805576552637,
+          "base_anchor_distance": 0.002376280492171645
+        },
+        {
+          "first_vertex": 9480,
+          "base_anchor_signed_distance": -0.002405080547760008,
+          "base_anchor_distance": 0.0024050807114690542
+        },
+        {
+          "first_vertex": 9504,
+          "base_anchor_signed_distance": -0.002234553830930963,
+          "base_anchor_distance": 0.0022345539182424545
+        },
+        {
+          "first_vertex": 9528,
+          "base_anchor_signed_distance": -0.002204674692620756,
+          "base_anchor_distance": 0.0022046747617423534
+        },
+        {
+          "first_vertex": 9552,
+          "base_anchor_signed_distance": -0.0020996243256377056,
+          "base_anchor_distance": 0.0020996241364628077
+        },
+        {
+          "first_vertex": 9576,
+          "base_anchor_signed_distance": -0.0021107382235641126,
+          "base_anchor_distance": 0.002110738307237625
+        },
+        {
+          "first_vertex": 9600,
+          "base_anchor_signed_distance": -0.001899461800348945,
+          "base_anchor_distance": 0.0018994618440046906
+        },
+        {
+          "first_vertex": 9624,
+          "base_anchor_signed_distance": -0.0018645932723302394,
+          "base_anchor_distance": 0.0018645931268110871
+        },
+        {
+          "first_vertex": 9648,
+          "base_anchor_signed_distance": -0.001826992491260171,
+          "base_anchor_distance": 0.001826992491260171
+        },
+        {
+          "first_vertex": 9672,
+          "base_anchor_signed_distance": -0.0018523957733123098,
+          "base_anchor_distance": 0.00185239571146667
+        },
+        {
+          "first_vertex": 9696,
+          "base_anchor_signed_distance": -0.0016945106472121552,
+          "base_anchor_distance": 0.0016945106908679008
+        },
+        {
+          "first_vertex": 9720,
+          "base_anchor_signed_distance": -0.001619550177565543,
+          "base_anchor_distance": 0.0016195501666516066
+        },
+        {
+          "first_vertex": 9744,
+          "base_anchor_signed_distance": -0.0015350766698247753,
+          "base_anchor_distance": 0.0015350767644122243
+        },
+        {
+          "first_vertex": 9768,
+          "base_anchor_signed_distance": -0.001552522833662806,
+          "base_anchor_distance": 0.001552522648125887
+        },
+        {
+          "first_vertex": 9792,
+          "base_anchor_signed_distance": -0.0013427551566564944,
+          "base_anchor_distance": 0.001342755276709795
+        },
+        {
+          "first_vertex": 9816,
+          "base_anchor_signed_distance": -0.0014297974048531614,
+          "base_anchor_distance": 0.0014297973830252886
+        },
+        {
+          "first_vertex": 9840,
+          "base_anchor_signed_distance": -0.001212587198097026,
+          "base_anchor_distance": 0.0012125872308388352
+        },
+        {
+          "first_vertex": 9864,
+          "base_anchor_signed_distance": -0.001217693925354979,
+          "base_anchor_distance": 0.0012176939053460956
+        },
+        {
+          "first_vertex": 9888,
+          "base_anchor_signed_distance": -0.0011706842778949067,
+          "base_anchor_distance": 0.0011706841178238392
+        },
+        {
+          "first_vertex": 9912,
+          "base_anchor_signed_distance": -0.0011887089312949684,
+          "base_anchor_distance": 0.0011887089349329472
+        },
+        {
+          "first_vertex": 9936,
+          "base_anchor_signed_distance": -0.0010758728749351576,
+          "base_anchor_distance": 0.0010758729185909033
+        },
+        {
+          "first_vertex": 9960,
+          "base_anchor_signed_distance": -0.0011377007140254136,
+          "base_anchor_distance": 0.0011377007467672229
+        },
+        {
+          "first_vertex": 9984,
+          "base_anchor_signed_distance": -0.0011035511088266503,
+          "base_anchor_distance": 0.0011035511270165443
+        },
+        {
+          "first_vertex": 10008,
+          "base_anchor_signed_distance": -0.001118350359320175,
+          "base_anchor_distance": 0.0011183504248037934
+        },
+        {
+          "first_vertex": 10032,
+          "base_anchor_signed_distance": -0.001133531299274182,
+          "base_anchor_distance": 0.0011335313320159912
+        },
+        {
+          "first_vertex": 10056,
+          "base_anchor_signed_distance": -0.0011256782818236388,
+          "base_anchor_distance": 0.0011256783036515117
+        },
+        {
+          "first_vertex": 10080,
+          "base_anchor_signed_distance": -0.0010999442711181473,
+          "base_anchor_distance": 0.0010999443475157022
+        },
+        {
+          "first_vertex": 10104,
+          "base_anchor_signed_distance": -0.0011725939148163889,
+          "base_anchor_distance": 0.00117259391117841
+        },
+        {
+          "first_vertex": 10128,
+          "base_anchor_signed_distance": -0.0011631646448222455,
+          "base_anchor_distance": 0.0011631646193563938
+        },
+        {
+          "first_vertex": 10152,
+          "base_anchor_signed_distance": -0.0011182835551153403,
+          "base_anchor_distance": 0.0011182836024090648
+        },
+        {
+          "first_vertex": 10176,
+          "base_anchor_signed_distance": -0.0011374290916137397,
+          "base_anchor_distance": 0.0011374291498214006
+        },
+        {
+          "first_vertex": 10200,
+          "base_anchor_signed_distance": -0.0011938335956074297,
+          "base_anchor_distance": 0.0011938336538150907
+        },
+        {
+          "first_vertex": 10224,
+          "base_anchor_signed_distance": -0.0011580280151974875,
+          "base_anchor_distance": 0.001158028026111424
+        },
+        {
+          "first_vertex": 10248,
+          "base_anchor_signed_distance": -0.0011500921827973798,
+          "base_anchor_distance": 0.0011500922264531255
+        },
+        {
+          "first_vertex": 10272,
+          "base_anchor_signed_distance": -0.000987388764770003,
+          "base_anchor_distance": 0.0009873886592686176
+        },
+        {
+          "first_vertex": 10296,
+          "base_anchor_signed_distance": -0.001139347654316225,
+          "base_anchor_distance": 0.0011393475579097867
+        },
+        {
+          "first_vertex": 10320,
+          "base_anchor_signed_distance": -0.0010068339106510393,
+          "base_anchor_distance": 0.0010068339761346579
+        },
+        {
+          "first_vertex": 10344,
+          "base_anchor_signed_distance": -0.0010762756919575622,
+          "base_anchor_distance": 0.0010762757156044245
+        },
+        {
+          "first_vertex": 10368,
+          "base_anchor_signed_distance": -0.0008912122466426808,
+          "base_anchor_distance": 0.0008912121993489563
+        },
+        {
+          "first_vertex": 10392,
+          "base_anchor_signed_distance": -0.0009345343751192559,
+          "base_anchor_distance": 0.0009345343569293618
+        },
+        {
+          "first_vertex": 10416,
+          "base_anchor_signed_distance": -0.0008820492548693437,
+          "base_anchor_distance": 0.0008820492657832801
+        },
+        {
+          "first_vertex": 10440,
+          "base_anchor_signed_distance": -0.0008859648642101092,
+          "base_anchor_distance": 0.0008859648951329291
+        },
+        {
+          "first_vertex": 10464,
+          "base_anchor_signed_distance": -0.0009270506816392299,
+          "base_anchor_distance": 0.0009270506561733782
+        },
+        {
+          "first_vertex": 10488,
+          "base_anchor_signed_distance": -0.0009642030199756846,
+          "base_anchor_distance": 0.0009642030345275998
+        },
+        {
+          "first_vertex": 10512,
+          "base_anchor_signed_distance": -0.0008879580091161188,
+          "base_anchor_distance": 0.0008879579254426062
+        },
+        {
+          "first_vertex": 10536,
+          "base_anchor_signed_distance": -0.0008562238472222816,
+          "base_anchor_distance": 0.0008562238072045147
+        },
+        {
+          "first_vertex": 10560,
+          "base_anchor_signed_distance": -0.0008616516461188439,
+          "base_anchor_distance": 0.0008616516715846956
+        },
+        {
+          "first_vertex": 10584,
+          "base_anchor_signed_distance": -0.0008576009677199181,
+          "base_anchor_distance": 0.0008576009422540665
+        },
+        {
+          "first_vertex": 10608,
+          "base_anchor_signed_distance": -0.0007372326799668372,
+          "base_anchor_distance": 0.0007372326799668372
+        },
+        {
+          "first_vertex": 10632,
+          "base_anchor_signed_distance": -0.0006817843695898773,
+          "base_anchor_distance": 0.0006817842950113118
+        },
+        {
+          "first_vertex": 10656,
+          "base_anchor_signed_distance": -0.0004052198346471414,
+          "base_anchor_distance": 0.0004052198783028871
+        },
+        {
+          "first_vertex": 10680,
+          "base_anchor_signed_distance": -0.0004285658187654917,
+          "base_anchor_distance": 0.0004285658069420606
+        },
+        {
+          "first_vertex": 10704,
+          "base_anchor_signed_distance": -0.0001955825719051063,
+          "base_anchor_distance": 0.00019558263011276722
+        },
+        {
+          "first_vertex": 10728,
+          "base_anchor_signed_distance": -0.0003064508016450418,
+          "base_anchor_distance": 0.0003064508200623095
+        },
+        {
+          "first_vertex": 10752,
+          "base_anchor_signed_distance": -0.0031426646528416313,
+          "base_anchor_distance": 0.003142664907500148
+        },
+        {
+          "first_vertex": 10776,
+          "base_anchor_signed_distance": -0.0031872328399913386,
+          "base_anchor_distance": 0.0031872328836470842
+        },
+        {
+          "first_vertex": 10800,
+          "base_anchor_signed_distance": -0.003009256804944016,
+          "base_anchor_distance": 0.0030092569068074226
+        },
+        {
+          "first_vertex": 10824,
+          "base_anchor_signed_distance": -0.002973249909700826,
+          "base_anchor_distance": 0.002973250113427639
+        },
+        {
+          "first_vertex": 10848,
+          "base_anchor_signed_distance": -0.0028662186377914622,
+          "base_anchor_distance": 0.0028662187978625298
+        },
+        {
+          "first_vertex": 10872,
+          "base_anchor_signed_distance": -0.0028777262632502243,
+          "base_anchor_distance": 0.0028777262195944786
+        },
+        {
+          "first_vertex": 10896,
+          "base_anchor_signed_distance": -0.00266931966325501,
+          "base_anchor_distance": 0.0026693197432905436
+        },
+        {
+          "first_vertex": 10920,
+          "base_anchor_signed_distance": -0.0027032632497139275,
+          "base_anchor_distance": 0.0027032634243369102
+        },
+        {
+          "first_vertex": 10944,
+          "base_anchor_signed_distance": -0.002493608044460416,
+          "base_anchor_distance": 0.002493608044460416
+        },
+        {
+          "first_vertex": 10968,
+          "base_anchor_signed_distance": -0.0024999513407237828,
+          "base_anchor_distance": 0.002499951282516122
+        },
+        {
+          "first_vertex": 10992,
+          "base_anchor_signed_distance": -0.00237764459598111,
+          "base_anchor_distance": 0.0023776444140821695
+        },
+        {
+          "first_vertex": 11016,
+          "base_anchor_signed_distance": -0.0023949882306624204,
+          "base_anchor_distance": 0.0023949884343892336
+        },
+        {
+          "first_vertex": 11040,
+          "base_anchor_signed_distance": -0.002220427653810475,
+          "base_anchor_distance": 0.002220427617430687
+        },
+        {
+          "first_vertex": 11064,
+          "base_anchor_signed_distance": -0.0022387163335224614,
+          "base_anchor_distance": 0.0022387162316590548
+        },
+        {
+          "first_vertex": 11088,
+          "base_anchor_signed_distance": -0.002059488295344636,
+          "base_anchor_distance": 0.0020594880916178226
+        },
+        {
+          "first_vertex": 11112,
+          "base_anchor_signed_distance": -0.002086989436065778,
+          "base_anchor_distance": 0.0020869895815849304
+        },
+        {
+          "first_vertex": 11136,
+          "base_anchor_signed_distance": -0.001946578842762392,
+          "base_anchor_distance": 0.0019465789664536715
+        },
+        {
+          "first_vertex": 11160,
+          "base_anchor_signed_distance": -0.0019220820904592983,
+          "base_anchor_distance": 0.0019220821559429169
+        },
+        {
+          "first_vertex": 11184,
+          "base_anchor_signed_distance": -0.001774810669303406,
+          "base_anchor_distance": 0.0017748107202351093
+        },
+        {
+          "first_vertex": 11208,
+          "base_anchor_signed_distance": -0.001770358343492262,
+          "base_anchor_distance": 0.0017703580670058727
+        },
+        {
+          "first_vertex": 11232,
+          "base_anchor_signed_distance": -0.001656284905038774,
+          "base_anchor_distance": 0.0016562850214540958
+        },
+        {
+          "first_vertex": 11256,
+          "base_anchor_signed_distance": -0.0016481808634125628,
+          "base_anchor_distance": 0.0016481807688251138
+        },
+        {
+          "first_vertex": 11280,
+          "base_anchor_signed_distance": -0.0015505439405387733,
+          "base_anchor_distance": 0.0015505438204854727
+        },
+        {
+          "first_vertex": 11304,
+          "base_anchor_signed_distance": -0.0015005520690465346,
+          "base_anchor_distance": 0.0015005521709099412
+        },
+        {
+          "first_vertex": 11328,
+          "base_anchor_signed_distance": -0.0013864517968613654,
+          "base_anchor_distance": 0.0013864518841728568
+        },
+        {
+          "first_vertex": 11352,
+          "base_anchor_signed_distance": -0.0013909384288126603,
+          "base_anchor_distance": 0.0013909385306760669
+        },
+        {
+          "first_vertex": 11376,
+          "base_anchor_signed_distance": -0.0012830582636524923,
+          "base_anchor_distance": 0.0012830581981688738
+        },
+        {
+          "first_vertex": 11400,
+          "base_anchor_signed_distance": -0.001274931310035754,
+          "base_anchor_distance": 0.0012749312445521355
+        },
+        {
+          "first_vertex": 11424,
+          "base_anchor_signed_distance": -0.0012980016545043327,
+          "base_anchor_distance": 0.0012980016181245446
+        },
+        {
+          "first_vertex": 11448,
+          "base_anchor_signed_distance": -0.0012504919432103634,
+          "base_anchor_distance": 0.0012504919432103634
+        },
+        {
+          "first_vertex": 11472,
+          "base_anchor_signed_distance": -0.0012104293455195148,
+          "base_anchor_distance": 0.0012104293564334512
+        },
+        {
+          "first_vertex": 11496,
+          "base_anchor_signed_distance": -0.0010415443284728099,
+          "base_anchor_distance": 0.0010415443684905767
+        },
+        {
+          "first_vertex": 11520,
+          "base_anchor_signed_distance": -0.0010960547224385664,
+          "base_anchor_distance": 0.0010960547951981425
+        },
+        {
+          "first_vertex": 11544,
+          "base_anchor_signed_distance": -0.001156795693532331,
+          "base_anchor_distance": 0.001156795653514564
+        },
+        {
+          "first_vertex": 11568,
+          "base_anchor_signed_distance": -0.0011625873994489666,
+          "base_anchor_distance": 0.0011625874321907759
+        },
+        {
+          "first_vertex": 11592,
+          "base_anchor_signed_distance": -0.0011441618371463846,
+          "base_anchor_distance": 0.0011441617971286178
+        },
+        {
+          "first_vertex": 11616,
+          "base_anchor_signed_distance": -0.0011661528587865178,
+          "base_anchor_distance": 0.0011661527678370476
+        },
+        {
+          "first_vertex": 11640,
+          "base_anchor_signed_distance": -0.0011222820976399817,
+          "base_anchor_distance": 0.0011222821194678545
+        },
+        {
+          "first_vertex": 11664,
+          "base_anchor_signed_distance": -0.0011498627791297622,
+          "base_anchor_distance": 0.0011498627718538046
+        },
+        {
+          "first_vertex": 11688,
+          "base_anchor_signed_distance": -0.0011286580411251634,
+          "base_anchor_distance": 0.001128658070228994
+        },
+        {
+          "first_vertex": 11712,
+          "base_anchor_signed_distance": -0.0011403004427847918,
+          "base_anchor_distance": 0.001140300533734262
+        },
+        {
+          "first_vertex": 11736,
+          "base_anchor_signed_distance": -0.001140157979534706,
+          "base_anchor_distance": 0.0011401580413803458
+        },
+        {
+          "first_vertex": 11760,
+          "base_anchor_signed_distance": -0.001133000710979104,
+          "base_anchor_distance": 0.001133000710979104
+        },
+        {
+          "first_vertex": 11784,
+          "base_anchor_signed_distance": -0.0011576459910429548,
+          "base_anchor_distance": 0.0011576460674405098
+        },
+        {
+          "first_vertex": 11808,
+          "base_anchor_signed_distance": -0.001054437965649413,
+          "base_anchor_distance": 0.0010544380638748407
+        },
+        {
+          "first_vertex": 11832,
+          "base_anchor_signed_distance": -0.001118408254114911,
+          "base_anchor_distance": 0.0011184082832187414
+        },
+        {
+          "first_vertex": 11856,
+          "base_anchor_signed_distance": -0.0010385301975475159,
+          "base_anchor_distance": 0.0010385301429778337
+        },
+        {
+          "first_vertex": 11880,
+          "base_anchor_signed_distance": -0.0010362151770095807,
+          "base_anchor_distance": 0.0010362152243033051
+        },
+        {
+          "first_vertex": 11904,
+          "base_anchor_signed_distance": -0.000951299869484501,
+          "base_anchor_distance": 0.000951299793086946
+        },
+        {
+          "first_vertex": 11928,
+          "base_anchor_signed_distance": -0.0008931840566219762,
+          "base_anchor_distance": 0.0008931841002777219
+        },
+        {
+          "first_vertex": 11952,
+          "base_anchor_signed_distance": -0.0009884781175060198,
+          "base_anchor_distance": 0.000988478190265596
+        },
+        {
+          "first_vertex": 11976,
+          "base_anchor_signed_distance": -0.0007898824696894735,
+          "base_anchor_distance": 0.000789882498793304
+        },
+        {
+          "first_vertex": 12000,
+          "base_anchor_signed_distance": -0.0009002376536955126,
+          "base_anchor_distance": 0.000900237646419555
+        },
+        {
+          "first_vertex": 12024,
+          "base_anchor_signed_distance": -0.0010141128514078446,
+          "base_anchor_distance": 0.001014112844131887
+        },
+        {
+          "first_vertex": 12048,
+          "base_anchor_signed_distance": -0.0008213529945351183,
+          "base_anchor_distance": 0.0008213529945351183
+        },
+        {
+          "first_vertex": 12072,
+          "base_anchor_signed_distance": -0.0009643171833886299,
+          "base_anchor_distance": 0.000964317296165973
+        },
+        {
+          "first_vertex": 12096,
+          "base_anchor_signed_distance": -0.0007422846538247541,
+          "base_anchor_distance": 0.0007422845810651779
+        },
+        {
+          "first_vertex": 12120,
+          "base_anchor_signed_distance": -0.0008879076849552803,
+          "base_anchor_distance": 0.0008879076922312379
+        },
+        {
+          "first_vertex": 12144,
+          "base_anchor_signed_distance": -0.0007048694442346459,
+          "base_anchor_distance": 0.0007048694533295929
+        },
+        {
+          "first_vertex": 12168,
+          "base_anchor_signed_distance": -0.0007765822192595806,
+          "base_anchor_distance": 0.0007765822228975594
+        },
+        {
+          "first_vertex": 12192,
+          "base_anchor_signed_distance": -0.00037864957721467363,
+          "base_anchor_distance": 0.0003786495653912425
+        },
+        {
+          "first_vertex": 12216,
+          "base_anchor_signed_distance": -0.000704656293237349,
+          "base_anchor_distance": 0.0007046563550829887
+        },
+        {
+          "first_vertex": 12240,
+          "base_anchor_signed_distance": -0.00019098341226708726,
+          "base_anchor_distance": 0.00019098348275292665
+        },
+        {
+          "first_vertex": 12264,
+          "base_anchor_signed_distance": -0.0008845996271702461,
+          "base_anchor_distance": 0.0008845997508615255
+        }
+      ]
+    },
+    {
+      "version": "motion-r5",
+      "source_sha256": "fd7122d6b8fdd3ef6f3d62422edbd5a3e9d50a2c9a48f54fea036d5c28c14ea5",
+      "cup_count": 512,
+      "min_signed_distance": -0.0032558222774241585,
+      "max_signed_distance": 0.00010482385550858453,
+      "samples": [
+        {
+          "first_vertex": 0,
+          "base_anchor_signed_distance": -0.0031453976698685437,
+          "base_anchor_distance": 0.0031453976407647133
+        },
+        {
+          "first_vertex": 24,
+          "base_anchor_signed_distance": -0.003149924632452894,
+          "base_anchor_distance": 0.0031499245669692755
+        },
+        {
+          "first_vertex": 48,
+          "base_anchor_signed_distance": -0.00298856821609661,
+          "base_anchor_distance": 0.0029885682743042707
+        },
+        {
+          "first_vertex": 72,
+          "base_anchor_signed_distance": -0.00300092640100047,
+          "base_anchor_distance": 0.003000926226377487
+        },
+        {
+          "first_vertex": 96,
+          "base_anchor_signed_distance": -0.0028208946605445817,
+          "base_anchor_distance": 0.0028208945877850056
+        },
+        {
+          "first_vertex": 120,
+          "base_anchor_signed_distance": -0.002849901415174827,
+          "base_anchor_distance": 0.0028499015606939793
+        },
+        {
+          "first_vertex": 144,
+          "base_anchor_signed_distance": -0.0027336183266015723,
+          "base_anchor_distance": 0.002733618253841996
+        },
+        {
+          "first_vertex": 168,
+          "base_anchor_signed_distance": -0.0026825062595889904,
+          "base_anchor_distance": 0.0026825061067938805
+        },
+        {
+          "first_vertex": 192,
+          "base_anchor_signed_distance": -0.002542471469496377,
+          "base_anchor_distance": 0.0025424715131521225
+        },
+        {
+          "first_vertex": 216,
+          "base_anchor_signed_distance": -0.0025079907063627616,
+          "base_anchor_distance": 0.00250799092464149
+        },
+        {
+          "first_vertex": 240,
+          "base_anchor_signed_distance": -0.002355984062887728,
+          "base_anchor_distance": 0.0023559839464724064
+        },
+        {
+          "first_vertex": 264,
+          "base_anchor_signed_distance": -0.002392951042565983,
+          "base_anchor_distance": 0.0023929509334266186
+        },
+        {
+          "first_vertex": 288,
+          "base_anchor_signed_distance": -0.002246082673082128,
+          "base_anchor_distance": 0.0022460827603936195
+        },
+        {
+          "first_vertex": 312,
+          "base_anchor_signed_distance": -0.002244631017674692,
+          "base_anchor_distance": 0.0022446310613304377
+        },
+        {
+          "first_vertex": 336,
+          "base_anchor_signed_distance": -0.0020989686745451763,
+          "base_anchor_distance": 0.002098968718200922
+        },
+        {
+          "first_vertex": 360,
+          "base_anchor_signed_distance": -0.002043557098659221,
+          "base_anchor_distance": 0.002043557120487094
+        },
+        {
+          "first_vertex": 384,
+          "base_anchor_signed_distance": -0.0019176870773662813,
+          "base_anchor_distance": 0.0019176870118826628
+        },
+        {
+          "first_vertex": 408,
+          "base_anchor_signed_distance": -0.0019203641495550983,
+          "base_anchor_distance": 0.0019203643314540386
+        },
+        {
+          "first_vertex": 432,
+          "base_anchor_signed_distance": -0.0017599050988792442,
+          "base_anchor_distance": 0.0017599051352590322
+        },
+        {
+          "first_vertex": 456,
+          "base_anchor_signed_distance": -0.001768737260135822,
+          "base_anchor_distance": 0.0017687371000647545
+        },
+        {
+          "first_vertex": 480,
+          "base_anchor_signed_distance": -0.00154923640366178,
+          "base_anchor_distance": 0.0015492364764213562
+        },
+        {
+          "first_vertex": 504,
+          "base_anchor_signed_distance": -0.0015871052746661007,
+          "base_anchor_distance": 0.0015871053328737617
+        },
+        {
+          "first_vertex": 528,
+          "base_anchor_signed_distance": -0.001457258731534239,
+          "base_anchor_distance": 0.001457258709706366
+        },
+        {
+          "first_vertex": 552,
+          "base_anchor_signed_distance": -0.0014115264202700928,
+          "base_anchor_distance": 0.0014115264639258385
+        },
+        {
+          "first_vertex": 576,
+          "base_anchor_signed_distance": -0.001227603672305122,
+          "base_anchor_distance": 0.0012276037596166134
+        },
+        {
+          "first_vertex": 600,
+          "base_anchor_signed_distance": -0.0012144786524004303,
+          "base_anchor_distance": 0.0012144786305725574
+        },
+        {
+          "first_vertex": 624,
+          "base_anchor_signed_distance": -0.0010777301868074574,
+          "base_anchor_distance": 0.0010777300922200084
+        },
+        {
+          "first_vertex": 648,
+          "base_anchor_signed_distance": -0.0010705797540140338,
+          "base_anchor_distance": 0.001070579863153398
+        },
+        {
+          "first_vertex": 672,
+          "base_anchor_signed_distance": -0.001050639955792576,
+          "base_anchor_distance": 0.001050640014000237
+        },
+        {
+          "first_vertex": 696,
+          "base_anchor_signed_distance": -0.001013885444990592,
+          "base_anchor_distance": 0.001013885485008359
+        },
+        {
+          "first_vertex": 720,
+          "base_anchor_signed_distance": -0.0009801210435398389,
+          "base_anchor_distance": 0.0009801210835576057
+        },
+        {
+          "first_vertex": 744,
+          "base_anchor_signed_distance": -0.0009787051058083307,
+          "base_anchor_distance": 0.0009787051239982247
+        },
+        {
+          "first_vertex": 768,
+          "base_anchor_signed_distance": -0.0010032755017164163,
+          "base_anchor_distance": 0.001003275508992374
+        },
+        {
+          "first_vertex": 792,
+          "base_anchor_signed_distance": -0.0009880348552542273,
+          "base_anchor_distance": 0.000988034880720079
+        },
+        {
+          "first_vertex": 816,
+          "base_anchor_signed_distance": -0.0010644313697412144,
+          "base_anchor_distance": 0.0010644315043464303
+        },
+        {
+          "first_vertex": 840,
+          "base_anchor_signed_distance": -0.0010352993522246834,
+          "base_anchor_distance": 0.0010352995013818145
+        },
+        {
+          "first_vertex": 864,
+          "base_anchor_signed_distance": -0.0010284424242854584,
+          "base_anchor_distance": 0.0010284425225108862
+        },
+        {
+          "first_vertex": 888,
+          "base_anchor_signed_distance": -0.0010155180971196387,
+          "base_anchor_distance": 0.0010155180934816599
+        },
+        {
+          "first_vertex": 912,
+          "base_anchor_signed_distance": -0.001009284816973377,
+          "base_anchor_distance": 0.0010092849843204021
+        },
+        {
+          "first_vertex": 936,
+          "base_anchor_signed_distance": -0.000994115664070705,
+          "base_anchor_distance": 0.000994115718640387
+        },
+        {
+          "first_vertex": 960,
+          "base_anchor_signed_distance": -0.0010027813259512186,
+          "base_anchor_distance": 0.0010027813259512186
+        },
+        {
+          "first_vertex": 984,
+          "base_anchor_signed_distance": -0.001039229773596162,
+          "base_anchor_distance": 0.0010392297990620136
+        },
+        {
+          "first_vertex": 1008,
+          "base_anchor_signed_distance": -0.0009766753428266384,
+          "base_anchor_distance": 0.0009766753064468503
+        },
+        {
+          "first_vertex": 1032,
+          "base_anchor_signed_distance": -0.0009453107668377925,
+          "base_anchor_distance": 0.0009453107486478984
+        },
+        {
+          "first_vertex": 1056,
+          "base_anchor_signed_distance": -0.0010855722830456216,
+          "base_anchor_distance": 0.001085572293959558
+        },
+        {
+          "first_vertex": 1080,
+          "base_anchor_signed_distance": -0.0011018562800018117,
+          "base_anchor_distance": 0.001101856236346066
+        },
+        {
+          "first_vertex": 1104,
+          "base_anchor_signed_distance": -0.0009459457760385703,
+          "base_anchor_distance": 0.0009459457360208035
+        },
+        {
+          "first_vertex": 1128,
+          "base_anchor_signed_distance": -0.0009088577935472131,
+          "base_anchor_distance": 0.0009088577935472131
+        },
+        {
+          "first_vertex": 1152,
+          "base_anchor_signed_distance": -0.0008997985751193482,
+          "base_anchor_distance": 0.0008997985860332847
+        },
+        {
+          "first_vertex": 1176,
+          "base_anchor_signed_distance": -0.0009737664622662123,
+          "base_anchor_distance": 0.0009737664368003607
+        },
+        {
+          "first_vertex": 1200,
+          "base_anchor_signed_distance": -0.0006761341646779329,
+          "base_anchor_distance": 0.0006761341355741024
+        },
+        {
+          "first_vertex": 1224,
+          "base_anchor_signed_distance": -0.0006962983025005087,
+          "base_anchor_distance": 0.000696298317052424
+        },
+        {
+          "first_vertex": 1248,
+          "base_anchor_signed_distance": -0.0008882125148375053,
+          "base_anchor_distance": 0.0008882124675437808
+        },
+        {
+          "first_vertex": 1272,
+          "base_anchor_signed_distance": -0.0007840823891456239,
+          "base_anchor_distance": 0.0007840886828489602
+        },
+        {
+          "first_vertex": 1296,
+          "base_anchor_signed_distance": -0.0008111784081847873,
+          "base_anchor_distance": 0.000811178470030427
+        },
+        {
+          "first_vertex": 1320,
+          "base_anchor_signed_distance": -0.0008064675821515266,
+          "base_anchor_distance": 0.0008064676076173782
+        },
+        {
+          "first_vertex": 1344,
+          "base_anchor_signed_distance": -0.0007540082515333779,
+          "base_anchor_distance": 0.0007540082442574203
+        },
+        {
+          "first_vertex": 1368,
+          "base_anchor_signed_distance": -0.0007423868701152969,
+          "base_anchor_distance": 0.0007423869683407247
+        },
+        {
+          "first_vertex": 1392,
+          "base_anchor_signed_distance": -0.0007392217812594026,
+          "base_anchor_distance": 0.0007392217521555722
+        },
+        {
+          "first_vertex": 1416,
+          "base_anchor_signed_distance": -0.0007339860130741727,
+          "base_anchor_distance": 0.0007339859730564058
+        },
+        {
+          "first_vertex": 1440,
+          "base_anchor_signed_distance": -0.00039097340231819544,
+          "base_anchor_distance": 0.0003909733786713332
+        },
+        {
+          "first_vertex": 1464,
+          "base_anchor_signed_distance": -0.0003809482732322067,
+          "base_anchor_distance": 0.00038094830233603716
+        },
+        {
+          "first_vertex": 1488,
+          "base_anchor_signed_distance": 5.718997385883995e-05,
+          "base_anchor_distance": 5.719003456761129e-05
+        },
+        {
+          "first_vertex": 1512,
+          "base_anchor_signed_distance": -0.00025809103544816026,
+          "base_anchor_distance": 0.00025809105136431754
+        },
+        {
+          "first_vertex": 1536,
+          "base_anchor_signed_distance": -0.003214743504940998,
+          "base_anchor_distance": 0.003214743686839938
+        },
+        {
+          "first_vertex": 1560,
+          "base_anchor_signed_distance": -0.003205016182619147,
+          "base_anchor_distance": 0.003205015789717436
+        },
+        {
+          "first_vertex": 1584,
+          "base_anchor_signed_distance": -0.003037106587726157,
+          "base_anchor_distance": 0.0030371067114174366
+        },
+        {
+          "first_vertex": 1608,
+          "base_anchor_signed_distance": -0.003017391572939232,
+          "base_anchor_distance": 0.0030173915438354015
+        },
+        {
+          "first_vertex": 1632,
+          "base_anchor_signed_distance": -0.0029122773921699263,
+          "base_anchor_distance": 0.0029122773557901382
+        },
+        {
+          "first_vertex": 1656,
+          "base_anchor_signed_distance": -0.002877818202250637,
+          "base_anchor_distance": 0.002877818187698722
+        },
+        {
+          "first_vertex": 1680,
+          "base_anchor_signed_distance": -0.0027296841144561768,
+          "base_anchor_distance": 0.0027296841144561768
+        },
+        {
+          "first_vertex": 1704,
+          "base_anchor_signed_distance": -0.002722668257774785,
+          "base_anchor_distance": 0.0027226684615015984
+        },
+        {
+          "first_vertex": 1728,
+          "base_anchor_signed_distance": -0.0025412867253180593,
+          "base_anchor_distance": 0.002541286638006568
+        },
+        {
+          "first_vertex": 1752,
+          "base_anchor_signed_distance": -0.0025292973878094926,
+          "base_anchor_distance": 0.002529297722503543
+        },
+        {
+          "first_vertex": 1776,
+          "base_anchor_signed_distance": -0.002399280434474349,
+          "base_anchor_distance": 0.002399280434474349
+        },
+        {
+          "first_vertex": 1800,
+          "base_anchor_signed_distance": -0.002396942683844827,
+          "base_anchor_distance": 0.002396942814812064
+        },
+        {
+          "first_vertex": 1824,
+          "base_anchor_signed_distance": -0.0022791965093347244,
+          "base_anchor_distance": 0.002279196633026004
+        },
+        {
+          "first_vertex": 1848,
+          "base_anchor_signed_distance": -0.002226889875601046,
+          "base_anchor_distance": 0.0022268898319453
+        },
+        {
+          "first_vertex": 1872,
+          "base_anchor_signed_distance": -0.0020617167247110046,
+          "base_anchor_distance": 0.0020617167465388775
+        },
+        {
+          "first_vertex": 1896,
+          "base_anchor_signed_distance": -0.0020705024944618344,
+          "base_anchor_distance": 0.0020705023780465126
+        },
+        {
+          "first_vertex": 1920,
+          "base_anchor_signed_distance": -0.0019568341522244737,
+          "base_anchor_distance": 0.001956833992153406
+        },
+        {
+          "first_vertex": 1944,
+          "base_anchor_signed_distance": -0.0019891399570042267,
+          "base_anchor_distance": 0.0019891399424523115
+        },
+        {
+          "first_vertex": 1968,
+          "base_anchor_signed_distance": -0.001781912571459543,
+          "base_anchor_distance": 0.0017819126369431615
+        },
+        {
+          "first_vertex": 1992,
+          "base_anchor_signed_distance": -0.0017393663874827325,
+          "base_anchor_distance": 0.0017393664456903934
+        },
+        {
+          "first_vertex": 2016,
+          "base_anchor_signed_distance": -0.0016157637001015246,
+          "base_anchor_distance": 0.0016157637583091855
+        },
+        {
+          "first_vertex": 2040,
+          "base_anchor_signed_distance": -0.001606875484867487,
+          "base_anchor_distance": 0.0016068756813183427
+        },
+        {
+          "first_vertex": 2064,
+          "base_anchor_signed_distance": -0.0014537216229655314,
+          "base_anchor_distance": 0.0014537216629832983
+        },
+        {
+          "first_vertex": 2088,
+          "base_anchor_signed_distance": -0.0014619449066231027,
+          "base_anchor_distance": 0.0014619448920711875
+        },
+        {
+          "first_vertex": 2112,
+          "base_anchor_signed_distance": -0.0011938508578168694,
+          "base_anchor_distance": 0.0011938507668673992
+        },
+        {
+          "first_vertex": 2136,
+          "base_anchor_signed_distance": -0.0012774805873050354,
+          "base_anchor_distance": 0.0012774806236848235
+        },
+        {
+          "first_vertex": 2160,
+          "base_anchor_signed_distance": -0.0011112637221231125,
+          "base_anchor_distance": 0.0011112636420875788
+        },
+        {
+          "first_vertex": 2184,
+          "base_anchor_signed_distance": -0.0010001356567954645,
+          "base_anchor_distance": 0.0010001356713473797
+        },
+        {
+          "first_vertex": 2208,
+          "base_anchor_signed_distance": -0.001059678656019969,
+          "base_anchor_distance": 0.001059678616002202
+        },
+        {
+          "first_vertex": 2232,
+          "base_anchor_signed_distance": -0.0009611835266696289,
+          "base_anchor_distance": 0.0009611835121177137
+        },
+        {
+          "first_vertex": 2256,
+          "base_anchor_signed_distance": -0.0010120308652403764,
+          "base_anchor_distance": 0.001012030872516334
+        },
+        {
+          "first_vertex": 2280,
+          "base_anchor_signed_distance": -0.0009111651233979501,
+          "base_anchor_distance": 0.000911165087018162
+        },
+        {
+          "first_vertex": 2304,
+          "base_anchor_signed_distance": -0.0010590706842776854,
+          "base_anchor_distance": 0.0010590706951916218
+        },
+        {
+          "first_vertex": 2328,
+          "base_anchor_signed_distance": -0.00098815427190857,
+          "base_anchor_distance": 0.0009881543228402734
+        },
+        {
+          "first_vertex": 2352,
+          "base_anchor_signed_distance": -0.0011046031359001063,
+          "base_anchor_distance": 0.0011046031722798944
+        },
+        {
+          "first_vertex": 2376,
+          "base_anchor_signed_distance": -0.0010274018604832236,
+          "base_anchor_distance": 0.0010274017695337534
+        },
+        {
+          "first_vertex": 2400,
+          "base_anchor_signed_distance": -0.0010473090114828665,
+          "base_anchor_distance": 0.001047309022396803
+        },
+        {
+          "first_vertex": 2424,
+          "base_anchor_signed_distance": -0.001029751878377283,
+          "base_anchor_distance": 0.001029751729220152
+        },
+        {
+          "first_vertex": 2448,
+          "base_anchor_signed_distance": -0.001053740536008263,
+          "base_anchor_distance": 0.0010537405032664537
+        },
+        {
+          "first_vertex": 2472,
+          "base_anchor_signed_distance": -0.0010054322956420947,
+          "base_anchor_distance": 0.0010054323356598616
+        },
+        {
+          "first_vertex": 2496,
+          "base_anchor_signed_distance": -0.0010304679126420524,
+          "base_anchor_distance": 0.0010304679162800312
+        },
+        {
+          "first_vertex": 2520,
+          "base_anchor_signed_distance": -0.0010571167040325236,
+          "base_anchor_distance": 0.0010571166640147567
+        },
+        {
+          "first_vertex": 2544,
+          "base_anchor_signed_distance": -0.0010825432800629642,
+          "base_anchor_distance": 0.001082543283700943
+        },
+        {
+          "first_vertex": 2568,
+          "base_anchor_signed_distance": -0.0010707676447054837,
+          "base_anchor_distance": 0.0010707676410675049
+        },
+        {
+          "first_vertex": 2592,
+          "base_anchor_signed_distance": -0.0010630769465933554,
+          "base_anchor_distance": 0.001063076895661652
+        },
+        {
+          "first_vertex": 2616,
+          "base_anchor_signed_distance": -0.0008941236883401871,
+          "base_anchor_distance": 0.0008941236883401871
+        },
+        {
+          "first_vertex": 2640,
+          "base_anchor_signed_distance": -0.0009476376144448295,
+          "base_anchor_distance": 0.0009476375416852534
+        },
+        {
+          "first_vertex": 2664,
+          "base_anchor_signed_distance": -0.0008876010215317365,
+          "base_anchor_distance": 0.0008876009960658848
+        },
+        {
+          "first_vertex": 2688,
+          "base_anchor_signed_distance": -0.0008504080287821125,
+          "base_anchor_distance": 0.0008504079887643456
+        },
+        {
+          "first_vertex": 2712,
+          "base_anchor_signed_distance": -0.000991287797660334,
+          "base_anchor_distance": 0.0009912877576425672
+        },
+        {
+          "first_vertex": 2736,
+          "base_anchor_signed_distance": -0.0008514826658938546,
+          "base_anchor_distance": 0.0008514827350154519
+        },
+        {
+          "first_vertex": 2760,
+          "base_anchor_signed_distance": -0.0008715957155800425,
+          "base_anchor_distance": 0.0008715956937521696
+        },
+        {
+          "first_vertex": 2784,
+          "base_anchor_signed_distance": -0.0008527564896212425,
+          "base_anchor_distance": 0.0008527565514668822
+        },
+        {
+          "first_vertex": 2808,
+          "base_anchor_signed_distance": -0.0007529246431658976,
+          "base_anchor_distance": 0.0007529246504418552
+        },
+        {
+          "first_vertex": 2832,
+          "base_anchor_signed_distance": -0.0008182387209672015,
+          "base_anchor_distance": 0.0008182387100532651
+        },
+        {
+          "first_vertex": 2856,
+          "base_anchor_signed_distance": -0.0007596043178637046,
+          "base_anchor_distance": 0.0007596042705699801
+        },
+        {
+          "first_vertex": 2880,
+          "base_anchor_signed_distance": -0.000701876611856278,
+          "base_anchor_distance": 0.0007018765900284052
+        },
+        {
+          "first_vertex": 2904,
+          "base_anchor_signed_distance": -0.0008434283517999575,
+          "base_anchor_distance": 0.0008434283081442118
+        },
+        {
+          "first_vertex": 2928,
+          "base_anchor_signed_distance": -0.0007279591554834042,
+          "base_anchor_distance": 0.0007279591518454254
+        },
+        {
+          "first_vertex": 2952,
+          "base_anchor_signed_distance": -0.0008582997470512055,
+          "base_anchor_distance": 0.0008582997252233326
+        },
+        {
+          "first_vertex": 2976,
+          "base_anchor_signed_distance": -0.0006186939644976519,
+          "base_anchor_distance": 0.0006186939426697791
+        },
+        {
+          "first_vertex": 3000,
+          "base_anchor_signed_distance": -0.0006766659153072396,
+          "base_anchor_distance": 0.0006766659789718688
+        },
+        {
+          "first_vertex": 3024,
+          "base_anchor_signed_distance": -0.0004011170781268447,
+          "base_anchor_distance": 0.0004011170822195709
+        },
+        {
+          "first_vertex": 3048,
+          "base_anchor_signed_distance": -0.000548583881027298,
+          "base_anchor_distance": 0.0005485839210450649
+        },
+        {
+          "first_vertex": 3072,
+          "base_anchor_signed_distance": -0.00319280394614907,
+          "base_anchor_distance": 0.0031928038224577904
+        },
+        {
+          "first_vertex": 3096,
+          "base_anchor_signed_distance": -0.0032558222774241585,
+          "base_anchor_distance": 0.0032558219972997904
+        },
+        {
+          "first_vertex": 3120,
+          "base_anchor_signed_distance": -0.003074818610912189,
+          "base_anchor_distance": 0.0030748185236006975
+        },
+        {
+          "first_vertex": 3144,
+          "base_anchor_signed_distance": -0.0030738972855033353,
+          "base_anchor_distance": 0.003073897445574403
+        },
+        {
+          "first_vertex": 3168,
+          "base_anchor_signed_distance": -0.002864491594664287,
+          "base_anchor_distance": 0.0028644916601479053
+        },
+        {
+          "first_vertex": 3192,
+          "base_anchor_signed_distance": -0.00288138752875966,
+          "base_anchor_distance": 0.0028813874814659357
+        },
+        {
+          "first_vertex": 3216,
+          "base_anchor_signed_distance": -0.002749041304923594,
+          "base_anchor_distance": 0.002749041188508272
+        },
+        {
+          "first_vertex": 3240,
+          "base_anchor_signed_distance": -0.002733960463956464,
+          "base_anchor_distance": 0.0027339605148881674
+        },
+        {
+          "first_vertex": 3264,
+          "base_anchor_signed_distance": -0.0025466727965977043,
+          "base_anchor_distance": 0.0025466731749475002
+        },
+        {
+          "first_vertex": 3288,
+          "base_anchor_signed_distance": -0.0025700122096168343,
+          "base_anchor_distance": 0.0025700123514980078
+        },
+        {
+          "first_vertex": 3312,
+          "base_anchor_signed_distance": -0.002451566862873733,
+          "base_anchor_distance": 0.002451566746458411
+        },
+        {
+          "first_vertex": 3336,
+          "base_anchor_signed_distance": -0.0024309352156706154,
+          "base_anchor_distance": 0.0024309351574629545
+        },
+        {
+          "first_vertex": 3360,
+          "base_anchor_signed_distance": -0.0022909490362508222,
+          "base_anchor_distance": 0.0022909489925950766
+        },
+        {
+          "first_vertex": 3384,
+          "base_anchor_signed_distance": -0.0022504752887471113,
+          "base_anchor_distance": 0.0022504753433167934
+        },
+        {
+          "first_vertex": 3408,
+          "base_anchor_signed_distance": -0.0020854161484749056,
+          "base_anchor_distance": 0.0020854161120951176
+        },
+        {
+          "first_vertex": 3432,
+          "base_anchor_signed_distance": -0.0020696448591479566,
+          "base_anchor_distance": 0.0020696448627859354
+        },
+        {
+          "first_vertex": 3456,
+          "base_anchor_signed_distance": -0.0020115710649406537,
+          "base_anchor_distance": 0.002011571079492569
+        },
+        {
+          "first_vertex": 3480,
+          "base_anchor_signed_distance": -0.001988842930586543,
+          "base_anchor_distance": 0.001988843083381653
+        },
+        {
+          "first_vertex": 3504,
+          "base_anchor_signed_distance": -0.001753170021402184,
+          "base_anchor_distance": 0.0017531700432300568
+        },
+        {
+          "first_vertex": 3528,
+          "base_anchor_signed_distance": -0.0017445229586883215,
+          "base_anchor_distance": 0.0017445228295400739
+        },
+        {
+          "first_vertex": 3552,
+          "base_anchor_signed_distance": -0.0016550825966987759,
+          "base_anchor_distance": 0.0016550824511796236
+        },
+        {
+          "first_vertex": 3576,
+          "base_anchor_signed_distance": -0.001450875575756072,
+          "base_anchor_distance": 0.0014508756576105952
+        },
+        {
+          "first_vertex": 3600,
+          "base_anchor_signed_distance": -0.0014230416090867948,
+          "base_anchor_distance": 0.0014230416854843497
+        },
+        {
+          "first_vertex": 3624,
+          "base_anchor_signed_distance": -0.001437000120859011,
+          "base_anchor_distance": 0.0014370002318173647
+        },
+        {
+          "first_vertex": 3648,
+          "base_anchor_signed_distance": -0.001281432243558811,
+          "base_anchor_distance": 0.001281432225368917
+        },
+        {
+          "first_vertex": 3672,
+          "base_anchor_signed_distance": -0.0012975437020941172,
+          "base_anchor_distance": 0.0012975436402484775
+        },
+        {
+          "first_vertex": 3696,
+          "base_anchor_signed_distance": -0.0010837784393515904,
+          "base_anchor_distance": 0.0010837784502655268
+        },
+        {
+          "first_vertex": 3720,
+          "base_anchor_signed_distance": -0.001077052764230757,
+          "base_anchor_distance": 0.0010770527878776193
+        },
+        {
+          "first_vertex": 3744,
+          "base_anchor_signed_distance": -0.0009927997107297415,
+          "base_anchor_distance": 0.0009927996434271336
+        },
+        {
+          "first_vertex": 3768,
+          "base_anchor_signed_distance": -0.0009860140617092839,
+          "base_anchor_distance": 0.0009860139107331634
+        },
+        {
+          "first_vertex": 3792,
+          "base_anchor_signed_distance": -0.0009377067017339868,
+          "base_anchor_distance": 0.0009377066744491458
+        },
+        {
+          "first_vertex": 3816,
+          "base_anchor_signed_distance": -0.000987425595667446,
+          "base_anchor_distance": 0.0009874255629256368
+        },
+        {
+          "first_vertex": 3840,
+          "base_anchor_signed_distance": -0.0008642587054055184,
+          "base_anchor_distance": 0.000864258676301688
+        },
+        {
+          "first_vertex": 3864,
+          "base_anchor_signed_distance": -0.0010114479082403705,
+          "base_anchor_distance": 0.0010114478645846248
+        },
+        {
+          "first_vertex": 3888,
+          "base_anchor_signed_distance": -0.0010224104898952646,
+          "base_anchor_distance": 0.0010224105790257454
+        },
+        {
+          "first_vertex": 3912,
+          "base_anchor_signed_distance": -0.0009711020702525275,
+          "base_anchor_distance": 0.0009711020975373685
+        },
+        {
+          "first_vertex": 3936,
+          "base_anchor_signed_distance": -0.0010136301771126455,
+          "base_anchor_distance": 0.0010136301862075925
+        },
+        {
+          "first_vertex": 3960,
+          "base_anchor_signed_distance": -0.0010198538257100154,
+          "base_anchor_distance": 0.0010198538657277822
+        },
+        {
+          "first_vertex": 3984,
+          "base_anchor_signed_distance": -0.0010468951040820684,
+          "base_anchor_distance": 0.0010468950495123863
+        },
+        {
+          "first_vertex": 4008,
+          "base_anchor_signed_distance": -0.0010691025163396262,
+          "base_anchor_distance": 0.0010691025527194142
+        },
+        {
+          "first_vertex": 4032,
+          "base_anchor_signed_distance": -0.0009440510475542396,
+          "base_anchor_distance": 0.0009440510766580701
+        },
+        {
+          "first_vertex": 4056,
+          "base_anchor_signed_distance": -0.001084623101633042,
+          "base_anchor_distance": 0.001084623159840703
+        },
+        {
+          "first_vertex": 4080,
+          "base_anchor_signed_distance": -0.0010946234033326618,
+          "base_anchor_distance": 0.0010946233524009585
+        },
+        {
+          "first_vertex": 4104,
+          "base_anchor_signed_distance": -0.0010875648586079478,
+          "base_anchor_distance": 0.001087564742192626
+        },
+        {
+          "first_vertex": 4128,
+          "base_anchor_signed_distance": -0.0009279462610720657,
+          "base_anchor_distance": 0.0009279462974518538
+        },
+        {
+          "first_vertex": 4152,
+          "base_anchor_signed_distance": -0.0010633964357111836,
+          "base_anchor_distance": 0.001063396455720067
+        },
+        {
+          "first_vertex": 4176,
+          "base_anchor_signed_distance": -0.000951135552895721,
+          "base_anchor_distance": 0.0009511355892755091
+        },
+        {
+          "first_vertex": 4200,
+          "base_anchor_signed_distance": -0.0009406327335454989,
+          "base_anchor_distance": 0.0009406327735632658
+        },
+        {
+          "first_vertex": 4224,
+          "base_anchor_signed_distance": -0.0008798779344942886,
+          "base_anchor_distance": 0.0008798779454082251
+        },
+        {
+          "first_vertex": 4248,
+          "base_anchor_signed_distance": -0.0008215679654313135,
+          "base_anchor_distance": 0.0008215679554268718
+        },
+        {
+          "first_vertex": 4272,
+          "base_anchor_signed_distance": -0.0010358471554354765,
+          "base_anchor_distance": 0.0010358472354710102
+        },
+        {
+          "first_vertex": 4296,
+          "base_anchor_signed_distance": -0.0007373230864686775,
+          "base_anchor_distance": 0.0007373230764642358
+        },
+        {
+          "first_vertex": 4320,
+          "base_anchor_signed_distance": -0.0009320045464846771,
+          "base_anchor_distance": 0.0009320044773630798
+        },
+        {
+          "first_vertex": 4344,
+          "base_anchor_signed_distance": -0.0007887164556450443,
+          "base_anchor_distance": 0.0007887164829298854
+        },
+        {
+          "first_vertex": 4368,
+          "base_anchor_signed_distance": -0.0007662531170353759,
+          "base_anchor_distance": 0.0007662530988454819
+        },
+        {
+          "first_vertex": 4392,
+          "base_anchor_signed_distance": -0.0007578533195555792,
+          "base_anchor_distance": 0.0007578532677143812
+        },
+        {
+          "first_vertex": 4416,
+          "base_anchor_signed_distance": -0.0007208670758700464,
+          "base_anchor_distance": 0.0007208670722320676
+        },
+        {
+          "first_vertex": 4440,
+          "base_anchor_signed_distance": -0.0007969996586325578,
+          "base_anchor_distance": 0.0007969996077008545
+        },
+        {
+          "first_vertex": 4464,
+          "base_anchor_signed_distance": -0.0006913964780324022,
+          "base_anchor_distance": 0.0006913964753039181
+        },
+        {
+          "first_vertex": 4488,
+          "base_anchor_signed_distance": -0.0007591587891511153,
+          "base_anchor_distance": 0.0007591588073410094
+        },
+        {
+          "first_vertex": 4512,
+          "base_anchor_signed_distance": -0.0003387890760677692,
+          "base_anchor_distance": 0.00033878907561302185
+        },
+        {
+          "first_vertex": 4536,
+          "base_anchor_signed_distance": -0.00040596944927528966,
+          "base_anchor_distance": 0.00040596944745630026
+        },
+        {
+          "first_vertex": 4560,
+          "base_anchor_signed_distance": -0.0002834560652900109,
+          "base_anchor_distance": 0.0002834560873452574
+        },
+        {
+          "first_vertex": 4584,
+          "base_anchor_signed_distance": -0.00026860415846385877,
+          "base_anchor_distance": 0.00026860422804020345
+        },
+        {
+          "first_vertex": 4608,
+          "base_anchor_signed_distance": -0.003194394550519064,
+          "base_anchor_distance": 0.0031943945214152336
+        },
+        {
+          "first_vertex": 4632,
+          "base_anchor_signed_distance": -0.003246813896112144,
+          "base_anchor_distance": 0.0032468142453581095
+        },
+        {
+          "first_vertex": 4656,
+          "base_anchor_signed_distance": -0.0031068767711985856,
+          "base_anchor_distance": 0.003106876742094755
+        },
+        {
+          "first_vertex": 4680,
+          "base_anchor_signed_distance": -0.0031106253154575825,
+          "base_anchor_distance": 0.003110625548288226
+        },
+        {
+          "first_vertex": 4704,
+          "base_anchor_signed_distance": -0.0029278078727656975,
+          "base_anchor_distance": 0.0029278078582137823
+        },
+        {
+          "first_vertex": 4728,
+          "base_anchor_signed_distance": -0.0029271829407662153,
+          "base_anchor_distance": 0.0029271829407662153
+        },
+        {
+          "first_vertex": 4752,
+          "base_anchor_signed_distance": -0.002789948703139089,
+          "base_anchor_distance": 0.002789948834106326
+        },
+        {
+          "first_vertex": 4776,
+          "base_anchor_signed_distance": -0.002747313294094056,
+          "base_anchor_distance": 0.002747313352301717
+        },
+        {
+          "first_vertex": 4800,
+          "base_anchor_signed_distance": -0.00258195998321753,
+          "base_anchor_distance": 0.002581960055977106
+        },
+        {
+          "first_vertex": 4824,
+          "base_anchor_signed_distance": -0.0025941577332559973,
+          "base_anchor_distance": 0.0025941578205674887
+        },
+        {
+          "first_vertex": 4848,
+          "base_anchor_signed_distance": -0.0024400589463766664,
+          "base_anchor_distance": 0.0024400586262345314
+        },
+        {
+          "first_vertex": 4872,
+          "base_anchor_signed_distance": -0.002447798033244908,
+          "base_anchor_distance": 0.002447797916829586
+        },
+        {
+          "first_vertex": 4896,
+          "base_anchor_signed_distance": -0.002282261018990539,
+          "base_anchor_distance": 0.0022822609171271324
+        },
+        {
+          "first_vertex": 4920,
+          "base_anchor_signed_distance": -0.002237981345388107,
+          "base_anchor_distance": 0.0022379811853170395
+        },
+        {
+          "first_vertex": 4944,
+          "base_anchor_signed_distance": -0.002151653461623937,
+          "base_anchor_distance": 0.002151653403416276
+        },
+        {
+          "first_vertex": 4968,
+          "base_anchor_signed_distance": -0.0021090223162900656,
+          "base_anchor_distance": 0.002109022345393896
+        },
+        {
+          "first_vertex": 4992,
+          "base_anchor_signed_distance": -0.0019960308127338067,
+          "base_anchor_distance": 0.0019960307981818914
+        },
+        {
+          "first_vertex": 5016,
+          "base_anchor_signed_distance": -0.001963913207873702,
+          "base_anchor_distance": 0.0019639134407043457
+        },
+        {
+          "first_vertex": 5040,
+          "base_anchor_signed_distance": -0.0018127196817658842,
+          "base_anchor_distance": 0.0018127196235582232
+        },
+        {
+          "first_vertex": 5064,
+          "base_anchor_signed_distance": -0.001805381165468134,
+          "base_anchor_distance": 0.0018053812673315406
+        },
+        {
+          "first_vertex": 5088,
+          "base_anchor_signed_distance": -0.001668965800490696,
+          "base_anchor_distance": 0.0016689659096300602
+        },
+        {
+          "first_vertex": 5112,
+          "base_anchor_signed_distance": -0.0016787237982498482,
+          "base_anchor_distance": 0.001678723725490272
+        },
+        {
+          "first_vertex": 5136,
+          "base_anchor_signed_distance": -0.0015061642407090403,
+          "base_anchor_distance": 0.001506164320744574
+        },
+        {
+          "first_vertex": 5160,
+          "base_anchor_signed_distance": -0.001519230310805142,
+          "base_anchor_distance": 0.001519230310805142
+        },
+        {
+          "first_vertex": 5184,
+          "base_anchor_signed_distance": -0.0013035599840804935,
+          "base_anchor_distance": 0.0013035599840804935
+        },
+        {
+          "first_vertex": 5208,
+          "base_anchor_signed_distance": -0.0012609932018676773,
+          "base_anchor_distance": 0.001260993187315762
+        },
+        {
+          "first_vertex": 5232,
+          "base_anchor_signed_distance": -0.0011388555649318732,
+          "base_anchor_distance": 0.0011388554703444242
+        },
+        {
+          "first_vertex": 5256,
+          "base_anchor_signed_distance": -0.0011094469009549357,
+          "base_anchor_distance": 0.0011094468645751476
+        },
+        {
+          "first_vertex": 5280,
+          "base_anchor_signed_distance": -0.0009878602359094657,
+          "base_anchor_distance": 0.0009878602577373385
+        },
+        {
+          "first_vertex": 5304,
+          "base_anchor_signed_distance": -0.001033052263665013,
+          "base_anchor_distance": 0.0010330522200092673
+        },
+        {
+          "first_vertex": 5328,
+          "base_anchor_signed_distance": -0.0009816818856052123,
+          "base_anchor_distance": 0.0009816818637773395
+        },
+        {
+          "first_vertex": 5352,
+          "base_anchor_signed_distance": -0.0009710053273010999,
+          "base_anchor_distance": 0.0009710052981972694
+        },
+        {
+          "first_vertex": 5376,
+          "base_anchor_signed_distance": -0.00086610259313602,
+          "base_anchor_distance": 0.0008661025785841048
+        },
+        {
+          "first_vertex": 5400,
+          "base_anchor_signed_distance": -0.0009676147819845937,
+          "base_anchor_distance": 0.0009676147601567209
+        },
+        {
+          "first_vertex": 5424,
+          "base_anchor_signed_distance": -0.0009757240040926263,
+          "base_anchor_distance": 0.0009757239604368806
+        },
+        {
+          "first_vertex": 5448,
+          "base_anchor_signed_distance": -0.0009923963152687065,
+          "base_anchor_distance": 0.0009923962643370032
+        },
+        {
+          "first_vertex": 5472,
+          "base_anchor_signed_distance": -0.0010295191386830993,
+          "base_anchor_distance": 0.0010295192478224635
+        },
+        {
+          "first_vertex": 5496,
+          "base_anchor_signed_distance": -0.0010285030875820667,
+          "base_anchor_distance": 0.001028503174893558
+        },
+        {
+          "first_vertex": 5520,
+          "base_anchor_signed_distance": -0.0010187780499109067,
+          "base_anchor_distance": 0.0010187780717387795
+        },
+        {
+          "first_vertex": 5544,
+          "base_anchor_signed_distance": -0.0010006025258917361,
+          "base_anchor_distance": 0.0010006024967879057
+        },
+        {
+          "first_vertex": 5568,
+          "base_anchor_signed_distance": -0.0010737523189163767,
+          "base_anchor_distance": 0.0010737522970885038
+        },
+        {
+          "first_vertex": 5592,
+          "base_anchor_signed_distance": -0.0011473481354187243,
+          "base_anchor_distance": 0.001147348084487021
+        },
+        {
+          "first_vertex": 5616,
+          "base_anchor_signed_distance": -0.0010624724091030657,
+          "base_anchor_distance": 0.0010624723508954048
+        },
+        {
+          "first_vertex": 5640,
+          "base_anchor_signed_distance": -0.0009731739992275834,
+          "base_anchor_distance": 0.0009731739992275834
+        },
+        {
+          "first_vertex": 5664,
+          "base_anchor_signed_distance": -0.0010863749994314276,
+          "base_anchor_distance": 0.0010863750940188766
+        },
+        {
+          "first_vertex": 5688,
+          "base_anchor_signed_distance": -0.0009900959121296182,
+          "base_anchor_distance": 0.000990095897577703
+        },
+        {
+          "first_vertex": 5712,
+          "base_anchor_signed_distance": -0.0009837653924478218,
+          "base_anchor_distance": 0.0009837653487920761
+        },
+        {
+          "first_vertex": 5736,
+          "base_anchor_signed_distance": -0.0009148997414740734,
+          "base_anchor_distance": 0.0009148996905423701
+        },
+        {
+          "first_vertex": 5760,
+          "base_anchor_signed_distance": -0.0011304033250780776,
+          "base_anchor_distance": 0.0011304032523185015
+        },
+        {
+          "first_vertex": 5784,
+          "base_anchor_signed_distance": -0.0007756449995213188,
+          "base_anchor_distance": 0.0007756450795568526
+        },
+        {
+          "first_vertex": 5808,
+          "base_anchor_signed_distance": -0.0011058110030717216,
+          "base_anchor_distance": 0.0011058110976591706
+        },
+        {
+          "first_vertex": 5832,
+          "base_anchor_signed_distance": -0.0008397547426284291,
+          "base_anchor_distance": 0.0008397547644563019
+        },
+        {
+          "first_vertex": 5856,
+          "base_anchor_signed_distance": -0.0008940066109062172,
+          "base_anchor_distance": 0.0008940065745264292
+        },
+        {
+          "first_vertex": 5880,
+          "base_anchor_signed_distance": -0.0008031745965126902,
+          "base_anchor_distance": 0.0008031746256165206
+        },
+        {
+          "first_vertex": 5904,
+          "base_anchor_signed_distance": -0.0008553240841138177,
+          "base_anchor_distance": 0.0008553240913897753
+        },
+        {
+          "first_vertex": 5928,
+          "base_anchor_signed_distance": -0.0008090720730251633,
+          "base_anchor_distance": 0.0008090721094049513
+        },
+        {
+          "first_vertex": 5952,
+          "base_anchor_signed_distance": -0.000825833405542653,
+          "base_anchor_distance": 0.0008258334128186107
+        },
+        {
+          "first_vertex": 5976,
+          "base_anchor_signed_distance": -0.0007835356518626213,
+          "base_anchor_distance": 0.0007835355936549604
+        },
+        {
+          "first_vertex": 6000,
+          "base_anchor_signed_distance": -0.0006833779480075464,
+          "base_anchor_distance": 0.0006833779625594616
+        },
+        {
+          "first_vertex": 6024,
+          "base_anchor_signed_distance": -0.0006118756427895278,
+          "base_anchor_distance": 0.0006118756718933582
+        },
+        {
+          "first_vertex": 6048,
+          "base_anchor_signed_distance": -0.0004381914131954545,
+          "base_anchor_distance": 0.00043819143320433795
+        },
+        {
+          "first_vertex": 6072,
+          "base_anchor_signed_distance": -0.00044538339534483384,
+          "base_anchor_distance": 0.0004453834262676537
+        },
+        {
+          "first_vertex": 6096,
+          "base_anchor_signed_distance": -0.00026545200671534985,
+          "base_anchor_distance": 0.000265452079474926
+        },
+        {
+          "first_vertex": 6120,
+          "base_anchor_signed_distance": -0.0006976825097808614,
+          "base_anchor_distance": 0.0006976824952289462
+        },
+        {
+          "first_vertex": 6144,
+          "base_anchor_signed_distance": -0.0032080243981909007,
+          "base_anchor_distance": 0.003208024427294731
+        },
+        {
+          "first_vertex": 6168,
+          "base_anchor_signed_distance": -0.0032268041832139716,
+          "base_anchor_distance": 0.0032268045470118523
+        },
+        {
+          "first_vertex": 6192,
+          "base_anchor_signed_distance": -0.0031148630660027266,
+          "base_anchor_distance": 0.003114862833172083
+        },
+        {
+          "first_vertex": 6216,
+          "base_anchor_signed_distance": -0.0030706897377967834,
+          "base_anchor_distance": 0.0030706897377967834
+        },
+        {
+          "first_vertex": 6240,
+          "base_anchor_signed_distance": -0.0028835260454798117,
+          "base_anchor_distance": 0.0028835260309278965
+        },
+        {
+          "first_vertex": 6264,
+          "base_anchor_signed_distance": -0.002925523163867183,
+          "base_anchor_distance": 0.0029255233239382505
+        },
+        {
+          "first_vertex": 6288,
+          "base_anchor_signed_distance": -0.002777261193841696,
+          "base_anchor_distance": 0.002777260961011052
+        },
+        {
+          "first_vertex": 6312,
+          "base_anchor_signed_distance": -0.0028001191531075165,
+          "base_anchor_distance": 0.0028001191094517708
+        },
+        {
+          "first_vertex": 6336,
+          "base_anchor_signed_distance": -0.0026598741533234715,
+          "base_anchor_distance": 0.002659874502569437
+        },
+        {
+          "first_vertex": 6360,
+          "base_anchor_signed_distance": -0.0026077084621647373,
+          "base_anchor_distance": 0.002607708564028144
+        },
+        {
+          "first_vertex": 6384,
+          "base_anchor_signed_distance": -0.0024356086942134425,
+          "base_anchor_distance": 0.0024356087669730186
+        },
+        {
+          "first_vertex": 6408,
+          "base_anchor_signed_distance": -0.0024465182577841915,
+          "base_anchor_distance": 0.0024465180467814207
+        },
+        {
+          "first_vertex": 6432,
+          "base_anchor_signed_distance": -0.002264982438646257,
+          "base_anchor_distance": 0.002264982322230935
+        },
+        {
+          "first_vertex": 6456,
+          "base_anchor_signed_distance": -0.002134630107320845,
+          "base_anchor_distance": 0.002134630223736167
+        },
+        {
+          "first_vertex": 6480,
+          "base_anchor_signed_distance": -0.0021305388800101355,
+          "base_anchor_distance": 0.002130538923665881
+        },
+        {
+          "first_vertex": 6504,
+          "base_anchor_signed_distance": -0.002059856524283532,
+          "base_anchor_distance": 0.002059856429696083
+        },
+        {
+          "first_vertex": 6528,
+          "base_anchor_signed_distance": -0.001979310851311311,
+          "base_anchor_distance": 0.0019793109968304634
+        },
+        {
+          "first_vertex": 6552,
+          "base_anchor_signed_distance": -0.001969365039258264,
+          "base_anchor_distance": 0.0019693649373948574
+        },
+        {
+          "first_vertex": 6576,
+          "base_anchor_signed_distance": -0.001866603532107547,
+          "base_anchor_distance": 0.0018666033865883946
+        },
+        {
+          "first_vertex": 6600,
+          "base_anchor_signed_distance": -0.0018447375696268864,
+          "base_anchor_distance": 0.0018447375623509288
+        },
+        {
+          "first_vertex": 6624,
+          "base_anchor_signed_distance": -0.0016531771543668583,
+          "base_anchor_distance": 0.001653177198022604
+        },
+        {
+          "first_vertex": 6648,
+          "base_anchor_signed_distance": -0.0017020738014252856,
+          "base_anchor_distance": 0.0017020737286657095
+        },
+        {
+          "first_vertex": 6672,
+          "base_anchor_signed_distance": -0.0015056223492138088,
+          "base_anchor_distance": 0.0015056222910061479
+        },
+        {
+          "first_vertex": 6696,
+          "base_anchor_signed_distance": -0.0015166057346505113,
+          "base_anchor_distance": 0.0015166057273745537
+        },
+        {
+          "first_vertex": 6720,
+          "base_anchor_signed_distance": -0.0013075557653792202,
+          "base_anchor_distance": 0.0013075557071715593
+        },
+        {
+          "first_vertex": 6744,
+          "base_anchor_signed_distance": -0.0013631611873279326,
+          "base_anchor_distance": 0.0013631611363962293
+        },
+        {
+          "first_vertex": 6768,
+          "base_anchor_signed_distance": -0.0011249107192270458,
+          "base_anchor_distance": 0.0011249106610193849
+        },
+        {
+          "first_vertex": 6792,
+          "base_anchor_signed_distance": -0.0011302592356514651,
+          "base_anchor_distance": 0.0011302592465654016
+        },
+        {
+          "first_vertex": 6816,
+          "base_anchor_signed_distance": -0.0010361073072999716,
+          "base_anchor_distance": 0.0010361073072999716
+        },
+        {
+          "first_vertex": 6840,
+          "base_anchor_signed_distance": -0.0009720947746245656,
+          "base_anchor_distance": 0.0009720947127789259
+        },
+        {
+          "first_vertex": 6864,
+          "base_anchor_signed_distance": -0.0009472779165662359,
+          "base_anchor_distance": 0.00094727793475613
+        },
+        {
+          "first_vertex": 6888,
+          "base_anchor_signed_distance": -0.0010085196990985423,
+          "base_anchor_distance": 0.0010085196699947119
+        },
+        {
+          "first_vertex": 6912,
+          "base_anchor_signed_distance": -0.0009811069830902852,
+          "base_anchor_distance": 0.0009811071213334799
+        },
+        {
+          "first_vertex": 6936,
+          "base_anchor_signed_distance": -0.0009260734004783444,
+          "base_anchor_distance": 0.000926073407754302
+        },
+        {
+          "first_vertex": 6960,
+          "base_anchor_signed_distance": -0.0010162437247345224,
+          "base_anchor_distance": 0.001016243826597929
+        },
+        {
+          "first_vertex": 6984,
+          "base_anchor_signed_distance": -0.0009884553946903907,
+          "base_anchor_distance": 0.0009884553728625178
+        },
+        {
+          "first_vertex": 7008,
+          "base_anchor_signed_distance": -0.0009766912517079618,
+          "base_anchor_distance": 0.0009766912553459406
+        },
+        {
+          "first_vertex": 7032,
+          "base_anchor_signed_distance": -0.0010348940631956793,
+          "base_anchor_distance": 0.0010348939104005694
+        },
+        {
+          "first_vertex": 7056,
+          "base_anchor_signed_distance": -0.0010374164703534916,
+          "base_anchor_distance": 0.0010374163975939155
+        },
+        {
+          "first_vertex": 7080,
+          "base_anchor_signed_distance": -0.0010904253722401336,
+          "base_anchor_distance": 0.0010904254158958793
+        },
+        {
+          "first_vertex": 7104,
+          "base_anchor_signed_distance": -0.0009998948153224774,
+          "base_anchor_distance": 0.0009998949244618416
+        },
+        {
+          "first_vertex": 7128,
+          "base_anchor_signed_distance": -0.00109333275759127,
+          "base_anchor_distance": 0.0010933327721431851
+        },
+        {
+          "first_vertex": 7152,
+          "base_anchor_signed_distance": -0.0010032267819042318,
+          "base_anchor_distance": 0.0010032267309725285
+        },
+        {
+          "first_vertex": 7176,
+          "base_anchor_signed_distance": -0.0010020860281656496,
+          "base_anchor_distance": 0.0010020859772339463
+        },
+        {
+          "first_vertex": 7200,
+          "base_anchor_signed_distance": -0.0009336863513453864,
+          "base_anchor_distance": 0.0009336863295175135
+        },
+        {
+          "first_vertex": 7224,
+          "base_anchor_signed_distance": -0.0011396468471502885,
+          "base_anchor_distance": 0.0011396468617022038
+        },
+        {
+          "first_vertex": 7248,
+          "base_anchor_signed_distance": -0.0009145472504314966,
+          "base_anchor_distance": 0.0009145473013632
+        },
+        {
+          "first_vertex": 7272,
+          "base_anchor_signed_distance": -0.0010904180890065618,
+          "base_anchor_distance": 0.001090418198145926
+        },
+        {
+          "first_vertex": 7296,
+          "base_anchor_signed_distance": -0.0008912979246815667,
+          "base_anchor_distance": 0.000891297881025821
+        },
+        {
+          "first_vertex": 7320,
+          "base_anchor_signed_distance": -0.0009125055657932535,
+          "base_anchor_distance": 0.0009125055512413383
+        },
+        {
+          "first_vertex": 7344,
+          "base_anchor_signed_distance": -0.0010424441788927652,
+          "base_anchor_distance": 0.001042444258928299
+        },
+        {
+          "first_vertex": 7368,
+          "base_anchor_signed_distance": -0.0008044946516747586,
+          "base_anchor_distance": 0.0008044947171583772
+        },
+        {
+          "first_vertex": 7392,
+          "base_anchor_signed_distance": -0.0009624956510378979,
+          "base_anchor_distance": 0.0009624955710023642
+        },
+        {
+          "first_vertex": 7416,
+          "base_anchor_signed_distance": -0.0008322060675709508,
+          "base_anchor_distance": 0.0008322061039507389
+        },
+        {
+          "first_vertex": 7440,
+          "base_anchor_signed_distance": -0.0008030452772800345,
+          "base_anchor_distance": 0.0008030452881939709
+        },
+        {
+          "first_vertex": 7464,
+          "base_anchor_signed_distance": -0.0008223393160733394,
+          "base_anchor_distance": 0.0008223392651416361
+        },
+        {
+          "first_vertex": 7488,
+          "base_anchor_signed_distance": -0.000838423082313966,
+          "base_anchor_distance": 0.0008384230895899236
+        },
+        {
+          "first_vertex": 7512,
+          "base_anchor_signed_distance": -0.0007883419893914834,
+          "base_anchor_distance": 0.0007883419748395681
+        },
+        {
+          "first_vertex": 7536,
+          "base_anchor_signed_distance": -0.0007576716525363736,
+          "base_anchor_distance": 0.0007576717180199921
+        },
+        {
+          "first_vertex": 7560,
+          "base_anchor_signed_distance": -0.0007753976060485002,
+          "base_anchor_distance": 0.0007753975805826485
+        },
+        {
+          "first_vertex": 7584,
+          "base_anchor_signed_distance": -5.64807658065547e-05,
+          "base_anchor_distance": 5.648080332321115e-05
+        },
+        {
+          "first_vertex": 7608,
+          "base_anchor_signed_distance": -0.0006546517142851371,
+          "base_anchor_distance": 0.0006546516669914126
+        },
+        {
+          "first_vertex": 7632,
+          "base_anchor_signed_distance": 4.2445967892490444e-05,
+          "base_anchor_distance": 4.2446386942174286e-05
+        },
+        {
+          "first_vertex": 7656,
+          "base_anchor_signed_distance": -0.0004484334622247843,
+          "base_anchor_distance": 0.0004484334494918585
+        },
+        {
+          "first_vertex": 7680,
+          "base_anchor_signed_distance": -0.0032290195958921686,
+          "base_anchor_distance": 0.0032290194649249315
+        },
+        {
+          "first_vertex": 7704,
+          "base_anchor_signed_distance": -0.0032203625596594065,
+          "base_anchor_distance": 0.003220362588763237
+        },
+        {
+          "first_vertex": 7728,
+          "base_anchor_signed_distance": -0.003069371341553051,
+          "base_anchor_distance": 0.0030693714506924152
+        },
+        {
+          "first_vertex": 7752,
+          "base_anchor_signed_distance": -0.0030729796562809497,
+          "base_anchor_distance": 0.0030729796271771193
+        },
+        {
+          "first_vertex": 7776,
+          "base_anchor_signed_distance": -0.0029477613061317243,
+          "base_anchor_distance": 0.002947761444374919
+        },
+        {
+          "first_vertex": 7800,
+          "base_anchor_signed_distance": -0.0029381802305579185,
+          "base_anchor_distance": 0.0029381802305579185
+        },
+        {
+          "first_vertex": 7824,
+          "base_anchor_signed_distance": -0.0027793071712949313,
+          "base_anchor_distance": 0.002779307309538126
+        },
+        {
+          "first_vertex": 7848,
+          "base_anchor_signed_distance": -0.0027271950530121103,
+          "base_anchor_distance": 0.002727195154875517
+        },
+        {
+          "first_vertex": 7872,
+          "base_anchor_signed_distance": -0.002578841842478141,
+          "base_anchor_distance": 0.002578841522336006
+        },
+        {
+          "first_vertex": 7896,
+          "base_anchor_signed_distance": -0.0026064583216793835,
+          "base_anchor_distance": 0.0026064582634717226
+        },
+        {
+          "first_vertex": 7920,
+          "base_anchor_signed_distance": -0.0024377076224482153,
+          "base_anchor_distance": 0.0024377075023949146
+        },
+        {
+          "first_vertex": 7944,
+          "base_anchor_signed_distance": -0.002473063679644838,
+          "base_anchor_distance": 0.0024730635341256857
+        },
+        {
+          "first_vertex": 7968,
+          "base_anchor_signed_distance": -0.002198657122789882,
+          "base_anchor_distance": 0.0021986570209264755
+        },
+        {
+          "first_vertex": 7992,
+          "base_anchor_signed_distance": -0.0022754417586838827,
+          "base_anchor_distance": 0.002275441773235798
+        },
+        {
+          "first_vertex": 8016,
+          "base_anchor_signed_distance": -0.002093483039061539,
+          "base_anchor_distance": 0.002093483228236437
+        },
+        {
+          "first_vertex": 8040,
+          "base_anchor_signed_distance": -0.0020120211338507943,
+          "base_anchor_distance": 0.002012021141126752
+        },
+        {
+          "first_vertex": 8064,
+          "base_anchor_signed_distance": -0.001966925774468109,
+          "base_anchor_distance": 0.001966926036402583
+        },
+        {
+          "first_vertex": 8088,
+          "base_anchor_signed_distance": -0.001954546110937372,
+          "base_anchor_distance": 0.0019545459654182196
+        },
+        {
+          "first_vertex": 8112,
+          "base_anchor_signed_distance": -0.0017868719696707558,
+          "base_anchor_distance": 0.0017868720460683107
+        },
+        {
+          "first_vertex": 8136,
+          "base_anchor_signed_distance": -0.0018197010067524388,
+          "base_anchor_distance": 0.0018197009339928627
+        },
+        {
+          "first_vertex": 8160,
+          "base_anchor_signed_distance": -0.0016412834447692148,
+          "base_anchor_distance": 0.0016412835102528334
+        },
+        {
+          "first_vertex": 8184,
+          "base_anchor_signed_distance": -0.0016546268743695691,
+          "base_anchor_distance": 0.0016546270344406366
+        },
+        {
+          "first_vertex": 8208,
+          "base_anchor_signed_distance": -0.0014865263474348467,
+          "base_anchor_distance": 0.0014865263365209103
+        },
+        {
+          "first_vertex": 8232,
+          "base_anchor_signed_distance": -0.0014715207507833838,
+          "base_anchor_distance": 0.0014715208671987057
+        },
+        {
+          "first_vertex": 8256,
+          "base_anchor_signed_distance": -0.0012734183437714819,
+          "base_anchor_distance": 0.0012734184274449944
+        },
+        {
+          "first_vertex": 8280,
+          "base_anchor_signed_distance": -0.0012458179189707153,
+          "base_anchor_distance": 0.0012458179844543338
+        },
+        {
+          "first_vertex": 8304,
+          "base_anchor_signed_distance": -0.001099127170164138,
+          "base_anchor_distance": 0.001099127228371799
+        },
+        {
+          "first_vertex": 8328,
+          "base_anchor_signed_distance": -0.001122104633395793,
+          "base_anchor_distance": 0.0011221045861020684
+        },
+        {
+          "first_vertex": 8352,
+          "base_anchor_signed_distance": -0.0010137201861653011,
+          "base_anchor_distance": 0.0010137201752513647
+        },
+        {
+          "first_vertex": 8376,
+          "base_anchor_signed_distance": -0.0010327111231163144,
+          "base_anchor_distance": 0.0010327111231163144
+        },
+        {
+          "first_vertex": 8400,
+          "base_anchor_signed_distance": -0.0009927435639838222,
+          "base_anchor_distance": 0.000992743531242013
+        },
+        {
+          "first_vertex": 8424,
+          "base_anchor_signed_distance": -0.0010329095675842836,
+          "base_anchor_distance": 0.0010329094948247075
+        },
+        {
+          "first_vertex": 8448,
+          "base_anchor_signed_distance": -0.0009314592025475577,
+          "base_anchor_distance": 0.0009314591879956424
+        },
+        {
+          "first_vertex": 8472,
+          "base_anchor_signed_distance": -0.0010171871836064383,
+          "base_anchor_distance": 0.0010171872563660145
+        },
+        {
+          "first_vertex": 8496,
+          "base_anchor_signed_distance": -0.0009958569571608678,
+          "base_anchor_distance": 0.0009958569426089525
+        },
+        {
+          "first_vertex": 8520,
+          "base_anchor_signed_distance": -0.0009842924446274992,
+          "base_anchor_distance": 0.0009842924773693085
+        },
+        {
+          "first_vertex": 8544,
+          "base_anchor_signed_distance": -0.0010282453913532663,
+          "base_anchor_distance": 0.0010282453149557114
+        },
+        {
+          "first_vertex": 8568,
+          "base_anchor_signed_distance": -0.001006101771054091,
+          "base_anchor_distance": 0.0010061017237603664
+        },
+        {
+          "first_vertex": 8592,
+          "base_anchor_signed_distance": -0.000982586065219948,
+          "base_anchor_distance": 0.0009825860615819693
+        },
+        {
+          "first_vertex": 8616,
+          "base_anchor_signed_distance": -0.0010196812327194493,
+          "base_anchor_distance": 0.001019681221805513
+        },
+        {
+          "first_vertex": 8640,
+          "base_anchor_signed_distance": -0.0009404164666193537,
+          "base_anchor_distance": 0.0009404165321029723
+        },
+        {
+          "first_vertex": 8664,
+          "base_anchor_signed_distance": -0.0010172738293476868,
+          "base_anchor_distance": 0.0010172739857807755
+        },
+        {
+          "first_vertex": 8688,
+          "base_anchor_signed_distance": -0.001021978707285598,
+          "base_anchor_distance": 0.0010219785617664456
+        },
+        {
+          "first_vertex": 8712,
+          "base_anchor_signed_distance": -0.0010236400230496656,
+          "base_anchor_distance": 0.0010236400412395597
+        },
+        {
+          "first_vertex": 8736,
+          "base_anchor_signed_distance": -0.0009809361727093346,
+          "base_anchor_distance": 0.0009809361072257161
+        },
+        {
+          "first_vertex": 8760,
+          "base_anchor_signed_distance": -0.000999161864456255,
+          "base_anchor_distance": 0.0009991618571802974
+        },
+        {
+          "first_vertex": 8784,
+          "base_anchor_signed_distance": -0.0009349723641207675,
+          "base_anchor_distance": 0.0009349724277853966
+        },
+        {
+          "first_vertex": 8808,
+          "base_anchor_signed_distance": -0.0009350042455480434,
+          "base_anchor_distance": 0.0009350042091682553
+        },
+        {
+          "first_vertex": 8832,
+          "base_anchor_signed_distance": -0.0008708078785275575,
+          "base_anchor_distance": 0.0008708079112693667
+        },
+        {
+          "first_vertex": 8856,
+          "base_anchor_signed_distance": -0.0008307692514790688,
+          "base_anchor_distance": 0.00083076924784109
+        },
+        {
+          "first_vertex": 8880,
+          "base_anchor_signed_distance": -0.0008380870640394278,
+          "base_anchor_distance": 0.0008380871149711311
+        },
+        {
+          "first_vertex": 8904,
+          "base_anchor_signed_distance": -0.0005747731102019316,
+          "base_anchor_distance": 0.0005747731192968786
+        },
+        {
+          "first_vertex": 8928,
+          "base_anchor_signed_distance": -0.0008305499723064713,
+          "base_anchor_distance": 0.000830549921374768
+        },
+        {
+          "first_vertex": 8952,
+          "base_anchor_signed_distance": -0.0008290229307021946,
+          "base_anchor_distance": 0.0008290229015983641
+        },
+        {
+          "first_vertex": 8976,
+          "base_anchor_signed_distance": -0.0008224728771892842,
+          "base_anchor_distance": 0.0008224728517234325
+        },
+        {
+          "first_vertex": 9000,
+          "base_anchor_signed_distance": -0.0008349580384674482,
+          "base_anchor_distance": 0.0008349580457434058
+        },
+        {
+          "first_vertex": 9024,
+          "base_anchor_signed_distance": -0.0008011881272977917,
+          "base_anchor_distance": 0.0008011881145648658
+        },
+        {
+          "first_vertex": 9048,
+          "base_anchor_signed_distance": -0.0008620579792477656,
+          "base_anchor_distance": 0.0008620580774731934
+        },
+        {
+          "first_vertex": 9072,
+          "base_anchor_signed_distance": -0.0006450957262131851,
+          "base_anchor_distance": 0.0006450958317145705
+        },
+        {
+          "first_vertex": 9096,
+          "base_anchor_signed_distance": -0.0007854632403905271,
+          "base_anchor_distance": 0.0007854632567614317
+        },
+        {
+          "first_vertex": 9120,
+          "base_anchor_signed_distance": -0.00040604043897474185,
+          "base_anchor_distance": 0.0004060404608026147
+        },
+        {
+          "first_vertex": 9144,
+          "base_anchor_signed_distance": -0.0005155044191269553,
+          "base_anchor_distance": 0.0005155043909326196
+        },
+        {
+          "first_vertex": 9168,
+          "base_anchor_signed_distance": -0.00013904936668041046,
+          "base_anchor_distance": 0.0001390494144288823
+        },
+        {
+          "first_vertex": 9192,
+          "base_anchor_signed_distance": -0.0004295064245525282,
+          "base_anchor_distance": 0.00042950641363859177
+        },
+        {
+          "first_vertex": 9216,
+          "base_anchor_signed_distance": -0.0032323188352165744,
+          "base_anchor_distance": 0.0032323189079761505
+        },
+        {
+          "first_vertex": 9240,
+          "base_anchor_signed_distance": -0.003170416435750667,
+          "base_anchor_distance": 0.0031704166904091835
+        },
+        {
+          "first_vertex": 9264,
+          "base_anchor_signed_distance": -0.0030508992058457807,
+          "base_anchor_distance": 0.003050898900255561
+        },
+        {
+          "first_vertex": 9288,
+          "base_anchor_signed_distance": -0.003046863123017829,
+          "base_anchor_distance": 0.0030468630138784647
+        },
+        {
+          "first_vertex": 9312,
+          "base_anchor_signed_distance": -0.002869811563869007,
+          "base_anchor_distance": 0.0028698118403553963
+        },
+        {
+          "first_vertex": 9336,
+          "base_anchor_signed_distance": -0.0029346752307901625,
+          "base_anchor_distance": 0.002934675198048353
+        },
+        {
+          "first_vertex": 9360,
+          "base_anchor_signed_distance": -0.002758677743258886,
+          "base_anchor_distance": 0.002758677816018462
+        },
+        {
+          "first_vertex": 9384,
+          "base_anchor_signed_distance": -0.002745718742517056,
+          "base_anchor_distance": 0.002745718928053975
+        },
+        {
+          "first_vertex": 9408,
+          "base_anchor_signed_distance": -0.0025881387991830707,
+          "base_anchor_distance": 0.002588138682767749
+        },
+        {
+          "first_vertex": 9432,
+          "base_anchor_signed_distance": -0.0025256709814129863,
+          "base_anchor_distance": 0.0025256709195673466
+        },
+        {
+          "first_vertex": 9456,
+          "base_anchor_signed_distance": -0.0023762805576552637,
+          "base_anchor_distance": 0.002376280492171645
+        },
+        {
+          "first_vertex": 9480,
+          "base_anchor_signed_distance": -0.002405080547760008,
+          "base_anchor_distance": 0.0024050807114690542
+        },
+        {
+          "first_vertex": 9504,
+          "base_anchor_signed_distance": -0.002234553830930963,
+          "base_anchor_distance": 0.0022345539182424545
+        },
+        {
+          "first_vertex": 9528,
+          "base_anchor_signed_distance": -0.002204674692620756,
+          "base_anchor_distance": 0.0022046747617423534
+        },
+        {
+          "first_vertex": 9552,
+          "base_anchor_signed_distance": -0.0020996243256377056,
+          "base_anchor_distance": 0.0020996241364628077
+        },
+        {
+          "first_vertex": 9576,
+          "base_anchor_signed_distance": -0.002110941342834849,
+          "base_anchor_distance": 0.0021109413355588913
+        },
+        {
+          "first_vertex": 9600,
+          "base_anchor_signed_distance": -0.0019219471869291738,
+          "base_anchor_distance": 0.0019219472305849195
+        },
+        {
+          "first_vertex": 9624,
+          "base_anchor_signed_distance": -0.001865515558165498,
+          "base_anchor_distance": 0.0018655156018212438
+        },
+        {
+          "first_vertex": 9648,
+          "base_anchor_signed_distance": -0.0017479715679655783,
+          "base_anchor_distance": 0.0017479716334491968
+        },
+        {
+          "first_vertex": 9672,
+          "base_anchor_signed_distance": -0.0018509096225898247,
+          "base_anchor_distance": 0.001850909786298871
+        },
+        {
+          "first_vertex": 9696,
+          "base_anchor_signed_distance": -0.0015334452909883112,
+          "base_anchor_distance": 0.0015334453200921416
+        },
+        {
+          "first_vertex": 9720,
+          "base_anchor_signed_distance": -0.0015808068637852557,
+          "base_anchor_distance": 0.0015808066818863153
+        },
+        {
+          "first_vertex": 9744,
+          "base_anchor_signed_distance": -0.0014577714318875223,
+          "base_anchor_distance": 0.0014577714027836919
+        },
+        {
+          "first_vertex": 9768,
+          "base_anchor_signed_distance": -0.0014756697673874442,
+          "base_anchor_distance": 0.001475669676437974
+        },
+        {
+          "first_vertex": 9792,
+          "base_anchor_signed_distance": -0.0012203296209918335,
+          "base_anchor_distance": 0.0012203296646475792
+        },
+        {
+          "first_vertex": 9816,
+          "base_anchor_signed_distance": -0.0012938309355376987,
+          "base_anchor_distance": 0.0012938309228047729
+        },
+        {
+          "first_vertex": 9840,
+          "base_anchor_signed_distance": -0.0010543358330323827,
+          "base_anchor_distance": 0.0010543359676375985
+        },
+        {
+          "first_vertex": 9864,
+          "base_anchor_signed_distance": -0.0010620679004205158,
+          "base_anchor_distance": 0.0010620678076520562
+        },
+        {
+          "first_vertex": 9888,
+          "base_anchor_signed_distance": -0.0009953927838068921,
+          "base_anchor_distance": 0.0009953929111361504
+        },
+        {
+          "first_vertex": 9912,
+          "base_anchor_signed_distance": -0.0010143613089894643,
+          "base_anchor_distance": 0.0010143612744286656
+        },
+        {
+          "first_vertex": 9936,
+          "base_anchor_signed_distance": -0.0008990353926492389,
+          "base_anchor_distance": 0.0008990354253910482
+        },
+        {
+          "first_vertex": 9960,
+          "base_anchor_signed_distance": -0.0009624774866097141,
+          "base_anchor_distance": 0.0009624774684198201
+        },
+        {
+          "first_vertex": 9984,
+          "base_anchor_signed_distance": -0.0009417101755389012,
+          "base_anchor_distance": 0.000941710255574435
+        },
+        {
+          "first_vertex": 10008,
+          "base_anchor_signed_distance": -0.0009563736821291968,
+          "base_anchor_distance": 0.0009563736384734511
+        },
+        {
+          "first_vertex": 10032,
+          "base_anchor_signed_distance": -0.0009888881031656638,
+          "base_anchor_distance": 0.0009888880886137486
+        },
+        {
+          "first_vertex": 10056,
+          "base_anchor_signed_distance": -0.0009804522414924577,
+          "base_anchor_distance": 0.0009804521687328815
+        },
+        {
+          "first_vertex": 10080,
+          "base_anchor_signed_distance": -0.0009668108923506225,
+          "base_anchor_distance": 0.0009668109705671668
+        },
+        {
+          "first_vertex": 10104,
+          "base_anchor_signed_distance": -0.001043328913510777,
+          "base_anchor_distance": 0.0010433288989588618
+        },
+        {
+          "first_vertex": 10128,
+          "base_anchor_signed_distance": -0.001046835517627187,
+          "base_anchor_distance": 0.001046835444867611
+        },
+        {
+          "first_vertex": 10152,
+          "base_anchor_signed_distance": -0.0009991590704885311,
+          "base_anchor_distance": 0.0009991590632125735
+        },
+        {
+          "first_vertex": 10176,
+          "base_anchor_signed_distance": -0.0010325345829187427,
+          "base_anchor_distance": 0.001032534521073103
+        },
+        {
+          "first_vertex": 10200,
+          "base_anchor_signed_distance": -0.0010915415077761281,
+          "base_anchor_distance": 0.001091541489586234
+        },
+        {
+          "first_vertex": 10224,
+          "base_anchor_signed_distance": -0.0010651591765054036,
+          "base_anchor_distance": 0.0010651592165231705
+        },
+        {
+          "first_vertex": 10248,
+          "base_anchor_signed_distance": -0.001057839819623041,
+          "base_anchor_distance": 0.0010578398359939456
+        },
+        {
+          "first_vertex": 10272,
+          "base_anchor_signed_distance": -0.0008955574303399771,
+          "base_anchor_distance": 0.0008955574594438076
+        },
+        {
+          "first_vertex": 10296,
+          "base_anchor_signed_distance": -0.001057930876413593,
+          "base_anchor_distance": 0.0010579307563602924
+        },
+        {
+          "first_vertex": 10320,
+          "base_anchor_signed_distance": -0.0009285838568757754,
+          "base_anchor_distance": 0.000928583845961839
+        },
+        {
+          "first_vertex": 10344,
+          "base_anchor_signed_distance": -0.0010021695688919863,
+          "base_anchor_distance": 0.001002169563435018
+        },
+        {
+          "first_vertex": 10368,
+          "base_anchor_signed_distance": -0.0008170657201844733,
+          "base_anchor_distance": 0.0008170657092705369
+        },
+        {
+          "first_vertex": 10392,
+          "base_anchor_signed_distance": -0.0008624513957329327,
+          "base_anchor_distance": 0.0008624513866379857
+        },
+        {
+          "first_vertex": 10416,
+          "base_anchor_signed_distance": -0.0008157315060088877,
+          "base_anchor_distance": 0.0008157314732670784
+        },
+        {
+          "first_vertex": 10440,
+          "base_anchor_signed_distance": -0.0008162982157955412,
+          "base_anchor_distance": 0.0008162982412613928
+        },
+        {
+          "first_vertex": 10464,
+          "base_anchor_signed_distance": -0.0008718447243154515,
+          "base_anchor_distance": 0.0008718447643332183
+        },
+        {
+          "first_vertex": 10488,
+          "base_anchor_signed_distance": -0.0009109441125474405,
+          "base_anchor_distance": 0.0009109441889449954
+        },
+        {
+          "first_vertex": 10512,
+          "base_anchor_signed_distance": -0.0008375348515983205,
+          "base_anchor_distance": 0.0008375347824767232
+        },
+        {
+          "first_vertex": 10536,
+          "base_anchor_signed_distance": -0.0008039072945393855,
+          "base_anchor_distance": 0.0008039073436520994
+        },
+        {
+          "first_vertex": 10560,
+          "base_anchor_signed_distance": -0.0008216995120164938,
+          "base_anchor_distance": 0.0008216995047405362
+        },
+        {
+          "first_vertex": 10584,
+          "base_anchor_signed_distance": -0.0008206892453017645,
+          "base_anchor_distance": 0.0008206892525777221
+        },
+        {
+          "first_vertex": 10608,
+          "base_anchor_signed_distance": -0.0007184896530816332,
+          "base_anchor_distance": 0.0007184896385297179
+        },
+        {
+          "first_vertex": 10632,
+          "base_anchor_signed_distance": -0.0006683460815111175,
+          "base_anchor_distance": 0.0006683461251668632
+        },
+        {
+          "first_vertex": 10656,
+          "base_anchor_signed_distance": -0.00025014703760462,
+          "base_anchor_distance": 0.0002501470735296607
+        },
+        {
+          "first_vertex": 10680,
+          "base_anchor_signed_distance": -0.00027794023844762705,
+          "base_anchor_distance": 0.0002779402711894363
+        },
+        {
+          "first_vertex": 10704,
+          "base_anchor_signed_distance": 8.983229349723842e-05,
+          "base_anchor_distance": 8.983240695670247e-05
+        },
+        {
+          "first_vertex": 10728,
+          "base_anchor_signed_distance": -4.988861178389925e-05,
+          "base_anchor_distance": 4.988876753486693e-05
+        },
+        {
+          "first_vertex": 10752,
+          "base_anchor_signed_distance": -0.0031426646528416313,
+          "base_anchor_distance": 0.003142664907500148
+        },
+        {
+          "first_vertex": 10776,
+          "base_anchor_signed_distance": -0.0031872328399913386,
+          "base_anchor_distance": 0.0031872328836470842
+        },
+        {
+          "first_vertex": 10800,
+          "base_anchor_signed_distance": -0.003009256804944016,
+          "base_anchor_distance": 0.0030092569068074226
+        },
+        {
+          "first_vertex": 10824,
+          "base_anchor_signed_distance": -0.002973249909700826,
+          "base_anchor_distance": 0.002973250113427639
+        },
+        {
+          "first_vertex": 10848,
+          "base_anchor_signed_distance": -0.0028662186377914622,
+          "base_anchor_distance": 0.0028662187978625298
+        },
+        {
+          "first_vertex": 10872,
+          "base_anchor_signed_distance": -0.0028777262632502243,
+          "base_anchor_distance": 0.0028777262195944786
+        },
+        {
+          "first_vertex": 10896,
+          "base_anchor_signed_distance": -0.00266931966325501,
+          "base_anchor_distance": 0.0026693197432905436
+        },
+        {
+          "first_vertex": 10920,
+          "base_anchor_signed_distance": -0.0027032632497139275,
+          "base_anchor_distance": 0.0027032634243369102
+        },
+        {
+          "first_vertex": 10944,
+          "base_anchor_signed_distance": -0.002493608044460416,
+          "base_anchor_distance": 0.002493608044460416
+        },
+        {
+          "first_vertex": 10968,
+          "base_anchor_signed_distance": -0.0024999513407237828,
+          "base_anchor_distance": 0.002499951282516122
+        },
+        {
+          "first_vertex": 10992,
+          "base_anchor_signed_distance": -0.00237764459598111,
+          "base_anchor_distance": 0.0023776444140821695
+        },
+        {
+          "first_vertex": 11016,
+          "base_anchor_signed_distance": -0.0023949882306624204,
+          "base_anchor_distance": 0.0023949884343892336
+        },
+        {
+          "first_vertex": 11040,
+          "base_anchor_signed_distance": -0.002220427653810475,
+          "base_anchor_distance": 0.002220427617430687
+        },
+        {
+          "first_vertex": 11064,
+          "base_anchor_signed_distance": -0.0022387163335224614,
+          "base_anchor_distance": 0.0022387162316590548
+        },
+        {
+          "first_vertex": 11088,
+          "base_anchor_signed_distance": -0.0020602659787982702,
+          "base_anchor_distance": 0.0020602659787982702
+        },
+        {
+          "first_vertex": 11112,
+          "base_anchor_signed_distance": -0.0020872733875876293,
+          "base_anchor_distance": 0.0020872734021395445
+        },
+        {
+          "first_vertex": 11136,
+          "base_anchor_signed_distance": -0.001963128430361394,
+          "base_anchor_distance": 0.0019631285686045885
+        },
+        {
+          "first_vertex": 11160,
+          "base_anchor_signed_distance": -0.0019202050025342032,
+          "base_anchor_distance": 0.0019202050752937794
+        },
+        {
+          "first_vertex": 11184,
+          "base_anchor_signed_distance": -0.0017632481685723178,
+          "base_anchor_distance": 0.0017632481176406145
+        },
+        {
+          "first_vertex": 11208,
+          "base_anchor_signed_distance": -0.0017575598540133797,
+          "base_anchor_distance": 0.0017575598321855068
+        },
+        {
+          "first_vertex": 11232,
+          "base_anchor_signed_distance": -0.0016223078164330218,
+          "base_anchor_distance": 0.001622307812795043
+        },
+        {
+          "first_vertex": 11256,
+          "base_anchor_signed_distance": -0.0016077795226010494,
+          "base_anchor_distance": 0.001607779529877007
+        },
+        {
+          "first_vertex": 11280,
+          "base_anchor_signed_distance": -0.0014672234246972948,
+          "base_anchor_distance": 0.0014672233955934644
+        },
+        {
+          "first_vertex": 11304,
+          "base_anchor_signed_distance": -0.0014159304555505514,
+          "base_anchor_distance": 0.0014159305719658732
+        },
+        {
+          "first_vertex": 11328,
+          "base_anchor_signed_distance": -0.0012576346962305252,
+          "base_anchor_distance": 0.001257634605281055
+        },
+        {
+          "first_vertex": 11352,
+          "base_anchor_signed_distance": -0.0012666204565903172,
+          "base_anchor_distance": 0.0012666204711422324
+        },
+        {
+          "first_vertex": 11376,
+          "base_anchor_signed_distance": -0.0011159157984366175,
+          "base_anchor_distance": 0.001115915714763105
+        },
+        {
+          "first_vertex": 11400,
+          "base_anchor_signed_distance": -0.0011226586939301342,
+          "base_anchor_distance": 0.0011226588394492865
+        },
+        {
+          "first_vertex": 11424,
+          "base_anchor_signed_distance": -0.0011161903821630403,
+          "base_anchor_distance": 0.0011161903385072947
+        },
+        {
+          "first_vertex": 11448,
+          "base_anchor_signed_distance": -0.001078014731319854,
+          "base_anchor_distance": 0.001078014844097197
+        },
+        {
+          "first_vertex": 11472,
+          "base_anchor_signed_distance": -0.0010416987643111497,
+          "base_anchor_distance": 0.0010416987352073193
+        },
+        {
+          "first_vertex": 11496,
+          "base_anchor_signed_distance": -0.0008668343907629605,
+          "base_anchor_distance": 0.0008668343652971089
+        },
+        {
+          "first_vertex": 11520,
+          "base_anchor_signed_distance": -0.0009352366068924312,
+          "base_anchor_distance": 0.000935236515942961
+        },
+        {
+          "first_vertex": 11544,
+          "base_anchor_signed_distance": -0.0009987769662984647,
+          "base_anchor_distance": 0.0009987769881263375
+        },
+        {
+          "first_vertex": 11568,
+          "base_anchor_signed_distance": -0.0010208375970250927,
+          "base_anchor_distance": 0.0010208376916125417
+        },
+        {
+          "first_vertex": 11592,
+          "base_anchor_signed_distance": -0.0010019186665886082,
+          "base_anchor_distance": 0.0010019185720011592
+        },
+        {
+          "first_vertex": 11616,
+          "base_anchor_signed_distance": -0.0010379036611993797,
+          "base_anchor_distance": 0.001037903712131083
+        },
+        {
+          "first_vertex": 11640,
+          "base_anchor_signed_distance": -0.0009916910057654604,
+          "base_anchor_distance": 0.0009916909039020538
+        },
+        {
+          "first_vertex": 11664,
+          "base_anchor_signed_distance": -0.0010341292327211704,
+          "base_anchor_distance": 0.0010341291781514883
+        },
+        {
+          "first_vertex": 11688,
+          "base_anchor_signed_distance": -0.0010114922770299017,
+          "base_anchor_distance": 0.0010114923352375627
+        },
+        {
+          "first_vertex": 11712,
+          "base_anchor_signed_distance": -0.0010365826929046307,
+          "base_anchor_distance": 0.001036582631058991
+        },
+        {
+          "first_vertex": 11736,
+          "base_anchor_signed_distance": -0.001035948585922597,
+          "base_anchor_distance": 0.0010359484003856778
+        },
+        {
+          "first_vertex": 11760,
+          "base_anchor_signed_distance": -0.0010406805595266633,
+          "base_anchor_distance": 0.0010406805668026209
+        },
+        {
+          "first_vertex": 11784,
+          "base_anchor_signed_distance": -0.0010662335844244808,
+          "base_anchor_distance": 0.0010662336135283113
+        },
+        {
+          "first_vertex": 11808,
+          "base_anchor_signed_distance": -0.0009685012773843482,
+          "base_anchor_distance": 0.000968501262832433
+        },
+        {
+          "first_vertex": 11832,
+          "base_anchor_signed_distance": -0.0010359466141380835,
+          "base_anchor_distance": 0.0010359466541558504
+        },
+        {
+          "first_vertex": 11856,
+          "base_anchor_signed_distance": -0.0009635169481043704,
+          "base_anchor_distance": 0.0009635169990360737
+        },
+        {
+          "first_vertex": 11880,
+          "base_anchor_signed_distance": -0.0009609451371943578,
+          "base_anchor_distance": 0.000960945209953934
+        },
+        {
+          "first_vertex": 11904,
+          "base_anchor_signed_distance": -0.0008810977378743701,
+          "base_anchor_distance": 0.0008810977451503277
+        },
+        {
+          "first_vertex": 11928,
+          "base_anchor_signed_distance": -0.0008194724832719658,
+          "base_anchor_distance": 0.000819472479633987
+        },
+        {
+          "first_vertex": 11952,
+          "base_anchor_signed_distance": -0.000929490321141202,
+          "base_anchor_distance": 0.0009294903138652444
+        },
+        {
+          "first_vertex": 11976,
+          "base_anchor_signed_distance": -0.0007156546853366308,
+          "base_anchor_distance": 0.0007156546926125884
+        },
+        {
+          "first_vertex": 12000,
+          "base_anchor_signed_distance": -0.0008438713994110003,
+          "base_anchor_distance": 0.0008438713266514242
+        },
+        {
+          "first_vertex": 12024,
+          "base_anchor_signed_distance": -0.000966563013207633,
+          "base_anchor_distance": 0.0009665630059316754
+        },
+        {
+          "first_vertex": 12048,
+          "base_anchor_signed_distance": -0.0007675080196349882,
+          "base_anchor_distance": 0.0007675079395994544
+        },
+        {
+          "first_vertex": 12072,
+          "base_anchor_signed_distance": -0.0009195870079565793,
+          "base_anchor_distance": 0.0009195869788527489
+        },
+        {
+          "first_vertex": 12096,
+          "base_anchor_signed_distance": -0.0007015888913883828,
+          "base_anchor_distance": 0.000701588811352849
+        },
+        {
+          "first_vertex": 12120,
+          "base_anchor_signed_distance": -0.0008620863118267152,
+          "base_anchor_distance": 0.0008620863081887364
+        },
+        {
+          "first_vertex": 12144,
+          "base_anchor_signed_distance": -0.0006533300293085631,
+          "base_anchor_distance": 0.0006533300620503724
+        },
+        {
+          "first_vertex": 12168,
+          "base_anchor_signed_distance": -0.0007201845892268466,
+          "base_anchor_distance": 0.0007201846456155181
+        },
+        {
+          "first_vertex": 12192,
+          "base_anchor_signed_distance": -0.00022072591946198372,
+          "base_anchor_distance": 0.00022072592400945723
+        },
+        {
+          "first_vertex": 12216,
+          "base_anchor_signed_distance": -0.0005882241839572089,
+          "base_anchor_distance": 0.0005882242112420499
+        },
+        {
+          "first_vertex": 12240,
+          "base_anchor_signed_distance": 0.00010482385550858453,
+          "base_anchor_distance": 0.00010482389916433021
+        },
+        {
+          "first_vertex": 12264,
+          "base_anchor_signed_distance": -0.000781040591391502,
+          "base_anchor_distance": 0.0007810405804775655
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Rest-space base-ring center support only; not comprehensive cup rim/skin contact or suction"
+  ]
+}

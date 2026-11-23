@@ -1,0 +1,2996 @@
+{
+  "scope": "Current motion-r2 regenerable frames/backup/cold duplicate plus explicitly wrong-source reference capture and frozen duplicates",
+  "removed_files": [
+    {
+      "path": "motion-r2/frames/0298.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0267.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0501.png",
+      "bytes": 97797
+    },
+    {
+      "path": "motion-r2/frames/0515.png",
+      "bytes": 97671
+    },
+    {
+      "path": "motion-r2/frames/0273.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0529.png",
+      "bytes": 97759
+    },
+    {
+      "path": "motion-r2/frames/0703.png",
+      "bytes": 96680
+    },
+    {
+      "path": "motion-r2/frames/0065.png",
+      "bytes": 128840
+    },
+    {
+      "path": "motion-r2/frames/0071.png",
+      "bytes": 128357
+    },
+    {
+      "path": "motion-r2/frames/0717.png",
+      "bytes": 96852
+    },
+    {
+      "path": "motion-r2/frames/0059.png",
+      "bytes": 129324
+    },
+    {
+      "path": "motion-r2/frames/0688.png",
+      "bytes": 96797
+    },
+    {
+      "path": "motion-r2/frames/0677.png",
+      "bytes": 96294
+    },
+    {
+      "path": "motion-r2/frames/0111.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0105.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0663.png",
+      "bytes": 96253
+    },
+    {
+      "path": "motion-r2/frames/0139.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0313.png",
+      "bytes": 96508
+    },
+    {
+      "path": "motion-r2/frames/0475.png",
+      "bytes": 97597
+    },
+    {
+      "path": "motion-r2/frames/0461.png",
+      "bytes": 97021
+    },
+    {
+      "path": "motion-r2/frames/0307.png",
+      "bytes": 96514
+    },
+    {
+      "path": "motion-r2/frames/0449.png",
+      "bytes": 97023
+    },
+    {
+      "path": "motion-r2/frames/0448.png",
+      "bytes": 97129
+    },
+    {
+      "path": "motion-r2/frames/0460.png",
+      "bytes": 97098
+    },
+    {
+      "path": "motion-r2/frames/0306.png",
+      "bytes": 96566
+    },
+    {
+      "path": "motion-r2/frames/0312.png",
+      "bytes": 96535
+    },
+    {
+      "path": "motion-r2/frames/0474.png",
+      "bytes": 97651
+    },
+    {
+      "path": "motion-r2/frames/0138.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0104.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0662.png",
+      "bytes": 96365
+    },
+    {
+      "path": "motion-r2/frames/0676.png",
+      "bytes": 96380
+    },
+    {
+      "path": "motion-r2/frames/0110.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0689.png",
+      "bytes": 96927
+    },
+    {
+      "path": "motion-r2/frames/0058.png",
+      "bytes": 129583
+    },
+    {
+      "path": "motion-r2/frames/0070.png",
+      "bytes": 128633
+    },
+    {
+      "path": "motion-r2/frames/0716.png",
+      "bytes": 96851
+    },
+    {
+      "path": "motion-r2/frames/0702.png",
+      "bytes": 96681
+    },
+    {
+      "path": "motion-r2/frames/0064.png",
+      "bytes": 128976
+    },
+    {
+      "path": "motion-r2/frames/0528.png",
+      "bytes": 97771
+    },
+    {
+      "path": "motion-r2/frames/0514.png",
+      "bytes": 97663
+    },
+    {
+      "path": "motion-r2/frames/0272.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0266.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0500.png",
+      "bytes": 97811
+    },
+    {
+      "path": "motion-r2/frames/0299.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0270.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0516.png",
+      "bytes": 97837
+    },
+    {
+      "path": "motion-r2/frames/0502.png",
+      "bytes": 97887
+    },
+    {
+      "path": "motion-r2/frames/0264.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0258.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0099.png",
+      "bytes": 126625
+    },
+    {
+      "path": "motion-r2/frames/0714.png",
+      "bytes": 96900
+    },
+    {
+      "path": "motion-r2/frames/0072.png",
+      "bytes": 128412
+    },
+    {
+      "path": "motion-r2/frames/0066.png",
+      "bytes": 128819
+    },
+    {
+      "path": "motion-r2/frames/0700.png",
+      "bytes": 96770
+    },
+    {
+      "path": "motion-r2/frames/0660.png",
+      "bytes": 96465
+    },
+    {
+      "path": "motion-r2/frames/0106.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0112.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0674.png",
+      "bytes": 96304
+    },
+    {
+      "path": "motion-r2/frames/0648.png",
+      "bytes": 96326
+    },
+    {
+      "path": "motion-r2/frames/0489.png",
+      "bytes": 97887
+    },
+    {
+      "path": "motion-r2/frames/0304.png",
+      "bytes": 96764
+    },
+    {
+      "path": "motion-r2/frames/0462.png",
+      "bytes": 97109
+    },
+    {
+      "path": "motion-r2/frames/0476.png",
+      "bytes": 97733
+    },
+    {
+      "path": "motion-r2/frames/0310.png",
+      "bytes": 96534
+    },
+    {
+      "path": "motion-r2/frames/0338.png",
+      "bytes": 96260
+    },
+    {
+      "path": "motion-r2/frames/0339.png",
+      "bytes": 96382
+    },
+    {
+      "path": "motion-r2/frames/0477.png",
+      "bytes": 97603
+    },
+    {
+      "path": "motion-r2/frames/0311.png",
+      "bytes": 96428
+    },
+    {
+      "path": "motion-r2/frames/0305.png",
+      "bytes": 96704
+    },
+    {
+      "path": "motion-r2/frames/0463.png",
+      "bytes": 97059
+    },
+    {
+      "path": "motion-r2/frames/0488.png",
+      "bytes": 97763
+    },
+    {
+      "path": "motion-r2/frames/0649.png",
+      "bytes": 96385
+    },
+    {
+      "path": "motion-r2/frames/0113.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0675.png",
+      "bytes": 96400
+    },
+    {
+      "path": "motion-r2/frames/0661.png",
+      "bytes": 96417
+    },
+    {
+      "path": "motion-r2/frames/0107.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0067.png",
+      "bytes": 128846
+    },
+    {
+      "path": "motion-r2/frames/0701.png",
+      "bytes": 96703
+    },
+    {
+      "path": "motion-r2/frames/0715.png",
+      "bytes": 96953
+    },
+    {
+      "path": "motion-r2/frames/0073.png",
+      "bytes": 128287
+    },
+    {
+      "path": "motion-r2/frames/0098.png",
+      "bytes": 126645
+    },
+    {
+      "path": "motion-r2/frames/0259.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0503.png",
+      "bytes": 97769
+    },
+    {
+      "path": "motion-r2/frames/0265.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0271.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0517.png",
+      "bytes": 97860
+    },
+    {
+      "path": "motion-r2/frames/0249.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0513.png",
+      "bytes": 97656
+    },
+    {
+      "path": "motion-r2/frames/0275.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0261.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0507.png",
+      "bytes": 97823
+    },
+    {
+      "path": "motion-r2/frames/0088.png",
+      "bytes": 127375
+    },
+    {
+      "path": "motion-r2/frames/0077.png",
+      "bytes": 127826
+    },
+    {
+      "path": "motion-r2/frames/0711.png",
+      "bytes": 96800
+    },
+    {
+      "path": "motion-r2/frames/0705.png",
+      "bytes": 96581
+    },
+    {
+      "path": "motion-r2/frames/0063.png",
+      "bytes": 129122
+    },
+    {
+      "path": "motion-r2/frames/0659.png",
+      "bytes": 96595
+    },
+    {
+      "path": "motion-r2/frames/0103.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0665.png",
+      "bytes": 96187
+    },
+    {
+      "path": "motion-r2/frames/0671.png",
+      "bytes": 96242
+    },
+    {
+      "path": "motion-r2/frames/0117.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0498.png",
+      "bytes": 97858
+    },
+    {
+      "path": "motion-r2/frames/0329.png",
+      "bytes": 96413
+    },
+    {
+      "path": "motion-r2/frames/0467.png",
+      "bytes": 97307
+    },
+    {
+      "path": "motion-r2/frames/0301.png",
+      "bytes": 96898
+    },
+    {
+      "path": "motion-r2/frames/0315.png",
+      "bytes": 96567
+    },
+    {
+      "path": "motion-r2/frames/0473.png",
+      "bytes": 97505
+    },
+    {
+      "path": "motion-r2/frames/0314.png",
+      "bytes": 96531
+    },
+    {
+      "path": "motion-r2/frames/0472.png",
+      "bytes": 97456
+    },
+    {
+      "path": "motion-r2/frames/0466.png",
+      "bytes": 97293
+    },
+    {
+      "path": "motion-r2/frames/0300.png",
+      "bytes": 96902
+    },
+    {
+      "path": "motion-r2/frames/0328.png",
+      "bytes": 96475
+    },
+    {
+      "path": "motion-r2/frames/0499.png",
+      "bytes": 97792
+    },
+    {
+      "path": "motion-r2/frames/0670.png",
+      "bytes": 96257
+    },
+    {
+      "path": "motion-r2/frames/0116.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0102.png",
+      "bytes": 126654
+    },
+    {
+      "path": "motion-r2/frames/0664.png",
+      "bytes": 96172
+    },
+    {
+      "path": "motion-r2/frames/0658.png",
+      "bytes": 96475
+    },
+    {
+      "path": "motion-r2/frames/0704.png",
+      "bytes": 96563
+    },
+    {
+      "path": "motion-r2/frames/0062.png",
+      "bytes": 129252
+    },
+    {
+      "path": "motion-r2/frames/0076.png",
+      "bytes": 127967
+    },
+    {
+      "path": "motion-r2/frames/0710.png",
+      "bytes": 96791
+    },
+    {
+      "path": "motion-r2/frames/0089.png",
+      "bytes": 127328
+    },
+    {
+      "path": "motion-r2/frames/0260.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0506.png",
+      "bytes": 97820
+    },
+    {
+      "path": "motion-r2/frames/0512.png",
+      "bytes": 97820
+    },
+    {
+      "path": "motion-r2/frames/0274.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0248.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0289.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0538.png",
+      "bytes": 97648
+    },
+    {
+      "path": "motion-r2/frames/0504.png",
+      "bytes": 97772
+    },
+    {
+      "path": "motion-r2/frames/0262.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0276.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0510.png",
+      "bytes": 97862
+    },
+    {
+      "path": "motion-r2/frames/0048.png",
+      "bytes": 129508
+    },
+    {
+      "path": "motion-r2/frames/0060.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0706.png",
+      "bytes": 96647
+    },
+    {
+      "path": "motion-r2/frames/0712.png",
+      "bytes": 96840
+    },
+    {
+      "path": "motion-r2/frames/0074.png",
+      "bytes": 128087
+    },
+    {
+      "path": "motion-r2/frames/0699.png",
+      "bytes": 96813
+    },
+    {
+      "path": "motion-r2/frames/0128.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0114.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0672.png",
+      "bytes": 96222
+    },
+    {
+      "path": "motion-r2/frames/0666.png",
+      "bytes": 96223
+    },
+    {
+      "path": "motion-r2/frames/0100.png",
+      "bytes": 126666
+    },
+    {
+      "path": "motion-r2/frames/0458.png",
+      "bytes": 97067
+    },
+    {
+      "path": "motion-r2/frames/0470.png",
+      "bytes": 97579
+    },
+    {
+      "path": "motion-r2/frames/0316.png",
+      "bytes": 96747
+    },
+    {
+      "path": "motion-r2/frames/0302.png",
+      "bytes": 96757
+    },
+    {
+      "path": "motion-r2/frames/0464.png",
+      "bytes": 97376
+    },
+    {
+      "path": "motion-r2/frames/0303.png",
+      "bytes": 96724
+    },
+    {
+      "path": "motion-r2/frames/0465.png",
+      "bytes": 97296
+    },
+    {
+      "path": "motion-r2/frames/0471.png",
+      "bytes": 97414
+    },
+    {
+      "path": "motion-r2/frames/0317.png",
+      "bytes": 96656
+    },
+    {
+      "path": "motion-r2/frames/0459.png",
+      "bytes": 97198
+    },
+    {
+      "path": "motion-r2/frames/0667.png",
+      "bytes": 96247
+    },
+    {
+      "path": "motion-r2/frames/0101.png",
+      "bytes": 126656
+    },
+    {
+      "path": "motion-r2/frames/0115.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0673.png",
+      "bytes": 96161
+    },
+    {
+      "path": "motion-r2/frames/0129.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0698.png",
+      "bytes": 96982
+    },
+    {
+      "path": "motion-r2/frames/0713.png",
+      "bytes": 96756
+    },
+    {
+      "path": "motion-r2/frames/0075.png",
+      "bytes": 128034
+    },
+    {
+      "path": "motion-r2/frames/0061.png",
+      "bytes": 129390
+    },
+    {
+      "path": "motion-r2/frames/0707.png",
+      "bytes": 96662
+    },
+    {
+      "path": "motion-r2/frames/0049.png",
+      "bytes": 129633
+    },
+    {
+      "path": "motion-r2/frames/0277.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0511.png",
+      "bytes": 97825
+    },
+    {
+      "path": "motion-r2/frames/0505.png",
+      "bytes": 97776
+    },
+    {
+      "path": "motion-r2/frames/0263.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0539.png",
+      "bytes": 97726
+    },
+    {
+      "path": "motion-r2/frames/0288.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0589.png",
+      "bytes": 96688
+    },
+    {
+      "path": "motion-r2/frames/0562.png",
+      "bytes": 97090
+    },
+    {
+      "path": "motion-r2/frames/0204.png",
+      "bytes": 128819
+    },
+    {
+      "path": "motion-r2/frames/0210.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0576.png",
+      "bytes": 96692
+    },
+    {
+      "path": "motion-r2/frames/0238.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0006.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0012.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0199.png",
+      "bytes": 128357
+    },
+    {
+      "path": "motion-r2/frames/0172.png",
+      "bytes": 126645
+    },
+    {
+      "path": "motion-r2/frames/0614.png",
+      "bytes": 96368
+    },
+    {
+      "path": "motion-r2/frames/0600.png",
+      "bytes": 96565
+    },
+    {
+      "path": "motion-r2/frames/0166.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0628.png",
+      "bytes": 96480
+    },
+    {
+      "path": "motion-r2/frames/0416.png",
+      "bytes": 97325
+    },
+    {
+      "path": "motion-r2/frames/0370.png",
+      "bytes": 97832
+    },
+    {
+      "path": "motion-r2/frames/0364.png",
+      "bytes": 97626
+    },
+    {
+      "path": "motion-r2/frames/0402.png",
+      "bytes": 97246
+    },
+    {
+      "path": "motion-r2/frames/0358.png",
+      "bytes": 97511
+    },
+    {
+      "path": "motion-r2/frames/0359.png",
+      "bytes": 97483
+    },
+    {
+      "path": "motion-r2/frames/0365.png",
+      "bytes": 97893
+    },
+    {
+      "path": "motion-r2/frames/0403.png",
+      "bytes": 97240
+    },
+    {
+      "path": "motion-r2/frames/0417.png",
+      "bytes": 97238
+    },
+    {
+      "path": "motion-r2/frames/0371.png",
+      "bytes": 97815
+    },
+    {
+      "path": "motion-r2/frames/0629.png",
+      "bytes": 96564
+    },
+    {
+      "path": "motion-r2/frames/0601.png",
+      "bytes": 96619
+    },
+    {
+      "path": "motion-r2/frames/0167.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0173.png",
+      "bytes": 126667
+    },
+    {
+      "path": "motion-r2/frames/0615.png",
+      "bytes": 96379
+    },
+    {
+      "path": "motion-r2/frames/0198.png",
+      "bytes": 128412
+    },
+    {
+      "path": "motion-r2/frames/0013.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0007.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0239.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0211.png",
+      "bytes": 129324
+    },
+    {
+      "path": "motion-r2/frames/0577.png",
+      "bytes": 96642
+    },
+    {
+      "path": "motion-r2/frames/0563.png",
+      "bytes": 96953
+    },
+    {
+      "path": "motion-r2/frames/0205.png",
+      "bytes": 128840
+    },
+    {
+      "path": "motion-r2/frames/0588.png",
+      "bytes": 96793
+    },
+    {
+      "path": "motion-r2/frames/0575.png",
+      "bytes": 96700
+    },
+    {
+      "path": "motion-r2/frames/0213.png",
+      "bytes": 129537
+    },
+    {
+      "path": "motion-r2/frames/0207.png",
+      "bytes": 129122
+    },
+    {
+      "path": "motion-r2/frames/0561.png",
+      "bytes": 97113
+    },
+    {
+      "path": "motion-r2/frames/0549.png",
+      "bytes": 97439
+    },
+    {
+      "path": "motion-r2/frames/0011.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0005.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0039.png",
+      "bytes": 129387
+    },
+    {
+      "path": "motion-r2/frames/0165.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0603.png",
+      "bytes": 96577
+    },
+    {
+      "path": "motion-r2/frames/0617.png",
+      "bytes": 96324
+    },
+    {
+      "path": "motion-r2/frames/0171.png",
+      "bytes": 126625
+    },
+    {
+      "path": "motion-r2/frames/0159.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0398.png",
+      "bytes": 97292
+    },
+    {
+      "path": "motion-r2/frames/0401.png",
+      "bytes": 97416
+    },
+    {
+      "path": "motion-r2/frames/0367.png",
+      "bytes": 97854
+    },
+    {
+      "path": "motion-r2/frames/0373.png",
+      "bytes": 97888
+    },
+    {
+      "path": "motion-r2/frames/0415.png",
+      "bytes": 97499
+    },
+    {
+      "path": "motion-r2/frames/0429.png",
+      "bytes": 97650
+    },
+    {
+      "path": "motion-r2/frames/0428.png",
+      "bytes": 97663
+    },
+    {
+      "path": "motion-r2/frames/0372.png",
+      "bytes": 97855
+    },
+    {
+      "path": "motion-r2/frames/0414.png",
+      "bytes": 97202
+    },
+    {
+      "path": "motion-r2/frames/0400.png",
+      "bytes": 97425
+    },
+    {
+      "path": "motion-r2/frames/0366.png",
+      "bytes": 97895
+    },
+    {
+      "path": "motion-r2/frames/0399.png",
+      "bytes": 97394
+    },
+    {
+      "path": "motion-r2/frames/0158.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0616.png",
+      "bytes": 96254
+    },
+    {
+      "path": "motion-r2/frames/0170.png",
+      "bytes": 126666
+    },
+    {
+      "path": "motion-r2/frames/0164.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0602.png",
+      "bytes": 96643
+    },
+    {
+      "path": "motion-r2/frames/0038.png",
+      "bytes": 129282
+    },
+    {
+      "path": "motion-r2/frames/0004.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0010.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0548.png",
+      "bytes": 97416
+    },
+    {
+      "path": "motion-r2/frames/0206.png",
+      "bytes": 128976
+    },
+    {
+      "path": "motion-r2/frames/0560.png",
+      "bytes": 97142
+    },
+    {
+      "path": "motion-r2/frames/0574.png",
+      "bytes": 96706
+    },
+    {
+      "path": "motion-r2/frames/0212.png",
+      "bytes": 129583
+    },
+    {
+      "path": "motion-r2/frames/0558.png",
+      "bytes": 97324
+    },
+    {
+      "path": "motion-r2/frames/0216.png",
+      "bytes": 129620
+    },
+    {
+      "path": "motion-r2/frames/0570.png",
+      "bytes": 96762
+    },
+    {
+      "path": "motion-r2/frames/0564.png",
+      "bytes": 97003
+    },
+    {
+      "path": "motion-r2/frames/0202.png",
+      "bytes": 128862
+    },
+    {
+      "path": "motion-r2/frames/0028.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0014.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0000.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0148.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0606.png",
+      "bytes": 96518
+    },
+    {
+      "path": "motion-r2/frames/0160.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0174.png",
+      "bytes": 126708
+    },
+    {
+      "path": "motion-r2/frames/0612.png",
+      "bytes": 96500
+    },
+    {
+      "path": "motion-r2/frames/0389.png",
+      "bytes": 97698
+    },
+    {
+      "path": "motion-r2/frames/0438.png",
+      "bytes": 97084
+    },
+    {
+      "path": "motion-r2/frames/0362.png",
+      "bytes": 97656
+    },
+    {
+      "path": "motion-r2/frames/0404.png",
+      "bytes": 97263
+    },
+    {
+      "path": "motion-r2/frames/0410.png",
+      "bytes": 97205
+    },
+    {
+      "path": "motion-r2/frames/0376.png",
+      "bytes": 97538
+    },
+    {
+      "path": "motion-r2/frames/0411.png",
+      "bytes": 97097
+    },
+    {
+      "path": "motion-r2/frames/0377.png",
+      "bytes": 97477
+    },
+    {
+      "path": "motion-r2/frames/0363.png",
+      "bytes": 97686
+    },
+    {
+      "path": "motion-r2/frames/0405.png",
+      "bytes": 97232
+    },
+    {
+      "path": "motion-r2/frames/0439.png",
+      "bytes": 96813
+    },
+    {
+      "path": "motion-r2/frames/0388.png",
+      "bytes": 97574
+    },
+    {
+      "path": "motion-r2/frames/0175.png",
+      "bytes": 126760
+    },
+    {
+      "path": "motion-r2/frames/0613.png",
+      "bytes": 96338
+    },
+    {
+      "path": "motion-r2/frames/0607.png",
+      "bytes": 96415
+    },
+    {
+      "path": "motion-r2/frames/0161.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0149.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0001.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0015.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0029.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0565.png",
+      "bytes": 97124
+    },
+    {
+      "path": "motion-r2/frames/0203.png",
+      "bytes": 128846
+    },
+    {
+      "path": "motion-r2/frames/0217.png",
+      "bytes": 129555
+    },
+    {
+      "path": "motion-r2/frames/0571.png",
+      "bytes": 96809
+    },
+    {
+      "path": "motion-r2/frames/0559.png",
+      "bytes": 97192
+    },
+    {
+      "path": "motion-r2/frames/0598.png",
+      "bytes": 96596
+    },
+    {
+      "path": "motion-r2/frames/0229.png",
+      "bytes": 129319
+    },
+    {
+      "path": "motion-r2/frames/0201.png",
+      "bytes": 128548
+    },
+    {
+      "path": "motion-r2/frames/0567.png",
+      "bytes": 96891
+    },
+    {
+      "path": "motion-r2/frames/0573.png",
+      "bytes": 96613
+    },
+    {
+      "path": "motion-r2/frames/0215.png",
+      "bytes": 129749
+    },
+    {
+      "path": "motion-r2/frames/0003.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0017.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0188.png",
+      "bytes": 127570
+    },
+    {
+      "path": "motion-r2/frames/0639.png",
+      "bytes": 96549
+    },
+    {
+      "path": "motion-r2/frames/0611.png",
+      "bytes": 96416
+    },
+    {
+      "path": "motion-r2/frames/0177.png",
+      "bytes": 126931
+    },
+    {
+      "path": "motion-r2/frames/0163.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0605.png",
+      "bytes": 96528
+    },
+    {
+      "path": "motion-r2/frames/0349.png",
+      "bytes": 96875
+    },
+    {
+      "path": "motion-r2/frames/0375.png",
+      "bytes": 97520
+    },
+    {
+      "path": "motion-r2/frames/0413.png",
+      "bytes": 97274
+    },
+    {
+      "path": "motion-r2/frames/0407.png",
+      "bytes": 97004
+    },
+    {
+      "path": "motion-r2/frames/0361.png",
+      "bytes": 97533
+    },
+    {
+      "path": "motion-r2/frames/0406.png",
+      "bytes": 97088
+    },
+    {
+      "path": "motion-r2/frames/0360.png",
+      "bytes": 97737
+    },
+    {
+      "path": "motion-r2/frames/0374.png",
+      "bytes": 97643
+    },
+    {
+      "path": "motion-r2/frames/0412.png",
+      "bytes": 97309
+    },
+    {
+      "path": "motion-r2/frames/0348.png",
+      "bytes": 96897
+    },
+    {
+      "path": "motion-r2/frames/0162.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0604.png",
+      "bytes": 96481
+    },
+    {
+      "path": "motion-r2/frames/0610.png",
+      "bytes": 96397
+    },
+    {
+      "path": "motion-r2/frames/0176.png",
+      "bytes": 126726
+    },
+    {
+      "path": "motion-r2/frames/0638.png",
+      "bytes": 96548
+    },
+    {
+      "path": "motion-r2/frames/0189.png",
+      "bytes": 127652
+    },
+    {
+      "path": "motion-r2/frames/0016.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0002.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0572.png",
+      "bytes": 96717
+    },
+    {
+      "path": "motion-r2/frames/0214.png",
+      "bytes": 129358
+    },
+    {
+      "path": "motion-r2/frames/0200.png",
+      "bytes": 128633
+    },
+    {
+      "path": "motion-r2/frames/0566.png",
+      "bytes": 97105
+    },
+    {
+      "path": "motion-r2/frames/0228.png",
+      "bytes": 129269
+    },
+    {
+      "path": "motion-r2/frames/0599.png",
+      "bytes": 96632
+    },
+    {
+      "path": "motion-r2/frames/0580.png",
+      "bytes": 96559
+    },
+    {
+      "path": "motion-r2/frames/0594.png",
+      "bytes": 96624
+    },
+    {
+      "path": "motion-r2/frames/0543.png",
+      "bytes": 97316
+    },
+    {
+      "path": "motion-r2/frames/0225.png",
+      "bytes": 129675
+    },
+    {
+      "path": "motion-r2/frames/0231.png",
+      "bytes": 129387
+    },
+    {
+      "path": "motion-r2/frames/0557.png",
+      "bytes": 97200
+    },
+    {
+      "path": "motion-r2/frames/0219.png",
+      "bytes": 129705
+    },
+    {
+      "path": "motion-r2/frames/0027.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0033.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0190.png",
+      "bytes": 127735
+    },
+    {
+      "path": "motion-r2/frames/0184.png",
+      "bytes": 127529
+    },
+    {
+      "path": "motion-r2/frames/0153.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0635.png",
+      "bytes": 96555
+    },
+    {
+      "path": "motion-r2/frames/0621.png",
+      "bytes": 96430
+    },
+    {
+      "path": "motion-r2/frames/0147.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0609.png",
+      "bytes": 96572
+    },
+    {
+      "path": "motion-r2/frames/0392.png",
+      "bytes": 97611
+    },
+    {
+      "path": "motion-r2/frames/0386.png",
+      "bytes": 97679
+    },
+    {
+      "path": "motion-r2/frames/0437.png",
+      "bytes": 97123
+    },
+    {
+      "path": "motion-r2/frames/0351.png",
+      "bytes": 97142
+    },
+    {
+      "path": "motion-r2/frames/0345.png",
+      "bytes": 96600
+    },
+    {
+      "path": "motion-r2/frames/0423.png",
+      "bytes": 97607
+    },
+    {
+      "path": "motion-r2/frames/0379.png",
+      "bytes": 97499
+    },
+    {
+      "path": "motion-r2/frames/0378.png",
+      "bytes": 97522
+    },
+    {
+      "path": "motion-r2/frames/0344.png",
+      "bytes": 96520
+    },
+    {
+      "path": "motion-r2/frames/0422.png",
+      "bytes": 97602
+    },
+    {
+      "path": "motion-r2/frames/0436.png",
+      "bytes": 97056
+    },
+    {
+      "path": "motion-r2/frames/0350.png",
+      "bytes": 96977
+    },
+    {
+      "path": "motion-r2/frames/0387.png",
+      "bytes": 97517
+    },
+    {
+      "path": "motion-r2/frames/0393.png",
+      "bytes": 97488
+    },
+    {
+      "path": "motion-r2/frames/0608.png",
+      "bytes": 96623
+    },
+    {
+      "path": "motion-r2/frames/0620.png",
+      "bytes": 96282
+    },
+    {
+      "path": "motion-r2/frames/0146.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0152.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0634.png",
+      "bytes": 96536
+    },
+    {
+      "path": "motion-r2/frames/0185.png",
+      "bytes": 127508
+    },
+    {
+      "path": "motion-r2/frames/0191.png",
+      "bytes": 127775
+    },
+    {
+      "path": "motion-r2/frames/0032.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0026.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0218.png",
+      "bytes": 129631
+    },
+    {
+      "path": "motion-r2/frames/0230.png",
+      "bytes": 129180
+    },
+    {
+      "path": "motion-r2/frames/0556.png",
+      "bytes": 97221
+    },
+    {
+      "path": "motion-r2/frames/0542.png",
+      "bytes": 97391
+    },
+    {
+      "path": "motion-r2/frames/0224.png",
+      "bytes": 129694
+    },
+    {
+      "path": "motion-r2/frames/0595.png",
+      "bytes": 96579
+    },
+    {
+      "path": "motion-r2/frames/0581.png",
+      "bytes": 96579
+    },
+    {
+      "path": "motion-r2/frames/0597.png",
+      "bytes": 96594
+    },
+    {
+      "path": "motion-r2/frames/0583.png",
+      "bytes": 96596
+    },
+    {
+      "path": "motion-r2/frames/0554.png",
+      "bytes": 97262
+    },
+    {
+      "path": "motion-r2/frames/0232.png",
+      "bytes": 129282
+    },
+    {
+      "path": "motion-r2/frames/0226.png",
+      "bytes": 129530
+    },
+    {
+      "path": "motion-r2/frames/0540.png",
+      "bytes": 97476
+    },
+    {
+      "path": "motion-r2/frames/0568.png",
+      "bytes": 96897
+    },
+    {
+      "path": "motion-r2/frames/0030.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0024.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0018.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0187.png",
+      "bytes": 127502
+    },
+    {
+      "path": "motion-r2/frames/0193.png",
+      "bytes": 127826
+    },
+    {
+      "path": "motion-r2/frames/0144.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0622.png",
+      "bytes": 96571
+    },
+    {
+      "path": "motion-r2/frames/0636.png",
+      "bytes": 96508
+    },
+    {
+      "path": "motion-r2/frames/0150.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0178.png",
+      "bytes": 127064
+    },
+    {
+      "path": "motion-r2/frames/0385.png",
+      "bytes": 97468
+    },
+    {
+      "path": "motion-r2/frames/0391.png",
+      "bytes": 97612
+    },
+    {
+      "path": "motion-r2/frames/0420.png",
+      "bytes": 97363
+    },
+    {
+      "path": "motion-r2/frames/0346.png",
+      "bytes": 96684
+    },
+    {
+      "path": "motion-r2/frames/0352.png",
+      "bytes": 97297
+    },
+    {
+      "path": "motion-r2/frames/0434.png",
+      "bytes": 97220
+    },
+    {
+      "path": "motion-r2/frames/0408.png",
+      "bytes": 97036
+    },
+    {
+      "path": "motion-r2/frames/0409.png",
+      "bytes": 97095
+    },
+    {
+      "path": "motion-r2/frames/0353.png",
+      "bytes": 97275
+    },
+    {
+      "path": "motion-r2/frames/0435.png",
+      "bytes": 97109
+    },
+    {
+      "path": "motion-r2/frames/0421.png",
+      "bytes": 97463
+    },
+    {
+      "path": "motion-r2/frames/0347.png",
+      "bytes": 96828
+    },
+    {
+      "path": "motion-r2/frames/0390.png",
+      "bytes": 97443
+    },
+    {
+      "path": "motion-r2/frames/0384.png",
+      "bytes": 97612
+    },
+    {
+      "path": "motion-r2/frames/0179.png",
+      "bytes": 127173
+    },
+    {
+      "path": "motion-r2/frames/0637.png",
+      "bytes": 96530
+    },
+    {
+      "path": "motion-r2/frames/0151.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0145.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0623.png",
+      "bytes": 96349
+    },
+    {
+      "path": "motion-r2/frames/0192.png",
+      "bytes": 127751
+    },
+    {
+      "path": "motion-r2/frames/0186.png",
+      "bytes": 127493
+    },
+    {
+      "path": "motion-r2/frames/0019.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0025.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0031.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0569.png",
+      "bytes": 96867
+    },
+    {
+      "path": "motion-r2/frames/0227.png",
+      "bytes": 129273
+    },
+    {
+      "path": "motion-r2/frames/0541.png",
+      "bytes": 97397
+    },
+    {
+      "path": "motion-r2/frames/0555.png",
+      "bytes": 97451
+    },
+    {
+      "path": "motion-r2/frames/0233.png",
+      "bytes": 129261
+    },
+    {
+      "path": "motion-r2/frames/0582.png",
+      "bytes": 96528
+    },
+    {
+      "path": "motion-r2/frames/0596.png",
+      "bytes": 96473
+    },
+    {
+      "path": "motion-r2/frames/0592.png",
+      "bytes": 96624
+    },
+    {
+      "path": "motion-r2/frames/0586.png",
+      "bytes": 96616
+    },
+    {
+      "path": "motion-r2/frames/0579.png",
+      "bytes": 96609
+    },
+    {
+      "path": "motion-r2/frames/0237.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0551.png",
+      "bytes": 97359
+    },
+    {
+      "path": "motion-r2/frames/0545.png",
+      "bytes": 97386
+    },
+    {
+      "path": "motion-r2/frames/0223.png",
+      "bytes": 129828
+    },
+    {
+      "path": "motion-r2/frames/0009.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0035.png",
+      "bytes": 129272
+    },
+    {
+      "path": "motion-r2/frames/0021.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0182.png",
+      "bytes": 127375
+    },
+    {
+      "path": "motion-r2/frames/0196.png",
+      "bytes": 128087
+    },
+    {
+      "path": "motion-r2/frames/0169.png",
+      "bytes": 126656
+    },
+    {
+      "path": "motion-r2/frames/0627.png",
+      "bytes": 96632
+    },
+    {
+      "path": "motion-r2/frames/0141.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0155.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0633.png",
+      "bytes": 96552
+    },
+    {
+      "path": "motion-r2/frames/0380.png",
+      "bytes": 97624
+    },
+    {
+      "path": "motion-r2/frames/0394.png",
+      "bytes": 97500
+    },
+    {
+      "path": "motion-r2/frames/0419.png",
+      "bytes": 97345
+    },
+    {
+      "path": "motion-r2/frames/0343.png",
+      "bytes": 96492
+    },
+    {
+      "path": "motion-r2/frames/0425.png",
+      "bytes": 97660
+    },
+    {
+      "path": "motion-r2/frames/0431.png",
+      "bytes": 97571
+    },
+    {
+      "path": "motion-r2/frames/0357.png",
+      "bytes": 97447
+    },
+    {
+      "path": "motion-r2/frames/0430.png",
+      "bytes": 97482
+    },
+    {
+      "path": "motion-r2/frames/0356.png",
+      "bytes": 97417
+    },
+    {
+      "path": "motion-r2/frames/0342.png",
+      "bytes": 96366
+    },
+    {
+      "path": "motion-r2/frames/0424.png",
+      "bytes": 97507
+    },
+    {
+      "path": "motion-r2/frames/0418.png",
+      "bytes": 97410
+    },
+    {
+      "path": "motion-r2/frames/0395.png",
+      "bytes": 97494
+    },
+    {
+      "path": "motion-r2/frames/0381.png",
+      "bytes": 97595
+    },
+    {
+      "path": "motion-r2/frames/0154.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0632.png",
+      "bytes": 96512
+    },
+    {
+      "path": "motion-r2/frames/0626.png",
+      "bytes": 96438
+    },
+    {
+      "path": "motion-r2/frames/0140.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0168.png",
+      "bytes": 126654
+    },
+    {
+      "path": "motion-r2/frames/0197.png",
+      "bytes": 128287
+    },
+    {
+      "path": "motion-r2/frames/0183.png",
+      "bytes": 127369
+    },
+    {
+      "path": "motion-r2/frames/0020.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0034.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0008.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0544.png",
+      "bytes": 97407
+    },
+    {
+      "path": "motion-r2/frames/0222.png",
+      "bytes": 129508
+    },
+    {
+      "path": "motion-r2/frames/0236.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0550.png",
+      "bytes": 97276
+    },
+    {
+      "path": "motion-r2/frames/0578.png",
+      "bytes": 96636
+    },
+    {
+      "path": "motion-r2/frames/0587.png",
+      "bytes": 96760
+    },
+    {
+      "path": "motion-r2/frames/0593.png",
+      "bytes": 96596
+    },
+    {
+      "path": "motion-r2/frames/0585.png",
+      "bytes": 96641
+    },
+    {
+      "path": "motion-r2/frames/0591.png",
+      "bytes": 96633
+    },
+    {
+      "path": "motion-r2/frames/0208.png",
+      "bytes": 129252
+    },
+    {
+      "path": "motion-r2/frames/0220.png",
+      "bytes": 129562
+    },
+    {
+      "path": "motion-r2/frames/0546.png",
+      "bytes": 97294
+    },
+    {
+      "path": "motion-r2/frames/0552.png",
+      "bytes": 97372
+    },
+    {
+      "path": "motion-r2/frames/0234.png",
+      "bytes": 129268
+    },
+    {
+      "path": "motion-r2/frames/0022.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0036.png",
+      "bytes": 129268
+    },
+    {
+      "path": "motion-r2/frames/0195.png",
+      "bytes": 128034
+    },
+    {
+      "path": "motion-r2/frames/0181.png",
+      "bytes": 127324
+    },
+    {
+      "path": "motion-r2/frames/0618.png",
+      "bytes": 96328
+    },
+    {
+      "path": "motion-r2/frames/0630.png",
+      "bytes": 96481
+    },
+    {
+      "path": "motion-r2/frames/0156.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0142.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0624.png",
+      "bytes": 96507
+    },
+    {
+      "path": "motion-r2/frames/0397.png",
+      "bytes": 97235
+    },
+    {
+      "path": "motion-r2/frames/0383.png",
+      "bytes": 97573
+    },
+    {
+      "path": "motion-r2/frames/0368.png",
+      "bytes": 97898
+    },
+    {
+      "path": "motion-r2/frames/0354.png",
+      "bytes": 97363
+    },
+    {
+      "path": "motion-r2/frames/0432.png",
+      "bytes": 97443
+    },
+    {
+      "path": "motion-r2/frames/0426.png",
+      "bytes": 97679
+    },
+    {
+      "path": "motion-r2/frames/0340.png",
+      "bytes": 96358
+    },
+    {
+      "path": "motion-r2/frames/0427.png",
+      "bytes": 97655
+    },
+    {
+      "path": "motion-r2/frames/0341.png",
+      "bytes": 96507
+    },
+    {
+      "path": "motion-r2/frames/0355.png",
+      "bytes": 97446
+    },
+    {
+      "path": "motion-r2/frames/0433.png",
+      "bytes": 97282
+    },
+    {
+      "path": "motion-r2/frames/0369.png",
+      "bytes": 97802
+    },
+    {
+      "path": "motion-r2/frames/0382.png",
+      "bytes": 97692
+    },
+    {
+      "path": "motion-r2/frames/0396.png",
+      "bytes": 97550
+    },
+    {
+      "path": "motion-r2/frames/0143.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0625.png",
+      "bytes": 96470
+    },
+    {
+      "path": "motion-r2/frames/0631.png",
+      "bytes": 96485
+    },
+    {
+      "path": "motion-r2/frames/0157.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0619.png",
+      "bytes": 96307
+    },
+    {
+      "path": "motion-r2/frames/0180.png",
+      "bytes": 127262
+    },
+    {
+      "path": "motion-r2/frames/0194.png",
+      "bytes": 127967
+    },
+    {
+      "path": "motion-r2/frames/0037.png",
+      "bytes": 129261
+    },
+    {
+      "path": "motion-r2/frames/0023.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0553.png",
+      "bytes": 97291
+    },
+    {
+      "path": "motion-r2/frames/0235.png",
+      "bytes": 129272
+    },
+    {
+      "path": "motion-r2/frames/0221.png",
+      "bytes": 129633
+    },
+    {
+      "path": "motion-r2/frames/0547.png",
+      "bytes": 97245
+    },
+    {
+      "path": "motion-r2/frames/0209.png",
+      "bytes": 129390
+    },
+    {
+      "path": "motion-r2/frames/0590.png",
+      "bytes": 96766
+    },
+    {
+      "path": "motion-r2/frames/0584.png",
+      "bytes": 96522
+    },
+    {
+      "path": "motion-r2/frames/0285.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0291.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0246.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0520.png",
+      "bytes": 97688
+    },
+    {
+      "path": "motion-r2/frames/0534.png",
+      "bytes": 97627
+    },
+    {
+      "path": "motion-r2/frames/0252.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0508.png",
+      "bytes": 97704
+    },
+    {
+      "path": "motion-r2/frames/0087.png",
+      "bytes": 127369
+    },
+    {
+      "path": "motion-r2/frames/0093.png",
+      "bytes": 126931
+    },
+    {
+      "path": "motion-r2/frames/0044.png",
+      "bytes": 129530
+    },
+    {
+      "path": "motion-r2/frames/0050.png",
+      "bytes": 129562
+    },
+    {
+      "path": "motion-r2/frames/0078.png",
+      "bytes": 127751
+    },
+    {
+      "path": "motion-r2/frames/0695.png",
+      "bytes": 96763
+    },
+    {
+      "path": "motion-r2/frames/0681.png",
+      "bytes": 96540
+    },
+    {
+      "path": "motion-r2/frames/0656.png",
+      "bytes": 96480
+    },
+    {
+      "path": "motion-r2/frames/0130.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0124.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0642.png",
+      "bytes": 96386
+    },
+    {
+      "path": "motion-r2/frames/0118.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0497.png",
+      "bytes": 97860
+    },
+    {
+      "path": "motion-r2/frames/0483.png",
+      "bytes": 97603
+    },
+    {
+      "path": "motion-r2/frames/0332.png",
+      "bytes": 96317
+    },
+    {
+      "path": "motion-r2/frames/0454.png",
+      "bytes": 97232
+    },
+    {
+      "path": "motion-r2/frames/0440.png",
+      "bytes": 97021
+    },
+    {
+      "path": "motion-r2/frames/0326.png",
+      "bytes": 96637
+    },
+    {
+      "path": "motion-r2/frames/0468.png",
+      "bytes": 97546
+    },
+    {
+      "path": "motion-r2/frames/0469.png",
+      "bytes": 97447
+    },
+    {
+      "path": "motion-r2/frames/0441.png",
+      "bytes": 97108
+    },
+    {
+      "path": "motion-r2/frames/0327.png",
+      "bytes": 96614
+    },
+    {
+      "path": "motion-r2/frames/0333.png",
+      "bytes": 96195
+    },
+    {
+      "path": "motion-r2/frames/0455.png",
+      "bytes": 97302
+    },
+    {
+      "path": "motion-r2/frames/0482.png",
+      "bytes": 97511
+    },
+    {
+      "path": "motion-r2/frames/0496.png",
+      "bytes": 97764
+    },
+    {
+      "path": "motion-r2/frames/0119.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0125.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0643.png",
+      "bytes": 96372
+    },
+    {
+      "path": "motion-r2/frames/0657.png",
+      "bytes": 96465
+    },
+    {
+      "path": "motion-r2/frames/0131.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0680.png",
+      "bytes": 96527
+    },
+    {
+      "path": "motion-r2/frames/0694.png",
+      "bytes": 96859
+    },
+    {
+      "path": "motion-r2/frames/0079.png",
+      "bytes": 127775
+    },
+    {
+      "path": "motion-r2/frames/0051.png",
+      "bytes": 129705
+    },
+    {
+      "path": "motion-r2/frames/0045.png",
+      "bytes": 129675
+    },
+    {
+      "path": "motion-r2/frames/0092.png",
+      "bytes": 127064
+    },
+    {
+      "path": "motion-r2/frames/0086.png",
+      "bytes": 127529
+    },
+    {
+      "path": "motion-r2/frames/0509.png",
+      "bytes": 97796
+    },
+    {
+      "path": "motion-r2/frames/0535.png",
+      "bytes": 97453
+    },
+    {
+      "path": "motion-r2/frames/0253.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0247.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0521.png",
+      "bytes": 97643
+    },
+    {
+      "path": "motion-r2/frames/0290.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0284.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0292.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0286.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0251.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0537.png",
+      "bytes": 97555
+    },
+    {
+      "path": "motion-r2/frames/0523.png",
+      "bytes": 97515
+    },
+    {
+      "path": "motion-r2/frames/0245.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0279.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0090.png",
+      "bytes": 127262
+    },
+    {
+      "path": "motion-r2/frames/0084.png",
+      "bytes": 127493
+    },
+    {
+      "path": "motion-r2/frames/0053.png",
+      "bytes": 129555
+    },
+    {
+      "path": "motion-r2/frames/0047.png",
+      "bytes": 129828
+    },
+    {
+      "path": "motion-r2/frames/0709.png",
+      "bytes": 96796
+    },
+    {
+      "path": "motion-r2/frames/0682.png",
+      "bytes": 96468
+    },
+    {
+      "path": "motion-r2/frames/0696.png",
+      "bytes": 96848
+    },
+    {
+      "path": "motion-r2/frames/0641.png",
+      "bytes": 96366
+    },
+    {
+      "path": "motion-r2/frames/0127.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0133.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0655.png",
+      "bytes": 96464
+    },
+    {
+      "path": "motion-r2/frames/0669.png",
+      "bytes": 96226
+    },
+    {
+      "path": "motion-r2/frames/0480.png",
+      "bytes": 97588
+    },
+    {
+      "path": "motion-r2/frames/0494.png",
+      "bytes": 97887
+    },
+    {
+      "path": "motion-r2/frames/0325.png",
+      "bytes": 96626
+    },
+    {
+      "path": "motion-r2/frames/0443.png",
+      "bytes": 97111
+    },
+    {
+      "path": "motion-r2/frames/0457.png",
+      "bytes": 97076
+    },
+    {
+      "path": "motion-r2/frames/0331.png",
+      "bytes": 96370
+    },
+    {
+      "path": "motion-r2/frames/0319.png",
+      "bytes": 96745
+    },
+    {
+      "path": "motion-r2/frames/0318.png",
+      "bytes": 96798
+    },
+    {
+      "path": "motion-r2/frames/0456.png",
+      "bytes": 97135
+    },
+    {
+      "path": "motion-r2/frames/0330.png",
+      "bytes": 96311
+    },
+    {
+      "path": "motion-r2/frames/0324.png",
+      "bytes": 96689
+    },
+    {
+      "path": "motion-r2/frames/0442.png",
+      "bytes": 97053
+    },
+    {
+      "path": "motion-r2/frames/0495.png",
+      "bytes": 97902
+    },
+    {
+      "path": "motion-r2/frames/0481.png",
+      "bytes": 97511
+    },
+    {
+      "path": "motion-r2/frames/0668.png",
+      "bytes": 96214
+    },
+    {
+      "path": "motion-r2/frames/0132.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0654.png",
+      "bytes": 96532
+    },
+    {
+      "path": "motion-r2/frames/0640.png",
+      "bytes": 96428
+    },
+    {
+      "path": "motion-r2/frames/0126.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0697.png",
+      "bytes": 96951
+    },
+    {
+      "path": "motion-r2/frames/0683.png",
+      "bytes": 96615
+    },
+    {
+      "path": "motion-r2/frames/0708.png",
+      "bytes": 96660
+    },
+    {
+      "path": "motion-r2/frames/0046.png",
+      "bytes": 129693
+    },
+    {
+      "path": "motion-r2/frames/0052.png",
+      "bytes": 129631
+    },
+    {
+      "path": "motion-r2/frames/0085.png",
+      "bytes": 127508
+    },
+    {
+      "path": "motion-r2/frames/0091.png",
+      "bytes": 127173
+    },
+    {
+      "path": "motion-r2/frames/0278.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0522.png",
+      "bytes": 97687
+    },
+    {
+      "path": "motion-r2/frames/0244.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0250.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0536.png",
+      "bytes": 97571
+    },
+    {
+      "path": "motion-r2/frames/0287.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0293.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0297.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0283.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0268.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0532.png",
+      "bytes": 97515
+    },
+    {
+      "path": "motion-r2/frames/0254.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0240.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0526.png",
+      "bytes": 97618
+    },
+    {
+      "path": "motion-r2/frames/0095.png",
+      "bytes": 126760
+    },
+    {
+      "path": "motion-r2/frames/0081.png",
+      "bytes": 127652
+    },
+    {
+      "path": "motion-r2/frames/0718.png",
+      "bytes": 96916
+    },
+    {
+      "path": "motion-r2/frames/0056.png",
+      "bytes": 129358
+    },
+    {
+      "path": "motion-r2/frames/0042.png",
+      "bytes": 129269
+    },
+    {
+      "path": "motion-r2/frames/0687.png",
+      "bytes": 96635
+    },
+    {
+      "path": "motion-r2/frames/0693.png",
+      "bytes": 96730
+    },
+    {
+      "path": "motion-r2/frames/0678.png",
+      "bytes": 96423
+    },
+    {
+      "path": "motion-r2/frames/0122.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0644.png",
+      "bytes": 96430
+    },
+    {
+      "path": "motion-r2/frames/0650.png",
+      "bytes": 96254
+    },
+    {
+      "path": "motion-r2/frames/0136.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0485.png",
+      "bytes": 97679
+    },
+    {
+      "path": "motion-r2/frames/0491.png",
+      "bytes": 98021
+    },
+    {
+      "path": "motion-r2/frames/0308.png",
+      "bytes": 96432
+    },
+    {
+      "path": "motion-r2/frames/0446.png",
+      "bytes": 97049
+    },
+    {
+      "path": "motion-r2/frames/0320.png",
+      "bytes": 96672
+    },
+    {
+      "path": "motion-r2/frames/0334.png",
+      "bytes": 96274
+    },
+    {
+      "path": "motion-r2/frames/0452.png",
+      "bytes": 97083
+    },
+    {
+      "path": "motion-r2/frames/0335.png",
+      "bytes": 96375
+    },
+    {
+      "path": "motion-r2/frames/0453.png",
+      "bytes": 97146
+    },
+    {
+      "path": "motion-r2/frames/0447.png",
+      "bytes": 97146
+    },
+    {
+      "path": "motion-r2/frames/0321.png",
+      "bytes": 96693
+    },
+    {
+      "path": "motion-r2/frames/0309.png",
+      "bytes": 96574
+    },
+    {
+      "path": "motion-r2/frames/0490.png",
+      "bytes": 98008
+    },
+    {
+      "path": "motion-r2/frames/0484.png",
+      "bytes": 97658
+    },
+    {
+      "path": "motion-r2/frames/0651.png",
+      "bytes": 96362
+    },
+    {
+      "path": "motion-r2/frames/0137.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0123.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0645.png",
+      "bytes": 96311
+    },
+    {
+      "path": "motion-r2/frames/0679.png",
+      "bytes": 96447
+    },
+    {
+      "path": "motion-r2/frames/0692.png",
+      "bytes": 96784
+    },
+    {
+      "path": "motion-r2/frames/0686.png",
+      "bytes": 96574
+    },
+    {
+      "path": "motion-r2/frames/0043.png",
+      "bytes": 129273
+    },
+    {
+      "path": "motion-r2/frames/0057.png",
+      "bytes": 129537
+    },
+    {
+      "path": "motion-r2/frames/0719.png",
+      "bytes": 96963
+    },
+    {
+      "path": "motion-r2/frames/0080.png",
+      "bytes": 127735
+    },
+    {
+      "path": "motion-r2/frames/0094.png",
+      "bytes": 126726
+    },
+    {
+      "path": "motion-r2/frames/0241.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0527.png",
+      "bytes": 97605
+    },
+    {
+      "path": "motion-r2/frames/0533.png",
+      "bytes": 97714
+    },
+    {
+      "path": "motion-r2/frames/0255.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0269.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0282.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0296.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0280.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0294.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0519.png",
+      "bytes": 97732
+    },
+    {
+      "path": "motion-r2/frames/0525.png",
+      "bytes": 97653
+    },
+    {
+      "path": "motion-r2/frames/0243.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0257.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0531.png",
+      "bytes": 97647
+    },
+    {
+      "path": "motion-r2/frames/0082.png",
+      "bytes": 127570
+    },
+    {
+      "path": "motion-r2/frames/0096.png",
+      "bytes": 126708
+    },
+    {
+      "path": "motion-r2/frames/0069.png",
+      "bytes": 128548
+    },
+    {
+      "path": "motion-r2/frames/0041.png",
+      "bytes": 129319
+    },
+    {
+      "path": "motion-r2/frames/0055.png",
+      "bytes": 129749
+    },
+    {
+      "path": "motion-r2/frames/0690.png",
+      "bytes": 96810
+    },
+    {
+      "path": "motion-r2/frames/0684.png",
+      "bytes": 96588
+    },
+    {
+      "path": "motion-r2/frames/0109.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0135.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0653.png",
+      "bytes": 96359
+    },
+    {
+      "path": "motion-r2/frames/0647.png",
+      "bytes": 96373
+    },
+    {
+      "path": "motion-r2/frames/0121.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0492.png",
+      "bytes": 97963
+    },
+    {
+      "path": "motion-r2/frames/0486.png",
+      "bytes": 97736
+    },
+    {
+      "path": "motion-r2/frames/0479.png",
+      "bytes": 97515
+    },
+    {
+      "path": "motion-r2/frames/0451.png",
+      "bytes": 97150
+    },
+    {
+      "path": "motion-r2/frames/0337.png",
+      "bytes": 96404
+    },
+    {
+      "path": "motion-r2/frames/0323.png",
+      "bytes": 96673
+    },
+    {
+      "path": "motion-r2/frames/0445.png",
+      "bytes": 97115
+    },
+    {
+      "path": "motion-r2/frames/0322.png",
+      "bytes": 96790
+    },
+    {
+      "path": "motion-r2/frames/0444.png",
+      "bytes": 97011
+    },
+    {
+      "path": "motion-r2/frames/0450.png",
+      "bytes": 96994
+    },
+    {
+      "path": "motion-r2/frames/0336.png",
+      "bytes": 96251
+    },
+    {
+      "path": "motion-r2/frames/0478.png",
+      "bytes": 97640
+    },
+    {
+      "path": "motion-r2/frames/0487.png",
+      "bytes": 97780
+    },
+    {
+      "path": "motion-r2/frames/0493.png",
+      "bytes": 97904
+    },
+    {
+      "path": "motion-r2/frames/0646.png",
+      "bytes": 96410
+    },
+    {
+      "path": "motion-r2/frames/0120.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0134.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0652.png",
+      "bytes": 96485
+    },
+    {
+      "path": "motion-r2/frames/0108.png",
+      "bytes": 126655
+    },
+    {
+      "path": "motion-r2/frames/0685.png",
+      "bytes": 96703
+    },
+    {
+      "path": "motion-r2/frames/0691.png",
+      "bytes": 96742
+    },
+    {
+      "path": "motion-r2/frames/0054.png",
+      "bytes": 129620
+    },
+    {
+      "path": "motion-r2/frames/0040.png",
+      "bytes": 129180
+    },
+    {
+      "path": "motion-r2/frames/0068.png",
+      "bytes": 128862
+    },
+    {
+      "path": "motion-r2/frames/0097.png",
+      "bytes": 126667
+    },
+    {
+      "path": "motion-r2/frames/0083.png",
+      "bytes": 127502
+    },
+    {
+      "path": "motion-r2/frames/0256.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0530.png",
+      "bytes": 97659
+    },
+    {
+      "path": "motion-r2/frames/0524.png",
+      "bytes": 97657
+    },
+    {
+      "path": "motion-r2/frames/0242.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0518.png",
+      "bytes": 97904
+    },
+    {
+      "path": "motion-r2/frames/0295.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/frames/0281.png",
+      "bytes": 129271
+    },
+    {
+      "path": "motion-r2/octopus-roll.blend1",
+      "bytes": 10395908
+    },
+    {
+      "path": "motion-r2/octopus-roll.cold.glb",
+      "bytes": 3674988
+    },
+    {
+      "path": "references/roll-review/mbl-12.png",
+      "bytes": 545927
+    },
+    {
+      "path": "references/roll-review/mbl-06.png",
+      "bytes": 582064
+    },
+    {
+      "path": "references/roll-review/mbl-07.png",
+      "bytes": 573789
+    },
+    {
+      "path": "references/roll-review/mbl-13.png",
+      "bytes": 246441
+    },
+    {
+      "path": "references/roll-review/mbl-05.png",
+      "bytes": 553427
+    },
+    {
+      "path": "references/roll-review/mbl-11.png",
+      "bytes": 545543
+    },
+    {
+      "path": "references/roll-review/mbl-10.png",
+      "bytes": 544926
+    },
+    {
+      "path": "references/roll-review/mbl-04.png",
+      "bytes": 560337
+    },
+    {
+      "path": "references/roll-review/mbl-00.png",
+      "bytes": 498759
+    },
+    {
+      "path": "references/roll-review/mbl-14.png",
+      "bytes": 425219
+    },
+    {
+      "path": "references/roll-review/mbl-15.png",
+      "bytes": 427708
+    },
+    {
+      "path": "references/roll-review/mbl-01.png",
+      "bytes": 563867
+    },
+    {
+      "path": "references/roll-review/mbl-03.png",
+      "bytes": 535710
+    },
+    {
+      "path": "references/roll-review/mbl-02.png",
+      "bytes": 544183
+    },
+    {
+      "path": "references/roll-review/mbl-16.png",
+      "bytes": 405898
+    },
+    {
+      "path": "references/roll-review/mbl-09.png",
+      "bytes": 597139
+    },
+    {
+      "path": "references/roll-review/mbl-08.png",
+      "bytes": 567165
+    },
+    {
+      "path": "references/roll-review/mbl-sequence.json",
+      "bytes": 364
+    },
+    {
+      "path": "references/roll-review/model-motion-1.png",
+      "bytes": 710777
+    },
+    {
+      "path": "references/roll-review/model-motion-2.png",
+      "bytes": 712888
+    },
+    {
+      "path": "references/roll-review/model-motion-3.png",
+      "bytes": 686904
+    },
+    {
+      "path": "references/roll-review/model-motion-4.png",
+      "bytes": 714213
+    },
+    {
+      "path": "references/roll-review/model-motion-5.png",
+      "bytes": 713205
+    },
+    {
+      "path": "references/roll-review/model-motion-6.png",
+      "bytes": 712957
+    },
+    {
+      "path": "references/roll-review/model-motion-7.png",
+      "bytes": 686565
+    }
+  ],
+  "removed_bytes": 106974232,
+  "preserved": "Current source, GLB, rest source, source references, observed reference frames, representative poses, video and validation; rejected R1 and static R2 history retained",
+  "current_motion_r2_bytes": 27649250
+}

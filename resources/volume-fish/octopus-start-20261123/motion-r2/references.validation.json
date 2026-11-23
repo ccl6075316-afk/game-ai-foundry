@@ -1,0 +1,48 @@
+{
+  "kind": "roll_reference_observation",
+  "date": "2026-11-23",
+  "research_notes": {
+    "path": "resources/volume-fish/octopus-start-20261123/motion-r2/motion-evidence.md",
+    "sha256": "a5a5e64657ed03e0f80395923b08f4cd3af1a4562e7ca8c1295e146752841684"
+  },
+  "viewed_sequences": [
+    {
+      "url": "https://www.youtube.com/watch?v=AfTiHudkmc4",
+      "species": "unconfirmed",
+      "publisher": "Justin Grubich",
+      "window_seconds": [
+        0,
+        30
+      ],
+      "mode": "continuous normal playback with source URL checked each sample",
+      "contact": {
+        "path": "resources/volume-fish/octopus-start-20261123/references/roll-review/kinematics-contact.jpg",
+        "sha256": "5e90495c05302a7300097ad5d1a20f773a1c39f1fdafa544096662f4765b27df"
+      },
+      "timestamps": {
+        "path": "resources/volume-fish/octopus-start-20261123/references/roll-review/kinematics-sequence.json",
+        "sha256": "ca5e315a3973ed9c91c5e9efb6d667816c37c594efac82fe057af524ef3395ec"
+      }
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=CYBFRu4gkdA",
+      "species": "Enteroctopus dofleini",
+      "window_seconds": [
+        60,
+        84
+      ],
+      "contains_edit_near_seconds": 74,
+      "contact": {
+        "path": "resources/volume-fish/octopus-start-20261123/references/roll-review/mba-continuous-contact.jpg",
+        "sha256": "20dcbef7dc74a488a581d92578a7d4436421fbd28759d82ece06c303ab662424"
+      },
+      "timestamps": {
+        "path": "resources/volume-fish/octopus-start-20261123/references/roll-review/mba-sequence.json",
+        "sha256": "b584862e41c4698424d6b88cf0709920af0075d1570e814dd9d9d2c55ed033ae"
+      }
+    }
+  ],
+  "model_motion_recheck": "MushyDay viewer froze, not passed",
+  "supplementary_video_status": "Kennedy2020 supplementary video load failed; not viewed",
+  "motion_capture_fitted": false
+}

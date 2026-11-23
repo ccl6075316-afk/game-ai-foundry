@@ -1,0 +1,18 @@
+{
+  "rest_surface_max_vertex_distance": 0.0,
+  "kind": "octopus_motion_source_cold_export",
+  "checks": {
+    "motion_rest_geometry_preserved": true,
+    "accessories_geometry_exact": true,
+    "all_vertices_weighted": true,
+    "weights_normalized": true,
+    "maximum_four_weights": true,
+    "source_cold_export_identical": true
+  },
+  "ok": true,
+  "source_sha256": "a9f3c5dc28b3a7aa93f38ec98b111ce14f2c60883e44f4ed8ad6173d30f07d7c",
+  "model_sha256": "a3b81073799275473355501d5da7899b07ac4037139096127cd480dc2261ff59",
+  "cold_sha256": "a3b81073799275473355501d5da7899b07ac4037139096127cd480dc2261ff59",
+  "baseline_sha256": "4538dbe1418127fa47e4e0450485debfcfedf781b154771c9ba75e29a1ee8281",
+  "motion_rest_geometry_matches_new_rest": true
+}

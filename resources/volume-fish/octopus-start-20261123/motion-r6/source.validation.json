@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "checks": {
+    "R5_basis_topology_uv_weights_rest_bones_preserved": true,
+    "correctives_only_right_IV": true,
+    "budget": true,
+    "source_cold_export_identical": true
+  },
+  "correctives": [
+    {
+      "object": "Octopus_gray_skin",
+      "changed_vertices": 914
+    },
+    {
+      "object": "Paired_sucker_rows_512_cups",
+      "changed_vertices": 624
+    }
+  ],
+  "model_sha256": "66105e405029f8b1d3357535b26e965d0b570f1eaa96b55bc821abf051612a0a",
+  "source_sha256": "714dec9f76eeab0dbfcb8a029d67e06ef1c55fc736e767cbe0b564fa8667c3e4",
+  "cold_sha256": "66105e405029f8b1d3357535b26e965d0b570f1eaa96b55bc821abf051612a0a",
+  "baseline_source_sha256": "fd7122d6b8fdd3ef6f3d62422edbd5a3e9d50a2c9a48f54fea036d5c28c14ea5"
+}
