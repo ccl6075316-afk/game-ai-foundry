@@ -1,0 +1,107 @@
+{
+  "id": "wood_upturned_root_plate",
+  "name_zh": "倒伏树盘",
+  "geometry_budget": "wood",
+  "environment": "freshwater",
+  "nominal_xyz_m": [
+    2.35,
+    1.66,
+    1.58
+  ],
+  "board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-e-wood-upturned-root-plate-r2/output/wood_upturned_root_plate_six_views_raw.png",
+  "board_sha256": "fe1bf9e31d84ff87147488bf4da5dc9b6995430d777dff22a5675825d041b8d5",
+  "views": {
+    "front": {
+      "path": "front.png",
+      "source_png_sha256": "6d2b23942b88a73385da7440351bc19a3a992d54e3f7d04a052e36c4355628b1",
+      "outline_sha256": "3937b0c2776bebaea1aacfd3da86c396348d39d3dac076c3f266ebe7a32c7525",
+      "source_rect_raw_px": [
+        1,
+        62,
+        545,
+        469
+      ],
+      "cropped_pixel_size": [
+        514,
+        360
+      ]
+    },
+    "right": {
+      "path": "right.png",
+      "source_png_sha256": "cf12d571f4aed3adb3fa88cf640e56b9a6c0e3314b484ae31811163aad11f0c5",
+      "outline_sha256": "b2beda2ede4aa6995c9619cf10eef8a924acb5e40f02d7123e2498271b278d6b",
+      "source_rect_raw_px": [
+        654,
+        62,
+        884,
+        471
+      ],
+      "cropped_pixel_size": [
+        159,
+        383
+      ]
+    },
+    "rear": {
+      "path": "rear.png",
+      "source_png_sha256": "ce8114bbd61443ab864d4de9c0106c5a7fa12cdc3a4278cb307f31f4c461951b",
+      "outline_sha256": "5451113855856b1b3384705af8700da9a9e43aa74e25cd81421839e64120c631",
+      "source_rect_raw_px": [
+        987,
+        65,
+        1530,
+        468
+      ],
+      "cropped_pixel_size": [
+        512,
+        361
+      ]
+    },
+    "left": {
+      "path": "left.png",
+      "source_png_sha256": "37e089c37b4a44082c9e0cbb39f15d504b02814f329965f8041f4dcecde298b2",
+      "outline_sha256": "8d100226162468563e7b638d8e84a3e497f48ee3d0192b57bb2c1452bd5a835d",
+      "source_rect_raw_px": [
+        123,
+        581,
+        343,
+        996
+      ],
+      "cropped_pixel_size": [
+        160,
+        383
+      ]
+    },
+    "top": {
+      "path": "top.png",
+      "source_png_sha256": "261650a30ad83c90a60dcba58942f1e1d4d5bec9acecf579e14c8be04c7be033",
+      "outline_sha256": "05bbd7c5d977fc47d221a66652c7eae013f3ba6bbcc987405140e1b460a5e177",
+      "source_rect_raw_px": [
+        422,
+        633,
+        953,
+        985
+      ],
+      "cropped_pixel_size": [
+        514,
+        291
+      ]
+    },
+    "bottom": {
+      "path": "bottom.png",
+      "source_png_sha256": "1c866b5c7903653b8b658a51211ef81504daef219e03fad32d6f663262b172d2",
+      "outline_sha256": "15bd81d696c74e40e214a08f196f433299e2f27c497bee5db452529a767ea42a",
+      "source_rect_raw_px": [
+        982,
+        632,
+        1519,
+        972
+      ],
+      "cropped_pixel_size": [
+        520,
+        294
+      ]
+    }
+  },
+  "user_acceptance": "pending",
+  "review": "新版六面显示竖起的宽树根盘、向外分叉的老根、低基部和向后短桩。正反孔位大体对应，俯视略斜，俯仰图看木纹与横向展开；短桩深度、断面角度和净空按侧面与模型截面核对。"
+}

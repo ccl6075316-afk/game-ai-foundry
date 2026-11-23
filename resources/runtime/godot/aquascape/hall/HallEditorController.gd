@@ -48,7 +48,7 @@ func handle_input(event: InputEvent) -> bool:
     if bridge!=null and bridge.shells.session.mode!="" and event is InputEventKey and event.pressed:
         if event.keycode==KEY_ESCAPE:
             if bridge.shells.handles.active>=0:bridge.shells.handles.cancel()
-            else:bridge.shells.session.cancel()
+            elif not bridge.shells.session.prop_editor.cancel_drag():bridge.shells.session.cancel()
             return true
         if event.keycode==KEY_S and (event.ctrl_pressed or event.meta_pressed):
             var focus := host.get_viewport().gui_get_focus_owner() as Control
@@ -56,6 +56,10 @@ func handle_input(event: InputEvent) -> bool:
                 (focus.get_parent() as SpinBox).apply()
             bridge.shells.session.save()
             return true
+        if bridge.shells.session.prop_editor.selected_prop>=0 and not event.ctrl_pressed and not event.meta_pressed and not event.echo:
+            if event.keycode in [KEY_W,KEY_E,KEY_R]:
+                bridge.shell_inspector.interior_tools.set_prop_mode({KEY_W:"move",KEY_E:"rotate",KEY_R:"scale"}[event.keycode])
+                return true
         return false
     if host.editing and not host.tank_session.inspecting and event is InputEventKey and event.pressed and not event.echo and not event.ctrl_pressed:
         if event.keycode in [KEY_PAGEUP, KEY_PAGEDOWN]:
@@ -69,6 +73,10 @@ func handle_input(event: InputEvent) -> bool:
             else:
                 _rotate_selected(direction)
             return true
+    if bridge!=null and bridge.shells.session.prop_editor.is_dragging() and event is InputEventMouse:
+        var local := event.duplicate() as InputEventMouse
+        local.position=host.canvas.get_global_transform_with_canvas().affine_inverse()*event.position
+        if bridge.shells.session.interior_input(local):return true
     if bridge != null and bridge.shells.handles.active>=0:
         if event is InputEventKey and event.pressed:
             if event.keycode==KEY_ESCAPE:bridge.shells.handles.cancel()
@@ -355,11 +363,15 @@ func _delete_selected() -> void:
 func _selection() -> void:
     selection_box.visible=host.editing and host.selected>=0 and host.objects[host.selected].data.kind!="shell"
     if not selection_box.visible:return
-    var row: Dictionary=host.objects[host.selected];var box: AABB=host._bounds(row.data).grow(.025)
+    var row: Dictionary=host.objects[host.selected]
+    show_selection(host._bounds(row.data).grow(.025),row.node.transform)
+
+func show_selection(box: AABB, pose: Transform3D) -> void:
+    selection_box.show()
     var mesh := ImmediateMesh.new();mesh.surface_begin(Mesh.PRIMITIVE_LINES)
     for pair in [[0,1],[1,3],[3,2],[2,0],[4,5],[5,7],[7,6],[6,4],[0,4],[1,5],[2,6],[3,7]]:
         for corner in pair:mesh.surface_add_vertex(box.get_endpoint(corner))
-    mesh.surface_end();selection_box.mesh=mesh;selection_box.transform=row.node.transform
+    mesh.surface_end();selection_box.mesh=mesh;selection_box.transform=pose
 
 func _fish_count_changed(value: float) -> void:
     if host.selected<0 or host.objects[host.selected].data.kind!="tank":return

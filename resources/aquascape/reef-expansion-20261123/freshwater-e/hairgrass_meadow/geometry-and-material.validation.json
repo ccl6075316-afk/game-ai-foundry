@@ -1,0 +1,137 @@
+{
+  "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/hairgrass_meadow.glb",
+  "sha256": "2d48dc4ffaee6a467e45a6de1008b456bbf7433af64840af1336b1efbf3616b7",
+  "ok": true,
+  "meshes": [
+    {
+      "name": "hairgrass_meadow · closed natural shells",
+      "triangles": 588,
+      "finite_and_nonzero_area": true
+    }
+  ],
+  "textures": [
+    {
+      "name": "hairgrass_meadow-atlas",
+      "size": [
+        256,
+        256
+      ],
+      "opaque": true
+    }
+  ],
+  "open_edges": 0,
+  "nonmanifold_edges": 0,
+  "failures": [],
+  "triangles": 588,
+  "vertices": 1764,
+  "bytes": 129852,
+  "budget": {
+    "preferred": 400,
+    "hard_limit": 600
+  },
+  "measured_xyz_m": [
+    0.7799999713897705,
+    0.3199999928474426,
+    0.49000003933906555
+  ],
+  "root_min_y_m": 0.0,
+  "rooted_current": {
+    "anchor_min": [
+      -0.27636945247650146,
+      -9.999999747378752e-05,
+      -0.16295723617076874
+    ],
+    "anchor_size": [
+      0.5123834013938904,
+      0.0387934073805809,
+      0.30329960584640503
+    ],
+    "amplitude": 0.045
+  },
+  "shader_cpu": {
+    "root_motion_m": 0.0,
+    "loop_error_m": 7.92326134220959e-09,
+    "max_tip_motion_m": 0.021903718584233525,
+    "sampled_times": 41,
+    "instance_phases": [
+      0,
+      0.31,
+      0.62
+    ]
+  },
+  "source_board": {
+    "file": "resources/aquascape/reef-expansion-20261123/sources/aquascape-e-hairgrass-meadow/output/hairgrass_meadow_six_views_raw.png",
+    "sha256": "ce7f8831fb615238cbf5b8a125c955899778c5669ff16049ff5cccc914974973",
+    "camera_order": [
+      "front",
+      "right",
+      "back",
+      "left",
+      "top",
+      "bottom"
+    ],
+    "swatches": {
+      "blade": [
+        [
+          [
+            "top",
+            610,
+            706,
+            674,
+            770
+          ]
+        ],
+        [
+          [
+            "bottom",
+            1206,
+            677,
+            1270,
+            741
+          ]
+        ]
+      ],
+      "runner": [
+        [
+          [
+            "front",
+            290,
+            338,
+            370,
+            418
+          ]
+        ],
+        [
+          [
+            "back",
+            1165,
+            338,
+            1245,
+            418
+          ]
+        ]
+      ],
+      "root": [
+        [
+          [
+            "front",
+            290,
+            338,
+            370,
+            418
+          ]
+        ],
+        [
+          [
+            "back",
+            1165,
+            338,
+            1245,
+            418
+          ]
+        ]
+      ]
+    },
+    "art_review": "candidate reviewed by agent, user pending"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "duckweed_root_patch",
+  "name_zh": "细根浮萍毯",
+  "category": "plant",
+  "environment": "freshwater",
+  "nominal_xyz_m": [
+    0.52,
+    0.1,
+    0.43
+  ],
+  "budget_type": "broadleaf_plant",
+  "scientific_name": "Lemna minor",
+  "source_url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:526194-1/general-information",
+  "habitat": "Free-floating shallow islands of rounded fronds with single pendant roots. Game island size is enlarged.",
+  "source_board_sha256": "fa473764079c729084a58e9a42280f36c06cf1a5c81de9d51e0312c7f85e67cf",
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/duckweed_root_patch.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/freshwater-e/duckweed_root_patch/duckweed_root_patch.blend",
+  "source_board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-e-duckweed-root-patch/output/duckweed_root_patch_six_views_raw.png",
+  "validation": "resources/aquascape/reef-expansion-20261123/freshwater-e/duckweed_root_patch/geometry-and-material.validation.json",
+  "triangles": 792,
+  "placement_anchor": "water_surface"
+}

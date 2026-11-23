@@ -1,0 +1,194 @@
+{
+  "id": "reef_crust_coral",
+  "name": "贴壳硬珊瑚",
+  "species": null,
+  "geography": "warm-reef",
+  "category": "scleractinian",
+  "nominal_xyz_m": [
+    0.86,
+    0.16,
+    0.69
+  ],
+  "ecology_and_use": "暖水硬底的结壳生长型。超矮覆盖岩面，保留实边和小褶。",
+  "primary_reference": "https://coraltraits.org/",
+  "approvals": {
+    "user_intent": "pending",
+    "user_native": "pending"
+  },
+  "source": {
+    "file": "six-material-views.png",
+    "sha256": "73e41ecb4dae348331b13ea9faaa85f103f477e91d7ed7b17c13ec6488ece88a",
+    "status": "draft_intent",
+    "views": {
+      "front": [
+        18,
+        192,
+        500,
+        337
+      ],
+      "right": [
+        561,
+        205,
+        969,
+        333
+      ],
+      "rear": [
+        1036,
+        192,
+        1519,
+        335
+      ],
+      "left": [
+        51,
+        711,
+        464,
+        842
+      ],
+      "top": [
+        534,
+        586,
+        999,
+        927
+      ],
+      "bottom": [
+        1044,
+        590,
+        1503,
+        924
+      ]
+    },
+    "review": "六格对照，俯视三瓣不规则贴壳，仰视只见基底及边缘。侧面几乎贴着地面，紫红珊瑚杯与极低米灰接底分开。"
+  },
+  "shape_specification": "Very low dense dark burgundy and muted rust encrusting hard coral patch with an irregular three-lobed scalloped spreading outline, shallow ridges over a thin buff limestone attachment slab. Top has crisp crowded subtle star-shaped coral cups with no detached branches. Side elevations show exact low height, underside shows mostly rock contact.",
+  "shape_method": "crust",
+  "geometry": {
+    "source_field_components": 1,
+    "isolated_voxels_removed": 0,
+    "bounds_xyz_m": [
+      0.863160252571106,
+      0.16006051003932953,
+      0.6914783716201782
+    ],
+    "connected_components": 1,
+    "euler_characteristic": 2,
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "signed_volume_m3": 0.040313493460416794,
+    "triangle_count": 394,
+    "budget_type": "rock",
+    "preferred_triangles": 400,
+    "hard_triangle_limit": 600,
+    "ground_y_min": 0.0,
+    "contact_vertices": 27,
+    "projection": {
+      "front": {
+        "silhouette_iou": 0.7973230297091938,
+        "span_m": [
+          0.86,
+          0.16
+        ]
+      },
+      "right": {
+        "silhouette_iou": 0.7139265724314581,
+        "span_m": [
+          0.69,
+          0.16
+        ]
+      },
+      "rear": {
+        "silhouette_iou": 0.7973840309874441,
+        "span_m": [
+          0.86,
+          0.16
+        ]
+      },
+      "left": {
+        "silhouette_iou": 0.7122555680954464,
+        "span_m": [
+          0.69,
+          0.16
+        ]
+      },
+      "top": {
+        "silhouette_iou": 0.6801879135972031,
+        "span_m": [
+          0.86,
+          0.69
+        ]
+      },
+      "bottom": {
+        "silhouette_iou": 0.6913833813112527,
+        "span_m": [
+          0.86,
+          0.69
+        ]
+      }
+    }
+  },
+  "material": {
+    "native_source_pixel_selection": true,
+    "filter": "nearest",
+    "atlas": 1536,
+    "macro_shadow_removed_for_cavities": false,
+    "primitive_count": 1,
+    "material_count": 1,
+    "source_fractions": {
+      "front": 0.1102,
+      "rear": 0.1535,
+      "left": 0.0824,
+      "right": 0.1096,
+      "top": 0.4623,
+      "bottom": 0.082
+    }
+  },
+  "blend": {
+    "file": "reef_crust_coral.blend",
+    "sha256": "4e8fab4c46e817ba46f9c668fa350c76c28ea5740883cff298378235ae1f56d6",
+    "cold_geometry_uv_texture_pass": true
+  },
+  "glb": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_crust_coral.glb",
+    "sha256": "470742f27b05328db6fd3b1cf256b3c5aa2866ce73aea76f4bd300f5bb783474",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "reef_crust_coral",
+        "triangles": 394,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "贴壳硬珊瑚",
+        "size": [
+          1536,
+          1536
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "current_status": "static_candidate_for_user_review",
+  "scope": "低面展缸艺术模块。结构与方向参考六面意向，非生物实测。相机近似会影响投影重叠。",
+  "native_review": {
+    "file": "godot-native-review.jpg",
+    "engine": "Godot 4.7.1 stable, macOS Compatibility",
+    "rendered_views": [
+      "angle",
+      "front",
+      "right",
+      "rear",
+      "left",
+      "top",
+      "bottom",
+      "oblique"
+    ],
+    "mode": "fresh-process direct GLB, gray and material under the same lights",
+    "verified_texture_filter": "nearest",
+    "observations": "低趴附着层与小弧褶；俯视局部面片的颜色转向较明显。",
+    "user_acceptance": "pending"
+  }
+}

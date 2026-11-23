@@ -1,0 +1,36 @@
+{
+  "id": "laceleaf_rosette",
+  "name": "透孔莲座水草",
+  "label": "透孔莲座水草",
+  "category": "plant",
+  "budget_type": "broadleaf_plant",
+  "nominal_xyz_m": [
+    0.78,
+    0.72,
+    0.63
+  ],
+  "triangles": 952,
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/laceleaf_rosette.glb",
+  "source_glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/laceleaf_rosette.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/laceleaf_rosette/laceleaf_rosette.blend",
+  "source_intent": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/laceleaf_rosette/six-material-views.png",
+  "validation": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/laceleaf_rosette/validation.json",
+  "scientific_name": "Aponogeton madagascariensis",
+  "source_url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:82957-1",
+  "habitat": "马达加斯加及科摩罗的沉水淡水莲座，叶柄由一个完整地下根冠生长。用于淡水中景。",
+  "rooted_current": {
+    "anchor_min": [
+      -0.021571619186367106,
+      0.1458616601725876,
+      -0.018315689350404236
+    ],
+    "anchor_size": [
+      0.05077628114403479,
+      0.006806126069081847,
+      0.03866088381948909
+    ],
+    "amplitude": 0.061
+  },
+  "user_acceptance": "pending",
+  "material_mode": "mask"
+}

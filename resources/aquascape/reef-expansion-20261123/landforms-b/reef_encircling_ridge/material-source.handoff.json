@@ -1,0 +1,131 @@
+{
+  "id": "reef_encircling_ridge",
+  "name_zh": "环抱礁脊",
+  "environment": "marine",
+  "geometry_budget": "large_rock",
+  "nominal_xyz_m": [
+    4.6,
+    2.25,
+    3.6
+  ],
+  "views": {
+    "front": {
+      "path": "front.png",
+      "source_png_sha256": "30a052d8cb572d0cdb123343b742f425bde20734524753fd1734d9dca10a04e6",
+      "outline_sha256": "b8e5d940419c3610a24fcdae0c377dc82f6e5c43fe6f12619db7d9a7055465fc",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_encircling_ridge-20261123/output/reef_encircling_ridge_six_views_raw.png",
+      "input_sha256": "a0e56531c302557c0e67b6b53a7acebcdbf85dd9c5241a223c7b1ebfa84bd267",
+      "panel_crop_px": [
+        0,
+        94,
+        526,
+        451
+      ],
+      "pixel_size": [
+        501,
+        247
+      ],
+      "edited_white_artifact": true,
+      "flipped_y_to_world_camera": false
+    },
+    "right": {
+      "path": "right.png",
+      "source_png_sha256": "631f6157286eb7f5e1212c87be97dff5d21a33bb8ee8be4766d24d7dc5ae8f7e",
+      "outline_sha256": "b3d3b67108178a4583abdfba0f934c97c0d7fb8795195096472635cb52a5dd07",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_encircling_ridge-20261123/output/reef_encircling_ridge_six_views_raw.png",
+      "input_sha256": "a0e56531c302557c0e67b6b53a7acebcdbf85dd9c5241a223c7b1ebfa84bd267",
+      "panel_crop_px": [
+        592,
+        94,
+        957,
+        451
+      ],
+      "pixel_size": [
+        333,
+        245
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "rear": {
+      "path": "rear.png",
+      "source_png_sha256": "a16dbab682dce8bbff441ff1d5aacd75a698050bb1dd5dcde284b5a8d4f190aa",
+      "outline_sha256": "952ac8ce11b8a0f24c6d81361f56d87f5988da54aa2487ff0fefac09abe091ae",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_encircling_ridge-20261123/output/reef_encircling_ridge_six_views_raw.png",
+      "input_sha256": "a0e56531c302557c0e67b6b53a7acebcdbf85dd9c5241a223c7b1ebfa84bd267",
+      "panel_crop_px": [
+        1005,
+        94,
+        1533,
+        451
+      ],
+      "pixel_size": [
+        503,
+        245
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "left": {
+      "path": "left.png",
+      "source_png_sha256": "0f49b4405bf1a508df1d618f2bde7e2e9fc1224e69fda755054a1babaf0165f4",
+      "outline_sha256": "da8a7f360e915c3ae5f6ebd085e7f9c0757ccc1f7f7ef93c12c3e9ea33542785",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_encircling_ridge-20261123/output/reef_encircling_ridge_six_views_raw.png",
+      "input_sha256": "a0e56531c302557c0e67b6b53a7acebcdbf85dd9c5241a223c7b1ebfa84bd267",
+      "panel_crop_px": [
+        0,
+        575,
+        493,
+        916
+      ],
+      "pixel_size": [
+        450,
+        258
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "top": {
+      "path": "top.png",
+      "source_png_sha256": "60c65885375accf6777c313abc50a5e918b37fccbb2c51fe4c4f184236eaea9d",
+      "outline_sha256": "0315e5fe46aa2ac5df80a0b1c724a273343dfcb35e1729a4dcd69be6b6ebc970",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_encircling_ridge-20261123/output/reef_encircling_ridge_six_views_raw.png",
+      "input_sha256": "a0e56531c302557c0e67b6b53a7acebcdbf85dd9c5241a223c7b1ebfa84bd267",
+      "panel_crop_px": [
+        524,
+        587,
+        1012,
+        930
+      ],
+      "pixel_size": [
+        472,
+        294
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "bottom": {
+      "path": "bottom.png",
+      "source_png_sha256": "a679a07d6b3f307dcc1c232de7c8379ac0767f9a6b7b3ba44f6a361f76dc0114",
+      "outline_sha256": "c0db04d96ba2bfd2849a578d1fbc36ee0498ac5bd7f01234a4af5bc43cb42b1c",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_encircling_ridge-20261123/output/reef_encircling_ridge_six_views_raw.png",
+      "input_sha256": "a0e56531c302557c0e67b6b53a7acebcdbf85dd9c5241a223c7b1ebfa84bd267",
+      "panel_crop_px": [
+        1039,
+        587,
+        1531,
+        928
+      ],
+      "pixel_size": [
+        471,
+        263
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": true
+    }
+  },
+  "original_front": null,
+  "source_style": "Foundry OpenAI image generation based on the documented style, original concept sheet and crops retained",
+  "review": "环抱内场在顶视和底视均开前口。底视按指定仰视坐标上下翻转；前视内部白点是该开口透到背景的概念提示，贴材质前去除艳白，开放内场由真几何决定。",
+  "user_acceptance": "pending"
+}

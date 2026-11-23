@@ -1,0 +1,131 @@
+{
+  "id": "river_gneiss_slab",
+  "name_zh": "剥落片麻岩板",
+  "environment": "freshwater",
+  "geometry_budget": "rock",
+  "nominal_xyz_m": [
+    1.9,
+    0.9,
+    1.25
+  ],
+  "views": {
+    "front": {
+      "path": "front.png",
+      "source_png_sha256": "2162250bfe2840fb6aa0f0739539287807627f7a3178799b4315d1aa0b9cf54e",
+      "outline_sha256": "02fc7aaacbdfe4cd565edf3733d265ee30b800c425bae37db70ec12e0ef17e6d",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_gneiss_slab-r2-20261123/output/river_gneiss_slab_six_views_raw.png",
+      "input_sha256": "100077ff34cbb2486ab304ffa6ecc5f96dc8d925d04a68f782d781a8bb7229b4",
+      "panel_crop_px": [
+        3,
+        152,
+        505,
+        425
+      ],
+      "pixel_size": [
+        483,
+        198
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "right": {
+      "path": "right.png",
+      "source_png_sha256": "9d68fb2811dc689aa5acba6750a1db222362e12e70fa6a4fc8503be9fa7cdfeb",
+      "outline_sha256": "f5de11dffd01a98f678e9de3ae19027b00b0f7a5782e840ecbf1884da9d4728f",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_gneiss_slab-r2-20261123/output/river_gneiss_slab_six_views_raw.png",
+      "input_sha256": "100077ff34cbb2486ab304ffa6ecc5f96dc8d925d04a68f782d781a8bb7229b4",
+      "panel_crop_px": [
+        582,
+        148,
+        964,
+        423
+      ],
+      "pixel_size": [
+        313,
+        204
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "rear": {
+      "path": "rear.png",
+      "source_png_sha256": "8b209f08fde871327fb941e10a2d98b2029a6c833a175b432fbced839ca26e90",
+      "outline_sha256": "968e4e864ce38b9c8db9b85ca0d2830b9a061b65c24d18131e012f1f70943ea0",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_gneiss_slab-r2-20261123/output/river_gneiss_slab_six_views_raw.png",
+      "input_sha256": "100077ff34cbb2486ab304ffa6ecc5f96dc8d925d04a68f782d781a8bb7229b4",
+      "panel_crop_px": [
+        1026,
+        152,
+        1533,
+        427
+      ],
+      "pixel_size": [
+        485,
+        197
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "left": {
+      "path": "left.png",
+      "source_png_sha256": "90814ad227c8276965252f7894ae5e04bfa49364ac0800a871ea886cf2eb3bd3",
+      "outline_sha256": "1e462c8c034110db04544947c6382bbaa0230fc65b8c64429e4baece258c774d",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_gneiss_slab-r2-20261123/output/river_gneiss_slab_six_views_raw.png",
+      "input_sha256": "100077ff34cbb2486ab304ffa6ecc5f96dc8d925d04a68f782d781a8bb7229b4",
+      "panel_crop_px": [
+        72,
+        643,
+        464,
+        934
+      ],
+      "pixel_size": [
+        338,
+        210
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "top": {
+      "path": "top.png",
+      "source_png_sha256": "c092c3b6282d14074074ac7b0bba2e5641c9e7496d39f8d758cfeeb43a9d55ea",
+      "outline_sha256": "55e85844de98f97323cbb69d97c7faa470164a2a5b847289b4613851e276da5f",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_gneiss_slab-r2-20261123/output/river_gneiss_slab_six_views_raw.png",
+      "input_sha256": "100077ff34cbb2486ab304ffa6ecc5f96dc8d925d04a68f782d781a8bb7229b4",
+      "panel_crop_px": [
+        524,
+        616,
+        1012,
+        947
+      ],
+      "pixel_size": [
+        468,
+        251
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "bottom": {
+      "path": "bottom.png",
+      "source_png_sha256": "16a9c203b09e3dcc5b16e26770760f74a451faccd3cd6ac2daad33a567b449c9",
+      "outline_sha256": "d3b5f178041bb183798d1b65aa8792b89181fd3640d34e2fdb74226011b73f36",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_gneiss_slab-r2-20261123/output/river_gneiss_slab_six_views_raw.png",
+      "input_sha256": "100077ff34cbb2486ab304ffa6ecc5f96dc8d925d04a68f782d781a8bb7229b4",
+      "panel_crop_px": [
+        1029,
+        623,
+        1531,
+        932
+      ],
+      "pixel_size": [
+        480,
+        238
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    }
+  },
+  "original_front": null,
+  "source_style": "Foundry OpenAI image generation based on the documented style, original concept sheet and crops retained",
+  "review": "新区分高右斜片与低左剥片，反看后高缘正确互换，宽低俯仰保留灰粉色层理。实模分层上下压低，不把条带当实体突起。",
+  "user_acceptance": "pending"
+}

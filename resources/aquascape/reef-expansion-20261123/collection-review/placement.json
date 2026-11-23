@@ -1,0 +1,589 @@
+{
+  "design": {
+    "depth": 8.0,
+    "height": 5.1,
+    "kind": "rect",
+    "radii": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "width": 15.0
+  },
+  "layouts": [
+    {
+      "absent_ids": [],
+      "attachment_count": 10,
+      "bed_valid": true,
+      "contained": 19,
+      "dropped_mounts": 0,
+      "fallback_count": 0,
+      "front_lane_m": 1.24,
+      "front_lane_z_m": 2.76,
+      "image": "/Users/czl/projects/game-ai-foundry/resources/aquascape/reef-expansion-20261123/collection-review/caribbean-reef.webp",
+      "instantiated": 19,
+      "items": [
+        {
+          "bounds_end_z_m": -0.586034774780273,
+          "catalog_model": "res://assets/aquascape-reef-foundation-v1/reef_backwall.glb",
+          "fits": true,
+          "id": "reef_backwall",
+          "origin_m": [
+            -4.57000017166138,
+            0.119999997317791,
+            -2.11999988555908
+          ]
+        },
+        {
+          "bounds_end_z_m": -0.51254677772522,
+          "catalog_model": "res://assets/aquascape-expansion-v1/reef_double_rift.glb",
+          "fits": true,
+          "id": "reef_double_rift",
+          "origin_m": [
+            -0.0999999046325684,
+            0.119999997317791,
+            -2.16000008583069
+          ]
+        },
+        {
+          "bounds_end_z_m": 1.51999664306641,
+          "catalog_model": "res://assets/aquascape-reef-foundation-v1/reef_through_arch.glb",
+          "fits": true,
+          "id": "reef_through_arch",
+          "origin_m": [
+            3.19999980926514,
+            0.119999997317791,
+            0.150000095367432
+          ]
+        },
+        {
+          "bounds_end_z_m": -0.497370719909668,
+          "catalog_model": "res://assets/aquascape-reef-foundation-v1/reef_shelf_terrace.glb",
+          "fits": true,
+          "id": "reef_shelf_terrace",
+          "origin_m": [
+            3.76000022888184,
+            0.119999997317791,
+            -2.11999988555908
+          ]
+        },
+        {
+          "bounds_end_z_m": 0.838998913764954,
+          "catalog_model": "res://assets/aquascape-expansion-v1/reef_eroded_overhang.glb",
+          "fits": true,
+          "id": "reef_eroded_overhang",
+          "origin_m": [
+            -4.46999979019165,
+            0.119999997317791,
+            -0.400000095367432
+          ]
+        },
+        {
+          "bounds_end_z_m": 0.0070418119430542,
+          "catalog_model": "res://assets/aquascape-expansion-v1/reef_mushroom_pedestal.glb",
+          "fits": true,
+          "id": "reef_mushroom_pedestal",
+          "origin_m": [
+            5.88000011444092,
+            0.119999997317791,
+            -0.900000095367432
+          ]
+        },
+        {
+          "bounds_end_z_m": 2.01518368721008,
+          "catalog_model": "res://assets/aquascape-expansion-v1/reef_isolated_hummock.glb",
+          "fits": true,
+          "id": "reef_isolated_hummock",
+          "origin_m": [
+            -1.51000022888184,
+            0.119999997317791,
+            1.17000007629395
+          ]
+        },
+        {
+          "bounds_end_z_m": 2.01799392700195,
+          "catalog_model": "res://assets/aquascape-expansion-v1/reef_erosion_eye.glb",
+          "fits": true,
+          "id": "reef_erosion_eye",
+          "origin_m": [
+            5.53999996185303,
+            0.119999997317791,
+            1.36999988555908
+          ]
+        },
+        {
+          "bounds_end_z_m": 2.19187808036804,
+          "catalog_model": "res://assets/aquascape-reef-foundation-v1/reef_rubble_apron.glb",
+          "fits": true,
+          "id": "reef_rubble_apron",
+          "origin_m": [
+            -4.34000015258789,
+            0.119999997317791,
+            1.67000007629395
+          ]
+        },
+        {
+          "bounds_end_z_m": -1.45732712745667,
+          "catalog_model": "res://assets/aquascape-expansion-v1/reef_elkhorn_coral.glb",
+          "fits": true,
+          "id": "reef_elkhorn_coral",
+          "mount": {
+            "support": "backwall",
+            "surface_y_m": 2.67438173294067
+          },
+          "origin_m": [
+            -5.32999992370605,
+            2.65238165855408,
+            -2.11500000953674
+          ]
+        },
+        {
+          "bounds_end_z_m": -1.44312763214111,
+          "catalog_model": "res://assets/aquascape-expansion-v1/reef_staghorn_coral.glb",
+          "fits": true,
+          "id": "reef_staghorn_coral",
+          "mount": {
+            "support": "backwall",
+            "surface_y_m": 2.17044138908386
+          },
+          "origin_m": [
+            -4.1100001335144,
+            2.14844131469727,
+            -2.03999996185303
+          ]
+        },
+        {
+          "bounds_end_z_m": 0.55320155620575,
+          "catalog_model": "res://assets/aquascape-expansion-v1/reef_brain_coral.glb",
+          "fits": true,
+          "id": "reef_brain_coral",
+          "mount": {
+            "support": "canopy",
+            "surface_y_m": 1.14274978637695
+          },
+          "origin_m": [
+            -5.05000019073486,
+            1.12074983119965,
+            0.164999961853027
+          ]
+        },
+        {
+          "bounds_end_z_m": 0.812021136283875,
+          "catalog_model": "res://assets/aquascape-expansion-v1/reef_tube_sponge.glb",
+          "fits": true,
+          "id": "reef_tube_sponge",
+          "mount": {
+            "support": "canopy",
+            "surface_y_m": 1.42993807792664
+          },
+          "origin_m": [
+            -4.17000007629395,
+            1.40793812274933,
+            0.420000076293945
+          ]
+        },
+        {
+          "bounds_end_z_m": -1.69729113578796,
+          "catalog_model": "res://assets/aquascape-expansion-v1/reef_sea_fan.glb",
+          "fits": true,
+          "id": "reef_sea_fan",
+          "mount": {
+            "support": "rift",
+            "surface_y_m": 1.47311639785767
+          },
+          "origin_m": [
+            0.819999694824219,
+            1.45111644268036,
+            -2.03999996185303
+          ]
+        },
+        {
+          "bounds_end_z_m": -1.39520370960236,
+          "catalog_model": "res://assets/aquascape-expansion-v1/reef_staghorn_coral.glb",
+          "fits": true,
+          "id": "reef_staghorn_coral",
+          "mount": {
+            "support": "rift",
+            "surface_y_m": 2.13168430328369
+          },
+          "origin_m": [
+            -1.28999996185303,
+            2.10968422889709,
+            -2.00999999046326
+          ]
+        },
+        {
+          "bounds_end_z_m": -1.26573824882507,
+          "catalog_model": "res://assets/aquascape-expansion-v1/reef_barrel_sponge.glb",
+          "fits": true,
+          "id": "reef_barrel_sponge",
+          "mount": {
+            "support": "terrace",
+            "surface_y_m": 1.07982206344604
+          },
+          "origin_m": [
+            3.85000038146973,
+            1.05782210826874,
+            -1.69000005722046
+          ]
+        },
+        {
+          "bounds_end_z_m": 0.800816535949707,
+          "catalog_model": "res://assets/aquascape-expansion-v1/reef_tube_sponge.glb",
+          "fits": true,
+          "id": "reef_tube_sponge",
+          "mount": {
+            "support": "arch",
+            "surface_y_m": 1.12701869010925
+          },
+          "origin_m": [
+            4.89500045776367,
+            1.10501873493195,
+            0.389999866485596
+          ]
+        },
+        {
+          "bounds_end_z_m": -0.435099244117737,
+          "catalog_model": "res://assets/aquascape-expansion-v1/reef_elkhorn_coral.glb",
+          "fits": true,
+          "id": "reef_elkhorn_coral",
+          "mount": {
+            "support": "pedestal",
+            "surface_y_m": 1.48247790336609
+          },
+          "origin_m": [
+            5.97500038146973,
+            1.46047794818878,
+            -0.970000028610229
+          ]
+        },
+        {
+          "bounds_end_z_m": 1.36525213718414,
+          "catalog_model": "res://assets/aquascape-expansion-v1/reef_brain_coral.glb",
+          "fits": true,
+          "id": "reef_brain_coral",
+          "mount": {
+            "support": "hummock",
+            "surface_y_m": 0.574015617370605
+          },
+          "origin_m": [
+            -1.61999988555908,
+            0.552015602588654,
+            1.07000017166138
+          ]
+        }
+      ],
+      "lane_clear": true,
+      "layout": "caribbean-reef",
+      "registry_count": 100
+    },
+    {
+      "absent_ids": [],
+      "attachment_count": 3,
+      "bed_valid": true,
+      "contained": 25,
+      "dropped_mounts": 0,
+      "fallback_count": 0,
+      "front_lane_m": 1.22,
+      "front_lane_z_m": 2.78,
+      "image": "/Users/czl/projects/game-ai-foundry/resources/aquascape/reef-expansion-20261123/collection-review/freshwater-root-bank.webp",
+      "instantiated": 25,
+      "items": [
+        {
+          "bounds_end_z_m": 0.379557609558105,
+          "catalog_model": "res://assets/aquascape-expansion-v1/river_imbricated_slate.glb",
+          "fits": true,
+          "id": "river_imbricated_slate",
+          "origin_m": [
+            -4.80999994277954,
+            0.129999995231628,
+            -0.839999914169312
+          ]
+        },
+        {
+          "bounds_end_z_m": 0.0334298610687256,
+          "catalog_model": "res://assets/aquascape-expansion-v1/river_gneiss_slab.glb",
+          "fits": true,
+          "id": "river_gneiss_slab",
+          "origin_m": [
+            3.90999984741211,
+            0.129999995231628,
+            -1.25999999046326
+          ]
+        },
+        {
+          "bounds_end_z_m": 2.16965985298157,
+          "catalog_model": "res://assets/aquascape-expansion-v1/river_conglomerate_bank.glb",
+          "fits": true,
+          "id": "river_conglomerate_bank",
+          "origin_m": [
+            3.19999980926514,
+            0.129999995231628,
+            0.820000171661377
+          ]
+        },
+        {
+          "bounds_end_z_m": -0.164248943328857,
+          "catalog_model": "res://assets/aquascape-expansion-v1/wood_upturned_root_plate.glb",
+          "fits": true,
+          "id": "wood_upturned_root_plate",
+          "origin_m": [
+            -3.58999991416931,
+            0.129999995231628,
+            -1.84000015258789
+          ]
+        },
+        {
+          "bounds_end_z_m": 1.02769756317139,
+          "catalog_model": "res://assets/aquascape-expansion-v1/wood_overhang_perch.glb",
+          "fits": true,
+          "id": "wood_overhang_perch",
+          "origin_m": [
+            -1.44000005722046,
+            0.129999995231628,
+            -0.180000066757202
+          ]
+        },
+        {
+          "bounds_end_z_m": 1.59785723686218,
+          "catalog_model": "res://assets/aquascape-expansion-v1/wood_hollow_tunnel.glb",
+          "fits": true,
+          "id": "wood_hollow_tunnel",
+          "origin_m": [
+            2.5,
+            0.129999995231628,
+            0.179999828338623
+          ]
+        },
+        {
+          "bounds_end_z_m": 2.39377236366272,
+          "catalog_model": "res://assets/aquascape-expansion-v1/wood_low_root_weave.glb",
+          "fits": true,
+          "id": "wood_low_root_weave",
+          "origin_m": [
+            -4.55000019073486,
+            0.129999995231628,
+            1.09000015258789
+          ]
+        },
+        {
+          "bounds_end_z_m": 1.33612656593323,
+          "catalog_model": "res://assets/aquascape-expansion-v1/river_obsidian_fault.glb",
+          "fits": true,
+          "id": "river_obsidian_fault",
+          "origin_m": [
+            5.0,
+            0.129999995231628,
+            0.690000057220459
+          ]
+        },
+        {
+          "bounds_end_z_m": -1.85908460617065,
+          "catalog_model": "res://assets/aquascape-v10/plants/vallisneria.glb",
+          "fits": true,
+          "id": "vallisneria",
+          "origin_m": [
+            -5.59999990463257,
+            0.129999995231628,
+            -2.76999998092651
+          ]
+        },
+        {
+          "bounds_end_z_m": -2.0876100063324,
+          "catalog_model": "res://assets/aquascape-v10/plants/vallisneria.glb",
+          "fits": true,
+          "id": "vallisneria",
+          "origin_m": [
+            -3.97000002861023,
+            0.129999995231628,
+            -2.91000008583069
+          ]
+        },
+        {
+          "bounds_end_z_m": -1.73065757751465,
+          "catalog_model": "res://assets/aquascape-v10/plants/vallisneria.glb",
+          "fits": true,
+          "id": "vallisneria",
+          "origin_m": [
+            4.88000011444092,
+            0.129999995231628,
+            -2.8199999332428
+          ]
+        },
+        {
+          "bounds_end_z_m": -1.92213332653046,
+          "catalog_model": "res://assets/aquascape-v10/plants/vallisneria.glb",
+          "fits": true,
+          "id": "vallisneria",
+          "origin_m": [
+            3.64999961853027,
+            0.129999995231628,
+            -2.79999995231628
+          ]
+        },
+        {
+          "bounds_end_z_m": -1.14409685134888,
+          "catalog_model": "res://assets/aquascape-expansion-v1/laceleaf_rosette.glb",
+          "fits": true,
+          "id": "laceleaf_rosette",
+          "origin_m": [
+            0.0999999046325684,
+            0.129999995231628,
+            -2.39000010490417
+          ]
+        },
+        {
+          "bounds_end_z_m": -0.876390218734741,
+          "catalog_model": "res://assets/aquascape-v10/plants/amazon_sword.glb",
+          "fits": true,
+          "id": "amazon_sword",
+          "origin_m": [
+            1.64999961853027,
+            0.129999995231628,
+            -1.70000004768372
+          ]
+        },
+        {
+          "bounds_end_z_m": 0.70915561914444,
+          "catalog_model": "res://assets/aquascape-v10/plants/crypt_crispatula.glb",
+          "fits": true,
+          "id": "crypt_crispatula",
+          "origin_m": [
+            -5.71999979019165,
+            0.129999995231628,
+            -0.059999942779541
+          ]
+        },
+        {
+          "bounds_end_z_m": 0.490406036376953,
+          "catalog_model": "res://assets/aquascape-v10/plants/crypt_crispatula.glb",
+          "fits": true,
+          "id": "crypt_crispatula",
+          "origin_m": [
+            4.96000003814697,
+            0.129999995231628,
+            -0.190000057220459
+          ]
+        },
+        {
+          "bounds_end_z_m": -0.853749513626099,
+          "catalog_model": "res://assets/aquascape-v11/shader-plants/rotala.glb",
+          "fits": true,
+          "id": "rotala",
+          "origin_m": [
+            6.03999996185303,
+            0.129999995231628,
+            -1.6100001335144
+          ]
+        },
+        {
+          "bounds_end_z_m": 1.78817760944366,
+          "catalog_model": "res://assets/aquascape-v10/plants/crypt_wendtii.glb",
+          "fits": true,
+          "id": "crypt_wendtii",
+          "origin_m": [
+            -4.34999990463257,
+            0.129999995231628,
+            1.48000001907349
+          ]
+        },
+        {
+          "bounds_end_z_m": 1.78687655925751,
+          "catalog_model": "res://assets/aquascape-expansion-v1/hairgrass_meadow.glb",
+          "fits": true,
+          "id": "hairgrass_meadow",
+          "origin_m": [
+            -2.78999996185303,
+            0.129999995231628,
+            1.47000026702881
+          ]
+        },
+        {
+          "bounds_end_z_m": 2.11398839950562,
+          "catalog_model": "res://assets/aquascape-expansion-v1/hairgrass_meadow.glb",
+          "fits": true,
+          "id": "hairgrass_meadow",
+          "origin_m": [
+            2.90999984741211,
+            0.129999995231628,
+            1.76000022888184
+          ]
+        },
+        {
+          "bounds_end_z_m": 2.01255750656128,
+          "catalog_model": "res://assets/aquascape-expansion-v1/marsilea_runner_patch.glb",
+          "fits": true,
+          "id": "marsilea_runner_patch",
+          "origin_m": [
+            4.36999988555908,
+            0.129999995231628,
+            1.51999998092651
+          ]
+        },
+        {
+          "bounds_end_z_m": 1.52368378639221,
+          "catalog_model": "res://assets/aquascape-expansion-v1/lake_quillwort_rosette.glb",
+          "fits": true,
+          "id": "lake_quillwort_rosette",
+          "origin_m": [
+            -1.30999994277954,
+            0.129999995231628,
+            1.19999980926514
+          ]
+        },
+        {
+          "bounds_end_z_m": 0.0871397256851196,
+          "catalog_model": "res://assets/aquascape-expansion-v1/riverwort_moss_mat.glb",
+          "fits": true,
+          "id": "riverwort_moss_mat",
+          "mount": {
+            "support": "slate",
+            "surface_y_m": 0.503172397613525
+          },
+          "origin_m": [
+            -4.98999977111816,
+            0.481172382831573,
+            -0.240000009536743
+          ]
+        },
+        {
+          "bounds_end_z_m": -0.00522881746292114,
+          "catalog_model": "res://assets/aquascape-v10/plants/anubias.glb",
+          "fits": true,
+          "id": "anubias",
+          "mount": {
+            "support": "overhang",
+            "surface_y_m": 1.29158496856689
+          },
+          "origin_m": [
+            -0.264999866485596,
+            1.26958501338959,
+            -0.194999933242798
+          ]
+        },
+        {
+          "bounds_end_z_m": 0.321131259202957,
+          "catalog_model": "res://assets/aquascape-expansion-v1/bolbitis_fern_clump.glb",
+          "fits": true,
+          "id": "bolbitis_fern_clump",
+          "mount": {
+            "support": "tunnel",
+            "surface_y_m": 0.800555229187012
+          },
+          "origin_m": [
+            2.77000045776367,
+            0.77855521440506,
+            -0.0399999618530273
+          ]
+        }
+      ],
+      "lane_clear": true,
+      "layout": "freshwater-root-bank",
+      "registry_count": 100
+    }
+  ],
+  "ok": true,
+  "player_saves_accessed": 0,
+  "poses_from": "ShellContentsView"
+}

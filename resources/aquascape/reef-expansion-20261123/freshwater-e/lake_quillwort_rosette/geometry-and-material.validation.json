@@ -1,0 +1,137 @@
+{
+  "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/lake_quillwort_rosette.glb",
+  "sha256": "b836437f25a50f0dca6651df7b45d5f943a31e0debae8a0b6290f65030c6e149",
+  "ok": true,
+  "meshes": [
+    {
+      "name": "lake_quillwort_rosette · closed natural shells",
+      "triangles": 490,
+      "finite_and_nonzero_area": true
+    }
+  ],
+  "textures": [
+    {
+      "name": "lake_quillwort_rosette-atlas",
+      "size": [
+        256,
+        256
+      ],
+      "opaque": true
+    }
+  ],
+  "open_edges": 0,
+  "nonmanifold_edges": 0,
+  "failures": [],
+  "triangles": 490,
+  "vertices": 1470,
+  "bytes": 116508,
+  "budget": {
+    "preferred": 400,
+    "hard_limit": 600
+  },
+  "measured_xyz_m": [
+    0.5600000023841858,
+    0.4300000071525574,
+    0.47999995946884155
+  ],
+  "root_min_y_m": 0.0,
+  "rooted_current": {
+    "anchor_min": [
+      -0.020887184888124466,
+      -9.999999747378752e-05,
+      -0.03635619953274727
+    ],
+    "anchor_size": [
+      0.07850182056427002,
+      0.05884924530982971,
+      0.07798955589532852
+    ],
+    "amplitude": 0.033
+  },
+  "shader_cpu": {
+    "root_motion_m": 0.0,
+    "loop_error_m": 9.857575086690227e-09,
+    "max_tip_motion_m": 0.019248243930952258,
+    "sampled_times": 41,
+    "instance_phases": [
+      0,
+      0.31,
+      0.62
+    ]
+  },
+  "source_board": {
+    "file": "resources/aquascape/reef-expansion-20261123/sources/aquascape-e-lake-quillwort-rosette-r2/output/lake_quillwort_rosette_six_views_raw.png",
+    "sha256": "74450ebe94964ebd14ed00dbfe9fe16f430b693636a59eff50933d8811bfa2dc",
+    "camera_order": [
+      "front",
+      "right",
+      "back",
+      "left",
+      "top",
+      "bottom"
+    ],
+    "swatches": {
+      "blade": [
+        [
+          [
+            "top",
+            758,
+            742,
+            822,
+            806
+          ]
+        ],
+        [
+          [
+            "bottom",
+            1209,
+            680,
+            1273,
+            744
+          ]
+        ]
+      ],
+      "runner": [
+        [
+          [
+            "front",
+            238,
+            349,
+            318,
+            429
+          ]
+        ],
+        [
+          [
+            "back",
+            1216,
+            349,
+            1296,
+            429
+          ]
+        ]
+      ],
+      "root": [
+        [
+          [
+            "front",
+            238,
+            349,
+            318,
+            429
+          ]
+        ],
+        [
+          [
+            "back",
+            1216,
+            349,
+            1296,
+            429
+          ]
+        ]
+      ]
+    },
+    "art_review": "candidate reviewed by agent, user pending"
+  }
+}

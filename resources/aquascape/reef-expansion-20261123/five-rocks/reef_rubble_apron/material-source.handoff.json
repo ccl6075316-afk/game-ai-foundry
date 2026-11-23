@@ -1,0 +1,80 @@
+{
+  "id": "reef_rubble_apron",
+  "name_zh": "碎礁坡脚",
+  "geometry_budget": "rock",
+  "nominal_xyz_m": [
+    2.7,
+    0.55,
+    1.2
+  ],
+  "views": {
+    "front": {
+      "path": "front.png",
+      "source_png_sha256": "1d88511ef5ed51907e8685ff052d7f35afa4d1cf992af66479d56bd2af514691",
+      "outline_sha256": "57729233559b88897f5647c25963a47b1cacd1113833ce959ec435e3c028510f",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_rubble_apron-20261123/output/reef_rubble_apron_six_views_raw.png",
+      "input_sha256": "f964d9b30dc6c55769e7a433db399d0b775ec69a023f82cedfc75e9c7197480d",
+      "pixel_size": [
+        549,
+        128
+      ]
+    },
+    "right": {
+      "path": "right.png",
+      "source_png_sha256": "84c315f81de57b8574d92abc9bab475bf5f45e8e37f7662c0e7f1fe240bd5e59",
+      "outline_sha256": "35588eb575c2c5a0e68e86a5733dafdb5969ba53f332c6d2efd20e9b9ea47643",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-fix-reef_rubble_apron-20261123/output/reef_rubble_apron_corrected_pair_raw.png",
+      "input_sha256": "52f66e9a3fe2ec5239522629296675d49944ed5c05ef4358876ceccf222b1070",
+      "pixel_size": [
+        655,
+        216
+      ]
+    },
+    "rear": {
+      "path": "rear.png",
+      "source_png_sha256": "e4ddd86654f933692b64650145a1c9262a0863af15a4fb5a78a2287189206bec",
+      "outline_sha256": "a92476f180efbe73840582637170cf8b5da4fe9f0764197cc54a39bb6ce2020f",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_rubble_apron-20261123/output/reef_rubble_apron_six_views_raw.png",
+      "input_sha256": "f964d9b30dc6c55769e7a433db399d0b775ec69a023f82cedfc75e9c7197480d",
+      "pixel_size": [
+        534,
+        127
+      ]
+    },
+    "left": {
+      "path": "left.png",
+      "source_png_sha256": "086dfb00800b7976c2658b14f01f5a0d58d0c74f06b45df56ad14795ed0a698d",
+      "outline_sha256": "756c0c6dc551e46ff91036ee76cd2ea190827c239ca9c78b7196316899ee34e8",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-fix-reef_rubble_apron-20261123/output/reef_rubble_apron_corrected_pair_raw.png",
+      "input_sha256": "52f66e9a3fe2ec5239522629296675d49944ed5c05ef4358876ceccf222b1070",
+      "pixel_size": [
+        652,
+        222
+      ]
+    },
+    "top": {
+      "path": "top.png",
+      "source_png_sha256": "f5d1e74d757dc2a73f342dc67b8602aa5917ec08596f040c0044fbdf581f983c",
+      "outline_sha256": "171c5d1c7986474b22147001b4f1be798b1133c32c0160097c9f9b1b7d4198c5",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_rubble_apron-20261123/output/reef_rubble_apron_six_views_raw.png",
+      "input_sha256": "f964d9b30dc6c55769e7a433db399d0b775ec69a023f82cedfc75e9c7197480d",
+      "pixel_size": [
+        504,
+        198
+      ]
+    },
+    "bottom": {
+      "path": "bottom.png",
+      "source_png_sha256": "f8238d78029db5e1b12654722a9262f7a9725d2253021ed835be1f3fc0ac82e1",
+      "outline_sha256": "f97f7a0eb07d49d2f05ab4e62b1114cbfeaf76d7a54297968c8f8197980c1697",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_rubble_apron-20261123/output/reef_rubble_apron_six_views_raw.png",
+      "input_sha256": "f964d9b30dc6c55769e7a433db399d0b775ec69a023f82cedfc75e9c7197480d",
+      "pixel_size": [
+        483,
+        172
+      ]
+    }
+  },
+  "review": "First LEFT had twice the depth of RIGHT and reused the front contour. Replaced the two short ends with the corrected pair. Initial front and rear keep the same low irregular connected body.",
+  "user_acceptance": "pending"
+}

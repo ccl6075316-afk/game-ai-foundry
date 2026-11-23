@@ -1,0 +1,210 @@
+{
+  "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/giant_kelp.glb",
+  "sha256": "b723885e0a487a418266a16dc28c8f1b33ac79d6c450db10c5abf87016a7f044",
+  "ok": true,
+  "meshes": [
+    {
+      "name": "giant_kelp · closed natural shells",
+      "triangles": 984,
+      "finite_and_nonzero_area": true
+    }
+  ],
+  "textures": [
+    {
+      "name": "atlas",
+      "size": [
+        256,
+        256
+      ],
+      "opaque": true
+    }
+  ],
+  "open_edges": 0,
+  "nonmanifold_edges": 0,
+  "failures": [],
+  "triangles": 984,
+  "vertices": 2952,
+  "bytes": 210236,
+  "budget": {
+    "preferred": 700,
+    "hard_limit": 1000
+  },
+  "measured_xyz_m": [
+    2.1999998092651367,
+    3.6500000953674316,
+    1.5199999809265137
+  ],
+  "root_min_y_m": 0.0,
+  "rooted_current": {
+    "anchor_min": [
+      -0.421195924282074,
+      -9.999999747378752e-05,
+      0.027596071362495422
+    ],
+    "anchor_size": [
+      0.0001999867963604629,
+      0.1556483805179596,
+      0.00019999983487650752
+    ],
+    "amplitude": 0.047
+  },
+  "shader_cpu": {
+    "root_motion_m": 0.0,
+    "loop_error_m": 7.753664676201757e-08,
+    "max_tip_motion_m": 0.244257728914296,
+    "sampled_times": 41,
+    "instance_phases": [
+      0,
+      0.31,
+      0.62
+    ]
+  },
+  "file": "projects/fishing-2d/game/assets/aquascape-expansion-v1/giant_kelp.glb",
+  "source_board": {
+    "file": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-giant_kelp-20261123/output/giant_kelp_six_views_raw.png",
+    "sha256": "1de2b2285992a5282874afa764de2af501f70a0e1a80677da91c6cae5bacceee",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "camera_order": [
+      "front",
+      "right",
+      "back",
+      "left",
+      "top",
+      "bottom"
+    ],
+    "concept_review": "agent-reviewed for provisional gray mesh, user pending",
+    "workflow_assets_manifest": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-giant_kelp-20261123/output/assets-manifest.json",
+    "subject_ecology": "https://www.montereybayaquarium.org/animals-the-ocean/animals-a-to-z/giant-kelp",
+    "assembly_inference": [
+      "正/背追踪偏右垂出的上层阔叶、偏左固着器、通透直立茎",
+      "两端画像压缩同一茎束；俯/仰视定不对称放射、叶片向前后分开",
+      "藏于叠叶深处的路径作艺术解释；小气囊置于叶基，硬底固着器留在底部"
+    ],
+    "texture_sample_regions": {
+      "blade": [
+        [
+          [
+            0,
+            356,
+            127,
+            418,
+            204
+          ],
+          [
+            4,
+            800,
+            693,
+            931,
+            746
+          ]
+        ],
+        [
+          [
+            2,
+            1144,
+            159,
+            1213,
+            228
+          ],
+          [
+            5,
+            1126,
+            749,
+            1190,
+            792
+          ]
+        ]
+      ],
+      "stem": [
+        [
+          [
+            0,
+            216,
+            388,
+            264,
+            453
+          ]
+        ],
+        [
+          [
+            2,
+            1284,
+            372,
+            1320,
+            454
+          ]
+        ]
+      ],
+      "holdfast": [
+        [
+          [
+            0,
+            183,
+            454,
+            274,
+            482
+          ]
+        ],
+        [
+          [
+            5,
+            1243,
+            741,
+            1315,
+            791
+          ]
+        ]
+      ],
+      "float": [
+        [
+          [
+            0,
+            138,
+            355,
+            159,
+            383
+          ]
+        ],
+        [
+          [
+            3,
+            329,
+            752,
+            356,
+            787
+          ]
+        ]
+      ]
+    }
+  },
+  "native": {
+    "version": "Godot 4.7.1 stable mono, OpenGL compatibility Apple M4",
+    "result": "agent reviewed native orthographic + oblique gray and nearest material",
+    "contact_sheet": "resources/aquascape/reef-expansion-20261123/marine-d/giant_kelp/godot-views.jpg",
+    "contact_sheet_sha256": "f76f0648c9d7e8aabfa6a8b18f1d52c9c482f663b225d9077a75b27bd977603e",
+    "user_acceptance": "pending",
+    "multimesh_current": {
+      "instances": 3,
+      "custom_phases": [
+        0,
+        0.31,
+        0.62
+      ],
+      "phase_change_pixels": 259159,
+      "held_phase_change_pixels": 0,
+      "subsequent_phase_change_pixels": 352180,
+      "loop_endpoint_change_pixels": 2,
+      "fixed_root_validated_in_cpu_sampling": true
+    }
+  },
+  "cold_blend_export": {
+    "packed_image": true,
+    "source_sha256": "752802ec800258c041a5514fef2c105c07c3657f524c80c7926cad6e62535047",
+    "normalized_export_sha256": "b723885e0a487a418266a16dc28c8f1b33ac79d6c450db10c5abf87016a7f044",
+    "current_glb_sha256": "b723885e0a487a418266a16dc28c8f1b33ac79d6c450db10c5abf87016a7f044",
+    "byte_identical": true
+  }
+}

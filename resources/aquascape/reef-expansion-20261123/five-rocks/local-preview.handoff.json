@@ -1,0 +1,136 @@
+{
+  "status": "installed_local_preview",
+  "user_acceptance": "pending",
+  "changes": {
+    "reef_backwall": [
+      {
+        "current": {
+          "path": "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_backwall.glb",
+          "sha256": "7c94f7ef1378317cd578b01fb385eac5db772ab5d77d73b85a7587331bf104ca",
+          "bytes": 3009624
+        },
+        "previous_trial": {
+          "path": "work/reef-expansion-20261123/five-rocks/pre-relief-local/reef_backwall.glb",
+          "sha256": "6efc8d15ce35d91f1db81e511cbde43f87e2e119d95e4cb2d6e4e75d54aff95c",
+          "bytes": 2695416
+        }
+      },
+      {
+        "current": {
+          "path": "projects/fishing-2d/assets/source/aquascape/reef-foundation/reef_backwall.blend",
+          "sha256": "4795245c15e34d609bb1133410f39bddc5298fde8cb9d0403aadd60b1d41efbe",
+          "bytes": 3026996
+        },
+        "previous_trial": {
+          "path": "work/reef-expansion-20261123/five-rocks/pre-relief-local/reef_backwall.blend",
+          "sha256": "68235fffc422d975aab8ec7b7c62d41a6e5d2f8c64903135bee7623351198d11",
+          "bytes": 2730719
+        }
+      }
+    ],
+    "reef_blind_grotto": [
+      {
+        "current": {
+          "path": "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_blind_grotto.glb",
+          "sha256": "41d8fa301b7c051cd1809771e04197ebb59ea17ce2c95c3f17f3c0023395f667",
+          "bytes": 3834556
+        },
+        "previous_trial": {
+          "path": "work/reef-expansion-20261123/five-rocks/pre-relief-local/reef_blind_grotto.glb",
+          "sha256": "8ccf26f29d79da3f6d2473ec6ddd9fb6e8e1348b41aa44c3c8466bb1dbff8303",
+          "bytes": 2608568
+        }
+      },
+      {
+        "current": {
+          "path": "projects/fishing-2d/assets/source/aquascape/reef-foundation/reef_blind_grotto.blend",
+          "sha256": "f2905184d3a9ef56d44212bf656e6afdbb6abd2dcc330cbebff310aab08dfa1e",
+          "bytes": 3852467
+        },
+        "previous_trial": {
+          "path": "work/reef-expansion-20261123/five-rocks/pre-relief-local/reef_blind_grotto.blend",
+          "sha256": "3745bc45cf525bbb992415738e2deee09db23a39c26d936ae038c66ed4e68fcc",
+          "bytes": 2643581
+        }
+      }
+    ],
+    "reef_shelf_terrace": [
+      {
+        "current": {
+          "path": "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_shelf_terrace.glb",
+          "sha256": "5376054286bc3d5aff11eb2b8dad79281800e20dfe79e90a06126f9c41d035c5",
+          "bytes": 3012152
+        },
+        "previous_trial": {
+          "path": "work/reef-expansion-20261123/five-rocks/pre-relief-local/reef_shelf_terrace.glb",
+          "sha256": "a4b90ba50bd31db33824a12760a02db85fa5d0f22f13dbf46d408c454b135ba4",
+          "bytes": 1415704
+        }
+      },
+      {
+        "current": {
+          "path": "projects/fishing-2d/assets/source/aquascape/reef-foundation/reef_shelf_terrace.blend",
+          "sha256": "4e5785c2b313a5f66e316d068e57a00452633a45c6db66ea2c23ad1a76c1a15b",
+          "bytes": 3056283
+        },
+        "previous_trial": {
+          "path": "work/reef-expansion-20261123/five-rocks/pre-relief-local/reef_shelf_terrace.blend",
+          "sha256": "0904e7963dfe22a7107ce0d1edd4a7cd6a246c00fac3059fde8a4abbf04f75b2",
+          "bytes": 1472987
+        }
+      }
+    ],
+    "reef_pinnacle": [
+      {
+        "current": {
+          "path": "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_pinnacle.glb",
+          "sha256": "ebfdf3b8a256dc3dee738efef91738756d35f3e088aed964eae24cbc1b92cda7",
+          "bytes": 2357840
+        },
+        "previous_trial": {
+          "path": "work/reef-expansion-20261123/five-rocks/pre-relief-local/reef_pinnacle.glb",
+          "sha256": "d684d5e48057c8486f38211d3281e1f1144c576dbac8daf3f275c3e5f0c32883",
+          "bytes": 1414696
+        }
+      },
+      {
+        "current": {
+          "path": "projects/fishing-2d/assets/source/aquascape/reef-foundation/reef_pinnacle.blend",
+          "sha256": "b92ac7f226024ca13a402d99e702b3629086fe3d612d4297a226db1609208ed9",
+          "bytes": 2400584
+        },
+        "previous_trial": {
+          "path": "work/reef-expansion-20261123/five-rocks/pre-relief-local/reef_pinnacle.blend",
+          "sha256": "e788166f733f0ca551ebabcff73313b450f888180211f732b56f2acafa737655",
+          "bytes": 1471805
+        }
+      }
+    ],
+    "reef_rubble_apron": [
+      {
+        "current": {
+          "path": "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_rubble_apron.glb",
+          "sha256": "ae23a3f375fcc359a0463c6a7c9edc53e53bb0d41c81da7f2af60c318e386d9a",
+          "bytes": 2192264
+        },
+        "previous_trial": {
+          "path": "work/reef-expansion-20261123/five-rocks/pre-relief-local/reef_rubble_apron.glb",
+          "sha256": "55532d8508f640c562e67c44b1f3202e8db0f86ccbb1a238daae3a3da9a50538",
+          "bytes": 1338540
+        }
+      },
+      {
+        "current": {
+          "path": "projects/fishing-2d/assets/source/aquascape/reef-foundation/reef_rubble_apron.blend",
+          "sha256": "38d60053b9503a0cc149056bc4be70dda4c37750d3cd04ae5e0b69db78b202ac",
+          "bytes": 2235818
+        },
+        "previous_trial": {
+          "path": "work/reef-expansion-20261123/five-rocks/pre-relief-local/reef_rubble_apron.blend",
+          "sha256": "21a0173e71ae0f96f35d1d229ae1052e8c2b7c36366106b6b11494aef99656c6",
+          "bytes": 1395623
+        }
+      }
+    ]
+  }
+}

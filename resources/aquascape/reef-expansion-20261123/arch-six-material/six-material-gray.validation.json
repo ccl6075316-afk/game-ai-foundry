@@ -1,0 +1,149 @@
+{
+  "ok": true,
+  "stage": "six_source_gray_shape",
+  "source_handoff_sha256": "1e68420b62e9917b5b969116a599eb2fbb33fcbc636b1e7d4adea4f6bfbe98e1",
+  "user_acceptance": "pending",
+  "gray_model": {
+    "path": "resources/aquascape/reef-expansion-20261123/arch-six-material/reef_through_arch_six_material_gray.glb",
+    "sha256": "6c9560241e65670bb659548de9782d0e7f3a2fb904774de9a22c184484de8a23",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "reef_through_arch_six_material_gray",
+        "triangles": 696,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "Neutral gray",
+        "size": [
+          4,
+          4
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "triangle_count": 696,
+  "dimensions_xyz_m": [
+    4.288548469543457,
+    2.388418197631836,
+    1.8374080657958984
+  ],
+  "projections": {
+    "front": {
+      "silhouette_iou": 0.9297745959600886,
+      "span_m": [
+        4.4,
+        2.5563380281690145
+      ]
+    },
+    "rear": {
+      "silhouette_iou": 0.9394565625803389,
+      "span_m": [
+        4.4,
+        2.5286467486818984
+      ]
+    },
+    "left": {
+      "silhouette_iou": 0.8893259555789116,
+      "span_m": [
+        1.8728920462325722,
+        2.5424923884254564
+      ]
+    },
+    "right": {
+      "silhouette_iou": 0.8978185947682678,
+      "span_m": [
+        1.8662623398742268,
+        2.5424923884254564
+      ]
+    },
+    "top": {
+      "silhouette_iou": 0.907811936087142,
+      "span_m": [
+        4.4,
+        2.072888888888889
+      ]
+    },
+    "bottom": {
+      "silhouette_iou": 0.9009510149759016,
+      "span_m": [
+        4.4,
+        2.1706666666666665
+      ]
+    }
+  },
+  "passage": {
+    "sections": {
+      "between_feet": {
+        "clear_rays": 56,
+        "rays": 56,
+        "x_range_m": [
+          -0.22,
+          0.3
+        ],
+        "y_range_m": [
+          0.32,
+          0.5
+        ]
+      },
+      "above_feet": {
+        "clear_rays": 56,
+        "rays": 56,
+        "x_range_m": [
+          -0.43,
+          0.5
+        ],
+        "y_range_m": [
+          0.62,
+          1.1
+        ]
+      }
+    },
+    "left_contact_area_m2": 2.0796408653259277,
+    "right_contact_area_m2": 2.0158650875091553,
+    "clear_rays": 112,
+    "rays": 112,
+    "left_foot_contact_points": 11,
+    "right_foot_contact_points": 10
+  },
+  "editable_source": {
+    "path": "resources/aquascape/reef-expansion-20261123/arch-six-material/reef_through_arch_six_material_gray.blend",
+    "sha256": "d935575e48f74af825c725f52f95c41fe45b7d8eef2f2de5e14ab778a86089c8",
+    "bytes": 106521,
+    "polygon_points_uv_and_embedded_gray_texture_match_glb": true
+  },
+  "native_review": {
+    "engine": "Godot 4.7.1 OpenGL Compatibility Apple M4",
+    "views": [
+      "front",
+      "right",
+      "rear",
+      "left",
+      "top",
+      "bottom",
+      "perspective"
+    ],
+    "evidence": [
+      {
+        "path": "resources/aquascape/reef-expansion-20261123/arch-six-material/gray-godot-six.jpg",
+        "sha256": "503f29d54e24faa686d6b65b31f29d6b2ca194bffeab99c3f7638a1fc8496f70",
+        "bytes": 64323
+      },
+      {
+        "path": "resources/aquascape/reef-expansion-20261123/arch-six-material/arch-six-material-gray-godot.jpg",
+        "sha256": "bc5bc5ea120779817d5c128b9d3f297d5c68e741c7ac9e77fa734d90c5152864",
+        "bytes": 60696
+      }
+    ]
+  },
+  "cleanup": {
+    "removed_bytes": 22517042,
+    "scope": "generated Godot caches and rerenderable duplicate screenshots, task setup logs, shared polygon exchange and one Blender auto-backup"
+  }
+}

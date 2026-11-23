@@ -1,0 +1,17 @@
+{
+  "status": "installed_local",
+  "user_acceptance": "sufficient_for_pixel_visual_style",
+  "changes": {
+    "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_through_arch.glb": {
+      "source": "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_through_arch.glb",
+      "previous_sha256": "47c85f224e13f43ae40324ba7d54167e4829a77b0213270ef6e9c206005f0a01",
+      "current_sha256": "990c9c68ad9ab7dabff792ec89270f3900b1e8fbf54e4ec4f574b7d678287ff6"
+    },
+    "projects/fishing-2d/assets/source/aquascape/reef-foundation/reef_through_arch.blend": {
+      "source": "projects/fishing-2d/assets/source/aquascape/reef-foundation/reef_through_arch.blend",
+      "previous_sha256": "e589bee4a247016e9be4b439b314fe48e73fae16a7c1ab58869889dd75b52213",
+      "current_sha256": "0a345f7c4a1ff6b3a1cafb50960f1857d4198d960c7473f2f0d2954bc0ba987a"
+    }
+  },
+  "scope": "User approved moving on with the revised arch visual effect."
+}

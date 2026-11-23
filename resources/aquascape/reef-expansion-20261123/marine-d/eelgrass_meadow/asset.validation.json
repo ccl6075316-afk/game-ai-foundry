@@ -1,0 +1,190 @@
+{
+  "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/eelgrass_meadow.glb",
+  "sha256": "3552742862403df05c783df8f8340621e757d5e4d6d7d14e99c15b014237e589",
+  "ok": true,
+  "meshes": [
+    {
+      "name": "eelgrass_meadow · closed natural shells",
+      "triangles": 592,
+      "finite_and_nonzero_area": true
+    }
+  ],
+  "textures": [
+    {
+      "name": "atlas",
+      "size": [
+        256,
+        256
+      ],
+      "opaque": true
+    }
+  ],
+  "open_edges": 0,
+  "nonmanifold_edges": 0,
+  "failures": [],
+  "triangles": 592,
+  "vertices": 1776,
+  "bytes": 134948,
+  "budget": {
+    "preferred": 400,
+    "hard_limit": 600
+  },
+  "measured_xyz_m": [
+    0.6899999976158142,
+    0.5400000214576721,
+    0.3999999761581421
+  ],
+  "root_min_y_m": 0.0,
+  "rooted_current": {
+    "anchor_min": [
+      -0.2409612089395523,
+      -9.999999747378752e-05,
+      -0.05724969878792763
+    ],
+    "anchor_size": [
+      0.45710253715515137,
+      0.04415963590145111,
+      0.12352641671895981
+    ],
+    "amplitude": 0.095
+  },
+  "shader_cpu": {
+    "root_motion_m": 0.0,
+    "loop_error_m": 2.5452148310629e-08,
+    "max_tip_motion_m": 0.07368358724277488,
+    "sampled_times": 41,
+    "instance_phases": [
+      0,
+      0.31,
+      0.62
+    ]
+  },
+  "file": "projects/fishing-2d/game/assets/aquascape-expansion-v1/eelgrass_meadow.glb",
+  "source_board": {
+    "file": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-eelgrass_meadow-20261123/output/eelgrass_meadow_six_views_raw.png",
+    "sha256": "363aa704709afeebfcc6e6acfaf5953f2fd9b84e7b8c2bbcda46495a26cdbe20",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "camera_order": [
+      "front",
+      "right",
+      "back",
+      "left",
+      "top",
+      "bottom"
+    ],
+    "concept_review": "agent-reviewed for provisional gray mesh, user pending",
+    "workflow_assets_manifest": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-eelgrass_meadow-20261123/output/assets-manifest.json",
+    "subject_ecology": "https://marine.ucsc.edu/target/zostera/",
+    "assembly_inference": [
+      "主正面从左到右五组发叶，左高、过渡、右侧中高、最右外探短叶",
+      "俯/仰视中间群向前，偏右高叶群向后，狭长根茎连接各小群",
+      "叶宽收回鳗草的狭带特征，平钝叶端，根须短且入床"
+    ],
+    "texture_sample_regions": {
+      "blade": [
+        [
+          [
+            0,
+            97,
+            248,
+            134,
+            353
+          ],
+          [
+            4,
+            639,
+            720,
+            685,
+            797
+          ]
+        ],
+        [
+          [
+            2,
+            1348,
+            258,
+            1411,
+            363
+          ],
+          [
+            5,
+            1348,
+            757,
+            1389,
+            813
+          ]
+        ]
+      ],
+      "blade_light": [
+        [
+          [
+            0,
+            434,
+            282,
+            471,
+            353
+          ]
+        ],
+        [
+          [
+            2,
+            1118,
+            309,
+            1164,
+            386
+          ]
+        ]
+      ],
+      "roots": [
+        [
+          [
+            0,
+            127,
+            399,
+            224,
+            430
+          ]
+        ],
+        [
+          [
+            5,
+            1254,
+            742,
+            1326,
+            784
+          ]
+        ]
+      ]
+    }
+  },
+  "native": {
+    "version": "Godot 4.7.1 stable mono, OpenGL compatibility Apple M4",
+    "result": "agent reviewed native orthographic + oblique gray and nearest material",
+    "contact_sheet": "resources/aquascape/reef-expansion-20261123/marine-d/eelgrass_meadow/godot-views.jpg",
+    "contact_sheet_sha256": "d2f4810cac7f3c1be19a0e4f7fa0727941eeec381c6c788e5264dbbf1c2b163f",
+    "user_acceptance": "pending",
+    "multimesh_current": {
+      "instances": 3,
+      "custom_phases": [
+        0,
+        0.31,
+        0.62
+      ],
+      "phase_change_pixels": 82957,
+      "held_phase_change_pixels": 0,
+      "subsequent_phase_change_pixels": 88082,
+      "loop_endpoint_change_pixels": 0,
+      "fixed_root_validated_in_cpu_sampling": true
+    }
+  },
+  "cold_blend_export": {
+    "packed_image": true,
+    "source_sha256": "83f90bcae6e8ff5d2973f767aecc6a919297b0be602ec7cdbd93f1e697b467c7",
+    "normalized_export_sha256": "3552742862403df05c783df8f8340621e757d5e4d6d7d14e99c15b014237e589",
+    "current_glb_sha256": "3552742862403df05c783df8f8340621e757d5e4d6d7d14e99c15b014237e589",
+    "byte_identical": true
+  }
+}

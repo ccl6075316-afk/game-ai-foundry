@@ -1,0 +1,118 @@
+{
+  "id": "wood_upturned_root_plate",
+  "ok": true,
+  "nominal_xyz_m": [
+    2.35,
+    1.66,
+    1.58
+  ],
+  "bounds_xyz_m": [
+    2.3423867225646973,
+    1.6148138046264648,
+    1.3213883638381958
+  ],
+  "triangle_budget": {
+    "preferred": 800,
+    "hard_limit": 1200,
+    "type": "wood"
+  },
+  "triangles": 1120,
+  "connected_shells": 1,
+  "surface_euler": -20,
+  "retained_volume": 0.9987528799161028,
+  "open_edges": 0,
+  "nonmanifold_edges": 0,
+  "sampler": "nearest",
+  "projection_outlines": {
+    "front": {
+      "silhouette_iou": 0.9048712370427805,
+      "span_m": [
+        2.35,
+        1.66
+      ]
+    },
+    "right": {
+      "silhouette_iou": 0.691810793915399,
+      "span_m": [
+        1.58,
+        1.66
+      ]
+    },
+    "rear": {
+      "silhouette_iou": 0.907030730143367,
+      "span_m": [
+        2.35,
+        1.66
+      ]
+    },
+    "left": {
+      "silhouette_iou": 0.7027027027027027,
+      "span_m": [
+        1.58,
+        1.66
+      ]
+    },
+    "top": {
+      "silhouette_iou": 0.7218708782846901,
+      "span_m": [
+        2.35,
+        1.58
+      ]
+    },
+    "bottom": {
+      "silhouette_iou": 0.6203284475481544,
+      "span_m": [
+        2.35,
+        1.58
+      ]
+    }
+  },
+  "art_texel_share": {
+    "front": 0.236,
+    "right": 0.1308,
+    "rear": 0.2504,
+    "left": 0.1351,
+    "top": 0.1341,
+    "bottom": 0.1135
+  },
+  "atlas_size": [
+    1536,
+    1536
+  ],
+  "material_passes": 1,
+  "rear_stump_ray_hits": [
+    0.4234164364110809,
+    1.5752825897028093
+  ],
+  "rear_stump_exposure_m": 0.4265835635889191,
+  "middle_root_plate_depth_m": 0.539364317062862,
+  "screen_direction_openings": {
+    "左下根环": [],
+    "左外根环": [],
+    "左上裂口": [],
+    "左冠根叉": [],
+    "中冠根叉": [],
+    "右腰根环": [],
+    "右外根环": [],
+    "右上根叉": []
+  },
+  "glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/wood_upturned_root_plate.glb",
+  "glb_sha256": "7977f6500baf1d1edb2b53402f225f427f370da4fcbc36a57b270a0426cfd42b",
+  "gray": "resources/aquascape/reef-expansion-20261123/freshwater-e/root-plate/wood_upturned_root_plate-gray.glb",
+  "gray_sha256": "0898c3eda5c721fb1b4000ec0ecdeb40f15b7ef60ff1d7700844b4d49e9016e2",
+  "source_handoff": "resources/aquascape/reef-expansion-20261123/freshwater-e/root-plate/material-source.handoff.json",
+  "source_handoff_sha256": "deb30097cefae0e5af06be84faaa34efd448b2a7a03515f4f1fc1240e40613b1",
+  "godot": {
+    "contact_sheet": "resources/aquascape/reef-expansion-20261123/freshwater-e/root-plate/native-review.webp",
+    "sha256": "5b8f8ee307aa734f87ad4b2b6a317c616c4fd900f1f07344ac1c533113aaa359",
+    "version": "4.7.1",
+    "views": 16,
+    "visual_review": "Verified the standing radial plate, eight openings in the test directions, continuous feet and solid short rear stump. Top artwork was treated as an approximate material reference."
+  },
+  "blender": {
+    "path": "resources/aquascape/reef-expansion-20261123/freshwater-e/root-plate/wood_upturned_root_plate.blend",
+    "sha256": "4f822387559f6c8ed37d85901a51bd3f3d86c64c785f71d94f3cba648a569a90",
+    "cold_reopened_and_same_polygon_points_uv_and_texture_as_glb": true,
+    "packed_texture_bytes": 2752213
+  }
+}

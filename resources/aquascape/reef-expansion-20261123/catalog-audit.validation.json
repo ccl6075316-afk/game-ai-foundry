@@ -1,0 +1,2018 @@
+{
+  "ok": true,
+  "assets": 100,
+  "counts": {
+    "aquascape-v5": 37,
+    "aquascape-decor-v1": 13,
+    "aquascape-reef-foundation-v1": 6,
+    "aquascape-expansion-v1": 44
+  },
+  "triangles_new": 37218,
+  "glb_bytes_new": 73157240,
+  "max_rgba8_bytes_new_if_all_loaded_no_mips": 371458048,
+  "single_material_single_surface_new": 50,
+  "rooted_current_count": 11,
+  "limits": "Triangle counts are complete GLB nodes. Normalized position fingerprint is independent of asset ID, color and uniform scale; no two sets match. RGBA8 total is a conservative texture estimate, not measured residency or whole-exhibit performance.",
+  "assets_detail": [
+    {
+      "id": "anubias",
+      "name_zh": "小水榕",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v10/plants/anubias.glb",
+      "environment": null,
+      "triangles": 804,
+      "vertices": 2412,
+      "bytes": 1047116,
+      "sha256": "b86eacee62275be38d8d221f3bd0dbee5c28839ab7df970e8caed1caec706bb0",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 18,
+      "materials": 7,
+      "rooted_shader": false
+    },
+    {
+      "id": "java_fern",
+      "name_zh": "爪哇蕨／铁皇冠",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v10/plants/java_fern.glb",
+      "environment": null,
+      "triangles": 884,
+      "vertices": 2652,
+      "bytes": 876136,
+      "sha256": "5a9bc120f082b6b64232a9a83e5a8929a653a8f36d5cb41a714c30ea3700b320",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 17,
+      "materials": 7,
+      "rooted_shader": false
+    },
+    {
+      "id": "bucephalandra",
+      "name_zh": "布奇椒榕",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v10/plants/bucephalandra.glb",
+      "environment": null,
+      "triangles": 864,
+      "vertices": 2592,
+      "bytes": 994252,
+      "sha256": "768cf9a52ffffcca799a4691a37a15b24d477e41b88c446bd19386f1e4d8dd1b",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 18,
+      "materials": 7,
+      "rooted_shader": false
+    },
+    {
+      "id": "crypt_wendtii",
+      "name_zh": "绿温蒂椒草",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v10/plants/crypt_wendtii.glb",
+      "environment": null,
+      "triangles": 720,
+      "vertices": 2160,
+      "bytes": 841528,
+      "sha256": "0348ccd112b1e0f4bba93a922858ea7611b22ab9d883336fd4d8e47b9fcca177",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 19,
+      "materials": 7,
+      "rooted_shader": false
+    },
+    {
+      "id": "crypt_crispatula",
+      "name_zh": "长叶椒草",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v10/plants/crypt_crispatula.glb",
+      "environment": null,
+      "triangles": 432,
+      "vertices": 1296,
+      "bytes": 699316,
+      "sha256": "de42056623f7f3f0224b8556e3f2f24512e83a4cae3623a606bda9c9f3d41587",
+      "type": "ribbon_plant",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 18,
+      "materials": 7,
+      "rooted_shader": false
+    },
+    {
+      "id": "amazon_sword",
+      "name_zh": "亚马逊剑草",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v10/plants/amazon_sword.glb",
+      "environment": null,
+      "triangles": 800,
+      "vertices": 2400,
+      "bytes": 934632,
+      "sha256": "071437ec8f3337d873b6ce6a1b79018563a98f4f2238d08f8d9926f030871820",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 19,
+      "materials": 7,
+      "rooted_shader": false
+    },
+    {
+      "id": "dwarf_sagittaria",
+      "name_zh": "矮慈姑",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v10/plants/dwarf_sagittaria.glb",
+      "environment": null,
+      "triangles": 496,
+      "vertices": 1488,
+      "bytes": 712540,
+      "sha256": "a97542351e7c3c324e72b15f72cd4d0fe697f5e57c449e9083ec0819f59bacce",
+      "type": "ribbon_plant",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 20,
+      "materials": 7,
+      "rooted_shader": false
+    },
+    {
+      "id": "vallisneria",
+      "name_zh": "螺旋苦草",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v10/plants/vallisneria.glb",
+      "environment": null,
+      "triangles": 476,
+      "vertices": 1428,
+      "bytes": 727952,
+      "sha256": "0aa22e67b77acf53b8dd6014311b861077381af503559a3ee3bd9b78c87dbc20",
+      "type": "ribbon_plant",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 19,
+      "materials": 7,
+      "rooted_shader": false
+    },
+    {
+      "id": "aponogeton",
+      "name_zh": "波浪水蕹",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v10/plants/aponogeton.glb",
+      "environment": null,
+      "triangles": 852,
+      "vertices": 2556,
+      "bytes": 833460,
+      "sha256": "989846019e5bcf095c3498cddba3e27cae7f978a7bf843b1686b3cd1baef5dee",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 18,
+      "materials": 7,
+      "rooted_shader": false
+    },
+    {
+      "id": "lagenandra_red",
+      "name_zh": "红米布椒草",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v10/plants/lagenandra_red.glb",
+      "environment": null,
+      "triangles": 880,
+      "vertices": 2640,
+      "bytes": 1285936,
+      "sha256": "0e4500fc72d3c7caabb2fa9b215b931e1e1dac7ea9c736012de3a891935b8a3c",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 17,
+      "materials": 7,
+      "rooted_shader": false
+    },
+    {
+      "id": "rock",
+      "name_zh": "阶台灰岩",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v9/solids/rock.glb",
+      "environment": null,
+      "triangles": 400,
+      "vertices": 1200,
+      "bytes": 324540,
+      "sha256": "9bdaa81b113f7d443582c976153b5792f1c6fae3485296fe15e5d1f8177e6be9",
+      "type": "rock",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "driftwood",
+      "name_zh": "分叉沉木",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v9/solids/driftwood.glb",
+      "environment": null,
+      "triangles": 800,
+      "vertices": 2400,
+      "bytes": 318392,
+      "sha256": "83723fc16f9d33b1fd620da66eb9e63f6a8bd9c6ac44e55415c10d99dd97fcda",
+      "type": "wood",
+      "hard_limit": 1200,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "river_boulder",
+      "name_zh": "圆卵溪石",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v9/solids/river_boulder.glb",
+      "environment": null,
+      "triangles": 400,
+      "vertices": 1200,
+      "bytes": 1871660,
+      "sha256": "6643b8fd99312fad7da6d6b242e2a2ee8d5625f7fd7ed955db81028b05c7f5a5",
+      "type": "rock",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "basalt_column",
+      "name_zh": "玄武岩断柱",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v9/solids/basalt_column.glb",
+      "environment": null,
+      "triangles": 400,
+      "vertices": 1200,
+      "bytes": 1934824,
+      "sha256": "e3ed25e52e07c2955ad8b4290073a6a37279105b18ff9cab426273c71101f924",
+      "type": "rock",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "red_sandstone",
+      "name_zh": "红褐层砂岩",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v9/solids/red_sandstone.glb",
+      "environment": null,
+      "triangles": 400,
+      "vertices": 1200,
+      "bytes": 1609096,
+      "sha256": "9b92d25dd0aa097407c198d3b2b5403f3806405308ec2f54bb0e95ceb181b124",
+      "type": "rock",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "pale_limestone",
+      "name_zh": "浅色风化石",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v9/solids/pale_limestone.glb",
+      "environment": null,
+      "triangles": 400,
+      "vertices": 1200,
+      "bytes": 1533856,
+      "sha256": "c45f4a70e388e87a74ea7bce3ff1968f8a90f868cdaeb077129597d1ffe08e27",
+      "type": "rock",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "root_stump",
+      "name_zh": "多根木桩",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v9/solids/root_stump.glb",
+      "environment": null,
+      "triangles": 800,
+      "vertices": 2400,
+      "bytes": 1173680,
+      "sha256": "b2667ca096a76f1caf6a06d31ddfe0958926aac7b2c025608cb4dd94de06c531",
+      "type": "wood",
+      "hard_limit": 1200,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "twisted_branch",
+      "name_zh": "弯扭漂木",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v9/solids/twisted_branch.glb",
+      "environment": null,
+      "triangles": 800,
+      "vertices": 2400,
+      "bytes": 766548,
+      "sha256": "5012dae36108d642e444c893fabfb8f4c3c52962ce2a71ca5423a9964c604675",
+      "type": "wood",
+      "hard_limit": 1200,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "root_fan",
+      "name_zh": "扇形根木",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v9/solids/root_fan.glb",
+      "environment": null,
+      "triangles": 800,
+      "vertices": 2400,
+      "bytes": 1337340,
+      "sha256": "fdfecaa203412eafbe73c55b52fd2e7ad05f68d22783ad61c78e1c8c884e04bc",
+      "type": "wood",
+      "hard_limit": 1200,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "weathered_log",
+      "name_zh": "剥皮老木段",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v9/solids/weathered_log.glb",
+      "environment": null,
+      "triangles": 800,
+      "vertices": 2400,
+      "bytes": 1154676,
+      "sha256": "88c0e2850e3d0ea56813c9c1dead1703caccc5c23853e4c884e76ce1dd75a146",
+      "type": "wood",
+      "hard_limit": 1200,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "bacopa_round",
+      "name_zh": "圆叶节节菜",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v11/shader-plants/bacopa_round.glb",
+      "environment": null,
+      "triangles": 140,
+      "vertices": 420,
+      "bytes": 1921292,
+      "sha256": "6cf980e9815464ef8ac7441fee03df380578c28fe439fd004ff05385f1e9c443",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "dwarf_baby_tears",
+      "name_zh": "迷你矮珍珠",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v11/shader-plants/dwarf_baby_tears.glb",
+      "environment": null,
+      "triangles": 180,
+      "vertices": 540,
+      "bytes": 1786428,
+      "sha256": "1cb39883d4b2a9429ebe48005e9ad9ff5467f21d090ca160caf17a42ff2a38f3",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "ammannia_gracilis",
+      "name_zh": "红柳",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v11/shader-plants/ammannia_gracilis.glb",
+      "environment": null,
+      "triangles": 208,
+      "vertices": 624,
+      "bytes": 1888212,
+      "sha256": "cedf8b287ca92b7334314d32f3f8836fc2e0e479fd8ce9f10436f1001942a0cd",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "water_sprite",
+      "name_zh": "水蕨",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v11/shader-plants/water_sprite.glb",
+      "environment": null,
+      "triangles": 212,
+      "vertices": 636,
+      "bytes": 2279988,
+      "sha256": "87cc3a3fc6177430a8422561c84e0a52d068ef3f209abf5608313f5edf6814be",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "java_moss",
+      "name_zh": "爪哇莫丝",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v11/shader-plants/java_moss.glb",
+      "environment": null,
+      "triangles": 252,
+      "vertices": 756,
+      "bytes": 1922008,
+      "sha256": "01e998926d5ff7ed5bdb6cf30332e13fb5ffede2e0452a731d0376db5acbb3ca",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "cabomba",
+      "name_zh": "绿菊水草",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v11/shader-plants/cabomba.glb",
+      "environment": null,
+      "triangles": 120,
+      "vertices": 360,
+      "bytes": 2467160,
+      "sha256": "5fd8621e92cb2d4ff117231f78cff7c5cd7f367cd775fa304d5f7f9e946438dd",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "hornwort",
+      "name_zh": "金鱼藻",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v11/shader-plants/hornwort.glb",
+      "environment": null,
+      "triangles": 140,
+      "vertices": 420,
+      "bytes": 2485452,
+      "sha256": "f1b7245fc098ce12c1efe2fb03fc6d3e594630fdfbcb7782bcb6b4ffd4b78639",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "hydrocotyle",
+      "name_zh": "三裂天胡荽",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v11/shader-plants/hydrocotyle.glb",
+      "environment": null,
+      "triangles": 160,
+      "vertices": 480,
+      "bytes": 1692928,
+      "sha256": "2b34323576ac185223a6c6f3c3ecdc123daa900a52584d5ccf8fc33bed7d8560",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "rotala",
+      "name_zh": "圆叶宫廷",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v11/shader-plants/rotala.glb",
+      "environment": null,
+      "triangles": 160,
+      "vertices": 480,
+      "bytes": 1957844,
+      "sha256": "c3bd52c60abc5cc434408143f19b9f6e603944045aa8cbeb2b5ac8bc2412fa1a",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "ludwigia_rubin",
+      "name_zh": "红叶丁香",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v11/shader-plants/ludwigia_rubin.glb",
+      "environment": null,
+      "triangles": 212,
+      "vertices": 636,
+      "bytes": 2131404,
+      "sha256": "217899ca6d34bf1746d526aa305049e0f92ecb7886e789f1b10df01ce4f02291",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "dragon_stone",
+      "name_zh": "黄龙石",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v11/solids/dragon_stone.glb",
+      "environment": null,
+      "triangles": 400,
+      "vertices": 1200,
+      "bytes": 1852968,
+      "sha256": "b5fded1032fb85223e1449ddb965ab3efb905f340052221f3fa7a71a98b74f0b",
+      "type": "rock",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "lava_rock",
+      "name_zh": "火山熔岩石",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v11/solids/lava_rock.glb",
+      "environment": null,
+      "triangles": 400,
+      "vertices": 1200,
+      "bytes": 2134612,
+      "sha256": "8e1215fdf0fff02cd00f9a9f3eaf699189da9facd8df48d79c6164bf0c57d963",
+      "type": "rock",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "slate_stack",
+      "name_zh": "青灰叠层石",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v11/solids/slate_stack.glb",
+      "environment": null,
+      "triangles": 400,
+      "vertices": 1200,
+      "bytes": 1457292,
+      "sha256": "d5b63040a332cfb934934bdcd60ec9905bbf623efe889294a8a5ded6b1b87dfc",
+      "type": "rock",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "quartz_rock",
+      "name_zh": "乳白石英岩",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v11/solids/quartz_rock.glb",
+      "environment": null,
+      "triangles": 400,
+      "vertices": 1200,
+      "bytes": 1622256,
+      "sha256": "984f88a57841fb5b1176922bd3651ae1668362bad0c7ddea3d11c64f42c93b1b",
+      "type": "rock",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "spider_wood",
+      "name_zh": "蛛根沉木",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v11/solids/spider_wood.glb",
+      "environment": null,
+      "triangles": 800,
+      "vertices": 2400,
+      "bytes": 1179564,
+      "sha256": "e762d978aa6bcf67a46a28649898ad8afec202c8bb18facb2c165d4536879496",
+      "type": "wood",
+      "hard_limit": 1200,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "mopani_wood",
+      "name_zh": "双色莫帕尼木",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v11/solids/mopani_wood.glb",
+      "environment": null,
+      "triangles": 800,
+      "vertices": 2400,
+      "bytes": 1513320,
+      "sha256": "e15ff739228515d25e993ee7d9dfb25eb50e94b6cc2459faac7926ea55282218",
+      "type": "wood",
+      "hard_limit": 1200,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "mangrove_root",
+      "name_zh": "红树支根木",
+      "catalog": "aquascape-v5",
+      "model": "res://assets/aquascape-v11/solids/mangrove_root.glb",
+      "environment": null,
+      "triangles": 800,
+      "vertices": 2400,
+      "bytes": 1395360,
+      "sha256": "c7e972af98bd1e1204d83879b461359add5bafadaef6cfc1e23ff4194ebde5fa",
+      "type": "wood",
+      "hard_limit": 1200,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "shipwreck",
+      "name_zh": "旧船残骸",
+      "catalog": "aquascape-decor-v1",
+      "model": "res://assets/aquascape-v9/solids/shipwreck.glb",
+      "environment": null,
+      "triangles": 1200,
+      "vertices": 3600,
+      "bytes": 1178020,
+      "sha256": "2d741c00491e46deff780c925251d83f0c62b28535ad1f5cdbb558bcdae0922a",
+      "type": "decor",
+      "hard_limit": 2000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "stone_bridge",
+      "name_zh": "苔色拱桥",
+      "catalog": "aquascape-decor-v1",
+      "model": "res://assets/aquascape-v9/solids/stone_bridge.glb",
+      "environment": null,
+      "triangles": 1200,
+      "vertices": 3600,
+      "bytes": 1365956,
+      "sha256": "13663aea5bd61a54e8dbf535292c2862d97a669a9fd44f2cf9125b0df018e0de",
+      "type": "decor",
+      "hard_limit": 2000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "terracotta_jar",
+      "name_zh": "旧陶罐",
+      "catalog": "aquascape-decor-v1",
+      "model": "res://assets/aquascape-v9/solids/terracotta_jar.glb",
+      "environment": null,
+      "triangles": 1200,
+      "vertices": 3600,
+      "bytes": 1509756,
+      "sha256": "e65086753f1796855329d758712ca058172585859d772f679e6f989284f2cbcd",
+      "type": "decor",
+      "hard_limit": 2000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "clay_pipe",
+      "name_zh": "陶制躲避管",
+      "catalog": "aquascape-decor-v1",
+      "model": "res://assets/aquascape-v9/solids/clay_pipe.glb",
+      "environment": null,
+      "triangles": 1200,
+      "vertices": 3600,
+      "bytes": 1738376,
+      "sha256": "870e8c0d55b5d00ccf6128577f855bc8928c87c89c49d9e8086cc71b4ccf6184",
+      "type": "decor",
+      "hard_limit": 2000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "coconut_shelter",
+      "name_zh": "椰壳小屋",
+      "catalog": "aquascape-decor-v1",
+      "model": "res://assets/aquascape-v9/solids/coconut_shelter.glb",
+      "environment": null,
+      "triangles": 1200,
+      "vertices": 3600,
+      "bytes": 1969740,
+      "sha256": "8a619552ea8e403c71a5aa4f20831d3a8e3baf47a5b2a3cf9f76e89f80dd5e44",
+      "type": "decor",
+      "hard_limit": 2000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "ruin_arch",
+      "name_zh": "遗迹拱门",
+      "catalog": "aquascape-decor-v1",
+      "model": "res://assets/aquascape-v9/solids/ruin_arch.glb",
+      "environment": null,
+      "triangles": 1200,
+      "vertices": 3600,
+      "bytes": 1447476,
+      "sha256": "74e3e50e15190427f3a5a3ad971963f10b41c3205b5668c9311f6c428de6e023",
+      "type": "decor",
+      "hard_limit": 2000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "broken_column",
+      "name_zh": "残缺石柱",
+      "catalog": "aquascape-decor-v1",
+      "model": "res://assets/aquascape-v9/solids/broken_column.glb",
+      "environment": null,
+      "triangles": 1200,
+      "vertices": 3600,
+      "bytes": 1515148,
+      "sha256": "e85bd16f2840fd1ebc91b850181b81a2c3d4af8d57f3fbbbb60d7981ec0f3518",
+      "type": "decor",
+      "hard_limit": 2000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "stone_lantern",
+      "name_zh": "小石灯笼",
+      "catalog": "aquascape-decor-v1",
+      "model": "res://assets/aquascape-v9/solids/stone_lantern.glb",
+      "environment": null,
+      "triangles": 1200,
+      "vertices": 3600,
+      "bytes": 1541256,
+      "sha256": "6224ec2b784e936a8ee0c0423a207783d6a2ba7b91cd9b719f0232a01953f752",
+      "type": "decor",
+      "hard_limit": 2000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "treasure_chest",
+      "name_zh": "旧木宝箱",
+      "catalog": "aquascape-decor-v1",
+      "model": "res://assets/aquascape-v9/solids/treasure_chest.glb",
+      "environment": null,
+      "triangles": 1200,
+      "vertices": 3600,
+      "bytes": 1559432,
+      "sha256": "c7efad38d1b5a4bb62b7fa4f89fbd89dbaaafc911d7bd20a503dbead25c47c4c",
+      "type": "decor",
+      "hard_limit": 2000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "iron_anchor",
+      "name_zh": "旧船锚",
+      "catalog": "aquascape-decor-v1",
+      "model": "res://assets/aquascape-v9/solids/iron_anchor.glb",
+      "environment": null,
+      "triangles": 1200,
+      "vertices": 3600,
+      "bytes": 1201616,
+      "sha256": "3d1abcb80ba0c9f67f20b929f2675db150b7783e6f1c4bf3e7097417797fbcde",
+      "type": "decor",
+      "hard_limit": 2000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "bamboo_shelter",
+      "name_zh": "竹节躲避屋",
+      "catalog": "aquascape-decor-v1",
+      "model": "res://assets/aquascape-v11/solids/bamboo_shelter.glb",
+      "environment": null,
+      "triangles": 1200,
+      "vertices": 3600,
+      "bytes": 1061176,
+      "sha256": "7ba49601907d7855070ee0a74572367ca878465b61eb9bc2282196c4ebc7be63",
+      "type": "decor",
+      "hard_limit": 2000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "slate_cave",
+      "name_zh": "石板躲避洞",
+      "catalog": "aquascape-decor-v1",
+      "model": "res://assets/aquascape-v11/solids/slate_cave.glb",
+      "environment": null,
+      "triangles": 1200,
+      "vertices": 3600,
+      "bytes": 1811824,
+      "sha256": "f98ea1050cbcf72332d0417b3a80d5baca07eafe348821d6f5a205fd0da0137b",
+      "type": "decor",
+      "hard_limit": 2000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "ruined_tower",
+      "name_zh": "残破城堡塔",
+      "catalog": "aquascape-decor-v1",
+      "model": "res://assets/aquascape-v11/solids/ruined_tower.glb",
+      "environment": null,
+      "triangles": 1200,
+      "vertices": 3600,
+      "bytes": 1827900,
+      "sha256": "b0fbf4c4103b59c9c64a2cfbfa2fe31fe8064ebb9046144858cbccd6acaa705c",
+      "type": "decor",
+      "hard_limit": 2000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false
+    },
+    {
+      "id": "reef_backwall",
+      "name_zh": "高礁壁",
+      "catalog": "aquascape-reef-foundation-v1",
+      "model": "res://assets/aquascape-reef-foundation-v1/reef_backwall.glb",
+      "environment": null,
+      "triangles": 936,
+      "vertices": 2808,
+      "bytes": 3009624,
+      "sha256": "7c94f7ef1378317cd578b01fb385eac5db772ab5d77d73b85a7587331bf104ca",
+      "type": "large_rock",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          2048,
+          2048
+        ]
+      ]
+    },
+    {
+      "id": "reef_through_arch",
+      "name_zh": "贯通礁拱",
+      "catalog": "aquascape-reef-foundation-v1",
+      "model": "res://assets/aquascape-reef-foundation-v1/reef_through_arch.glb",
+      "environment": null,
+      "triangles": 948,
+      "vertices": 2844,
+      "bytes": 3956772,
+      "sha256": "990c9c68ad9ab7dabff792ec89270f3900b1e8fbf54e4ec4f574b7d678287ff6",
+      "type": "large_rock",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          2048,
+          2048
+        ]
+      ]
+    },
+    {
+      "id": "reef_blind_grotto",
+      "name_zh": "盲端礁洞",
+      "catalog": "aquascape-reef-foundation-v1",
+      "model": "res://assets/aquascape-reef-foundation-v1/reef_blind_grotto.glb",
+      "environment": null,
+      "triangles": 936,
+      "vertices": 2808,
+      "bytes": 3834556,
+      "sha256": "41d8fa301b7c051cd1809771e04197ebb59ea17ce2c95c3f17f3c0023395f667",
+      "type": "large_rock",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          2048,
+          2048
+        ]
+      ]
+    },
+    {
+      "id": "reef_shelf_terrace",
+      "name_zh": "双层礁台",
+      "catalog": "aquascape-reef-foundation-v1",
+      "model": "res://assets/aquascape-reef-foundation-v1/reef_shelf_terrace.glb",
+      "environment": null,
+      "triangles": 564,
+      "vertices": 1692,
+      "bytes": 3012152,
+      "sha256": "5376054286bc3d5aff11eb2b8dad79281800e20dfe79e90a06126f9c41d035c5",
+      "type": "rock",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          2048,
+          2048
+        ]
+      ]
+    },
+    {
+      "id": "reef_pinnacle",
+      "name_zh": "礁柱",
+      "catalog": "aquascape-reef-foundation-v1",
+      "model": "res://assets/aquascape-reef-foundation-v1/reef_pinnacle.glb",
+      "environment": null,
+      "triangles": 564,
+      "vertices": 1692,
+      "bytes": 2357840,
+      "sha256": "ebfdf3b8a256dc3dee738efef91738756d35f3e088aed964eae24cbc1b92cda7",
+      "type": "rock",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          2048,
+          2048
+        ]
+      ]
+    },
+    {
+      "id": "reef_rubble_apron",
+      "name_zh": "碎礁坡脚",
+      "catalog": "aquascape-reef-foundation-v1",
+      "model": "res://assets/aquascape-reef-foundation-v1/reef_rubble_apron.glb",
+      "environment": null,
+      "triangles": 554,
+      "vertices": 1662,
+      "bytes": 2192264,
+      "sha256": "ae23a3f375fcc359a0463c6a7c9edc53e53bb0d41c81da7f2af60c318e386d9a",
+      "type": "rock",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          2048,
+          2048
+        ]
+      ]
+    },
+    {
+      "id": "reef_double_rift",
+      "name_zh": "双立壁裂谷件",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/reef_double_rift.glb",
+      "environment": "marine",
+      "triangles": 928,
+      "vertices": 2784,
+      "bytes": 2228052,
+      "sha256": "b4a25af3bc2b815bb2d2bbe3a43fdef43845ec7feaeb6f3038090e05a9e2b046",
+      "type": "large_rock",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1536,
+          1536
+        ]
+      ]
+    },
+    {
+      "id": "reef_mushroom_pedestal",
+      "name_zh": "石座蘑菇礁",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/reef_mushroom_pedestal.glb",
+      "environment": "marine",
+      "triangles": 538,
+      "vertices": 1614,
+      "bytes": 1190000,
+      "sha256": "fd9dd43d64c17697582eac17b8edcdbf9de82a5062a4671cf748af575e25e804",
+      "type": "rock",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1024,
+          1024
+        ]
+      ]
+    },
+    {
+      "id": "reef_erosion_eye",
+      "name_zh": "偏心海蚀孔洞石",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/reef_erosion_eye.glb",
+      "environment": "marine",
+      "triangles": 560,
+      "vertices": 1680,
+      "bytes": 1266364,
+      "sha256": "7a42f5794856cc7664bb5c3ff9bf8ee64ec48b83ae83e8e093a5370cfb92602f",
+      "type": "rock",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1024,
+          1024
+        ]
+      ]
+    },
+    {
+      "id": "reef_encircling_ridge",
+      "name_zh": "环抱礁脊",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/reef_encircling_ridge.glb",
+      "environment": "marine",
+      "triangles": 922,
+      "vertices": 2766,
+      "bytes": 2025144,
+      "sha256": "348c4c88d7699f7618beed05d0b75214f5de24fcbfaac24e2a90d80afced832f",
+      "type": "large_rock",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1536,
+          1536
+        ]
+      ]
+    },
+    {
+      "id": "reef_eroded_overhang",
+      "name_zh": "前伸风化岩檐",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/reef_eroded_overhang.glb",
+      "environment": "marine",
+      "triangles": 922,
+      "vertices": 2766,
+      "bytes": 2012388,
+      "sha256": "511345c12512e4a9e3fba2ee32769c11a836563cca693ddaa1b33355272cfbb5",
+      "type": "large_rock",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1536,
+          1536
+        ]
+      ]
+    },
+    {
+      "id": "reef_isolated_hummock",
+      "name_zh": "底部孤立礁丘",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/reef_isolated_hummock.glb",
+      "environment": "marine",
+      "triangles": 492,
+      "vertices": 1476,
+      "bytes": 1096680,
+      "sha256": "df50186202c9c7a1825f60a51bce725497c2f8c2353bc33fd1921290d05b83c3",
+      "type": "rock",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1024,
+          1024
+        ]
+      ]
+    },
+    {
+      "id": "river_gneiss_slab",
+      "name_zh": "剥落片麻岩板",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/river_gneiss_slab.glb",
+      "environment": "freshwater",
+      "triangles": 490,
+      "vertices": 1470,
+      "bytes": 1230908,
+      "sha256": "6b5c9f4c5d8fb23fd44a60d75999386138585acb6be863cdc5a639c4c10df45a",
+      "type": "rock",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1024,
+          1024
+        ]
+      ]
+    },
+    {
+      "id": "river_obsidian_fault",
+      "name_zh": "黑曜断层板",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/river_obsidian_fault.glb",
+      "environment": "freshwater",
+      "triangles": 470,
+      "vertices": 1410,
+      "bytes": 1005156,
+      "sha256": "9591990dc5d5275ac9d57931ebb6e63ffbee7743f04f1f5532f4ebe75086f298",
+      "type": "rock",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1024,
+          1024
+        ]
+      ]
+    },
+    {
+      "id": "river_imbricated_slate",
+      "name_zh": "叠瓦式河滩板岩",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/river_imbricated_slate.glb",
+      "environment": "freshwater",
+      "triangles": 546,
+      "vertices": 1638,
+      "bytes": 1012916,
+      "sha256": "a553f7ff31b943abc9e1e8e25583accea45363c014e65093965e7c0aadf1b2d2",
+      "type": "rock",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1024,
+          1024
+        ]
+      ]
+    },
+    {
+      "id": "river_conglomerate_bank",
+      "name_zh": "风化卵砾胶结岩",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/river_conglomerate_bank.glb",
+      "environment": "freshwater",
+      "triangles": 556,
+      "vertices": 1668,
+      "bytes": 1303364,
+      "sha256": "9e6501387f3b7300773f7a596e1f33e62cc36180162fdaf26d30f065b6936f1b",
+      "type": "rock",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1024,
+          1024
+        ]
+      ]
+    },
+    {
+      "id": "reef_staghorn_coral",
+      "name_zh": "鹿角珊瑚",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/reef_staghorn_coral.glb",
+      "environment": "Caribbean",
+      "triangles": 816,
+      "vertices": 2448,
+      "bytes": 1787376,
+      "sha256": "b009400d5479306741433cd2f5ba3ea38c46d34c249fa3628b5f2515df497a74",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1536,
+          1536
+        ]
+      ]
+    },
+    {
+      "id": "reef_tube_sponge",
+      "name_zh": "筒状海绵群",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/reef_tube_sponge.glb",
+      "environment": "Caribbean",
+      "triangles": 920,
+      "vertices": 2760,
+      "bytes": 1914612,
+      "sha256": "4cfacdcf24dde37d657cdbcb918f3f46eed8b9cf636d9f57fa946c1b1a4aecd7",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1536,
+          1536
+        ]
+      ]
+    },
+    {
+      "id": "reef_elkhorn_coral",
+      "name_zh": "麋角珊瑚",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/reef_elkhorn_coral.glb",
+      "environment": "Caribbean",
+      "triangles": 696,
+      "vertices": 2088,
+      "bytes": 1746252,
+      "sha256": "d480ea94c1f19a7d045a46bb321c5cf72161d7c66823baa45b904e8143c45dc8",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1536,
+          1536
+        ]
+      ]
+    },
+    {
+      "id": "reef_brain_coral",
+      "name_zh": "半球脑纹硬珊瑚",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/reef_brain_coral.glb",
+      "environment": "Caribbean",
+      "triangles": 396,
+      "vertices": 1188,
+      "bytes": 1905360,
+      "sha256": "3d92cd8700741efdf2686de973880ad1e5e6795bbe17598be3bb912b0a6a28c4",
+      "type": "rock",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1536,
+          1536
+        ]
+      ]
+    },
+    {
+      "id": "reef_table_coral",
+      "name_zh": "桌形硬珊瑚",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/reef_table_coral.glb",
+      "environment": "Indo-Pacific",
+      "triangles": 814,
+      "vertices": 2442,
+      "bytes": 1685312,
+      "sha256": "acad6d104575fbd7b98a15c82f0c3992f00fa6b892dc580b18b08b4daa3b24c6",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1536,
+          1536
+        ]
+      ]
+    },
+    {
+      "id": "reef_finger_coral",
+      "name_zh": "簇状指形硬珊瑚",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/reef_finger_coral.glb",
+      "environment": "Caribbean",
+      "triangles": 696,
+      "vertices": 2088,
+      "bytes": 2029140,
+      "sha256": "7fe4b25dcadd46e2085f00a47265551c670469fb257f7a19562ee50a770e47a1",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1536,
+          1536
+        ]
+      ]
+    },
+    {
+      "id": "reef_knob_coral",
+      "name_zh": "多瘤块状硬珊瑚",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/reef_knob_coral.glb",
+      "environment": "Caribbean",
+      "triangles": 396,
+      "vertices": 1188,
+      "bytes": 1919720,
+      "sha256": "6715841937403a85e29f4b99c5e894a7f68f9123596eea159093a2eef5b71808",
+      "type": "rock",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1536,
+          1536
+        ]
+      ]
+    },
+    {
+      "id": "reef_foliose_coral",
+      "name_zh": "外缘薄片硬珊瑚",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/reef_foliose_coral.glb",
+      "environment": "Indo-Pacific",
+      "triangles": 876,
+      "vertices": 2628,
+      "bytes": 2210380,
+      "sha256": "56d1877cdc946e796480e08abe1b130ae46d3753fc775c74b92de935269da49e",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1536,
+          1536
+        ]
+      ]
+    },
+    {
+      "id": "reef_scroll_coral",
+      "name_zh": "卷层杯片硬珊瑚",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/reef_scroll_coral.glb",
+      "environment": "Indo-Pacific",
+      "triangles": 880,
+      "vertices": 2640,
+      "bytes": 2348448,
+      "sha256": "8ef474abebb4c2b2023cc62112ab73260915554ef645e2bce33655a4941890de",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1536,
+          1536
+        ]
+      ]
+    },
+    {
+      "id": "reef_crust_coral",
+      "name_zh": "贴壳硬珊瑚",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/reef_crust_coral.glb",
+      "environment": "warm-reef",
+      "triangles": 394,
+      "vertices": 1182,
+      "bytes": 1806836,
+      "sha256": "470742f27b05328db6fd3b1cf256b3c5aa2866ce73aea76f4bd300f5bb783474",
+      "type": "rock",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1536,
+          1536
+        ]
+      ]
+    },
+    {
+      "id": "reef_sea_fan",
+      "name_zh": "海扇",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/reef_sea_fan.glb",
+      "environment": "Caribbean",
+      "triangles": 974,
+      "vertices": 2922,
+      "bytes": 1489732,
+      "sha256": "6c9410b0054d6254ce49282b05ff37e191e95b5b7e1e321e724bd3e2afcd089e",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1536,
+          1536
+        ]
+      ]
+    },
+    {
+      "id": "reef_rope_octocoral",
+      "name_zh": "绳枝柳珊瑚形",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/reef_rope_octocoral.glb",
+      "environment": "Caribbean",
+      "triangles": 696,
+      "vertices": 2088,
+      "bytes": 1085504,
+      "sha256": "448338fb418d95d3fb66f10e592eb339bf5a744b1ceb28e33fc7f8368b8fdb68",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1536,
+          1536
+        ]
+      ]
+    },
+    {
+      "id": "reef_leather_octocoral",
+      "name_zh": "矮冠皮革软珊瑚形",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/reef_leather_octocoral.glb",
+      "environment": "Indo-Pacific",
+      "triangles": 696,
+      "vertices": 2088,
+      "bytes": 1713340,
+      "sha256": "55aa1101afb7540fa98f583a36f10ed96ccd0987c751b30150711fa742fcd79d",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1536,
+          1536
+        ]
+      ]
+    },
+    {
+      "id": "reef_barrel_sponge",
+      "name_zh": "桶状海绵",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/reef_barrel_sponge.glb",
+      "environment": "Caribbean",
+      "triangles": 814,
+      "vertices": 2442,
+      "bytes": 1386500,
+      "sha256": "1c8702e9f5e7b064107d377457f4c694902c34b6f439860503dcce8b057cb016",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1536,
+          1536
+        ]
+      ]
+    },
+    {
+      "id": "eelgrass_meadow",
+      "name_zh": "鳗草疏草床",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/eelgrass_meadow.glb",
+      "environment": "marine",
+      "triangles": 592,
+      "vertices": 1776,
+      "bytes": 134948,
+      "sha256": "3552742862403df05c783df8f8340621e757d5e4d6d7d14e99c15b014237e589",
+      "type": "ribbon_plant",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": true,
+      "texture_sizes": [
+        [
+          256,
+          256
+        ]
+      ]
+    },
+    {
+      "id": "giant_kelp",
+      "name_zh": "巨藻林丛",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/giant_kelp.glb",
+      "environment": "marine",
+      "triangles": 984,
+      "vertices": 2952,
+      "bytes": 210236,
+      "sha256": "b723885e0a487a418266a16dc28c8f1b33ac79d6c450db10c5abf87016a7f044",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": true,
+      "texture_sizes": [
+        [
+          256,
+          256
+        ]
+      ]
+    },
+    {
+      "id": "wood_hollow_tunnel",
+      "name_zh": "掏空沉木隧道",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/wood_hollow_tunnel.glb",
+      "environment": "freshwater",
+      "triangles": 880,
+      "vertices": 2640,
+      "bytes": 3314788,
+      "sha256": "d3d819890a44e039383e4519dbcebea33316a42c01d12171a127bd5a93e533d6",
+      "type": "wood",
+      "hard_limit": 1200,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          2048,
+          2048
+        ]
+      ]
+    },
+    {
+      "id": "wood_overhang_perch",
+      "name_zh": "横伸伏木架",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/wood_overhang_perch.glb",
+      "environment": "freshwater",
+      "triangles": 886,
+      "vertices": 2658,
+      "bytes": 2420248,
+      "sha256": "0629d2a04d9556eb5731361840675d18d9046370923d3814c09c02f01173123f",
+      "type": "wood",
+      "hard_limit": 1200,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          2048,
+          2048
+        ]
+      ]
+    },
+    {
+      "id": "wood_low_root_weave",
+      "name_zh": "低展根网",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/wood_low_root_weave.glb",
+      "environment": "freshwater",
+      "triangles": 980,
+      "vertices": 2940,
+      "bytes": 2337672,
+      "sha256": "52e824bbd4db652620f8f15914d24dfc791bca8d6081e29714b1e85d9dbd70ea",
+      "type": "wood",
+      "hard_limit": 1200,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          2048,
+          2048
+        ]
+      ]
+    },
+    {
+      "id": "halimeda_clump",
+      "name_zh": "仙掌藻节片丛",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/halimeda_clump.glb",
+      "environment": "marine",
+      "triangles": 940,
+      "vertices": 2820,
+      "bytes": 190604,
+      "sha256": "2723b45126185c4256710d5dc5e930fb9356a4ea8277489cdc2adb4b9e353718",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": true,
+      "texture_sizes": [
+        [
+          256,
+          256
+        ]
+      ]
+    },
+    {
+      "id": "mangrove_pneumatophore_bank",
+      "name_zh": "黑红树笋根泥岸",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/mangrove_pneumatophore_bank.glb",
+      "environment": "intertidal_estuary",
+      "triangles": 1188,
+      "vertices": 3564,
+      "bytes": 225176,
+      "sha256": "b1fdcd27129a3fdd643bd27741eaf1361e6035d73fbd06fdff67a629d6af2883",
+      "type": "wood",
+      "hard_limit": 1200,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          256,
+          256
+        ]
+      ]
+    },
+    {
+      "id": "red_forkweed",
+      "name_zh": "角叉菜叉枝丛",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/red_forkweed.glb",
+      "environment": "marine",
+      "triangles": 648,
+      "vertices": 1944,
+      "bytes": 140308,
+      "sha256": "b4756487444d33716a998c029ebaed9c7ef2d943f7f326166a8063aeb5ae203d",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": true,
+      "texture_sizes": [
+        [
+          256,
+          256
+        ]
+      ]
+    },
+    {
+      "id": "sea_lettuce_fold",
+      "name_zh": "石莼褶片丛",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/sea_lettuce_fold.glb",
+      "environment": "marine",
+      "triangles": 588,
+      "vertices": 1764,
+      "bytes": 130464,
+      "sha256": "bd60a58c239321702e250f838923c88f76c252e6bd045f3d3151b4916fb71f1c",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": true,
+      "texture_sizes": [
+        [
+          256,
+          256
+        ]
+      ]
+    },
+    {
+      "id": "sugar_kelp",
+      "name_zh": "单叶糖海带",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/sugar_kelp.glb",
+      "environment": "marine",
+      "triangles": 540,
+      "vertices": 1620,
+      "bytes": 131544,
+      "sha256": "8257b897056bcd2ef145d6f41de92520d69e36516b9187523151dd26c7de195f",
+      "type": "ribbon_plant",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": true,
+      "texture_sizes": [
+        [
+          256,
+          256
+        ]
+      ]
+    },
+    {
+      "id": "turtle_grass_meadow",
+      "name_zh": "龟草矮草床",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/turtle_grass_meadow.glb",
+      "environment": "marine",
+      "triangles": 596,
+      "vertices": 1788,
+      "bytes": 126868,
+      "sha256": "b0b530f620f6d94a8da84ec87ab8849445c10b7c21e49824519402b08e9304d7",
+      "type": "ribbon_plant",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": true,
+      "texture_sizes": [
+        [
+          256,
+          256
+        ]
+      ]
+    },
+    {
+      "id": "wood_upturned_root_plate",
+      "name_zh": "倒伏树盘",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/wood_upturned_root_plate.glb",
+      "environment": "freshwater",
+      "triangles": 1120,
+      "vertices": 3360,
+      "bytes": 2861332,
+      "sha256": "7977f6500baf1d1edb2b53402f225f427f370da4fcbc36a57b270a0426cfd42b",
+      "type": "wood",
+      "hard_limit": 1200,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1536,
+          1536
+        ]
+      ]
+    },
+    {
+      "id": "riverwort_moss_mat",
+      "name_zh": "溪床贴石藓片",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/riverwort_moss_mat.glb",
+      "environment": null,
+      "triangles": 732,
+      "vertices": 2196,
+      "bytes": 1737336,
+      "sha256": "802e81801cdf62bf22270e651bb30a147b0d3248f633bbe4d2bfe8bbfea2d049",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          1536,
+          1536
+        ]
+      ]
+    },
+    {
+      "id": "lake_quillwort_rosette",
+      "name_zh": "水韭根冠",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/lake_quillwort_rosette.glb",
+      "environment": "freshwater",
+      "triangles": 490,
+      "vertices": 1470,
+      "bytes": 116508,
+      "sha256": "b836437f25a50f0dca6651df7b45d5f943a31e0debae8a0b6290f65030c6e149",
+      "type": "ribbon_plant",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": true,
+      "texture_sizes": [
+        [
+          256,
+          256
+        ]
+      ]
+    },
+    {
+      "id": "marsilea_runner_patch",
+      "name_zh": "匍匐四叶苹丛",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/marsilea_runner_patch.glb",
+      "environment": "freshwater",
+      "triangles": 772,
+      "vertices": 2316,
+      "bytes": 161132,
+      "sha256": "d99e09e41c4f0ef0df88bbbc52c9278b52269e589f922903a3ad360160d2ffcc",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          256,
+          256
+        ]
+      ]
+    },
+    {
+      "id": "water_lily_float_stems",
+      "name_zh": "长柄浮叶睡莲",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/water_lily_float_stems.glb",
+      "environment": "freshwater",
+      "triangles": 986,
+      "vertices": 2958,
+      "bytes": 213712,
+      "sha256": "a9017af10d5ae3c9754b9a56f7cd76a47e2cbd93b25d848437feadb95aa76587",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          256,
+          256
+        ]
+      ]
+    },
+    {
+      "id": "duckweed_root_patch",
+      "name_zh": "细根浮萍毯",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/duckweed_root_patch.glb",
+      "environment": "freshwater",
+      "triangles": 792,
+      "vertices": 2376,
+      "bytes": 163916,
+      "sha256": "5f922ccb79787896213bcbfd100c3db540908324dd5584f0f8ab0becdd416dd8",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": false,
+      "texture_sizes": [
+        [
+          256,
+          256
+        ]
+      ]
+    },
+    {
+      "id": "laceleaf_rosette",
+      "name_zh": "透孔莲座水草",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/laceleaf_rosette.glb",
+      "environment": null,
+      "triangles": 952,
+      "vertices": 2856,
+      "bytes": 429616,
+      "sha256": "4c0993e01a2c55bef51729f854139b5111b59576a875d7e8c082859035908df8",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": true,
+      "texture_sizes": [
+        [
+          1024,
+          1024
+        ]
+      ]
+    },
+    {
+      "id": "bolbitis_fern_clump",
+      "name_zh": "沉木羽叶蕨",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/bolbitis_fern_clump.glb",
+      "environment": null,
+      "triangles": 974,
+      "vertices": 2922,
+      "bytes": 218288,
+      "sha256": "234631eebd36f0f5867c84c8854a65caa5c7ac4a504ff5784400fd609e6c46c7",
+      "type": "broadleaf_plant",
+      "hard_limit": 1000,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": true,
+      "texture_sizes": [
+        [
+          1024,
+          1024
+        ]
+      ]
+    },
+    {
+      "id": "hairgrass_meadow",
+      "name_zh": "细发草甸",
+      "catalog": "aquascape-expansion-v1",
+      "model": "res://assets/aquascape-expansion-v1/hairgrass_meadow.glb",
+      "environment": "freshwater",
+      "triangles": 588,
+      "vertices": 1764,
+      "bytes": 129852,
+      "sha256": "2d48dc4ffaee6a467e45a6de1008b456bbf7433af64840af1336b1efbf3616b7",
+      "type": "ribbon_plant",
+      "hard_limit": 600,
+      "same_normalized_positions_as": null,
+      "primitives": 1,
+      "materials": 1,
+      "rooted_shader": true,
+      "texture_sizes": [
+        [
+          256,
+          256
+        ]
+      ]
+    }
+  ]
+}

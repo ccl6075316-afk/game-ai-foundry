@@ -1,0 +1,85 @@
+{
+  "ok": true,
+  "assets": [
+    {
+      "id": "wood_hollow_tunnel",
+      "ok": true,
+      "texture_bytes_match": true,
+      "vertex_uv_pair_error_max": 0.0,
+      "triangles": 880,
+      "source_blender_sha256": "44caf0ac38df490e3b79a1ff66903fcddf5f6e87c32a5f8171f12743914cd68b",
+      "packed_image_sha256": "bf3f1290b70248b7a3cfa063eeb86de5dbdf5ba9d1b24d80aa792a8703c46359",
+      "UV_layers": 1
+    },
+    {
+      "id": "wood_overhang_perch",
+      "ok": true,
+      "texture_bytes_match": true,
+      "vertex_uv_pair_error_max": 0.0,
+      "triangles": 886,
+      "source_blender_sha256": "69dabb914bf9fbbb84ded910d1d2e5977a835f717b542733cba353dbf98ff352",
+      "packed_image_sha256": "7a362eea2362f257e53067d35c48ba2b38570de73bcc2b221d058dae34395b25",
+      "UV_layers": 1
+    },
+    {
+      "id": "wood_low_root_weave",
+      "ok": true,
+      "texture_bytes_match": true,
+      "vertex_uv_pair_error_max": 0.0,
+      "triangles": 980,
+      "source_blender_sha256": "0e156211d230d1cb8e70736fc6de14de7a38b58df3e778940761b591ee8007f0",
+      "packed_image_sha256": "1d464a72471415ad58e7e56ca27836ebd08c54c8e3a2b088a0715764dbae4aa4",
+      "UV_layers": 1
+    },
+    {
+      "id": "lake_quillwort_rosette",
+      "ok": true,
+      "texture_bytes_match": true,
+      "vertex_uv_pair_error_max": 0.0,
+      "triangles": 490,
+      "source_blender_sha256": "f9dbb1ead615d16435bb1ef837d9d8eacc2435fcda4e5875994f3c0d29627786",
+      "packed_image_sha256": "0e12ba6ff6e9be8fec8fb594484bb66d9c748a656c6a66d62af42b855d2a00ca",
+      "UV_layers": 2
+    },
+    {
+      "id": "marsilea_runner_patch",
+      "ok": true,
+      "texture_bytes_match": true,
+      "vertex_uv_pair_error_max": 0.0,
+      "triangles": 772,
+      "source_blender_sha256": "617e12ade088746f9888b18fcc01b6cede23c7b5e202e00aa587f534c5a61307",
+      "packed_image_sha256": "84c41f362391b0544e290a9478979533ea3a46085a29dc4f074f107558766be7",
+      "UV_layers": 2
+    },
+    {
+      "id": "water_lily_float_stems",
+      "ok": true,
+      "texture_bytes_match": true,
+      "vertex_uv_pair_error_max": 0.0,
+      "triangles": 986,
+      "source_blender_sha256": "d955c86cdf518e0bbb92c137ddb4cc0ff4a62be53a14ccc59361c7a93ac08462",
+      "packed_image_sha256": "5284a74ebcbb509ea8f9d3f31574dbc1e3fe5bc3358f5de5fd34ee5d88cabf81",
+      "UV_layers": 2
+    },
+    {
+      "id": "duckweed_root_patch",
+      "ok": true,
+      "texture_bytes_match": true,
+      "vertex_uv_pair_error_max": 0.0,
+      "triangles": 792,
+      "source_blender_sha256": "469230da10402a4f1823b377f20516b206ac1691e1419c763c36319fb068d47b",
+      "packed_image_sha256": "c7c7b65216748677d806db3763e473c1e0e23b77cc5ab99c7773b78a2db804d0",
+      "UV_layers": 2
+    },
+    {
+      "id": "hairgrass_meadow",
+      "ok": true,
+      "texture_bytes_match": true,
+      "vertex_uv_pair_error_max": 0.0,
+      "triangles": 588,
+      "source_blender_sha256": "2bac6ff1e04e85989399ec8a30258703fac69f9061f476a65627db1bf951db88",
+      "packed_image_sha256": "68edf1a866ff7e21095e0472d58f3173d7edc84df94ac01e3426a1ea04d4faac",
+      "UV_layers": 2
+    }
+  ]
+}

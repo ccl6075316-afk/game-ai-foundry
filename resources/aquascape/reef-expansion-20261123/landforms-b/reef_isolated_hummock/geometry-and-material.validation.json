@@ -1,0 +1,344 @@
+{
+  "id": "reef_isolated_hummock",
+  "ok": true,
+  "geometry": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_isolated_hummock.glb",
+    "sha256": "df50186202c9c7a1825f60a51bce725497c2f8c2353bc33fd1921290d05b83c3",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "reef_isolated_hummock",
+        "triangles": 492,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "reef_isolated_hummock · six-direction rock",
+        "size": [
+          1024,
+          1024
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "triangles": 492,
+  "budget": {
+    "preferred": 400,
+    "hard_limit": 600
+  },
+  "source_handoff": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_isolated_hummock/material-source.handoff.json",
+  "source_sha256": "e06b04a02db94b9758aaf02701078ee989f0fe061addac2c217f6232159ca9e8",
+  "nominal_xyz_m": [
+    1.95,
+    0.9,
+    1.55
+  ],
+  "bounds_xyz_m": [
+    2.2590150833129883,
+    0.9351357221603394,
+    1.7741903066635132
+  ],
+  "floor_y_m": 0.0,
+  "surface_euler": 2,
+  "geometry_components": 1,
+  "volume_fraction_retained": 1.0,
+  "material_passes": 1,
+  "texture_filter": "nearest",
+  "atlas_size": [
+    1024,
+    1024
+  ],
+  "atlas_uncompressed_rgba_bytes": 4194304,
+  "source_texel_shares": {
+    "front": 0.2062,
+    "right": 0.1142,
+    "rear": 0.1652,
+    "left": 0.1546,
+    "top": 0.2684,
+    "bottom": 0.0915
+  },
+  "gray": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_isolated_hummock/reef_isolated_hummock-gray.glb",
+  "gray_sha256": "5e2ab7e91ca8939a27fbd2ff5b2c0a79dd8ea57da9c0b5a8b2d8cda179783d43",
+  "glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_isolated_hummock.glb",
+  "glb_sha256": "df50186202c9c7a1825f60a51bce725497c2f8c2353bc33fd1921290d05b83c3",
+  "geometry_section": {
+    "kind": "solid",
+    "passed": true
+  },
+  "art_outlines": {
+    "front": {
+      "silhouette_iou": 0.8680131894897689,
+      "span_m": [
+        1.95,
+        0.9
+      ]
+    },
+    "right": {
+      "silhouette_iou": 0.86533803343902,
+      "span_m": [
+        1.55,
+        0.9
+      ]
+    },
+    "rear": {
+      "silhouette_iou": 0.8763683193818416,
+      "span_m": [
+        1.95,
+        0.9
+      ]
+    },
+    "left": {
+      "silhouette_iou": 0.8644796658066102,
+      "span_m": [
+        1.55,
+        0.9
+      ]
+    },
+    "top": {
+      "silhouette_iou": 0.880225403944569,
+      "span_m": [
+        1.95,
+        1.55
+      ]
+    },
+    "bottom": {
+      "silhouette_iou": 0.8976101281214516,
+      "span_m": [
+        1.95,
+        1.55
+      ]
+    }
+  },
+  "landmarks": [
+    {
+      "name": "左坡风化层",
+      "applied": true,
+      "form": "ledge",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        -0.46799999999999997,
+        0.29700000000000004,
+        0.7025862068965536
+      ],
+      "center_xyz_m": [
+        -0.46799999999999997,
+        0.29700000000000004,
+        0.7395862068965536
+      ]
+    },
+    {
+      "name": "低峰侧唇",
+      "applied": true,
+      "form": "ledge",
+      "view": "right",
+      "surface_anchor_xyz_m": [
+        0.9329310344827437,
+        0.378,
+        0.21700000000000003
+      ],
+      "center_xyz_m": [
+        0.9629310344827438,
+        0.378,
+        0.21700000000000003
+      ]
+    },
+    {
+      "name": "底丘左趾",
+      "applied": true,
+      "form": "ledge",
+      "view": "left",
+      "surface_anchor_xyz_m": [
+        -0.9363793103448292,
+        0.18,
+        0.21700000000000003
+      ],
+      "center_xyz_m": [
+        -0.9663793103448293,
+        0.18,
+        0.21700000000000003
+      ]
+    },
+    {
+      "name": "缓背岩台",
+      "applied": true,
+      "form": "ledge",
+      "view": "rear",
+      "surface_anchor_xyz_m": [
+        0.3705,
+        0.30600000000000005,
+        -0.5884482758620686
+      ],
+      "center_xyz_m": [
+        0.3705,
+        0.30600000000000005,
+        -0.6244482758620686
+      ]
+    },
+    {
+      "name": "前丘肩凸岩",
+      "applied": true,
+      "form": "ledge",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        -0.4485,
+        0.7681965517241381,
+        0.31000000000000005
+      ],
+      "center_xyz_m": [
+        -0.4485,
+        0.7961965517241382,
+        0.31000000000000005
+      ]
+    },
+    {
+      "name": "前面蚀窝",
+      "applied": true,
+      "form": "cut",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        0.2925,
+        0.279,
+        0.6353448275862087
+      ],
+      "center_xyz_m": [
+        0.2925,
+        0.279,
+        0.6713448275862087
+      ]
+    },
+    {
+      "name": "背坡横凹",
+      "applied": true,
+      "form": "cut",
+      "view": "rear",
+      "surface_anchor_xyz_m": [
+        -0.3705,
+        0.423,
+        -0.6556896551724135
+      ],
+      "center_xyz_m": [
+        -0.3705,
+        0.423,
+        -0.6876896551724135
+      ]
+    },
+    {
+      "name": "左端坑窝",
+      "applied": true,
+      "form": "cut",
+      "view": "left",
+      "surface_anchor_xyz_m": [
+        -0.9498275862068981,
+        0.35100000000000003,
+        -0.15500000000000003
+      ],
+      "center_xyz_m": [
+        -0.9858275862068981,
+        0.35100000000000003,
+        -0.15500000000000003
+      ]
+    },
+    {
+      "name": "右端切角",
+      "applied": true,
+      "form": "cut",
+      "view": "right",
+      "surface_anchor_xyz_m": [
+        0.8925862068965371,
+        0.261,
+        -0.23249999999999998
+      ],
+      "center_xyz_m": [
+        0.9305862068965371,
+        0.261,
+        -0.23249999999999998
+      ]
+    },
+    {
+      "name": "双丘之间鞍口",
+      "applied": true,
+      "form": "cut",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        0.039,
+        0.7009551724137932,
+        -0.031000000000000003
+      ],
+      "center_xyz_m": [
+        0.039,
+        0.7229551724137933,
+        -0.031000000000000003
+      ]
+    }
+  ],
+  "relief_probes": [
+    {
+      "feature": "左坡风化层",
+      "form": "ledge",
+      "signed_offset_m": 0.22943290493371027
+    },
+    {
+      "feature": "低峰侧唇",
+      "form": "ledge",
+      "signed_offset_m": 0.18431157384431351
+    },
+    {
+      "feature": "底丘左趾",
+      "form": "ledge",
+      "signed_offset_m": 0.18344331077424947
+    },
+    {
+      "feature": "缓背岩台",
+      "form": "ledge",
+      "signed_offset_m": 0.21755618943767896
+    },
+    {
+      "feature": "前丘肩凸岩",
+      "form": "ledge",
+      "signed_offset_m": 0.15583650583405095
+    },
+    {
+      "feature": "前面蚀窝",
+      "form": "cut",
+      "signed_offset_m": -0.12070491414245144
+    },
+    {
+      "feature": "背坡横凹",
+      "form": "cut",
+      "signed_offset_m": -0.08784633427060529
+    },
+    {
+      "feature": "左端坑窝",
+      "form": "cut",
+      "signed_offset_m": -0.09593174844698638
+    },
+    {
+      "feature": "右端切角",
+      "form": "cut",
+      "signed_offset_m": -0.07434210954572729
+    },
+    {
+      "feature": "双丘之间鞍口",
+      "form": "cut",
+      "signed_offset_m": -0.10332523120401937
+    }
+  ],
+  "blender": {
+    "source": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_isolated_hummock/reef_isolated_hummock.blend",
+    "source_sha256": "eff59053b40a45adefcc57a4b397697786b998e3c3d303ff0ab9507912fa5329",
+    "reopened_and_same_polygon_points_uv_and_texture_as_glb": true,
+    "packed_texture_bytes": 1047876
+  },
+  "godot_proof": {
+    "contact_sheet": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_isolated_hummock/native-blender-review.jpg",
+    "contact_sheet_sha256": "0ed0a2ca787682b61c1e976b0a57a3443a477c1539b69783ecb9e9bed777571f",
+    "views": 16,
+    "engine_material_surfaces": 1,
+    "sampler": "nearest"
+  }
+}

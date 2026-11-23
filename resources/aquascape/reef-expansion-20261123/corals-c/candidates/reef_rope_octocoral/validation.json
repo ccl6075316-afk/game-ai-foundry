@@ -1,0 +1,198 @@
+{
+  "id": "reef_rope_octocoral",
+  "name": "绳枝柳珊瑚形",
+  "species": null,
+  "geography": "Caribbean",
+  "category": "octocoral",
+  "nominal_xyz_m": [
+    0.72,
+    0.88,
+    0.6
+  ],
+  "ecology_and_use": "暖水硬底鞭状八放珊瑚轮廓，非定种。稀疏高枝用于透景，待独立柔性验证。",
+  "primary_reference": "https://flowergarden.noaa.gov/education/coralguide.html",
+  "approvals": {
+    "user_intent": "pending",
+    "user_native": "pending"
+  },
+  "source": {
+    "file": "six-material-views.png",
+    "sha256": "7d3653fcc5694e807d7bd895a3cfaa046996a902e430991527fb4af49787c8cc",
+    "status": "draft_intent",
+    "views": {
+      "front": [
+        82,
+        21,
+        468,
+        480
+      ],
+      "right": [
+        672,
+        22,
+        875,
+        480
+      ],
+      "rear": [
+        1068,
+        22,
+        1454,
+        480
+      ],
+      "left": [
+        132,
+        531,
+        342,
+        999
+      ],
+      "top": [
+        546,
+        571,
+        947,
+        952
+      ],
+      "bottom": [
+        1044,
+        569,
+        1446,
+        959
+      ]
+    },
+    "review": "六格有共根、独立的 S 型细杆、少量二叉，俯仰有实际前后展开。建模保持枝间孔，不增加叶片；柔性另验。"
+  },
+  "shape_specification": "Rooted gorgonian sea whip colony, several purple to earthy pink long sparse rounded rope-like flexible branches winding upward in 3D off a shared tiny base. Uneven trajectories, some sparse bifurcation, fine pale polyp buds and soft fork intersections. No web, foliage, reeds, or fan shape.",
+  "shape_method": "rope",
+  "geometry": {
+    "source_field_components": 1,
+    "isolated_voxels_removed": 0,
+    "bounds_xyz_m": [
+      0.721611499786377,
+      0.8765811920166016,
+      0.6004898548126221
+    ],
+    "connected_components": 1,
+    "euler_characteristic": 2,
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "signed_volume_m3": 0.011702288873493671,
+    "triangle_count": 696,
+    "budget_type": "broadleaf_plant",
+    "preferred_triangles": 700,
+    "hard_triangle_limit": 1000,
+    "ground_y_min": 0.0,
+    "contact_vertices": 8,
+    "projection": {
+      "front": {
+        "silhouette_iou": 0.32266513973831046,
+        "span_m": [
+          0.72,
+          0.88
+        ]
+      },
+      "right": {
+        "silhouette_iou": 0.2686213324687956,
+        "span_m": [
+          0.6,
+          0.88
+        ]
+      },
+      "rear": {
+        "silhouette_iou": 0.32339620338155406,
+        "span_m": [
+          0.72,
+          0.88
+        ]
+      },
+      "left": {
+        "silhouette_iou": 0.27039481169643875,
+        "span_m": [
+          0.6,
+          0.88
+        ]
+      },
+      "top": {
+        "silhouette_iou": 0.24473053577988071,
+        "span_m": [
+          0.72,
+          0.6
+        ]
+      },
+      "bottom": {
+        "silhouette_iou": 0.26245290221919765,
+        "span_m": [
+          0.72,
+          0.6
+        ]
+      }
+    }
+  },
+  "material": {
+    "native_source_pixel_selection": true,
+    "filter": "nearest",
+    "atlas": 1536,
+    "macro_shadow_removed_for_cavities": false,
+    "primitive_count": 1,
+    "material_count": 1,
+    "source_fractions": {
+      "front": 0.2315,
+      "rear": 0.2664,
+      "left": 0.1904,
+      "right": 0.2147,
+      "top": 0.0546,
+      "bottom": 0.0424
+    }
+  },
+  "blend": {
+    "file": "reef_rope_octocoral.blend",
+    "sha256": "17d9c4d36df45174b58d44e55f21fbd3b995cc8a9c4c9ccdc37ab1fbae899592",
+    "cold_geometry_uv_texture_pass": true
+  },
+  "glb": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_rope_octocoral.glb",
+    "sha256": "448338fb418d95d3fb66f10e592eb339bf5a744b1ceb28e33fc7f8368b8fdb68",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "reef_rope_octocoral",
+        "triangles": 696,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "绳枝柳珊瑚形",
+        "size": [
+          1536,
+          1536
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "current_status": "static_candidate_for_user_review",
+  "scope": "低面展缸艺术模块。结构与方向参考六面意向，非生物实测。相机近似会影响投影重叠。",
+  "native_review": {
+    "file": "godot-native-review.jpg",
+    "engine": "Godot 4.7.1 stable, macOS Compatibility",
+    "rendered_views": [
+      "angle",
+      "front",
+      "right",
+      "rear",
+      "left",
+      "top",
+      "bottom",
+      "oblique"
+    ],
+    "mode": "fresh-process direct GLB, gray and material under the same lights",
+    "verified_texture_filter": "nearest",
+    "observations": "多根独立柔性枝、共根和少量分叉，能从两侧透视；尖端和折点保留低面形。",
+    "user_acceptance": "pending"
+  },
+  "motion": {
+    "status": "not_in_this_review",
+    "conditions": "各件柔性组织、根部锚定及在展缸内的实际水流单独核对。"
+  }
+}

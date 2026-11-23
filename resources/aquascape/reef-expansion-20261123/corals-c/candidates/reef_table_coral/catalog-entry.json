@@ -1,0 +1,21 @@
+{
+  "id": "reef_table_coral",
+  "name": "桌形硬珊瑚",
+  "label": "桌形硬珊瑚",
+  "scientific_name": null,
+  "aquatic_ecology": "Indo-Pacific",
+  "category": "scleractinian",
+  "nominal_xyz_m": [
+    1.36,
+    0.47,
+    1.03
+  ],
+  "budget_type": "broadleaf_plant",
+  "triangles": 814,
+  "source_glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_table_coral.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/corals-c/candidates/reef_table_coral/reef_table_coral.blend",
+  "source_intent": "resources/aquascape/reef-expansion-20261123/corals-c/candidates/reef_table_coral/six-material-views.png",
+  "validation": "resources/aquascape/reef-expansion-20261123/corals-c/candidates/reef_table_coral/validation.json",
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_table_coral.glb",
+  "user_acceptance": "pending"
+}

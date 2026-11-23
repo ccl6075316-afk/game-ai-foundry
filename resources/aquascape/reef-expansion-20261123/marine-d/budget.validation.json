@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "command": "aquascape.validate-scenery-budget",
+  "ok": true,
+  "status": "done",
+  "next_action": "human_review",
+  "inputs": {
+    "policy_sha256": "51de78ce3f61adb8465b71b8b98098a76538172e392f5b0c3ae585ed9f3c4698"
+  },
+  "outputs": [
+    {
+      "id": "eelgrass_meadow",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/eelgrass_meadow.glb",
+      "ok": true,
+      "budget_type": "ribbon_plant",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 592,
+      "vertices": 1776,
+      "bytes": 134948,
+      "sha256": "3552742862403df05c783df8f8340621e757d5e4d6d7d14e99c15b014237e589",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "giant_kelp",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/giant_kelp.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 984,
+      "vertices": 2952,
+      "bytes": 210236,
+      "sha256": "b723885e0a487a418266a16dc28c8f1b33ac79d6c450db10c5abf87016a7f044",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "halimeda_clump",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/halimeda_clump.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 940,
+      "vertices": 2820,
+      "bytes": 190604,
+      "sha256": "2723b45126185c4256710d5dc5e930fb9356a4ea8277489cdc2adb4b9e353718",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "mangrove_pneumatophore_bank",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/mangrove_pneumatophore_bank.glb",
+      "ok": true,
+      "budget_type": "wood",
+      "budget": {
+        "preferred": 800,
+        "hard_limit": 1200
+      },
+      "triangles": 1188,
+      "vertices": 3564,
+      "bytes": 225176,
+      "sha256": "b1fdcd27129a3fdd643bd27741eaf1361e6035d73fbd06fdff67a629d6af2883",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "red_forkweed",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/red_forkweed.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 648,
+      "vertices": 1944,
+      "bytes": 140308,
+      "sha256": "b4756487444d33716a998c029ebaed9c7ef2d943f7f326166a8063aeb5ae203d",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "sea_lettuce_fold",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/sea_lettuce_fold.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 588,
+      "vertices": 1764,
+      "bytes": 130464,
+      "sha256": "bd60a58c239321702e250f838923c88f76c252e6bd045f3d3151b4916fb71f1c",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "sugar_kelp",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/sugar_kelp.glb",
+      "ok": true,
+      "budget_type": "ribbon_plant",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 540,
+      "vertices": 1620,
+      "bytes": 131544,
+      "sha256": "8257b897056bcd2ef145d6f41de92520d69e36516b9187523151dd26c7de195f",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "turtle_grass_meadow",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/turtle_grass_meadow.glb",
+      "ok": true,
+      "budget_type": "ribbon_plant",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 596,
+      "vertices": 1788,
+      "bytes": 126868,
+      "sha256": "b0b530f620f6d94a8da84ec87ab8849445c10b7c21e49824519402b08e9304d7",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    }
+  ],
+  "failures": [],
+  "user_acceptance": "pending",
+  "limitations": [
+    "Discrete CPU poses and ray probes supplement actual multi-view native visual review."
+  ]
+}

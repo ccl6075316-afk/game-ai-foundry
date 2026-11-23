@@ -8,6 +8,42 @@ from validate_art_models import inspect
 from validate_plant_current import pose,deform
 from build_decor_ten import source_image,source_for,semantic_checks
 
+def validate_rooted_current(doc, binary, options):
+    from validate_shader_shells import points
+
+    low = np.asarray(options['anchor_min'], dtype=float)
+    size = np.asarray(options['anchor_size'], dtype=float)
+    amplitude = float(options['amplitude'])
+    if low.shape != (3,) or size.shape != (3,) or not np.isfinite([low, size]).all() or (size <= 0).any() or not 0 < amplitude <= .35:
+        return {}, ['Invalid rooted-current shader parameters']
+    if doc.get('skins') or doc.get('animations'):
+        return {}, ['Rooted-current mesh carries unexpected skeletal animation']
+    roots = 0
+    root_error = 0.
+    loop_error = 0.
+    displacement = 0.
+    for mesh in doc['meshes']:
+        for primitive in mesh['primitives']:
+            attrs = primitive['attributes']
+            if not {'TEXCOORD_1', 'COLOR_0'} <= attrs.keys():
+                return {}, ['Missing root weight or pivot vertex channel']
+            v, flow, color = (array(doc,binary,attrs[name]) for name in ('POSITION','TEXCOORD_1','COLOR_0'))
+            if not np.isfinite(flow).all() or not np.isfinite(color).all() or (flow < 0).any() or (flow > 1).any():
+                return {}, ['Invalid root weights or pivot vertex colors']
+            pinned = flow[:,0] <= .08
+            roots += int(pinned.sum())
+            rest = points(v,flow,color,low,size,0.,amplitude=amplitude)
+            end = points(v,flow,color,low,size,10.,amplitude=amplitude)
+            loop_error = max(loop_error, float(np.linalg.norm(end-rest,axis=1).max()))
+            for seconds in np.linspace(0,10,41):
+                posed = points(v,flow,color,low,size,seconds,amplitude=amplitude)
+                if pinned.any():
+                    root_error = max(root_error,float(np.linalg.norm((posed-v)[pinned],axis=1).max()))
+                displacement = max(displacement,float(np.linalg.norm(posed-rest,axis=1).max()))
+    data = {'root_pinned_vertices':roots,'root_motion_m':root_error,'loop_seam_m':loop_error,'max_tip_motion_m':displacement,'current_samples':41}
+    failed = not roots or max(root_error,loop_error)>1e-6 or displacement<.0003
+    return data, ['Root, loop or tip-motion failure'] if failed else []
+
 def validate(root,catalog_paths,output):
     game=root/'projects/fishing-2d/game';policy=load(root/'resources/aquascape/geometry-budgets.json');rows=[];failures=[]
     decor={s['id']:s for s in load(root/'resources/aquascape/decor-10-v1.json')['assets']}
@@ -15,7 +51,8 @@ def validate(root,catalog_paths,output):
         for row in load(catalog)['assets']:
             path=game/row['model'].removeprefix('res://');kind=budget_type(row,policy)
             shader_only=row.get('deformation')=='shader'
-            data=inspect(path,allow_alpha_mask=shader_only);m=metrics(path);local=[]
+            masked=shader_only or row.get('material_mode')=='mask'
+            data=inspect(path,allow_alpha_mask=masked);m=metrics(path);local=[]
             if m['triangles']>policy['types'][kind]['hard_limit']:local.append('Complete instance exceeds hard budget')
             if not data['ok'] or data['nonmanifold_edges']:local.append('Invalid geometry, open or nonmanifold edges')
             detail={};d,b=read_glb(path)
@@ -23,6 +60,9 @@ def validate(root,catalog_paths,output):
                 from validate_shader_shells import validate as validate_shells
                 detail=validate_shells(root,row,path)
                 local.extend(detail.pop('failures'))
+            elif row.get('rooted_current'):
+                detail,current_failures=validate_rooted_current(d,b,row['rooted_current'])
+                local.extend(current_failures)
             elif row.get('animated'):
                 src=game/row['pre_budget_model'].removeprefix('res://');original,ob=read_glb(src)
                 def payload(doc,binary,im):

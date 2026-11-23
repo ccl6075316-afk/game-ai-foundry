@@ -1,0 +1,131 @@
+{
+  "id": "river_imbricated_slate",
+  "name_zh": "叠瓦式河滩板岩",
+  "environment": "freshwater",
+  "geometry_budget": "rock",
+  "nominal_xyz_m": [
+    2.1,
+    0.9,
+    1.45
+  ],
+  "views": {
+    "front": {
+      "path": "front.png",
+      "source_png_sha256": "f7392b83cbe388781f2d98307b2ae7f2ed20f38a190c0854bd1bf947e7b62099",
+      "outline_sha256": "43c7b3caef3ea7cba4631504eb32f330a7b08b2689ec5adbfe0bffd58c97c674",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_imbricated_slate-r2-20261123/output/river_imbricated_slate_six_views_raw.png",
+      "input_sha256": "09c2e9468e6b68260a42847bdb1de394c2eb0eb342bbaa80fc7e993fc901c256",
+      "panel_crop_px": [
+        3,
+        186,
+        541,
+        435
+      ],
+      "pixel_size": [
+        514,
+        162
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "right": {
+      "path": "right.png",
+      "source_png_sha256": "051f2e3bd9f7ffdbadc72ab021f30eb82ef58934e04c9f8282ba4a0b056fb299",
+      "outline_sha256": "98643e5e1fb1d95047f9ea79991c80ff9ee8c4dc5585a5722557bed20b82fe9d",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_imbricated_slate-r2-20261123/output/river_imbricated_slate_six_views_raw.png",
+      "input_sha256": "09c2e9468e6b68260a42847bdb1de394c2eb0eb342bbaa80fc7e993fc901c256",
+      "panel_crop_px": [
+        575,
+        196,
+        956,
+        435
+      ],
+      "pixel_size": [
+        329,
+        140
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "rear": {
+      "path": "rear.png",
+      "source_png_sha256": "fdb270e7fd6fdd27e701696cf7bbe001db16e85842114270e85001f60c7702f9",
+      "outline_sha256": "8e450fa986cf121a764fb6baee559df34ca5a9bbc7461bef642c02a9654644d0",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_imbricated_slate-r2-20261123/output/river_imbricated_slate_six_views_raw.png",
+      "input_sha256": "09c2e9468e6b68260a42847bdb1de394c2eb0eb342bbaa80fc7e993fc901c256",
+      "panel_crop_px": [
+        988,
+        189,
+        1533,
+        435
+      ],
+      "pixel_size": [
+        515,
+        145
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "left": {
+      "path": "left.png",
+      "source_png_sha256": "8fa6a15d0b84157698f6c4f9cacabfaad500a1e15237fb9054523431d63e4011",
+      "outline_sha256": "276ca1bf96379e4b9997c24d7462b54d6947c25e3ef8e89a51862910606227c3",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_imbricated_slate-r2-20261123/output/river_imbricated_slate_six_views_raw.png",
+      "input_sha256": "09c2e9468e6b68260a42847bdb1de394c2eb0eb342bbaa80fc7e993fc901c256",
+      "panel_crop_px": [
+        58,
+        698,
+        461,
+        913
+      ],
+      "pixel_size": [
+        367,
+        145
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "top": {
+      "path": "top.png",
+      "source_png_sha256": "7c5c60a805aae2e1e69209f059ae86c5c425f9ac2d1179eeeef18ec17b385abe",
+      "outline_sha256": "5be5bb8b9b17261af86c44e5e57ff687c57251f1719a78cd1210bab8b21765c9",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_imbricated_slate-r2-20261123/output/river_imbricated_slate_six_views_raw.png",
+      "input_sha256": "09c2e9468e6b68260a42847bdb1de394c2eb0eb342bbaa80fc7e993fc901c256",
+      "panel_crop_px": [
+        490,
+        630,
+        1019,
+        951
+      ],
+      "pixel_size": [
+        509,
+        269
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "bottom": {
+      "path": "bottom.png",
+      "source_png_sha256": "5493e679080fc4a32e8634f6cc4e8cecc1fc4122e9401f929780dd96d0e7ff9b",
+      "outline_sha256": "4ea5a6530258dc4aea70ec253c55ccd3a69afb026333d145713615eaf8bf2c51",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_imbricated_slate-r2-20261123/output/river_imbricated_slate_six_views_raw.png",
+      "input_sha256": "09c2e9468e6b68260a42847bdb1de394c2eb0eb342bbaa80fc7e993fc901c256",
+      "panel_crop_px": [
+        1005,
+        609,
+        1533,
+        916
+      ],
+      "pixel_size": [
+        494,
+        250
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    }
+  },
+  "original_front": null,
+  "source_style": "Foundry OpenAI image generation based on the documented style, original concept sheet and crops retained",
+  "review": "新正反为可辨薄层、底矮而宽，俯视显示叠瓦从浅后根向两端散出；仰视方向保留开放扇形，造出各方向可看的刀口与薄层厚度。",
+  "user_acceptance": "pending"
+}

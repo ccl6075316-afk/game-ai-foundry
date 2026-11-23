@@ -1,5 +1,7 @@
 extends Node3D
 const Interior = preload("ShellInterior.gd")
+const Algae = preload("StoneAlgae.gd")
+const Current = preload("RootedCurrent.gd")
 const Design = preload("ShellDesign.gd")
 const Factory = preload("../FishInstanceFactory.gd")
 static var profiles: Dictionary={}
@@ -38,12 +40,7 @@ func sync(data: Dictionary,bed: Dictionary) -> void:
     reconcile(props,bed.get("props",[]),false)
     reconcile(swimmers,bed.get("fish",[]),true)
     for entry in props:
-        var uv:=Vector2(entry.item.u,entry.item.v)
-        var p:=box.position+box.size*uv
-        var y:=Interior.floor_y(uv,bed,height)
-        var size_m:=minf(.55,minf(Interior.clearance(p,path)*1.35,(Interior.waterline(height)-y)*.9))
-        entry.root.scale=Vector3.ONE*size_m
-        entry.root.position=Vector3(p.x,y,p.y)
+        entry.root.transform=Interior.prop_pose(entry.item,box,path,bed,height,entry.bounds)
     var bed_top:=float(bed.depth_cm)*.01
     for h in bed.get("heights",[]):bed_top=maxf(bed_top,float(bed.depth_cm)*.01+h*Interior.waterline(height))
     for entry in swimmers:
@@ -86,9 +83,14 @@ func make_prop(item: Dictionary) -> Dictionary:
     var first:=true
     for child: MeshInstance3D in model.find_children("*","MeshInstance3D",true,false):
         child.layers=light_layer | 1
+        if asset.has("rooted_current"):
+            Current.apply(child, asset.rooted_current)
         var extent: AABB=(anchor.global_transform.affine_inverse()*child.global_transform)*child.get_aabb()
         box=extent if first else box.merge(extent)
         first=false
+    if item.get("algae",false) and Interior.supports_algae(item.id):
+        for mesh: MeshInstance3D in model.find_children("*","MeshInstance3D",true,false):
+            Algae.apply(mesh)
     var factor:=1.0/maxf(.001,box.size[box.size.max_axis_index()])
     var original_transform:=model.transform
     model.scale*=factor

@@ -1,0 +1,39 @@
+{
+  "id": "halimeda_clump",
+  "name_zh": "仙掌藻节片丛",
+  "scientific_name": "Halimeda opuntia",
+  "category": "plant",
+  "budget_type": "broadleaf_plant",
+  "nominal_xyz_m": [
+    0.33,
+    0.24,
+    0.26
+  ],
+  "source_url": "https://invasions.si.edu/nemesis/species_summary/6925",
+  "habitat": "暖水浅礁裂隙和砂地；纤维固着器；钙化节片明显，较僵硬",
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/halimeda_clump.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/marine-d/halimeda_clump/halimeda_clump.blend",
+  "source_board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-halimeda_clump-20261123/output/halimeda_clump_six_views_raw.png",
+  "source_board_sha256": "faf74d84a169934e2b27d10e0cc8067589312500d87cb91dcf1cb765d57dab40",
+  "validation": "resources/aquascape/reef-expansion-20261123/marine-d/halimeda_clump/asset.validation.json",
+  "model_sha256": "2723b45126185c4256710d5dc5e930fb9356a4ea8277489cdc2adb4b9e353718",
+  "blender_sha256": "97218af14204193114444b4cd5f05a90088f5eb453d658809174388bda000481",
+  "triangles": 940,
+  "placement_anchor": "bottom",
+  "visual_review": "native candidate viewed; user approval pending",
+  "user_acceptance": "pending",
+  "rooted_current": {
+    "anchor_min": [
+      -0.02131713554263115,
+      -9.999999747378752e-05,
+      -0.0016242357669398189
+    ],
+    "anchor_size": [
+      0.00019999983487650752,
+      0.015778673812747,
+      0.00019999995129182935
+    ],
+    "amplitude": 0.024
+  },
+  "native_views": "resources/aquascape/reef-expansion-20261123/marine-d/halimeda_clump/godot-views.jpg"
+}

@@ -1,0 +1,131 @@
+{
+  "id": "reef_erosion_eye",
+  "name_zh": "偏心海蚀孔洞石",
+  "environment": "marine",
+  "geometry_budget": "rock",
+  "nominal_xyz_m": [
+    1.8,
+    1.25,
+    1.2
+  ],
+  "views": {
+    "front": {
+      "path": "front.png",
+      "source_png_sha256": "72765409d77cbc854e90d46121db288afc70c6990d9bce72a9a2b6985e9df6d7",
+      "outline_sha256": "1bf3e1235400b9faf2824efedc80ed848b4908e7892cf44967aa312ae80fe016",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_erosion_eye-20261123/output/reef_erosion_eye_six_views_raw.png",
+      "input_sha256": "c09f2be69e99648bdbc1c859ee790b1e862d60fa5fc449d81e8e81b09b18cfdf",
+      "panel_crop_px": [
+        14,
+        79,
+        531,
+        454
+      ],
+      "pixel_size": [
+        495,
+        310
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "right": {
+      "path": "right.png",
+      "source_png_sha256": "bfbc6f76bfaefde506777711b236e316c1f207f39967cfffaa9e99d57eba71fa",
+      "outline_sha256": "1c3b4e415cb8f15a9b62ed1be622ce744945f9c3cc4f2b87ad3bae13da391dff",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_erosion_eye-20261123/output/reef_erosion_eye_six_views_raw.png",
+      "input_sha256": "c09f2be69e99648bdbc1c859ee790b1e862d60fa5fc449d81e8e81b09b18cfdf",
+      "panel_crop_px": [
+        591,
+        79,
+        927,
+        454
+      ],
+      "pixel_size": [
+        296,
+        311
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "rear": {
+      "path": "rear.png",
+      "source_png_sha256": "2116de4edfaef0e76830c3dcbae723c6622d54f5ddf92e4b8d1584928d374aa8",
+      "outline_sha256": "22aaba88675d2133de6dc596a26896b8ccae12390d4d50858d893dd5ba1cd277",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_erosion_eye-20261123/output/reef_erosion_eye_six_views_raw.png",
+      "input_sha256": "c09f2be69e99648bdbc1c859ee790b1e862d60fa5fc449d81e8e81b09b18cfdf",
+      "panel_crop_px": [
+        1007,
+        79,
+        1527,
+        454
+      ],
+      "pixel_size": [
+        491,
+        311
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "left": {
+      "path": "left.png",
+      "source_png_sha256": "87a6fd55368e85480c73b9c969d57115957985b8a8a6e6763f98a05719c33d7a",
+      "outline_sha256": "18cf609c4cc21a5a9a7e15d541f4a019db50b850a7d90a0f8b353ba8dcea68b3",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_erosion_eye-20261123/output/reef_erosion_eye_six_views_raw.png",
+      "input_sha256": "c09f2be69e99648bdbc1c859ee790b1e862d60fa5fc449d81e8e81b09b18cfdf",
+      "panel_crop_px": [
+        12,
+        567,
+        507,
+        973
+      ],
+      "pixel_size": [
+        465,
+        327
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "top": {
+      "path": "top.png",
+      "source_png_sha256": "d0deaf5e4f80f52419dd4ff521299f22c54b437fb57cfbbaa0ea75f35fe978c1",
+      "outline_sha256": "b60f5ff82035815b80a315c1fba9ba6d57b7255e906561ef64581044a6a2bf44",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_erosion_eye-20261123/output/reef_erosion_eye_six_views_raw.png",
+      "input_sha256": "c09f2be69e99648bdbc1c859ee790b1e862d60fa5fc449d81e8e81b09b18cfdf",
+      "panel_crop_px": [
+        524,
+        567,
+        1015,
+        976
+      ],
+      "pixel_size": [
+        457,
+        342
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "bottom": {
+      "path": "bottom.png",
+      "source_png_sha256": "d90f70dac3e059556b0a5b366680c00d2e3fbc6bd45ba02b5381dc4748fa2d08",
+      "outline_sha256": "f0df643a5c0eedeac57f095c5977301b46cdc216c547044b0bc1147396b4bdce",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_erosion_eye-20261123/output/reef_erosion_eye_six_views_raw.png",
+      "input_sha256": "c09f2be69e99648bdbc1c859ee790b1e862d60fa5fc449d81e8e81b09b18cfdf",
+      "panel_crop_px": [
+        1036,
+        567,
+        1531,
+        976
+      ],
+      "pixel_size": [
+        450,
+        342
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    }
+  },
+  "original_front": null,
+  "source_style": "Foundry OpenAI image generation based on the documented style, original concept sheet and crops retained",
+  "review": "偏心孔在正面偏右、背面偏左，洞口水平中心及上下位置一致。侧部冠岩完整，底部为落脚。保留原图中孔形但模型独立挖出两端连通的斜蚀通道；近切口灰模另看。",
+  "user_acceptance": "pending"
+}

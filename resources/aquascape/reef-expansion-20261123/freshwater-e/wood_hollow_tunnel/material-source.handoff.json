@@ -1,0 +1,111 @@
+{
+  "id": "wood_hollow_tunnel",
+  "board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-e-wood-hollow-tunnel/output/wood_hollow_tunnel_six_views_raw.png",
+  "board_sha256": "912d3f7d5a1d18163bbf50b5c350995272533ea6954e6e39a6f7d786d6a40eb9",
+  "views": {
+    "front": {
+      "path": "front.png",
+      "source_png_sha256": "f36c219f5095570646d57bbcbb8f2626fa32c60745242d4b86f3232b9ed84886",
+      "outline_sha256": "0feb68c99422e0d62ea7cd33f4bedaeea7c911a9c2f0407daa32acd804b2ebd7",
+      "source_rect": [
+        15,
+        152,
+        580,
+        415
+      ],
+      "stencil_bbox": [
+        11,
+        22,
+        546,
+        241
+      ]
+    },
+    "right": {
+      "path": "right.png",
+      "source_png_sha256": "b904504bdfc8ebf54a82264532a753e23c155984b0545c5cb63db440d70f9644",
+      "outline_sha256": "8aeddf0ec5d365f987fc4439c6d43db7fe667e31f29856abcae7a4a0a415c648",
+      "source_rect": [
+        659,
+        156,
+        910,
+        416
+      ],
+      "stencil_bbox": [
+        15,
+        26,
+        220,
+        236
+      ]
+    },
+    "rear": {
+      "path": "rear.png",
+      "source_png_sha256": "5c7fc9e83dbd8d4b03117f20beb662be9922aceda8120ceddd2c15ebd3c67e82",
+      "outline_sha256": "ce9cfaf6bf9236206f8a3596db56ff91bea562156b5dbd27ae4ff898ebf3102e",
+      "source_rect": [
+        972,
+        156,
+        1525,
+        420
+      ],
+      "stencil_bbox": [
+        16,
+        18,
+        544,
+        238
+      ]
+    },
+    "left": {
+      "path": "left.png",
+      "source_png_sha256": "7779d6a9d139980cc71ac87553e34270acdd98b734f5155f2853463873a46607",
+      "outline_sha256": "44380e65e5df1a0c33db00edeecaeaf67514472620e384135ac3cadc4a30f24f",
+      "source_rect": [
+        63,
+        623,
+        308,
+        900
+      ],
+      "stencil_bbox": [
+        18,
+        16,
+        224,
+        265
+      ]
+    },
+    "top": {
+      "path": "top.png",
+      "source_png_sha256": "60c3d96aa6ae847019d039c37f4a08d47b728bee8c1b0d6168bb62d7040c94b7",
+      "outline_sha256": "bbd2b46f480d78c9fbde8fd4e0007858eea1e6f612c5e1aa06ce9bb401cad8fa",
+      "source_rect": [
+        385,
+        641,
+        976,
+        875
+      ],
+      "stencil_bbox": [
+        11,
+        22,
+        580,
+        225
+      ]
+    },
+    "bottom": {
+      "path": "bottom.png",
+      "source_png_sha256": "aedb39f0808dfb8709e21eabf664466419894d138fd90eae116164d80c4937c5",
+      "outline_sha256": "eab599411f191f89a6a8722c4ebecadcf0857b9d89329e46b471408603ba720e",
+      "source_rect": [
+        996,
+        638,
+        1528,
+        911
+      ],
+      "stencil_bbox": [
+        21,
+        30,
+        521,
+        253
+      ]
+    }
+  },
+  "art_review": "Six views inspected. Some elevations show part of the oblique natural cut near a broken edge.",
+  "user_acceptance": "pending"
+}

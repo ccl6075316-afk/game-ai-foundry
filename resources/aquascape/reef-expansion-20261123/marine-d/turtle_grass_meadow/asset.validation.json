@@ -1,0 +1,190 @@
+{
+  "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/turtle_grass_meadow.glb",
+  "sha256": "b0b530f620f6d94a8da84ec87ab8849445c10b7c21e49824519402b08e9304d7",
+  "ok": true,
+  "meshes": [
+    {
+      "name": "turtle_grass_meadow · closed natural shells",
+      "triangles": 596,
+      "finite_and_nonzero_area": true
+    }
+  ],
+  "textures": [
+    {
+      "name": "atlas",
+      "size": [
+        256,
+        256
+      ],
+      "opaque": true
+    }
+  ],
+  "open_edges": 0,
+  "nonmanifold_edges": 0,
+  "failures": [],
+  "triangles": 596,
+  "vertices": 1788,
+  "bytes": 126868,
+  "budget": {
+    "preferred": 400,
+    "hard_limit": 600
+  },
+  "measured_xyz_m": [
+    0.6499999761581421,
+    0.28999999165534973,
+    0.47999998927116394
+  ],
+  "root_min_y_m": 0.0,
+  "rooted_current": {
+    "anchor_min": [
+      -0.1701894849538803,
+      -9.999999747378752e-05,
+      -0.06982651352882385
+    ],
+    "anchor_size": [
+      0.35751667618751526,
+      0.02553253248333931,
+      0.12669014930725098
+    ],
+    "amplitude": 0.11
+  },
+  "shader_cpu": {
+    "root_motion_m": 0.0,
+    "loop_error_m": 1.500221556302311e-08,
+    "max_tip_motion_m": 0.04901372626464695,
+    "sampled_times": 41,
+    "instance_phases": [
+      0,
+      0.31,
+      0.62
+    ]
+  },
+  "file": "projects/fishing-2d/game/assets/aquascape-expansion-v1/turtle_grass_meadow.glb",
+  "source_board": {
+    "file": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-turtle_grass_meadow-20261123/output/turtle_grass_meadow_six_views_raw.png",
+    "sha256": "275316a01bdb912e9977a949b1d4ddbd5f3074e87d056ea408f723e9045ce968",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "camera_order": [
+      "front",
+      "right",
+      "back",
+      "left",
+      "top",
+      "bottom"
+    ],
+    "concept_review": "agent-reviewed for provisional gray mesh, user pending",
+    "workflow_assets_manifest": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-turtle_grass_meadow-20261123/output/assets-manifest.json",
+    "subject_ecology": "https://www.floridamuseum.ufl.edu/southflorida/habitats/seagrasses/species/",
+    "assembly_inference": [
+      "追踪南向大叶弧、左后高右前低的覆冠、五个隐在不同深度的陆续生根节点",
+      "根茎只从底部部分可见；宽、钝头、向外水平所成的冠层和鳗草束拉开",
+      "展示尺寸为造景解释，叶宽适度放大以保留像素可读性"
+    ],
+    "texture_sample_regions": {
+      "blade": [
+        [
+          [
+            0,
+            288,
+            246,
+            385,
+            272
+          ],
+          [
+            4,
+            600,
+            702,
+            696,
+            728
+          ]
+        ],
+        [
+          [
+            2,
+            1265,
+            286,
+            1345,
+            318
+          ],
+          [
+            5,
+            1358,
+            721,
+            1412,
+            738
+          ]
+        ]
+      ],
+      "blade_light": [
+        [
+          [
+            0,
+            159,
+            266,
+            239,
+            290
+          ]
+        ],
+        [
+          [
+            2,
+            1275,
+            224,
+            1345,
+            244
+          ]
+        ]
+      ],
+      "rhizome": [
+        [
+          [
+            5,
+            1196,
+            795,
+            1260,
+            822
+          ]
+        ],
+        [
+          [
+            5,
+            1327,
+            792,
+            1362,
+            826
+          ]
+        ]
+      ]
+    }
+  },
+  "native": {
+    "version": "Godot 4.7.1 stable mono, OpenGL compatibility Apple M4",
+    "result": "agent reviewed native orthographic + oblique gray and nearest material",
+    "contact_sheet": "resources/aquascape/reef-expansion-20261123/marine-d/turtle_grass_meadow/godot-views.jpg",
+    "contact_sheet_sha256": "2f94e4bf5c1833a6b23b40cad87e727f3df0b5ee2d8112ea75a19e3a152c267e",
+    "user_acceptance": "pending",
+    "multimesh_current": {
+      "instances": 3,
+      "custom_phases": [
+        0,
+        0.31,
+        0.62
+      ],
+      "phase_change_pixels": 77800,
+      "held_phase_change_pixels": 0,
+      "subsequent_phase_change_pixels": 78074,
+      "loop_endpoint_change_pixels": 0,
+      "fixed_root_validated_in_cpu_sampling": true
+    }
+  },
+  "cold_blend_export": {
+    "packed_image": true,
+    "source_sha256": "ac55abd8420b750ae273e7574e14955a314194065dba343f06426c2e45f53fab",
+    "normalized_export_sha256": "b0b530f620f6d94a8da84ec87ab8849445c10b7c21e49824519402b08e9304d7",
+    "current_glb_sha256": "b0b530f620f6d94a8da84ec87ab8849445c10b7c21e49824519402b08e9304d7",
+    "byte_identical": true
+  }
+}

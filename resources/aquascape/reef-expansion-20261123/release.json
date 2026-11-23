@@ -1,0 +1,18 @@
+{
+  "game_commit": "c0ac7eaefc8f6a542bca5e823c287ad03670cb66",
+  "user_acceptance": "pending_home_review",
+  "catalog_total": 100,
+  "existing": 50,
+  "new": 50,
+  "algae_options": 32,
+  "rooted_current": 11,
+  "placement": "expansion-placement.validation.json",
+  "source_retention": "source-retention.json",
+  "review": {
+    "mac": "collection-review/open-review.command",
+    "windows": "collection-review/open-review.cmd",
+    "warm_reef": "collection-review/caribbean-reef.webp",
+    "freshwater": "collection-review/freshwater-root-bank.webp"
+  },
+  "scope": "Prepared for home review. Asset acceptance remains pending."
+}

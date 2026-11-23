@@ -1,0 +1,39 @@
+{
+  "id": "eelgrass_meadow",
+  "name_zh": "鳗草疏草床",
+  "scientific_name": "Zostera marina",
+  "category": "plant",
+  "budget_type": "ribbon_plant",
+  "nominal_xyz_m": [
+    0.69,
+    0.54,
+    0.4
+  ],
+  "source_url": "https://marine.ucsc.edu/target/zostera/",
+  "habitat": "温带浅滩或港湾的砂泥底，横走根茎在沙床内，浅水及弱流背景",
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/eelgrass_meadow.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/marine-d/eelgrass_meadow/eelgrass_meadow.blend",
+  "source_board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-eelgrass_meadow-20261123/output/eelgrass_meadow_six_views_raw.png",
+  "source_board_sha256": "363aa704709afeebfcc6e6acfaf5953f2fd9b84e7b8c2bbcda46495a26cdbe20",
+  "validation": "resources/aquascape/reef-expansion-20261123/marine-d/eelgrass_meadow/asset.validation.json",
+  "model_sha256": "3552742862403df05c783df8f8340621e757d5e4d6d7d14e99c15b014237e589",
+  "blender_sha256": "83f90bcae6e8ff5d2973f767aecc6a919297b0be602ec7cdbd93f1e697b467c7",
+  "triangles": 592,
+  "placement_anchor": "bottom",
+  "visual_review": "native candidate viewed; user approval pending",
+  "user_acceptance": "pending",
+  "rooted_current": {
+    "anchor_min": [
+      -0.2409612089395523,
+      -9.999999747378752e-05,
+      -0.05724969878792763
+    ],
+    "anchor_size": [
+      0.45710253715515137,
+      0.04415963590145111,
+      0.12352641671895981
+    ],
+    "amplitude": 0.095
+  },
+  "native_views": "resources/aquascape/reef-expansion-20261123/marine-d/eelgrass_meadow/godot-views.jpg"
+}

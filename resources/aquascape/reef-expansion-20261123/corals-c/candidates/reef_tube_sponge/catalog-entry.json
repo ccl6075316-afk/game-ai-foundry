@@ -1,0 +1,21 @@
+{
+  "id": "reef_tube_sponge",
+  "name": "筒状海绵群",
+  "label": "筒状海绵群",
+  "scientific_name": null,
+  "aquatic_ecology": "Caribbean",
+  "category": "sponge",
+  "nominal_xyz_m": [
+    0.77,
+    0.68,
+    0.65
+  ],
+  "budget_type": "broadleaf_plant",
+  "triangles": 920,
+  "source_glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_tube_sponge.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/corals-c/candidates/reef_tube_sponge/reef_tube_sponge.blend",
+  "source_intent": "resources/aquascape/reef-expansion-20261123/corals-c/candidates/reef_tube_sponge/six-material-views.png",
+  "validation": "resources/aquascape/reef-expansion-20261123/corals-c/candidates/reef_tube_sponge/validation.json",
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_tube_sponge.glb",
+  "user_acceptance": "pending"
+}

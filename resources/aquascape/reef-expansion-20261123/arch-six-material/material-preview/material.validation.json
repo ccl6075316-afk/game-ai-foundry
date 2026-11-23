@@ -1,0 +1,58 @@
+{
+  "stage": "six_view_material_preview",
+  "ok": true,
+  "triangles": 696,
+  "gray_sha256": "6c9560241e65670bb659548de9782d0e7f3a2fb904774de9a22c184484de8a23",
+  "model_sha256": "9a64ff8deb38816df9edcba383773f97510dd2cf4c23d85afc7b32b33a95bb9e",
+  "atlas_size": [
+    1536,
+    1536
+  ],
+  "source_view_weight_share": {
+    "front": 0.2195,
+    "rear": 0.2347,
+    "left": 0.112,
+    "right": 0.1525,
+    "top": 0.1643,
+    "bottom": 0.1172
+  },
+  "position_stream_exact": true,
+  "normal_stream_exact": true,
+  "material_passes": 1,
+  "embedded_texture_bytes": 2691560,
+  "closed_geometry": true,
+  "limit": "Color only. Donor depth inferred from six source cameras; no independent inner-wall photos, no authored bump.",
+  "user_acceptance": "pending",
+  "output": {
+    "path": "resources/aquascape/reef-expansion-20261123/arch-six-material/material-preview/reef_through_arch_six_view_material.glb",
+    "sha256": "9a64ff8deb38816df9edcba383773f97510dd2cf4c23d85afc7b32b33a95bb9e",
+    "bytes": 2759956
+  },
+  "editable_source": {
+    "path": "resources/aquascape/reef-expansion-20261123/arch-six-material/material-preview/reef_through_arch_six_view_material.blend",
+    "sha256": "603e25b89f9a6259e8d54172342a5a0279d4e7e4800addf4a63e9e90ef68dbba",
+    "bytes": 2796765,
+    "blender_cold_read_matches_polygon_points_uv_and_atlas": true
+  },
+  "native_review": {
+    "engine": "Godot 4.7.1 Compatibility on Apple M4",
+    "gray_and_textured_same_lights_and_camera": true,
+    "outputs": [
+      {
+        "path": "resources/aquascape/reef-expansion-20261123/arch-six-material/material-preview/gray-and-material.jpg",
+        "sha256": "e0e067b7120e51d829244aba8f0b1d1f78a51ef3510361f1bc8932db6e929ccc",
+        "bytes": 213436
+      },
+      {
+        "path": "resources/aquascape/reef-expansion-20261123/arch-six-material/material-preview/godot-material-six.jpg",
+        "sha256": "b2eb15f340974f8173e256bb9e7da86075f68a6ab6541491b274a6dab5682c43",
+        "bytes": 115224
+      }
+    ]
+  },
+  "cleanup": {
+    "bytes": 6907753,
+    "count": 18,
+    "scope": "Redundant Godot capture frames and Blender mesh exchange"
+  }
+}

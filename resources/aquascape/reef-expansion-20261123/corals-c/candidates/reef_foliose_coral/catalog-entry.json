@@ -1,0 +1,21 @@
+{
+  "id": "reef_foliose_coral",
+  "name": "外缘薄片硬珊瑚",
+  "label": "外缘薄片硬珊瑚",
+  "scientific_name": null,
+  "aquatic_ecology": "Indo-Pacific",
+  "category": "scleractinian",
+  "nominal_xyz_m": [
+    1.02,
+    0.48,
+    0.85
+  ],
+  "budget_type": "broadleaf_plant",
+  "triangles": 876,
+  "source_glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_foliose_coral.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/corals-c/candidates/reef_foliose_coral/reef_foliose_coral.blend",
+  "source_intent": "resources/aquascape/reef-expansion-20261123/corals-c/candidates/reef_foliose_coral/six-material-views.png",
+  "validation": "resources/aquascape/reef-expansion-20261123/corals-c/candidates/reef_foliose_coral/validation.json",
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_foliose_coral.glb",
+  "user_acceptance": "pending"
+}

@@ -1,0 +1,305 @@
+{
+  "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/mangrove_pneumatophore_bank.glb",
+  "sha256": "b1fdcd27129a3fdd643bd27741eaf1361e6035d73fbd06fdff67a629d6af2883",
+  "ok": true,
+  "meshes": [
+    {
+      "name": "mangrove_pneumatophore_bank · closed natural shells",
+      "triangles": 1188,
+      "finite_and_nonzero_area": true
+    }
+  ],
+  "textures": [
+    {
+      "name": "atlas",
+      "size": [
+        256,
+        256
+      ],
+      "opaque": true
+    }
+  ],
+  "open_edges": 0,
+  "nonmanifold_edges": 0,
+  "failures": [],
+  "triangles": 1188,
+  "vertices": 3564,
+  "bytes": 225176,
+  "budget": {
+    "preferred": 800,
+    "hard_limit": 1200
+  },
+  "measured_xyz_m": [
+    1.7999999523162842,
+    0.47999995946884155,
+    1.1499998569488525
+  ],
+  "root_min_y_m": 0.0,
+  "bank_contacts": [
+    {
+      "name": "breathing root 1",
+      "buried_depth_m": 0.009498396251403918,
+      "visible_height_m": 0.15154251797492613
+    },
+    {
+      "name": "breathing root 2",
+      "buried_depth_m": 0.009498396251403918,
+      "visible_height_m": 0.20594236529203513
+    },
+    {
+      "name": "breathing root 3",
+      "buried_depth_m": 0.009498396251403918,
+      "visible_height_m": 0.23012008414617036
+    },
+    {
+      "name": "breathing root 4",
+      "buried_depth_m": 0.009498396251403918,
+      "visible_height_m": 0.26206925954294746
+    },
+    {
+      "name": "breathing root 5",
+      "buried_depth_m": 0.009498396251403918,
+      "visible_height_m": 0.19385351926809768
+    },
+    {
+      "name": "breathing root 6",
+      "buried_depth_m": 0.009498396251403918,
+      "visible_height_m": 0.22105345632978235
+    },
+    {
+      "name": "breathing root 7",
+      "buried_depth_m": 0.009498396251403918,
+      "visible_height_m": 0.23184707746745303
+    },
+    {
+      "name": "breathing root 8",
+      "buried_depth_m": 0.009498396251403918,
+      "visible_height_m": 0.22623440948737006
+    },
+    {
+      "name": "breathing root 9",
+      "buried_depth_m": 0.009498396251403918,
+      "visible_height_m": 0.18305987132416668
+    },
+    {
+      "name": "breathing root 10",
+      "buried_depth_m": 0.009498396251403918,
+      "visible_height_m": 0.24695814169893993
+    },
+    {
+      "name": "breathing root 11",
+      "buried_depth_m": 0.009498396251403918,
+      "visible_height_m": 0.20421539877701278
+    },
+    {
+      "name": "breathing root 12",
+      "buried_depth_m": 0.009498389549838837,
+      "visible_height_m": 0.14981552465364345
+    },
+    {
+      "name": "breathing root 13",
+      "buried_depth_m": 0.009498389549838837,
+      "visible_height_m": 0.18046942155163315
+    },
+    {
+      "name": "breathing root 14",
+      "buried_depth_m": 0.009498389549838837,
+      "visible_height_m": 0.14333936001291914
+    },
+    {
+      "name": "breathing root 15",
+      "buried_depth_m": 0.009498391225230107,
+      "visible_height_m": 0.11613942295123447
+    },
+    {
+      "name": "breathing root 16",
+      "buried_depth_m": 0.009498389549838837,
+      "visible_height_m": 0.10491404678167804
+    },
+    {
+      "name": "breathing root 17",
+      "buried_depth_m": 0.009498389549838837,
+      "visible_height_m": 0.13125050058585153
+    },
+    {
+      "name": "breathing root 18",
+      "buried_depth_m": 0.009498389549838837,
+      "visible_height_m": 0.1139806880011962
+    },
+    {
+      "name": "breathing root 19",
+      "buried_depth_m": 0.009498389549838837,
+      "visible_height_m": 0.1584504376475362
+    },
+    {
+      "name": "breathing root 20",
+      "buried_depth_m": 0.009498389549838837,
+      "visible_height_m": 0.10405056352416686
+    },
+    {
+      "name": "breathing root 21",
+      "buried_depth_m": 0.009498396251403918,
+      "visible_height_m": 0.1670853238351686
+    },
+    {
+      "name": "breathing root 22",
+      "buried_depth_m": 0.009498396251403918,
+      "visible_height_m": 0.1614726290488253
+    },
+    {
+      "name": "breathing root 23",
+      "buried_depth_m": 0.009498389549838837,
+      "visible_height_m": 0.17442498513653426
+    },
+    {
+      "name": "breathing root 24",
+      "buried_depth_m": 0.009498389549838837,
+      "visible_height_m": 0.11095848319677692
+    },
+    {
+      "name": "breathing root 25",
+      "buried_depth_m": 0.009498396251403918,
+      "visible_height_m": 0.15542821943998675
+    },
+    {
+      "name": "breathing root 26",
+      "buried_depth_m": 0.009498396251403918,
+      "visible_height_m": 0.19169478431805942
+    },
+    {
+      "name": "breathing root 27",
+      "buried_depth_m": 0.009498396251403918,
+      "visible_height_m": 0.09930135199533474
+    },
+    {
+      "name": "breathing root 28",
+      "buried_depth_m": 0.009498389549838837,
+      "visible_height_m": 0.11700290620874565
+    },
+    {
+      "name": "breathing root 29",
+      "buried_depth_m": 0.009498389549838837,
+      "visible_height_m": 0.08980296914706098
+    },
+    {
+      "name": "breathing root 30",
+      "buried_depth_m": 0.009498389549838837,
+      "visible_height_m": 0.10664102669983055
+    }
+  ],
+  "file": "projects/fishing-2d/game/assets/aquascape-expansion-v1/mangrove_pneumatophore_bank.glb",
+  "source_board": {
+    "file": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-mangrove_pneumatophore_bank-20261123/output/mangrove_pneumatophore_bank_six_views_raw.png",
+    "sha256": "33afd07d7b846d2a6db79d23bdab1cb8bfecea524b66745b8eb31b8115c57292",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "camera_order": [
+      "front",
+      "right",
+      "back",
+      "left",
+      "top",
+      "bottom"
+    ],
+    "concept_review": "agent-reviewed for provisional gray mesh, user pending",
+    "workflow_assets_manifest": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-mangrove_pneumatophore_bank-20261123/output/assets-manifest.json",
+    "subject_ecology": "https://www.ncei.noaa.gov/data/oceans/coris/library/NOAA/CRCP/other/other_crcp_publications/Watershed_USVI/steer_exisiting_studies_wetlandconservationplansttandstj.pdf",
+    "assembly_inference": [
+      "顺对角方向抬高左后泥岸，底部完整可沉入潮滩；三台层保留真实高差",
+      "俯视使用不规则簇间隔，短直铅笔形笋根扎进泥床，深浅端钝",
+      "原来的红树支根木保留为高拱贯通；这件是露出潮面的低岸"
+    ],
+    "texture_sample_regions": {
+      "mud": [
+        [
+          [
+            0,
+            204,
+            279,
+            251,
+            313
+          ],
+          [
+            4,
+            679,
+            779,
+            733,
+            816
+          ]
+        ],
+        [
+          [
+            2,
+            1277,
+            377,
+            1361,
+            413
+          ],
+          [
+            5,
+            1253,
+            772,
+            1343,
+            844
+          ]
+        ]
+      ],
+      "bark": [
+        [
+          [
+            0,
+            269,
+            199,
+            289,
+            251
+          ]
+        ],
+        [
+          [
+            2,
+            1352,
+            201,
+            1370,
+            246
+          ]
+        ]
+      ],
+      "weathered": [
+        [
+          [
+            0,
+            137,
+            154,
+            148,
+            214
+          ]
+        ],
+        [
+          [
+            3,
+            177,
+            644,
+            195,
+            695
+          ]
+        ]
+      ]
+    }
+  },
+  "native": {
+    "version": "Godot 4.7.1 stable mono, OpenGL compatibility Apple M4",
+    "result": "agent reviewed native orthographic + oblique gray and nearest material",
+    "contact_sheet": "resources/aquascape/reef-expansion-20261123/marine-d/mangrove_pneumatophore_bank/godot-views.jpg",
+    "contact_sheet_sha256": "fecdea96ed9f63aa0e4c05f15a45c5e8837caa564164deca737b29c7d05065eb",
+    "user_acceptance": "pending"
+  },
+  "cold_blend_export": {
+    "packed_image": true,
+    "source_sha256": "c34805e1f1b2e168eb34209b8be71890b01cb2f0cdd64f25a7975c571978c5e2",
+    "normalized_export_sha256": "b1fdcd27129a3fdd643bd27741eaf1361e6035d73fbd06fdff67a629d6af2883",
+    "current_glb_sha256": "b1fdcd27129a3fdd643bd27741eaf1361e6035d73fbd06fdff67a629d6af2883",
+    "byte_identical": true
+  }
+}

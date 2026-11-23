@@ -1,0 +1,131 @@
+{
+  "id": "reef_isolated_hummock",
+  "name_zh": "底部孤立礁丘",
+  "environment": "marine",
+  "geometry_budget": "rock",
+  "nominal_xyz_m": [
+    1.95,
+    0.9,
+    1.55
+  ],
+  "views": {
+    "front": {
+      "path": "front.png",
+      "source_png_sha256": "a600c39a3db97bd4ee2b535da257b702e44377acc767ace99c326a8bc3d52616",
+      "outline_sha256": "6709a9c125f23b5fd0b082d9dfc3d23e4fd354e3915a4038bc94eac932cfa5d2",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_isolated_hummock-r2-20261123/output/reef_isolated_hummock_six_views_raw.png",
+      "input_sha256": "79c84b75b17c35be0ac865c7ff0eca0d037fc528c1b8e3b51b4f2e841e99716c",
+      "panel_crop_px": [
+        2,
+        147,
+        555,
+        445
+      ],
+      "pixel_size": [
+        534,
+        200
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "right": {
+      "path": "right.png",
+      "source_png_sha256": "6cef5187da8f4239bd341f80a89186ec30c752d27a826e79d53c16dad0991758",
+      "outline_sha256": "a0cd645bdb36d0c4ef41d07dd8de62b58e687427d92840ef376790665bc695a5",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_isolated_hummock-r2-20261123/output/reef_isolated_hummock_six_views_raw.png",
+      "input_sha256": "79c84b75b17c35be0ac865c7ff0eca0d037fc528c1b8e3b51b4f2e841e99716c",
+      "panel_crop_px": [
+        597,
+        142,
+        930,
+        444
+      ],
+      "pixel_size": [
+        290,
+        204
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "rear": {
+      "path": "rear.png",
+      "source_png_sha256": "a93582debd72f1080b79b2540c6a5ed046c56a01d677909929fc0af32e663674",
+      "outline_sha256": "3665d220d7ca18a06854c91d5f45f482f2a23e05a51b57a76f6945bb05549028",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_isolated_hummock-r2-20261123/output/reef_isolated_hummock_six_views_raw.png",
+      "input_sha256": "79c84b75b17c35be0ac865c7ff0eca0d037fc528c1b8e3b51b4f2e841e99716c",
+      "panel_crop_px": [
+        975,
+        143,
+        1534,
+        444
+      ],
+      "pixel_size": [
+        534,
+        201
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "left": {
+      "path": "left.png",
+      "source_png_sha256": "a34c38e1c1f4f670af848434b9a053ead145306404517c28c999f8e22eac7f91",
+      "outline_sha256": "88b7ddf070ae91b15d5b4b2950f1e61994dad084e3b919b912e13b3a691429c4",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_isolated_hummock-r2-20261123/output/reef_isolated_hummock_six_views_raw.png",
+      "input_sha256": "79c84b75b17c35be0ac865c7ff0eca0d037fc528c1b8e3b51b4f2e841e99716c",
+      "panel_crop_px": [
+        73,
+        638,
+        452,
+        939
+      ],
+      "pixel_size": [
+        339,
+        225
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "top": {
+      "path": "top.png",
+      "source_png_sha256": "1f285ca016e9cddf611153069732c7bedde58c67acb335a3bea40c3e9415249e",
+      "outline_sha256": "b1c71bacffb9e97c24c391060a5bf01545c0effbd3419c33d1e171fca75fa97b",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_isolated_hummock-r2-20261123/output/reef_isolated_hummock_six_views_raw.png",
+      "input_sha256": "79c84b75b17c35be0ac865c7ff0eca0d037fc528c1b8e3b51b4f2e841e99716c",
+      "panel_crop_px": [
+        502,
+        628,
+        1002,
+        945
+      ],
+      "pixel_size": [
+        475,
+        263
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "bottom": {
+      "path": "bottom.png",
+      "source_png_sha256": "3881ac45c1d39f197aebba08594e4d92c68b11c96b9f2899607a8badbcdee950",
+      "outline_sha256": "e98e87d5c5fa9f6607d20f2463381f0c62806af4f0b1ce1b44f984cbd283e524",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_isolated_hummock-r2-20261123/output/reef_isolated_hummock_six_views_raw.png",
+      "input_sha256": "79c84b75b17c35be0ac865c7ff0eca0d037fc528c1b8e3b51b4f2e841e99716c",
+      "panel_crop_px": [
+        1012,
+        626,
+        1531,
+        949
+      ],
+      "pixel_size": [
+        496,
+        275
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    }
+  },
+  "original_front": null,
+  "source_style": "Foundry OpenAI image generation based on the documented style, original concept sheet and crops retained",
+  "review": "新版明确双圆丘、同一宽底和浅鞍口。前后高点互相换侧，两端相对圆厚，腹底不是透洞。按圆蚀面和独立蚀窝雕体。",
+  "user_acceptance": "pending"
+}

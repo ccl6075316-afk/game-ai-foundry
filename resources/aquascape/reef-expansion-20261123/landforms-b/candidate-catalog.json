@@ -1,0 +1,314 @@
+{
+  "assets": [
+    {
+      "id": "reef_double_rift",
+      "name_zh": "双立壁裂谷件",
+      "category": "rock",
+      "environment": "marine",
+      "budget_type": "large_rock",
+      "nominal_xyz_m": [
+        4.4,
+        2.7,
+        3.0
+      ],
+      "placement_size_m": 4.4,
+      "measured_xyz_m": [
+        4.534119129180908,
+        2.535978078842163,
+        2.9930038452148438
+      ],
+      "triangles": 928,
+      "geometry_budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "animated": false,
+      "algae_option": true,
+      "glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_double_rift.glb",
+      "blend": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_double_rift/reef_double_rift.blend",
+      "source_evidence": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_double_rift/material-source.handoff.json",
+      "report": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_double_rift/geometry-and-material.validation.json",
+      "native_review": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_double_rift/native-blender-review.jpg",
+      "user_acceptance": "pending"
+    },
+    {
+      "id": "reef_mushroom_pedestal",
+      "name_zh": "石座蘑菇礁",
+      "category": "rock",
+      "environment": "marine",
+      "budget_type": "rock",
+      "nominal_xyz_m": [
+        2.1,
+        1.6,
+        1.65
+      ],
+      "placement_size_m": 2.1,
+      "measured_xyz_m": [
+        2.080498218536377,
+        1.7042022943496704,
+        1.666255235671997
+      ],
+      "triangles": 538,
+      "geometry_budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "animated": false,
+      "algae_option": true,
+      "glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_mushroom_pedestal.glb",
+      "blend": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_mushroom_pedestal/reef_mushroom_pedestal.blend",
+      "source_evidence": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_mushroom_pedestal/material-source.handoff.json",
+      "report": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_mushroom_pedestal/geometry-and-material.validation.json",
+      "native_review": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_mushroom_pedestal/native-blender-review.jpg",
+      "user_acceptance": "pending"
+    },
+    {
+      "id": "reef_erosion_eye",
+      "name_zh": "偏心海蚀孔洞石",
+      "category": "rock",
+      "environment": "marine",
+      "budget_type": "rock",
+      "nominal_xyz_m": [
+        1.8,
+        1.25,
+        1.2
+      ],
+      "placement_size_m": 1.8,
+      "measured_xyz_m": [
+        1.9843597412109375,
+        1.293546438217163,
+        1.3731915950775146
+      ],
+      "triangles": 560,
+      "geometry_budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "animated": false,
+      "algae_option": true,
+      "glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_erosion_eye.glb",
+      "blend": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_erosion_eye/reef_erosion_eye.blend",
+      "source_evidence": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_erosion_eye/material-source.handoff.json",
+      "report": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_erosion_eye/geometry-and-material.validation.json",
+      "native_review": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_erosion_eye/native-blender-review.jpg",
+      "user_acceptance": "pending"
+    },
+    {
+      "id": "reef_encircling_ridge",
+      "name_zh": "环抱礁脊",
+      "category": "rock",
+      "environment": "marine",
+      "budget_type": "large_rock",
+      "nominal_xyz_m": [
+        4.6,
+        2.25,
+        3.6
+      ],
+      "placement_size_m": 4.6,
+      "measured_xyz_m": [
+        4.700717926025391,
+        1.5543079376220703,
+        3.7717511653900146
+      ],
+      "triangles": 922,
+      "geometry_budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "animated": false,
+      "algae_option": true,
+      "glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_encircling_ridge.glb",
+      "blend": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_encircling_ridge/reef_encircling_ridge.blend",
+      "source_evidence": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_encircling_ridge/material-source.handoff.json",
+      "report": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_encircling_ridge/geometry-and-material.validation.json",
+      "native_review": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_encircling_ridge/native-blender-review.jpg",
+      "user_acceptance": "pending"
+    },
+    {
+      "id": "reef_eroded_overhang",
+      "name_zh": "前伸风化岩檐",
+      "category": "rock",
+      "environment": "marine",
+      "budget_type": "large_rock",
+      "nominal_xyz_m": [
+        4.6,
+        2.45,
+        2.7
+      ],
+      "placement_size_m": 4.6,
+      "measured_xyz_m": [
+        4.697101593017578,
+        2.5022168159484863,
+        3.0437521934509277
+      ],
+      "triangles": 922,
+      "geometry_budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "animated": false,
+      "algae_option": true,
+      "glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_eroded_overhang.glb",
+      "blend": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_eroded_overhang/reef_eroded_overhang.blend",
+      "source_evidence": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_eroded_overhang/material-source.handoff.json",
+      "report": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_eroded_overhang/geometry-and-material.validation.json",
+      "native_review": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_eroded_overhang/native-blender-review.jpg",
+      "user_acceptance": "pending"
+    },
+    {
+      "id": "reef_isolated_hummock",
+      "name_zh": "底部孤立礁丘",
+      "category": "rock",
+      "environment": "marine",
+      "budget_type": "rock",
+      "nominal_xyz_m": [
+        1.95,
+        0.9,
+        1.55
+      ],
+      "placement_size_m": 1.95,
+      "measured_xyz_m": [
+        2.2590150833129883,
+        0.9351357221603394,
+        1.7741903066635132
+      ],
+      "triangles": 492,
+      "geometry_budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "animated": false,
+      "algae_option": true,
+      "glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_isolated_hummock.glb",
+      "blend": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_isolated_hummock/reef_isolated_hummock.blend",
+      "source_evidence": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_isolated_hummock/material-source.handoff.json",
+      "report": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_isolated_hummock/geometry-and-material.validation.json",
+      "native_review": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_isolated_hummock/native-blender-review.jpg",
+      "user_acceptance": "pending"
+    },
+    {
+      "id": "river_gneiss_slab",
+      "name_zh": "剥落片麻岩板",
+      "category": "rock",
+      "environment": "freshwater",
+      "budget_type": "rock",
+      "nominal_xyz_m": [
+        1.9,
+        0.9,
+        1.25
+      ],
+      "placement_size_m": 1.9,
+      "measured_xyz_m": [
+        2.1637086868286133,
+        0.841719388961792,
+        1.4191474914550781
+      ],
+      "triangles": 490,
+      "geometry_budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "animated": false,
+      "algae_option": true,
+      "glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/river_gneiss_slab.glb",
+      "blend": "resources/aquascape/reef-expansion-20261123/landforms-b/river_gneiss_slab/river_gneiss_slab.blend",
+      "source_evidence": "resources/aquascape/reef-expansion-20261123/landforms-b/river_gneiss_slab/material-source.handoff.json",
+      "report": "resources/aquascape/reef-expansion-20261123/landforms-b/river_gneiss_slab/geometry-and-material.validation.json",
+      "native_review": "resources/aquascape/reef-expansion-20261123/landforms-b/river_gneiss_slab/native-blender-review.jpg",
+      "user_acceptance": "pending"
+    },
+    {
+      "id": "river_obsidian_fault",
+      "name_zh": "黑曜断层板",
+      "category": "rock",
+      "environment": "freshwater",
+      "budget_type": "rock",
+      "nominal_xyz_m": [
+        1.7,
+        1.0,
+        1.2
+      ],
+      "placement_size_m": 1.7,
+      "measured_xyz_m": [
+        1.990894079208374,
+        0.9631233215332031,
+        1.4930751323699951
+      ],
+      "triangles": 470,
+      "geometry_budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "animated": false,
+      "algae_option": true,
+      "glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/river_obsidian_fault.glb",
+      "blend": "resources/aquascape/reef-expansion-20261123/landforms-b/river_obsidian_fault/river_obsidian_fault.blend",
+      "source_evidence": "resources/aquascape/reef-expansion-20261123/landforms-b/river_obsidian_fault/material-source.handoff.json",
+      "report": "resources/aquascape/reef-expansion-20261123/landforms-b/river_obsidian_fault/geometry-and-material.validation.json",
+      "native_review": "resources/aquascape/reef-expansion-20261123/landforms-b/river_obsidian_fault/native-blender-review.jpg",
+      "user_acceptance": "pending"
+    },
+    {
+      "id": "river_imbricated_slate",
+      "name_zh": "叠瓦式河滩板岩",
+      "category": "rock",
+      "environment": "freshwater",
+      "budget_type": "rock",
+      "nominal_xyz_m": [
+        2.1,
+        0.9,
+        1.45
+      ],
+      "placement_size_m": 2.1,
+      "measured_xyz_m": [
+        2.1667087078094482,
+        0.8339738249778748,
+        1.428584098815918
+      ],
+      "triangles": 546,
+      "geometry_budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "animated": false,
+      "algae_option": true,
+      "glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/river_imbricated_slate.glb",
+      "blend": "resources/aquascape/reef-expansion-20261123/landforms-b/river_imbricated_slate/river_imbricated_slate.blend",
+      "source_evidence": "resources/aquascape/reef-expansion-20261123/landforms-b/river_imbricated_slate/material-source.handoff.json",
+      "report": "resources/aquascape/reef-expansion-20261123/landforms-b/river_imbricated_slate/geometry-and-material.validation.json",
+      "native_review": "resources/aquascape/reef-expansion-20261123/landforms-b/river_imbricated_slate/native-blender-review.jpg",
+      "user_acceptance": "pending"
+    },
+    {
+      "id": "river_conglomerate_bank",
+      "name_zh": "风化卵砾胶结岩",
+      "category": "rock",
+      "environment": "freshwater",
+      "budget_type": "rock",
+      "nominal_xyz_m": [
+        2.05,
+        0.75,
+        1.45
+      ],
+      "placement_size_m": 2.05,
+      "measured_xyz_m": [
+        2.311875820159912,
+        0.8299148678779602,
+        1.7581760883331299
+      ],
+      "triangles": 556,
+      "geometry_budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "animated": false,
+      "algae_option": true,
+      "glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/river_conglomerate_bank.glb",
+      "blend": "resources/aquascape/reef-expansion-20261123/landforms-b/river_conglomerate_bank/river_conglomerate_bank.blend",
+      "source_evidence": "resources/aquascape/reef-expansion-20261123/landforms-b/river_conglomerate_bank/material-source.handoff.json",
+      "report": "resources/aquascape/reef-expansion-20261123/landforms-b/river_conglomerate_bank/geometry-and-material.validation.json",
+      "native_review": "resources/aquascape/reef-expansion-20261123/landforms-b/river_conglomerate_bank/native-blender-review.jpg",
+      "user_acceptance": "pending"
+    }
+  ]
+}

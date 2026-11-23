@@ -1,0 +1,390 @@
+{
+  "id": "reef_erosion_eye",
+  "ok": true,
+  "geometry": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_erosion_eye.glb",
+    "sha256": "7a42f5794856cc7664bb5c3ff9bf8ee64ec48b83ae83e8e093a5370cfb92602f",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "reef_erosion_eye",
+        "triangles": 560,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "reef_erosion_eye · six-direction rock",
+        "size": [
+          1024,
+          1024
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "triangles": 560,
+  "budget": {
+    "preferred": 400,
+    "hard_limit": 600
+  },
+  "source_handoff": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_erosion_eye/material-source.handoff.json",
+  "source_sha256": "7e5d89c9b28d820e3f3df5fb8d09cbfdbda12161565f89875617e651869fe77f",
+  "nominal_xyz_m": [
+    1.8,
+    1.25,
+    1.2
+  ],
+  "bounds_xyz_m": [
+    1.9843597412109375,
+    1.293546438217163,
+    1.3731915950775146
+  ],
+  "floor_y_m": 0.0,
+  "surface_euler": 0,
+  "geometry_components": 1,
+  "volume_fraction_retained": 1.0,
+  "material_passes": 1,
+  "texture_filter": "nearest",
+  "atlas_size": [
+    1024,
+    1024
+  ],
+  "atlas_uncompressed_rgba_bytes": 4194304,
+  "source_texel_shares": {
+    "front": 0.2007,
+    "right": 0.1503,
+    "rear": 0.1695,
+    "left": 0.1613,
+    "top": 0.1941,
+    "bottom": 0.1241
+  },
+  "gray": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_erosion_eye/reef_erosion_eye-gray.glb",
+  "gray_sha256": "43b713b6749b863cdb2a6cd0dcdb9cc4cb894eece82c3a099174e8e74bc1e751",
+  "glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_erosion_eye.glb",
+  "glb_sha256": "7a42f5794856cc7664bb5c3ff9bf8ee64ec48b83ae83e8e093a5370cfb92602f",
+  "geometry_section": {
+    "kind": "eye",
+    "open_full_depth": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "solid_collar": [
+      [
+        0.7478481226505806,
+        1.667577940265867
+      ],
+      [
+        0.7461292135432315,
+        1.5999952529815566
+      ],
+      [
+        0.7166626656823896,
+        1.6375900304729263
+      ],
+      [
+        0.7545663193662928,
+        1.608171027789734
+      ]
+    ],
+    "passed": true
+  },
+  "art_outlines": {
+    "front": {
+      "silhouette_iou": 0.6873159834868613,
+      "span_m": [
+        1.8,
+        1.25
+      ]
+    },
+    "right": {
+      "silhouette_iou": 0.6365558406064278,
+      "span_m": [
+        1.2,
+        1.25
+      ]
+    },
+    "rear": {
+      "silhouette_iou": 0.6825234967235014,
+      "span_m": [
+        1.8,
+        1.25
+      ]
+    },
+    "left": {
+      "silhouette_iou": 0.6312059499240684,
+      "span_m": [
+        1.2,
+        1.25
+      ]
+    },
+    "top": {
+      "silhouette_iou": 0.754087346024636,
+      "span_m": [
+        1.8,
+        1.2
+      ]
+    },
+    "bottom": {
+      "silhouette_iou": 0.835765493930531,
+      "span_m": [
+        1.8,
+        1.2
+      ]
+    }
+  },
+  "landmarks": [
+    {
+      "name": "左前粗石棱",
+      "applied": true,
+      "form": "ledge",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        -0.45,
+        0.4625,
+        0.4265517241379291
+      ],
+      "center_xyz_m": [
+        -0.45,
+        0.4625,
+        0.46355172413792906
+      ]
+    },
+    {
+      "name": "底脚散拐",
+      "applied": true,
+      "form": "ledge",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        0.342,
+        0.2125,
+        0.4762068965517221
+      ],
+      "center_xyz_m": [
+        0.342,
+        0.2125,
+        0.5142068965517221
+      ]
+    },
+    {
+      "name": "背上沿层理",
+      "applied": true,
+      "form": "ledge",
+      "view": "rear",
+      "surface_anchor_xyz_m": [
+        -0.41400000000000003,
+        0.7124999999999999,
+        -0.4672413793103454
+      ],
+      "center_xyz_m": [
+        -0.41400000000000003,
+        0.7124999999999999,
+        -0.5002413793103454
+      ]
+    },
+    {
+      "name": "左侧凸脚趾",
+      "applied": true,
+      "form": "ledge",
+      "view": "left",
+      "surface_anchor_xyz_m": [
+        -0.7424137931034489,
+        0.30000000000000004,
+        0.084
+      ],
+      "center_xyz_m": [
+        -0.7824137931034489,
+        0.30000000000000004,
+        0.084
+      ]
+    },
+    {
+      "name": "右侧岩槽外沿",
+      "applied": true,
+      "form": "ledge",
+      "view": "right",
+      "surface_anchor_xyz_m": [
+        0.8341379310344796,
+        0.4125000000000001,
+        -0.036
+      ],
+      "center_xyz_m": [
+        0.8711379310344797,
+        0.4125000000000001,
+        -0.036
+      ]
+    },
+    {
+      "name": "帽顶石肩",
+      "applied": true,
+      "form": "ledge",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        -0.378,
+        1.150387931034483,
+        -0.144
+      ],
+      "center_xyz_m": [
+        -0.378,
+        1.1833879310344828,
+        -0.144
+      ]
+    },
+    {
+      "name": "前左蚀槽",
+      "applied": true,
+      "form": "cut",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        -0.378,
+        0.5625,
+        0.40172413793103257
+      ],
+      "center_xyz_m": [
+        -0.378,
+        0.5625,
+        0.4367241379310326
+      ]
+    },
+    {
+      "name": "后脚凹窝",
+      "applied": true,
+      "form": "cut",
+      "view": "rear",
+      "surface_anchor_xyz_m": [
+        0.28800000000000003,
+        0.26250000000000007,
+        -0.47965517241379363
+      ],
+      "center_xyz_m": [
+        0.28800000000000003,
+        0.26250000000000007,
+        -0.5086551724137937
+      ]
+    },
+    {
+      "name": "左端岩蚀刻",
+      "applied": true,
+      "form": "cut",
+      "view": "left",
+      "surface_anchor_xyz_m": [
+        -0.6803448275862076,
+        0.475,
+        -0.192
+      ],
+      "center_xyz_m": [
+        -0.7093448275862076,
+        0.475,
+        -0.192
+      ]
+    },
+    {
+      "name": "右肩缺口",
+      "applied": true,
+      "form": "cut",
+      "view": "right",
+      "surface_anchor_xyz_m": [
+        0.8093103448275831,
+        0.44999999999999996,
+        0.24
+      ],
+      "center_xyz_m": [
+        0.8413103448275832,
+        0.44999999999999996,
+        0.24
+      ]
+    },
+    {
+      "name": "左顶浅痕",
+      "applied": true,
+      "form": "cut",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        -0.198,
+        1.1628017241379311,
+        0.144
+      ],
+      "center_xyz_m": [
+        -0.198,
+        1.1948017241379312,
+        0.144
+      ]
+    }
+  ],
+  "relief_probes": [
+    {
+      "feature": "左前粗石棱",
+      "form": "ledge",
+      "signed_offset_m": 0.23209754581060293
+    },
+    {
+      "feature": "底脚散拐",
+      "form": "ledge",
+      "signed_offset_m": 0.19007291176164287
+    },
+    {
+      "feature": "背上沿层理",
+      "form": "ledge",
+      "signed_offset_m": 0.20167054192724576
+    },
+    {
+      "feature": "左侧凸脚趾",
+      "form": "ledge",
+      "signed_offset_m": 0.18335140126310856
+    },
+    {
+      "feature": "右侧岩槽外沿",
+      "form": "ledge",
+      "signed_offset_m": 0.15814957065113422
+    },
+    {
+      "feature": "帽顶石肩",
+      "form": "ledge",
+      "signed_offset_m": 0.13180931285946995
+    },
+    {
+      "feature": "前左蚀槽",
+      "form": "cut",
+      "signed_offset_m": -0.10808231650009592
+    },
+    {
+      "feature": "后脚凹窝",
+      "form": "cut",
+      "signed_offset_m": -0.12869161261971307
+    },
+    {
+      "feature": "左端岩蚀刻",
+      "form": "cut",
+      "signed_offset_m": -0.1140626934289446
+    },
+    {
+      "feature": "右肩缺口",
+      "form": "cut",
+      "signed_offset_m": -0.11130193205704497
+    },
+    {
+      "feature": "左顶浅痕",
+      "form": "cut",
+      "signed_offset_m": -0.060726053286820125
+    }
+  ],
+  "blender": {
+    "source": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_erosion_eye/reef_erosion_eye.blend",
+    "source_sha256": "cc3f7ddf53fe08aebaefb5940291335ce53f4019221090c8dea462cc5ba63256",
+    "reopened_and_same_polygon_points_uv_and_texture_as_glb": true,
+    "packed_texture_bytes": 1211051
+  },
+  "godot_proof": {
+    "contact_sheet": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_erosion_eye/native-blender-review.jpg",
+    "contact_sheet_sha256": "853734735884564c27c4841092101bf18254cef24f892bc0020aa009b849b135",
+    "views": 16,
+    "engine_material_surfaces": 1,
+    "sampler": "nearest"
+  }
+}

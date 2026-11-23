@@ -1,0 +1,63 @@
+{
+  "design": {"kind":"rect","width":15.0,"depth":8.0,"height":5.1,"radii":[0,0,0,0]},
+  "layouts": [
+    {
+      "id":"caribbean-reef", "title":"加勒比风格暖礁", "substrate":"fine_sand", "depth_cm":12.0,
+      "fog_color":"467f9a", "backdrop_bottom":"183552", "backdrop_top":"397589",
+      "eye":[2.6,5.6,15.0], "camera_size":10.65, "lane_z":2.76,
+      "items": [
+        {"key":"backwall","ids":["reef_backwall"],"at":[-4.57,-2.12],"size":4.42,"yaw":2},
+        {"key":"rift","ids":["reef_double_rift"],"at":[-0.10,-2.16],"size":4.00,"yaw":10},
+        {"key":"arch","ids":["reef_through_arch"],"at":[3.20,0.15],"size":4.10,"yaw":-10},
+        {"key":"terrace","ids":["reef_shelf_terrace"],"at":[3.76,-2.12],"size":3.18,"yaw":-14},
+        {"key":"canopy","ids":["reef_eroded_overhang"],"at":[-4.47,-0.40],"size":3.46,"yaw":-4},
+        {"key":"pedestal","ids":["reef_mushroom_pedestal"],"at":[5.88,-0.90],"size":1.83,"yaw":-12},
+        {"key":"hummock","ids":["reef_isolated_hummock"],"at":[-1.51,1.17],"size":1.62,"yaw":17},
+        {"key":"eye","ids":["reef_erosion_eye"],"at":[5.54,1.37],"size":1.34,"yaw":-18},
+        {"key":"rubble","ids":["reef_rubble_apron"],"at":[-4.34,1.67],"size":1.97,"yaw":-8},
+        {"ids":["reef_elkhorn_coral"],"support":"backwall","at":[-5.08,-1.99],"top":3.04,"size":1.54,"yaw":13},
+        {"ids":["reef_staghorn_coral"],"support":"backwall","at":[-3.86,-1.79],"top":2.25,"size":1.19,"yaw":-22},
+        {"ids":["reef_brain_coral"],"support":"canopy","at":[-4.80,0.04],"top":1.20,"size":0.71,"yaw":-12},
+        {"ids":["reef_tube_sponge"],"support":"canopy","at":[-4.17,0.42],"top":1.07,"size":0.77,"yaw":-11},
+        {"ids":["reef_sea_fan"],"support":"rift","at":[0.82,-2.04],"top":1.42,"size":1.17,"yaw":-16},
+        {"ids":["reef_staghorn_coral"],"support":"rift","at":[-1.29,-2.01],"top":2.23,"size":1.04,"yaw":44},
+        {"ids":["reef_barrel_sponge"],"support":"terrace","at":[3.85,-1.69],"top":1.23,"size":0.71,"yaw":17},
+        {"ids":["reef_tube_sponge"],"support":"arch","at":[4.77,0.14],"top":1.18,"size":0.65,"yaw":35},
+        {"ids":["reef_elkhorn_coral"],"support":"pedestal","at":[5.85,-0.97],"top":1.14,"size":1.01,"yaw":-30},
+        {"ids":["reef_brain_coral"],"support":"hummock","at":[-1.62,1.07],"top":0.68,"size":0.54,"yaw":12}
+      ]
+    },
+    {
+      "id":"freshwater-root-bank","title":"淡水沉木与水草","substrate":"river_gravel","depth_cm":13.0,
+      "fog_color":"556f68","backdrop_bottom":"203a3b","backdrop_top":"507465",
+      "eye":[-1.8,5.9,15.0], "camera_size":10.2, "lane_z":2.78,
+      "items": [
+        {"key":"slate","ids":["river_imbricated_slate","slate_stack"],"at":[-4.81,-0.84],"size":2.86,"yaw":-12},
+        {"key":"gneiss","ids":["river_gneiss_slab","rock"],"at":[3.91,-1.26],"size":3.28,"yaw":-8},
+        {"key":"conglom","ids":["river_conglomerate_bank","river_boulder"],"at":[3.20,0.82],"size":2.50,"yaw":-22},
+        {"key":"upright","ids":["wood_upturned_root_plate","root_fan"],"at":[-3.59,-1.84],"size":4.17,"yaw":-15},
+        {"key":"overhang","ids":["wood_overhang_perch","driftwood"],"at":[-1.44,-0.18],"size":4.08,"yaw":7},
+        {"key":"tunnel","ids":["wood_hollow_tunnel","weathered_log"],"at":[2.50,0.18],"size":3.78,"yaw":-24},
+        {"key":"roots","ids":["wood_low_root_weave","spider_wood"],"at":[-4.55,1.09],"size":2.65,"yaw":26},
+        {"key":"accent","ids":["river_obsidian_fault","lava_rock"],"at":[5.00,0.69],"size":1.58,"yaw":4},
+        {"ids":["vallisneria"],"at":[-5.60,-2.77],"footprint_scale":0.59,"size":3.32,"yaw":-3},
+        {"ids":["vallisneria"],"at":[-3.97,-2.91],"footprint_scale":0.59,"size":2.88,"yaw":6},
+        {"ids":["vallisneria"],"at":[4.88,-2.82],"footprint_scale":0.59,"size":3.1,"yaw":-38},
+        {"ids":["vallisneria"],"at":[3.65,-2.8],"footprint_scale":0.59,"size":2.56,"yaw":55},
+        {"ids":["laceleaf_rosette","aponogeton"],"at":[0.10,-2.39],"size":2.24,"yaw":21},
+        {"ids":["amazon_sword"],"at":[1.65,-1.7],"size":1.76,"yaw":19},
+        {"ids":["crypt_crispatula"],"at":[-5.72,-0.06],"size":1.83,"yaw":-10},
+        {"ids":["crypt_crispatula"],"at":[4.96,-0.19],"size":1.79,"yaw":71},
+        {"ids":["rotala"],"at":[6.04,-1.61],"size":1.33,"yaw":17},
+        {"ids":["crypt_wendtii"],"at":[-4.35,1.48],"size":0.78,"yaw":0},
+        {"ids":["hairgrass_meadow","dwarf_sagittaria"],"at":[-2.79,1.47],"size":0.91,"yaw":4},
+        {"ids":["hairgrass_meadow","dwarf_sagittaria"],"at":[2.91,1.76],"size":0.93,"yaw":8},
+        {"ids":["marsilea_runner_patch","hydrocotyle"],"at":[4.37,1.52],"size":0.94,"yaw":27},
+        {"ids":["lake_quillwort_rosette","crypt_wendtii"],"at":[-1.31,1.20],"size":0.70,"yaw":-4},
+        {"ids":["riverwort_moss_mat","java_moss"],"support":"slate","at":[-4.99,-0.24],"top":0.77,"size":0.83,"yaw":7},
+        {"ids":["anubias"],"support":"overhang","at":[-0.39,-0.07],"top":0.71,"size":0.68,"yaw":-16},
+        {"ids":["bolbitis_fern_clump","java_fern"],"support":"tunnel","at":[2.77,-0.04],"top":0.68,"size":0.87,"yaw":10}
+      ]
+    }
+  ]
+}

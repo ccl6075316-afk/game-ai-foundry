@@ -1,0 +1,194 @@
+{
+  "id": "reef_scroll_coral",
+  "name": "卷层杯片硬珊瑚",
+  "species": null,
+  "geography": "Indo-Pacific",
+  "category": "scleractinian",
+  "nominal_xyz_m": [
+    0.88,
+    0.55,
+    0.8
+  ],
+  "ecology_and_use": "暖水印太硬底卷片型，非定种。杯内为开放负空间，向斜上方开口。",
+  "primary_reference": "https://coraltraits.org/",
+  "approvals": {
+    "user_intent": "pending",
+    "user_native": "pending"
+  },
+  "source": {
+    "file": "six-material-views.png",
+    "sha256": "a3216ce3ddc173be075fd581523a6c0341f33d686cabd4ba42c4f4223cae6ec3",
+    "status": "draft_intent",
+    "views": {
+      "front": [
+        26,
+        58,
+        473,
+        447
+      ],
+      "right": [
+        553,
+        53,
+        960,
+        447
+      ],
+      "rear": [
+        1062,
+        58,
+        1508,
+        447
+      ],
+      "left": [
+        47,
+        558,
+        473,
+        951
+      ],
+      "top": [
+        540,
+        547,
+        986,
+        964
+      ],
+      "bottom": [
+        1054,
+        561,
+        1499,
+        952
+      ]
+    },
+    "review": "六格可见两个朝相近方向开口的高低卷片，顶部确认 C 形开缝，仰视是共同根核。几何将杯内、开缝和封闭缘实际建出。"
+  },
+  "shape_specification": "Spiral scroll-like calcified cup coral with two imperfect nested upright curved ribbons raised around the same rooted cone. Broad C-shaped inner and outer walls shade an open interior; avoid a complete smooth vase. Slight bumps and weathered coral texture matte warm cream to ochre, a peach growth rim and many subtle coral cups.",
+  "shape_method": "scroll",
+  "geometry": {
+    "source_field_components": 1,
+    "isolated_voxels_removed": 0,
+    "bounds_xyz_m": [
+      0.8848832845687866,
+      0.5518361330032349,
+      0.8049062490463257
+    ],
+    "connected_components": 1,
+    "euler_characteristic": 2,
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "signed_volume_m3": 0.05649733543395996,
+    "triangle_count": 880,
+    "budget_type": "broadleaf_plant",
+    "preferred_triangles": 700,
+    "hard_triangle_limit": 1000,
+    "ground_y_min": 0.0,
+    "contact_vertices": 12,
+    "projection": {
+      "front": {
+        "silhouette_iou": 0.6882688139631687,
+        "span_m": [
+          0.88,
+          0.55
+        ]
+      },
+      "right": {
+        "silhouette_iou": 0.5787991738470971,
+        "span_m": [
+          0.8,
+          0.55
+        ]
+      },
+      "rear": {
+        "silhouette_iou": 0.6833208976640074,
+        "span_m": [
+          0.88,
+          0.55
+        ]
+      },
+      "left": {
+        "silhouette_iou": 0.5849420997960989,
+        "span_m": [
+          0.8,
+          0.55
+        ]
+      },
+      "top": {
+        "silhouette_iou": 0.7204505508784648,
+        "span_m": [
+          0.88,
+          0.8
+        ]
+      },
+      "bottom": {
+        "silhouette_iou": 0.6733335705897007,
+        "span_m": [
+          0.88,
+          0.8
+        ]
+      }
+    }
+  },
+  "material": {
+    "native_source_pixel_selection": true,
+    "filter": "nearest",
+    "atlas": 1536,
+    "macro_shadow_removed_for_cavities": false,
+    "primitive_count": 1,
+    "material_count": 1,
+    "source_fractions": {
+      "front": 0.2036,
+      "rear": 0.2056,
+      "left": 0.081,
+      "right": 0.1532,
+      "top": 0.3108,
+      "bottom": 0.0458
+    }
+  },
+  "blend": {
+    "file": "reef_scroll_coral.blend",
+    "sha256": "f21b9f7fbd72f39a3c9f7b2aaf50ada6350ebfdd0c09b6c7a987d10708e00a77",
+    "cold_geometry_uv_texture_pass": true
+  },
+  "glb": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_scroll_coral.glb",
+    "sha256": "8ef474abebb4c2b2023cc62112ab73260915554ef645e2bce33655a4941890de",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "reef_scroll_coral",
+        "triangles": 880,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "卷层杯片硬珊瑚",
+        "size": [
+          1536,
+          1536
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "current_status": "static_candidate_for_user_review",
+  "scope": "低面展缸艺术模块。结构与方向参考六面意向，非生物实测。相机近似会影响投影重叠。",
+  "native_review": {
+    "file": "godot-native-review.jpg",
+    "engine": "Godot 4.7.1 stable, macOS Compatibility",
+    "rendered_views": [
+      "angle",
+      "front",
+      "right",
+      "rear",
+      "left",
+      "top",
+      "bottom",
+      "oblique"
+    ],
+    "mode": "fresh-process direct GLB, gray and material under the same lights",
+    "verified_texture_filter": "nearest",
+    "observations": "内外卷片与两层开缘可见，夹层有真负空间。卷缘和底座偏几何化。",
+    "user_acceptance": "pending"
+  }
+}

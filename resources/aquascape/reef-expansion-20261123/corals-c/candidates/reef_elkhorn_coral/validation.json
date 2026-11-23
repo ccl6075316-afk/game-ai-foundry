@@ -1,0 +1,194 @@
+{
+  "id": "reef_elkhorn_coral",
+  "name": "麋角珊瑚",
+  "species": "Acropora palmata",
+  "geography": "Caribbean",
+  "category": "scleractinian",
+  "nominal_xyz_m": [
+    1.51,
+    0.68,
+    0.98
+  ],
+  "ecology_and_use": "加勒比浅水礁顶和前礁，宽扁分枝适合上层受光。",
+  "primary_reference": "https://www.fisheries.noaa.gov/species/elkhorn-coral",
+  "approvals": {
+    "user_intent": "pending",
+    "user_native": "pending"
+  },
+  "source": {
+    "file": "six-material-views.png",
+    "sha256": "4b544cea727bfad710144fc13bb5246690af93518492b120accdfd2e3c1bbd7d",
+    "status": "draft_intent",
+    "views": {
+      "front": [
+        30,
+        103,
+        513,
+        441
+      ],
+      "right": [
+        578,
+        89,
+        980,
+        447
+      ],
+      "rear": [
+        1040,
+        104,
+        1511,
+        440
+      ],
+      "left": [
+        41,
+        565,
+        486,
+        925
+      ],
+      "top": [
+        555,
+        550,
+        996,
+        958
+      ],
+      "bottom": [
+        1050,
+        560,
+        1509,
+        925
+      ]
+    },
+    "review": "六面有宽扁分枝和浅端，俯视扇状向外分片，底部是同一共根。四立面有轻微俯角，参考边缘缺口与层次，不作生物量测。"
+  },
+  "shape_specification": "Amber tan and muted bronze, a thick central trunk spreading several wide, thick, staggered flattened wrinkled paddles in three dimensions. Broad paddles angle upward and divide into wider rounded fork ends. Small pale growth edges, negative spaces between outward arms. Do not make narrow deer twigs.",
+  "shape_method": "elkhorn",
+  "geometry": {
+    "source_field_components": 1,
+    "isolated_voxels_removed": 0,
+    "bounds_xyz_m": [
+      1.5148497819900513,
+      0.6750212907791138,
+      0.9781678915023804
+    ],
+    "connected_components": 1,
+    "euler_characteristic": 2,
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "signed_volume_m3": 0.14204852283000946,
+    "triangle_count": 696,
+    "budget_type": "broadleaf_plant",
+    "preferred_triangles": 700,
+    "hard_triangle_limit": 1000,
+    "ground_y_min": 0.0,
+    "contact_vertices": 7,
+    "projection": {
+      "front": {
+        "silhouette_iou": 0.558265664767907,
+        "span_m": [
+          1.51,
+          0.68
+        ]
+      },
+      "right": {
+        "silhouette_iou": 0.6048588711654036,
+        "span_m": [
+          0.98,
+          0.68
+        ]
+      },
+      "rear": {
+        "silhouette_iou": 0.5624186248372497,
+        "span_m": [
+          1.51,
+          0.68
+        ]
+      },
+      "left": {
+        "silhouette_iou": 0.5940570475793485,
+        "span_m": [
+          0.98,
+          0.68
+        ]
+      },
+      "top": {
+        "silhouette_iou": 0.5559484223212859,
+        "span_m": [
+          1.51,
+          0.98
+        ]
+      },
+      "bottom": {
+        "silhouette_iou": 0.5267086940597995,
+        "span_m": [
+          1.51,
+          0.98
+        ]
+      }
+    }
+  },
+  "material": {
+    "native_source_pixel_selection": true,
+    "filter": "nearest",
+    "atlas": 1536,
+    "macro_shadow_removed_for_cavities": false,
+    "primitive_count": 1,
+    "material_count": 1,
+    "source_fractions": {
+      "front": 0.1804,
+      "rear": 0.1774,
+      "left": 0.121,
+      "right": 0.0903,
+      "top": 0.2813,
+      "bottom": 0.1496
+    }
+  },
+  "blend": {
+    "file": "reef_elkhorn_coral.blend",
+    "sha256": "f78baee741619fe6b631026bd2857760365f330d8ea05b429eaa197e8c37acb7",
+    "cold_geometry_uv_texture_pass": true
+  },
+  "glb": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_elkhorn_coral.glb",
+    "sha256": "d480ea94c1f19a7d045a46bb321c5cf72161d7c66823baa45b904e8143c45dc8",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "reef_elkhorn_coral",
+        "triangles": 696,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "麋角珊瑚",
+        "size": [
+          1536,
+          1536
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "current_status": "static_candidate_for_user_review",
+  "scope": "低面展缸艺术模块。结构与方向参考六面意向，非生物实测。相机近似会影响投影重叠。",
+  "native_review": {
+    "file": "godot-native-review.jpg",
+    "engine": "Godot 4.7.1 stable, macOS Compatibility",
+    "rendered_views": [
+      "angle",
+      "front",
+      "right",
+      "rear",
+      "left",
+      "top",
+      "bottom",
+      "oblique"
+    ],
+    "mode": "fresh-process direct GLB, gray and material under the same lights",
+    "verified_texture_filter": "nearest",
+    "observations": "顶视各主桨分开，局部沿两翼与分叉铺开。边缘低面，细小扇缺只保留在颜色。",
+    "user_acceptance": "pending"
+  }
+}

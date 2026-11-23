@@ -1,0 +1,32 @@
+{
+  "id": "wood_overhang_perch",
+  "ok": true,
+  "triangles": 886,
+  "connected_components": 1,
+  "euler": 2,
+  "vertex_bounds_xyz_m": [
+    2.910853862762451,
+    1.0613327026367188,
+    1.3787840604782104
+  ],
+  "model_sha256": "0629d2a04d9556eb5731361840675d18d9046370923d3814c09c02f01173123f",
+  "open_edges": 0,
+  "nonmanifold": 0,
+  "signed_volume_m3": 0.39005494117736816,
+  "material_count": 1,
+  "atlas_size": [
+    2048,
+    2048
+  ],
+  "source_texel_shares": {
+    "front": 0.1785,
+    "right": 0.0831,
+    "rear": 0.1904,
+    "left": 0.1225,
+    "top": 0.2088,
+    "bottom": 0.2167
+  },
+  "bore_views": [],
+  "gray_sha256": "a437a7ad401963f613ea1fe3e6a429b8500f9c568d5e9580a8a95a56b24a36c4",
+  "source_blender_sha256": "69dabb914bf9fbbb84ded910d1d2e5977a835f717b542733cba353dbf98ff352"
+}

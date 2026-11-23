@@ -1,0 +1,63 @@
+{
+  "manifest_version": 1,
+  "updated_at": "2026-11-23T12:06:45+00:00",
+  "brief": "projects/aquascape-d-giant_kelp-20261123/brief.json",
+  "output_dir": "projects/aquascape-d-giant_kelp-20261123/output",
+  "project": {
+    "title": "Six views · 巨藻林丛",
+    "description": "Single aquatic organism or root structure six-view concept",
+    "art_direction": "Style: clean hand-drawn pixel illustration for a modern pixel aquarium game. Simplify into broad tone clusters, with large palest sun-facing shapes, separate near-plane and shadow-plane masses, and sharp small deliberate rectangular pixels used sparingly along fractures. Use a restrained palette. No fine photograph-like grain or noisy stipple, no ambient occlusion speckle. No outline, smooth CGI, heavy gradient, caustics, text, or lighting effects. White background. Strict level front elevation of one complete object on its own, no scenes or extra views.",
+    "dimension": "3d"
+  },
+  "assets": {
+    "giant_kelp_six_views": {
+      "brief": {
+        "id": "giant_kelp_six_views",
+        "name": "giant_kelp_six_views",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        },
+        "description": "Initial material art for a new placeable aquarium set. One naturally grown juvenile giant kelp cluster, Monterey rocky coast. A shared compact branching holdfast anchored at ground level without a boulder, olive-brown flexible vertical stipes. See the airy gaps between the tall stalks. Lance-shaped corrugated ochre-olive blades on small rounded gas floats at their base; growth concentrated above mid-height but some blades below. An airy off-center upper crown widening toward one side. A marine brown macroalga with a clean natural kelp forest silhouette, not pinnate leaves and not a freshwater plant. Target X × Y × Z = 1.45 × 3.65 × 1.18 meters.\n\nOne six-direction MATERIAL AND FORM concept sheet, exact regular 3-column by 2-row grid, top row FRONT, RIGHT, BACK, bottom row LEFT, TOP, BOTTOM. All six are the same natural single object, with the same irregular outline, attachment points, color and scale. Put very small labels above the objects with white gap below the labels, each cell has plenty of pure white margin, no bordering box or divider. Keep object safely within the middle 76% of cell height, taking enough space to read at full resolution.\nTrue orthographic FRONT looking from +Z, a straight front elevation; RIGHT from +X a straight vertical end elevation along the long axis; BACK from -Z, agree with FRONT after horizontal mirroring; LEFT from -X, agree with RIGHT after horizontal mirroring. TOP from +Y, looking exactly straight down with rear at the top of the image. BOTTOM from -Y looks directly up with the front at the top of its image, showing the same plan shape together with the attachment area closest to camera. True top and bottom plans: vertical height disappears. Match visible outlines between each opposed pair; interiors paint the real plant overlap and opposite surface detail.\nKeep natural pigment and deliberate crisp small pixel clusters like the supplied style reference and no CGI outlines or gradients. White background, no water, bubbles, shadow, 3/4 camera, display pedestal, loose debris, ruler or environment. Paint material at the same style scale in all six cameras. Negative spaces in the cluster must remain white in the matching views. The reference image is color/rendering style only; render the specified organism/structure. Do not copy the species or object in the style reference.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "giant_kelp_six_views.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects/aquascape-d-giant_kelp-20261123/plans/giant_kelp_six_views.json",
+          "path_repo": "projects/aquascape-d-giant_kelp-20261123/plans/giant_kelp_six_views.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "giant_kelp_six_views.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects/aquascape-d-giant_kelp-20261123/output/giant_kelp_six_views_raw.png",
+          "path_repo": "projects/aquascape-d-giant_kelp-20261123/output/giant_kelp_six_views_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null
+    }
+  }
+}

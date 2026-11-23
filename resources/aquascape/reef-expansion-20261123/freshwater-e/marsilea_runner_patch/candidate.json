@@ -1,0 +1,21 @@
+{
+  "id": "marsilea_runner_patch",
+  "name_zh": "匍匐四叶苹丛",
+  "category": "plant",
+  "environment": "freshwater",
+  "nominal_xyz_m": [
+    0.69,
+    0.19,
+    0.46
+  ],
+  "budget_type": "broadleaf_plant",
+  "scientific_name": "Marsilea hirsuta",
+  "source_url": "https://tropica.com/en/inspiration/layout/Layout7/4835",
+  "habitat": "Small freshwater runner with both spatulate submerged leaves and occasional four-part leaf blades.",
+  "source_board_sha256": "0daf2d0318017d0960bf1fb0003a4d453b5abf5b08ccdec3b3f1f05fea11eba4",
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/marsilea_runner_patch.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/freshwater-e/marsilea_runner_patch/marsilea_runner_patch.blend",
+  "source_board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-e-marsilea-runner-patch/output/marsilea_runner_patch_six_views_raw.png",
+  "validation": "resources/aquascape/reef-expansion-20261123/freshwater-e/marsilea_runner_patch/geometry-and-material.validation.json",
+  "triangles": 772
+}

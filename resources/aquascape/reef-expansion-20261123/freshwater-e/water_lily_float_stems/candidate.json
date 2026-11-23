@@ -1,0 +1,21 @@
+{
+  "id": "water_lily_float_stems",
+  "name_zh": "长柄浮叶睡莲",
+  "category": "plant",
+  "environment": "freshwater",
+  "nominal_xyz_m": [
+    1.23,
+    1.58,
+    1.04
+  ],
+  "budget_type": "broadleaf_plant",
+  "scientific_name": null,
+  "source_url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:330032-2/general-information",
+  "habitat": "Freshwater Nymphaea growth form. Floating split pads with separate petioles and a rooted rhizome.",
+  "source_board_sha256": "b792bd14873998927e463f0ca2b3e53ad9ff2d293ff6ddac53a25cbbd2151b2f",
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/water_lily_float_stems.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/freshwater-e/water_lily_float_stems/water_lily_float_stems.blend",
+  "source_board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-e-water-lily-float-stems/output/water_lily_float_stems_six_views_raw.png",
+  "validation": "resources/aquascape/reef-expansion-20261123/freshwater-e/water_lily_float_stems/geometry-and-material.validation.json",
+  "triangles": 986
+}

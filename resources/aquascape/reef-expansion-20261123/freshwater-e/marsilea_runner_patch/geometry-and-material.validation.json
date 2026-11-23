@@ -1,0 +1,113 @@
+{
+  "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/marsilea_runner_patch.glb",
+  "sha256": "d99e09e41c4f0ef0df88bbbc52c9278b52269e589f922903a3ad360160d2ffcc",
+  "ok": true,
+  "meshes": [
+    {
+      "name": "marsilea_runner_patch · closed natural shells",
+      "triangles": 772,
+      "finite_and_nonzero_area": true
+    }
+  ],
+  "textures": [
+    {
+      "name": "marsilea_runner_patch-atlas",
+      "size": [
+        256,
+        256
+      ],
+      "opaque": true
+    }
+  ],
+  "open_edges": 0,
+  "nonmanifold_edges": 0,
+  "failures": [],
+  "triangles": 772,
+  "vertices": 2316,
+  "bytes": 161132,
+  "budget": {
+    "preferred": 700,
+    "hard_limit": 1000
+  },
+  "measured_xyz_m": [
+    0.690000057220459,
+    0.18999998271465302,
+    0.46000000834465027
+  ],
+  "root_min_y_m": 0.0,
+  "source_board": {
+    "file": "resources/aquascape/reef-expansion-20261123/sources/aquascape-e-marsilea-runner-patch/output/marsilea_runner_patch_six_views_raw.png",
+    "sha256": "0daf2d0318017d0960bf1fb0003a4d453b5abf5b08ccdec3b3f1f05fea11eba4",
+    "camera_order": [
+      "front",
+      "right",
+      "back",
+      "left",
+      "top",
+      "bottom"
+    ],
+    "swatches": {
+      "blade": [
+        [
+          [
+            "top",
+            640,
+            681,
+            704,
+            745
+          ]
+        ],
+        [
+          [
+            "bottom",
+            1419,
+            697,
+            1483,
+            761
+          ]
+        ]
+      ],
+      "runner": [
+        [
+          [
+            "front",
+            232,
+            302,
+            312,
+            382
+          ]
+        ],
+        [
+          [
+            "back",
+            1149,
+            301,
+            1229,
+            381
+          ]
+        ]
+      ],
+      "root": [
+        [
+          [
+            "front",
+            234,
+            310,
+            314,
+            390
+          ]
+        ],
+        [
+          [
+            "back",
+            1066,
+            313,
+            1146,
+            393
+          ]
+        ]
+      ]
+    },
+    "art_review": "candidate reviewed by agent, user pending"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "id": "bolbitis_fern_clump",
+  "name": "沉木羽叶蕨",
+  "label": "沉木羽叶蕨",
+  "category": "plant",
+  "budget_type": "broadleaf_plant",
+  "nominal_xyz_m": [
+    0.93,
+    0.57,
+    0.62
+  ],
+  "triangles": 974,
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/bolbitis_fern_clump.glb",
+  "source_glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/bolbitis_fern_clump.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/bolbitis_fern_clump/bolbitis_fern_clump.blend",
+  "source_intent": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/bolbitis_fern_clump/six-material-views.png",
+  "validation": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/bolbitis_fern_clump/validation.json",
+  "scientific_name": "Bolbitis heudelotii",
+  "source_url": "https://biodiversityadvisor.sanbi.org/search/detail/0c4c5fdf-7c21-4d81-a085-1204c3680c62",
+  "habitat": "热带非洲溪流硬基附生蕨，沿水平根茎出叶，羽状复叶可供淡水溪景搭配。",
+  "rooted_current": {
+    "anchor_min": [
+      -0.21877506660977772,
+      0.11487099705042549,
+      -0.05087675230910617
+    ],
+    "anchor_size": [
+      0.40985730797299336,
+      0.013201488211768517,
+      0.06305997844251005
+    ],
+    "amplitude": 0.041
+  },
+  "user_acceptance": "pending"
+}

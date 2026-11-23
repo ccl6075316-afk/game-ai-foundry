@@ -1,0 +1,213 @@
+{
+  "id": "reef_barrel_sponge",
+  "name": "桶状海绵",
+  "species": null,
+  "geography": "Caribbean",
+  "category": "sponge",
+  "nominal_xyz_m": [
+    0.85,
+    0.79,
+    0.8
+  ],
+  "ecology_and_use": "参考暖水加勒比硬礁桶状海绵，非定种。整件厚杯、深盲腔和实体底部。",
+  "primary_reference": "https://ocean.si.edu/ocean-life/microbes/barrel-sponge",
+  "approvals": {
+    "user_intent": "pending",
+    "user_native": "pending"
+  },
+  "source": {
+    "file": "six-material-views.png",
+    "sha256": "dec270d23e8530cc4130a48a2eb72a09151bc4d66873605cec368ebc2944177c",
+    "status": "draft_intent",
+    "views": {
+      "front": [
+        34,
+        44,
+        498,
+        454
+      ],
+      "right": [
+        548,
+        40,
+        987,
+        454
+      ],
+      "rear": [
+        1037,
+        45,
+        1502,
+        454
+      ],
+      "left": [
+        38,
+        547,
+        480,
+        962
+      ],
+      "top": [
+        537,
+        539,
+        987,
+        962
+      ],
+      "bottom": [
+        1037,
+        539,
+        1493,
+        962
+      ]
+    },
+    "review": "六格为单个深口厚桶、纵向外沟、俯视不规则一圈开口、仰视闭合小底。几处立面偏俯视；壁厚和口沿起伏进入独立网格。"
+  },
+  "shape_specification": "Single large barrel-shaped Caribbean reef sponge-inspired body with deep open bowl having a thick uneven fluted collar and real rough inner wall. Broad brown-purple porous body wider at shoulder, irregular longitudinal exterior furrows and rounded relief ribs. Low closed foot and no attached additional tubes. Show cavity clearly from top only and plausible partial cavity visible at level. No fake holes in side texture.",
+  "shape_method": "barrel_sponge",
+  "geometry": {
+    "source_field_components": 1,
+    "isolated_voxels_removed": 0,
+    "bounds_xyz_m": [
+      0.8502424955368042,
+      0.7897403836250305,
+      0.8026114106178284
+    ],
+    "connected_components": 1,
+    "euler_characteristic": 2,
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "vertical_cavity_floor_probes": [
+      {
+        "normalized_xz": [
+          0,
+          0
+        ],
+        "first_surface_heights_m": [
+          0.2435,
+          0.2435,
+          0.2435,
+          0.2435,
+          0.2435,
+          0.2435,
+          0.2435,
+          0.2435,
+          0.2435
+        ]
+      }
+    ],
+    "signed_volume_m3": 0.1629357486963272,
+    "triangle_count": 814,
+    "budget_type": "broadleaf_plant",
+    "preferred_triangles": 700,
+    "hard_triangle_limit": 1000,
+    "ground_y_min": 0.0,
+    "contact_vertices": 14,
+    "projection": {
+      "front": {
+        "silhouette_iou": 0.8588867571673253,
+        "span_m": [
+          0.85,
+          0.79
+        ]
+      },
+      "right": {
+        "silhouette_iou": 0.8368517800011449,
+        "span_m": [
+          0.8,
+          0.79
+        ]
+      },
+      "rear": {
+        "silhouette_iou": 0.8612016626473903,
+        "span_m": [
+          0.85,
+          0.79
+        ]
+      },
+      "left": {
+        "silhouette_iou": 0.8356281675953033,
+        "span_m": [
+          0.8,
+          0.79
+        ]
+      },
+      "top": {
+        "silhouette_iou": 0.8923575766972489,
+        "span_m": [
+          0.85,
+          0.8
+        ]
+      },
+      "bottom": {
+        "silhouette_iou": 0.8910922799759792,
+        "span_m": [
+          0.85,
+          0.8
+        ]
+      }
+    }
+  },
+  "material": {
+    "native_source_pixel_selection": true,
+    "filter": "nearest",
+    "atlas": 1536,
+    "macro_shadow_removed_for_cavities": true,
+    "primitive_count": 1,
+    "material_count": 1,
+    "source_fractions": {
+      "front": 0.1982,
+      "rear": 0.2185,
+      "left": 0.2112,
+      "right": 0.2132,
+      "top": 0.1202,
+      "bottom": 0.0387
+    }
+  },
+  "blend": {
+    "file": "reef_barrel_sponge.blend",
+    "sha256": "f47c2c115b3e6b350c931257f96047cbab4d1f488884a4cd4137779878a75c8c",
+    "cold_geometry_uv_texture_pass": true
+  },
+  "glb": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_barrel_sponge.glb",
+    "sha256": "1c8702e9f5e7b064107d377457f4c694902c34b6f439860503dcce8b057cb016",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "reef_barrel_sponge",
+        "triangles": 814,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "桶状海绵",
+        "size": [
+          1536,
+          1536
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "current_status": "static_candidate_for_user_review",
+  "scope": "低面展缸艺术模块。结构与方向参考六面意向，非生物实测。相机近似会影响投影重叠。",
+  "native_review": {
+    "file": "godot-native-review.jpg",
+    "engine": "Godot 4.7.1 stable, macOS Compatibility",
+    "rendered_views": [
+      "angle",
+      "front",
+      "right",
+      "rear",
+      "left",
+      "top",
+      "bottom",
+      "oblique"
+    ],
+    "mode": "fresh-process direct GLB, gray and material under the same lights",
+    "verified_texture_filter": "nearest",
+    "observations": "单一波纹口沿、纵向外沟、实厚壁与不贯通的深腔。方向性大阴影削弱，由几何承担。",
+    "user_acceptance": "pending"
+  }
+}

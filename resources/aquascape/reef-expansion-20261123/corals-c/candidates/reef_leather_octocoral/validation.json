@@ -1,0 +1,198 @@
+{
+  "id": "reef_leather_octocoral",
+  "name": "矮冠皮革软珊瑚形",
+  "species": null,
+  "geography": "Indo-Pacific",
+  "category": "octocoral",
+  "nominal_xyz_m": [
+    0.65,
+    0.41,
+    0.59
+  ],
+  "ecology_and_use": "暖水印太硬底软珊瑚轮廓，非定种。分开柄基与褶冠，待独立柔性验证。",
+  "primary_reference": "https://lifg.australian.museum/Group.html?groupId=aUxVhtGu&hierarchyId=PVWrQCLG",
+  "approvals": {
+    "user_intent": "pending",
+    "user_native": "pending"
+  },
+  "source": {
+    "file": "six-material-views.png",
+    "sha256": "1a4d9720cb861106d07bbe2dda82b5b784c99db43029fa283cf2e443a3529f9d",
+    "status": "draft_intent",
+    "views": {
+      "front": [
+        20,
+        121,
+        494,
+        421
+      ],
+      "right": [
+        547,
+        127,
+        955,
+        424
+      ],
+      "rear": [
+        1037,
+        125,
+        1516,
+        421
+      ],
+      "left": [
+        37,
+        607,
+        475,
+        904
+      ],
+      "top": [
+        526,
+        565,
+        980,
+        928
+      ],
+      "bottom": [
+        1037,
+        570,
+        1502,
+        925
+      ]
+    },
+    "review": "六格以粗柄、柔性冠、向附着中心收拢的冠背与上冠八瓣小花为分区，模型保留大褶，聚缩动作另验。"
+  },
+  "shape_specification": "Mushroom-like leather soft coral colony, thick short stalk with a low wide irregular fleshy cap rippled at the rim, asymmetry and gentle lobes. Dusty sepia pink-beige with ochre tones, the many small simple short extended eight-lobed polyps on the upper face only. Broad pale folds on cap underside, no gills, no land mushroom.",
+  "shape_method": "leather",
+  "geometry": {
+    "source_field_components": 1,
+    "isolated_voxels_removed": 0,
+    "bounds_xyz_m": [
+      0.6507008075714111,
+      0.4088599383831024,
+      0.5903910398483276
+    ],
+    "connected_components": 1,
+    "euler_characteristic": 2,
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "signed_volume_m3": 0.029097365215420723,
+    "triangle_count": 696,
+    "budget_type": "broadleaf_plant",
+    "preferred_triangles": 700,
+    "hard_triangle_limit": 1000,
+    "ground_y_min": 0.0,
+    "contact_vertices": 10,
+    "projection": {
+      "front": {
+        "silhouette_iou": 0.5307103381838463,
+        "span_m": [
+          0.65,
+          0.41
+        ]
+      },
+      "right": {
+        "silhouette_iou": 0.5133803852374651,
+        "span_m": [
+          0.59,
+          0.41
+        ]
+      },
+      "rear": {
+        "silhouette_iou": 0.5140688259109312,
+        "span_m": [
+          0.65,
+          0.41
+        ]
+      },
+      "left": {
+        "silhouette_iou": 0.4806965008595353,
+        "span_m": [
+          0.59,
+          0.41
+        ]
+      },
+      "top": {
+        "silhouette_iou": 0.8274395194025004,
+        "span_m": [
+          0.65,
+          0.59
+        ]
+      },
+      "bottom": {
+        "silhouette_iou": 0.8193828728443283,
+        "span_m": [
+          0.65,
+          0.59
+        ]
+      }
+    }
+  },
+  "material": {
+    "native_source_pixel_selection": true,
+    "filter": "nearest",
+    "atlas": 1536,
+    "macro_shadow_removed_for_cavities": false,
+    "primitive_count": 1,
+    "material_count": 1,
+    "source_fractions": {
+      "front": 0.128,
+      "rear": 0.1281,
+      "left": 0.0926,
+      "right": 0.1023,
+      "top": 0.2979,
+      "bottom": 0.2511
+    }
+  },
+  "blend": {
+    "file": "reef_leather_octocoral.blend",
+    "sha256": "4d9cea224c4f40d7689f8c9f798657fe56362f741cc36ff1d7924f84718a215a",
+    "cold_geometry_uv_texture_pass": true
+  },
+  "glb": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_leather_octocoral.glb",
+    "sha256": "55aa1101afb7540fa98f583a36f10ed96ccd0987c751b30150711fa742fcd79d",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "reef_leather_octocoral",
+        "triangles": 696,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "矮冠皮革软珊瑚形",
+        "size": [
+          1536,
+          1536
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "current_status": "static_candidate_for_user_review",
+  "scope": "低面展缸艺术模块。结构与方向参考六面意向，非生物实测。相机近似会影响投影重叠。",
+  "native_review": {
+    "file": "godot-native-review.jpg",
+    "engine": "Godot 4.7.1 stable, macOS Compatibility",
+    "rendered_views": [
+      "angle",
+      "front",
+      "right",
+      "rear",
+      "left",
+      "top",
+      "bottom",
+      "oblique"
+    ],
+    "mode": "fresh-process direct GLB, gray and material under the same lights",
+    "verified_texture_filter": "nearest",
+    "observations": "冠柄、浅冠褶和上方珊瑚虫纹，冠下实面从中柄渐展。仅静态阶段审查。",
+    "user_acceptance": "pending"
+  },
+  "motion": {
+    "status": "not_in_this_review",
+    "conditions": "各件柔性组织、根部锚定及在展缸内的实际水流单独核对。"
+  }
+}

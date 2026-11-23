@@ -1,0 +1,113 @@
+{
+  "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/duckweed_root_patch.glb",
+  "sha256": "5f922ccb79787896213bcbfd100c3db540908324dd5584f0f8ab0becdd416dd8",
+  "ok": true,
+  "meshes": [
+    {
+      "name": "duckweed_root_patch · closed natural shells",
+      "triangles": 792,
+      "finite_and_nonzero_area": true
+    }
+  ],
+  "textures": [
+    {
+      "name": "duckweed_root_patch-atlas",
+      "size": [
+        256,
+        256
+      ],
+      "opaque": true
+    }
+  ],
+  "open_edges": 0,
+  "nonmanifold_edges": 0,
+  "failures": [],
+  "triangles": 792,
+  "vertices": 2376,
+  "bytes": 163916,
+  "budget": {
+    "preferred": 700,
+    "hard_limit": 1000
+  },
+  "measured_xyz_m": [
+    0.5199999809265137,
+    0.10000000149011612,
+    0.4300000071525574
+  ],
+  "root_min_y_m": 0.0,
+  "source_board": {
+    "file": "resources/aquascape/reef-expansion-20261123/sources/aquascape-e-duckweed-root-patch/output/duckweed_root_patch_six_views_raw.png",
+    "sha256": "fa473764079c729084a58e9a42280f36c06cf1a5c81de9d51e0312c7f85e67cf",
+    "camera_order": [
+      "front",
+      "right",
+      "back",
+      "left",
+      "top",
+      "bottom"
+    ],
+    "swatches": {
+      "blade": [
+        [
+          [
+            "top",
+            536,
+            674,
+            596,
+            723
+          ]
+        ],
+        [
+          [
+            "bottom",
+            1132,
+            685,
+            1185,
+            737
+          ]
+        ]
+      ],
+      "root": [
+        [
+          [
+            "front",
+            181,
+            289,
+            256,
+            370
+          ]
+        ],
+        [
+          [
+            "right",
+            749,
+            276,
+            822,
+            393
+          ]
+        ]
+      ],
+      "runner": [
+        [
+          [
+            "front",
+            181,
+            253,
+            256,
+            347
+          ]
+        ],
+        [
+          [
+            "back",
+            1184,
+            303,
+            1295,
+            356
+          ]
+        ]
+      ]
+    },
+    "art_review": "candidate reviewed by agent, user pending"
+  }
+}

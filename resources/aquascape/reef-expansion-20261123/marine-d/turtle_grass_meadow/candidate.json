@@ -1,0 +1,39 @@
+{
+  "id": "turtle_grass_meadow",
+  "name_zh": "龟草矮草床",
+  "scientific_name": "Thalassia testudinum",
+  "category": "plant",
+  "budget_type": "ribbon_plant",
+  "nominal_xyz_m": [
+    0.65,
+    0.29,
+    0.48
+  ],
+  "source_url": "https://www.floridamuseum.ufl.edu/southflorida/habitats/seagrasses/species/",
+  "habitat": "暖水加勒比或佛罗里达沙地、砂砾底；真根与根茎埋入底床",
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/turtle_grass_meadow.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/marine-d/turtle_grass_meadow/turtle_grass_meadow.blend",
+  "source_board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-turtle_grass_meadow-20261123/output/turtle_grass_meadow_six_views_raw.png",
+  "source_board_sha256": "275316a01bdb912e9977a949b1d4ddbd5f3074e87d056ea408f723e9045ce968",
+  "validation": "resources/aquascape/reef-expansion-20261123/marine-d/turtle_grass_meadow/asset.validation.json",
+  "model_sha256": "b0b530f620f6d94a8da84ec87ab8849445c10b7c21e49824519402b08e9304d7",
+  "blender_sha256": "ac55abd8420b750ae273e7574e14955a314194065dba343f06426c2e45f53fab",
+  "triangles": 596,
+  "placement_anchor": "bottom",
+  "visual_review": "native candidate viewed; user approval pending",
+  "user_acceptance": "pending",
+  "rooted_current": {
+    "anchor_min": [
+      -0.1701894849538803,
+      -9.999999747378752e-05,
+      -0.06982651352882385
+    ],
+    "anchor_size": [
+      0.35751667618751526,
+      0.02553253248333931,
+      0.12669014930725098
+    ],
+    "amplitude": 0.11
+  },
+  "native_views": "resources/aquascape/reef-expansion-20261123/marine-d/turtle_grass_meadow/godot-views.jpg"
+}

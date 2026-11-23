@@ -1,0 +1,194 @@
+{
+  "id": "reef_table_coral",
+  "name": "桌形硬珊瑚",
+  "species": null,
+  "geography": "Indo-Pacific",
+  "category": "scleractinian",
+  "nominal_xyz_m": [
+    1.36,
+    0.47,
+    1.03
+  ],
+  "ecology_and_use": "暖水印太硬底的桌形生长型，非定种。伸出檐缘形成遮挡和下方阴影。",
+  "primary_reference": "https://www.aims.gov.au/information-centre/news-and-stories/scientists-discover-heat-tolerant-corals-hidden-plain-sight-could-it-help-protect-great-barrier-reef",
+  "approvals": {
+    "user_intent": "pending",
+    "user_native": "pending"
+  },
+  "source": {
+    "file": "six-material-views.png",
+    "sha256": "c6504ca175328c2e61b8ab4a5fbca1ca10f200dbe932cb355cbf6a63b729b254",
+    "status": "draft_intent",
+    "views": {
+      "front": [
+        12,
+        163,
+        507,
+        380
+      ],
+      "right": [
+        557,
+        164,
+        983,
+        380
+      ],
+      "rear": [
+        1034,
+        163,
+        1524,
+        380
+      ],
+      "left": [
+        30,
+        636,
+        478,
+        872
+      ],
+      "top": [
+        521,
+        589,
+        1010,
+        915
+      ],
+      "bottom": [
+        1037,
+        589,
+        1523,
+        915
+      ]
+    },
+    "review": "六面保留倾斜盘、短柄与朝下的扇形托腋。上面颗粒密集，支撑和主要冠突进网格，小枝粒进贴图。部分立面因展示盘缘而略带俯角。"
+  },
+  "shape_specification": "Realistic tropical Indo-Pacific tabular Acropora-like colony, ochre muted dusty rose. A single short off-center stalk supports a broad tabular crown with a ragged notched sloping rim. Upper surface full of short irregular coral branchlets and knobs. Exposed underside has thick buttresses spreading from stalk. No terraced rocks.",
+  "shape_method": "table",
+  "geometry": {
+    "source_field_components": 1,
+    "isolated_voxels_removed": 0,
+    "bounds_xyz_m": [
+      1.360945463180542,
+      0.4686037600040436,
+      1.0311203002929688
+    ],
+    "connected_components": 1,
+    "euler_characteristic": 2,
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "signed_volume_m3": 0.10231519490480423,
+    "triangle_count": 814,
+    "budget_type": "broadleaf_plant",
+    "preferred_triangles": 700,
+    "hard_triangle_limit": 1000,
+    "ground_y_min": 0.0,
+    "contact_vertices": 11,
+    "projection": {
+      "front": {
+        "silhouette_iou": 0.3609511822831588,
+        "span_m": [
+          1.36,
+          0.47
+        ]
+      },
+      "right": {
+        "silhouette_iou": 0.34004435566321156,
+        "span_m": [
+          1.03,
+          0.47
+        ]
+      },
+      "rear": {
+        "silhouette_iou": 0.357923645855993,
+        "span_m": [
+          1.36,
+          0.47
+        ]
+      },
+      "left": {
+        "silhouette_iou": 0.3423682616596002,
+        "span_m": [
+          1.03,
+          0.47
+        ]
+      },
+      "top": {
+        "silhouette_iou": 0.7787606059565113,
+        "span_m": [
+          1.36,
+          1.03
+        ]
+      },
+      "bottom": {
+        "silhouette_iou": 0.7835615255042543,
+        "span_m": [
+          1.36,
+          1.03
+        ]
+      }
+    }
+  },
+  "material": {
+    "native_source_pixel_selection": true,
+    "filter": "nearest",
+    "atlas": 1536,
+    "macro_shadow_removed_for_cavities": false,
+    "primitive_count": 1,
+    "material_count": 1,
+    "source_fractions": {
+      "front": 0.0792,
+      "rear": 0.0967,
+      "left": 0.0539,
+      "right": 0.0714,
+      "top": 0.4427,
+      "bottom": 0.2562
+    }
+  },
+  "blend": {
+    "file": "reef_table_coral.blend",
+    "sha256": "68058390548732f8d4ab2120d2fd840927eb3f824e18edad410e35254a7302b5",
+    "cold_geometry_uv_texture_pass": true
+  },
+  "glb": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_table_coral.glb",
+    "sha256": "acad6d104575fbd7b98a15c82f0c3992f00fa6b892dc580b18b08b4daa3b24c6",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "reef_table_coral",
+        "triangles": 814,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "桌形硬珊瑚",
+        "size": [
+          1536,
+          1536
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "current_status": "static_candidate_for_user_review",
+  "scope": "低面展缸艺术模块。结构与方向参考六面意向，非生物实测。相机近似会影响投影重叠。",
+  "native_review": {
+    "file": "godot-native-review.jpg",
+    "engine": "Godot 4.7.1 stable, macOS Compatibility",
+    "rendered_views": [
+      "angle",
+      "front",
+      "right",
+      "rear",
+      "left",
+      "top",
+      "bottom",
+      "oblique"
+    ],
+    "mode": "fresh-process direct GLB, gray and material under the same lights",
+    "verified_texture_filter": "nearest",
+    "observations": "短柄托开有厚度的伞盘，下方保有留白，稀疏冠凸和冠纹各有对应。细枝进材质。",
+    "user_acceptance": "pending"
+  }
+}

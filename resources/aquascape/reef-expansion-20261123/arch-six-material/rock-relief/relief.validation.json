@@ -1,0 +1,377 @@
+{
+  "ok": true,
+  "stage": "six_source_gray_shape",
+  "source_handoff_sha256": "1e68420b62e9917b5b969116a599eb2fbb33fcbc636b1e7d4adea4f6bfbe98e1",
+  "user_acceptance": "pending",
+  "gray_model": {
+    "path": "resources/aquascape/reef-expansion-20261123/arch-six-material/rock-relief/reef_through_arch_relief_gray.glb",
+    "sha256": "623db7769451e9283a07c74aaef933ae2d7b7e7dcac4f4885db2738a83f8c59d",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "reef_through_arch_relief_gray",
+        "triangles": 948,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "Neutral gray",
+        "size": [
+          4,
+          4
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "triangle_count": 948,
+  "source_ground_y_m": 0.10971523076295853,
+  "relief_configuration": "6dea7140ef026c511982bb3f4a3d69d6382c9dd1dbba6d91c01d979ff81c6685",
+  "dimensions_xyz_m": [
+    4.304295539855957,
+    2.4942617416381836,
+    2.161933422088623
+  ],
+  "projections": {
+    "front": {
+      "silhouette_iou": 0.8825059080084309,
+      "span_m": [
+        4.4,
+        2.5563380281690145
+      ]
+    },
+    "rear": {
+      "silhouette_iou": 0.8803634388607093,
+      "span_m": [
+        4.4,
+        2.5286467486818984
+      ]
+    },
+    "left": {
+      "silhouette_iou": 0.7051385173139356,
+      "span_m": [
+        1.8728920462325722,
+        2.5424923884254564
+      ]
+    },
+    "right": {
+      "silhouette_iou": 0.68334834957818,
+      "span_m": [
+        1.8662623398742268,
+        2.5424923884254564
+      ]
+    },
+    "top": {
+      "silhouette_iou": 0.8915123315999148,
+      "span_m": [
+        4.4,
+        2.072888888888889
+      ]
+    },
+    "bottom": {
+      "silhouette_iou": 0.8859693679373256,
+      "span_m": [
+        4.4,
+        2.1706666666666665
+      ]
+    }
+  },
+  "passage": {
+    "sections": {
+      "between_feet": {
+        "clear_rays": 56,
+        "rays": 56,
+        "x_range_m": [
+          -0.22,
+          0.3
+        ],
+        "y_range_m": [
+          0.32,
+          0.5
+        ]
+      },
+      "above_feet": {
+        "clear_rays": 56,
+        "rays": 56,
+        "x_range_m": [
+          -0.43,
+          0.5
+        ],
+        "y_range_m": [
+          0.62,
+          1.1
+        ]
+      }
+    },
+    "left_contact_area_m2": 2.1310806274414062,
+    "right_contact_area_m2": 2.161022186279297,
+    "clear_rays": 112,
+    "rays": 112,
+    "left_foot_contact_points": 9,
+    "right_foot_contact_points": 11
+  },
+  "geometry_relief": {
+    "mesh_connected_components": 1,
+    "surface_probes": [
+      {
+        "name": "前左拱脚",
+        "origin": [
+          -1.62,
+          0.28,
+          3
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "outward_delta_m": 0.3446095867534933
+      },
+      {
+        "name": "前左岩阶",
+        "origin": [
+          -1.28,
+          0.57,
+          3
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "outward_delta_m": 0.2183670635597985
+      },
+      {
+        "name": "拱顶前檐",
+        "origin": [
+          -0.11,
+          1.76,
+          3
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "outward_delta_m": 0.26925190340644845
+      },
+      {
+        "name": "前右拱脚",
+        "origin": [
+          1.54,
+          0.36,
+          3
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "outward_delta_m": 0.3471382770558902
+      },
+      {
+        "name": "左正面岩槽",
+        "origin": [
+          -1.24,
+          1.09,
+          3
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "outward_delta_m": -0.2607242534398071
+      },
+      {
+        "name": "右正面岩槽",
+        "origin": [
+          1.58,
+          0.63,
+          3
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "outward_delta_m": -0.2700560538800456
+      },
+      {
+        "name": "背右侧断层",
+        "origin": [
+          1.53,
+          0.92,
+          -3
+        ],
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "outward_delta_m": -0.2083337254641715
+      },
+      {
+        "name": "背侧高层岩阶",
+        "origin": [
+          0.83,
+          2.1,
+          -3
+        ],
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "outward_delta_m": 0.18263443068267504
+      },
+      {
+        "name": "顶部凹槽",
+        "origin": [
+          0.54,
+          3,
+          -0.3
+        ],
+        "direction": [
+          0,
+          -1,
+          0
+        ],
+        "outward_delta_m": -0.17258819256432523
+      },
+      {
+        "name": "左端凸岩",
+        "origin": [
+          -3,
+          0.84,
+          0.3
+        ],
+        "direction": [
+          1,
+          0,
+          0
+        ],
+        "outward_delta_m": 0.154908005269637
+      },
+      {
+        "name": "右端凸岩",
+        "origin": [
+          3,
+          0.81,
+          -0.13
+        ],
+        "direction": [
+          -1,
+          0,
+          0
+        ],
+        "outward_delta_m": 0.17877418869185258
+      },
+      {
+        "name": "洞内拱腹",
+        "origin": [
+          0.11,
+          1.03,
+          -0.04
+        ],
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "outward_delta_m": 0.14490456849781036
+      }
+    ],
+    "before_dimensions_xyz_m": [
+      4.288548469543457,
+      2.388418197631836,
+      1.8374080657958984
+    ]
+  },
+  "material": {
+    "stage": "six_view_material_preview",
+    "ok": true,
+    "triangles": 948,
+    "gray_sha256": "623db7769451e9283a07c74aaef933ae2d7b7e7dcac4f4885db2738a83f8c59d",
+    "model_sha256": "990c9c68ad9ab7dabff792ec89270f3900b1e8fbf54e4ec4f574b7d678287ff6",
+    "atlas_size": [
+      2048,
+      2048
+    ],
+    "source_view_weight_share": {
+      "front": 0.2094,
+      "rear": 0.1965,
+      "left": 0.1059,
+      "right": 0.1281,
+      "top": 0.2126,
+      "bottom": 0.1475
+    },
+    "position_stream_exact": true,
+    "normal_stream_exact": true,
+    "material_passes": 1,
+    "projected_texel_mode": "nearest_single_source",
+    "gltf_texture_sampling": "nearest_no_mip",
+    "embedded_texture_bytes": 3864204,
+    "closed_geometry": true,
+    "limit": "Texture is baked albedo. Relief, recesses and cast shadows come from the gray mesh geometry. Source images infer interior color."
+  },
+  "model_outputs": {
+    "reef_through_arch_relief_art.blend": {
+      "path": "projects/fishing-2d/assets/source/aquascape/reef-foundation/reef_through_arch.blend",
+      "sha256": "0a345f7c4a1ff6b3a1cafb50960f1857d4198d960c7473f2f0d2954bc0ba987a",
+      "bytes": 3973995
+    },
+    "reef_through_arch_relief_art.glb": {
+      "path": "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_through_arch.glb",
+      "sha256": "990c9c68ad9ab7dabff792ec89270f3900b1e8fbf54e4ec4f574b7d678287ff6",
+      "bytes": 3956772
+    },
+    "reef_through_arch_relief_gray.glb": {
+      "path": "resources/aquascape/reef-expansion-20261123/arch-six-material/rock-relief/reef_through_arch_relief_gray.glb",
+      "sha256": "623db7769451e9283a07c74aaef933ae2d7b7e7dcac4f4885db2738a83f8c59d",
+      "bytes": 92596
+    },
+    "reef_through_arch_relief_gray.blend": {
+      "path": "resources/aquascape/reef-expansion-20261123/arch-six-material/rock-relief/reef_through_arch_relief_gray.blend",
+      "sha256": "5bb9790f31dfe21c32f1a8737939d2ae10bfc7c176e003622015e64f4d66c4f2",
+      "bytes": 114105
+    }
+  },
+  "blender_cold_read": "Polygon points, UV values and packed atlases matched the two GLBs",
+  "native_review": {
+    "engine": "Godot 4.7.1 Compatibility on Apple M4",
+    "base_material_filter": "Nearest confirmed on imports",
+    "same_cameras_and_lights_within_each_pair": true,
+    "outputs": [
+      {
+        "path": "resources/aquascape/reef-expansion-20261123/arch-six-material/rock-relief/godot-gray-compare.jpg",
+        "sha256": "98b36ce96722f120a7665419f8f1378db0b3d361d0e5677243aa5e6856f3a183",
+        "bytes": 132050
+      },
+      {
+        "path": "resources/aquascape/reef-expansion-20261123/arch-six-material/rock-relief/godot-material-compare.jpg",
+        "sha256": "43ef9d666ab5e0e8565728d34a86d824334301dcc9aee30c26c4fc31ef030b3b",
+        "bytes": 318558
+      },
+      {
+        "path": "resources/aquascape/reef-expansion-20261123/arch-six-material/rock-relief/godot-material-six.jpg",
+        "sha256": "84496b66355349586abc06c006f654ae9121bc410a003c2599074c35c30c00e4",
+        "bytes": 149914
+      },
+      {
+        "path": "resources/aquascape/reef-expansion-20261123/arch-six-material/rock-relief/material-full.png",
+        "sha256": "e093e46b9f65a4720932d6170b2083d8a212f06c01d32ad14779a2e5a84a3a09",
+        "bytes": 1437981
+      }
+    ]
+  },
+  "cleanup": {
+    "count": 51,
+    "bytes": 17514781,
+    "scope": "Duplicate GPU frames, preliminary captures and regeneration-only authoring arrays"
+  }
+}

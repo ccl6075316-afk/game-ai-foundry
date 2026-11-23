@@ -1,0 +1,224 @@
+{
+  "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/red_forkweed.glb",
+  "sha256": "b4756487444d33716a998c029ebaed9c7ef2d943f7f326166a8063aeb5ae203d",
+  "ok": true,
+  "meshes": [
+    {
+      "name": "red_forkweed · closed natural shells",
+      "triangles": 648,
+      "finite_and_nonzero_area": true
+    }
+  ],
+  "textures": [
+    {
+      "name": "atlas",
+      "size": [
+        256,
+        256
+      ],
+      "opaque": true
+    }
+  ],
+  "open_edges": 0,
+  "nonmanifold_edges": 0,
+  "failures": [],
+  "triangles": 648,
+  "vertices": 1944,
+  "bytes": 140308,
+  "budget": {
+    "preferred": 700,
+    "hard_limit": 1000
+  },
+  "measured_xyz_m": [
+    0.25,
+    0.1899999976158142,
+    0.23000000417232513
+  ],
+  "root_min_y_m": 0.0,
+  "rooted_current": {
+    "anchor_min": [
+      -0.0004917571786791086,
+      -9.999999747378752e-05,
+      -0.0035634348168969154
+    ],
+    "anchor_size": [
+      0.00020000000949949026,
+      0.008656870573759079,
+      0.00020000006770715117
+    ],
+    "amplitude": 0.057
+  },
+  "shader_cpu": {
+    "root_motion_m": 0.0,
+    "loop_error_m": 5.899838200974728e-09,
+    "max_tip_motion_m": 0.017546287564103823,
+    "sampled_times": 41,
+    "instance_phases": [
+      0,
+      0.31,
+      0.62
+    ]
+  },
+  "file": "projects/fishing-2d/game/assets/aquascape-expansion-v1/red_forkweed.glb",
+  "source_board": {
+    "file": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-red_forkweed-20261123/output/red_forkweed_six_views_raw.png",
+    "sha256": "480128ba6d5e36ae85dcdb53c4136b9316011cd2468e7792a4e182fb954d210a",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "camera_order": [
+      "front",
+      "right",
+      "back",
+      "left",
+      "top",
+      "bottom"
+    ],
+    "concept_review": "agent-reviewed for provisional gray mesh, user pending",
+    "workflow_assets_manifest": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-red_forkweed-20261123/output/assets-manifest.json",
+    "subject_ecology": "https://www.marlin.ac.uk/species/detail/1444",
+    "assembly_inference": [
+      "多组扁平基部由中央小盘伸出，横视可见深度从前中后逐层分叉",
+      "板上Y叉和钝展末端作地标；支叉叠入父片，薄面有正反和真实封边",
+      "红酒色到暖橙红沿枝分配；北大西洋温带，静止小盘"
+    ],
+    "texture_sample_regions": {
+      "maroon": [
+        [
+          [
+            0,
+            248,
+            280,
+            283,
+            368
+          ]
+        ],
+        [
+          [
+            2,
+            1244,
+            306,
+            1302,
+            387
+          ]
+        ]
+      ],
+      "red": [
+        [
+          [
+            0,
+            305,
+            215,
+            345,
+            255
+          ],
+          [
+            4,
+            749,
+            660,
+            803,
+            701
+          ]
+        ],
+        [
+          [
+            2,
+            1382,
+            206,
+            1440,
+            257
+          ],
+          [
+            5,
+            1333,
+            731,
+            1375,
+            774
+          ]
+        ]
+      ],
+      "copper": [
+        [
+          [
+            0,
+            419,
+            275,
+            456,
+            312
+          ],
+          [
+            0,
+            208,
+            122,
+            241,
+            152
+          ]
+        ],
+        [
+          [
+            2,
+            1433,
+            197,
+            1465,
+            232
+          ],
+          [
+            5,
+            1194,
+            643,
+            1227,
+            670
+          ]
+        ]
+      ],
+      "base": [
+        [
+          [
+            0,
+            241,
+            413,
+            284,
+            422
+          ]
+        ],
+        [
+          [
+            5,
+            1261,
+            771,
+            1294,
+            803
+          ]
+        ]
+      ]
+    }
+  },
+  "native": {
+    "version": "Godot 4.7.1 stable mono, OpenGL compatibility Apple M4",
+    "result": "agent reviewed native orthographic + oblique gray and nearest material",
+    "contact_sheet": "resources/aquascape/reef-expansion-20261123/marine-d/red_forkweed/godot-views.jpg",
+    "contact_sheet_sha256": "d186026d51d734c3070e70b34ee2461765b0b873ec9183708410b8a67f0e42df",
+    "user_acceptance": "pending",
+    "multimesh_current": {
+      "instances": 3,
+      "custom_phases": [
+        0,
+        0.31,
+        0.62
+      ],
+      "phase_change_pixels": 127752,
+      "held_phase_change_pixels": 0,
+      "subsequent_phase_change_pixels": 130723,
+      "loop_endpoint_change_pixels": 1,
+      "fixed_root_validated_in_cpu_sampling": true
+    }
+  },
+  "cold_blend_export": {
+    "packed_image": true,
+    "source_sha256": "93f9e06e72156181ff80618d123e4c477acfdd954e4119a9916b745319cb0da9",
+    "normalized_export_sha256": "b4756487444d33716a998c029ebaed9c7ef2d943f7f326166a8063aeb5ae203d",
+    "current_glb_sha256": "b4756487444d33716a998c029ebaed9c7ef2d943f7f326166a8063aeb5ae203d",
+    "byte_identical": true
+  }
+}

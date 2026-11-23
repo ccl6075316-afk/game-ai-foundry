@@ -1,0 +1,122 @@
+{
+  "wood_hollow_tunnel": {
+    "name": "掏空沉木隧道",
+    "kind": "wood",
+    "dimensions_m": [
+      2.75,
+      0.92,
+      1.05
+    ],
+    "form_reference": "A centuries-weathered full hollow log resting lengthwise along X. One cylindrical heartwood tunnel with two open end faces, facing +X and -X. A genuine hollow dark interior with a thick irregular wooden ring at each end and no side window. Side silhouette lies low, slopes unevenly down from the right, has splintered butt end, blunt fractured wood ridge, a thicker bark foot and a few creased flutes. Clear narrow gray-brown bark planes, warmer umber end grain and a gray-orange inner ring."
+  },
+  "wood_overhang_perch": {
+    "name": "横伸伏木架",
+    "kind": "wood",
+    "dimensions_m": [
+      2.85,
+      1.15,
+      1.48
+    ],
+    "form_reference": "One low horizontally growing snag from the edge of a river, rooted with two broad continuous feet on front-left and back-left. An asymmetric swept thick dead limb cantilevers to the right, forming a true overhang with narrow clear space below. Broad angular intact splintered grain, a rounded swept nose with one blunt break and ridges across the upper flank. No two-legged bridge or horizontal log cylinder. Auburn umber core, slate brown bark and pale aged grain along breaks."
+  },
+  "wood_upturned_root_plate": {
+    "name": "倒伏树盘",
+    "kind": "wood",
+    "dimensions_m": [
+      2.35,
+      1.66,
+      1.58
+    ],
+    "form_reference": "A naturally uprooted sideways tree stump with exposed root plate taller than it is deep and a short trunk base sticking out the back. Dense fluted wood forms an irregular upright half fan to one side of the old trunk; broad tapered root fins sweep down into two asymmetrical contact feet, with naturally torn fingers. Brown weathered grain, ridged attachment and mud-gray underside; medium-dark root tangle recesses at center. No soil clod, no leaves, no other objects."
+  },
+  "wood_low_root_weave": {
+    "name": "低展根网",
+    "kind": "wood",
+    "dimensions_m": [
+      2.39,
+      0.48,
+      1.67
+    ],
+    "form_reference": "A sprawling subdued low freshwater driftwood root from an undercut bank. One short tapered crown on the left-back, splitting into asymmetrical concave finger roots spreading rightward and forward flush with the bottom, blunt fractured roots and real negative spaces visible from overhead. Clear grain runs through connected forks. Deep weathered walnut with warm faint beige breaks, thin muted gray edges. No roots pointing high in the air, no dead twigs placed separately."
+  },
+  "hairgrass_meadow": {
+    "name": "细发草甸",
+    "kind": "plant",
+    "dimensions_m": [
+      0.78,
+      0.32,
+      0.49
+    ],
+    "form_reference": "A naturally grown contiguous underwater patch of Eleocharis acicularis (needle spikerush), low and leafy with fine tufted grass-like bright olive-green culms, their gentle fine arches emerging from spreading low clonal runners with short sand-colored roots, no seed head. Entire natural runner patch on white. Keep base, clumps and runner positions consistent across opposite views."
+  },
+  "lake_quillwort_rosette": {
+    "name": "水韭根冠",
+    "kind": "plant",
+    "dimensions_m": [
+      0.56,
+      0.43,
+      0.48
+    ],
+    "form_reference": "A natural submerged Isoetes lacustris lake quillwort with a compact short brown corm and complete small pale anchoring root system. Thickened bases support green glossy, straight to gently splayed long tapered quill leaves, mostly erect in a clean single basal rosette. The crown is not a carpet. Do not show spores, decoration or a pot."
+  },
+  "bolbitis_fern_clump": {
+    "name": "沉木羽叶蕨",
+    "kind": "plant",
+    "dimensions_m": [
+      0.93,
+      0.57,
+      0.62
+    ],
+    "form_reference": "One natural cluster of submerged Bolbitis heudelotii with rich cool translucent olive divided pinnate fronds emerging from a long horizontal dark creeping rhizome with complete rootlets, clearly separated and slightly translucent lanceolate pinnae, uneven branching frond silhouettes. Show the complete naturally attached root system without supporting wood or rock."
+  },
+  "marsilea_runner_patch": {
+    "name": "匍匐四叶苹丛",
+    "kind": "plant",
+    "dimensions_m": [
+      0.69,
+      0.19,
+      0.46
+    ],
+    "form_reference": "A naturally grown freshwater submerged Marsilea hirsuta patch. Low slender horizontal runners with tiny pale short roots at joints and spaced soft green upright petioles carrying rounded spatulate leaflets, several ripe pinnately arranged four-lobed blades, a few single or divided submerged forms in the same natural patch. Short carpet growth, never many similar copies of one leaflet or the upright clover meadow of a terrestrial plant."
+  },
+  "water_lily_float_stems": {
+    "name": "长柄浮叶睡莲",
+    "kind": "plant",
+    "dimensions_m": [
+      1.23,
+      1.58,
+      1.04
+    ],
+    "form_reference": "One natural freshwater Nymphaea water lily group growing from a small dark anchored horizontal rhizome, long slender curved petioles rise through the water to broad horizontal olive-green almost circular floating leaves with deep radial sinuses. Sparse foliage and clearly exposed positive curving stalks, with only one or two small submersed leaves, no flowers. Exact top shows several overlapping circular leaves with slit edges."
+  },
+  "duckweed_root_patch": {
+    "name": "细根浮萍毯",
+    "kind": "plant",
+    "dimensions_m": [
+      0.52,
+      0.1,
+      0.43
+    ],
+    "form_reference": "A naturally clustered patch of surface-floating common duckweed, Lemna minor morphology as reference. A dense but broken sheet of small rounded smooth green fronds packed in connected pairs and islands, with fine short brown-green pendant root threads descending individually under fronds. No rooted bottom or long plant stalks. Show separated surface islands, not one continuous flat solid green blob."
+  },
+  "laceleaf_rosette": {
+    "name": "透孔莲座水草",
+    "kind": "plant",
+    "dimensions_m": [
+      0.78,
+      0.72,
+      0.63
+    ],
+    "form_reference": "One whole naturally grown Madagascar lace plant Aponogeton madagascariensis rooted crown with raised narrow oval leaf blades, recognizable pale-to-olive fenestrated lace lattice primarily where soft tissue is naturally absent, distinct anatomical midribs and leaf veins, no emergent blooms. Leaf tips sweep out into space, anchored compact tuber and dark creamy roots."
+  },
+  "riverwort_moss_mat": {
+    "name": "溪床贴石藓片",
+    "kind": "plant",
+    "dimensions_m": [
+      0.48,
+      0.14,
+      0.32
+    ],
+    "form_reference": "One natural very low irregular attached patch of Riccardia chamedryfolia-like freshwater liverwort, compact dark green flattened divided thalli compactly tangled into overlapping tiny shallow forks, with diffuse thin reddish rhizoids under the mat. Colored leafy edges read as small layered flat fans and matte green pads, not feathery stems; exclude the actual rock from every view."
+  }
+}

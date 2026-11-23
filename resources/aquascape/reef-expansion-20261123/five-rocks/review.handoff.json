@@ -1,0 +1,69 @@
+{
+  "status": "ready_for_user_review",
+  "updated_ids": [
+    "reef_backwall",
+    "reef_blind_grotto",
+    "reef_shelf_terrace",
+    "reef_pinnacle",
+    "reef_rubble_apron"
+  ],
+  "individual_validation": [
+    {
+      "path": "resources/aquascape/reef-expansion-20261123/five-rocks/reef_backwall/geometry-and-material.validation.json",
+      "sha256": "31654195108ef36162f370406bc2fe4b84ff5d8e50665cba15460a2b62800487",
+      "bytes": 8283
+    },
+    {
+      "path": "resources/aquascape/reef-expansion-20261123/five-rocks/reef_blind_grotto/geometry-and-material.validation.json",
+      "sha256": "2fc5da54ab84e0d0d7031319e58a8b5b339844acdddbc80bd1d41b34c5109a09",
+      "bytes": 10595
+    },
+    {
+      "path": "resources/aquascape/reef-expansion-20261123/five-rocks/reef_shelf_terrace/geometry-and-material.validation.json",
+      "sha256": "4abc7ce9665ecd3bd1f387b51b431edc8668840a77d0e3d51fb46173c90474a8",
+      "bytes": 7819
+    },
+    {
+      "path": "resources/aquascape/reef-expansion-20261123/five-rocks/reef_pinnacle/geometry-and-material.validation.json",
+      "sha256": "62d80e25417f46f6cd056dc5c21ee55f9c17f9daef087563934a5e62d37eb70e",
+      "bytes": 8273
+    },
+    {
+      "path": "resources/aquascape/reef-expansion-20261123/five-rocks/reef_rubble_apron/geometry-and-material.validation.json",
+      "sha256": "b9ae78cbae6bb704dd575bd75ded72d861fa180c4da7a6528787a0d63aa4c803",
+      "bytes": 8269
+    }
+  ],
+  "related_installed_arch": "../arch-six-material/rock-relief/local-install.handoff.json",
+  "catalog_size": 56,
+  "new_reef_triangle_total": 4502,
+  "installed_budget": {
+    "path": "resources/aquascape/reef-expansion-20261123/five-rocks/installed-budget.validation.json",
+    "sha256": "52e7f08038aeb83994ef7654c281d0b605e8f6d3a8d3689f7c3e76d677d56a43",
+    "bytes": 3668
+  },
+  "installed_placement": {
+    "path": "resources/aquascape/reef-expansion-20261123/five-rocks/installed-placement.validation.json",
+    "sha256": "29a84cbd0c6729b20c01eab3548bdfb8506b2a9be5186c8b0d7a2d15e66bd754",
+    "bytes": 18433
+  },
+  "artifacts": [
+    {
+      "path": "resources/aquascape/reef-expansion-20261123/five-rocks/godot-reef-arrangement.jpg",
+      "sha256": "e93d60af7d1e77de0b68e3d16e25c5bab5881fcd744c503aaacdd31f123fb0c1",
+      "bytes": 258962
+    },
+    {
+      "path": "resources/aquascape/reef-expansion-20261123/five-rocks/godot-rocks-before-gray-after.jpg",
+      "sha256": "68f403875586bfbd4fe27a07a2c052c473023591b2345ea6e83d5071daba953b",
+      "bytes": 337428
+    },
+    {
+      "path": "resources/aquascape/reef-expansion-20261123/five-rocks/godot-rocks-cavity-and-side.jpg",
+      "sha256": "928c8fbbf8d7c5abe5237808c56402ad4abe700b278c51a2be2e8b3290b9d84d",
+      "bytes": 241971
+    }
+  ],
+  "removed_reproducible_bytes": 149310646,
+  "retained_previous_preview": "work/reef-expansion-20261123/five-rocks/pre-relief-local"
+}

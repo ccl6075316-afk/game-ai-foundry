@@ -1,0 +1,437 @@
+{
+  "id": "bolbitis_fern_clump",
+  "name": "沉木羽叶蕨",
+  "label": "沉木羽叶蕨",
+  "category": "plant",
+  "budget_type": "broadleaf_plant",
+  "nominal_xyz_m": [
+    0.93,
+    0.57,
+    0.62
+  ],
+  "triangles": 974,
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/bolbitis_fern_clump.glb",
+  "source_glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/bolbitis_fern_clump.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/bolbitis_fern_clump/bolbitis_fern_clump.blend",
+  "source_intent": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/bolbitis_fern_clump/six-material-views.png",
+  "validation": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/bolbitis_fern_clump/validation.json",
+  "scientific_name": "Bolbitis heudelotii",
+  "source_url": "https://biodiversityadvisor.sanbi.org/search/detail/0c4c5fdf-7c21-4d81-a085-1204c3680c62",
+  "habitat": "热带非洲溪流硬基附生蕨，沿水平根茎出叶，羽状复叶可供淡水溪景搭配。",
+  "rooted_current": {
+    "anchor_min": [
+      -0.21877506660977772,
+      0.11487099705042549,
+      -0.05087675230910617
+    ],
+    "anchor_size": [
+      0.40985730797299336,
+      0.013201488211768517,
+      0.06305997844251005
+    ],
+    "amplitude": 0.041
+  },
+  "user_acceptance": "pending",
+  "source_sha256": "6d2af3d65e9115893eb2982e08b9825bcc53e16bce7e7302426f1ad581ec325a",
+  "editable_sha256": "fcd14b1d8de36835e20627fa6977a22672fee04a463fefafc75cde5ced1e7ffd",
+  "native_atlas_size": [
+    1024,
+    1024
+  ],
+  "glb": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/bolbitis_fern_clump.glb",
+    "sha256": "234631eebd36f0f5867c84c8854a65caa5c7ac4a504ff5784400fd609e6c46c7",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "bolbitis_fern_clump",
+        "triangles": 974,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "沉木羽叶蕨",
+        "size": [
+          1024,
+          1024
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "passes": {
+    "complete_budget": true,
+    "cold_blender_positions_uv_texture": true
+  },
+  "closed_geometry": {
+    "connected_components": 81,
+    "euler_characteristic": 162,
+    "open_edges": 0,
+    "nonmanifold_edges": 0
+  },
+  "geometry_groups": [
+    [
+      "creeping_rhizome_closed",
+      66
+    ],
+    [
+      "frond_rachis_closed",
+      36
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "frond_rachis_closed",
+      36
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "frond_rachis_closed",
+      36
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "frond_rachis_closed",
+      36
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "frond_rachis_closed",
+      36
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "frond_rachis_closed",
+      36
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "frond_rachis_closed",
+      36
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "pinnate_closed_leaflet",
+      8
+    ],
+    [
+      "rootlet_closed_sweep",
+      20
+    ],
+    [
+      "rootlet_closed_sweep",
+      20
+    ],
+    [
+      "rootlet_closed_sweep",
+      20
+    ],
+    [
+      "rootlet_closed_sweep",
+      20
+    ],
+    [
+      "rootlet_closed_sweep",
+      20
+    ],
+    [
+      "rootlet_closed_sweep",
+      20
+    ]
+  ],
+  "immobile_base_vertices": 684,
+  "shader_tests": {
+    "phase_instances": 3,
+    "steps": 81,
+    "period_s": 10.0,
+    "max_fixed_point_um": 2.7755575615628914e-11,
+    "max_loop_error_um": 0.011840320131770237,
+    "max_running_tip_displacement_cm": 3.092332218361637,
+    "native_runtime": {
+      "moving_pixel_count": 65496,
+      "held_pixel_count": 0,
+      "evidence": "godot-current-review.jpg",
+      "matches_runtime_shader": true,
+      "note": "实际展缸 RootedCurrent 同版 shader，在独立原生场景以 enabled=1/0 对比活动与固定姿态。"
+    }
+  },
+  "art_review": "六面完整植株来源，先核对整簇高低、前后、叶形和根，再定三维。作者独立选取图中代表性枝叶轮廓，来源视图不作为实测。",
+  "scope": "实际有厚度的羽片与独立叶隙。活动范围为对照用设计值。",
+  "native_review": {
+    "engine": "Godot macOS 4.7.1 Compatibility",
+    "views": [
+      "angle",
+      "front",
+      "right",
+      "rear",
+      "left",
+      "top",
+      "bottom",
+      "oblique"
+    ],
+    "static_image": "godot-native-review.jpg",
+    "observations": "低横走根茎承接前后分开的羽状叶；每片羽片都有厚度，透过真实片间空隙可见背景。",
+    "filter": "nearest"
+  },
+  "status": "native_candidate_pending_user"
+}

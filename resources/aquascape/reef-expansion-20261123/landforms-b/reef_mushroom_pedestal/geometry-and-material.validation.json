@@ -1,0 +1,347 @@
+{
+  "id": "reef_mushroom_pedestal",
+  "ok": true,
+  "geometry": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_mushroom_pedestal.glb",
+    "sha256": "fd9dd43d64c17697582eac17b8edcdbf9de82a5062a4671cf748af575e25e804",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "reef_mushroom_pedestal",
+        "triangles": 538,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "reef_mushroom_pedestal · six-direction rock",
+        "size": [
+          1024,
+          1024
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "triangles": 538,
+  "budget": {
+    "preferred": 400,
+    "hard_limit": 600
+  },
+  "source_handoff": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_mushroom_pedestal/material-source.handoff.json",
+  "source_sha256": "cd759ca7ed42a1ab8bee42e94d8c3d1a65617e138d69336861515c45fd9fbaed",
+  "nominal_xyz_m": [
+    2.1,
+    1.6,
+    1.65
+  ],
+  "bounds_xyz_m": [
+    2.080498218536377,
+    1.7042022943496704,
+    1.666255235671997
+  ],
+  "floor_y_m": 0.0,
+  "surface_euler": 2,
+  "geometry_components": 1,
+  "volume_fraction_retained": 1.0,
+  "material_passes": 1,
+  "texture_filter": "nearest",
+  "atlas_size": [
+    1024,
+    1024
+  ],
+  "atlas_uncompressed_rgba_bytes": 4194304,
+  "source_texel_shares": {
+    "front": 0.1451,
+    "right": 0.0868,
+    "rear": 0.1946,
+    "left": 0.1656,
+    "top": 0.2802,
+    "bottom": 0.1277
+  },
+  "gray": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_mushroom_pedestal/reef_mushroom_pedestal-gray.glb",
+  "gray_sha256": "3f5da5ca911d1daaa7772ce5c6702cf17fd4b2ce7f3529e53618111e01f084c6",
+  "glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_mushroom_pedestal.glb",
+  "glb_sha256": "fd9dd43d64c17697582eac17b8edcdbf9de82a5062a4671cf748af575e25e804",
+  "geometry_section": {
+    "kind": "pedestal",
+    "waist_m": 1.018591125542608,
+    "cap_m": 1.9230998712470284,
+    "foot_m": 1.7429975955241372,
+    "passed": true
+  },
+  "art_outlines": {
+    "front": {
+      "silhouette_iou": 0.724497984472977,
+      "span_m": [
+        2.1,
+        1.6
+      ]
+    },
+    "right": {
+      "silhouette_iou": 0.6168839360807401,
+      "span_m": [
+        1.65,
+        1.6
+      ]
+    },
+    "rear": {
+      "silhouette_iou": 0.7190503807794332,
+      "span_m": [
+        2.1,
+        1.6
+      ]
+    },
+    "left": {
+      "silhouette_iou": 0.684102228157256,
+      "span_m": [
+        1.65,
+        1.6
+      ]
+    },
+    "top": {
+      "silhouette_iou": 0.7869723361847667,
+      "span_m": [
+        2.1,
+        1.65
+      ]
+    },
+    "bottom": {
+      "silhouette_iou": 0.8094453683488734,
+      "span_m": [
+        2.1,
+        1.65
+      ]
+    }
+  },
+  "landmarks": [
+    {
+      "name": "宽盖左檐",
+      "applied": true,
+      "form": "ledge",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        -0.441,
+        1.2800000000000002,
+        0.6505172413793163
+      ],
+      "center_xyz_m": [
+        -0.441,
+        1.2800000000000002,
+        0.6855172413793164
+      ]
+    },
+    {
+      "name": "右盖尾角",
+      "applied": true,
+      "form": "ledge",
+      "view": "right",
+      "surface_anchor_xyz_m": [
+        0.9468965517241457,
+        1.328,
+        0.231
+      ],
+      "center_xyz_m": [
+        0.9918965517241457,
+        1.328,
+        0.231
+      ]
+    },
+    {
+      "name": "脚趾偏前",
+      "applied": true,
+      "form": "ledge",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        -0.441,
+        0.256,
+        0.5781034482758678
+      ],
+      "center_xyz_m": [
+        -0.441,
+        0.256,
+        0.6151034482758678
+      ]
+    },
+    {
+      "name": "背侧根脊",
+      "applied": true,
+      "form": "ledge",
+      "view": "rear",
+      "surface_anchor_xyz_m": [
+        -0.42000000000000004,
+        0.528,
+        -0.5515517241379293
+      ],
+      "center_xyz_m": [
+        -0.42000000000000004,
+        0.528,
+        -0.5965517241379293
+      ]
+    },
+    {
+      "name": "左侧底根",
+      "applied": true,
+      "form": "ledge",
+      "view": "left",
+      "surface_anchor_xyz_m": [
+        -0.8489655172413779,
+        0.20800000000000005,
+        -0.165
+      ],
+      "center_xyz_m": [
+        -0.884965517241378,
+        0.20800000000000005,
+        -0.165
+      ]
+    },
+    {
+      "name": "帽顶碎面对",
+      "applied": true,
+      "form": "ledge",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        -0.315,
+        1.5677517241379313,
+        -0.165
+      ],
+      "center_xyz_m": [
+        -0.315,
+        1.5907517241379312,
+        -0.165
+      ]
+    },
+    {
+      "name": "前帽下小暗沟",
+      "applied": true,
+      "form": "cut",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        0.273,
+        1.152,
+        0.7374137931034546
+      ],
+      "center_xyz_m": [
+        0.273,
+        1.152,
+        0.7664137931034546
+      ]
+    },
+    {
+      "name": "右断棱",
+      "applied": true,
+      "form": "cut",
+      "view": "right",
+      "surface_anchor_xyz_m": [
+        0.5703448275862133,
+        0.32000000000000006,
+        -0.231
+      ],
+      "center_xyz_m": [
+        0.6103448275862133,
+        0.32000000000000006,
+        -0.231
+      ]
+    },
+    {
+      "name": "后脚外裂",
+      "applied": true,
+      "form": "cut",
+      "view": "rear",
+      "surface_anchor_xyz_m": [
+        0.35700000000000004,
+        0.43200000000000005,
+        -0.16051724137930723
+      ],
+      "center_xyz_m": [
+        0.35700000000000004,
+        0.43200000000000005,
+        -0.20051724137930724
+      ]
+    },
+    {
+      "name": "石顶缺口",
+      "applied": true,
+      "form": "cut",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        0.399,
+        1.4663724137931038,
+        0.1485
+      ],
+      "center_xyz_m": [
+        0.399,
+        1.5023724137931038,
+        0.1485
+      ]
+    }
+  ],
+  "relief_probes": [
+    {
+      "feature": "宽盖左檐",
+      "form": "ledge",
+      "signed_offset_m": 0.11440861793407953
+    },
+    {
+      "feature": "右盖尾角",
+      "form": "ledge",
+      "signed_offset_m": -0.07454566236067395
+    },
+    {
+      "feature": "脚趾偏前",
+      "form": "ledge",
+      "signed_offset_m": 0.13332383998749897
+    },
+    {
+      "feature": "背侧根脊",
+      "form": "ledge",
+      "signed_offset_m": 0.135329938746386
+    },
+    {
+      "feature": "左侧底根",
+      "form": "ledge",
+      "signed_offset_m": 0.21054153201483716
+    },
+    {
+      "feature": "帽顶碎面对",
+      "form": "ledge",
+      "signed_offset_m": 0.12397171305662624
+    },
+    {
+      "feature": "前帽下小暗沟",
+      "form": "cut",
+      "signed_offset_m": -0.17259407067784327
+    },
+    {
+      "feature": "右断棱",
+      "form": "cut",
+      "signed_offset_m": -0.3999204424338747
+    },
+    {
+      "feature": "后脚外裂",
+      "form": "cut",
+      "signed_offset_m": -0.12719114177165514
+    },
+    {
+      "feature": "石顶缺口",
+      "form": "cut",
+      "signed_offset_m": -0.04795649016139958
+    }
+  ],
+  "blender": {
+    "source": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_mushroom_pedestal/reef_mushroom_pedestal.blend",
+    "source_sha256": "be86f9432127e0379d5e0b9eb3eec92a4495f2aaed7ea6619b5de7acf1882f0d",
+    "reopened_and_same_polygon_points_uv_and_texture_as_glb": true,
+    "packed_texture_bytes": 1136775
+  },
+  "godot_proof": {
+    "contact_sheet": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_mushroom_pedestal/native-blender-review.jpg",
+    "contact_sheet_sha256": "c4e0a36c8de7c316de86d247584268a3827b0ac95b42e8e0b1eb16d3d736f653",
+    "views": 16,
+    "engine_material_surfaces": 1,
+    "sampler": "nearest"
+  }
+}

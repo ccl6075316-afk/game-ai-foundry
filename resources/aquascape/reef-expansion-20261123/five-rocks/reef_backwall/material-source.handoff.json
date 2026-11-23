@@ -1,0 +1,80 @@
+{
+  "id": "reef_backwall",
+  "name_zh": "高礁壁",
+  "geometry_budget": "large_rock",
+  "nominal_xyz_m": [
+    5.1,
+    3.7,
+    2.3
+  ],
+  "views": {
+    "front": {
+      "path": "front.png",
+      "source_png_sha256": "4fcfcf5de26954ab0e5473c28bda079094a94e713819586e26753acd0a75c4e1",
+      "outline_sha256": "d57fa1b8729a30305e0d514296b412a541ce88d78921ea65e3a56b37f5c3e620",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_backwall-20261123/output/reef_backwall_six_views_raw.png",
+      "input_sha256": "4d40be7874b1ab0f1188cf62b8dccb2fea3885c03e3bdea161d01a7a69d998d5",
+      "pixel_size": [
+        565,
+        389
+      ]
+    },
+    "right": {
+      "path": "right.png",
+      "source_png_sha256": "e73fc398e1086c6f8f5752be470936627d4b58d8f50a076fc922d8c47986a35c",
+      "outline_sha256": "9751c17c22395342491ca7736f9de86bd5f903c2ed67e1bbbf24e57a996df940",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_backwall-20261123/output/reef_backwall_six_views_raw.png",
+      "input_sha256": "4d40be7874b1ab0f1188cf62b8dccb2fea3885c03e3bdea161d01a7a69d998d5",
+      "pixel_size": [
+        340,
+        389
+      ]
+    },
+    "rear": {
+      "path": "rear.png",
+      "source_png_sha256": "78a9e82cb0bdb9b2c2dae0f3520c4ded12f263342113c966789de7bd7e69e213",
+      "outline_sha256": "6d7bfe177bde2b3d6b532796c09eedc2fe50dab34e44a3a52c23768c24e583cc",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_backwall-20261123/output/reef_backwall_six_views_raw.png",
+      "input_sha256": "4d40be7874b1ab0f1188cf62b8dccb2fea3885c03e3bdea161d01a7a69d998d5",
+      "pixel_size": [
+        551,
+        387
+      ]
+    },
+    "left": {
+      "path": "left.png",
+      "source_png_sha256": "a8e8eb4ba662d595545459b95924d94af0fc1e19023cb7469209e3ba7b053d68",
+      "outline_sha256": "b43af9bffb6b7671738598df07e58f01cdae7f6ecd2783167f53bad15bc13edf",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_backwall-20261123/output/reef_backwall_six_views_raw.png",
+      "input_sha256": "4d40be7874b1ab0f1188cf62b8dccb2fea3885c03e3bdea161d01a7a69d998d5",
+      "pixel_size": [
+        444,
+        359
+      ]
+    },
+    "top": {
+      "path": "top.png",
+      "source_png_sha256": "2adf1350c0c09db7e96d671d1d6944603eec5d297a631e21ca10d7b4d62931ea",
+      "outline_sha256": "07c62204b5acbbaa75f395cceef1e1604d00be7251300497d2198f8e9b831072",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_backwall-20261123/output/reef_backwall_six_views_raw.png",
+      "input_sha256": "4d40be7874b1ab0f1188cf62b8dccb2fea3885c03e3bdea161d01a7a69d998d5",
+      "pixel_size": [
+        485,
+        325
+      ]
+    },
+    "bottom": {
+      "path": "bottom.png",
+      "source_png_sha256": "91cb0e11016308bbcd254af896285b79f009c1b2076dee81606ca0f821c26334",
+      "outline_sha256": "a2edc6b31868a4db844cc1fea035168feb838a9c4483d44b3b576672fc8319ae",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_backwall-20261123/output/reef_backwall_six_views_raw.png",
+      "input_sha256": "4d40be7874b1ab0f1188cf62b8dccb2fea3885c03e3bdea161d01a7a69d998d5",
+      "pixel_size": [
+        453,
+        327
+      ]
+    }
+  },
+  "review": "The tall buttress flips sides between front and rear. End paintings agree about where the tall rear shoulder meets the short forward ledges, but their painted overlap is oblique. Treat thin terrace edges in the top image as depth cues, not scan-level geometry.",
+  "user_acceptance": "pending"
+}

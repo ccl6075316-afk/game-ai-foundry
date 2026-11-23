@@ -1,0 +1,210 @@
+{
+  "id": "laceleaf_rosette",
+  "name": "透孔莲座水草",
+  "label": "透孔莲座水草",
+  "category": "plant",
+  "budget_type": "broadleaf_plant",
+  "nominal_xyz_m": [
+    0.78,
+    0.72,
+    0.63
+  ],
+  "triangles": 952,
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/laceleaf_rosette.glb",
+  "source_glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/laceleaf_rosette.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/laceleaf_rosette/laceleaf_rosette.blend",
+  "source_intent": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/laceleaf_rosette/six-material-views.png",
+  "validation": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/laceleaf_rosette/validation.json",
+  "scientific_name": "Aponogeton madagascariensis",
+  "source_url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:82957-1",
+  "habitat": "马达加斯加及科摩罗的沉水淡水莲座，叶柄由一个完整地下根冠生长。用于淡水中景。",
+  "rooted_current": {
+    "anchor_min": [
+      -0.021571619186367106,
+      0.1458616601725876,
+      -0.018315689350404236
+    ],
+    "anchor_size": [
+      0.05077628114403479,
+      0.006806126069081847,
+      0.03866088381948909
+    ],
+    "amplitude": 0.061
+  },
+  "user_acceptance": "pending",
+  "material_mode": "mask",
+  "source_sha256": "b6d48e2c207ca8b1191d8018dcb688b38fbd554b789c3eec528833f1bed397f9",
+  "editable_sha256": "89bbc2a3b71168ed70f78ac1fd604368c05c606474a00dbaaefa4c179c3f3449",
+  "native_atlas_size": [
+    1024,
+    1024
+  ],
+  "glb": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/laceleaf_rosette.glb",
+    "sha256": "4c0993e01a2c55bef51729f854139b5111b59576a875d7e8c082859035908df8",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "laceleaf_rosette",
+        "triangles": 952,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "透孔莲座水草",
+        "size": [
+          1024,
+          1024
+        ],
+        "opaque": false
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "passes": {
+    "complete_budget": true,
+    "cold_blender_positions_uv_texture": true
+  },
+  "closed_geometry": {
+    "connected_components": 24,
+    "euler_characteristic": 48,
+    "open_edges": 0,
+    "nonmanifold_edges": 0
+  },
+  "geometry_groups": [
+    [
+      "fenestrated_closed_blade",
+      68
+    ],
+    [
+      "petiole_closed_sweep",
+      26
+    ],
+    [
+      "fenestrated_closed_blade",
+      68
+    ],
+    [
+      "petiole_closed_sweep",
+      26
+    ],
+    [
+      "fenestrated_closed_blade",
+      68
+    ],
+    [
+      "petiole_closed_sweep",
+      26
+    ],
+    [
+      "fenestrated_closed_blade",
+      68
+    ],
+    [
+      "petiole_closed_sweep",
+      26
+    ],
+    [
+      "fenestrated_closed_blade",
+      68
+    ],
+    [
+      "petiole_closed_sweep",
+      26
+    ],
+    [
+      "fenestrated_closed_blade",
+      68
+    ],
+    [
+      "petiole_closed_sweep",
+      26
+    ],
+    [
+      "fenestrated_closed_blade",
+      68
+    ],
+    [
+      "petiole_closed_sweep",
+      26
+    ],
+    [
+      "fenestrated_closed_blade",
+      68
+    ],
+    [
+      "petiole_closed_sweep",
+      26
+    ],
+    [
+      "horizontal_tuber",
+      60
+    ],
+    [
+      "rootlet_closed_sweep",
+      20
+    ],
+    [
+      "rootlet_closed_sweep",
+      20
+    ],
+    [
+      "rootlet_closed_sweep",
+      20
+    ],
+    [
+      "rootlet_closed_sweep",
+      20
+    ],
+    [
+      "rootlet_closed_sweep",
+      20
+    ],
+    [
+      "rootlet_closed_sweep",
+      20
+    ],
+    [
+      "rootlet_closed_sweep",
+      20
+    ]
+  ],
+  "immobile_base_vertices": 792,
+  "shader_tests": {
+    "phase_instances": 3,
+    "steps": 81,
+    "period_s": 10.0,
+    "max_fixed_point_um": 0.0,
+    "max_loop_error_um": 0.027134898574343955,
+    "max_running_tip_displacement_cm": 6.286155005682435,
+    "native_runtime": {
+      "moving_pixel_count": 99087,
+      "held_pixel_count": 0,
+      "evidence": "godot-current-review.jpg",
+      "matches_runtime_shader": true,
+      "note": "实际展缸 RootedCurrent 同版 shader，在独立原生场景以 enabled=1/0 对比活动与固定姿态。"
+    }
+  },
+  "art_review": "六面完整植株来源，先核对整簇高低、前后、叶形和根，再定三维。作者独立选取图中代表性枝叶轮廓，来源视图不作为实测。",
+  "scope": "透孔二维 alpha .5 随封闭双壳转动，肉眼可见孔，微观孔壁不逐个建模。",
+  "native_review": {
+    "engine": "Godot macOS 4.7.1 Compatibility",
+    "views": [
+      "angle",
+      "front",
+      "right",
+      "rear",
+      "left",
+      "top",
+      "bottom",
+      "oblique"
+    ],
+    "static_image": "godot-native-review.jpg",
+    "observations": "原样透孔判定采用叶片材质的 .5 阈值及封闭双壳。实际能看穿，所有叶片跟随各自叶柄，低面近看边缘带像素台阶。",
+    "filter": "nearest"
+  },
+  "status": "native_candidate_pending_user"
+}

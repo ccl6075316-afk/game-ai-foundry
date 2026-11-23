@@ -1,0 +1,134 @@
+{
+  "id": "reef_mushroom_pedestal",
+  "name_zh": "石座蘑菇礁",
+  "environment": "marine",
+  "geometry_budget": "rock",
+  "nominal_xyz_m": [
+    2.1,
+    1.6,
+    1.65
+  ],
+  "views": {
+    "front": {
+      "path": "front.png",
+      "source_png_sha256": "74075caa5a318c81e7b24c192066fdc92a0e8dfaf71b566c5955565e6e33eba0",
+      "outline_sha256": "644100f3e5554ad2757c9d48535a7d20737cc2ab4aa8bcae7f5bde5a8b3f02a8",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_mushroom_pedestal-20261123/output/reef_mushroom_pedestal_six_views_raw.png",
+      "input_sha256": "c28f15818fc1cc5cf57f3191fedae46a0f3684673bbde14df540a69f215d068e",
+      "panel_crop_px": [
+        3,
+        79,
+        509,
+        468
+      ],
+      "pixel_size": [
+        470,
+        312
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "right": {
+      "path": "right.png",
+      "source_png_sha256": "22c85e61da4a08464f99ab142bf546153bf54cb6a135afee30c61a00a2932a74",
+      "outline_sha256": "c420b1fc8de3971704b75a23d27e1bb1477d44167c29562216be928be1fd550d",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_mushroom_pedestal-20261123/output/reef_mushroom_pedestal_six_views_raw.png",
+      "input_sha256": "c28f15818fc1cc5cf57f3191fedae46a0f3684673bbde14df540a69f215d068e",
+      "panel_crop_px": [
+        580,
+        79,
+        993,
+        468
+      ],
+      "pixel_size": [
+        379,
+        315
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "rear": {
+      "path": "rear.png",
+      "source_png_sha256": "6e934a4109a6934c0ac7992a4f267063310556ea235fae6b33430ae3df945d4d",
+      "outline_sha256": "5ed4e3692e0a666fcba7650a23bd990abb66a0fe846eca17925a277f4cbca464",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_mushroom_pedestal-20261123/output/reef_mushroom_pedestal_six_views_raw.png",
+      "input_sha256": "c28f15818fc1cc5cf57f3191fedae46a0f3684673bbde14df540a69f215d068e",
+      "panel_crop_px": [
+        1027,
+        79,
+        1522,
+        463
+      ],
+      "pixel_size": [
+        461,
+        315
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "left": {
+      "path": "left.png",
+      "source_png_sha256": "07f1b931dd494b4ea412505ec64203e8ffb735bcfc46bfe8a02de4e3da4dde88",
+      "outline_sha256": "a2d28a89d28a026418db96a2b8983795756b97b46f0112fa326768f7269bbf66",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_mushroom_pedestal-20261123/output/reef_mushroom_pedestal_six_views_raw.png",
+      "input_sha256": "c28f15818fc1cc5cf57f3191fedae46a0f3684673bbde14df540a69f215d068e",
+      "panel_crop_px": [
+        10,
+        561,
+        488,
+        975
+      ],
+      "pixel_size": [
+        450,
+        343
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "top": {
+      "path": "top.png",
+      "source_png_sha256": "aeeca068e421cd3b4379d0841c703b769ecf837b6dae2795c721807792491975",
+      "outline_sha256": "2b461a41fe9217ce1aa305259a764052fcf9fff3824168a805321c62535b4d79",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_mushroom_pedestal-20261123/output/reef_mushroom_pedestal_six_views_raw.png",
+      "input_sha256": "c28f15818fc1cc5cf57f3191fedae46a0f3684673bbde14df540a69f215d068e",
+      "panel_crop_px": [
+        521,
+        563,
+        1010,
+        978
+      ],
+      "pixel_size": [
+        475,
+        357
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "bottom": {
+      "path": "bottom.png",
+      "source_png_sha256": "ef9e3d20e1a8d5809f7b4a00588352ff7e6de135fa67d7132ec485477997eef9",
+      "outline_sha256": "0feb7f23f44dff728b25f83727ed04ff03ef085dac093093b985ba570c0e70f7",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_mushroom_pedestal-20261123/output/reef_mushroom_pedestal_six_views_raw.png",
+      "input_sha256": "c28f15818fc1cc5cf57f3191fedae46a0f3684673bbde14df540a69f215d068e",
+      "panel_crop_px": [
+        1034,
+        561,
+        1526,
+        985
+      ],
+      "pixel_size": [
+        463,
+        351
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    }
+  },
+  "original_front": {
+    "path": "resources/aquascape/reef-expansion-20261123/sources/aquascape-reef-rift-20261123/output/reef_mushroom_pedestal_front_raw.png",
+    "sha256": "bf9a4dea551d668c592d63a4e9b7b9c6e12d7bdade789c6896c68ba1e3c696b2"
+  },
+  "source_style": "Foundry OpenAI image generation based on the documented style, original concept sheet and crops retained",
+  "review": "前后岩冠偏斜方向对应，侧面均见窄颈和厚脚；俯视较宽的冠和底面露出的冠下空间作对应。生成正交意向略带透视，建模用截面验证真实宽冠窄腰、宽脚。",
+  "user_acceptance": "pending"
+}

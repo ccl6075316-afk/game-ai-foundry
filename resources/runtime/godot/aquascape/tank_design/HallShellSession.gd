@@ -15,9 +15,11 @@ var camera_before: Dictionary={}
 var last_stroke_usec:=0
 var brushing:=false
 var previous_selection := -1
+var prop_editor: RefCounted
 
 func _init(owner_hall: Control) -> void:
     hall=owner_hall
+    prop_editor=preload("HallShellPropEditor.gd").new(hall)
 
 func begin(kind: String,data: Dictionary,existing: Dictionary={}) -> bool:
     if mode!="" or not hall.editor._valid_placement(data,hall.objects,data.id):return false
@@ -73,6 +75,7 @@ func change(patch: Dictionary) -> bool:
 
 func save() -> bool:
     if mode=="":return false
+    prop_editor.cancel_drag()
     var id: String=draft.id
     var ok:=true
     if source.is_empty():
@@ -105,6 +108,7 @@ func cancel() -> void:
     hall.notice="已取消本次编辑。"
 
 func close() -> void:
+    prop_editor.clear_selection()
     hall.build_editor.shells.handles.reset()
     if not source.is_empty() and is_instance_valid(source.node):source.node.show()
     if not camera_before.is_empty():
@@ -152,6 +156,7 @@ func available_fish() -> Dictionary:
 
 func interior_input(event: InputEvent) -> bool:
     var panel:Control=hall.build_editor.shell_inspector.interior_tools
+    if panel.tool=="move_prop":return prop_editor.handle(event)
     if event is InputEventMouseButton:
         if event.button_index!=MOUSE_BUTTON_LEFT:return false
         brushing=event.pressed and panel.tool in ["raise","lower"]
@@ -174,23 +179,10 @@ func apply_pointer(point: Vector2) -> void:
     var panel:Control=hall.build_editor.shell_inspector.interior_tools
     if panel.tool in ["fish_idle",""]:return
     var screen:Vector2=point*Vector2(hall.viewport.size)/hall.canvas.size
-    var camera:Camera3D=hall.editor_camera
     if panel.tool in ["remove_prop","remove_fish"]:
         var fish:bool=panel.tool=="remove_fish"
         var entries:Array=contents.swimmers if fish else contents.props
-        var best:=INF
-        var nearest:=-1
-        for i in entries.size():
-            var e:Dictionary=entries[i]
-            var center:Vector3=e.root.global_position
-            var extent:float=e.length*.65 if fish else e.root.scale.x*.6
-            if not fish:center+=Vector3.UP*extent*.5
-            var pixel:=camera.unproject_position(center)
-            var side:=camera.unproject_position(center+camera.global_basis.x*extent)
-            var distance:=screen.distance_to(pixel)
-            if distance<=maxf(18,pixel.distance_to(side)) and distance<best:
-                nearest=i
-                best=distance
+        var nearest:int=pick_fish(screen,entries) if fish else prop_editor.pick_prop(screen)
         if nearest>=0:
             var key:="fish" if fish else "props"
             var rows:Array=draft.interior[key].duplicate()
@@ -199,10 +191,32 @@ func apply_pointer(point: Vector2) -> void:
             panel.set_tool(panel.tool)
         else:panel.status.text="请点要收回的鱼。" if fish else "请点要移除的布景。"
         return
+    var hit: Variant=bed_hit(screen)
+    if hit!=null:panel.use_at(hit)
+    last_stroke_usec=Time.get_ticks_usec()
+
+func pick_fish(screen: Vector2,entries: Array) -> int:
+    var camera:Camera3D=hall.editor_camera
+    var best:=INF
+    var nearest:=-1
+    for i in entries.size():
+        var e:Dictionary=entries[i]
+        var center:Vector3=e.root.global_position
+        var extent:float=e.length*.65
+        var pixel:=camera.unproject_position(center)
+        var side:=camera.unproject_position(center+camera.global_basis.x*extent)
+        var distance:=screen.distance_to(pixel)
+        if distance<=maxf(18,pixel.distance_to(side)) and distance<best:
+            nearest=i
+            best=distance
+    return nearest
+
+func bed_hit(screen: Vector2) -> Variant:
+    var camera:Camera3D=hall.editor_camera
     var local_inverse:=preview.global_transform.affine_inverse()
     var eye:=local_inverse*camera.project_ray_origin(screen)
     var direction:=local_inverse.basis*camera.project_ray_normal(screen)
-    if direction.y>=-.00001:return
+    if direction.y>=-.00001:return null
     var bed:Dictionary=draft.get("interior",Finished.DEFAULT_BED)
     var box:=Interior.bounds(draft.design)
     var plane_y:=float(bed.depth_cm)*.01
@@ -210,5 +224,4 @@ func apply_pointer(point: Vector2) -> void:
     for i in 4:
         hit=eye+direction*((plane_y-eye.y)/direction.y)
         plane_y=Interior.floor_y((Vector2(hit.x,hit.z)-box.position)/box.size,bed,draft.design.height)
-    panel.use_at(Vector2(hit.x,hit.z))
-    last_stroke_usec=Time.get_ticks_usec()
+    return Vector2(hit.x,hit.z)

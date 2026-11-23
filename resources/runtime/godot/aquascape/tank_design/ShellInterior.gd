@@ -2,15 +2,30 @@ extends RefCounted
 ## Interior positions are fractions of the footprint bounds, independent of the hall transform.
 const Design = preload("ShellDesign.gd")
 const Fish = preload("../FishDisplayCatalog.gd")
+const PropTransform = preload("../editor/PropTransform.gd")
+const Algae = preload("StoneAlgae.gd")
 const GRID := 24
+const MIN_PROP_SCALE := .01
 static var decor: Dictionary = {}
 static var lengths: Dictionary = {}
 
 static func assets() -> Dictionary:
     if decor.is_empty():
-        for item in JSON.parse_string(FileAccess.get_file_as_string("res://assets/aquascape-v5/catalog.json")).assets:
-            decor[item.id] = item
+        var catalogs := [
+            "res://assets/aquascape-v5/catalog.json",
+            "res://assets/aquascape-decor-v1/catalog.json",
+        ]
+        for optional in ["aquascape-reef-foundation-v1", "aquascape-expansion-v1"]:
+            var path := "res://assets/%s/catalog.json" % optional
+            if FileAccess.file_exists(path):
+                catalogs.append(path)
+        for path in catalogs:
+            for item in JSON.parse_string(FileAccess.get_file_as_string(path)).assets:
+                decor[item.id] = item
     return decor
+
+static func supports_algae(id: String) -> bool:
+    return Algae.supports(id) or assets().get(id, {}).get("algae_option", false) == true
 
 static func length_m(id: String) -> float:
     if lengths.is_empty():
@@ -31,7 +46,13 @@ static func valid(bed: Dictionary) -> bool:
         if not list is Array:return false
         for item in list:
             if not item is Dictionary or not item.get("id") is String:return false
-            if key=="props" and not assets().has(item.id):return false
+            if key=="props":
+                if not assets().has(item.id) or not PropTransform.valid(item,MIN_PROP_SCALE,INF):return false
+                if item.has("algae") and (not item.algae is bool or not supports_algae(item.id)):return false
+                if not Design.number(item.get("lift_m",0.0)):return false
+                if not Vector3(0,item.get("lift_m",0.0),0).is_finite():return false
+                for field in ["rotation","stretch"]:
+                    if item.has(field) and not PropTransform.vector(item[field]).is_finite():return false
             if key=="fish" and (item.id not in Fish.SPECIES or not item.get("stock","") is String):return false
             for axis in ["u","v"]:
                 if not Design.number(item.get(axis)) or item[axis]<0 or item[axis]>1:return false
@@ -62,6 +83,44 @@ static func floor_y(uv: Vector2, bed: Dictionary, height: float) -> float:
     var lower := lerpf(heights[i],heights[i+1],grid.x-x)
     var upper := lerpf(heights[i+GRID+1],heights[i+GRID+2],grid.x-x)
     return clampf(base+lerpf(lower,upper,grid.y-z)*waterline(height),.005,waterline(height)*.76)
+
+static func prop_anchor_y(id: String, uv: Vector2, bed: Dictionary, height: float, basis: Basis, local_bounds: AABB) -> float:
+    if assets()[id].get("placement_anchor") == "water_surface":
+        return waterline(height) - .004 - (Transform3D(basis, Vector3.ZERO) * local_bounds).end.y
+    return floor_y(uv,bed,height)
+
+static func prop_pose(item: Dictionary,box: Rect2,path: PackedVector2Array,bed: Dictionary,height: float,local_bounds: AABB) -> Transform3D:
+    var uv:=Vector2(item.u,item.v)
+    var p:=box.position+box.size*uv
+    var floor_height:=floor_y(uv,bed,height)
+    var scales: Vector3
+    if item.has("stretch"):
+        scales=PropTransform.vector(item.stretch)
+    else:
+        var default_size: float = assets()[item.id].get("placement_size_m", 0.55)
+        var size_m:=minf(default_size,minf(clearance(p,path)*1.35,(waterline(height)-floor_height)*.9))
+        scales=Vector3.ONE*size_m
+    var rotation:=PropTransform.vector(item.get("rotation",[0,0,0]))
+    var basis := Basis.from_euler(rotation).scaled_local(scales)
+    var y := prop_anchor_y(item.id, uv, bed, height, basis, local_bounds) + float(item.get("lift_m", 0))
+    return Transform3D(basis, Vector3(p.x, y, p.y))
+
+static func prop_fits(pose: Transform3D,local_bounds: AABB,path: PackedVector2Array,height: float) -> bool:
+    if not pose.is_finite():return false
+    var extent:=pose*local_bounds
+    if not extent.is_finite() or extent.position.y<-.001 or extent.end.y>height+.001:return false
+    var points:=PackedVector2Array()
+    for i in 8:
+        var point:=pose*local_bounds.get_endpoint(i)
+        points.append(Vector2(point.x,point.z))
+    var hull:=Geometry2D.convex_hull(points)
+    if hull.size()>1:hull.remove_at(hull.size()-1)
+    for point in hull:
+        if not Geometry2D.is_point_in_polygon(point,path):return false
+    # The corners can lie inside a concave tank while an edge crosses a recess.
+    for outside in Geometry2D.clip_polygons(hull,path):
+        if Geometry2D.triangulate_polygon(outside).size()>0:return false
+    return true
 
 static func sculpt(bed: Dictionary, uv: Vector2, extent: Vector2, raise: bool, radius: float, height: float) -> void:
     var heights: Array = bed.get("heights",[]).duplicate()

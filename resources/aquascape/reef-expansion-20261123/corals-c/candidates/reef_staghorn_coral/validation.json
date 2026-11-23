@@ -1,0 +1,194 @@
+{
+  "id": "reef_staghorn_coral",
+  "name": "鹿角珊瑚",
+  "species": "Acropora cervicornis",
+  "geography": "Caribbean",
+  "category": "scleractinian",
+  "nominal_xyz_m": [
+    1.27,
+    0.74,
+    0.86
+  ],
+  "ecology_and_use": "加勒比背礁硬底、中景留孔，金棕枝带浅色轴端。",
+  "primary_reference": "https://www.fisheries.noaa.gov/species/staghorn-coral",
+  "approvals": {
+    "user_intent": "pending",
+    "user_native": "pending"
+  },
+  "source": {
+    "file": "six-material-views.png",
+    "sha256": "759d761033362269cac134ea47f35552403efe65a9e65606e5410dd485d85454",
+    "status": "draft_intent",
+    "views": {
+      "front": [
+        35,
+        68,
+        499,
+        460
+      ],
+      "right": [
+        577,
+        58,
+        955,
+        465
+      ],
+      "rear": [
+        1042,
+        60,
+        1502,
+        465
+      ],
+      "left": [
+        36,
+        541,
+        486,
+        928
+      ],
+      "top": [
+        564,
+        540,
+        979,
+        934
+      ],
+      "bottom": [
+        1051,
+        565,
+        1496,
+        914
+      ]
+    },
+    "review": "六格齐全，枝叉留白明显。四立面主要约束斜升枝和宽高，上下图确定前后枝与落根。各面枝数和尖端位置不是精确对齐，模型重建共同剪影、浅轴端与上细下厚，避免把局部高光当枝端。"
+  },
+  "shape_specification": "Open golden tan thicket, several long slender cylindrical branches fork upward and outward from a short shared trunk, pale blunt axial tips, generous negative space, fine coral cups. No fan paddles; thick connection at branch forks.",
+  "shape_method": "staghorn",
+  "geometry": {
+    "source_field_components": 1,
+    "isolated_voxels_removed": 0,
+    "bounds_xyz_m": [
+      1.2783076763153076,
+      0.741507351398468,
+      0.8665677905082703
+    ],
+    "connected_components": 1,
+    "euler_characteristic": 2,
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "signed_volume_m3": 0.06089915335178375,
+    "triangle_count": 816,
+    "budget_type": "broadleaf_plant",
+    "preferred_triangles": 700,
+    "hard_triangle_limit": 1000,
+    "ground_y_min": 0.0,
+    "contact_vertices": 7,
+    "projection": {
+      "front": {
+        "silhouette_iou": 0.577657885785555,
+        "span_m": [
+          1.27,
+          0.74
+        ]
+      },
+      "right": {
+        "silhouette_iou": 0.564805493445802,
+        "span_m": [
+          0.86,
+          0.74
+        ]
+      },
+      "rear": {
+        "silhouette_iou": 0.5802772042552797,
+        "span_m": [
+          1.27,
+          0.74
+        ]
+      },
+      "left": {
+        "silhouette_iou": 0.5088845834486576,
+        "span_m": [
+          0.86,
+          0.74
+        ]
+      },
+      "top": {
+        "silhouette_iou": 0.45712164336097016,
+        "span_m": [
+          1.27,
+          0.86
+        ]
+      },
+      "bottom": {
+        "silhouette_iou": 0.4438072659703979,
+        "span_m": [
+          1.27,
+          0.86
+        ]
+      }
+    }
+  },
+  "material": {
+    "native_source_pixel_selection": true,
+    "filter": "nearest",
+    "atlas": 1536,
+    "macro_shadow_removed_for_cavities": false,
+    "primitive_count": 1,
+    "material_count": 1,
+    "source_fractions": {
+      "front": 0.2234,
+      "rear": 0.2297,
+      "left": 0.1168,
+      "right": 0.1359,
+      "top": 0.2011,
+      "bottom": 0.0931
+    }
+  },
+  "blend": {
+    "file": "reef_staghorn_coral.blend",
+    "sha256": "65583ba5930cb7958096cdd0a01ada1f78b81929556985af07b39c1ba14af6a2",
+    "cold_geometry_uv_texture_pass": true
+  },
+  "glb": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_staghorn_coral.glb",
+    "sha256": "b009400d5479306741433cd2f5ba3ea38c46d34c249fa3628b5f2515df497a74",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "reef_staghorn_coral",
+        "triangles": 816,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "鹿角珊瑚",
+        "size": [
+          1536,
+          1536
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "current_status": "static_candidate_for_user_review",
+  "scope": "低面展缸艺术模块。结构与方向参考六面意向，非生物实测。相机近似会影响投影重叠。",
+  "native_review": {
+    "file": "godot-native-review.jpg",
+    "engine": "Godot 4.7.1 stable, macOS Compatibility",
+    "rendered_views": [
+      "angle",
+      "front",
+      "right",
+      "rear",
+      "left",
+      "top",
+      "bottom",
+      "oblique"
+    ],
+    "mode": "fresh-process direct GLB, gray and material under the same lights",
+    "verified_texture_filter": "nearest",
+    "observations": "金棕分枝和淡轴端，俯视有实际前后分叉。低面枝尖与原画圆钝程度有差，分枝未逐节复刻。",
+    "user_acceptance": "pending"
+  }
+}

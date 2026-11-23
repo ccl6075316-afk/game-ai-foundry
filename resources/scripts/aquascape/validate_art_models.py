@@ -16,13 +16,15 @@ def inspect(path,allow_alpha_mask=False):
         a=d['accessors'][index];v=d['bufferViews'][a['bufferView']]
         offset=v.get('byteOffset',0)+a.get('byteOffset',0)
         n={'SCALAR':1,'VEC2':2,'VEC3':3,'VEC4':4}[a['type']]
-        dtype={5126:'<f4',5125:'<u4',5123:'<u2'}[a['componentType']]
-        return np.frombuffer(binary,dtype=dtype,count=a['count']*n,offset=offset).reshape(-1,n)
+        dtype=np.dtype({5126:'<f4',5125:'<u4',5123:'<u2',5121:'u1'}[a['componentType']])
+        return np.ndarray((a['count'],n),dtype=dtype,buffer=binary,offset=offset,
+                          strides=(v.get('byteStride',dtype.itemsize*n),dtype.itemsize))
     meshes=[];alltri=[];failed=[]
     for mesh in d['meshes']:
         for prim in mesh['primitives']:
             v=read(prim['attributes']['POSITION']);uv=read(prim['attributes']['TEXCOORD_0']);normal=read(prim['attributes']['NORMAL'])
-            tri=v.reshape(-1,3,3);alltri.append(tri)
+            positions=v[read(prim['indices']).ravel()] if 'indices' in prim else v
+            tri=positions.reshape(-1,3,3);alltri.append(tri)
             cross=np.cross(tri[:,1]-tri[:,0],tri[:,2]-tri[:,0]);area=np.linalg.norm(cross,axis=1)
             good=bool(np.isfinite(v).all() and np.isfinite(uv).all() and np.isfinite(normal).all() and (area>1e-20).all())
             if not good:failed.append(mesh['name']+': invalid vertex/UV/normal or zero-area triangle')
@@ -40,7 +42,7 @@ def inspect(path,allow_alpha_mask=False):
         view=d['bufferViews'][im['bufferView']];offset=view.get('byteOffset',0)
         image=Image.open(io.BytesIO(binary[offset:offset+view['byteLength']])).convert('RGBA');a=np.asarray(image)
         opaque=bool((a[:,:,3]==255).all())
-        textures.append({'name':im['name'],'size':list(image.size),'opaque':opaque})
+        textures.append({'name':im.get('name','Embedded texture'),'size':list(image.size),'opaque':opaque})
         masked=allow_alpha_mask and all(mat.get('alphaMode')=='MASK' and mat.get('alphaCutoff',.5)==.5 for mat in d['materials'])
         if not opaque and not masked:failed.append(im['name']+': unexpected transparency')
     return {'path':str(path),'sha256':hashlib.sha256(raw).hexdigest(),'ok':not failed,'meshes':meshes,'textures':textures,'open_edges':boundary,'nonmanifold_edges':nonmanifold,'failures':failed}

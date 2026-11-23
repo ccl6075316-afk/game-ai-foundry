@@ -1,0 +1,348 @@
+{
+  "id": "reef_rubble_apron",
+  "ok": true,
+  "triangles": 554,
+  "budget": {
+    "preferred": 400,
+    "hard_limit": 600
+  },
+  "gray": "resources/aquascape/reef-expansion-20261123/five-rocks/reef_rubble_apron/reef_rubble_apron-gray.glb",
+  "gray_sha256": "4015bd3100c490136bda0e89da4999eda828eae77f110661c82e60a145a18ead",
+  "glb": "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_rubble_apron.glb",
+  "glb_sha256": "ae23a3f375fcc359a0463c6a7c9edc53e53bb0d41c81da7f2af60c318e386d9a",
+  "geometry_components": 1,
+  "surface_euler_characteristic": 2,
+  "open_edges": 0,
+  "nonmanifold_edges": 0,
+  "vertex_bounds_xyz_m": [
+    2.6945183277130127,
+    0.5892387628555298,
+    1.0629642009735107
+  ],
+  "nominal_xyz_m": [
+    2.7,
+    0.55,
+    1.2
+  ],
+  "source": "resources/aquascape/reef-expansion-20261123/five-rocks/reef_rubble_apron/material-source.handoff.json",
+  "source_sha256": "8d2c5fc60d6cd0d7536a1b01f5612518b9ad6f9ba1c3a310df139f5a90102d6a",
+  "finished_alpha": "opaque",
+  "material_passes": 1,
+  "atlas_size": [
+    2048,
+    2048
+  ],
+  "sampler": "nearest",
+  "source_texel_shares": {
+    "front": 0.1774,
+    "right": 0.0395,
+    "rear": 0.1766,
+    "left": 0.0747,
+    "top": 0.3195,
+    "bottom": 0.2124
+  },
+  "component_volume_fraction": 1.0,
+  "outlines": {
+    "front": {
+      "silhouette_iou": 0.8606304209858261,
+      "span_m": [
+        2.7,
+        0.6295081967213115
+      ]
+    },
+    "right": {
+      "silhouette_iou": 0.5446922955228604,
+      "span_m": [
+        1.9280698691185199,
+        0.6358215140909929
+      ]
+    },
+    "rear": {
+      "silhouette_iou": 0.8611339176744702,
+      "span_m": [
+        2.7,
+        0.6421348314606742
+      ]
+    },
+    "left": {
+      "silhouette_iou": 0.5667010521972354,
+      "span_m": [
+        1.867367690033006,
+        0.6358215140909929
+      ]
+    },
+    "top": {
+      "silhouette_iou": 0.8747740963855422,
+      "span_m": [
+        2.7,
+        1.0607142857142857
+      ]
+    },
+    "bottom": {
+      "silhouette_iou": 0.9006343231562804,
+      "span_m": [
+        2.7,
+        0.9614906832298137
+      ]
+    }
+  },
+  "cavity": [],
+  "landmarks": [
+    {
+      "name": "坡脚大碎礁",
+      "applied": true,
+      "form": "ledge",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        -0.81,
+        0.44646724318756786,
+        -0.05055512422360249
+      ],
+      "center_xyz_m": [
+        -0.81,
+        0.4164672431875679,
+        -0.05055512422360249
+      ]
+    },
+    {
+      "name": "中左碎礁",
+      "applied": true,
+      "form": "ledge",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        -0.29700000000000004,
+        0.2995284676773638,
+        0.20222049689440996
+      ],
+      "center_xyz_m": [
+        -0.29700000000000004,
+        0.2745284676773638,
+        0.20222049689440996
+      ]
+    },
+    {
+      "name": "后沿隆起",
+      "applied": true,
+      "form": "ledge",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        0.081,
+        0.37299785543246583,
+        -0.21233152173913045
+      ],
+      "center_xyz_m": [
+        0.081,
+        0.3479978554324658,
+        -0.21233152173913045
+      ]
+    },
+    {
+      "name": "中右碎礁",
+      "applied": true,
+      "form": "ledge",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        0.513,
+        0.2995284676773638,
+        0.15166537267080746
+      ],
+      "center_xyz_m": [
+        0.513,
+        0.2795284676773638,
+        0.15166537267080746
+      ]
+    },
+    {
+      "name": "右端崩角",
+      "applied": true,
+      "form": "ledge",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        0.945,
+        0.2811611207385883,
+        -0.05055512422360249
+      ],
+      "center_xyz_m": [
+        0.945,
+        0.26116112073858827,
+        -0.05055512422360249
+      ]
+    },
+    {
+      "name": "前端碎块",
+      "applied": true,
+      "form": "ledge",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        -0.5670000000000001,
+        0.14623894824092837,
+        0.4508630246244134
+      ],
+      "center_xyz_m": [
+        -0.5670000000000001,
+        0.14623894824092837,
+        0.41086302462441343
+      ]
+    },
+    {
+      "name": "右侧外沿",
+      "applied": true,
+      "form": "ledge",
+      "view": "right",
+      "surface_anchor_xyz_m": [
+        1.2955102040816322,
+        0.089015011972739,
+        0.06066614906832298
+      ],
+      "center_xyz_m": [
+        1.2355102040816321,
+        0.089015011972739,
+        0.06066614906832298
+      ]
+    },
+    {
+      "name": "左肩块间凹槽",
+      "applied": true,
+      "form": "cut",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        -0.513,
+        0.42809989624879236,
+        0.04044409937888199
+      ],
+      "center_xyz_m": [
+        -0.513,
+        0.4580998962487923,
+        0.04044409937888199
+      ]
+    },
+    {
+      "name": "中段碎裂",
+      "applied": true,
+      "form": "cut",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        0.27,
+        0.3178958146161393,
+        -0.04044409937888199
+      ],
+      "center_xyz_m": [
+        0.27,
+        0.3378958146161393,
+        -0.04044409937888199
+      ]
+    },
+    {
+      "name": "后沿石缺",
+      "applied": true,
+      "form": "cut",
+      "view": "rear",
+      "surface_anchor_xyz_m": [
+        -0.37800000000000006,
+        0.178030023945478,
+        -0.4491369753755865
+      ],
+      "center_xyz_m": [
+        -0.37800000000000006,
+        0.178030023945478,
+        -0.4591369753755865
+      ]
+    }
+  ],
+  "relief_probes": [
+    {
+      "feature": "坡脚大碎礁",
+      "form": "ledge",
+      "signed_offset_m": 0.0740206393981202
+    },
+    {
+      "feature": "中左碎礁",
+      "form": "ledge",
+      "signed_offset_m": 0.07830481348914287
+    },
+    {
+      "feature": "后沿隆起",
+      "form": "ledge",
+      "signed_offset_m": 0.07011974253186182
+    },
+    {
+      "feature": "中右碎礁",
+      "form": "ledge",
+      "signed_offset_m": 0.08953161453011971
+    },
+    {
+      "feature": "右端崩角",
+      "form": "ledge",
+      "signed_offset_m": 0.07228956515010365
+    },
+    {
+      "feature": "前端碎块",
+      "form": "ledge",
+      "signed_offset_m": 0.08823549335432013
+    },
+    {
+      "feature": "右侧外沿",
+      "form": "ledge",
+      "signed_offset_m": 0.05261971091674944
+    },
+    {
+      "feature": "左肩块间凹槽",
+      "form": "cut",
+      "signed_offset_m": -0.0625177504176393
+    },
+    {
+      "feature": "中段碎裂",
+      "form": "cut",
+      "signed_offset_m": -0.07062421713750577
+    },
+    {
+      "feature": "后沿石缺",
+      "form": "cut",
+      "signed_offset_m": -0.13718468782473003
+    }
+  ],
+  "gray_output": {
+    "path": "resources/aquascape/reef-expansion-20261123/five-rocks/reef_rubble_apron/reef_rubble_apron-gray.glb",
+    "sha256": "4015bd3100c490136bda0e89da4999eda828eae77f110661c82e60a145a18ead",
+    "bytes": 54692
+  },
+  "runtime": {
+    "path": "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_rubble_apron.glb",
+    "sha256": "ae23a3f375fcc359a0463c6a7c9edc53e53bb0d41c81da7f2af60c318e386d9a",
+    "bytes": 2192264
+  },
+  "editable": {
+    "path": "projects/fishing-2d/assets/source/aquascape/reef-foundation/reef_rubble_apron.blend",
+    "sha256": "38d60053b9503a0cc149056bc4be70dda4c37750d3cd04ae5e0b69db78b202ac",
+    "bytes": 2235818
+  },
+  "cold_blender_match": "polygon points, UV layout and original atlas bytes",
+  "user_acceptance": "pending",
+  "native_review": {
+    "engine": "Godot 4.7.1 Compatibility Apple M4",
+    "filter": "nearest",
+    "viewed": [
+      "front",
+      "rear",
+      "left",
+      "right",
+      "top",
+      "bottom",
+      "perspective",
+      "rear_perspective",
+      "gray"
+    ],
+    "evidence": [
+      {
+        "path": "resources/aquascape/reef-expansion-20261123/five-rocks/godot-rocks-before-gray-after.jpg",
+        "sha256": "68f403875586bfbd4fe27a07a2c052c473023591b2345ea6e83d5071daba953b",
+        "bytes": 337428
+      },
+      {
+        "path": "resources/aquascape/reef-expansion-20261123/five-rocks/godot-rocks-cavity-and-side.jpg",
+        "sha256": "928c8fbbf8d7c5abe5237808c56402ad4abe700b278c51a2be2e8b3290b9d84d",
+        "bytes": 241971
+      }
+    ]
+  }
+}

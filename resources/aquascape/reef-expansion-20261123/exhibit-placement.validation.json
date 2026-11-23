@@ -1,0 +1,417 @@
+{
+  "catalog_count": 50,
+  "command": "aquascape.exhibit-prop-registry",
+  "contained": 50,
+  "created": 50,
+  "normalized_base": 50,
+  "ok": true,
+  "registry_order_matches_source": true,
+  "restored_same_transform": 50,
+  "rows": {
+    "amazon_sword": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v10/plants/amazon_sword.glb",
+      "shader_scene_loadable": true
+    },
+    "ammannia_gracilis": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v11/shader-plants/ammannia_gracilis.glb",
+      "shader_scene_loadable": true
+    },
+    "anubias": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v10/plants/anubias.glb",
+      "shader_scene_loadable": true
+    },
+    "aponogeton": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v10/plants/aponogeton.glb",
+      "shader_scene_loadable": true
+    },
+    "bacopa_round": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v11/shader-plants/bacopa_round.glb",
+      "shader_scene_loadable": true
+    },
+    "bamboo_shelter": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v11/solids/bamboo_shelter.glb",
+      "shader_scene_loadable": null
+    },
+    "basalt_column": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v9/solids/basalt_column.glb",
+      "shader_scene_loadable": null
+    },
+    "broken_column": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v9/solids/broken_column.glb",
+      "shader_scene_loadable": null
+    },
+    "bucephalandra": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v10/plants/bucephalandra.glb",
+      "shader_scene_loadable": true
+    },
+    "cabomba": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v11/shader-plants/cabomba.glb",
+      "shader_scene_loadable": true
+    },
+    "clay_pipe": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v9/solids/clay_pipe.glb",
+      "shader_scene_loadable": null
+    },
+    "coconut_shelter": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v9/solids/coconut_shelter.glb",
+      "shader_scene_loadable": null
+    },
+    "crypt_crispatula": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v10/plants/crypt_crispatula.glb",
+      "shader_scene_loadable": true
+    },
+    "crypt_wendtii": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v10/plants/crypt_wendtii.glb",
+      "shader_scene_loadable": true
+    },
+    "dragon_stone": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v11/solids/dragon_stone.glb",
+      "shader_scene_loadable": null
+    },
+    "driftwood": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v9/solids/driftwood.glb",
+      "shader_scene_loadable": null
+    },
+    "dwarf_baby_tears": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v11/shader-plants/dwarf_baby_tears.glb",
+      "shader_scene_loadable": true
+    },
+    "dwarf_sagittaria": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v10/plants/dwarf_sagittaria.glb",
+      "shader_scene_loadable": true
+    },
+    "hornwort": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v11/shader-plants/hornwort.glb",
+      "shader_scene_loadable": true
+    },
+    "hydrocotyle": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v11/shader-plants/hydrocotyle.glb",
+      "shader_scene_loadable": true
+    },
+    "iron_anchor": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v9/solids/iron_anchor.glb",
+      "shader_scene_loadable": null
+    },
+    "java_fern": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v10/plants/java_fern.glb",
+      "shader_scene_loadable": true
+    },
+    "java_moss": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v11/shader-plants/java_moss.glb",
+      "shader_scene_loadable": true
+    },
+    "lagenandra_red": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v10/plants/lagenandra_red.glb",
+      "shader_scene_loadable": true
+    },
+    "lava_rock": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v11/solids/lava_rock.glb",
+      "shader_scene_loadable": null
+    },
+    "ludwigia_rubin": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v11/shader-plants/ludwigia_rubin.glb",
+      "shader_scene_loadable": true
+    },
+    "mangrove_root": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v11/solids/mangrove_root.glb",
+      "shader_scene_loadable": null
+    },
+    "mopani_wood": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v11/solids/mopani_wood.glb",
+      "shader_scene_loadable": null
+    },
+    "pale_limestone": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v9/solids/pale_limestone.glb",
+      "shader_scene_loadable": null
+    },
+    "quartz_rock": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v11/solids/quartz_rock.glb",
+      "shader_scene_loadable": null
+    },
+    "red_sandstone": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v9/solids/red_sandstone.glb",
+      "shader_scene_loadable": null
+    },
+    "river_boulder": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v9/solids/river_boulder.glb",
+      "shader_scene_loadable": null
+    },
+    "rock": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v9/solids/rock.glb",
+      "shader_scene_loadable": null
+    },
+    "root_fan": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v9/solids/root_fan.glb",
+      "shader_scene_loadable": null
+    },
+    "root_stump": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v9/solids/root_stump.glb",
+      "shader_scene_loadable": null
+    },
+    "rotala": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v11/shader-plants/rotala.glb",
+      "shader_scene_loadable": true
+    },
+    "ruin_arch": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v9/solids/ruin_arch.glb",
+      "shader_scene_loadable": null
+    },
+    "ruined_tower": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v11/solids/ruined_tower.glb",
+      "shader_scene_loadable": null
+    },
+    "shipwreck": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v9/solids/shipwreck.glb",
+      "shader_scene_loadable": null
+    },
+    "slate_cave": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v11/solids/slate_cave.glb",
+      "shader_scene_loadable": null
+    },
+    "slate_stack": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v11/solids/slate_stack.glb",
+      "shader_scene_loadable": null
+    },
+    "spider_wood": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v11/solids/spider_wood.glb",
+      "shader_scene_loadable": null
+    },
+    "stone_bridge": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v9/solids/stone_bridge.glb",
+      "shader_scene_loadable": null
+    },
+    "stone_lantern": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v9/solids/stone_lantern.glb",
+      "shader_scene_loadable": null
+    },
+    "terracotta_jar": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v9/solids/terracotta_jar.glb",
+      "shader_scene_loadable": null
+    },
+    "treasure_chest": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v9/solids/treasure_chest.glb",
+      "shader_scene_loadable": null
+    },
+    "twisted_branch": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v9/solids/twisted_branch.glb",
+      "shader_scene_loadable": null
+    },
+    "vallisneria": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v10/plants/vallisneria.glb",
+      "shader_scene_loadable": true
+    },
+    "water_sprite": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v11/shader-plants/water_sprite.glb",
+      "shader_scene_loadable": true
+    },
+    "weathered_log": {
+      "fits_tank": true,
+      "normalized_base": true,
+      "packed_scene_loadable": true,
+      "restored_same_transform": true,
+      "sha_source": "res://assets/aquascape-v9/solids/weathered_log.glb",
+      "shader_scene_loadable": null
+    }
+  },
+  "save_ok": true,
+  "scope": "Headless placement through ShellContentsView and temporary HallLayoutStore save/reload; no player save accessed.",
+  "status": "done",
+  "valid_input": true,
+  "valid_readback": true
+}

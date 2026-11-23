@@ -1,0 +1,141 @@
+{
+  "id": "wood_hollow_tunnel",
+  "ok": true,
+  "triangles": 880,
+  "connected_components": 1,
+  "euler": 0,
+  "vertex_bounds_xyz_m": [
+    2.8507797718048096,
+    0.8708081245422363,
+    1.0717663764953613
+  ],
+  "model_sha256": "d3d819890a44e039383e4519dbcebea33316a42c01d12171a127bd5a93e533d6",
+  "open_edges": 0,
+  "nonmanifold": 0,
+  "signed_volume_m3": 0.6346819400787354,
+  "material_count": 1,
+  "atlas_size": [
+    2048,
+    2048
+  ],
+  "source_texel_shares": {
+    "front": 0.2196,
+    "right": 0.0481,
+    "rear": 0.2204,
+    "left": 0.0471,
+    "top": 0.2303,
+    "bottom": 0.2345
+  },
+  "bore_views": [
+    {
+      "z_m": -0.085,
+      "y_m": 0.29551343888044357,
+      "direction_x": -1,
+      "passable": true
+    },
+    {
+      "z_m": -0.085,
+      "y_m": 0.29551343888044357,
+      "direction_x": 1,
+      "passable": true
+    },
+    {
+      "z_m": 0.0,
+      "y_m": 0.29551343888044357,
+      "direction_x": -1,
+      "passable": true
+    },
+    {
+      "z_m": 0.0,
+      "y_m": 0.29551343888044357,
+      "direction_x": 1,
+      "passable": true
+    },
+    {
+      "z_m": 0.085,
+      "y_m": 0.29551343888044357,
+      "direction_x": -1,
+      "passable": true
+    },
+    {
+      "z_m": 0.085,
+      "y_m": 0.29551343888044357,
+      "direction_x": 1,
+      "passable": true
+    },
+    {
+      "z_m": -0.085,
+      "y_m": 0.3655134388804436,
+      "direction_x": -1,
+      "passable": true
+    },
+    {
+      "z_m": -0.085,
+      "y_m": 0.3655134388804436,
+      "direction_x": 1,
+      "passable": true
+    },
+    {
+      "z_m": 0.0,
+      "y_m": 0.3655134388804436,
+      "direction_x": -1,
+      "passable": true
+    },
+    {
+      "z_m": 0.0,
+      "y_m": 0.3655134388804436,
+      "direction_x": 1,
+      "passable": true
+    },
+    {
+      "z_m": 0.085,
+      "y_m": 0.3655134388804436,
+      "direction_x": -1,
+      "passable": true
+    },
+    {
+      "z_m": 0.085,
+      "y_m": 0.3655134388804436,
+      "direction_x": 1,
+      "passable": true
+    },
+    {
+      "z_m": -0.085,
+      "y_m": 0.4455134388804436,
+      "direction_x": -1,
+      "passable": true
+    },
+    {
+      "z_m": -0.085,
+      "y_m": 0.4455134388804436,
+      "direction_x": 1,
+      "passable": true
+    },
+    {
+      "z_m": 0.0,
+      "y_m": 0.4455134388804436,
+      "direction_x": -1,
+      "passable": true
+    },
+    {
+      "z_m": 0.0,
+      "y_m": 0.4455134388804436,
+      "direction_x": 1,
+      "passable": true
+    },
+    {
+      "z_m": 0.085,
+      "y_m": 0.4455134388804436,
+      "direction_x": -1,
+      "passable": true
+    },
+    {
+      "z_m": 0.085,
+      "y_m": 0.4455134388804436,
+      "direction_x": 1,
+      "passable": true
+    }
+  ],
+  "gray_sha256": "fe4ee7a6174625bed726d656b9f8931de161fd3cfcaf74162a4c89fbbc3c9061",
+  "source_blender_sha256": "44caf0ac38df490e3b79a1ff66903fcddf5f6e87c32a5f8171f12743914cd68b"
+}

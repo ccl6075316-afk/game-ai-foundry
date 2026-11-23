@@ -1,0 +1,36 @@
+{
+  "assets": [
+    {
+      "id": "wood_upturned_root_plate",
+      "name_zh": "倒伏树盘",
+      "category": "wood",
+      "environment": "freshwater",
+      "budget_type": "wood",
+      "nominal_xyz_m": [
+        2.35,
+        1.66,
+        1.58
+      ],
+      "placement_size_m": 2.35,
+      "measured_xyz_m": [
+        2.3423867225646973,
+        1.6148138046264648,
+        1.3213883638381958
+      ],
+      "triangles": 1120,
+      "geometry_budget": {
+        "preferred": 800,
+        "hard_limit": 1200,
+        "type": "wood"
+      },
+      "animated": false,
+      "algae_option": true,
+      "glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/wood_upturned_root_plate.glb",
+      "blend": "resources/aquascape/reef-expansion-20261123/freshwater-e/root-plate/wood_upturned_root_plate.blend",
+      "source_evidence": "resources/aquascape/reef-expansion-20261123/freshwater-e/root-plate/material-source.handoff.json",
+      "report": "resources/aquascape/reef-expansion-20261123/freshwater-e/root-plate/geometry-and-material.validation.json",
+      "native_review": "resources/aquascape/reef-expansion-20261123/freshwater-e/root-plate/native-review.webp",
+      "user_acceptance": "pending"
+    }
+  ]
+}

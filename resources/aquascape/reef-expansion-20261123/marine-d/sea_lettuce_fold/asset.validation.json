@@ -1,0 +1,204 @@
+{
+  "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/sea_lettuce_fold.glb",
+  "sha256": "bd60a58c239321702e250f838923c88f76c252e6bd045f3d3151b4916fb71f1c",
+  "ok": true,
+  "meshes": [
+    {
+      "name": "sea_lettuce_fold · closed natural shells",
+      "triangles": 588,
+      "finite_and_nonzero_area": true
+    }
+  ],
+  "textures": [
+    {
+      "name": "atlas",
+      "size": [
+        256,
+        256
+      ],
+      "opaque": true
+    }
+  ],
+  "open_edges": 0,
+  "nonmanifold_edges": 0,
+  "failures": [],
+  "triangles": 588,
+  "vertices": 1764,
+  "bytes": 130464,
+  "budget": {
+    "preferred": 700,
+    "hard_limit": 1000
+  },
+  "measured_xyz_m": [
+    0.32999998331069946,
+    0.20999999344348907,
+    0.28999996185302734
+  ],
+  "root_min_y_m": 0.0,
+  "rooted_current": {
+    "anchor_min": [
+      -0.004470054060220718,
+      -9.999999747378752e-05,
+      0.013323291204869747
+    ],
+    "anchor_size": [
+      0.00019999983487650752,
+      0.003893085988238454,
+      0.00019999983487650752
+    ],
+    "amplitude": 0.085
+  },
+  "shader_cpu": {
+    "root_motion_m": 0.0,
+    "loop_error_m": 1.2866395575682542e-08,
+    "max_tip_motion_m": 0.029464846149908516,
+    "sampled_times": 41,
+    "instance_phases": [
+      0,
+      0.31,
+      0.62
+    ]
+  },
+  "file": "projects/fishing-2d/game/assets/aquascape-expansion-v1/sea_lettuce_fold.glb",
+  "source_board": {
+    "file": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-sea_lettuce_fold-20261123/output/sea_lettuce_fold_six_views_raw.png",
+    "sha256": "36869e2cca31b3b9b0eb84b0e8f33f2587513578a3ab3b08c54fb0cabeddf0fa",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "camera_order": [
+      "front",
+      "right",
+      "back",
+      "left",
+      "top",
+      "bottom"
+    ],
+    "concept_review": "agent-reviewed for provisional gray mesh, user pending",
+    "workflow_assets_manifest": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-sea_lettuce_fold-20261123/output/assets-manifest.json",
+    "subject_ecology": "https://www.marlin.ac.uk/species/detail/1467",
+    "assembly_inference": [
+      "保留两层杯褶及浅缺口，后高前低，安装在中央小圆盘固着器",
+      "利用多截面薄壳和截面横向波幅表示实际卷褶，反面独立取色",
+      "按原画绿色调稍压饱和度，与糖海带和淡水草区分"
+    ],
+    "texture_sample_regions": {
+      "blade": [
+        [
+          [
+            0,
+            43,
+            290,
+            99,
+            363
+          ],
+          [
+            4,
+            646,
+            709,
+            714,
+            783
+          ]
+        ],
+        [
+          [
+            2,
+            1089,
+            314,
+            1153,
+            364
+          ],
+          [
+            5,
+            1187,
+            829,
+            1250,
+            888
+          ]
+        ]
+      ],
+      "pale": [
+        [
+          [
+            0,
+            218,
+            147,
+            273,
+            213
+          ],
+          [
+            0,
+            334,
+            187,
+            387,
+            247
+          ]
+        ],
+        [
+          [
+            2,
+            1323,
+            174,
+            1396,
+            226
+          ],
+          [
+            3,
+            292,
+            666,
+            332,
+            729
+          ]
+        ]
+      ],
+      "holdfast": [
+        [
+          [
+            0,
+            233,
+            405,
+            287,
+            418
+          ]
+        ],
+        [
+          [
+            5,
+            1271,
+            741,
+            1313,
+            784
+          ]
+        ]
+      ]
+    }
+  },
+  "native": {
+    "version": "Godot 4.7.1 stable mono, OpenGL compatibility Apple M4",
+    "result": "agent reviewed native orthographic + oblique gray and nearest material",
+    "contact_sheet": "resources/aquascape/reef-expansion-20261123/marine-d/sea_lettuce_fold/godot-views.jpg",
+    "contact_sheet_sha256": "78382b1afe1582b228b36fcf47756486a0ff5674fd1c42e29fc75a0da7a1ba00",
+    "user_acceptance": "pending",
+    "multimesh_current": {
+      "instances": 3,
+      "custom_phases": [
+        0,
+        0.31,
+        0.62
+      ],
+      "phase_change_pixels": 225026,
+      "held_phase_change_pixels": 0,
+      "subsequent_phase_change_pixels": 225048,
+      "loop_endpoint_change_pixels": 0,
+      "fixed_root_validated_in_cpu_sampling": true
+    }
+  },
+  "cold_blend_export": {
+    "packed_image": true,
+    "source_sha256": "4fce7becbb803867fef2599abb076a08673146e5c1937fd7d957d574832b0e22",
+    "normalized_export_sha256": "bd60a58c239321702e250f838923c88f76c252e6bd045f3d3151b4916fb71f1c",
+    "current_glb_sha256": "bd60a58c239321702e250f838923c88f76c252e6bd045f3d3151b4916fb71f1c",
+    "byte_identical": true
+  }
+}

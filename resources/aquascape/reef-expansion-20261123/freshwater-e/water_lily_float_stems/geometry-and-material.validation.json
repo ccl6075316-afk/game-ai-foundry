@@ -1,0 +1,113 @@
+{
+  "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/water_lily_float_stems.glb",
+  "sha256": "a9017af10d5ae3c9754b9a56f7cd76a47e2cbd93b25d848437feadb95aa76587",
+  "ok": true,
+  "meshes": [
+    {
+      "name": "water_lily_float_stems · closed natural shells",
+      "triangles": 986,
+      "finite_and_nonzero_area": true
+    }
+  ],
+  "textures": [
+    {
+      "name": "water_lily_float_stems-atlas",
+      "size": [
+        256,
+        256
+      ],
+      "opaque": true
+    }
+  ],
+  "open_edges": 0,
+  "nonmanifold_edges": 0,
+  "failures": [],
+  "triangles": 986,
+  "vertices": 2958,
+  "bytes": 213712,
+  "budget": {
+    "preferred": 700,
+    "hard_limit": 1000
+  },
+  "measured_xyz_m": [
+    1.2300000190734863,
+    1.5800000429153442,
+    1.0399999618530273
+  ],
+  "root_min_y_m": 0.0,
+  "source_board": {
+    "file": "resources/aquascape/reef-expansion-20261123/sources/aquascape-e-water-lily-float-stems/output/water_lily_float_stems_six_views_raw.png",
+    "sha256": "b792bd14873998927e463f0ca2b3e53ad9ff2d293ff6ddac53a25cbbd2151b2f",
+    "camera_order": [
+      "front",
+      "right",
+      "back",
+      "left",
+      "top",
+      "bottom"
+    ],
+    "swatches": {
+      "blade": [
+        [
+          [
+            "top",
+            759,
+            662,
+            879,
+            783
+          ]
+        ],
+        [
+          [
+            "bottom",
+            1326,
+            660,
+            1429,
+            785
+          ]
+        ]
+      ],
+      "root": [
+        [
+          [
+            "front",
+            175,
+            387,
+            346,
+            445
+          ]
+        ],
+        [
+          [
+            "bottom",
+            1220,
+            775,
+            1355,
+            838
+          ]
+        ]
+      ],
+      "runner": [
+        [
+          [
+            "front",
+            195,
+            265,
+            312,
+            423
+          ]
+        ],
+        [
+          [
+            "back",
+            1137,
+            252,
+            1330,
+            421
+          ]
+        ]
+      ]
+    },
+    "art_review": "candidate reviewed by agent, user pending"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "mangrove_pneumatophore_bank",
+  "name_zh": "黑红树笋根泥岸",
+  "scientific_name": "Avicennia germinans",
+  "category": "wood",
+  "budget_type": "wood",
+  "nominal_xyz_m": [
+    1.8,
+    0.48,
+    1.15
+  ],
+  "source_url": "https://www.ncei.noaa.gov/data/oceans/coris/library/NOAA/CRCP/other/other_crcp_publications/Watershed_USVI/steer_exisiting_studies_wetlandconservationplansttandstj.pdf",
+  "habitat": "加勒比河口潮间带，潮退可见；不用于长期全浸没的礁景，既有红树支根木为高拱，此模块是低泥脊笋根",
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/mangrove_pneumatophore_bank.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/marine-d/mangrove_pneumatophore_bank/mangrove_pneumatophore_bank.blend",
+  "source_board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-mangrove_pneumatophore_bank-20261123/output/mangrove_pneumatophore_bank_six_views_raw.png",
+  "source_board_sha256": "33afd07d7b846d2a6db79d23bdab1cb8bfecea524b66745b8eb31b8115c57292",
+  "validation": "resources/aquascape/reef-expansion-20261123/marine-d/mangrove_pneumatophore_bank/asset.validation.json",
+  "model_sha256": "b1fdcd27129a3fdd643bd27741eaf1361e6035d73fbd06fdff67a629d6af2883",
+  "blender_sha256": "c34805e1f1b2e168eb34209b8be71890b01cb2f0cdd64f25a7975c571978c5e2",
+  "triangles": 1188,
+  "placement_anchor": "bottom",
+  "visual_review": "native candidate viewed; user approval pending",
+  "user_acceptance": "pending",
+  "native_views": "resources/aquascape/reef-expansion-20261123/marine-d/mangrove_pneumatophore_bank/godot-views.jpg"
+}

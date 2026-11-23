@@ -1,0 +1,34 @@
+{
+  "id": "lake_quillwort_rosette",
+  "name_zh": "水韭根冠",
+  "category": "plant",
+  "environment": "freshwater",
+  "nominal_xyz_m": [
+    0.56,
+    0.43,
+    0.48
+  ],
+  "budget_type": "ribbon_plant",
+  "scientific_name": "Isoetes lacustris",
+  "source_url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:310437-2/general-information",
+  "habitat": "A single basal quill rosette and fine roots for a cool freshwater lake floor.",
+  "source_board_sha256": "74450ebe94964ebd14ed00dbfe9fe16f430b693636a59eff50933d8811bfa2dc",
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/lake_quillwort_rosette.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/freshwater-e/lake_quillwort_rosette/lake_quillwort_rosette.blend",
+  "source_board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-e-lake-quillwort-rosette-r2/output/lake_quillwort_rosette_six_views_raw.png",
+  "validation": "resources/aquascape/reef-expansion-20261123/freshwater-e/lake_quillwort_rosette/geometry-and-material.validation.json",
+  "triangles": 490,
+  "rooted_current": {
+    "anchor_min": [
+      -0.020887184888124466,
+      -9.999999747378752e-05,
+      -0.03635619953274727
+    ],
+    "anchor_size": [
+      0.07850182056427002,
+      0.05884924530982971,
+      0.07798955589532852
+    ],
+    "amplitude": 0.033
+  }
+}

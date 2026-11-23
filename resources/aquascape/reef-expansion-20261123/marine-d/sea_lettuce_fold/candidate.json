@@ -1,0 +1,39 @@
+{
+  "id": "sea_lettuce_fold",
+  "name_zh": "石莼褶片丛",
+  "scientific_name": "Ulva lactuca",
+  "category": "plant",
+  "budget_type": "broadleaf_plant",
+  "nominal_xyz_m": [
+    0.33,
+    0.21,
+    0.29
+  ],
+  "source_url": "https://www.marlin.ac.uk/species/detail/1467",
+  "habitat": "温带浅水岩面，小圆盘固着器，潮间带或浅潮下；无真根",
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/sea_lettuce_fold.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/marine-d/sea_lettuce_fold/sea_lettuce_fold.blend",
+  "source_board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-sea_lettuce_fold-20261123/output/sea_lettuce_fold_six_views_raw.png",
+  "source_board_sha256": "36869e2cca31b3b9b0eb84b0e8f33f2587513578a3ab3b08c54fb0cabeddf0fa",
+  "validation": "resources/aquascape/reef-expansion-20261123/marine-d/sea_lettuce_fold/asset.validation.json",
+  "model_sha256": "bd60a58c239321702e250f838923c88f76c252e6bd045f3d3151b4916fb71f1c",
+  "blender_sha256": "4fce7becbb803867fef2599abb076a08673146e5c1937fd7d957d574832b0e22",
+  "triangles": 588,
+  "placement_anchor": "bottom",
+  "visual_review": "native candidate viewed; user approval pending",
+  "user_acceptance": "pending",
+  "rooted_current": {
+    "anchor_min": [
+      -0.004470054060220718,
+      -9.999999747378752e-05,
+      0.013323291204869747
+    ],
+    "anchor_size": [
+      0.00019999983487650752,
+      0.003893085988238454,
+      0.00019999983487650752
+    ],
+    "amplitude": 0.085
+  },
+  "native_views": "resources/aquascape/reef-expansion-20261123/marine-d/sea_lettuce_fold/godot-views.jpg"
+}

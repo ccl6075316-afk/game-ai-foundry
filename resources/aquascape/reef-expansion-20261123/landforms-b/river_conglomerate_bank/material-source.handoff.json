@@ -1,0 +1,131 @@
+{
+  "id": "river_conglomerate_bank",
+  "name_zh": "风化卵砾胶结岩",
+  "environment": "freshwater",
+  "geometry_budget": "rock",
+  "nominal_xyz_m": [
+    2.05,
+    0.75,
+    1.45
+  ],
+  "views": {
+    "front": {
+      "path": "front.png",
+      "source_png_sha256": "edd8654ea486693f1f4f38cc89351f1b450549899203f95d6f80dd3249cde2b1",
+      "outline_sha256": "bd7c7845faae5740475d3a7f61d78f33beb911b53394daba6a0cfc3a0cb93d6a",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_conglomerate_bank-r2-20261123/output/river_conglomerate_bank_six_views_raw.png",
+      "input_sha256": "961ab5bd363311ce9d8f9690ea68fb5564e221f35382696201abdc4f0e7e9d44",
+      "panel_crop_px": [
+        2,
+        171,
+        509,
+        433
+      ],
+      "pixel_size": [
+        487,
+        179
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "right": {
+      "path": "right.png",
+      "source_png_sha256": "4f663c8a1b9d86d359404968933ea0394612bf205f70389f5a3230f62fafa1e7",
+      "outline_sha256": "2fe45f64be98260afb540177a14946963ec2264fdebfb74596d815037bb16299",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_conglomerate_bank-r2-20261123/output/river_conglomerate_bank_six_views_raw.png",
+      "input_sha256": "961ab5bd363311ce9d8f9690ea68fb5564e221f35382696201abdc4f0e7e9d44",
+      "panel_crop_px": [
+        575,
+        169,
+        922,
+        433
+      ],
+      "pixel_size": [
+        295,
+        181
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "rear": {
+      "path": "rear.png",
+      "source_png_sha256": "83ac1e0ce7aa9a40a4b868cb37c5186127c0c7c9d492d6f5eeb4ba182f2fbb9d",
+      "outline_sha256": "5af0967f58e9ed476c4563743d4f342fbca2a6e6a1b0d58becbad29bf79acdfe",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_conglomerate_bank-r2-20261123/output/river_conglomerate_bank_six_views_raw.png",
+      "input_sha256": "961ab5bd363311ce9d8f9690ea68fb5564e221f35382696201abdc4f0e7e9d44",
+      "panel_crop_px": [
+        969,
+        171,
+        1534,
+        433
+      ],
+      "pixel_size": [
+        549,
+        180
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "left": {
+      "path": "left.png",
+      "source_png_sha256": "5dd901a9a25f7673da55cb983b6ecd8c56792f4c33605bf5c35313b779cb4886",
+      "outline_sha256": "fe92797cd28f058a45eaca4976208d21029f2e9e385c159f9148c5c3ba6cb8d3",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_conglomerate_bank-r2-20261123/output/river_conglomerate_bank_six_views_raw.png",
+      "input_sha256": "961ab5bd363311ce9d8f9690ea68fb5564e221f35382696201abdc4f0e7e9d44",
+      "panel_crop_px": [
+        48,
+        657,
+        396,
+        922
+      ],
+      "pixel_size": [
+        315,
+        197
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "top": {
+      "path": "top.png",
+      "source_png_sha256": "c883ea7670a0814984deacc6aa66db16358341ace3ae77382b81a173cdb4da5f",
+      "outline_sha256": "970566a2e70cdc6a1258c58d34e607d1fccad51f65aa59f2994abd8763f53ca8",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_conglomerate_bank-r2-20261123/output/river_conglomerate_bank_six_views_raw.png",
+      "input_sha256": "961ab5bd363311ce9d8f9690ea68fb5564e221f35382696201abdc4f0e7e9d44",
+      "panel_crop_px": [
+        433,
+        626,
+        959,
+        940
+      ],
+      "pixel_size": [
+        510,
+        249
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "bottom": {
+      "path": "bottom.png",
+      "source_png_sha256": "39158037699f8693786f5d9cf27754bcc89efdbd69244617243d556fee24220b",
+      "outline_sha256": "8eabd23429caeada852ab10504763f880589d99403e2a3c4502cae58ed928c6e",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_conglomerate_bank-r2-20261123/output/river_conglomerate_bank_six_views_raw.png",
+      "input_sha256": "961ab5bd363311ce9d8f9690ea68fb5564e221f35382696201abdc4f0e7e9d44",
+      "panel_crop_px": [
+        971,
+        626,
+        1533,
+        942
+      ],
+      "pixel_size": [
+        536,
+        250
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    }
+  },
+  "original_front": null,
+  "source_style": "Foundry OpenAI image generation based on the documented style, original concept sheet and crops retained",
+  "review": "新版低平横长块，六面呈同一褐灰基质和被嵌入或剥落的圆砾。近看必须有数个实际外露圆砾凸起和凹落处。",
+  "user_acceptance": "pending"
+}

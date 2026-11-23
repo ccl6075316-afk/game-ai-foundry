@@ -1,0 +1,198 @@
+{
+  "id": "reef_sea_fan",
+  "name": "海扇",
+  "species": null,
+  "geography": "Caribbean",
+  "category": "octocoral",
+  "nominal_xyz_m": [
+    0.99,
+    0.92,
+    0.32
+  ],
+  "ecology_and_use": "暖水加勒比硬底网状造型，非定种。大立面投影与枝间网孔，待独立柔性验证。",
+  "primary_reference": "https://qrius.si.edu/browse/object/10801167",
+  "approvals": {
+    "user_intent": "pending",
+    "user_native": "pending"
+  },
+  "source": {
+    "file": "six-material-views.png",
+    "sha256": "0794e2db1fb6a9fa2d621fb4d1d663bacaf8bb213d0832c139c75324250a362e",
+    "status": "draft_intent",
+    "views": {
+      "front": [
+        17,
+        26,
+        523,
+        481
+      ],
+      "right": [
+        641,
+        26,
+        896,
+        481
+      ],
+      "rear": [
+        1013,
+        26,
+        1519,
+        481
+      ],
+      "left": [
+        92,
+        538,
+        351,
+        995
+      ],
+      "top": [
+        451,
+        670,
+        967,
+        834
+      ],
+      "bottom": [
+        1005,
+        706,
+        1520,
+        834
+      ]
+    },
+    "review": "六格有共根支点、左右张开、从侧面向后弯曲。俯仰为窄而弯的层厚。细网纹超过预算，只保留实芯主脉和较宽的横连孔。"
+  },
+  "shape_specification": "Natural warm Caribbean sea fan, subdued purple-red and burgundy, thick base stem holds irregular curved vertical fan; dark main vein divides into clear radial branches, attached fine interconnected branch network with open holes, frayed scalloped feather edges, true modest front-to-back curvature and angled side profile. No flat transparent sheet, no leaf blade.",
+  "shape_method": "sea_fan",
+  "geometry": {
+    "source_field_components": 1,
+    "isolated_voxels_removed": 0,
+    "bounds_xyz_m": [
+      0.980206310749054,
+      0.9188146591186523,
+      0.31630295515060425
+    ],
+    "connected_components": 1,
+    "euler_characteristic": -32,
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "signed_volume_m3": 0.010947320610284805,
+    "triangle_count": 974,
+    "budget_type": "broadleaf_plant",
+    "preferred_triangles": 700,
+    "hard_triangle_limit": 1000,
+    "ground_y_min": 0.0,
+    "contact_vertices": 9,
+    "projection": {
+      "front": {
+        "silhouette_iou": 0.3962006002822329,
+        "span_m": [
+          0.99,
+          0.92
+        ]
+      },
+      "right": {
+        "silhouette_iou": 0.2686562727583491,
+        "span_m": [
+          0.32,
+          0.92
+        ]
+      },
+      "rear": {
+        "silhouette_iou": 0.40915760217829883,
+        "span_m": [
+          0.99,
+          0.92
+        ]
+      },
+      "left": {
+        "silhouette_iou": 0.27189100060748067,
+        "span_m": [
+          0.32,
+          0.92
+        ]
+      },
+      "top": {
+        "silhouette_iou": 0.20187105500450855,
+        "span_m": [
+          0.99,
+          0.32
+        ]
+      },
+      "bottom": {
+        "silhouette_iou": 0.3035583222333977,
+        "span_m": [
+          0.99,
+          0.32
+        ]
+      }
+    }
+  },
+  "material": {
+    "native_source_pixel_selection": true,
+    "filter": "nearest",
+    "atlas": 1536,
+    "macro_shadow_removed_for_cavities": false,
+    "primitive_count": 1,
+    "material_count": 1,
+    "source_fractions": {
+      "front": 0.3371,
+      "rear": 0.3053,
+      "left": 0.0908,
+      "right": 0.0912,
+      "top": 0.1019,
+      "bottom": 0.0737
+    }
+  },
+  "blend": {
+    "file": "reef_sea_fan.blend",
+    "sha256": "b3619fcdfe3c3eebff453a721be09e389f5d332aea90b6f4fac32f9006c3bc26",
+    "cold_geometry_uv_texture_pass": true
+  },
+  "glb": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_sea_fan.glb",
+    "sha256": "6c9410b0054d6254ce49282b05ff37e191e95b5b7e1e321e724bd3e2afcd089e",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "reef_sea_fan",
+        "triangles": 974,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "海扇",
+        "size": [
+          1536,
+          1536
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "current_status": "static_candidate_for_user_review",
+  "scope": "低面展缸艺术模块。结构与方向参考六面意向，非生物实测。相机近似会影响投影重叠。",
+  "native_review": {
+    "file": "godot-native-review.jpg",
+    "engine": "Godot 4.7.1 stable, macOS Compatibility",
+    "rendered_views": [
+      "angle",
+      "front",
+      "right",
+      "rear",
+      "left",
+      "top",
+      "bottom",
+      "oblique"
+    ],
+    "mode": "fresh-process direct GLB, gray and material under the same lights",
+    "verified_texture_filter": "nearest",
+    "observations": "曲扇弧度、主脉、基部及贯通网孔均由网格形成。细密分网简化为较大孔和较粗连接。",
+    "user_acceptance": "pending"
+  },
+  "motion": {
+    "status": "not_in_this_review",
+    "conditions": "各件柔性组织、根部锚定及在展缸内的实际水流单独核对。"
+  }
+}

@@ -1,0 +1,224 @@
+{
+  "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/halimeda_clump.glb",
+  "sha256": "2723b45126185c4256710d5dc5e930fb9356a4ea8277489cdc2adb4b9e353718",
+  "ok": true,
+  "meshes": [
+    {
+      "name": "halimeda_clump · closed natural shells",
+      "triangles": 940,
+      "finite_and_nonzero_area": true
+    }
+  ],
+  "textures": [
+    {
+      "name": "atlas",
+      "size": [
+        256,
+        256
+      ],
+      "opaque": true
+    }
+  ],
+  "open_edges": 0,
+  "nonmanifold_edges": 0,
+  "failures": [],
+  "triangles": 940,
+  "vertices": 2820,
+  "bytes": 190604,
+  "budget": {
+    "preferred": 700,
+    "hard_limit": 1000
+  },
+  "measured_xyz_m": [
+    0.33000001311302185,
+    0.23999999463558197,
+    0.25999999046325684
+  ],
+  "root_min_y_m": 0.0,
+  "rooted_current": {
+    "anchor_min": [
+      -0.02131713554263115,
+      -9.999999747378752e-05,
+      -0.0016242357669398189
+    ],
+    "anchor_size": [
+      0.00019999983487650752,
+      0.015778673812747,
+      0.00019999995129182935
+    ],
+    "amplitude": 0.024
+  },
+  "shader_cpu": {
+    "root_motion_m": 0.0,
+    "loop_error_m": 4.693276461630996e-09,
+    "max_tip_motion_m": 0.0086822766793468,
+    "sampled_times": 41,
+    "instance_phases": [
+      0,
+      0.31,
+      0.62
+    ]
+  },
+  "file": "projects/fishing-2d/game/assets/aquascape-expansion-v1/halimeda_clump.glb",
+  "source_board": {
+    "file": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-halimeda_clump-20261123/output/halimeda_clump_six_views_raw.png",
+    "sha256": "faf74d84a169934e2b27d10e0cc8067589312500d87cb91dcf1cb765d57dab40",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "camera_order": [
+      "front",
+      "right",
+      "back",
+      "left",
+      "top",
+      "bottom"
+    ],
+    "concept_review": "agent-reviewed for provisional gray mesh, user pending",
+    "workflow_assets_manifest": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-halimeda_clump-20261123/output/assets-manifest.json",
+    "subject_ecology": "https://invasions.si.edu/nemesis/species_summary/6925",
+    "assembly_inference": [
+      "左高节片链及低右分叉，前后各有延伸，从俯视保留裂隙",
+      "独立厚的肾形钙化节片在不同高度按叉臂连接；细纤维固着器静止",
+      "钙化节片以小水流幅度播放"
+    ],
+    "texture_sample_regions": {
+      "plate": [
+        [
+          [
+            0,
+            145,
+            173,
+            178,
+            204
+          ],
+          [
+            4,
+            647,
+            713,
+            688,
+            746
+          ]
+        ],
+        [
+          [
+            2,
+            1351,
+            149,
+            1385,
+            180
+          ],
+          [
+            5,
+            1367,
+            729,
+            1400,
+            758
+          ]
+        ]
+      ],
+      "pales": [
+        [
+          [
+            0,
+            214,
+            282,
+            273,
+            305
+          ],
+          [
+            0,
+            311,
+            339,
+            362,
+            358
+          ]
+        ],
+        [
+          [
+            2,
+            1210,
+            280,
+            1257,
+            305
+          ],
+          [
+            5,
+            1236,
+            704,
+            1265,
+            740
+          ]
+        ]
+      ],
+      "rim": [
+        [
+          [
+            0,
+            214,
+            270,
+            279,
+            282
+          ]
+        ],
+        [
+          [
+            2,
+            1210,
+            272,
+            1245,
+            281
+          ]
+        ]
+      ],
+      "root": [
+        [
+          [
+            0,
+            197,
+            403,
+            235,
+            424
+          ]
+        ],
+        [
+          [
+            5,
+            1181,
+            802,
+            1236,
+            839
+          ]
+        ]
+      ]
+    }
+  },
+  "native": {
+    "version": "Godot 4.7.1 stable mono, OpenGL compatibility Apple M4",
+    "result": "agent reviewed native orthographic + oblique gray and nearest material",
+    "contact_sheet": "resources/aquascape/reef-expansion-20261123/marine-d/halimeda_clump/godot-views.jpg",
+    "contact_sheet_sha256": "19ac31d10c2725ac67d0bb01d1d74fa4fe8688f865c3b3e4b4340d6518f40cfe",
+    "user_acceptance": "pending",
+    "multimesh_current": {
+      "instances": 3,
+      "custom_phases": [
+        0,
+        0.31,
+        0.62
+      ],
+      "phase_change_pixels": 73446,
+      "held_phase_change_pixels": 0,
+      "subsequent_phase_change_pixels": 98294,
+      "loop_endpoint_change_pixels": 0,
+      "fixed_root_validated_in_cpu_sampling": true
+    }
+  },
+  "cold_blend_export": {
+    "packed_image": true,
+    "source_sha256": "97218af14204193114444b4cd5f05a90088f5eb453d658809174388bda000481",
+    "normalized_export_sha256": "2723b45126185c4256710d5dc5e930fb9356a4ea8277489cdc2adb4b9e353718",
+    "current_glb_sha256": "2723b45126185c4256710d5dc5e930fb9356a4ea8277489cdc2adb4b9e353718",
+    "byte_identical": true
+  }
+}

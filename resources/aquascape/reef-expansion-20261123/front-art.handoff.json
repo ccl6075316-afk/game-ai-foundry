@@ -1,0 +1,245 @@
+{
+  "schema_version": 1,
+  "command": "aquascape.reef-foundation-front-art",
+  "date": "2026-11-23",
+  "status": "pending",
+  "next_action": "human_review",
+  "phase": "front_source_art",
+  "style_reference": {
+    "path": "projects/aquascape-expansion-v11-solids/output/dragon_stone_front_raw.png",
+    "sha256": "6b9a559fc3422ab3358d024b38a0641432c74c462baa1d863519af57ca195644",
+    "bytes": 2231675
+  },
+  "preview": {
+    "path": "resources/aquascape/reef-expansion-20261123/reef-foundation-fronts.jpg",
+    "sha256": "203d4342c80437ec19f900cbedb8519a6eb1dc6e814f1caed4420fa8dec0a2b6",
+    "bytes": 171590
+  },
+  "workflows": [
+    {
+      "frozen_brief": {
+        "path": "projects/aquascape-reef-foundation-20261123/brief.json",
+        "sha256": "23c6f6aeee15dee9b001b3b5f73672a05de455715da64230819c205c971ee221",
+        "bytes": 13438
+      },
+      "manifest": "projects/aquascape-reef-foundation-20261123/pipeline/manifest.json",
+      "assets_manifest": "projects/aquascape-reef-foundation-20261123/output/assets-manifest.json"
+    },
+    {
+      "frozen_brief": {
+        "path": "projects/aquascape-reef-foundation-style-r2-20261123/brief.json",
+        "sha256": "f9f60974eb17c6fa1fd390076c2c9782dba1d24a611cf8c5cffe5c0aaa78b2e8",
+        "bytes": 12466
+      },
+      "manifest": "projects/aquascape-reef-foundation-style-r2-20261123/pipeline/manifest.json",
+      "assets_manifest": "projects/aquascape-reef-foundation-style-r2-20261123/output/assets-manifest.json"
+    }
+  ],
+  "operator_visual_review": {
+    "r1": "First viewing shows distinct arch and blind cave but diffuse busy rock detail and rubble-apron silhouette too similar to the buttress.",
+    "r2": "Six distinct silhouette candidates with broader coherent pixel planes. Check that the arch bands look natural during the right/top views and that the shelter and through arch stay distinct. The images show some elevated facets; use for design and later paint donor evaluation, not as calibrated silhouettes."
+  },
+  "user_acceptance": "pending",
+  "outputs": [
+    {
+      "id": "reef_backwall",
+      "name_zh": "高礁壁",
+      "environment": "marine_reef_game_hardscape",
+      "budget_class": "large_rock",
+      "nominal_size_xyz_m": [
+        5.1,
+        3.7,
+        2.3
+      ],
+      "orthographic_landmarks": "left shoulder, wide mid ledge, right lower shelf, rear footing",
+      "front_r1": {
+        "path": "projects/aquascape-reef-foundation-20261123/output/reef_backwall_front_raw.png",
+        "sha256": "a07d836fe1ea2ff0fee94bdbd28c1477febfbd7c504db10abfe92060d40c4dfa",
+        "bytes": 2273279,
+        "image_size_px": [
+          1536,
+          1024
+        ]
+      },
+      "front_r2": {
+        "path": "projects/aquascape-reef-foundation-style-r2-20261123/output/reef_backwall_front_raw.png",
+        "sha256": "989fe15dc9a29ec766141beeee7df4ede899027c269a4ec40471e9ecbbb14ba5",
+        "bytes": 1517739,
+        "image_size_px": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "id": "reef_through_arch",
+      "name_zh": "贯通礁拱",
+      "environment": "marine_reef_game_hardscape",
+      "budget_class": "large_rock",
+      "nominal_size_xyz_m": [
+        4.4,
+        2.8,
+        2.1
+      ],
+      "orthographic_landmarks": "two unequal feet, continuous arch, aperture crown and front/rear rim, design target 1.4 m wide x 1.1 m high",
+      "front_r1": {
+        "path": "projects/aquascape-reef-foundation-20261123/output/reef_through_arch_front_raw.png",
+        "sha256": "e4aac04216fb36f4d52efd45c259edef511fb8199acc1ad46d430c7d16d7f04c",
+        "bytes": 1673448,
+        "image_size_px": [
+          1536,
+          1024
+        ]
+      },
+      "front_r2": {
+        "path": "projects/aquascape-reef-foundation-style-r2-20261123/output/reef_through_arch_front_raw.png",
+        "sha256": "009c700c3795447c7841441829f277c53030e513d27345a1fa69033256c4b30e",
+        "bytes": 1544002,
+        "image_size_px": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "id": "reef_blind_grotto",
+      "name_zh": "盲端礁洞",
+      "environment": "marine_reef_game_hardscape",
+      "budget_class": "large_rock",
+      "nominal_size_xyz_m": [
+        3.5,
+        2.1,
+        2.4
+      ],
+      "orthographic_landmarks": "solid overhang, unequal mouth edges, floor, chamber rear, design target 1.5 m depth",
+      "front_r1": {
+        "path": "projects/aquascape-reef-foundation-20261123/output/reef_blind_grotto_front_raw.png",
+        "sha256": "d1c8fad94aaa00bfc5dc61b33eac93552eafed97882df24f7cfe46bc892db709",
+        "bytes": 2222240,
+        "image_size_px": [
+          1536,
+          1024
+        ]
+      },
+      "front_r2": {
+        "path": "projects/aquascape-reef-foundation-style-r2-20261123/output/reef_blind_grotto_front_raw.png",
+        "sha256": "aef6c60876d7e98f5aeb50c9b25f66f4a84813936a49acf5cf587728a9951735",
+        "bytes": 1583006,
+        "image_size_px": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "id": "reef_shelf_terrace",
+      "name_zh": "双层礁台",
+      "environment": "marine_reef_game_hardscape",
+      "budget_class": "rock",
+      "nominal_size_xyz_m": [
+        3.4,
+        1.7,
+        1.8
+      ],
+      "orthographic_landmarks": "upper and lower level surfaces, depth setback, overhanging edge, continuous footing",
+      "front_r1": {
+        "path": "projects/aquascape-reef-foundation-20261123/output/reef_shelf_terrace_front_raw.png",
+        "sha256": "d48d54e4d3ff2a2df75c5b91d15740b019542a858433e2f80ba2391fba3d12e9",
+        "bytes": 1798362,
+        "image_size_px": [
+          1536,
+          1024
+        ]
+      },
+      "front_r2": {
+        "path": "projects/aquascape-reef-foundation-style-r2-20261123/output/reef_shelf_terrace_front_raw.png",
+        "sha256": "067fdef8bb460096febe31d2601f8fc285a917f4cc62e1fae6b1afa930b1f6a9",
+        "bytes": 1432552,
+        "image_size_px": [
+          1536,
+          1024
+        ]
+      }
+    },
+    {
+      "id": "reef_pinnacle",
+      "name_zh": "礁柱",
+      "environment": "marine_reef_game_hardscape",
+      "budget_class": "rock",
+      "nominal_size_xyz_m": [
+        1.3,
+        3.25,
+        1.15
+      ],
+      "orthographic_landmarks": "apex, slanted mid spur, broad base, non-planar cross-section",
+      "front_r1": {
+        "path": "projects/aquascape-reef-foundation-20261123/output/reef_pinnacle_front_raw.png",
+        "sha256": "5b263267fa4171f4ddd42f8c471c3f956fa04322f3d5247350a98a089914da8b",
+        "bytes": 2068554,
+        "image_size_px": [
+          1024,
+          1536
+        ]
+      },
+      "front_r2": {
+        "path": "projects/aquascape-reef-foundation-style-r2-20261123/output/reef_pinnacle_front_raw.png",
+        "sha256": "cb846fe1e2919bfe7e54ff4c57992834a097da024c32c9943c460fd8e3e1e2c1",
+        "bytes": 1263585,
+        "image_size_px": [
+          1024,
+          1536
+        ]
+      }
+    },
+    {
+      "id": "reef_rubble_apron",
+      "name_zh": "碎礁坡脚",
+      "environment": "marine_reef_game_hardscape",
+      "budget_class": "rock",
+      "nominal_size_xyz_m": [
+        2.7,
+        0.55,
+        1.2
+      ],
+      "orthographic_landmarks": "cohesive shallow base, one raised end, low ragged rim",
+      "front_r1": {
+        "path": "projects/aquascape-reef-foundation-20261123/output/reef_rubble_apron_front_raw.png",
+        "sha256": "75640e639135e145fde7aedcb831db8e9846a2afbb893ef3926eb2860aca171b",
+        "bytes": 1955042,
+        "image_size_px": [
+          1536,
+          1024
+        ]
+      },
+      "front_r2": {
+        "path": "projects/aquascape-reef-foundation-style-r2-20261123/output/reef_rubble_apron_front_raw.png",
+        "sha256": "82bbb9e888bac7d449126fe97cfddefd2869778dd7ccdcd604c9c32c089d70ef",
+        "bytes": 943334,
+        "image_size_px": [
+          1536,
+          1024
+        ]
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "path": "projects/aquascape-reef-foundation-20261123/game/.godot",
+      "files": 47,
+      "bytes": 14152895,
+      "reason": "reproducible Godot import cache from the generated illustration-only scaffold"
+    },
+    {
+      "path": "projects/aquascape-reef-foundation-style-r2-20261123/game/.godot",
+      "files": 47,
+      "bytes": 11589418,
+      "reason": "reproducible Godot import cache from the generated illustration-only scaffold"
+    },
+    {
+      "path": "projects/aquascape-reef-foundation-style-r2-20261123/workflow-setup.log",
+      "sha256": "6190a48e5813c70cc62321afa9ec7401218b62d22d8defd3ec8cd14366be28df",
+      "bytes": 5914,
+      "reason": "repeated JSON setup output; frozen brief, pipeline manifest and asset manifest retained"
+    }
+  ]
+}

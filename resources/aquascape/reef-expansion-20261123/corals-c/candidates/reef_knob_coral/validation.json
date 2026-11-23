@@ -1,0 +1,194 @@
+{
+  "id": "reef_knob_coral",
+  "name": "多瘤块状硬珊瑚",
+  "species": null,
+  "geography": "Caribbean",
+  "category": "scleractinian",
+  "nominal_xyz_m": [
+    0.99,
+    0.54,
+    0.79
+  ],
+  "ecology_and_use": "参考加勒比暖水硬底的凸瘤团块型，非定种。用于中低景实心轮廓。",
+  "primary_reference": "https://www.fisheries.noaa.gov/species/mountainous-star-coral",
+  "approvals": {
+    "user_intent": "pending",
+    "user_native": "pending"
+  },
+  "source": {
+    "file": "six-material-views.png",
+    "sha256": "c00b6cf5685119fbcba8d46df377bf64e2bc3986f0964bcdbf75c9f72f4efb6b",
+    "status": "draft_intent",
+    "views": {
+      "front": [
+        12,
+        171,
+        514,
+        390
+      ],
+      "right": [
+        562,
+        166,
+        975,
+        386
+      ],
+      "rear": [
+        1023,
+        171,
+        1525,
+        390
+      ],
+      "left": [
+        28,
+        632,
+        481,
+        857
+      ],
+      "top": [
+        519,
+        578,
+        999,
+        922
+      ],
+      "bottom": [
+        1023,
+        586,
+        1520,
+        914
+      ]
+    },
+    "review": "六面高低基本对应，无假洞。原画把瘤峰做成分层坡面，模型保留两主峰、多种较矮侧凸和低鞍；来源照片只复查大轮廓。"
+  },
+  "shape_specification": "Low asymmetrical rolling colony of overlapping large lobes and shallow merging valleys; muted yellow-brown and olive, scattered tiny star coral cups. Three unequal uneven masses merge in 3D, lower lobes turn around the footprint. Positive bulges, gentle troughs; coral animal not a column of boulders.",
+  "shape_method": "lobed",
+  "geometry": {
+    "source_field_components": 1,
+    "isolated_voxels_removed": 0,
+    "bounds_xyz_m": [
+      0.9941754341125488,
+      0.5391945242881775,
+      0.7941220998764038
+    ],
+    "connected_components": 1,
+    "euler_characteristic": 2,
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "signed_volume_m3": 0.20803196728229523,
+    "triangle_count": 396,
+    "budget_type": "rock",
+    "preferred_triangles": 400,
+    "hard_triangle_limit": 600,
+    "ground_y_min": 0.0,
+    "contact_vertices": 9,
+    "projection": {
+      "front": {
+        "silhouette_iou": 0.7591924010916984,
+        "span_m": [
+          0.99,
+          0.54
+        ]
+      },
+      "right": {
+        "silhouette_iou": 0.8090113960499101,
+        "span_m": [
+          0.79,
+          0.54
+        ]
+      },
+      "rear": {
+        "silhouette_iou": 0.7544865645580262,
+        "span_m": [
+          0.99,
+          0.54
+        ]
+      },
+      "left": {
+        "silhouette_iou": 0.7577823575930408,
+        "span_m": [
+          0.79,
+          0.54
+        ]
+      },
+      "top": {
+        "silhouette_iou": 0.8221676526398035,
+        "span_m": [
+          0.99,
+          0.79
+        ]
+      },
+      "bottom": {
+        "silhouette_iou": 0.7972597778850796,
+        "span_m": [
+          0.99,
+          0.79
+        ]
+      }
+    }
+  },
+  "material": {
+    "native_source_pixel_selection": true,
+    "filter": "nearest",
+    "atlas": 1536,
+    "macro_shadow_removed_for_cavities": false,
+    "primitive_count": 1,
+    "material_count": 1,
+    "source_fractions": {
+      "front": 0.1492,
+      "rear": 0.1781,
+      "left": 0.1107,
+      "right": 0.1279,
+      "top": 0.2938,
+      "bottom": 0.1403
+    }
+  },
+  "blend": {
+    "file": "reef_knob_coral.blend",
+    "sha256": "10bb9b5f6009b7d2b23d81ca0d2fce379b4fb5d50178359e98bf50265c7a8525",
+    "cold_geometry_uv_texture_pass": true
+  },
+  "glb": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_knob_coral.glb",
+    "sha256": "6715841937403a85e29f4b99c5e894a7f68f9123596eea159093a2eef5b71808",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "reef_knob_coral",
+        "triangles": 396,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "多瘤块状硬珊瑚",
+        "size": [
+          1536,
+          1536
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "current_status": "static_candidate_for_user_review",
+  "scope": "低面展缸艺术模块。结构与方向参考六面意向，非生物实测。相机近似会影响投影重叠。",
+  "native_review": {
+    "file": "godot-native-review.jpg",
+    "engine": "Godot 4.7.1 stable, macOS Compatibility",
+    "rendered_views": [
+      "angle",
+      "front",
+      "right",
+      "rear",
+      "left",
+      "top",
+      "bottom",
+      "oblique"
+    ],
+    "mode": "fresh-process direct GLB, gray and material under the same lights",
+    "verified_texture_filter": "nearest",
+    "observations": "真实团块与低鞍；珊瑚杯和部分阴影进入材质。多峰低面，以较大的凸凹为主。",
+    "user_acceptance": "pending"
+  }
+}

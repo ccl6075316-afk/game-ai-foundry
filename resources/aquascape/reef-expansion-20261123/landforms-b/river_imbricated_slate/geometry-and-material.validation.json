@@ -1,0 +1,365 @@
+{
+  "id": "river_imbricated_slate",
+  "ok": true,
+  "geometry": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/river_imbricated_slate.glb",
+    "sha256": "a553f7ff31b943abc9e1e8e25583accea45363c014e65093965e7c0aadf1b2d2",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "river_imbricated_slate",
+        "triangles": 546,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "river_imbricated_slate · six-direction rock",
+        "size": [
+          1024,
+          1024
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "triangles": 546,
+  "budget": {
+    "preferred": 400,
+    "hard_limit": 600
+  },
+  "source_handoff": "resources/aquascape/reef-expansion-20261123/landforms-b/river_imbricated_slate/material-source.handoff.json",
+  "source_sha256": "bf77fa1b4e6d31f4475e458f9ba2d9728cedad87f9e269cb405e98755f69d495",
+  "nominal_xyz_m": [
+    2.1,
+    0.9,
+    1.45
+  ],
+  "bounds_xyz_m": [
+    2.1667087078094482,
+    0.8339738249778748,
+    1.428584098815918
+  ],
+  "floor_y_m": 0.0,
+  "surface_euler": 2,
+  "geometry_components": 1,
+  "volume_fraction_retained": 1.0,
+  "material_passes": 1,
+  "texture_filter": "nearest",
+  "atlas_size": [
+    1024,
+    1024
+  ],
+  "atlas_uncompressed_rgba_bytes": 4194304,
+  "source_texel_shares": {
+    "front": 0.1908,
+    "right": 0.1247,
+    "rear": 0.1433,
+    "left": 0.0852,
+    "top": 0.2938,
+    "bottom": 0.1622
+  },
+  "gray": "resources/aquascape/reef-expansion-20261123/landforms-b/river_imbricated_slate/river_imbricated_slate-gray.glb",
+  "gray_sha256": "52f85271a6d0075c0918a5c4db8d94429d4482a948066fffe66f845357f6c57d",
+  "glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/river_imbricated_slate.glb",
+  "glb_sha256": "a553f7ff31b943abc9e1e8e25583accea45363c014e65093965e7c0aadf1b2d2",
+  "geometry_section": {
+    "kind": "solid",
+    "passed": true
+  },
+  "art_outlines": {
+    "front": {
+      "silhouette_iou": 0.8345695053507299,
+      "span_m": [
+        2.1,
+        0.9
+      ]
+    },
+    "right": {
+      "silhouette_iou": 0.7774813233724653,
+      "span_m": [
+        1.45,
+        0.9
+      ]
+    },
+    "rear": {
+      "silhouette_iou": 0.803807196626335,
+      "span_m": [
+        2.1,
+        0.9
+      ]
+    },
+    "left": {
+      "silhouette_iou": 0.7529631620715255,
+      "span_m": [
+        1.45,
+        0.9
+      ]
+    },
+    "top": {
+      "silhouette_iou": 0.8302101686995629,
+      "span_m": [
+        2.1,
+        1.45
+      ]
+    },
+    "bottom": {
+      "silhouette_iou": 0.8529271828009338,
+      "span_m": [
+        2.1,
+        1.45
+      ]
+    }
+  },
+  "landmarks": [
+    {
+      "name": "前上第一片出檐",
+      "applied": true,
+      "form": "ledge",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        -0.29400000000000004,
+        0.522,
+        0.18568965517241764
+      ],
+      "center_xyz_m": [
+        -0.29400000000000004,
+        0.522,
+        0.21668965517241764
+      ]
+    },
+    {
+      "name": "前中叠瓦低尖",
+      "applied": true,
+      "form": "ledge",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        0.42000000000000004,
+        0.333,
+        0.40293103448276324
+      ],
+      "center_xyz_m": [
+        0.42000000000000004,
+        0.333,
+        0.4399310344827632
+      ]
+    },
+    {
+      "name": "背侧薄板端",
+      "applied": true,
+      "form": "ledge",
+      "view": "rear",
+      "surface_anchor_xyz_m": [
+        0.399,
+        0.36000000000000004,
+        -0.4081034482758603
+      ],
+      "center_xyz_m": [
+        0.399,
+        0.36000000000000004,
+        -0.43910344827586034
+      ]
+    },
+    {
+      "name": "左侧薄片转折",
+      "applied": true,
+      "form": "ledge",
+      "view": "left",
+      "surface_anchor_xyz_m": [
+        -0.9358620689655162,
+        0.423,
+        -0.0725
+      ],
+      "center_xyz_m": [
+        -0.9698620689655162,
+        0.423,
+        -0.0725
+      ]
+    },
+    {
+      "name": "右侧板尖扶脚",
+      "applied": true,
+      "form": "ledge",
+      "view": "right",
+      "surface_anchor_xyz_m": [
+        0.7151724137931104,
+        0.261,
+        0.23199999999999998
+      ],
+      "center_xyz_m": [
+        0.7501724137931104,
+        0.261,
+        0.23199999999999998
+      ]
+    },
+    {
+      "name": "顶叠瓦高片",
+      "applied": true,
+      "form": "ledge",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        -0.273,
+        0.5695758620689657,
+        0.0725
+      ],
+      "center_xyz_m": [
+        -0.273,
+        0.6005758620689657,
+        0.0725
+      ]
+    },
+    {
+      "name": "前薄板下暗线",
+      "applied": true,
+      "form": "cut",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        -0.273,
+        0.35100000000000003,
+        0.38844827586207353
+      ],
+      "center_xyz_m": [
+        -0.273,
+        0.35100000000000003,
+        0.41444827586207356
+      ]
+    },
+    {
+      "name": "后左断板窄缝",
+      "applied": true,
+      "form": "cut",
+      "view": "rear",
+      "surface_anchor_xyz_m": [
+        -0.378,
+        0.378,
+        -0.6108620689655162
+      ],
+      "center_xyz_m": [
+        -0.378,
+        0.378,
+        -0.6358620689655162
+      ]
+    },
+    {
+      "name": "左端暗槽",
+      "applied": true,
+      "form": "cut",
+      "view": "left",
+      "surface_anchor_xyz_m": [
+        -0.9068965517241367,
+        0.333,
+        0.145
+      ],
+      "center_xyz_m": [
+        -0.9328965517241368,
+        0.333,
+        0.145
+      ]
+    },
+    {
+      "name": "右端薄板沟",
+      "applied": true,
+      "form": "cut",
+      "view": "right",
+      "surface_anchor_xyz_m": [
+        0.45448275862069565,
+        0.378,
+        -0.057999999999999996
+      ],
+      "center_xyz_m": [
+        0.47948275862069567,
+        0.378,
+        -0.057999999999999996
+      ]
+    },
+    {
+      "name": "顶板断角倾斜槽",
+      "applied": true,
+      "form": "cut",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        0.336,
+        0.42474827586206904,
+        -0.1595
+      ],
+      "center_xyz_m": [
+        0.336,
+        0.45274827586206906,
+        -0.1595
+      ]
+    }
+  ],
+  "relief_probes": [
+    {
+      "feature": "前上第一片出檐",
+      "form": "ledge",
+      "signed_offset_m": 0.2399463549345664
+    },
+    {
+      "feature": "前中叠瓦低尖",
+      "form": "ledge",
+      "signed_offset_m": 0.24079990310911947
+    },
+    {
+      "feature": "背侧薄板端",
+      "form": "ledge",
+      "signed_offset_m": 0.19357825078141033
+    },
+    {
+      "feature": "左侧薄片转折",
+      "form": "ledge",
+      "signed_offset_m": 0.2062758841254997
+    },
+    {
+      "feature": "右侧板尖扶脚",
+      "form": "ledge",
+      "signed_offset_m": 0.21398670344851345
+    },
+    {
+      "feature": "顶叠瓦高片",
+      "form": "ledge",
+      "signed_offset_m": 0.13187205058258877
+    },
+    {
+      "feature": "前薄板下暗线",
+      "form": "cut",
+      "signed_offset_m": -0.14700695946007025
+    },
+    {
+      "feature": "后左断板窄缝",
+      "form": "cut",
+      "signed_offset_m": -0.11921162061671176
+    },
+    {
+      "feature": "左端暗槽",
+      "form": "cut",
+      "signed_offset_m": -0.1282910341977499
+    },
+    {
+      "feature": "右端薄板沟",
+      "form": "cut",
+      "signed_offset_m": -0.1445873878377637
+    },
+    {
+      "feature": "顶板断角倾斜槽",
+      "form": "cut",
+      "signed_offset_m": -0.048253734238662194
+    }
+  ],
+  "blender": {
+    "source": "resources/aquascape/reef-expansion-20261123/landforms-b/river_imbricated_slate/river_imbricated_slate.blend",
+    "source_sha256": "bfff857a6d1dc89c1e2a852bc5dafb82e26d2fa30fbf7c74b867bfa53f09887f",
+    "reopened_and_same_polygon_points_uv_and_texture_as_glb": true,
+    "packed_texture_bytes": 958928
+  },
+  "godot_proof": {
+    "contact_sheet": "resources/aquascape/reef-expansion-20261123/landforms-b/river_imbricated_slate/native-blender-review.jpg",
+    "contact_sheet_sha256": "79a27d2aac0dc1c8bbdd145af2b2d9e8709ed9423ebd40592123c8189334cac3",
+    "views": 16,
+    "engine_material_surfaces": 1,
+    "sampler": "nearest"
+  }
+}

@@ -1,0 +1,376 @@
+{
+  "id": "reef_encircling_ridge",
+  "ok": true,
+  "geometry": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_encircling_ridge.glb",
+    "sha256": "348c4c88d7699f7618beed05d0b75214f5de24fcbfaac24e2a90d80afced832f",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "reef_encircling_ridge",
+        "triangles": 922,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "reef_encircling_ridge · six-direction rock",
+        "size": [
+          1536,
+          1536
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "triangles": 922,
+  "budget": {
+    "preferred": 700,
+    "hard_limit": 1000
+  },
+  "source_handoff": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_encircling_ridge/material-source.handoff.json",
+  "source_sha256": "47e16f7d672deb9e9d875e0e65bc776a494bebaac6f67312843a7f5ec8d6c746",
+  "nominal_xyz_m": [
+    4.6,
+    2.25,
+    3.6
+  ],
+  "bounds_xyz_m": [
+    4.700717926025391,
+    1.5543079376220703,
+    3.7717511653900146
+  ],
+  "floor_y_m": 0.0,
+  "surface_euler": 2,
+  "geometry_components": 1,
+  "volume_fraction_retained": 0.9999950829989772,
+  "material_passes": 1,
+  "texture_filter": "nearest",
+  "atlas_size": [
+    1536,
+    1536
+  ],
+  "atlas_uncompressed_rgba_bytes": 9437184,
+  "source_texel_shares": {
+    "front": 0.1541,
+    "right": 0.1985,
+    "rear": 0.1405,
+    "left": 0.1939,
+    "top": 0.191,
+    "bottom": 0.122
+  },
+  "gray": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_encircling_ridge/reef_encircling_ridge-gray.glb",
+  "gray_sha256": "01e57149dcdb7b65327ddc7cef3d3bca82545036788cdc8205a6c7f0d7b670e9",
+  "glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_encircling_ridge.glb",
+  "glb_sha256": "348c4c88d7699f7618beed05d0b75214f5de24fcbfaac24e2a90d80afced832f",
+  "geometry_section": {
+    "kind": "encircling",
+    "rear": [
+      1.3316072035916533,
+      1.8488341627251281
+    ],
+    "open_front": [],
+    "open_top": [],
+    "arms": [
+      [
+        1.5551412645040472,
+        2.1501933695680653
+      ],
+      [
+        1.1065482658678651,
+        2.1268291443101237
+      ]
+    ],
+    "passed": true
+  },
+  "art_outlines": {
+    "front": {
+      "silhouette_iou": 0.636637541428141,
+      "span_m": [
+        4.6,
+        2.25
+      ]
+    },
+    "right": {
+      "silhouette_iou": 0.5513032536401222,
+      "span_m": [
+        3.6,
+        2.25
+      ]
+    },
+    "rear": {
+      "silhouette_iou": 0.6285922893700552,
+      "span_m": [
+        4.6,
+        2.25
+      ]
+    },
+    "left": {
+      "silhouette_iou": 0.5444601448361132,
+      "span_m": [
+        3.6,
+        2.25
+      ]
+    },
+    "top": {
+      "silhouette_iou": 0.49130834482470437,
+      "span_m": [
+        4.6,
+        3.6
+      ]
+    },
+    "bottom": {
+      "silhouette_iou": 0.5647132109827975,
+      "span_m": [
+        4.6,
+        3.6
+      ]
+    }
+  },
+  "landmarks": [
+    {
+      "name": "左低臂尖",
+      "applied": true,
+      "form": "ledge",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        -1.564,
+        0.5175000000000001,
+        1.3727586206896525
+      ],
+      "center_xyz_m": [
+        -1.564,
+        0.5175000000000001,
+        1.4077586206896524
+      ]
+    },
+    {
+      "name": "右高肩向内挑",
+      "applied": true,
+      "form": "ledge",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        1.426,
+        1.1925000000000001,
+        0.5479310344827566
+      ],
+      "center_xyz_m": [
+        1.426,
+        1.1925000000000001,
+        0.5979310344827566
+      ]
+    },
+    {
+      "name": "背岩踵",
+      "applied": true,
+      "form": "ledge",
+      "view": "rear",
+      "surface_anchor_xyz_m": [
+        0.5519999999999999,
+        0.585,
+        -1.7044827586206899
+      ],
+      "center_xyz_m": [
+        0.5519999999999999,
+        0.585,
+        -1.7494827586206898
+      ]
+    },
+    {
+      "name": "左侧断层台",
+      "applied": true,
+      "form": "ledge",
+      "view": "left",
+      "surface_anchor_xyz_m": [
+        -1.8555172413793062,
+        0.7425,
+        -0.684
+      ],
+      "center_xyz_m": [
+        -1.8955172413793062,
+        0.7425,
+        -0.684
+      ]
+    },
+    {
+      "name": "右肩外鼻",
+      "applied": true,
+      "form": "ledge",
+      "view": "right",
+      "surface_anchor_xyz_m": [
+        2.2368965517241675,
+        1.17,
+        0.036000000000000004
+      ],
+      "center_xyz_m": [
+        2.2768965517241675,
+        1.17,
+        0.036000000000000004
+      ]
+    },
+    {
+      "name": "后脊凸冠",
+      "applied": true,
+      "form": "ledge",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        -0.782,
+        1.203939655172414,
+        -1.044
+      ],
+      "center_xyz_m": [
+        -0.782,
+        1.233939655172414,
+        -1.044
+      ]
+    },
+    {
+      "name": "左尖下凹",
+      "applied": true,
+      "form": "cut",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        -1.702,
+        0.4724999999999999,
+        1.3727586206896525
+      ],
+      "center_xyz_m": [
+        -1.702,
+        0.4724999999999999,
+        1.4147586206896525
+      ]
+    },
+    {
+      "name": "后台岩槽",
+      "applied": true,
+      "form": "cut",
+      "view": "rear",
+      "surface_anchor_xyz_m": [
+        -0.506,
+        0.8099999999999999,
+        -1.7362068965517243
+      ],
+      "center_xyz_m": [
+        -0.506,
+        0.8099999999999999,
+        -1.7732068965517243
+      ]
+    },
+    {
+      "name": "左外臂缺口",
+      "applied": true,
+      "form": "cut",
+      "view": "left",
+      "surface_anchor_xyz_m": [
+        -2.1093103448275836,
+        0.6749999999999999,
+        0.36000000000000004
+      ],
+      "center_xyz_m": [
+        -2.1543103448275835,
+        0.6749999999999999,
+        0.36000000000000004
+      ]
+    },
+    {
+      "name": "右外壁凹面",
+      "applied": true,
+      "form": "cut",
+      "view": "right",
+      "surface_anchor_xyz_m": [
+        2.3320689655172715,
+        1.0350000000000001,
+        -0.36000000000000004
+      ],
+      "center_xyz_m": [
+        2.3770689655172714,
+        1.0350000000000001,
+        -0.36000000000000004
+      ]
+    },
+    {
+      "name": "后顶裂纹",
+      "applied": true,
+      "form": "cut",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        0.598,
+        0.7598017241379311,
+        -0.792
+      ],
+      "center_xyz_m": [
+        0.598,
+        0.7928017241379312,
+        -0.792
+      ]
+    }
+  ],
+  "relief_probes": [
+    {
+      "feature": "左低臂尖",
+      "form": "ledge",
+      "signed_offset_m": 0.3870500074417098
+    },
+    {
+      "feature": "右高肩向内挑",
+      "form": "ledge",
+      "signed_offset_m": 0.304872015920171
+    },
+    {
+      "feature": "背岩踵",
+      "form": "ledge",
+      "signed_offset_m": 0.25571352842411255
+    },
+    {
+      "feature": "左侧断层台",
+      "form": "ledge",
+      "signed_offset_m": 0.3436489758387209
+    },
+    {
+      "feature": "右肩外鼻",
+      "form": "ledge",
+      "signed_offset_m": 0.20487084987281046
+    },
+    {
+      "feature": "后脊凸冠",
+      "form": "ledge",
+      "signed_offset_m": -0.3995700067372421
+    },
+    {
+      "feature": "左尖下凹",
+      "form": "cut",
+      "signed_offset_m": 0.3380910062927005
+    },
+    {
+      "feature": "后台岩槽",
+      "form": "cut",
+      "signed_offset_m": -0.20012558085085708
+    },
+    {
+      "feature": "左外臂缺口",
+      "form": "cut",
+      "signed_offset_m": -0.1952385240620429
+    },
+    {
+      "feature": "右外壁凹面",
+      "form": "cut",
+      "signed_offset_m": -0.19982763392135627
+    }
+  ],
+  "blender": {
+    "source": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_encircling_ridge/reef_encircling_ridge.blend",
+    "source_sha256": "cfb79ac64471d4f1fe873f709b0c91d4eb1dd6d695055be0ce4c598705df601b",
+    "reopened_and_same_polygon_points_uv_and_texture_as_glb": true,
+    "packed_texture_bytes": 1935060
+  },
+  "godot_proof": {
+    "contact_sheet": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_encircling_ridge/native-blender-review.jpg",
+    "contact_sheet_sha256": "628db6d835dde6095ab5aac062f21a211d45a2a93aa6354fd585658355e3a3ff",
+    "views": 16,
+    "engine_material_surfaces": 1,
+    "sampler": "nearest"
+  }
+}

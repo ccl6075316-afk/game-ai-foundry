@@ -1,0 +1,34 @@
+{
+  "id": "hairgrass_meadow",
+  "name_zh": "细发草甸",
+  "category": "plant",
+  "environment": "freshwater",
+  "nominal_xyz_m": [
+    0.78,
+    0.32,
+    0.49
+  ],
+  "budget_type": "ribbon_plant",
+  "scientific_name": "Eleocharis acicularis",
+  "source_url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:1169169-2/general-information",
+  "habitat": "Submerged needle spikerush patch; narrow fine culms on several short, linked sand-bed runners.",
+  "source_board_sha256": "ce7f8831fb615238cbf5b8a125c955899778c5669ff16049ff5cccc914974973",
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/hairgrass_meadow.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/freshwater-e/hairgrass_meadow/hairgrass_meadow.blend",
+  "source_board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-e-hairgrass-meadow/output/hairgrass_meadow_six_views_raw.png",
+  "validation": "resources/aquascape/reef-expansion-20261123/freshwater-e/hairgrass_meadow/geometry-and-material.validation.json",
+  "triangles": 588,
+  "rooted_current": {
+    "anchor_min": [
+      -0.27636945247650146,
+      -9.999999747378752e-05,
+      -0.16295723617076874
+    ],
+    "anchor_size": [
+      0.5123834013938904,
+      0.0387934073805809,
+      0.30329960584640503
+    ],
+    "amplitude": 0.045
+  }
+}

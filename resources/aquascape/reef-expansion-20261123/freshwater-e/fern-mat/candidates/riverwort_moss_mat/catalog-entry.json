@@ -1,0 +1,21 @@
+{
+  "id": "riverwort_moss_mat",
+  "name": "溪床贴石藓片",
+  "label": "溪床贴石藓片",
+  "category": "plant",
+  "budget_type": "broadleaf_plant",
+  "nominal_xyz_m": [
+    0.48,
+    0.14,
+    0.32
+  ],
+  "triangles": 732,
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/riverwort_moss_mat.glb",
+  "source_glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/riverwort_moss_mat.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/riverwort_moss_mat/riverwort_moss_mat.blend",
+  "source_intent": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/riverwort_moss_mat/six-material-views-r2.png",
+  "validation": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/riverwort_moss_mat/validation.json",
+  "source_url": "https://www.britishbryologicalsociety.org.uk/learning/species-finder/riccardia-chamedryfolia/",
+  "habitat": "淡水溪床硬附着的扁叶状枝体模块，参照溪生苔类，非定种。",
+  "user_acceptance": "pending"
+}

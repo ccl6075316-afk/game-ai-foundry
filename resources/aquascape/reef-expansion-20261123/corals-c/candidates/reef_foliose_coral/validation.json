@@ -1,0 +1,194 @@
+{
+  "id": "reef_foliose_coral",
+  "name": "外缘薄片硬珊瑚",
+  "species": null,
+  "geography": "Indo-Pacific",
+  "category": "scleractinian",
+  "nominal_xyz_m": [
+    1.02,
+    0.48,
+    0.85
+  ],
+  "ecology_and_use": "暖水印太硬底叶片状生长型，非定种。薄缘横伸突出平台外侧。",
+  "primary_reference": "https://coraltraits.org/",
+  "approvals": {
+    "user_intent": "pending",
+    "user_native": "pending"
+  },
+  "source": {
+    "file": "six-material-views.png",
+    "sha256": "02e4b4405fbb4e0737d4b913af7b6777aaeab01ed0681a55f6f1410ed322572a",
+    "status": "draft_intent",
+    "views": {
+      "front": [
+        23,
+        147,
+        488,
+        421
+      ],
+      "right": [
+        545,
+        147,
+        983,
+        425
+      ],
+      "rear": [
+        1040,
+        147,
+        1512,
+        423
+      ],
+      "left": [
+        35,
+        615,
+        468,
+        889
+      ],
+      "top": [
+        536,
+        575,
+        986,
+        910
+      ],
+      "bottom": [
+        1046,
+        586,
+        1502,
+        908
+      ]
+    },
+    "review": "六格齐，图的上表面有珊瑚杯，下面股份由附着处向各片展开。边缘浅色和叶片分叉可用于定形。因侧视源图透视近似，片厚独立按实际闭体设计。"
+  },
+  "shape_specification": "Wide open lettuce-like hard coral, three to five broad wavy outward calcified plates curl and turn at unequal heights over a low attached core. Salmon ochre with lavender shadows and paler growth margins, fine coral cups. Loose separated leaves extend outward, no leafy green vegetation, avoid a closed spiral or a smooth bowl.",
+  "shape_method": "foliose",
+  "geometry": {
+    "source_field_components": 6,
+    "isolated_voxels_removed": 204,
+    "bounds_xyz_m": [
+      1.0183953046798706,
+      0.4750329554080963,
+      0.8473348617553711
+    ],
+    "connected_components": 1,
+    "euler_characteristic": -24,
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "signed_volume_m3": 0.033338624984025955,
+    "triangle_count": 876,
+    "budget_type": "broadleaf_plant",
+    "preferred_triangles": 700,
+    "hard_triangle_limit": 1000,
+    "ground_y_min": 0.0,
+    "contact_vertices": 7,
+    "projection": {
+      "front": {
+        "silhouette_iou": 0.6045985756250132,
+        "span_m": [
+          1.02,
+          0.48
+        ]
+      },
+      "right": {
+        "silhouette_iou": 0.589925207949859,
+        "span_m": [
+          0.85,
+          0.48
+        ]
+      },
+      "rear": {
+        "silhouette_iou": 0.5960425207556499,
+        "span_m": [
+          1.02,
+          0.48
+        ]
+      },
+      "left": {
+        "silhouette_iou": 0.5874535327022886,
+        "span_m": [
+          0.85,
+          0.48
+        ]
+      },
+      "top": {
+        "silhouette_iou": 0.7593775276354813,
+        "span_m": [
+          1.02,
+          0.85
+        ]
+      },
+      "bottom": {
+        "silhouette_iou": 0.7464533655297314,
+        "span_m": [
+          1.02,
+          0.85
+        ]
+      }
+    }
+  },
+  "material": {
+    "native_source_pixel_selection": true,
+    "filter": "nearest",
+    "atlas": 1536,
+    "macro_shadow_removed_for_cavities": false,
+    "primitive_count": 1,
+    "material_count": 1,
+    "source_fractions": {
+      "front": 0.1354,
+      "rear": 0.1407,
+      "left": 0.0969,
+      "right": 0.1042,
+      "top": 0.3764,
+      "bottom": 0.1464
+    }
+  },
+  "blend": {
+    "file": "reef_foliose_coral.blend",
+    "sha256": "b4c3c5783e08f3118ec30c411e5b9455bb2a380e44813365a512b7466ad6a3a6",
+    "cold_geometry_uv_texture_pass": true
+  },
+  "glb": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_foliose_coral.glb",
+    "sha256": "56d1877cdc946e796480e08abe1b130ae46d3753fc775c74b92de935269da49e",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "reef_foliose_coral",
+        "triangles": 876,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "外缘薄片硬珊瑚",
+        "size": [
+          1536,
+          1536
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "current_status": "static_candidate_for_user_review",
+  "scope": "低面展缸艺术模块。结构与方向参考六面意向，非生物实测。相机近似会影响投影重叠。",
+  "native_review": {
+    "file": "godot-native-review.jpg",
+    "engine": "Godot 4.7.1 stable, macOS Compatibility",
+    "rendered_views": [
+      "angle",
+      "front",
+      "right",
+      "rear",
+      "left",
+      "top",
+      "bottom",
+      "oblique"
+    ],
+    "mode": "fresh-process direct GLB, gray and material under the same lights",
+    "verified_texture_filter": "nearest",
+    "observations": "真薄片与错高向外展开，局部小搭桥空隙是多片在共根位置的并壳结果。",
+    "user_acceptance": "pending"
+  }
+}

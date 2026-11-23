@@ -1,0 +1,449 @@
+{
+  "id": "reef_double_rift",
+  "ok": true,
+  "geometry": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_double_rift.glb",
+    "sha256": "b4a25af3bc2b815bb2d2bbe3a43fdef43845ec7feaeb6f3038090e05a9e2b046",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "reef_double_rift",
+        "triangles": 928,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "reef_double_rift · six-direction rock",
+        "size": [
+          1536,
+          1536
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "triangles": 928,
+  "budget": {
+    "preferred": 700,
+    "hard_limit": 1000
+  },
+  "source_handoff": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_double_rift/material-source.handoff.json",
+  "source_sha256": "c73ec4f7d11cbe160aef579de32326a4589f0b4dba1f3ba819a97cb39d300a2d",
+  "nominal_xyz_m": [
+    4.4,
+    2.7,
+    3.0
+  ],
+  "bounds_xyz_m": [
+    4.534119129180908,
+    2.535978078842163,
+    2.9930038452148438
+  ],
+  "floor_y_m": 0.0,
+  "surface_euler": 2,
+  "geometry_components": 1,
+  "volume_fraction_retained": 1.0,
+  "material_passes": 1,
+  "texture_filter": "nearest",
+  "atlas_size": [
+    1536,
+    1536
+  ],
+  "atlas_uncompressed_rgba_bytes": 9437184,
+  "source_texel_shares": {
+    "front": 0.1798,
+    "right": 0.15,
+    "rear": 0.1659,
+    "left": 0.1496,
+    "top": 0.2461,
+    "bottom": 0.1086
+  },
+  "gray": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_double_rift/reef_double_rift-gray.glb",
+  "gray_sha256": "ab6ef4fefc0d75b1848eb71deb8533a3902fab337f5cb8a85c7c51103d9d8c4d",
+  "glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_double_rift.glb",
+  "glb_sha256": "b4a25af3bc2b815bb2d2bbe3a43fdef43845ec7feaeb6f3038090e05a9e2b046",
+  "geometry_section": {
+    "kind": "rift",
+    "no_roof_test": {
+      "-0.62": [],
+      "-0.35": [],
+      "0": [],
+      "0.35": [],
+      "0.62": []
+    },
+    "side_walls": [
+      [
+        0.5087594853026489,
+        1.6526917156404581
+      ],
+      [
+        0.6455207475908612,
+        1.4708131162414964
+      ]
+    ],
+    "floor": [
+      0.7663142897062286,
+      1.2150000000000005
+    ],
+    "passed": true
+  },
+  "art_outlines": {
+    "front": {
+      "silhouette_iou": 0.8634698886161979,
+      "span_m": [
+        4.4,
+        2.7
+      ]
+    },
+    "right": {
+      "silhouette_iou": 0.6690092020673137,
+      "span_m": [
+        3.0,
+        2.7
+      ]
+    },
+    "rear": {
+      "silhouette_iou": 0.8684910871202611,
+      "span_m": [
+        4.4,
+        2.7
+      ]
+    },
+    "left": {
+      "silhouette_iou": 0.6670000256429982,
+      "span_m": [
+        3.0,
+        2.7
+      ]
+    },
+    "top": {
+      "silhouette_iou": 0.8978591514961562,
+      "span_m": [
+        4.4,
+        3.0
+      ]
+    },
+    "bottom": {
+      "silhouette_iou": 0.8821753537053595,
+      "span_m": [
+        4.4,
+        3.0
+      ]
+    }
+  },
+  "landmarks": [
+    {
+      "name": "左高壁前肩",
+      "applied": true,
+      "form": "ledge",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        -1.1880000000000002,
+        1.701,
+        0.4948275862068914
+      ],
+      "center_xyz_m": [
+        -1.1880000000000002,
+        1.701,
+        0.5348275862068914
+      ]
+    },
+    {
+      "name": "左阶前檐",
+      "applied": true,
+      "form": "ledge",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        -1.4520000000000002,
+        0.8910000000000001,
+        0.5858620689655119
+      ],
+      "center_xyz_m": [
+        -1.4520000000000002,
+        0.8910000000000001,
+        0.6258620689655119
+      ]
+    },
+    {
+      "name": "右壁前台",
+      "applied": true,
+      "form": "ledge",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        1.2320000000000002,
+        1.0530000000000002,
+        0.8893103448275801
+      ],
+      "center_xyz_m": [
+        1.2320000000000002,
+        1.0530000000000002,
+        0.9493103448275801
+      ]
+    },
+    {
+      "name": "背右底趾",
+      "applied": true,
+      "form": "ledge",
+      "view": "rear",
+      "surface_anchor_xyz_m": [
+        1.32,
+        0.7020000000000001,
+        -1.1437931034482771
+      ],
+      "center_xyz_m": [
+        1.32,
+        0.7020000000000001,
+        -1.1937931034482772
+      ]
+    },
+    {
+      "name": "左侧板棱",
+      "applied": true,
+      "form": "ledge",
+      "view": "left",
+      "surface_anchor_xyz_m": [
+        -1.8134482758620663,
+        1.08,
+        0.36
+      ],
+      "center_xyz_m": [
+        -1.8584482758620662,
+        1.08,
+        0.36
+      ]
+    },
+    {
+      "name": "右侧立趾",
+      "applied": true,
+      "form": "ledge",
+      "view": "right",
+      "surface_anchor_xyz_m": [
+        2.0100000000000215,
+        0.648,
+        -0.36
+      ],
+      "center_xyz_m": [
+        2.0550000000000215,
+        0.648,
+        -0.36
+      ]
+    },
+    {
+      "name": "左后脊冠",
+      "applied": true,
+      "form": "ledge",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        -1.1,
+        1.9473482758620693,
+        -0.54
+      ],
+      "center_xyz_m": [
+        -1.1,
+        1.8873482758620692,
+        -0.54
+      ]
+    },
+    {
+      "name": "右顶矮阶",
+      "applied": true,
+      "form": "ledge",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        1.1,
+        1.4011413793103449,
+        0.54
+      ],
+      "center_xyz_m": [
+        1.1,
+        1.366141379310345,
+        0.54
+      ]
+    },
+    {
+      "name": "前左跌槽",
+      "applied": true,
+      "form": "cut",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        -0.9680000000000001,
+        1.215,
+        0.555517241379305
+      ],
+      "center_xyz_m": [
+        -0.9680000000000001,
+        1.215,
+        0.5905172413793051
+      ]
+    },
+    {
+      "name": "右槽边缺口",
+      "applied": true,
+      "form": "cut",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        1.32,
+        0.7290000000000001,
+        0.8893103448275801
+      ],
+      "center_xyz_m": [
+        1.32,
+        0.7290000000000001,
+        0.9393103448275801
+      ]
+    },
+    {
+      "name": "背斜缝",
+      "applied": true,
+      "form": "cut",
+      "view": "rear",
+      "surface_anchor_xyz_m": [
+        -1.4080000000000001,
+        1.296,
+        -1.0831034482758635
+      ],
+      "center_xyz_m": [
+        -1.4080000000000001,
+        1.296,
+        -1.1531034482758635
+      ]
+    },
+    {
+      "name": "左立壁外沟",
+      "applied": true,
+      "form": "cut",
+      "view": "left",
+      "surface_anchor_xyz_m": [
+        -1.7831034482758592,
+        0.8370000000000001,
+        -0.39
+      ],
+      "center_xyz_m": [
+        -1.8331034482758592,
+        0.8370000000000001,
+        -0.39
+      ]
+    },
+    {
+      "name": "右后凹槽",
+      "applied": true,
+      "form": "cut",
+      "view": "right",
+      "surface_anchor_xyz_m": [
+        1.7975862068965722,
+        0.9720000000000001,
+        -0.6000000000000001
+      ],
+      "center_xyz_m": [
+        1.8275862068965723,
+        0.9720000000000001,
+        -0.6000000000000001
+      ]
+    },
+    {
+      "name": "冠部斜槽",
+      "applied": true,
+      "form": "cut",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        1.298,
+        1.7652793103448277,
+        -0.48
+      ],
+      "center_xyz_m": [
+        1.298,
+        1.7952793103448277,
+        -0.48
+      ]
+    }
+  ],
+  "relief_probes": [
+    {
+      "feature": "左高壁前肩",
+      "form": "ledge",
+      "signed_offset_m": 0.5253803964306849
+    },
+    {
+      "feature": "左阶前檐",
+      "form": "ledge",
+      "signed_offset_m": 0.4191180693002421
+    },
+    {
+      "feature": "右壁前台",
+      "form": "ledge",
+      "signed_offset_m": 0.4250369127367284
+    },
+    {
+      "feature": "背右底趾",
+      "form": "ledge",
+      "signed_offset_m": 0.28002380562909046
+    },
+    {
+      "feature": "左侧板棱",
+      "form": "ledge",
+      "signed_offset_m": 0.30273371965481655
+    },
+    {
+      "feature": "右侧立趾",
+      "form": "ledge",
+      "signed_offset_m": 0.2884134098601665
+    },
+    {
+      "feature": "左后脊冠",
+      "form": "ledge",
+      "signed_offset_m": 0.148534284665784
+    },
+    {
+      "feature": "右顶矮阶",
+      "form": "ledge",
+      "signed_offset_m": 0.09230447467412306
+    },
+    {
+      "feature": "前左跌槽",
+      "form": "cut",
+      "signed_offset_m": -0.2648144008606339
+    },
+    {
+      "feature": "右槽边缺口",
+      "form": "cut",
+      "signed_offset_m": -0.22681913924324748
+    },
+    {
+      "feature": "背斜缝",
+      "form": "cut",
+      "signed_offset_m": -0.1540845528682091
+    },
+    {
+      "feature": "左立壁外沟",
+      "form": "cut",
+      "signed_offset_m": -0.12119008836781298
+    },
+    {
+      "feature": "右后凹槽",
+      "form": "cut",
+      "signed_offset_m": -0.1397163962116812
+    },
+    {
+      "feature": "冠部斜槽",
+      "form": "cut",
+      "signed_offset_m": -0.10520336575515143
+    }
+  ],
+  "blender": {
+    "source": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_double_rift/reef_double_rift.blend",
+    "source_sha256": "0d4f05d025cae5e949e34d795dced93bd3c9deb51fba11f5e72f0ec060583c07",
+    "reopened_and_same_polygon_points_uv_and_texture_as_glb": true,
+    "packed_texture_bytes": 2137411
+  },
+  "godot_proof": {
+    "contact_sheet": "resources/aquascape/reef-expansion-20261123/landforms-b/reef_double_rift/native-blender-review.jpg",
+    "contact_sheet_sha256": "420fa4c68c04eb202b3c1fd3fd9e9ac7f1e02fdbd8a693c24d58a1fed30403a7",
+    "views": 16,
+    "engine_material_surfaces": 1,
+    "sampler": "nearest"
+  }
+}

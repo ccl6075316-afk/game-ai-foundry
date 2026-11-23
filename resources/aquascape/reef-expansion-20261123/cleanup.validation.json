@@ -1,0 +1,38 @@
+{
+  "projects/fishing-2d/game/assets/aquascape-reef-foundation-candidate": {
+    "reason": "superseded before rear-surface and atlas fixes",
+    "files": 31,
+    "bytes": 46118054
+  },
+  "editable/embedded duplicates": {
+    "reason": "GLB embedded and packed .blend validated; external old extraction and intermediate topology can be regenerated",
+    "files": 24,
+    "bytes": 52404909,
+    "paths": [
+      "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_shelf_terrace.npz",
+      "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_shelf_terrace_reef_shelf_terrace_baked_art.png",
+      "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_shelf_terrace_reef_shelf_terrace_baked_art.png.import",
+      "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_blind_grotto.npz",
+      "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_blind_grotto_reef_blind_grotto_baked_art.png",
+      "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_blind_grotto_reef_blind_grotto_baked_art.png.import",
+      "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_backwall.npz",
+      "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_backwall_reef_backwall_baked_art.png",
+      "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_backwall_reef_backwall_baked_art.png.import",
+      "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_rubble_apron.npz",
+      "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_rubble_apron_reef_rubble_apron_baked_art.png",
+      "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_rubble_apron_reef_rubble_apron_baked_art.png.import",
+      "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_through_arch.npz",
+      "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_through_arch_reef_through_arch_baked_art.png",
+      "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_through_arch_reef_through_arch_baked_art.png.import",
+      "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_pinnacle.npz",
+      "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_pinnacle_reef_pinnacle_baked_art.png",
+      "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_pinnacle_reef_pinnacle_baked_art.png.import",
+      "projects/fishing-2d/assets/source/aquascape/reef-foundation/reef_shelf_terrace.blend1",
+      "projects/fishing-2d/assets/source/aquascape/reef-foundation/reef_blind_grotto.blend1",
+      "projects/fishing-2d/assets/source/aquascape/reef-foundation/reef_backwall.blend1",
+      "projects/fishing-2d/assets/source/aquascape/reef-foundation/reef_rubble_apron.blend1",
+      "projects/fishing-2d/assets/source/aquascape/reef-foundation/reef_through_arch.blend1",
+      "projects/fishing-2d/assets/source/aquascape/reef-foundation/reef_pinnacle.blend1"
+    ]
+  }
+}

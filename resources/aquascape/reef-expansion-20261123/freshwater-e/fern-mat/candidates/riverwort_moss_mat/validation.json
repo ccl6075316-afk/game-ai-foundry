@@ -1,0 +1,132 @@
+{
+  "id": "riverwort_moss_mat",
+  "name": "溪床贴石藓片",
+  "label": "溪床贴石藓片",
+  "category": "plant",
+  "budget_type": "broadleaf_plant",
+  "nominal_xyz_m": [
+    0.48,
+    0.14,
+    0.32
+  ],
+  "triangles": 732,
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/riverwort_moss_mat.glb",
+  "source_glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/riverwort_moss_mat.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/riverwort_moss_mat/riverwort_moss_mat.blend",
+  "source_intent": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/riverwort_moss_mat/six-material-views-r2.png",
+  "validation": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/riverwort_moss_mat/validation.json",
+  "source_url": "https://www.britishbryologicalsociety.org.uk/learning/species-finder/riccardia-chamedryfolia/",
+  "habitat": "淡水溪床硬附着的扁叶状枝体模块，参照溪生苔类，非定种。",
+  "user_acceptance": "pending",
+  "geometry": {
+    "source_field_components": 1,
+    "isolated_voxels_removed": 0,
+    "bounds_xyz_m": [
+      0.47917938232421875,
+      0.14059291779994965,
+      0.3217324912548065
+    ],
+    "connected_components": 1,
+    "euler_characteristic": -2,
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "contact_vertices": 9
+  },
+  "glb": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/riverwort_moss_mat.glb",
+    "sha256": "802e81801cdf62bf22270e651bb30a147b0d3248f633bbe4d2bfe8bbfea2d049",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "riverwort_moss_mat",
+        "triangles": 732,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "Riverbank liverwort thallus",
+        "size": [
+          1536,
+          1536
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "packed_blend_verified": true,
+  "source_views": {
+    "front": [
+      15,
+      214,
+      554,
+      349
+    ],
+    "right": [
+      638,
+      238,
+      895,
+      338
+    ],
+    "rear": [
+      981,
+      214,
+      1521,
+      348
+    ],
+    "left": [
+      66,
+      742,
+      324,
+      842
+    ],
+    "top": [
+      377,
+      635,
+      915,
+      920
+    ],
+    "bottom": [
+      965,
+      635,
+      1504,
+      920
+    ]
+  },
+  "source_sha256": "4855cfd6f7ad887760e5e3b76251bb4af2d06bcc6045bea1735ec6e1256ae54f",
+  "source_review": "R2 六面去除 R1 的大块承载木头，附着面留有真的红棕分支和低暖绿层片。用原图 alpha 安全阈值隔开半透明背景雾。",
+  "material": {
+    "filter": "nearest",
+    "atlas": 1536,
+    "owners": {
+      "front": 0.1396,
+      "rear": 0.1474,
+      "left": 0.0866,
+      "right": 0.0831,
+      "top": 0.3549,
+      "bottom": 0.1884
+    },
+    "material_count": 1
+  },
+  "status": "native_candidate_pending_user",
+  "motion": "低贴附着块，静态置景，根附着层仍为实体。",
+  "native_review": {
+    "engine": "Godot macOS 4.7.1 Compatibility",
+    "views": [
+      "angle",
+      "front",
+      "right",
+      "rear",
+      "left",
+      "top",
+      "bottom",
+      "oblique"
+    ],
+    "static_image": "godot-native-review.jpg",
+    "observations": "实看较低且分层，俯视自然分枝。下方附着面连续，单层无枝尖微摆；低端支撑、贴石形态与正背视大致对应。侧面少数三角投影有低面拉伸。",
+    "filter": "nearest"
+  }
+}

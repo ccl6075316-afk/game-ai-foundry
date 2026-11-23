@@ -1,0 +1,194 @@
+{
+  "id": "reef_finger_coral",
+  "name": "簇状指形硬珊瑚",
+  "species": null,
+  "geography": "Caribbean",
+  "category": "scleractinian",
+  "nominal_xyz_m": [
+    0.77,
+    0.59,
+    0.63
+  ],
+  "ecology_and_use": "参考暖水硬底柱状硬珊瑚群落，非定种。密实粗柱与鹿角疏枝形成对照。",
+  "primary_reference": "https://www.fisheries.noaa.gov/species/pillar-coral",
+  "approvals": {
+    "user_intent": "pending",
+    "user_native": "pending"
+  },
+  "source": {
+    "file": "six-material-views.png",
+    "sha256": "503fc4004a7913a82973aa407f32a611a707fff0a76a5dd191c7cc1e348a8ac7",
+    "status": "draft_intent",
+    "views": {
+      "front": [
+        41,
+        90,
+        483,
+        418
+      ],
+      "right": [
+        564,
+        93,
+        973,
+        418
+      ],
+      "rear": [
+        1052,
+        90,
+        1498,
+        418
+      ],
+      "left": [
+        36,
+        595,
+        473,
+        920
+      ],
+      "top": [
+        525,
+        591,
+        974,
+        923
+      ],
+      "bottom": [
+        1035,
+        589,
+        1505,
+        923
+      ]
+    },
+    "review": "六面均有宽短圆柱和高度差，俯视显示中央冠丛及外缘较矮指，仰视闭合根团。以柱状硬珊瑚生长类型为参考，非定种。"
+  },
+  "shape_specification": "Short sturdy club-like calcified coral fingers with rounded ends in an asymmetric mound on a common encrusting base. Mostly unbranched cylindrical fingers of visibly different heights and diameters, with some gently arching sideways. Dull olive tan with pale golden subtle tiny coral cups; avoid yellow sponge textures, openings or antlers.",
+  "shape_method": "finger",
+  "geometry": {
+    "source_field_components": 1,
+    "isolated_voxels_removed": 0,
+    "bounds_xyz_m": [
+      0.7667127847671509,
+      0.5901020765304565,
+      0.635006308555603
+    ],
+    "connected_components": 1,
+    "euler_characteristic": 2,
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "signed_volume_m3": 0.088786780834198,
+    "triangle_count": 696,
+    "budget_type": "broadleaf_plant",
+    "preferred_triangles": 700,
+    "hard_triangle_limit": 1000,
+    "ground_y_min": 0.0,
+    "contact_vertices": 12,
+    "projection": {
+      "front": {
+        "silhouette_iou": 0.764687754917067,
+        "span_m": [
+          0.77,
+          0.59
+        ]
+      },
+      "right": {
+        "silhouette_iou": 0.6509893344477352,
+        "span_m": [
+          0.63,
+          0.59
+        ]
+      },
+      "rear": {
+        "silhouette_iou": 0.7576545765457655,
+        "span_m": [
+          0.77,
+          0.59
+        ]
+      },
+      "left": {
+        "silhouette_iou": 0.6525527674145245,
+        "span_m": [
+          0.63,
+          0.59
+        ]
+      },
+      "top": {
+        "silhouette_iou": 0.8459821049593371,
+        "span_m": [
+          0.77,
+          0.63
+        ]
+      },
+      "bottom": {
+        "silhouette_iou": 0.8438124607389641,
+        "span_m": [
+          0.77,
+          0.63
+        ]
+      }
+    }
+  },
+  "material": {
+    "native_source_pixel_selection": true,
+    "filter": "nearest",
+    "atlas": 1536,
+    "macro_shadow_removed_for_cavities": false,
+    "primitive_count": 1,
+    "material_count": 1,
+    "source_fractions": {
+      "front": 0.2158,
+      "rear": 0.2014,
+      "left": 0.1658,
+      "right": 0.1743,
+      "top": 0.2014,
+      "bottom": 0.0413
+    }
+  },
+  "blend": {
+    "file": "reef_finger_coral.blend",
+    "sha256": "e4ce608d5849b82aeffe7100d227142c39a3b0fbb9b4ea5157953c1d481bde8e",
+    "cold_geometry_uv_texture_pass": true
+  },
+  "glb": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_finger_coral.glb",
+    "sha256": "7fe4b25dcadd46e2085f00a47265551c670469fb257f7a19562ee50a770e47a1",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "reef_finger_coral",
+        "triangles": 696,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "簇状指形硬珊瑚",
+        "size": [
+          1536,
+          1536
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "current_status": "static_candidate_for_user_review",
+  "scope": "低面展缸艺术模块。结构与方向参考六面意向，非生物实测。相机近似会影响投影重叠。",
+  "native_review": {
+    "file": "godot-native-review.jpg",
+    "engine": "Godot 4.7.1 stable, macOS Compatibility",
+    "rendered_views": [
+      "angle",
+      "front",
+      "right",
+      "rear",
+      "left",
+      "top",
+      "bottom",
+      "oblique"
+    ],
+    "mode": "fresh-process direct GLB, gray and material under the same lights",
+    "verified_texture_filter": "nearest",
+    "observations": "数列粗短指型柱轮廓前后交错，顶端封实。细杯纹与宽窄阴影来自六面取色。",
+    "user_acceptance": "pending"
+  }
+}

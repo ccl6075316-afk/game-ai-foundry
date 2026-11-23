@@ -1,0 +1,128 @@
+{
+  "id": "reef_double_rift",
+  "name_zh": "双立壁裂谷件",
+  "environment": "marine",
+  "geometry_budget": "large_rock",
+  "nominal_xyz_m": [
+    4.4,
+    2.7,
+    3.0
+  ],
+  "views": {
+    "front": {
+      "path": "front.png",
+      "source_png_sha256": "99fc505a0b7efbcfdbc1a8962e447662c42f88ea414b462929c65c54c644955d",
+      "outline_sha256": "a61d95ae54e77f52379cef2c5b1805dcb48c54b16d54d00d600fa80f69e2b826",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_double_rift-20261123/output/reef_double_rift_six_views_raw.png",
+      "input_sha256": "30f57930a4a0513dbb92b65297194c619020532bb3fa3ddfcd5667a10b72a244",
+      "panel_crop_px": [
+        0,
+        82,
+        546,
+        444
+      ],
+      "pixel_size": [
+        525,
+        273
+      ],
+      "edited_white_artifact": false
+    },
+    "right": {
+      "path": "right.png",
+      "source_png_sha256": "96ab0cfd2f22b0c5536f249d5ea7f3bf3451dac11c217961ca530839d924e958",
+      "outline_sha256": "9fdb94f7d50ed8c1e048ca5b308572a0beba3c0b9c616ec0493074562ddc9164",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_double_rift-20261123/output/reef_double_rift_six_views_raw.png",
+      "input_sha256": "30f57930a4a0513dbb92b65297194c619020532bb3fa3ddfcd5667a10b72a244",
+      "panel_crop_px": [
+        567,
+        80,
+        954,
+        444
+      ],
+      "pixel_size": [
+        353,
+        275
+      ],
+      "edited_white_artifact": false
+    },
+    "rear": {
+      "path": "rear.png",
+      "source_png_sha256": "57e221be91ffaa97d9b529f748b0afaec4c6b8226a8af67f6d97e8137e909a5c",
+      "outline_sha256": "816e04a966b4744aa1445727b744e105fc9e2a5a10a3387f74ad22d4c52f399d",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_double_rift-20261123/output/reef_double_rift_six_views_raw.png",
+      "input_sha256": "30f57930a4a0513dbb92b65297194c619020532bb3fa3ddfcd5667a10b72a244",
+      "panel_crop_px": [
+        981,
+        82,
+        1536,
+        444
+      ],
+      "pixel_size": [
+        523,
+        277
+      ],
+      "edited_white_artifact": false
+    },
+    "left": {
+      "path": "left.png",
+      "source_png_sha256": "0ae9ccdbee0c0fb828996ee667ea54b69a230d8d91a86078ee520ccd4f85f0e3",
+      "outline_sha256": "8106e4635042569882f3ad8500918e57633a3220619b5c9953dc9f2cbd20e06a",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_double_rift-20261123/output/reef_double_rift_six_views_raw.png",
+      "input_sha256": "30f57930a4a0513dbb92b65297194c619020532bb3fa3ddfcd5667a10b72a244",
+      "panel_crop_px": [
+        12,
+        563,
+        481,
+        934
+      ],
+      "pixel_size": [
+        432,
+        278
+      ],
+      "edited_white_artifact": false
+    },
+    "top": {
+      "path": "top.png",
+      "source_png_sha256": "95ea31fd9bbd5b81e66c83926dfe61b944d224536df28ecc04f40f0c7eb96a69",
+      "outline_sha256": "7371edd346d137684a5e6e7c896e1230851dd5722a00933025fdbbbeabfa03e2",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_double_rift-20261123/output/reef_double_rift_six_views_raw.png",
+      "input_sha256": "30f57930a4a0513dbb92b65297194c619020532bb3fa3ddfcd5667a10b72a244",
+      "panel_crop_px": [
+        524,
+        572,
+        1015,
+        937
+      ],
+      "pixel_size": [
+        477,
+        295
+      ],
+      "edited_white_artifact": false
+    },
+    "bottom": {
+      "path": "bottom.png",
+      "source_png_sha256": "9c158e4f140ef3918ae306f90959dfbd45574c09be892d0bc8ceeb17df4f9f4f",
+      "outline_sha256": "9daa1f5a82e188978a0214f9be665c08be92c9ae56f94006b970d7b633e60735",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_double_rift-20261123/output/reef_double_rift_six_views_raw.png",
+      "input_sha256": "30f57930a4a0513dbb92b65297194c619020532bb3fa3ddfcd5667a10b72a244",
+      "panel_crop_px": [
+        1024,
+        573,
+        1533,
+        937
+      ],
+      "pixel_size": [
+        472,
+        250
+      ],
+      "edited_white_artifact": false
+    }
+  },
+  "original_front": {
+    "path": "resources/aquascape/reef-expansion-20261123/sources/aquascape-reef-rift-20261123/output/reef_double_rift_front_raw.png",
+    "sha256": "e6e54a5ca656dc8571e37a4fc932210add85c61f58469132b097d10aa7e899f7"
+  },
+  "source_style": "Foundry OpenAI image generation based on the documented style, original concept sheet and crops retained",
+  "review": "前后同一高低壁相反，侧面阶梯也对称换向。顶底均可见双壁间的低连接带。侧面画出交叠台阶作为地形参考，台阶的实际深度按轴向和侧部轮廓建模。",
+  "user_acceptance": "pending"
+}

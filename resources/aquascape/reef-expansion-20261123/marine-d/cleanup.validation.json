@@ -1,0 +1,168 @@
+{
+  "removed": [
+    {
+      "path": "work/reef-expansion-20261123/marine-d/gray-captures",
+      "bytes": 2827479
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/gray2-captures",
+      "bytes": 2966194
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/grayb-captures",
+      "bytes": 6086928
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/grayb2-captures",
+      "bytes": 6539894
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/grayc-captures",
+      "bytes": 5275251
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/grayc2-captures",
+      "bytes": 5423242
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/material-captures",
+      "bytes": 9522110
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/matb-captures",
+      "bytes": 16437661
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/matb2-captures",
+      "bytes": 17558198
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/matc-captures",
+      "bytes": 12453635
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/game-current-captures",
+      "bytes": 6036784
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/game-current-2-captures",
+      "bytes": 19580721
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/game-current-final-captures",
+      "bytes": 19578066
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/gray-contact.jpg",
+      "bytes": 63433
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/gray2-contact.jpg",
+      "bytes": 61780
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/grayb-contact.jpg",
+      "bytes": 101451
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/grayc-contact.jpg",
+      "bytes": 119402
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/material-contact.jpg",
+      "bytes": 106617
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/matb-contact.jpg",
+      "bytes": 161194
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/matbc-contact.jpg",
+      "bytes": 215618
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/eelgrass_meadow",
+      "bytes": 95731
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/giant_kelp",
+      "bytes": 143413
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/halimeda_clump",
+      "bytes": 105098
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/mangrove_pneumatophore_bank",
+      "bytes": 126632
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/red_forkweed",
+      "bytes": 98377
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/sea_lettuce_fold",
+      "bytes": 77310
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/sugar_kelp",
+      "bytes": 93980
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/turtle_grass_meadow",
+      "bytes": 86943
+    },
+    {
+      "path": "resources/aquascape/reef-expansion-20261123/marine-d/giant_kelp/giant_kelp.blend1",
+      "bytes": 157330
+    },
+    {
+      "path": "projects/aquascape-d-eelgrass_meadow-20261123/game/.godot",
+      "bytes": 7105633
+    },
+    {
+      "path": "projects/aquascape-d-giant_kelp-20261123/game/.godot",
+      "bytes": 7175723
+    },
+    {
+      "path": "projects/aquascape-d-halimeda_clump-20261123/game/.godot",
+      "bytes": 7660222
+    },
+    {
+      "path": "projects/aquascape-d-mangrove_pneumatophore_bank-20261123/game/.godot",
+      "bytes": 7523641
+    },
+    {
+      "path": "projects/aquascape-d-red_forkweed-20261123/game/.godot",
+      "bytes": 7594067
+    },
+    {
+      "path": "projects/aquascape-d-sea_lettuce_fold-20261123/game/.godot",
+      "bytes": 7222851
+    },
+    {
+      "path": "projects/aquascape-d-sugar_kelp-20261123/game/.godot",
+      "bytes": 7169365
+    },
+    {
+      "path": "projects/aquascape-d-turtle_grass_meadow-20261123/game/.godot",
+      "bytes": 7671987
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/game-current-preflight-captures",
+      "bytes": 25831914
+    },
+    {
+      "path": "work/reef-expansion-20261123/marine-d/game-current-100-captures",
+      "bytes": 27608433
+    },
+    {
+      "path": "resources/aquascape/reef-expansion-20261123/marine-d/__pycache__",
+      "bytes": 84647
+    }
+  ],
+  "total_removed_bytes": 244748955,
+  "retained_deliverable_bytes": 3989455,
+  "retained_original_source_pixels_bytes": 14136590,
+  "preserved": "original concepts and Jobs, candidate files, reproducibility code, native contact sheets and validation"
+}

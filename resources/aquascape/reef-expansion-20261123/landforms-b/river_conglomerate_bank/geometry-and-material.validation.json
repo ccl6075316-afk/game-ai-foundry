@@ -1,0 +1,386 @@
+{
+  "id": "river_conglomerate_bank",
+  "ok": true,
+  "geometry": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/river_conglomerate_bank.glb",
+    "sha256": "9e6501387f3b7300773f7a596e1f33e62cc36180162fdaf26d30f065b6936f1b",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "river_conglomerate_bank",
+        "triangles": 556,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "river_conglomerate_bank · six-direction rock",
+        "size": [
+          1024,
+          1024
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "triangles": 556,
+  "budget": {
+    "preferred": 400,
+    "hard_limit": 600
+  },
+  "source_handoff": "resources/aquascape/reef-expansion-20261123/landforms-b/river_conglomerate_bank/material-source.handoff.json",
+  "source_sha256": "1b8315a5b80c5de32e2301238478133f5848abb15253273d5703394f63d9e696",
+  "nominal_xyz_m": [
+    2.05,
+    0.75,
+    1.45
+  ],
+  "bounds_xyz_m": [
+    2.311875820159912,
+    0.8299148678779602,
+    1.7581760883331299
+  ],
+  "floor_y_m": 0.0,
+  "surface_euler": 2,
+  "geometry_components": 1,
+  "volume_fraction_retained": 1.0,
+  "material_passes": 1,
+  "texture_filter": "nearest",
+  "atlas_size": [
+    1024,
+    1024
+  ],
+  "atlas_uncompressed_rgba_bytes": 4194304,
+  "source_texel_shares": {
+    "front": 0.2027,
+    "right": 0.109,
+    "rear": 0.1605,
+    "left": 0.143,
+    "top": 0.2933,
+    "bottom": 0.0914
+  },
+  "gray": "resources/aquascape/reef-expansion-20261123/landforms-b/river_conglomerate_bank/river_conglomerate_bank-gray.glb",
+  "gray_sha256": "9ea10915c50f1fcaafa58d0a8754f7428c0faf5fbda8b50732270f1cbf7b1b8f",
+  "glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/river_conglomerate_bank.glb",
+  "glb_sha256": "9e6501387f3b7300773f7a596e1f33e62cc36180162fdaf26d30f065b6936f1b",
+  "geometry_section": {
+    "kind": "solid",
+    "passed": true
+  },
+  "art_outlines": {
+    "front": {
+      "silhouette_iou": 0.918577244482537,
+      "span_m": [
+        2.05,
+        0.75
+      ]
+    },
+    "right": {
+      "silhouette_iou": 0.9281066330814441,
+      "span_m": [
+        1.45,
+        0.75
+      ]
+    },
+    "rear": {
+      "silhouette_iou": 0.9198525457153102,
+      "span_m": [
+        2.05,
+        0.75
+      ]
+    },
+    "left": {
+      "silhouette_iou": 0.9257453455405674,
+      "span_m": [
+        1.45,
+        0.75
+      ]
+    },
+    "top": {
+      "silhouette_iou": 0.9310664605873261,
+      "span_m": [
+        2.05,
+        1.45
+      ]
+    },
+    "bottom": {
+      "silhouette_iou": 0.9277200351840882,
+      "span_m": [
+        2.05,
+        1.45
+      ]
+    }
+  },
+  "landmarks": [
+    {
+      "name": "前面半露大砾",
+      "applied": true,
+      "form": "ledge",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        -0.41,
+        0.405,
+        0.6825862068965561
+      ],
+      "center_xyz_m": [
+        -0.41,
+        0.405,
+        0.7225862068965562
+      ]
+    },
+    {
+      "name": "前方小卵砾",
+      "applied": true,
+      "form": "ledge",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        0.3485,
+        0.26249999999999996,
+        0.6401724137931077
+      ],
+      "center_xyz_m": [
+        0.3485,
+        0.26249999999999996,
+        0.6701724137931078
+      ]
+    },
+    {
+      "name": "后侧嵌块",
+      "applied": true,
+      "form": "ledge",
+      "view": "rear",
+      "surface_anchor_xyz_m": [
+        0.38949999999999996,
+        0.22499999999999998,
+        -0.6463793103448269
+      ],
+      "center_xyz_m": [
+        0.38949999999999996,
+        0.22499999999999998,
+        -0.6773793103448269
+      ]
+    },
+    {
+      "name": "左坡石瘤",
+      "applied": true,
+      "form": "ledge",
+      "view": "left",
+      "surface_anchor_xyz_m": [
+        -0.9887931034482769,
+        0.2925,
+        -0.11599999999999999
+      ],
+      "center_xyz_m": [
+        -1.0217931034482768,
+        0.2925,
+        -0.11599999999999999
+      ]
+    },
+    {
+      "name": "右坡大砾",
+      "applied": true,
+      "form": "ledge",
+      "view": "right",
+      "surface_anchor_xyz_m": [
+        0.9763793103448166,
+        0.26249999999999996,
+        0.1885
+      ],
+      "center_xyz_m": [
+        1.0083793103448166,
+        0.26249999999999996,
+        0.1885
+      ]
+    },
+    {
+      "name": "顶中团粒",
+      "applied": true,
+      "form": "ledge",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        -0.36899999999999994,
+        0.6746465517241378,
+        0.2175
+      ],
+      "center_xyz_m": [
+        -0.36899999999999994,
+        0.6906465517241378,
+        0.2175
+      ]
+    },
+    {
+      "name": "顶后大砾",
+      "applied": true,
+      "form": "ledge",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        0.41,
+        0.6746465517241378,
+        -0.29
+      ],
+      "center_xyz_m": [
+        0.41,
+        0.6956465517241378,
+        -0.29
+      ]
+    },
+    {
+      "name": "前卵砾孔窝",
+      "applied": true,
+      "form": "cut",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        -0.040999999999999995,
+        0.255,
+        0.6684482758620733
+      ],
+      "center_xyz_m": [
+        -0.040999999999999995,
+        0.255,
+        0.6964482758620734
+      ]
+    },
+    {
+      "name": "后方基质浅槽",
+      "applied": true,
+      "form": "cut",
+      "view": "rear",
+      "surface_anchor_xyz_m": [
+        -0.4715,
+        0.22499999999999998,
+        -0.6039655172413785
+      ],
+      "center_xyz_m": [
+        -0.4715,
+        0.22499999999999998,
+        -0.6289655172413785
+      ]
+    },
+    {
+      "name": "左侧小坑",
+      "applied": true,
+      "form": "cut",
+      "view": "left",
+      "surface_anchor_xyz_m": [
+        -0.9463793103448288,
+        0.22499999999999998,
+        0.27549999999999997
+      ],
+      "center_xyz_m": [
+        -0.9823793103448288,
+        0.22499999999999998,
+        0.27549999999999997
+      ]
+    },
+    {
+      "name": "右坡粒间缝",
+      "applied": true,
+      "form": "cut",
+      "view": "right",
+      "surface_anchor_xyz_m": [
+        0.9763793103448166,
+        0.27749999999999997,
+        0.145
+      ],
+      "center_xyz_m": [
+        1.0043793103448166,
+        0.27749999999999997,
+        0.145
+      ]
+    },
+    {
+      "name": "顶小砾掉落窝",
+      "applied": true,
+      "form": "cut",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        0.12299999999999998,
+        0.6887844827586206,
+        0.087
+      ],
+      "center_xyz_m": [
+        0.12299999999999998,
+        0.7137844827586206,
+        0.087
+      ]
+    }
+  ],
+  "relief_probes": [
+    {
+      "feature": "前面半露大砾",
+      "form": "ledge",
+      "signed_offset_m": 0.1940617155461637
+    },
+    {
+      "feature": "前方小卵砾",
+      "form": "ledge",
+      "signed_offset_m": 0.15670393927747206
+    },
+    {
+      "feature": "后侧嵌块",
+      "form": "ledge",
+      "signed_offset_m": 0.19610886311366427
+    },
+    {
+      "feature": "左坡石瘤",
+      "form": "ledge",
+      "signed_offset_m": 0.15302261275482865
+    },
+    {
+      "feature": "右坡大砾",
+      "form": "ledge",
+      "signed_offset_m": 0.1615931644076296
+    },
+    {
+      "feature": "顶中团粒",
+      "form": "ledge",
+      "signed_offset_m": 0.15075760768156332
+    },
+    {
+      "feature": "顶后大砾",
+      "form": "ledge",
+      "signed_offset_m": 0.1318666158285371
+    },
+    {
+      "feature": "前卵砾孔窝",
+      "form": "cut",
+      "signed_offset_m": -0.10355076264233354
+    },
+    {
+      "feature": "后方基质浅槽",
+      "form": "cut",
+      "signed_offset_m": -0.0959967272328881
+    },
+    {
+      "feature": "左侧小坑",
+      "form": "cut",
+      "signed_offset_m": -0.08264587145718005
+    },
+    {
+      "feature": "右坡粒间缝",
+      "form": "cut",
+      "signed_offset_m": 0.17139775022454762
+    },
+    {
+      "feature": "顶小砾掉落窝",
+      "form": "cut",
+      "signed_offset_m": -0.0768150443050053
+    }
+  ],
+  "blender": {
+    "source": "resources/aquascape/reef-expansion-20261123/landforms-b/river_conglomerate_bank/river_conglomerate_bank.blend",
+    "source_sha256": "8e9f3230d9731f761cf8bca3f45ce80b6cba010726aab785013d3474d6d82875",
+    "reopened_and_same_polygon_points_uv_and_texture_as_glb": true,
+    "packed_texture_bytes": 1248406
+  },
+  "godot_proof": {
+    "contact_sheet": "resources/aquascape/reef-expansion-20261123/landforms-b/river_conglomerate_bank/native-blender-review.jpg",
+    "contact_sheet_sha256": "ad81e977126a862db4345b3c5cbca84ffe800d9a920c850793575a6f524f9f69",
+    "views": 16,
+    "engine_material_surfaces": 1,
+    "sampler": "nearest"
+  }
+}

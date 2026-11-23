@@ -1,0 +1,21 @@
+{
+  "id": "reef_barrel_sponge",
+  "name": "桶状海绵",
+  "label": "桶状海绵",
+  "scientific_name": null,
+  "aquatic_ecology": "Caribbean",
+  "category": "sponge",
+  "nominal_xyz_m": [
+    0.85,
+    0.79,
+    0.8
+  ],
+  "budget_type": "broadleaf_plant",
+  "triangles": 814,
+  "source_glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_barrel_sponge.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/corals-c/candidates/reef_barrel_sponge/reef_barrel_sponge.blend",
+  "source_intent": "resources/aquascape/reef-expansion-20261123/corals-c/candidates/reef_barrel_sponge/six-material-views.png",
+  "validation": "resources/aquascape/reef-expansion-20261123/corals-c/candidates/reef_barrel_sponge/validation.json",
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_barrel_sponge.glb",
+  "user_acceptance": "pending"
+}

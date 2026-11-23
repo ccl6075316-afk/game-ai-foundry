@@ -1,0 +1,80 @@
+{
+  "id": "reef_blind_grotto",
+  "name_zh": "盲端礁洞",
+  "geometry_budget": "large_rock",
+  "nominal_xyz_m": [
+    3.5,
+    2.1,
+    2.4
+  ],
+  "views": {
+    "front": {
+      "path": "front.png",
+      "source_png_sha256": "d98604a4eb91628f5da448262a99d5e51b015ea7dd88c43dd73e9d5e1a71529d",
+      "outline_sha256": "32b363f63e153e8f04f6b316f026375d0d150fbc1e57db3d28fb3c29a87facad",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_blind_grotto-20261123/output/reef_blind_grotto_six_views_raw.png",
+      "input_sha256": "9d70666c1469aecfaf6b589b84573d447f4c8200b7c78cdb73c8aa2137444f7a",
+      "pixel_size": [
+        535,
+        315
+      ]
+    },
+    "right": {
+      "path": "right.png",
+      "source_png_sha256": "540fe3c87cd3b9d8ac9e014fb27e8518b01c0b433c858b529c980a05cd365a0c",
+      "outline_sha256": "739f39cc42d0c0c17fb06c588c541cba5b0dd6777b08043056b929ecbaad9b5d",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_blind_grotto-20261123/output/reef_blind_grotto_six_views_raw.png",
+      "input_sha256": "9d70666c1469aecfaf6b589b84573d447f4c8200b7c78cdb73c8aa2137444f7a",
+      "pixel_size": [
+        388,
+        295
+      ]
+    },
+    "rear": {
+      "path": "rear.png",
+      "source_png_sha256": "ba85d32bbcd016b0286a167cfe1c27adadc19fc1a52046d1300bc5f364325247",
+      "outline_sha256": "4f9fff47cde3a26583c7b731af4d7b73c6a6d143c3ea303765e2a59630101c7a",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_blind_grotto-20261123/output/reef_blind_grotto_six_views_raw.png",
+      "input_sha256": "9d70666c1469aecfaf6b589b84573d447f4c8200b7c78cdb73c8aa2137444f7a",
+      "pixel_size": [
+        497,
+        305
+      ]
+    },
+    "left": {
+      "path": "left.png",
+      "source_png_sha256": "8da61f972b4d4e9b44f9cdaf7b2efe5521b96a9f0b0143daf3a8070774672764",
+      "outline_sha256": "1dccdf1755a5190f9c2601f06a692698540a497790a4c65b59adbfc2dcce4656",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_blind_grotto-20261123/output/reef_blind_grotto_six_views_raw.png",
+      "input_sha256": "9d70666c1469aecfaf6b589b84573d447f4c8200b7c78cdb73c8aa2137444f7a",
+      "pixel_size": [
+        481,
+        318
+      ]
+    },
+    "top": {
+      "path": "top.png",
+      "source_png_sha256": "27278171ee9efd05699b36d79a74b3a766b4fb3ae3029b7f69006327c737ae91",
+      "outline_sha256": "ff308802c229bd4b490064a84393731acd0a297400a9b66113d56907677e86d8",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-fix-reef_blind_grotto-20261123/output/reef_blind_grotto_corrected_pair_raw.png",
+      "input_sha256": "e3780f58fed0acf62cece4e73cc74b9cbb9b4d94ddaffea2aa2c0feff2cfcc53",
+      "pixel_size": [
+        718,
+        513
+      ]
+    },
+    "bottom": {
+      "path": "bottom.png",
+      "source_png_sha256": "62816e6e5631cd03989ab638f6811d70ca3b90fbdcaab1ddf0ae452df5395d9d",
+      "outline_sha256": "5b4d57e42e730d4c11caadda4ac3812f6ec6c039a57de4c5d8a354e81b43e2f7",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-fix-reef_blind_grotto-20261123/output/reef_blind_grotto_corrected_pair_raw.png",
+      "input_sha256": "e3780f58fed0acf62cece4e73cc74b9cbb9b4d94ddaffea2aa2c0feff2cfcc53",
+      "pixel_size": [
+        717,
+        516
+      ]
+    }
+  },
+  "review": "The first TOP repeated a painted entrance in the roof. Replaced TOP and BOTTOM with the corrected overhead pair. Only FRONT supplies the actual visible mouth. All outer sides and the retained rear are solid; chamber excavation needs its own model test.",
+  "user_acceptance": "pending"
+}

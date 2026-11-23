@@ -22,7 +22,7 @@ def main():
     live_catalog=game/'assets/aquascape-v5/catalog.json';live_decor=game/'assets/aquascape-decor-v1/catalog.json'
     active=load(live_catalog)['assets'];shader_uri=next(row['shader_metadata'] for row in active if row.get('animated'));shader_folder=(game/shader_uri.removeprefix('res://')).parent
     run([python,scripts/'validate_scenery_budget.py','--root',root,'--input',live_catalog,live_decor,'--output',review/'budget.validation.json','--json'],'budget',review/'budget.validation.json')
-    for name in ['PlantSway.gdshader','SceneryBudgetReview.gd']:shutil.copyfile(root/'resources/runtime/godot/aquascape'/name,game/'scripts/aquarium'/name)
+    for name in ['PlantSway.gdshader','PlantSwayMotion.gdshaderinc','SceneryBudgetReview.gd']:shutil.copyfile(root/'resources/runtime/godot/aquascape'/name,game/'scripts/aquarium'/name)
     run([a.godot,'--headless','--path',game,'--editor','--import','--quit'],'import')
     run([a.godot,'--path',game,'--windowed','--resolution','1280x720','--quit-after','15000','res://scenes/aquascape_budget_review.tscn','--','--capture-dir='+str(review/'native')],'native',review/'native/render.validation.json')
     run([python,scripts/'validate_shader_plants.py','--input',shader_folder,'--native',review/'native','--output',review/'shader.validation.json'],'shader-validation',review/'shader.validation.json')
@@ -40,7 +40,7 @@ def main():
     for frame in frames:frame.unlink()
     if (review/'native/motion-frames').exists() and not any((review/'native/motion-frames').iterdir()):(review/'native/motion-frames').rmdir()
     active_models=[game/row['model'].removeprefix('res://') for row in active+load(live_decor)['assets']]
-    inputs=[root/'resources/aquascape/geometry-budgets.json',*[(root/'resources/runtime/godot/aquascape'/n) for n in ['PlantSway.gdshader','SceneryBudgetReview.gd','ShaderPlantTank.gd']],*active_models,*shader_folder.glob('*.glb')]
+    inputs=[root/'resources/aquascape/geometry-budgets.json',*[(root/'resources/runtime/godot/aquascape'/n) for n in ['PlantSway.gdshader','PlantSwayMotion.gdshaderinc','SceneryBudgetReview.gd','ShaderPlantTank.gd']],*active_models,*shader_folder.glob('*.glb')]
     save(review/'production.handoff.json',{'schema_version':1,'command':'aquascape.produce-budget-trial','ok':True,'status':'done','next_action':'human_review','inputs':{str(p):sha(p) for p in inputs},'outputs':{'steps':steps,'build':str(review/'build.validation.json'),'budget':str(review/'budget.validation.json'),'native':str(review/'native/render.validation.json'),'shader':str(review/'shader.validation.json'),'video':str(review/'shader-sway.mp4'),'frame_cleanup':str(review/'frame-cleanup.validation.json')},'failures':[],'visual_review':'pending','user_acceptance':'pending'})
     print(json.dumps({'ok':True,'status':'done','next_action':'human_review','handoff':str(review/'production.handoff.json')}))
 if __name__=='__main__':main()

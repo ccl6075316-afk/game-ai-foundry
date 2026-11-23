@@ -1,0 +1,39 @@
+{
+  "id": "giant_kelp",
+  "name_zh": "巨藻林丛",
+  "scientific_name": "Macrocystis pyrifera",
+  "category": "plant",
+  "budget_type": "broadleaf_plant",
+  "nominal_xyz_m": [
+    2.2,
+    3.65,
+    1.52
+  ],
+  "source_url": "https://www.montereybayaquarium.org/animals-the-ocean/animals-a-to-z/giant-kelp",
+  "habitat": "温带冷水岩礁，固着在硬底，游戏中仅表现未到水面的短段林丛",
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/giant_kelp.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/marine-d/giant_kelp/giant_kelp.blend",
+  "source_board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-giant_kelp-20261123/output/giant_kelp_six_views_raw.png",
+  "source_board_sha256": "1de2b2285992a5282874afa764de2af501f70a0e1a80677da91c6cae5bacceee",
+  "validation": "resources/aquascape/reef-expansion-20261123/marine-d/giant_kelp/asset.validation.json",
+  "model_sha256": "b723885e0a487a418266a16dc28c8f1b33ac79d6c450db10c5abf87016a7f044",
+  "blender_sha256": "752802ec800258c041a5514fef2c105c07c3657f524c80c7926cad6e62535047",
+  "triangles": 984,
+  "placement_anchor": "bottom",
+  "visual_review": "native candidate viewed; user approval pending",
+  "user_acceptance": "pending",
+  "rooted_current": {
+    "anchor_min": [
+      -0.421195924282074,
+      -9.999999747378752e-05,
+      0.027596071362495422
+    ],
+    "anchor_size": [
+      0.0001999867963604629,
+      0.1556483805179596,
+      0.00019999983487650752
+    ],
+    "amplitude": 0.047
+  },
+  "native_views": "resources/aquascape/reef-expansion-20261123/marine-d/giant_kelp/godot-views.jpg"
+}

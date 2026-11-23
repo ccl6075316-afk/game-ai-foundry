@@ -7,7 +7,6 @@ paint. Every final exported complete instance is measured against a shared budge
 import argparse, copy, hashlib, io, json, math
 from pathlib import Path
 import numpy as np
-import pymeshlab
 from PIL import Image
 from build_from_art import Glb, split_leaves, foreground
 from rig_plant_current import read_glb, array, append
@@ -22,6 +21,16 @@ def save(p,d):
 def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
 
 def budget_type(row,policy):
+    declared = row.get("budget_type")
+    if declared is not None:
+        if declared not in policy["types"] or declared in ("fish", "gravel"):
+            raise ValueError(f'{row["id"]}: invalid scenery budget {declared}')
+        if row.get("category") in ("rock", "wood", "plant") and declared not in {
+            "rock": ("rock", "large_rock"), "wood": ("wood",),
+            "plant": ("ribbon_plant", "broadleaf_plant"),
+        }[row["category"]]:
+            raise ValueError(f'{row["id"]}: budget {declared} conflicts with {row["category"]}')
+        return declared
     if row.get('animated') or row.get('category')=='plant':
         return 'ribbon_plant' if row['id'] in policy['ribbon_plants'] else 'broadleaf_plant'
     return row.get('category','decor') if row.get('category') in ['rock','wood'] else 'decor'
@@ -91,6 +100,8 @@ def welded(v,f=None):
 
 def simplified(v,f,count):
     if len(f)>count:
+        import pymeshlab
+
         ms=pymeshlab.MeshSet();ms.add_mesh(pymeshlab.Mesh(v.astype(float),f.astype('int32')))
         ms.meshing_decimation_quadric_edge_collapse(targetfacenum=int(count),preservetopology=True,preservenormal=True,qualitythr=.3,autoclean=True)
         v=ms.current_mesh().vertex_matrix();f=ms.current_mesh().face_matrix()

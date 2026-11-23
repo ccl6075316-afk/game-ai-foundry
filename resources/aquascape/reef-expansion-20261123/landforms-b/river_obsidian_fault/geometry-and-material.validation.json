@@ -1,0 +1,344 @@
+{
+  "id": "river_obsidian_fault",
+  "ok": true,
+  "geometry": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/river_obsidian_fault.glb",
+    "sha256": "9591990dc5d5275ac9d57931ebb6e63ffbee7743f04f1f5532f4ebe75086f298",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "river_obsidian_fault",
+        "triangles": 470,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "river_obsidian_fault · six-direction rock",
+        "size": [
+          1024,
+          1024
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "triangles": 470,
+  "budget": {
+    "preferred": 400,
+    "hard_limit": 600
+  },
+  "source_handoff": "resources/aquascape/reef-expansion-20261123/landforms-b/river_obsidian_fault/material-source.handoff.json",
+  "source_sha256": "bc4362d781eaf6d75abf76c4ca97771befc318447e186328d2c9423b98d784f3",
+  "nominal_xyz_m": [
+    1.7,
+    1.0,
+    1.2
+  ],
+  "bounds_xyz_m": [
+    1.990894079208374,
+    0.9631233215332031,
+    1.4930751323699951
+  ],
+  "floor_y_m": 0.0,
+  "surface_euler": 2,
+  "geometry_components": 1,
+  "volume_fraction_retained": 1.0,
+  "material_passes": 1,
+  "texture_filter": "nearest",
+  "atlas_size": [
+    1024,
+    1024
+  ],
+  "atlas_uncompressed_rgba_bytes": 4194304,
+  "source_texel_shares": {
+    "front": 0.1863,
+    "right": 0.1362,
+    "rear": 0.178,
+    "left": 0.144,
+    "top": 0.2545,
+    "bottom": 0.101
+  },
+  "gray": "resources/aquascape/reef-expansion-20261123/landforms-b/river_obsidian_fault/river_obsidian_fault-gray.glb",
+  "gray_sha256": "6c4aa5f193aec2649f75ab3703345ce7b5a1fe8f24f71061ab305feef28bf1b2",
+  "glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/river_obsidian_fault.glb",
+  "glb_sha256": "9591990dc5d5275ac9d57931ebb6e63ffbee7743f04f1f5532f4ebe75086f298",
+  "geometry_section": {
+    "kind": "solid",
+    "passed": true
+  },
+  "art_outlines": {
+    "front": {
+      "silhouette_iou": 0.86110609285776,
+      "span_m": [
+        1.7,
+        1.0
+      ]
+    },
+    "right": {
+      "silhouette_iou": 0.8320736651251859,
+      "span_m": [
+        1.2,
+        1.0
+      ]
+    },
+    "rear": {
+      "silhouette_iou": 0.8630737107512902,
+      "span_m": [
+        1.7,
+        1.0
+      ]
+    },
+    "left": {
+      "silhouette_iou": 0.8292475125008875,
+      "span_m": [
+        1.2,
+        1.0
+      ]
+    },
+    "top": {
+      "silhouette_iou": 0.9087310114551135,
+      "span_m": [
+        1.7,
+        1.2
+      ]
+    },
+    "bottom": {
+      "silhouette_iou": 0.8954547607394894,
+      "span_m": [
+        1.7,
+        1.2
+      ]
+    }
+  },
+  "landmarks": [
+    {
+      "name": "断层外唇",
+      "applied": true,
+      "form": "ledge",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        0.017,
+        0.4,
+        0.5113793103448228
+      ],
+      "center_xyz_m": [
+        0.017,
+        0.4,
+        0.5413793103448228
+      ]
+    },
+    {
+      "name": "背面支撑棱",
+      "applied": true,
+      "form": "ledge",
+      "view": "rear",
+      "surface_anchor_xyz_m": [
+        -0.187,
+        0.3,
+        -0.5672413793103457
+      ],
+      "center_xyz_m": [
+        -0.187,
+        0.3,
+        -0.6032413793103457
+      ]
+    },
+    {
+      "name": "左端楔角",
+      "applied": true,
+      "form": "ledge",
+      "view": "left",
+      "surface_anchor_xyz_m": [
+        -0.8172413793103457,
+        0.25,
+        -0.084
+      ],
+      "center_xyz_m": [
+        -0.8512413793103457,
+        0.25,
+        -0.084
+      ]
+    },
+    {
+      "name": "右肩锐棱",
+      "applied": true,
+      "form": "ledge",
+      "view": "right",
+      "surface_anchor_xyz_m": [
+        0.7420689655172348,
+        0.41,
+        0.048
+      ],
+      "center_xyz_m": [
+        0.7730689655172348,
+        0.41,
+        0.048
+      ]
+    },
+    {
+      "name": "顶背高棱",
+      "applied": true,
+      "form": "ledge",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        -0.323,
+        0.7307931034482757,
+        -0.156
+      ],
+      "center_xyz_m": [
+        -0.323,
+        0.7637931034482758,
+        -0.156
+      ]
+    },
+    {
+      "name": "前中贝壳形片断",
+      "applied": true,
+      "form": "cut",
+      "view": "front",
+      "surface_anchor_xyz_m": [
+        0.374,
+        0.42,
+        0.4879310344827539
+      ],
+      "center_xyz_m": [
+        0.374,
+        0.42,
+        0.5699310344827538
+      ]
+    },
+    {
+      "name": "后面平片脱口",
+      "applied": true,
+      "form": "cut",
+      "view": "rear",
+      "surface_anchor_xyz_m": [
+        0.357,
+        0.32,
+        -0.5555172413793112
+      ],
+      "center_xyz_m": [
+        0.357,
+        0.32,
+        -0.5895172413793113
+      ]
+    },
+    {
+      "name": "左端短缺口",
+      "applied": true,
+      "form": "cut",
+      "view": "left",
+      "surface_anchor_xyz_m": [
+        -0.7351724137931046,
+        0.31,
+        0.144
+      ],
+      "center_xyz_m": [
+        -0.7571724137931046,
+        0.31,
+        0.144
+      ]
+    },
+    {
+      "name": "右端窄缝",
+      "applied": true,
+      "form": "cut",
+      "view": "right",
+      "surface_anchor_xyz_m": [
+        0.7186206896551659,
+        0.38,
+        0.108
+      ],
+      "center_xyz_m": [
+        0.7416206896551659,
+        0.38,
+        0.108
+      ]
+    },
+    {
+      "name": "顶楔旧崩角",
+      "applied": true,
+      "form": "cut",
+      "view": "top",
+      "surface_anchor_xyz_m": [
+        0.34,
+        0.836310344827586,
+        -0.042
+      ],
+      "center_xyz_m": [
+        0.34,
+        0.8703103448275861,
+        -0.042
+      ]
+    }
+  ],
+  "relief_probes": [
+    {
+      "feature": "断层外唇",
+      "form": "ledge",
+      "signed_offset_m": 0.16677414260872503
+    },
+    {
+      "feature": "背面支撑棱",
+      "form": "ledge",
+      "signed_offset_m": 0.20464133203929835
+    },
+    {
+      "feature": "左端楔角",
+      "form": "ledge",
+      "signed_offset_m": 0.15693736271211778
+    },
+    {
+      "feature": "右肩锐棱",
+      "form": "ledge",
+      "signed_offset_m": 0.2178503298230896
+    },
+    {
+      "feature": "顶背高棱",
+      "form": "ledge",
+      "signed_offset_m": 0.14373629868770443
+    },
+    {
+      "feature": "前中贝壳形片断",
+      "form": "cut",
+      "signed_offset_m": -0.17031548624257864
+    },
+    {
+      "feature": "后面平片脱口",
+      "form": "cut",
+      "signed_offset_m": -0.12340317603665829
+    },
+    {
+      "feature": "左端短缺口",
+      "form": "cut",
+      "signed_offset_m": -0.14130549856714358
+    },
+    {
+      "feature": "右端窄缝",
+      "form": "cut",
+      "signed_offset_m": 0.24475986551569306
+    },
+    {
+      "feature": "顶楔旧崩角",
+      "form": "cut",
+      "signed_offset_m": -0.09970462405330505
+    }
+  ],
+  "blender": {
+    "source": "resources/aquascape/reef-expansion-20261123/landforms-b/river_obsidian_fault/river_obsidian_fault.blend",
+    "source_sha256": "227d960fb93b154c7472943aab5864f917a254e2dc0862bf34b534c83ae4228a",
+    "reopened_and_same_polygon_points_uv_and_texture_as_glb": true,
+    "packed_texture_bytes": 958469
+  },
+  "godot_proof": {
+    "contact_sheet": "resources/aquascape/reef-expansion-20261123/landforms-b/river_obsidian_fault/native-blender-review.jpg",
+    "contact_sheet_sha256": "01c9c07b0d102f0dc8ea893b71591d8ed0d380adc7546fa6a6e7e28197419d15",
+    "views": 16,
+    "engine_material_surfaces": 1,
+    "sampler": "nearest"
+  }
+}

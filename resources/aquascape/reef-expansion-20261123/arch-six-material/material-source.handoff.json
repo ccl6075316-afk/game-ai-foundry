@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "phase": "initial_material_intent",
+  "object_id": "reef_through_arch",
+  "status": "ready_for_gray_prototype",
+  "user_acceptance": "pending",
+  "reference_width_m": 4.4,
+  "views": {
+    "front": {
+      "path": "front.png",
+      "raw_source": "resources/aquascape/reef-expansion-20261123/sources/aquascape-reef-arch-six-material-20261123/output/reef_arch_six_material_raw.png",
+      "raw_sha256": "54adecd12f949e91a9568dfd3016d620ab8ba1c290aa45fbc7786759a3edd0d7",
+      "raw_crop_xyxy": [
+        17,
+        90,
+        585,
+        420
+      ],
+      "shape_px": [
+        568,
+        330
+      ],
+      "source_png_sha256": "e9ee004860662e2eeb8bc9156468192bd70d2ebb03824ce165b7568509316f6b",
+      "outline_sha256": "9ce8b672f130a25b5496461223fe35d39f4b0c2813aa57f922e79033d1602113"
+    },
+    "rear": {
+      "path": "rear.png",
+      "raw_source": "resources/aquascape/reef-expansion-20261123/sources/aquascape-reef-arch-six-material-20261123/output/reef_arch_six_material_raw.png",
+      "raw_sha256": "54adecd12f949e91a9568dfd3016d620ab8ba1c290aa45fbc7786759a3edd0d7",
+      "raw_crop_xyxy": [
+        951,
+        94,
+        1520,
+        421
+      ],
+      "shape_px": [
+        569,
+        327
+      ],
+      "source_png_sha256": "907b75ffef3fd886d3db77134ea5c4913ac6104d2015990a384083c6a8bf94ec",
+      "outline_sha256": "64ca15d24a4a5c021cbe5e6f22340a9906e3faf004ce353d2824bbcd0af7075d"
+    },
+    "left": {
+      "path": "left.png",
+      "raw_source": "resources/aquascape/reef-expansion-20261123/sources/aquascape-reef-arch-six-material-ends-20261123/output/reef_arch_material_ends_raw.png",
+      "raw_sha256": "facc6d04894127db0974efbfcbcf7cc6e68bf28cfe01402475ec4a1463d7beb2",
+      "raw_crop_xyxy": [
+        113,
+        147,
+        678,
+        914
+      ],
+      "shape_px": [
+        565,
+        767
+      ],
+      "source_png_sha256": "f929b2406adf915ac2e18fad17fc4aa62b1f18104c1202e2321a450304da6ed5",
+      "outline_sha256": "dc15ab68811d8848c060c7f9590b446d34d27d09e0541ca0c5dd100e9914dc89"
+    },
+    "right": {
+      "path": "right.png",
+      "raw_source": "resources/aquascape/reef-expansion-20261123/sources/aquascape-reef-arch-six-material-ends-20261123/output/reef_arch_material_ends_raw.png",
+      "raw_sha256": "facc6d04894127db0974efbfcbcf7cc6e68bf28cfe01402475ec4a1463d7beb2",
+      "raw_crop_xyxy": [
+        873,
+        147,
+        1436,
+        914
+      ],
+      "shape_px": [
+        563,
+        767
+      ],
+      "source_png_sha256": "08489d55b1a3f88a53490f9f8dadcac3e2bddf6ced89a34d6d7e1e05d9652d3f",
+      "outline_sha256": "daddacbfedf206c5562521d2f3fe0c974a08a551798b2313d80e8b1d14af9082"
+    },
+    "top": {
+      "path": "top.png",
+      "raw_source": "resources/aquascape/reef-expansion-20261123/sources/aquascape-reef-arch-six-material-plans-20261123/output/reef_arch_material_plans_raw.png",
+      "raw_sha256": "6ac51587b67dbdbd43e277130c3307252a78bdcf66aaf56960fe7b20403e7216",
+      "raw_crop_xyxy": [
+        48,
+        363,
+        723,
+        681
+      ],
+      "shape_px": [
+        675,
+        318
+      ],
+      "source_png_sha256": "0ef22525fb55e8176fb356ff4271941ecebbe3327008c3314c3672e3a4685a1f",
+      "outline_sha256": "5e28c8b2a00e00e61b41ea8b08237a2a796f1b9c542a6972fd829429786a8ba7"
+    },
+    "bottom": {
+      "path": "bottom.png",
+      "raw_source": "resources/aquascape/reef-expansion-20261123/sources/aquascape-reef-arch-six-material-plans-20261123/output/reef_arch_material_plans_raw.png",
+      "raw_sha256": "6ac51587b67dbdbd43e277130c3307252a78bdcf66aaf56960fe7b20403e7216",
+      "raw_crop_xyxy": [
+        813,
+        363,
+        1488,
+        696
+      ],
+      "shape_px": [
+        675,
+        333
+      ],
+      "source_png_sha256": "76d0f00bddd6f21807ff26aa097dd74eb7282960bf3fd504553b5a3c7813e27e",
+      "outline_sha256": "6e14494a0ee6842fa4dd41fd449f8e88dc469fd92d683426a3b6b28ab4fe8c34"
+    }
+  },
+  "review_notes": [
+    "Front and back come from the initial simultaneous six-view material sheet. Ridge and two rock feet are mirrored geometrically and independently shaded.",
+    "Original side and vertical views were regenerated in opposite pairs after spotting oblique tops and unclear contact pads. Both end views are closed to the eye. The corrected top and bottom provide a continuous plan silhouette; the bottom has two flat contact pads.",
+    "Width normalized separately per panel with one uniform scale per image. Upward planes remain visible in the material side artwork; use those images as depth/height envelopes with loose tolerances for details, not as a calibrated scan."
+  ]
+}

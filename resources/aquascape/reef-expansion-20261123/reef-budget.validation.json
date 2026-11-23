@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "command": "aquascape.validate-scenery-budget",
+  "ok": true,
+  "status": "done",
+  "next_action": "human_review",
+  "inputs": {
+    "policy_sha256": "51de78ce3f61adb8465b71b8b98098a76538172e392f5b0c3ae585ed9f3c4698"
+  },
+  "outputs": [
+    {
+      "id": "reef_backwall",
+      "path": "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_backwall.glb",
+      "ok": true,
+      "budget_type": "large_rock",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 696,
+      "vertices": 2088,
+      "bytes": 2695416,
+      "sha256": "6efc8d15ce35d91f1db81e511cbde43f87e2e119d95e4cb2d6e4e75d54aff95c",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_through_arch",
+      "path": "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_through_arch.glb",
+      "ok": true,
+      "budget_type": "large_rock",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 696,
+      "vertices": 2088,
+      "bytes": 2839044,
+      "sha256": "47c85f224e13f43ae40324ba7d54167e4829a77b0213270ef6e9c206005f0a01",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_blind_grotto",
+      "path": "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_blind_grotto.glb",
+      "ok": true,
+      "budget_type": "large_rock",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 696,
+      "vertices": 2088,
+      "bytes": 2608568,
+      "sha256": "8ccf26f29d79da3f6d2473ec6ddd9fb6e8e1348b41aa44c3c8466bb1dbff8303",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_shelf_terrace",
+      "path": "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_shelf_terrace.glb",
+      "ok": true,
+      "budget_type": "rock",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 396,
+      "vertices": 1188,
+      "bytes": 1415704,
+      "sha256": "a4b90ba50bd31db33824a12760a02db85fa5d0f22f13dbf46d408c454b135ba4",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_pinnacle",
+      "path": "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_pinnacle.glb",
+      "ok": true,
+      "budget_type": "rock",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 396,
+      "vertices": 1188,
+      "bytes": 1414696,
+      "sha256": "d684d5e48057c8486f38211d3281e1f1144c576dbac8daf3f275c3e5f0c32883",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_rubble_apron",
+      "path": "projects/fishing-2d/game/assets/aquascape-reef-foundation-v1/reef_rubble_apron.glb",
+      "ok": true,
+      "budget_type": "rock",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 396,
+      "vertices": 1188,
+      "bytes": 1338540,
+      "sha256": "55532d8508f640c562e67c44b1f3202e8db0f86ccbb1a238daae3a3da9a50538",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    }
+  ],
+  "failures": [],
+  "user_acceptance": "pending",
+  "limitations": [
+    "Discrete CPU poses and ray probes supplement actual multi-view native visual review."
+  ]
+}

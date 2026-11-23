@@ -1,0 +1,190 @@
+{
+  "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/sugar_kelp.glb",
+  "sha256": "8257b897056bcd2ef145d6f41de92520d69e36516b9187523151dd26c7de195f",
+  "ok": true,
+  "meshes": [
+    {
+      "name": "sugar_kelp · closed natural shells",
+      "triangles": 540,
+      "finite_and_nonzero_area": true
+    }
+  ],
+  "textures": [
+    {
+      "name": "atlas",
+      "size": [
+        256,
+        256
+      ],
+      "opaque": true
+    }
+  ],
+  "open_edges": 0,
+  "nonmanifold_edges": 0,
+  "failures": [],
+  "triangles": 540,
+  "vertices": 1620,
+  "bytes": 131544,
+  "budget": {
+    "preferred": 400,
+    "hard_limit": 600
+  },
+  "measured_xyz_m": [
+    0.9900000691413879,
+    0.7799999713897705,
+    0.6899999976158142
+  ],
+  "root_min_y_m": 0.0,
+  "rooted_current": {
+    "anchor_min": [
+      -0.022199135273694992,
+      -9.999999747378752e-05,
+      -0.004337507300078869
+    ],
+    "anchor_size": [
+      0.03407319635152817,
+      0.05537443235516548,
+      0.016359440982341766
+    ],
+    "amplitude": 0.089
+  },
+  "shader_cpu": {
+    "root_motion_m": 0.0,
+    "loop_error_m": 3.475966075749411e-08,
+    "max_tip_motion_m": 0.10250922156366248,
+    "sampled_times": 41,
+    "instance_phases": [
+      0,
+      0.31,
+      0.62
+    ]
+  },
+  "file": "projects/fishing-2d/game/assets/aquascape-expansion-v1/sugar_kelp.glb",
+  "source_board": {
+    "file": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-sugar_kelp-20261123/output/sugar_kelp_six_views_raw.png",
+    "sha256": "bf60e78054f1f9bcc7c5b5c7fee571306cff29d46929c4b33b409a522b5297fd",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "camera_order": [
+      "front",
+      "right",
+      "back",
+      "left",
+      "top",
+      "bottom"
+    ],
+    "concept_review": "agent-reviewed for provisional gray mesh, user pending",
+    "workflow_assets_manifest": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-sugar_kelp-20261123/output/assets-manifest.json",
+    "subject_ecology": "https://seaweed.ie/descriptions/Saccharina_latissima.php",
+    "assembly_inference": [
+      "六面都带附着小石脚，保留为一体硬底母株小石簇，所有子体积计入带状档",
+      "追踪最高向左舌片、双叶渐次下探、近地系叶宽铺及侧向厚度",
+      "实际卷曲来自中心线与截面转角；叶缘局部高低优先用轻薄曲面表达"
+    ],
+    "texture_sample_regions": {
+      "blade": [
+        [
+          [
+            0,
+            188,
+            155,
+            266,
+            236
+          ],
+          [
+            4,
+            716,
+            671,
+            795,
+            740
+          ]
+        ],
+        [
+          [
+            2,
+            1222,
+            168,
+            1290,
+            279
+          ],
+          [
+            5,
+            1336,
+            815,
+            1422,
+            877
+          ]
+        ]
+      ],
+      "stipe": [
+        [
+          [
+            0,
+            266,
+            350,
+            316,
+            398
+          ]
+        ],
+        [
+          [
+            3,
+            194,
+            837,
+            263,
+            882
+          ]
+        ]
+      ],
+      "rock": [
+        [
+          [
+            0,
+            102,
+            388,
+            164,
+            423
+          ]
+        ],
+        [
+          [
+            5,
+            1160,
+            758,
+            1357,
+            832
+          ]
+        ]
+      ]
+    }
+  },
+  "native": {
+    "version": "Godot 4.7.1 stable mono, OpenGL compatibility Apple M4",
+    "result": "agent reviewed native orthographic + oblique gray and nearest material",
+    "contact_sheet": "resources/aquascape/reef-expansion-20261123/marine-d/sugar_kelp/godot-views.jpg",
+    "contact_sheet_sha256": "7c70b273cf53319fd90c211810ee06195c1e233638c66eae089e3a39984ecdd8",
+    "user_acceptance": "pending",
+    "multimesh_current": {
+      "instances": 3,
+      "custom_phases": [
+        0,
+        0.31,
+        0.62
+      ],
+      "phase_change_pixels": 193142,
+      "held_phase_change_pixels": 0,
+      "subsequent_phase_change_pixels": 183867,
+      "loop_endpoint_change_pixels": 3,
+      "fixed_root_validated_in_cpu_sampling": true
+    }
+  },
+  "cold_blend_export": {
+    "packed_image": true,
+    "source_sha256": "00cd8f12aab197f36b456577bf7c11ecd2f9c3ecf51493f4ca11eda21507ae9a",
+    "normalized_export_sha256": "8257b897056bcd2ef145d6f41de92520d69e36516b9187523151dd26c7de195f",
+    "current_glb_sha256": "8257b897056bcd2ef145d6f41de92520d69e36516b9187523151dd26c7de195f",
+    "byte_identical": true
+  }
+}

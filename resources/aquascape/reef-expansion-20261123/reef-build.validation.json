@@ -1,0 +1,326 @@
+{
+  "command": "aquascape.reef-foundation-build",
+  "status": "candidate",
+  "user_acceptance": "pending",
+  "ok": true,
+  "outputs": [
+    {
+      "id": "reef_backwall",
+      "triangles": 696,
+      "bounds_xyz_m": [
+        5.0942535400390625,
+        3.70930814743042,
+        2.299013614654541
+      ],
+      "model_sha256": "6efc8d15ce35d91f1db81e511cbde43f87e2e119d95e4cb2d6e4e75d54aff95c",
+      "materials": 1,
+      "atlas_size": [
+        1536,
+        1536
+      ],
+      "inputs": {
+        "front": {
+          "path": "projects/aquascape-reef-foundation-style-r2-20261123/output/reef_backwall_front_raw.png",
+          "sha256": "989fe15dc9a29ec766141beeee7df4ede899027c269a4ec40471e9ecbbb14ba5"
+        },
+        "right": {
+          "path": "projects/aquascape-reef_backwall-views-20261123/output/reef_backwall_right_raw.png",
+          "sha256": "526fd7d682d6342633f7b9419b9e1b3fd36bd018042b4c488738a5078b6c7de9"
+        },
+        "top": {
+          "path": "projects/aquascape-reef_backwall-views-20261123/output/reef_backwall_top_raw.png",
+          "sha256": "64414799e70f54b6a309866436c65632fab92f7f6a40563d10fba68af096c596"
+        },
+        "neutral_surface": {
+          "path": "projects/aquascape-reef-surface-donors-20261123/output/reef_gray_limestone_raw.png",
+          "sha256": "659da2b6ebbcd99bfc29b4656f96365d5c9f905ccc22151eb44535810e00e926"
+        }
+      },
+      "cavity_checks": [],
+      "ok": true
+    },
+    {
+      "id": "reef_through_arch",
+      "triangles": 696,
+      "bounds_xyz_m": [
+        4.598570346832275,
+        2.8401377201080322,
+        2.0812854766845703
+      ],
+      "model_sha256": "47c85f224e13f43ae40324ba7d54167e4829a77b0213270ef6e9c206005f0a01",
+      "materials": 1,
+      "atlas_size": [
+        1536,
+        1536
+      ],
+      "inputs": {
+        "front": {
+          "path": "projects/aquascape-reef-foundation-style-r2-20261123/output/reef_through_arch_front_raw.png",
+          "sha256": "009c700c3795447c7841441829f277c53030e513d27345a1fa69033256c4b30e"
+        },
+        "right": {
+          "path": "projects/aquascape-reef_through_arch-views-20261123/output/reef_through_arch_right_raw.png",
+          "sha256": "421b845080d0a3f127277dd22fa632f916a6ded1c59dd2d79cc38603723f4f50"
+        },
+        "top": {
+          "path": "projects/aquascape-reef_through_arch-views-20261123/output/reef_through_arch_top_raw.png",
+          "sha256": "04423cbc68e07092ec40d5c5d875f318f2b47d5044fbe329f7f81c0de28fbeb8"
+        },
+        "neutral_surface": {
+          "path": "projects/aquascape-reef-surface-donors-20261123/output/reef_gray_limestone_raw.png",
+          "sha256": "659da2b6ebbcd99bfc29b4656f96365d5c9f905ccc22151eb44535810e00e926"
+        }
+      },
+      "cavity_checks": [
+        {
+          "type": "open_z",
+          "x_m": -0.462,
+          "y_m": 0.252,
+          "hits_m": [],
+          "ok": true
+        },
+        {
+          "type": "open_z",
+          "x_m": -0.462,
+          "y_m": 0.616,
+          "hits_m": [],
+          "ok": true
+        },
+        {
+          "type": "open_z",
+          "x_m": -0.462,
+          "y_m": 1.008,
+          "hits_m": [],
+          "ok": true
+        },
+        {
+          "type": "open_z",
+          "x_m": 0.1408,
+          "y_m": 0.252,
+          "hits_m": [],
+          "ok": true
+        },
+        {
+          "type": "open_z",
+          "x_m": 0.1408,
+          "y_m": 0.616,
+          "hits_m": [],
+          "ok": true
+        },
+        {
+          "type": "open_z",
+          "x_m": 0.1408,
+          "y_m": 1.008,
+          "hits_m": [],
+          "ok": true
+        },
+        {
+          "type": "open_z",
+          "x_m": 0.7436000000000001,
+          "y_m": 0.252,
+          "hits_m": [],
+          "ok": true
+        },
+        {
+          "type": "open_z",
+          "x_m": 0.7436000000000001,
+          "y_m": 0.616,
+          "hits_m": [],
+          "ok": true
+        },
+        {
+          "type": "open_z",
+          "x_m": 0.7436000000000001,
+          "y_m": 1.008,
+          "hits_m": [],
+          "ok": true
+        }
+      ],
+      "ok": true
+    },
+    {
+      "id": "reef_blind_grotto",
+      "triangles": 696,
+      "bounds_xyz_m": [
+        3.4963021278381348,
+        2.1086156368255615,
+        2.3950812816619873
+      ],
+      "model_sha256": "8ccf26f29d79da3f6d2473ec6ddd9fb6e8e1348b41aa44c3c8466bb1dbff8303",
+      "materials": 1,
+      "atlas_size": [
+        1536,
+        1536
+      ],
+      "inputs": {
+        "front": {
+          "path": "projects/aquascape-reef-foundation-style-r2-20261123/output/reef_blind_grotto_front_raw.png",
+          "sha256": "aef6c60876d7e98f5aeb50c9b25f66f4a84813936a49acf5cf587728a9951735"
+        },
+        "right": {
+          "path": "projects/aquascape-reef_blind_grotto-views-20261123/output/reef_blind_grotto_right_raw.png",
+          "sha256": "ccf36ea20aefdeb1ab6c510d43202a52eba4d572009dff2ca5eb939b446978d5"
+        },
+        "top": {
+          "path": "projects/aquascape-reef_blind_grotto-views-20261123/output/reef_blind_grotto_top_raw.png",
+          "sha256": "5702e49f2b15d82e7347b524bd3bc518e0351940da7843f4631af9522cdde2da"
+        },
+        "neutral_surface": {
+          "path": "projects/aquascape-reef-surface-donors-20261123/output/reef_gray_limestone_raw.png",
+          "sha256": "659da2b6ebbcd99bfc29b4656f96365d5c9f905ccc22151eb44535810e00e926"
+        }
+      },
+      "cavity_checks": [
+        {
+          "type": "rear_wall",
+          "x_m": -0.455,
+          "hits_m": [
+            2.9398775868394145,
+            3.5749388404119817
+          ],
+          "ok": true
+        },
+        {
+          "type": "rear_wall",
+          "x_m": -0.1925,
+          "hits_m": [
+            2.93980791284523,
+            3.5997699975659883
+          ],
+          "ok": true
+        },
+        {
+          "type": "rear_wall",
+          "x_m": 0.07,
+          "hits_m": [
+            2.939738238851045,
+            3.5996719303321516
+          ],
+          "ok": true
+        },
+        {
+          "type": "floor",
+          "hits_m": [
+            0.3629182879090133,
+            0.46133435777742454
+          ],
+          "ok": true
+        },
+        {
+          "type": "roof",
+          "hits_m": [
+            0.669908235748117,
+            1.3990786686044123
+          ],
+          "ok": true
+        }
+      ],
+      "ok": true
+    },
+    {
+      "id": "reef_shelf_terrace",
+      "triangles": 396,
+      "bounds_xyz_m": [
+        3.369457244873047,
+        1.711649775505066,
+        1.7981122732162476
+      ],
+      "model_sha256": "a4b90ba50bd31db33824a12760a02db85fa5d0f22f13dbf46d408c454b135ba4",
+      "materials": 1,
+      "atlas_size": [
+        1024,
+        1024
+      ],
+      "inputs": {
+        "front": {
+          "path": "projects/aquascape-reef-foundation-style-r2-20261123/output/reef_shelf_terrace_front_raw.png",
+          "sha256": "067fdef8bb460096febe31d2601f8fc285a917f4cc62e1fae6b1afa930b1f6a9"
+        },
+        "right": {
+          "path": "projects/aquascape-reef_shelf_terrace-views-20261123/output/reef_shelf_terrace_right_raw.png",
+          "sha256": "9bd254e8270222db2d5a2c6740f21d5ded01bb0a35ce037596cd1b146c6ddc86"
+        },
+        "top": {
+          "path": "projects/aquascape-reef_shelf_terrace-views-20261123/output/reef_shelf_terrace_top_raw.png",
+          "sha256": "2c2958bb1aff714d481021e3fb8e22a692ad6fa60af8b01d1eb3d150cf960798"
+        },
+        "neutral_surface": {
+          "path": "projects/aquascape-reef-surface-donors-20261123/output/reef_gray_limestone_raw.png",
+          "sha256": "659da2b6ebbcd99bfc29b4656f96365d5c9f905ccc22151eb44535810e00e926"
+        }
+      },
+      "cavity_checks": [],
+      "ok": true
+    },
+    {
+      "id": "reef_pinnacle",
+      "triangles": 396,
+      "bounds_xyz_m": [
+        1.282241940498352,
+        3.237689733505249,
+        1.1515228748321533
+      ],
+      "model_sha256": "d684d5e48057c8486f38211d3281e1f1144c576dbac8daf3f275c3e5f0c32883",
+      "materials": 1,
+      "atlas_size": [
+        1024,
+        1024
+      ],
+      "inputs": {
+        "front": {
+          "path": "projects/aquascape-reef-foundation-style-r2-20261123/output/reef_pinnacle_front_raw.png",
+          "sha256": "cb846fe1e2919bfe7e54ff4c57992834a097da024c32c9943c460fd8e3e1e2c1"
+        },
+        "right": {
+          "path": "projects/aquascape-reef_pinnacle-views-20261123/output/reef_pinnacle_right_raw.png",
+          "sha256": "b3bbbda36d4906feb95cb180eb31714698c66db8c38681dd935a5fd79dca07af"
+        },
+        "top": {
+          "path": "projects/aquascape-reef_pinnacle-views-20261123/output/reef_pinnacle_top_raw.png",
+          "sha256": "c802ccc7c97a89ae3888f3dd6f3d6c538823dfbc08c3ce5df38a5faf8cc39626"
+        },
+        "neutral_surface": {
+          "path": "projects/aquascape-reef-surface-donors-20261123/output/reef_gray_limestone_raw.png",
+          "sha256": "659da2b6ebbcd99bfc29b4656f96365d5c9f905ccc22151eb44535810e00e926"
+        }
+      },
+      "cavity_checks": [],
+      "ok": true
+    },
+    {
+      "id": "reef_rubble_apron",
+      "triangles": 396,
+      "bounds_xyz_m": [
+        2.665440082550049,
+        0.562128484249115,
+        1.1982793807983398
+      ],
+      "model_sha256": "55532d8508f640c562e67c44b1f3202e8db0f86ccbb1a238daae3a3da9a50538",
+      "materials": 1,
+      "atlas_size": [
+        1024,
+        1024
+      ],
+      "inputs": {
+        "front": {
+          "path": "projects/aquascape-reef-foundation-style-r2-20261123/output/reef_rubble_apron_front_raw.png",
+          "sha256": "82bbb9e888bac7d449126fe97cfddefd2869778dd7ccdcd604c9c32c089d70ef"
+        },
+        "right": {
+          "path": "projects/aquascape-reef_rubble_apron-views-20261123/output/reef_rubble_apron_right_raw.png",
+          "sha256": "90161068e7dac3a95f466680eb934d4f7d0becd185cbdb07aa917051ffe0f51c"
+        },
+        "top": {
+          "path": "projects/aquascape-reef_rubble_apron-views-20261123/output/reef_rubble_apron_top_raw.png",
+          "sha256": "04c784673cb868670ef154a5fec30f90787e74ad2d368b842ff96aa7af2264ec"
+        },
+        "neutral_surface": {
+          "path": "projects/aquascape-reef-surface-donors-20261123/output/reef_gray_limestone_raw.png",
+          "sha256": "659da2b6ebbcd99bfc29b4656f96365d5c9f905ccc22151eb44535810e00e926"
+        }
+      },
+      "cavity_checks": [],
+      "ok": true
+    }
+  ]
+}

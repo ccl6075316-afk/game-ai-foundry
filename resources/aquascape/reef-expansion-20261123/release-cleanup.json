@@ -1,0 +1,360 @@
+{
+  "scope": "Scoped local experiment retirement after freezing and staging durable review assets.",
+  "directories": [
+    {
+      "path": "projects/aquascape-algae-coating-20261123",
+      "files": 59,
+      "bytes": 8053999
+    },
+    {
+      "path": "projects/aquascape-b-reef_double_rift-20261123",
+      "files": 59,
+      "bytes": 10228500
+    },
+    {
+      "path": "projects/aquascape-b-reef_encircling_ridge-20261123",
+      "files": 59,
+      "bytes": 9949993
+    },
+    {
+      "path": "projects/aquascape-b-reef_eroded_overhang-20261123",
+      "files": 58,
+      "bytes": 8476067
+    },
+    {
+      "path": "projects/aquascape-b-reef_eroded_overhang-r2-20261123",
+      "files": 59,
+      "bytes": 9787051
+    },
+    {
+      "path": "projects/aquascape-b-reef_erosion_eye-20261123",
+      "files": 59,
+      "bytes": 10182676
+    },
+    {
+      "path": "projects/aquascape-b-reef_isolated_hummock-20261123",
+      "files": 58,
+      "bytes": 8644299
+    },
+    {
+      "path": "projects/aquascape-b-reef_isolated_hummock-r2-20261123",
+      "files": 59,
+      "bytes": 9840378
+    },
+    {
+      "path": "projects/aquascape-b-reef_mushroom_pedestal-20261123",
+      "files": 59,
+      "bytes": 10418624
+    },
+    {
+      "path": "projects/aquascape-b-river_conglomerate_bank-20261123",
+      "files": 58,
+      "bytes": 8685278
+    },
+    {
+      "path": "projects/aquascape-b-river_conglomerate_bank-r2-20261123",
+      "files": 59,
+      "bytes": 10490943
+    },
+    {
+      "path": "projects/aquascape-b-river_gneiss_slab-20261123",
+      "files": 58,
+      "bytes": 9277085
+    },
+    {
+      "path": "projects/aquascape-b-river_gneiss_slab-r2-20261123",
+      "files": 59,
+      "bytes": 9965380
+    },
+    {
+      "path": "projects/aquascape-b-river_imbricated_slate-20261123",
+      "files": 58,
+      "bytes": 8705421
+    },
+    {
+      "path": "projects/aquascape-b-river_imbricated_slate-r2-20261123",
+      "files": 59,
+      "bytes": 9261346
+    },
+    {
+      "path": "projects/aquascape-b-river_obsidian_fault-20261123",
+      "files": 58,
+      "bytes": 8890214
+    },
+    {
+      "path": "projects/aquascape-b-river_obsidian_fault-r2-20261123",
+      "files": 59,
+      "bytes": 9941118
+    },
+    {
+      "path": "projects/aquascape-c-six-material-01-20261123",
+      "files": 65,
+      "bytes": 14145430
+    },
+    {
+      "path": "projects/aquascape-c-six-material-02-20261123",
+      "files": 65,
+      "bytes": 15169382
+    },
+    {
+      "path": "projects/aquascape-c-six-material-03-20261123",
+      "files": 65,
+      "bytes": 13405675
+    },
+    {
+      "path": "projects/aquascape-c-six-material-04-20261123",
+      "files": 65,
+      "bytes": 13970637
+    },
+    {
+      "path": "projects/aquascape-c-six-material-05-20261123",
+      "files": 65,
+      "bytes": 15002472
+    },
+    {
+      "path": "projects/aquascape-c-six-material-06-20261123",
+      "files": 65,
+      "bytes": 14110090
+    },
+    {
+      "path": "projects/aquascape-c-six-material-07-20261123",
+      "files": 65,
+      "bytes": 14006259
+    },
+    {
+      "path": "projects/aquascape-d-eelgrass_meadow-20261123",
+      "files": 22,
+      "bytes": 2606235
+    },
+    {
+      "path": "projects/aquascape-d-giant_kelp-20261123",
+      "files": 22,
+      "bytes": 2996072
+    },
+    {
+      "path": "projects/aquascape-d-halimeda_clump-20261123",
+      "files": 22,
+      "bytes": 4078962
+    },
+    {
+      "path": "projects/aquascape-d-mangrove_pneumatophore_bank-20261123",
+      "files": 22,
+      "bytes": 3729391
+    },
+    {
+      "path": "projects/aquascape-d-red_forkweed-20261123",
+      "files": 22,
+      "bytes": 3748529
+    },
+    {
+      "path": "projects/aquascape-d-sea_lettuce_fold-20261123",
+      "files": 22,
+      "bytes": 3255200
+    },
+    {
+      "path": "projects/aquascape-d-sugar_kelp-20261123",
+      "files": 22,
+      "bytes": 3052109
+    },
+    {
+      "path": "projects/aquascape-d-turtle_grass_meadow-20261123",
+      "files": 22,
+      "bytes": 3957181
+    },
+    {
+      "path": "projects/aquascape-e-bolbitis-fern-clump",
+      "files": 59,
+      "bytes": 11156140
+    },
+    {
+      "path": "projects/aquascape-e-duckweed-root-patch",
+      "files": 59,
+      "bytes": 10086117
+    },
+    {
+      "path": "projects/aquascape-e-hairgrass-meadow",
+      "files": 59,
+      "bytes": 10864823
+    },
+    {
+      "path": "projects/aquascape-e-laceleaf-rosette",
+      "files": 59,
+      "bytes": 10861381
+    },
+    {
+      "path": "projects/aquascape-e-lake-quillwort-rosette",
+      "files": 59,
+      "bytes": 10227741
+    },
+    {
+      "path": "projects/aquascape-e-lake-quillwort-rosette-r2",
+      "files": 59,
+      "bytes": 10108693
+    },
+    {
+      "path": "projects/aquascape-e-marsilea-runner-patch",
+      "files": 59,
+      "bytes": 9804887
+    },
+    {
+      "path": "projects/aquascape-e-riverwort-moss-mat",
+      "files": 59,
+      "bytes": 10297302
+    },
+    {
+      "path": "projects/aquascape-e-riverwort-moss-mat-r2",
+      "files": 59,
+      "bytes": 11099758
+    },
+    {
+      "path": "projects/aquascape-e-water-lily-float-stems",
+      "files": 59,
+      "bytes": 10628504
+    },
+    {
+      "path": "projects/aquascape-e-wood-hollow-tunnel",
+      "files": 59,
+      "bytes": 10355753
+    },
+    {
+      "path": "projects/aquascape-e-wood-low-root-weave",
+      "files": 59,
+      "bytes": 10489539
+    },
+    {
+      "path": "projects/aquascape-e-wood-overhang-perch",
+      "files": 59,
+      "bytes": 9924860
+    },
+    {
+      "path": "projects/aquascape-e-wood-upturned-root-plate",
+      "files": 59,
+      "bytes": 10229850
+    },
+    {
+      "path": "projects/aquascape-e-wood-upturned-root-plate-r2",
+      "files": 59,
+      "bytes": 11450567
+    },
+    {
+      "path": "projects/aquascape-reef-arch-six-material-20261123",
+      "files": 21,
+      "bytes": 3108870
+    },
+    {
+      "path": "projects/aquascape-reef-arch-six-material-ends-20261123",
+      "files": 21,
+      "bytes": 3218809
+    },
+    {
+      "path": "projects/aquascape-reef-arch-six-material-plans-20261123",
+      "files": 21,
+      "bytes": 2225614
+    },
+    {
+      "path": "projects/aquascape-reef-arch-six-material-refinement-20261123",
+      "files": 14,
+      "bytes": 977132
+    },
+    {
+      "path": "projects/aquascape-reef-foundation-20261123",
+      "files": 43,
+      "bytes": 23026104
+    },
+    {
+      "path": "projects/aquascape-reef-foundation-style-r2-20261123",
+      "files": 41,
+      "bytes": 15352687
+    },
+    {
+      "path": "projects/aquascape-reef-rift-20261123",
+      "files": 71,
+      "bytes": 17730696
+    },
+    {
+      "path": "projects/aquascape-reef-surface-donors-20261123",
+      "files": 11,
+      "bytes": 2088004
+    },
+    {
+      "path": "projects/aquascape-reef_backwall-views-20261123",
+      "files": 65,
+      "bytes": 16335773
+    },
+    {
+      "path": "projects/aquascape-reef_blind_grotto-views-20261123",
+      "files": 65,
+      "bytes": 17148650
+    },
+    {
+      "path": "projects/aquascape-reef_pinnacle-views-20261123",
+      "files": 65,
+      "bytes": 14313317
+    },
+    {
+      "path": "projects/aquascape-reef_rubble_apron-views-20261123",
+      "files": 65,
+      "bytes": 12584749
+    },
+    {
+      "path": "projects/aquascape-reef_shelf_terrace-views-20261123",
+      "files": 65,
+      "bytes": 15285605
+    },
+    {
+      "path": "projects/aquascape-reef_through_arch-views-20261123",
+      "files": 65,
+      "bytes": 15437900
+    },
+    {
+      "path": "projects/aquascape-six-fix-reef_blind_grotto-20261123",
+      "files": 60,
+      "bytes": 10760719
+    },
+    {
+      "path": "projects/aquascape-six-fix-reef_rubble_apron-20261123",
+      "files": 60,
+      "bytes": 9203156
+    },
+    {
+      "path": "projects/aquascape-six-fix-reef_shelf_terrace-20261123",
+      "files": 60,
+      "bytes": 9370727
+    },
+    {
+      "path": "projects/aquascape-six-reef_backwall-20261123",
+      "files": 22,
+      "bytes": 3178187
+    },
+    {
+      "path": "projects/aquascape-six-reef_blind_grotto-20261123",
+      "files": 22,
+      "bytes": 3330043
+    },
+    {
+      "path": "projects/aquascape-six-reef_pinnacle-20261123",
+      "files": 22,
+      "bytes": 2901301
+    },
+    {
+      "path": "projects/aquascape-six-reef_rubble_apron-20261123",
+      "files": 22,
+      "bytes": 2297272
+    },
+    {
+      "path": "projects/aquascape-six-reef_shelf_terrace-20261123",
+      "files": 22,
+      "bytes": 3035558
+    },
+    {
+      "path": "work/reef-expansion-20261123",
+      "files": 468,
+      "bytes": 68903654
+    }
+  ],
+  "local_directories_bytes": 717432438,
+  "local_directories_files": 3904,
+  "duplicate_and_historical_bytes": 72419848,
+  "duplicate_and_historical_files": 96,
+  "retained_latest_source_files": 50
+}

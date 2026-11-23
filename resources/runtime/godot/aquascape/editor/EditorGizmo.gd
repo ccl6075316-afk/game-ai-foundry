@@ -16,6 +16,7 @@ var start_transform := Transform3D.IDENTITY
 var start_vector := Vector3.ZERO
 var length_world := 1.0
 var screen_factor := Vector2.ONE
+var move_pick_start := .2
 const COLORS=[Color("f47979"),Color("7be29b"),Color("74b6ff")]
 
 func _ready() -> void:mouse_filter=Control.MOUSE_FILTER_IGNORE
@@ -71,7 +72,8 @@ func pick(at: Vector2) -> int:
         else:
             var a := project(pivot);var b := project(pivot+direction(i)*length_world)
             if a.distance_to(b)<18:continue
-            var distance := at.distance_to(Geometry2D.get_closest_point_to_segment(at,a.lerp(b,.2),b))
+            var start_fraction:=move_pick_start if mode=="move" else .2
+            var distance := at.distance_to(Geometry2D.get_closest_point_to_segment(at,a.lerp(b,start_fraction),b))
             if distance<best:best=distance;found=i
     return found
 func handle(event: InputEvent) -> bool:

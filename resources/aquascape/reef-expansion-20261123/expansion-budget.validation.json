@@ -1,0 +1,820 @@
+{
+  "schema_version": 1,
+  "command": "aquascape.validate-scenery-budget",
+  "ok": true,
+  "status": "done",
+  "next_action": "human_review",
+  "inputs": {
+    "policy_sha256": "51de78ce3f61adb8465b71b8b98098a76538172e392f5b0c3ae585ed9f3c4698"
+  },
+  "outputs": [
+    {
+      "id": "reef_double_rift",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_double_rift.glb",
+      "ok": true,
+      "budget_type": "large_rock",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 928,
+      "vertices": 2784,
+      "bytes": 2228052,
+      "sha256": "b4a25af3bc2b815bb2d2bbe3a43fdef43845ec7feaeb6f3038090e05a9e2b046",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_mushroom_pedestal",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_mushroom_pedestal.glb",
+      "ok": true,
+      "budget_type": "rock",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 538,
+      "vertices": 1614,
+      "bytes": 1190000,
+      "sha256": "fd9dd43d64c17697582eac17b8edcdbf9de82a5062a4671cf748af575e25e804",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_erosion_eye",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_erosion_eye.glb",
+      "ok": true,
+      "budget_type": "rock",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 560,
+      "vertices": 1680,
+      "bytes": 1266364,
+      "sha256": "7a42f5794856cc7664bb5c3ff9bf8ee64ec48b83ae83e8e093a5370cfb92602f",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_encircling_ridge",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_encircling_ridge.glb",
+      "ok": true,
+      "budget_type": "large_rock",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 922,
+      "vertices": 2766,
+      "bytes": 2025144,
+      "sha256": "348c4c88d7699f7618beed05d0b75214f5de24fcbfaac24e2a90d80afced832f",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_eroded_overhang",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_eroded_overhang.glb",
+      "ok": true,
+      "budget_type": "large_rock",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 922,
+      "vertices": 2766,
+      "bytes": 2012388,
+      "sha256": "511345c12512e4a9e3fba2ee32769c11a836563cca693ddaa1b33355272cfbb5",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_isolated_hummock",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_isolated_hummock.glb",
+      "ok": true,
+      "budget_type": "rock",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 492,
+      "vertices": 1476,
+      "bytes": 1096680,
+      "sha256": "df50186202c9c7a1825f60a51bce725497c2f8c2353bc33fd1921290d05b83c3",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "river_gneiss_slab",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/river_gneiss_slab.glb",
+      "ok": true,
+      "budget_type": "rock",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 490,
+      "vertices": 1470,
+      "bytes": 1230908,
+      "sha256": "6b5c9f4c5d8fb23fd44a60d75999386138585acb6be863cdc5a639c4c10df45a",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "river_obsidian_fault",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/river_obsidian_fault.glb",
+      "ok": true,
+      "budget_type": "rock",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 470,
+      "vertices": 1410,
+      "bytes": 1005156,
+      "sha256": "9591990dc5d5275ac9d57931ebb6e63ffbee7743f04f1f5532f4ebe75086f298",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "river_imbricated_slate",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/river_imbricated_slate.glb",
+      "ok": true,
+      "budget_type": "rock",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 546,
+      "vertices": 1638,
+      "bytes": 1012916,
+      "sha256": "a553f7ff31b943abc9e1e8e25583accea45363c014e65093965e7c0aadf1b2d2",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "river_conglomerate_bank",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/river_conglomerate_bank.glb",
+      "ok": true,
+      "budget_type": "rock",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 556,
+      "vertices": 1668,
+      "bytes": 1303364,
+      "sha256": "9e6501387f3b7300773f7a596e1f33e62cc36180162fdaf26d30f065b6936f1b",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_staghorn_coral",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_staghorn_coral.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 816,
+      "vertices": 2448,
+      "bytes": 1787376,
+      "sha256": "b009400d5479306741433cd2f5ba3ea38c46d34c249fa3628b5f2515df497a74",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_tube_sponge",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_tube_sponge.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 920,
+      "vertices": 2760,
+      "bytes": 1914612,
+      "sha256": "4cfacdcf24dde37d657cdbcb918f3f46eed8b9cf636d9f57fa946c1b1a4aecd7",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_elkhorn_coral",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_elkhorn_coral.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 696,
+      "vertices": 2088,
+      "bytes": 1746252,
+      "sha256": "d480ea94c1f19a7d045a46bb321c5cf72161d7c66823baa45b904e8143c45dc8",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_brain_coral",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_brain_coral.glb",
+      "ok": true,
+      "budget_type": "rock",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 396,
+      "vertices": 1188,
+      "bytes": 1905360,
+      "sha256": "3d92cd8700741efdf2686de973880ad1e5e6795bbe17598be3bb912b0a6a28c4",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_table_coral",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_table_coral.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 814,
+      "vertices": 2442,
+      "bytes": 1685312,
+      "sha256": "acad6d104575fbd7b98a15c82f0c3992f00fa6b892dc580b18b08b4daa3b24c6",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_finger_coral",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_finger_coral.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 696,
+      "vertices": 2088,
+      "bytes": 2029140,
+      "sha256": "7fe4b25dcadd46e2085f00a47265551c670469fb257f7a19562ee50a770e47a1",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_knob_coral",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_knob_coral.glb",
+      "ok": true,
+      "budget_type": "rock",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 396,
+      "vertices": 1188,
+      "bytes": 1919720,
+      "sha256": "6715841937403a85e29f4b99c5e894a7f68f9123596eea159093a2eef5b71808",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_foliose_coral",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_foliose_coral.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 876,
+      "vertices": 2628,
+      "bytes": 2210380,
+      "sha256": "56d1877cdc946e796480e08abe1b130ae46d3753fc775c74b92de935269da49e",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_scroll_coral",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_scroll_coral.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 880,
+      "vertices": 2640,
+      "bytes": 2348448,
+      "sha256": "8ef474abebb4c2b2023cc62112ab73260915554ef645e2bce33655a4941890de",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_crust_coral",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_crust_coral.glb",
+      "ok": true,
+      "budget_type": "rock",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 394,
+      "vertices": 1182,
+      "bytes": 1806836,
+      "sha256": "470742f27b05328db6fd3b1cf256b3c5aa2866ce73aea76f4bd300f5bb783474",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_sea_fan",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_sea_fan.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 974,
+      "vertices": 2922,
+      "bytes": 1489732,
+      "sha256": "6c9410b0054d6254ce49282b05ff37e191e95b5b7e1e321e724bd3e2afcd089e",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_rope_octocoral",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_rope_octocoral.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 696,
+      "vertices": 2088,
+      "bytes": 1085504,
+      "sha256": "448338fb418d95d3fb66f10e592eb339bf5a744b1ceb28e33fc7f8368b8fdb68",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_leather_octocoral",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_leather_octocoral.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 696,
+      "vertices": 2088,
+      "bytes": 1713340,
+      "sha256": "55aa1101afb7540fa98f583a36f10ed96ccd0987c751b30150711fa742fcd79d",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "reef_barrel_sponge",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_barrel_sponge.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 814,
+      "vertices": 2442,
+      "bytes": 1386500,
+      "sha256": "1c8702e9f5e7b064107d377457f4c694902c34b6f439860503dcce8b057cb016",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "eelgrass_meadow",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/eelgrass_meadow.glb",
+      "ok": true,
+      "budget_type": "ribbon_plant",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 592,
+      "vertices": 1776,
+      "bytes": 134948,
+      "sha256": "3552742862403df05c783df8f8340621e757d5e4d6d7d14e99c15b014237e589",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "root_pinned_vertices": 594,
+      "root_motion_m": 0.0,
+      "loop_seam_m": 2.5452148310629e-08,
+      "max_tip_motion_m": 0.06839887009697988,
+      "current_samples": 41,
+      "failures": []
+    },
+    {
+      "id": "giant_kelp",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/giant_kelp.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 984,
+      "vertices": 2952,
+      "bytes": 210236,
+      "sha256": "b723885e0a487a418266a16dc28c8f1b33ac79d6c450db10c5abf87016a7f044",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "root_pinned_vertices": 432,
+      "root_motion_m": 0.0,
+      "loop_seam_m": 3.4451923300383474e-08,
+      "max_tip_motion_m": 0.17970242455034713,
+      "current_samples": 41,
+      "failures": []
+    },
+    {
+      "id": "wood_hollow_tunnel",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/wood_hollow_tunnel.glb",
+      "ok": true,
+      "budget_type": "wood",
+      "budget": {
+        "preferred": 800,
+        "hard_limit": 1200
+      },
+      "triangles": 880,
+      "vertices": 2640,
+      "bytes": 3314788,
+      "sha256": "d3d819890a44e039383e4519dbcebea33316a42c01d12171a127bd5a93e533d6",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "wood_overhang_perch",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/wood_overhang_perch.glb",
+      "ok": true,
+      "budget_type": "wood",
+      "budget": {
+        "preferred": 800,
+        "hard_limit": 1200
+      },
+      "triangles": 886,
+      "vertices": 2658,
+      "bytes": 2420248,
+      "sha256": "0629d2a04d9556eb5731361840675d18d9046370923d3814c09c02f01173123f",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "wood_low_root_weave",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/wood_low_root_weave.glb",
+      "ok": true,
+      "budget_type": "wood",
+      "budget": {
+        "preferred": 800,
+        "hard_limit": 1200
+      },
+      "triangles": 980,
+      "vertices": 2940,
+      "bytes": 2337672,
+      "sha256": "52e824bbd4db652620f8f15914d24dfc791bca8d6081e29714b1e85d9dbd70ea",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "halimeda_clump",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/halimeda_clump.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 940,
+      "vertices": 2820,
+      "bytes": 190604,
+      "sha256": "2723b45126185c4256710d5dc5e930fb9356a4ea8277489cdc2adb4b9e353718",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "root_pinned_vertices": 265,
+      "root_motion_m": 0.0,
+      "loop_seam_m": 2.0114042002699707e-09,
+      "max_tip_motion_m": 0.007446188518559751,
+      "current_samples": 41,
+      "failures": []
+    },
+    {
+      "id": "mangrove_pneumatophore_bank",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/mangrove_pneumatophore_bank.glb",
+      "ok": true,
+      "budget_type": "wood",
+      "budget": {
+        "preferred": 800,
+        "hard_limit": 1200
+      },
+      "triangles": 1188,
+      "vertices": 3564,
+      "bytes": 225176,
+      "sha256": "b1fdcd27129a3fdd643bd27741eaf1361e6035d73fbd06fdff67a629d6af2883",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "red_forkweed",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/red_forkweed.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 648,
+      "vertices": 1944,
+      "bytes": 140308,
+      "sha256": "b4756487444d33716a998c029ebaed9c7ef2d943f7f326166a8063aeb5ae203d",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "root_pinned_vertices": 210,
+      "root_motion_m": 0.0,
+      "loop_seam_m": 3.383089993627679e-09,
+      "max_tip_motion_m": 0.016632151649490907,
+      "current_samples": 41,
+      "failures": []
+    },
+    {
+      "id": "sea_lettuce_fold",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/sea_lettuce_fold.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 588,
+      "vertices": 1764,
+      "bytes": 130464,
+      "sha256": "bd60a58c239321702e250f838923c88f76c252e6bd045f3d3151b4916fb71f1c",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "root_pinned_vertices": 372,
+      "root_motion_m": 0.0,
+      "loop_seam_m": 4.288798523848463e-09,
+      "max_tip_motion_m": 0.024438507317095442,
+      "current_samples": 41,
+      "failures": []
+    },
+    {
+      "id": "sugar_kelp",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/sugar_kelp.glb",
+      "ok": true,
+      "budget_type": "ribbon_plant",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 540,
+      "vertices": 1620,
+      "bytes": 131544,
+      "sha256": "8257b897056bcd2ef145d6f41de92520d69e36516b9187523151dd26c7de195f",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "root_pinned_vertices": 420,
+      "root_motion_m": 0.0,
+      "loop_seam_m": 1.5744660970506833e-08,
+      "max_tip_motion_m": 0.08069559771996707,
+      "current_samples": 41,
+      "failures": []
+    },
+    {
+      "id": "turtle_grass_meadow",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/turtle_grass_meadow.glb",
+      "ok": true,
+      "budget_type": "ribbon_plant",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 596,
+      "vertices": 1788,
+      "bytes": 126868,
+      "sha256": "b0b530f620f6d94a8da84ec87ab8849445c10b7c21e49824519402b08e9304d7",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "root_pinned_vertices": 522,
+      "root_motion_m": 0.0,
+      "loop_seam_m": 9.128419639472546e-09,
+      "max_tip_motion_m": 0.04856787178571682,
+      "current_samples": 41,
+      "failures": []
+    },
+    {
+      "id": "wood_upturned_root_plate",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/wood_upturned_root_plate.glb",
+      "ok": true,
+      "budget_type": "wood",
+      "budget": {
+        "preferred": 800,
+        "hard_limit": 1200
+      },
+      "triangles": 1120,
+      "vertices": 3360,
+      "bytes": 2861332,
+      "sha256": "7977f6500baf1d1edb2b53402f225f427f370da4fcbc36a57b270a0426cfd42b",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "riverwort_moss_mat",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/riverwort_moss_mat.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 732,
+      "vertices": 2196,
+      "bytes": 1737336,
+      "sha256": "802e81801cdf62bf22270e651bb30a147b0d3248f633bbe4d2bfe8bbfea2d049",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "lake_quillwort_rosette",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/lake_quillwort_rosette.glb",
+      "ok": true,
+      "budget_type": "ribbon_plant",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 490,
+      "vertices": 1470,
+      "bytes": 116508,
+      "sha256": "b836437f25a50f0dca6651df7b45d5f943a31e0debae8a0b6290f65030c6e149",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "root_pinned_vertices": 654,
+      "root_motion_m": 0.0,
+      "loop_seam_m": 4.597467723334846e-09,
+      "max_tip_motion_m": 0.020943304929138696,
+      "current_samples": 41,
+      "failures": []
+    },
+    {
+      "id": "marsilea_runner_patch",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/marsilea_runner_patch.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 772,
+      "vertices": 2316,
+      "bytes": 161132,
+      "sha256": "d99e09e41c4f0ef0df88bbbc52c9278b52269e589f922903a3ad360160d2ffcc",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "water_lily_float_stems",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/water_lily_float_stems.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 986,
+      "vertices": 2958,
+      "bytes": 213712,
+      "sha256": "a9017af10d5ae3c9754b9a56f7cd76a47e2cbd93b25d848437feadb95aa76587",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "duckweed_root_patch",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/duckweed_root_patch.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 792,
+      "vertices": 2376,
+      "bytes": 163916,
+      "sha256": "5f922ccb79787896213bcbfd100c3db540908324dd5584f0f8ab0becdd416dd8",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "failures": []
+    },
+    {
+      "id": "laceleaf_rosette",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/laceleaf_rosette.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 952,
+      "vertices": 2856,
+      "bytes": 429616,
+      "sha256": "4c0993e01a2c55bef51729f854139b5111b59576a875d7e8c082859035908df8",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "root_pinned_vertices": 792,
+      "root_motion_m": 3.469446951953614e-18,
+      "loop_seam_m": 1.2553816239601769e-08,
+      "max_tip_motion_m": 0.052954973881268214,
+      "current_samples": 41,
+      "failures": []
+    },
+    {
+      "id": "bolbitis_fern_clump",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/bolbitis_fern_clump.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 974,
+      "vertices": 2922,
+      "bytes": 218288,
+      "sha256": "234631eebd36f0f5867c84c8854a65caa5c7ac4a504ff5784400fd609e6c46c7",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "root_pinned_vertices": 684,
+      "root_motion_m": 6.938893903907228e-18,
+      "loop_seam_m": 2.0511576644097444e-08,
+      "max_tip_motion_m": 0.03092332224437884,
+      "current_samples": 41,
+      "failures": []
+    },
+    {
+      "id": "hairgrass_meadow",
+      "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/hairgrass_meadow.glb",
+      "ok": true,
+      "budget_type": "ribbon_plant",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 588,
+      "vertices": 1764,
+      "bytes": 129852,
+      "sha256": "2d48dc4ffaee6a467e45a6de1008b456bbf7433af64840af1336b1efbf3616b7",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "root_pinned_vertices": 720,
+      "root_motion_m": 0.0,
+      "loop_seam_m": 7.92326134220959e-09,
+      "max_tip_motion_m": 0.019579240249524652,
+      "current_samples": 41,
+      "failures": []
+    }
+  ],
+  "failures": [],
+  "user_acceptance": "pending",
+  "limitations": [
+    "Discrete CPU poses and ray probes supplement actual multi-view native visual review."
+  ]
+}

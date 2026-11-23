@@ -1,0 +1,39 @@
+{
+  "id": "sugar_kelp",
+  "name_zh": "单叶糖海带",
+  "scientific_name": "Saccharina latissima",
+  "category": "plant",
+  "budget_type": "ribbon_plant",
+  "nominal_xyz_m": [
+    0.99,
+    0.78,
+    0.69
+  ],
+  "source_url": "https://seaweed.ie/descriptions/Saccharina_latissima.php",
+  "habitat": "北大西洋偏冷岩礁的硬底；与大西洋鳗草、石莼、角叉菜可用过渡布景，和暖水草床分区",
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/sugar_kelp.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/marine-d/sugar_kelp/sugar_kelp.blend",
+  "source_board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-sugar_kelp-20261123/output/sugar_kelp_six_views_raw.png",
+  "source_board_sha256": "bf60e78054f1f9bcc7c5b5c7fee571306cff29d46929c4b33b409a522b5297fd",
+  "validation": "resources/aquascape/reef-expansion-20261123/marine-d/sugar_kelp/asset.validation.json",
+  "model_sha256": "8257b897056bcd2ef145d6f41de92520d69e36516b9187523151dd26c7de195f",
+  "blender_sha256": "00cd8f12aab197f36b456577bf7c11ecd2f9c3ecf51493f4ca11eda21507ae9a",
+  "triangles": 540,
+  "placement_anchor": "bottom",
+  "visual_review": "native candidate viewed; user approval pending",
+  "user_acceptance": "pending",
+  "rooted_current": {
+    "anchor_min": [
+      -0.022199135273694992,
+      -9.999999747378752e-05,
+      -0.004337507300078869
+    ],
+    "anchor_size": [
+      0.03407319635152817,
+      0.05537443235516548,
+      0.016359440982341766
+    ],
+    "amplitude": 0.089
+  },
+  "native_views": "resources/aquascape/reef-expansion-20261123/marine-d/sugar_kelp/godot-views.jpg"
+}

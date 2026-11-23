@@ -1,0 +1,264 @@
+{
+  "id": "reef_tube_sponge",
+  "name": "筒状海绵群",
+  "species": null,
+  "geography": "Caribbean",
+  "category": "sponge",
+  "nominal_xyz_m": [
+    0.77,
+    0.68,
+    0.65
+  ],
+  "ecology_and_use": "参照加勒比暖水硬底筒状海绵轮廓的造型群，非定种。错高管口可打断台地平面。",
+  "primary_reference": "https://biogeodb.stri.si.edu/bioinformatics/dfm/metas/view/14533",
+  "approvals": {
+    "user_intent": "pending",
+    "user_native": "pending"
+  },
+  "source": {
+    "file": "six-material-views.png",
+    "sha256": "0e6c178329dd4dc74979bfb1cbc6ab5585008aff7e0ebf599b5e55f5281dd337",
+    "status": "draft_intent",
+    "views": {
+      "front": [
+        42,
+        41,
+        483,
+        478
+      ],
+      "right": [
+        588,
+        41,
+        978,
+        477
+      ],
+      "rear": [
+        1088,
+        56,
+        1496,
+        478
+      ],
+      "left": [
+        50,
+        540,
+        469,
+        964
+      ],
+      "top": [
+        587,
+        590,
+        988,
+        964
+      ],
+      "bottom": [
+        1097,
+        625,
+        1499,
+        964
+      ]
+    },
+    "review": "六格齐全，俯视四个独立开口，仰视明确闭底。立面有轻度俯角，口沿的方向、宽窄及根趾用作布局，不将生成立面当严格比例图。"
+  },
+  "shape_specification": "Ochre amber yellow tube sponge cluster with a tallest upright leaning crown tube just behind center, a medium rising tube on the left and two uneven shorter lateral tubes. Each oval opening has visible thick rounded fleshy walls and deep inner walls dark warm ochre. Continuous unbranched matte outer surfaces flecked with tiny subtle darker pores, common low joined basal pad, different lean directions.",
+  "shape_method": "tube_sponge",
+  "geometry": {
+    "source_field_components": 2,
+    "isolated_voxels_removed": 2,
+    "bounds_xyz_m": [
+      0.7682973146438599,
+      0.6795995831489563,
+      0.647608757019043
+    ],
+    "connected_components": 1,
+    "euler_characteristic": 2,
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "vertical_cavity_floor_probes": [
+      {
+        "normalized_xz": [
+          -0.15,
+          -0.047
+        ],
+        "first_surface_heights_m": [
+          0.098,
+          0.0977,
+          0.0974,
+          0.1001,
+          0.0998,
+          0.0995,
+          0.1009,
+          0.1007,
+          0.1006
+        ]
+      },
+      {
+        "normalized_xz": [
+          -0.31,
+          0.25
+        ],
+        "first_surface_heights_m": [
+          0.2116,
+          0.2723,
+          0.3415,
+          0.1969,
+          0.2677,
+          0.3405,
+          0.1927,
+          0.2742,
+          0.365
+        ]
+      },
+      {
+        "normalized_xz": [
+          0.25,
+          -0.08
+        ],
+        "first_surface_heights_m": [
+          0.0979,
+          0.0978,
+          0.0978,
+          0.0977,
+          0.0964,
+          0.0963,
+          0.0985,
+          0.0947,
+          0.0945
+        ]
+      },
+      {
+        "normalized_xz": [
+          0.2,
+          0.27
+        ],
+        "first_surface_heights_m": [
+          0.1043,
+          0.1042,
+          0.1041,
+          0.1041,
+          0.1041,
+          0.104,
+          0.1041,
+          0.104,
+          0.104
+        ]
+      }
+    ],
+    "signed_volume_m3": 0.05293184518814087,
+    "triangle_count": 920,
+    "budget_type": "broadleaf_plant",
+    "preferred_triangles": 700,
+    "hard_triangle_limit": 1000,
+    "ground_y_min": 0.0,
+    "contact_vertices": 11,
+    "projection": {
+      "front": {
+        "silhouette_iou": 0.6705399502477714,
+        "span_m": [
+          0.77,
+          0.68
+        ]
+      },
+      "right": {
+        "silhouette_iou": 0.6494251552961542,
+        "span_m": [
+          0.65,
+          0.68
+        ]
+      },
+      "rear": {
+        "silhouette_iou": 0.7379605062340041,
+        "span_m": [
+          0.77,
+          0.68
+        ]
+      },
+      "left": {
+        "silhouette_iou": 0.6414209653741939,
+        "span_m": [
+          0.65,
+          0.68
+        ]
+      },
+      "top": {
+        "silhouette_iou": 0.7433116234532743,
+        "span_m": [
+          0.77,
+          0.65
+        ]
+      },
+      "bottom": {
+        "silhouette_iou": 0.732919803484961,
+        "span_m": [
+          0.77,
+          0.65
+        ]
+      }
+    }
+  },
+  "material": {
+    "native_source_pixel_selection": true,
+    "filter": "nearest",
+    "atlas": 1536,
+    "macro_shadow_removed_for_cavities": true,
+    "primitive_count": 1,
+    "material_count": 1,
+    "source_fractions": {
+      "front": 0.1969,
+      "rear": 0.1857,
+      "left": 0.1644,
+      "right": 0.1806,
+      "top": 0.2148,
+      "bottom": 0.0576
+    }
+  },
+  "blend": {
+    "file": "reef_tube_sponge.blend",
+    "sha256": "8645c268c6525299a4b86ebfa84edee897dfa70db931796e1da02c37a1c4060f",
+    "cold_geometry_uv_texture_pass": true
+  },
+  "glb": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_tube_sponge.glb",
+    "sha256": "4cfacdcf24dde37d657cdbcb918f3f46eed8b9cf636d9f57fa946c1b1a4aecd7",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "reef_tube_sponge",
+        "triangles": 920,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "筒状海绵群",
+        "size": [
+          1536,
+          1536
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "current_status": "static_candidate_for_user_review",
+  "scope": "低面展缸艺术模块。结构与方向参考六面意向，非生物实测。相机近似会影响投影重叠。",
+  "native_review": {
+    "file": "godot-native-review.jpg",
+    "engine": "Godot 4.7.1 stable, macOS Compatibility",
+    "rendered_views": [
+      "angle",
+      "front",
+      "right",
+      "rear",
+      "left",
+      "top",
+      "bottom",
+      "oblique"
+    ],
+    "mode": "fresh-process direct GLB, gray and material under the same lights",
+    "verified_texture_filter": "nearest",
+    "observations": "可见四个不同高低、倾向的空腔；色层移除原画大尺度腔影，底座当前比原画更整齐。",
+    "user_acceptance": "pending"
+  }
+}

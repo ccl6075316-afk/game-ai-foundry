@@ -1,0 +1,134 @@
+{
+  "id": "reef_eroded_overhang",
+  "name_zh": "前伸风化岩檐",
+  "environment": "marine",
+  "geometry_budget": "large_rock",
+  "nominal_xyz_m": [
+    4.6,
+    2.45,
+    2.7
+  ],
+  "views": {
+    "front": {
+      "path": "front.png",
+      "source_png_sha256": "3b79eda65ebcd484883dadc7b247ecfa178bcd3136e8aebfa8f0ba366fa128f5",
+      "outline_sha256": "ea0e9e39281129ac43381818238a5a5a921d0134b5941399fe2c353798da84c5",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_eroded_overhang-r2-20261123/output/reef_eroded_overhang_six_views_raw.png",
+      "input_sha256": "abe146cdbe084ff6269b6d62bb98853d641c1c107cc61e0ea8087d33a2e3902d",
+      "panel_crop_px": [
+        2,
+        104,
+        510,
+        433
+      ],
+      "pixel_size": [
+        493,
+        228
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "right": {
+      "path": "right.png",
+      "source_png_sha256": "977673a2c70f92f42c453075aec69939631ab4d8d2801ec822fbdab81396ef9a",
+      "outline_sha256": "8b61a3ef0a6a0db8493b621d7aafc428af94bb750a99f6ee96e916a3c74e1ac9",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_eroded_overhang-r2-20261123/output/reef_eroded_overhang_six_views_raw.png",
+      "input_sha256": "abe146cdbe084ff6269b6d62bb98853d641c1c107cc61e0ea8087d33a2e3902d",
+      "panel_crop_px": [
+        572,
+        104,
+        983,
+        432
+      ],
+      "pixel_size": [
+        380,
+        228
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "rear": {
+      "path": "rear.png",
+      "source_png_sha256": "52a16eacc287e0b330324c919628c5affca07df0fa0e0add550ffbeab0fa8ba1",
+      "outline_sha256": "88dd1672682cceae87800cbe7a804b3d7cd989b7c832b3f2885e58340c5b2c30",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_eroded_overhang-r2-20261123/output/reef_eroded_overhang_six_views_raw.png",
+      "input_sha256": "abe146cdbe084ff6269b6d62bb98853d641c1c107cc61e0ea8087d33a2e3902d",
+      "panel_crop_px": [
+        1027,
+        101,
+        1531,
+        432
+      ],
+      "pixel_size": [
+        483,
+        222
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "left": {
+      "path": "left.png",
+      "source_png_sha256": "ffd70771ee7e408651136c7ad2ff5bb6571a3e6185791339633a40063d70e321",
+      "outline_sha256": "fdcdd92e707df2651c803c26c9e91f6da072bc40fd4bd669307b9549c76e2495",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_eroded_overhang-r2-20261123/output/reef_eroded_overhang_six_views_raw.png",
+      "input_sha256": "abe146cdbe084ff6269b6d62bb98853d641c1c107cc61e0ea8087d33a2e3902d",
+      "panel_crop_px": [
+        53,
+        604,
+        469,
+        932
+      ],
+      "pixel_size": [
+        359,
+        244
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "top": {
+      "path": "top.png",
+      "source_png_sha256": "7e1871c32da4137661d39c97c198763a34697a8168a0fa43f80231aa5dc0a6a9",
+      "outline_sha256": "b55633aa8a6bae8c5e93d7bf8476fa41edee721b37b2041763a5ce835d43925b",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_eroded_overhang-r2-20261123/output/reef_eroded_overhang_six_views_raw.png",
+      "input_sha256": "abe146cdbe084ff6269b6d62bb98853d641c1c107cc61e0ea8087d33a2e3902d",
+      "panel_crop_px": [
+        517,
+        604,
+        1017,
+        939
+      ],
+      "pixel_size": [
+        488,
+        254
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "bottom": {
+      "path": "bottom.png",
+      "source_png_sha256": "78043458bdbff00396f72ce56c14ecd9efc214b3cdbef16bb5f8f2cc66dc5914",
+      "outline_sha256": "9b055a2416456747e77eb20a84ba608e73cd3f6c1d825e191c183717a3951e51",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_eroded_overhang-r2-20261123/output/reef_eroded_overhang_six_views_raw.png",
+      "input_sha256": "abe146cdbe084ff6269b6d62bb98853d641c1c107cc61e0ea8087d33a2e3902d",
+      "panel_crop_px": [
+        1033,
+        606,
+        1533,
+        940
+      ],
+      "pixel_size": [
+        488,
+        251
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    }
+  },
+  "original_front": {
+    "path": "resources/aquascape/reef-expansion-20261123/sources/aquascape-reef-rift-20261123/output/reef_eroded_overhang_front_raw.png",
+    "sha256": "952cc6466ee5467fcd41ebf1b28a721d00f77b724ff6d4b00a7e2150af249923"
+  },
+  "source_style": "Foundry OpenAI image generation based on the documented style, original concept sheet and crops retained",
+  "review": "二版去掉正面和左侧的不实白洞，前后宽檐与侧面的厚后跟一致。俯仰都宽于纵深，悬檐下缘为独立供体。模型检查真悬空、后侧承托及独立浅蚀。",
+  "user_acceptance": "pending"
+}

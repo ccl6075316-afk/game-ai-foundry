@@ -1,0 +1,305 @@
+{
+  "used_inputs": [
+    {
+      "original_project_path": "projects/aquascape-algae-coating-20261123/output/algae_film_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-algae-coating-20261123/output/algae_film_raw.png",
+      "sha256": "7134d78970d615f062ea60414313bf6fcc73c7c403adf8b7f103d37c85b19a02",
+      "bytes": 775195
+    },
+    {
+      "original_project_path": "projects/aquascape-b-reef_double_rift-20261123/output/reef_double_rift_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_double_rift-20261123/output/reef_double_rift_six_views_raw.png",
+      "sha256": "30f57930a4a0513dbb92b65297194c619020532bb3fa3ddfcd5667a10b72a244",
+      "bytes": 1682260
+    },
+    {
+      "original_project_path": "projects/aquascape-b-reef_encircling_ridge-20261123/output/reef_encircling_ridge_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_encircling_ridge-20261123/output/reef_encircling_ridge_six_views_raw.png",
+      "sha256": "a0e56531c302557c0e67b6b53a7acebcdbf85dd9c5241a223c7b1ebfa84bd267",
+      "bytes": 1549038
+    },
+    {
+      "original_project_path": "projects/aquascape-b-reef_eroded_overhang-r2-20261123/output/reef_eroded_overhang_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_eroded_overhang-r2-20261123/output/reef_eroded_overhang_six_views_raw.png",
+      "sha256": "abe146cdbe084ff6269b6d62bb98853d641c1c107cc61e0ea8087d33a2e3902d",
+      "bytes": 1455758
+    },
+    {
+      "original_project_path": "projects/aquascape-b-reef_erosion_eye-20261123/output/reef_erosion_eye_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_erosion_eye-20261123/output/reef_erosion_eye_six_views_raw.png",
+      "sha256": "c09f2be69e99648bdbc1c859ee790b1e862d60fa5fc449d81e8e81b09b18cfdf",
+      "bytes": 1756178
+    },
+    {
+      "original_project_path": "projects/aquascape-b-reef_isolated_hummock-r2-20261123/output/reef_isolated_hummock_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_isolated_hummock-r2-20261123/output/reef_isolated_hummock_six_views_raw.png",
+      "sha256": "79c84b75b17c35be0ac865c7ff0eca0d037fc528c1b8e3b51b4f2e841e99716c",
+      "bytes": 1469538
+    },
+    {
+      "original_project_path": "projects/aquascape-b-reef_mushroom_pedestal-20261123/output/reef_mushroom_pedestal_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-reef_mushroom_pedestal-20261123/output/reef_mushroom_pedestal_six_views_raw.png",
+      "sha256": "c28f15818fc1cc5cf57f3191fedae46a0f3684673bbde14df540a69f215d068e",
+      "bytes": 1791336
+    },
+    {
+      "original_project_path": "projects/aquascape-b-river_conglomerate_bank-r2-20261123/output/river_conglomerate_bank_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_conglomerate_bank-r2-20261123/output/river_conglomerate_bank_six_views_raw.png",
+      "sha256": "961ab5bd363311ce9d8f9690ea68fb5564e221f35382696201abdc4f0e7e9d44",
+      "bytes": 1755412
+    },
+    {
+      "original_project_path": "projects/aquascape-b-river_gneiss_slab-r2-20261123/output/river_gneiss_slab_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_gneiss_slab-r2-20261123/output/river_gneiss_slab_six_views_raw.png",
+      "sha256": "100077ff34cbb2486ab304ffa6ecc5f96dc8d925d04a68f782d781a8bb7229b4",
+      "bytes": 1533686
+    },
+    {
+      "original_project_path": "projects/aquascape-b-river_imbricated_slate-r2-20261123/output/river_imbricated_slate_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_imbricated_slate-r2-20261123/output/river_imbricated_slate_six_views_raw.png",
+      "sha256": "09c2e9468e6b68260a42847bdb1de394c2eb0eb342bbaa80fc7e993fc901c256",
+      "bytes": 1297972
+    },
+    {
+      "original_project_path": "projects/aquascape-b-river_obsidian_fault-r2-20261123/output/river_obsidian_fault_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_obsidian_fault-r2-20261123/output/river_obsidian_fault_six_views_raw.png",
+      "sha256": "ee8e67e2d1143b3fccdc815b69e88952fa3a327e545193ea8759ec7b0a8d602e",
+      "bytes": 1478054
+    },
+    {
+      "original_project_path": "projects/aquascape-d-eelgrass_meadow-20261123/output/assets-manifest.json",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-eelgrass_meadow-20261123/output/assets-manifest.json",
+      "sha256": "c46358bd721a6ac6a4f57d06bd6f5a05e615eb332ee803cafc05e0a18097ade5",
+      "bytes": 5135
+    },
+    {
+      "original_project_path": "projects/aquascape-d-eelgrass_meadow-20261123/output/eelgrass_meadow_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-eelgrass_meadow-20261123/output/eelgrass_meadow_six_views_raw.png",
+      "sha256": "363aa704709afeebfcc6e6acfaf5953f2fd9b84e7b8c2bbcda46495a26cdbe20",
+      "bytes": 1364395
+    },
+    {
+      "original_project_path": "projects/aquascape-d-giant_kelp-20261123/output/assets-manifest.json",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-giant_kelp-20261123/output/assets-manifest.json",
+      "sha256": "0a3c1799f3c3f6b359cd38a1edb2a6d955d55286c84adb7e9b096edb96eaf71d",
+      "bytes": 5091
+    },
+    {
+      "original_project_path": "projects/aquascape-d-giant_kelp-20261123/output/giant_kelp_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-giant_kelp-20261123/output/giant_kelp_six_views_raw.png",
+      "sha256": "1de2b2285992a5282874afa764de2af501f70a0e1a80677da91c6cae5bacceee",
+      "bytes": 1607871
+    },
+    {
+      "original_project_path": "projects/aquascape-d-halimeda_clump-20261123/output/assets-manifest.json",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-halimeda_clump-20261123/output/assets-manifest.json",
+      "sha256": "9d03c340b21b0227e5fc06bcd9eeb8e6e2585126c6b5d525612940d41604d17f",
+      "bytes": 5096
+    },
+    {
+      "original_project_path": "projects/aquascape-d-halimeda_clump-20261123/output/halimeda_clump_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-halimeda_clump-20261123/output/halimeda_clump_six_views_raw.png",
+      "sha256": "faf74d84a169934e2b27d10e0cc8067589312500d87cb91dcf1cb765d57dab40",
+      "bytes": 2014404
+    },
+    {
+      "original_project_path": "projects/aquascape-d-mangrove_pneumatophore_bank-20261123/output/assets-manifest.json",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-mangrove_pneumatophore_bank-20261123/output/assets-manifest.json",
+      "sha256": "c65c16e71e2e5d952839989b5c339928e0cd00fc53d44f5a07f4508e46f70250",
+      "bytes": 5472
+    },
+    {
+      "original_project_path": "projects/aquascape-d-mangrove_pneumatophore_bank-20261123/output/mangrove_pneumatophore_bank_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-mangrove_pneumatophore_bank-20261123/output/mangrove_pneumatophore_bank_six_views_raw.png",
+      "sha256": "33afd07d7b846d2a6db79d23bdab1cb8bfecea524b66745b8eb31b8115c57292",
+      "bytes": 1839225
+    },
+    {
+      "original_project_path": "projects/aquascape-d-red_forkweed-20261123/output/assets-manifest.json",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-red_forkweed-20261123/output/assets-manifest.json",
+      "sha256": "5d11b2e0c5f5975f17357927de14d3ad26d9bf0c3abf54f10265f8bd5e5160be",
+      "bytes": 5020
+    },
+    {
+      "original_project_path": "projects/aquascape-d-red_forkweed-20261123/output/red_forkweed_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-red_forkweed-20261123/output/red_forkweed_six_views_raw.png",
+      "sha256": "480128ba6d5e36ae85dcdb53c4136b9316011cd2468e7792a4e182fb954d210a",
+      "bytes": 1838562
+    },
+    {
+      "original_project_path": "projects/aquascape-d-sea_lettuce_fold-20261123/output/assets-manifest.json",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-sea_lettuce_fold-20261123/output/assets-manifest.json",
+      "sha256": "5d6a946dd62b74c65efd30d5225d429207a034890f6989be52bf955bcf078dea",
+      "bytes": 5152
+    },
+    {
+      "original_project_path": "projects/aquascape-d-sea_lettuce_fold-20261123/output/sea_lettuce_fold_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-sea_lettuce_fold-20261123/output/sea_lettuce_fold_six_views_raw.png",
+      "sha256": "36869e2cca31b3b9b0eb84b0e8f33f2587513578a3ab3b08c54fb0cabeddf0fa",
+      "bytes": 1864090
+    },
+    {
+      "original_project_path": "projects/aquascape-d-sugar_kelp-20261123/output/assets-manifest.json",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-sugar_kelp-20261123/output/assets-manifest.json",
+      "sha256": "3225acc9af738ed4e60eed0dd2c3ea6903eca2c9c1b8494eb1278bb66dc93952",
+      "bytes": 5056
+    },
+    {
+      "original_project_path": "projects/aquascape-d-sugar_kelp-20261123/output/sugar_kelp_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-sugar_kelp-20261123/output/sugar_kelp_six_views_raw.png",
+      "sha256": "bf60e78054f1f9bcc7c5b5c7fee571306cff29d46929c4b33b409a522b5297fd",
+      "bytes": 1663050
+    },
+    {
+      "original_project_path": "projects/aquascape-d-turtle_grass_meadow-20261123/output/assets-manifest.json",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-turtle_grass_meadow-20261123/output/assets-manifest.json",
+      "sha256": "d22f8e8da7cbe76ad89cd65232c2068fd833ae62a377a6780230924a614c3ed3",
+      "bytes": 5193
+    },
+    {
+      "original_project_path": "projects/aquascape-d-turtle_grass_meadow-20261123/output/turtle_grass_meadow_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-turtle_grass_meadow-20261123/output/turtle_grass_meadow_six_views_raw.png",
+      "sha256": "275316a01bdb912e9977a949b1d4ddbd5f3074e87d056ea408f723e9045ce968",
+      "bytes": 1944993
+    },
+    {
+      "original_project_path": "projects/aquascape-e-duckweed-root-patch/output/duckweed_root_patch_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-e-duckweed-root-patch/output/duckweed_root_patch_six_views_raw.png",
+      "sha256": "fa473764079c729084a58e9a42280f36c06cf1a5c81de9d51e0312c7f85e67cf",
+      "bytes": 1543100
+    },
+    {
+      "original_project_path": "projects/aquascape-e-hairgrass-meadow/output/hairgrass_meadow_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-e-hairgrass-meadow/output/hairgrass_meadow_six_views_raw.png",
+      "sha256": "ce7f8831fb615238cbf5b8a125c955899778c5669ff16049ff5cccc914974973",
+      "bytes": 1871294
+    },
+    {
+      "original_project_path": "projects/aquascape-e-lake-quillwort-rosette-r2/output/lake_quillwort_rosette_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-e-lake-quillwort-rosette-r2/output/lake_quillwort_rosette_six_views_raw.png",
+      "sha256": "74450ebe94964ebd14ed00dbfe9fe16f430b693636a59eff50933d8811bfa2dc",
+      "bytes": 1574341
+    },
+    {
+      "original_project_path": "projects/aquascape-e-marsilea-runner-patch/output/marsilea_runner_patch_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-e-marsilea-runner-patch/output/marsilea_runner_patch_six_views_raw.png",
+      "sha256": "0daf2d0318017d0960bf1fb0003a4d453b5abf5b08ccdec3b3f1f05fea11eba4",
+      "bytes": 1445813
+    },
+    {
+      "original_project_path": "projects/aquascape-e-water-lily-float-stems/output/water_lily_float_stems_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-e-water-lily-float-stems/output/water_lily_float_stems_six_views_raw.png",
+      "sha256": "b792bd14873998927e463f0ca2b3e53ad9ff2d293ff6ddac53a25cbbd2151b2f",
+      "bytes": 1747763
+    },
+    {
+      "original_project_path": "projects/aquascape-e-wood-hollow-tunnel/output/wood_hollow_tunnel_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-e-wood-hollow-tunnel/output/wood_hollow_tunnel_six_views_raw.png",
+      "sha256": "912d3f7d5a1d18163bbf50b5c350995272533ea6954e6e39a6f7d786d6a40eb9",
+      "bytes": 1629875
+    },
+    {
+      "original_project_path": "projects/aquascape-e-wood-low-root-weave/output/wood_low_root_weave_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-e-wood-low-root-weave/output/wood_low_root_weave_six_views_raw.png",
+      "sha256": "bd6ea4aeef72f3ac295bc42a55b0978fddc8788faf2b094327b6634d96bd5bd8",
+      "bytes": 1772191
+    },
+    {
+      "original_project_path": "projects/aquascape-e-wood-overhang-perch/output/wood_overhang_perch_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-e-wood-overhang-perch/output/wood_overhang_perch_six_views_raw.png",
+      "sha256": "4ba085477a6a5967db25c1b42913d0ebd0117d215e829f374765e29db8086a79",
+      "bytes": 1441802
+    },
+    {
+      "original_project_path": "projects/aquascape-e-wood-upturned-root-plate-r2/output/wood_upturned_root_plate_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-e-wood-upturned-root-plate-r2/output/wood_upturned_root_plate_six_views_raw.png",
+      "sha256": "fe1bf9e31d84ff87147488bf4da5dc9b6995430d777dff22a5675825d041b8d5",
+      "bytes": 2108362
+    },
+    {
+      "original_project_path": "projects/aquascape-reef-arch-six-material-20261123/output/reef_arch_six_material_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-reef-arch-six-material-20261123/output/reef_arch_six_material_raw.png",
+      "sha256": "54adecd12f949e91a9568dfd3016d620ab8ba1c290aa45fbc7786759a3edd0d7",
+      "bytes": 1638938
+    },
+    {
+      "original_project_path": "projects/aquascape-reef-arch-six-material-ends-20261123/output/reef_arch_material_ends_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-reef-arch-six-material-ends-20261123/output/reef_arch_material_ends_raw.png",
+      "sha256": "facc6d04894127db0974efbfcbcf7cc6e68bf28cfe01402475ec4a1463d7beb2",
+      "bytes": 1715658
+    },
+    {
+      "original_project_path": "projects/aquascape-reef-arch-six-material-plans-20261123/output/reef_arch_material_plans_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-reef-arch-six-material-plans-20261123/output/reef_arch_material_plans_raw.png",
+      "sha256": "6ac51587b67dbdbd43e277130c3307252a78bdcf66aaf56960fe7b20403e7216",
+      "bytes": 1223807
+    },
+    {
+      "original_project_path": "projects/aquascape-reef-rift-20261123/output/reef_double_rift_front_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-reef-rift-20261123/output/reef_double_rift_front_raw.png",
+      "sha256": "e6e54a5ca656dc8571e37a4fc932210add85c61f58469132b097d10aa7e899f7",
+      "bytes": 1778274
+    },
+    {
+      "original_project_path": "projects/aquascape-reef-rift-20261123/output/reef_eroded_overhang_front_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-reef-rift-20261123/output/reef_eroded_overhang_front_raw.png",
+      "sha256": "952cc6466ee5467fcd41ebf1b28a721d00f77b724ff6d4b00a7e2150af249923",
+      "bytes": 1622507
+    },
+    {
+      "original_project_path": "projects/aquascape-reef-rift-20261123/output/reef_mushroom_pedestal_front_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-reef-rift-20261123/output/reef_mushroom_pedestal_front_raw.png",
+      "sha256": "bf9a4dea551d668c592d63a4e9b7b9c6e12d7bdade789c6896c68ba1e3c696b2",
+      "bytes": 1830596
+    },
+    {
+      "original_project_path": "projects/aquascape-six-fix-reef_blind_grotto-20261123/output/reef_blind_grotto_corrected_pair_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-fix-reef_blind_grotto-20261123/output/reef_blind_grotto_corrected_pair_raw.png",
+      "sha256": "e3780f58fed0acf62cece4e73cc74b9cbb9b4d94ddaffea2aa2c0feff2cfcc53",
+      "bytes": 1638020
+    },
+    {
+      "original_project_path": "projects/aquascape-six-fix-reef_rubble_apron-20261123/output/reef_rubble_apron_corrected_pair_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-fix-reef_rubble_apron-20261123/output/reef_rubble_apron_corrected_pair_raw.png",
+      "sha256": "52f66e9a3fe2ec5239522629296675d49944ed5c05ef4358876ceccf222b1070",
+      "bytes": 1118048
+    },
+    {
+      "original_project_path": "projects/aquascape-six-fix-reef_shelf_terrace-20261123/output/reef_shelf_terrace_corrected_pair_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-fix-reef_shelf_terrace-20261123/output/reef_shelf_terrace_corrected_pair_raw.png",
+      "sha256": "41989b92aedb9dfcf2e165e39f209b7d582196540361646104371906f7a85676",
+      "bytes": 1205384
+    },
+    {
+      "original_project_path": "projects/aquascape-six-reef_backwall-20261123/output/reef_backwall_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_backwall-20261123/output/reef_backwall_six_views_raw.png",
+      "sha256": "4d40be7874b1ab0f1188cf62b8dccb2fea3885c03e3bdea161d01a7a69d998d5",
+      "bytes": 1649837
+    },
+    {
+      "original_project_path": "projects/aquascape-six-reef_blind_grotto-20261123/output/reef_blind_grotto_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_blind_grotto-20261123/output/reef_blind_grotto_six_views_raw.png",
+      "sha256": "9d70666c1469aecfaf6b589b84573d447f4c8200b7c78cdb73c8aa2137444f7a",
+      "bytes": 1757397
+    },
+    {
+      "original_project_path": "projects/aquascape-six-reef_pinnacle-20261123/output/reef_pinnacle_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_pinnacle-20261123/output/reef_pinnacle_six_views_raw.png",
+      "sha256": "df314875a1c6a69e42ad6bad61d88537225d719653ea0ee4e33378e4a3287a1e",
+      "bytes": 1524558
+    },
+    {
+      "original_project_path": "projects/aquascape-six-reef_rubble_apron-20261123/output/reef_rubble_apron_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_rubble_apron-20261123/output/reef_rubble_apron_six_views_raw.png",
+      "sha256": "f964d9b30dc6c55769e7a433db399d0b775ec69a023f82cedfc75e9c7197480d",
+      "bytes": 1256836
+    },
+    {
+      "original_project_path": "projects/aquascape-six-reef_shelf_terrace-20261123/output/reef_shelf_terrace_six_views_raw.png",
+      "retained": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_shelf_terrace-20261123/output/reef_shelf_terrace_six_views_raw.png",
+      "sha256": "7eb761cc8b6b13ff992a7c48967aae4c36f18b09f9ab88bcfd9ac5e954d0271b",
+      "bytes": 1603161
+    }
+  ],
+  "note": "Source folders contain exact current boards and selected workflow metadata. Generation IDs and deleted raw attempts are historical."
+}

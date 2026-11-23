@@ -103,7 +103,9 @@ func tick() -> void:
     if not is_instance_valid(host):return
     var building: bool=tank or (host.editing and host.tank_session.active_editor==null and not host.tank_session.inspecting)
     var drafting: bool=not tank and shells.session.mode!=""
-    if drafting and shells.session.mode=="interior":shells.session.tick_brush()
+    if drafting and shells.session.mode=="interior":
+        shells.session.tick_brush()
+        if shells.session.prop_editor.selected_prop>=0:shells.session.prop_editor.sync_gizmo()
     palette.visible=building and not drafting and (tank or host.panel.catalog_open)
     host.canvas.accepts_assets=palette.visible
     if tank:

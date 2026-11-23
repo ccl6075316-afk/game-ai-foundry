@@ -1,0 +1,39 @@
+{
+  "id": "red_forkweed",
+  "name_zh": "角叉菜叉枝丛",
+  "scientific_name": "Chondrus crispus",
+  "category": "plant",
+  "budget_type": "broadleaf_plant",
+  "nominal_xyz_m": [
+    0.25,
+    0.19,
+    0.23
+  ],
+  "source_url": "https://www.marlin.ac.uk/species/detail/1444",
+  "habitat": "温带北大西洋，较低潮间带至潮下硬底，与糖海带或绿藻做前景；不混入热带展缸",
+  "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/red_forkweed.glb",
+  "editable_source": "resources/aquascape/reef-expansion-20261123/marine-d/red_forkweed/red_forkweed.blend",
+  "source_board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-red_forkweed-20261123/output/red_forkweed_six_views_raw.png",
+  "source_board_sha256": "480128ba6d5e36ae85dcdb53c4136b9316011cd2468e7792a4e182fb954d210a",
+  "validation": "resources/aquascape/reef-expansion-20261123/marine-d/red_forkweed/asset.validation.json",
+  "model_sha256": "b4756487444d33716a998c029ebaed9c7ef2d943f7f326166a8063aeb5ae203d",
+  "blender_sha256": "93f9e06e72156181ff80618d123e4c477acfdd954e4119a9916b745319cb0da9",
+  "triangles": 648,
+  "placement_anchor": "bottom",
+  "visual_review": "native candidate viewed; user approval pending",
+  "user_acceptance": "pending",
+  "rooted_current": {
+    "anchor_min": [
+      -0.0004917571786791086,
+      -9.999999747378752e-05,
+      -0.0035634348168969154
+    ],
+    "anchor_size": [
+      0.00020000000949949026,
+      0.008656870573759079,
+      0.00020000006770715117
+    ],
+    "amplitude": 0.057
+  },
+  "native_views": "resources/aquascape/reef-expansion-20261123/marine-d/red_forkweed/godot-views.jpg"
+}

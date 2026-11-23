@@ -1,0 +1,373 @@
+{
+  "catalog_count": 100,
+  "engine": {
+    "build": "official",
+    "hash": "a13da4feb8d8aefc283c3763d33a2f170a18d541",
+    "hex": 263937,
+    "major": 4,
+    "minor": 7,
+    "patch": 1,
+    "status": "stable",
+    "string": "4.7.1-stable (official)",
+    "timestamp": 0
+  },
+  "failures": [],
+  "ok": true,
+  "rows": [
+    {
+      "all_surfaces": 1,
+      "bounds_size": [
+        0.689999997615814,
+        0.540000021457672,
+        0.399999976158142
+      ],
+      "expected_q_depth": 0.12,
+      "id": "eelgrass_meadow",
+      "logical_height_px": 1392,
+      "model": "res://assets/aquascape-expansion-v1/eelgrass_meadow.glb",
+      "native_max_mount_sway_weight": 0.0,
+      "native_max_tip_sway_weight": 1.0,
+      "native_mount_vertices": 108,
+      "official_shader_surfaces": 1,
+      "one_m_logical_px": 1788.72045898438,
+      "placed_root_y": 0.119999997317791,
+      "root_row_logical_px": 1120.45458984375,
+      "rooted": true,
+      "time_phase_changed_pixels": 153018,
+      "disabled_material_changed_pixels": 0,
+      "resume_changed_pixels": 231725,
+      "shader_pixel_repeat_after_resume": 172936,
+      "rendered_image_wh_px": [
+        2096,
+        1392
+      ],
+      "model_sha256": "3552742862403df05c783df8f8340621e757d5e4d6d7d14e99c15b014237e589"
+    },
+    {
+      "all_surfaces": 1,
+      "bounds_size": [
+        2.20000004768372,
+        3.65000009536743,
+        1.51999998092651
+      ],
+      "expected_q_depth": 0.12,
+      "id": "giant_kelp",
+      "logical_height_px": 1392,
+      "model": "res://assets/aquascape-expansion-v1/giant_kelp.glb",
+      "native_max_mount_sway_weight": 0.0,
+      "native_max_tip_sway_weight": 0.999574407283168,
+      "native_mount_vertices": 199,
+      "official_shader_surfaces": 1,
+      "one_m_logical_px": 264.632568359375,
+      "placed_root_y": 0.119999997317791,
+      "root_row_logical_px": 1120.45446777344,
+      "rooted": true,
+      "time_phase_changed_pixels": 64542,
+      "disabled_material_changed_pixels": 0,
+      "resume_changed_pixels": 206735,
+      "shader_pixel_repeat_after_resume": 112973,
+      "rendered_image_wh_px": [
+        2096,
+        1392
+      ],
+      "model_sha256": "b723885e0a487a418266a16dc28c8f1b33ac79d6c450db10c5abf87016a7f044"
+    },
+    {
+      "all_surfaces": 1,
+      "bounds_size": [
+        0.330000013113022,
+        0.239999979734421,
+        0.259999990463257
+      ],
+      "expected_q_depth": 0.12,
+      "id": "halimeda_clump",
+      "logical_height_px": 1392,
+      "model": "res://assets/aquascape-expansion-v1/halimeda_clump.glb",
+      "native_max_mount_sway_weight": 0.0,
+      "native_max_tip_sway_weight": 1.0,
+      "native_mount_vertices": 90,
+      "official_shader_surfaces": 1,
+      "one_m_logical_px": 4024.62121582031,
+      "placed_root_y": 0.119999997317791,
+      "root_row_logical_px": 1120.45446777344,
+      "rooted": true,
+      "time_phase_changed_pixels": 48470,
+      "disabled_material_changed_pixels": 0,
+      "resume_changed_pixels": 282484,
+      "shader_pixel_repeat_after_resume": 125474,
+      "rendered_image_wh_px": [
+        2096,
+        1392
+      ],
+      "model_sha256": "2723b45126185c4256710d5dc5e930fb9356a4ea8277489cdc2adb4b9e353718"
+    },
+    {
+      "all_surfaces": 1,
+      "bounds_size": [
+        0.25,
+        0.189999997615814,
+        0.230000004172325
+      ],
+      "expected_q_depth": 0.12,
+      "id": "red_forkweed",
+      "logical_height_px": 1392,
+      "model": "res://assets/aquascape-expansion-v1/red_forkweed.glb",
+      "native_max_mount_sway_weight": 0.0,
+      "native_max_tip_sway_weight": 0.987416559042332,
+      "native_mount_vertices": 42,
+      "official_shader_surfaces": 1,
+      "one_m_logical_px": 5083.73217773438,
+      "placed_root_y": 0.119999997317791,
+      "root_row_logical_px": 1120.45458984375,
+      "rooted": true,
+      "time_phase_changed_pixels": 194100,
+      "disabled_material_changed_pixels": 0,
+      "resume_changed_pixels": 283854,
+      "shader_pixel_repeat_after_resume": 276836,
+      "rendered_image_wh_px": [
+        2096,
+        1392
+      ],
+      "model_sha256": "b4756487444d33716a998c029ebaed9c7ef2d943f7f326166a8063aeb5ae203d"
+    },
+    {
+      "all_surfaces": 1,
+      "bounds_size": [
+        0.330000013113022,
+        0.21000000834465,
+        0.290000021457672
+      ],
+      "expected_q_depth": 0.12,
+      "id": "sea_lettuce_fold",
+      "logical_height_px": 1392,
+      "model": "res://assets/aquascape-expansion-v1/sea_lettuce_fold.glb",
+      "native_max_mount_sway_weight": 0.0,
+      "native_max_tip_sway_weight": 0.99511430441687,
+      "native_mount_vertices": 244,
+      "official_shader_surfaces": 1,
+      "one_m_logical_px": 4407.3173828125,
+      "placed_root_y": 0.119999997317791,
+      "root_row_logical_px": 1100.26831054688,
+      "rooted": true,
+      "time_phase_changed_pixels": 264115,
+      "disabled_material_changed_pixels": 0,
+      "resume_changed_pixels": 637997,
+      "shader_pixel_repeat_after_resume": 499233,
+      "rendered_image_wh_px": [
+        2096,
+        1392
+      ],
+      "model_sha256": "bd60a58c239321702e250f838923c88f76c252e6bd045f3d3151b4916fb71f1c"
+    },
+    {
+      "all_surfaces": 1,
+      "bounds_size": [
+        0.990000009536743,
+        0.779999911785126,
+        0.689999997615814
+      ],
+      "expected_q_depth": 0.12,
+      "id": "sugar_kelp",
+      "logical_height_px": 1392,
+      "model": "res://assets/aquascape-expansion-v1/sugar_kelp.glb",
+      "native_max_mount_sway_weight": 0.0,
+      "native_max_tip_sway_weight": 0.97276731287087,
+      "native_mount_vertices": 83,
+      "official_shader_surfaces": 1,
+      "one_m_logical_px": 1238.34503936768,
+      "placed_root_y": 0.119999997317791,
+      "root_row_logical_px": 1120.45446777344,
+      "rooted": true,
+      "time_phase_changed_pixels": 198681,
+      "disabled_material_changed_pixels": 0,
+      "resume_changed_pixels": 464041,
+      "shader_pixel_repeat_after_resume": 352237,
+      "rendered_image_wh_px": [
+        2096,
+        1392
+      ],
+      "model_sha256": "8257b897056bcd2ef145d6f41de92520d69e36516b9187523151dd26c7de195f"
+    },
+    {
+      "all_surfaces": 1,
+      "bounds_size": [
+        0.649999976158142,
+        0.28999999165535,
+        0.479999989271164
+      ],
+      "expected_q_depth": 0.12,
+      "id": "turtle_grass_meadow",
+      "logical_height_px": 1392,
+      "model": "res://assets/aquascape-expansion-v1/turtle_grass_meadow.glb",
+      "native_max_mount_sway_weight": 0.0,
+      "native_max_tip_sway_weight": 0.978304032238968,
+      "native_mount_vertices": 90,
+      "official_shader_surfaces": 1,
+      "one_m_logical_px": 2237.56146240234,
+      "placed_root_y": 0.119999997317791,
+      "root_row_logical_px": 961.946350097656,
+      "rooted": true,
+      "time_phase_changed_pixels": 120085,
+      "disabled_material_changed_pixels": 0,
+      "resume_changed_pixels": 273135,
+      "shader_pixel_repeat_after_resume": 182488,
+      "rendered_image_wh_px": [
+        2096,
+        1392
+      ],
+      "model_sha256": "b0b530f620f6d94a8da84ec87ab8849445c10b7c21e49824519402b08e9304d7"
+    },
+    {
+      "all_surfaces": 1,
+      "bounds_size": [
+        0.560000002384186,
+        0.430000007152557,
+        0.479999959468842
+      ],
+      "expected_q_depth": 0.12,
+      "id": "lake_quillwort_rosette",
+      "logical_height_px": 1392,
+      "model": "res://assets/aquascape-expansion-v1/lake_quillwort_rosette.glb",
+      "native_max_mount_sway_weight": 0.0,
+      "native_max_tip_sway_weight": 1.0,
+      "native_mount_vertices": 96,
+      "official_shader_surfaces": 1,
+      "one_m_logical_px": 2246.30017089844,
+      "placed_root_y": 0.119999997317791,
+      "root_row_logical_px": 1120.45458984375,
+      "rooted": true,
+      "time_phase_changed_pixels": 105860,
+      "disabled_material_changed_pixels": 0,
+      "resume_changed_pixels": 214489,
+      "shader_pixel_repeat_after_resume": 164820,
+      "rendered_image_wh_px": [
+        2096,
+        1392
+      ],
+      "model_sha256": "b836437f25a50f0dca6651df7b45d5f943a31e0debae8a0b6290f65030c6e149"
+    },
+    {
+      "all_surfaces": 1,
+      "bounds_size": [
+        0.779999971389771,
+        0.720000028610229,
+        0.629999995231628
+      ],
+      "expected_q_depth": 0.12,
+      "id": "laceleaf_rosette",
+      "logical_height_px": 1392,
+      "model": "res://assets/aquascape-expansion-v1/laceleaf_rosette.glb",
+      "native_max_mount_sway_weight": 0.0,
+      "native_max_tip_sway_weight": 0.998505461860097,
+      "native_mount_vertices": 99,
+      "official_shader_surfaces": 1,
+      "one_m_logical_px": 1341.54040527344,
+      "placed_root_y": 0.119999997317791,
+      "root_row_logical_px": 1120.45458984375,
+      "rooted": true,
+      "time_phase_changed_pixels": 51141,
+      "disabled_material_changed_pixels": 0,
+      "resume_changed_pixels": 132766,
+      "shader_pixel_repeat_after_resume": 105319,
+      "rendered_image_wh_px": [
+        2096,
+        1392
+      ],
+      "model_sha256": "4c0993e01a2c55bef51729f854139b5111b59576a875d7e8c082859035908df8"
+    },
+    {
+      "all_surfaces": 1,
+      "bounds_size": [
+        0.930000007152557,
+        0.569999992847443,
+        0.620000004768372
+      ],
+      "expected_q_depth": 0.12,
+      "id": "bolbitis_fern_clump",
+      "logical_height_px": 1392,
+      "model": "res://assets/aquascape-expansion-v1/bolbitis_fern_clump.glb",
+      "native_max_mount_sway_weight": 0.0,
+      "native_max_tip_sway_weight": 0.987794853987548,
+      "native_mount_vertices": 54,
+      "official_shader_surfaces": 1,
+      "one_m_logical_px": 1563.8869934082,
+      "placed_root_y": 0.119999997317791,
+      "root_row_logical_px": 1083.20776367188,
+      "rooted": true,
+      "time_phase_changed_pixels": 40687,
+      "disabled_material_changed_pixels": 0,
+      "resume_changed_pixels": 157521,
+      "shader_pixel_repeat_after_resume": 101030,
+      "rendered_image_wh_px": [
+        2096,
+        1392
+      ],
+      "model_sha256": "234631eebd36f0f5867c84c8854a65caa5c7ac4a504ff5784400fd609e6c46c7"
+    },
+    {
+      "all_surfaces": 1,
+      "bounds_size": [
+        0.779999971389771,
+        0.319999992847443,
+        0.490000009536743
+      ],
+      "expected_q_depth": 0.12,
+      "id": "hairgrass_meadow",
+      "logical_height_px": 1392,
+      "model": "res://assets/aquascape-expansion-v1/hairgrass_meadow.glb",
+      "native_max_mount_sway_weight": 0.0,
+      "native_max_tip_sway_weight": 0.998221952476515,
+      "native_mount_vertices": 72,
+      "official_shader_surfaces": 1,
+      "one_m_logical_px": 1864.63470458984,
+      "placed_root_y": 0.119999997317791,
+      "root_row_logical_px": 935.841552734375,
+      "rooted": true,
+      "time_phase_changed_pixels": 79449,
+      "disabled_material_changed_pixels": 0,
+      "resume_changed_pixels": 146397,
+      "shader_pixel_repeat_after_resume": 115088,
+      "rendered_image_wh_px": [
+        2096,
+        1392
+      ],
+      "model_sha256": "2d48dc4ffaee6a467e45a6de1008b456bbf7433af64840af1336b1efbf3616b7"
+    },
+    {
+      "all_surfaces": 1,
+      "bounds_size": [
+        2.70000004768372,
+        0.590437531471252,
+        1.06512677669525
+      ],
+      "expected_q_depth": 0.12,
+      "id": "reef_rubble_apron",
+      "logical_height_px": 1392,
+      "model": "res://assets/aquascape-reef-foundation-v1/reef_rubble_apron.glb",
+      "native_max_mount_sway_weight": 0.0,
+      "native_max_tip_sway_weight": 0.0,
+      "native_mount_vertices": 0,
+      "official_shader_surfaces": 0,
+      "one_m_logical_px": 538.672149658203,
+      "placed_root_y": 0.119999997317791,
+      "root_row_logical_px": 796.526123046875,
+      "rooted": false,
+      "time_phase_changed_pixels": 0,
+      "disabled_material_changed_pixels": 0,
+      "resume_changed_pixels": 0,
+      "shader_pixel_repeat_after_resume": 0,
+      "rendered_image_wh_px": [
+        2096,
+        1392
+      ],
+      "model_sha256": "ae23a3f375fcc359a0463c6a7c9edc53e53bb0d41c81da7f2af60c318e386d9a"
+    }
+  ],
+  "shader_path": "res://scripts/aquarium/tank_design/RootedCurrent.gdshader",
+  "visual_scope": "Actual Godot production catalogue and ShellContentsView. Centered test shell and isolated viewing camera, with no fish or player save.",
+  "shader_compiler_log_errors": [],
+  "contact_sheet": "resources/aquascape/reef-expansion-20261123/marine-d/game-rooted-current.jpg",
+  "shader_sha256": "a72d9daf164d2ea3264d86e70c2505f9aa2486b7dab73e3d2d7dcf7fa320512b",
+  "shader_include_sha256": "bc5e79f88ad6791fb4bb8a2b1398c0e65432efbca4c429d645e93acc0730c49a",
+  "user_acceptance": "pending"
+}

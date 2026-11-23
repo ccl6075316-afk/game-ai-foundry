@@ -9,11 +9,13 @@ NAMES=['AquariumHall3D.gd','AquariumHall3DReview.gd','HallTank3D.gd','HallTankEd
 NAMES += ['hall/'+name for name in ['HallLayoutRules.gd','HallLayoutStore.gd','HallEditHistory.gd','HallWalkController.gd','HallEditorPanel.gd','HallEditorController.gd','HallEditorInput.gd','HallTankSession.gd','HallLayoutDocument.gd','HallBuildCommands.gd','HallSceneProjection.gd','HallStoreys.gd']]
 
 NAMES += ['hall/HallInterfaceStyle.gd', 'hall/HallWallJoints.gd']
+NAMES += ['PlantSwayMotion.gdshaderinc']
 NAMES += ['tank_design/'+name for name in [
     'FinishedShell.gd', 'Footprint.gd', 'HallShellCatalog.gd', 'HallShellHandles.gd',
-    'HallShellInspector.gd', 'HallShellSession.gd', 'PlanCanvas.gd', 'ShellBedMesh.gd',
+    'HallShellInspector.gd', 'HallShellSession.gd', 'HallShellPropEditor.gd', 'PlanCanvas.gd', 'ShellBedMesh.gd',
     'ShellContentsView.gd', 'ArapaimaTankMotion.gd', 'ShellDesign.gd', 'ShellGlass.gdshader', 'ShellInterior.gd',
-    'ShellInteriorPanel.gd', 'ShellMesh.gd', 'TankPreview.gd', 'Workshop.gd']]
+    'ShellInteriorPanel.gd', 'ShellMesh.gd', 'TankPreview.gd', 'Workshop.gd',
+    'StoneAlgae.gd', 'StoneAlgae.gdshader', 'StoneAlgae.png', 'RootedCurrent.gd', 'RootedCurrent.gdshader']]
 
 NAMES += ['individual_swim/ArapaimaPose.gd', 'individual_swim/PectoralPose.gd', 'fish_school/FishSchoolMotionAdapter.gd']
 NAMES += ['visitors/'+name for name in ['HallVisitorCrowd.gd','HallVisitorNavigation.gd','VisitorMaterialV4.gdshader','GuestContactShadow.gdshader']]

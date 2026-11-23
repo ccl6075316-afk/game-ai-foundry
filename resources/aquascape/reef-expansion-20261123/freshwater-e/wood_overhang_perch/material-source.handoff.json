@@ -1,0 +1,111 @@
+{
+  "id": "wood_overhang_perch",
+  "board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-e-wood-overhang-perch/output/wood_overhang_perch_six_views_raw.png",
+  "board_sha256": "4ba085477a6a5967db25c1b42913d0ebd0117d215e829f374765e29db8086a79",
+  "views": {
+    "front": {
+      "path": "front.png",
+      "source_png_sha256": "f44c53c21c8f8eab9f0e0a7c77ad76bf2ea78f2815792be293023456347e10df",
+      "outline_sha256": "7d943d1e8afeb01284e1843718e4fbf690d19c8192a321c38b2a267569628288",
+      "source_rect": [
+        7,
+        104,
+        622,
+        414
+      ],
+      "stencil_bbox": [
+        8,
+        21,
+        607,
+        306
+      ]
+    },
+    "right": {
+      "path": "right.png",
+      "source_png_sha256": "eff5a6947ef9044dd44586f7e2f27dffaf7f3efd33b6c8e294daafd05912b5ad",
+      "outline_sha256": "1b60cd0c5343a92e345cee78befd25a2a17b60ef85fd9d06fbe31e09cdff1d1b",
+      "source_rect": [
+        622,
+        110,
+        913,
+        412
+      ],
+      "stencil_bbox": [
+        6,
+        23,
+        280,
+        300
+      ]
+    },
+    "rear": {
+      "path": "rear.png",
+      "source_png_sha256": "5c3f4a6a65452359e6e1bcaf2fb739eca3a690df5dce7f30e41416c65e960e0d",
+      "outline_sha256": "05dc72eeaac6bf714466f9966586f4db590c7ed634dfa7448816a7503e6f1e49",
+      "source_rect": [
+        914,
+        116,
+        1530,
+        416
+      ],
+      "stencil_bbox": [
+        8,
+        14,
+        606,
+        293
+      ]
+    },
+    "left": {
+      "path": "left.png",
+      "source_png_sha256": "c58415b52c17d0b36b9ae548ec1502c89ba5c08c31a109beb14baa60a4f6a021",
+      "outline_sha256": "f5a0a799617e6f79b948bd38d089d7d3f1555a12816d82f23ef1e0b8159e62da",
+      "source_rect": [
+        78,
+        614,
+        382,
+        929
+      ],
+      "stencil_bbox": [
+        20,
+        23,
+        287,
+        299
+      ]
+    },
+    "top": {
+      "path": "top.png",
+      "source_png_sha256": "b8cf055dc7568b8e45bf062dbc37ae846f64803e33fe1460941e643c2f278d1c",
+      "outline_sha256": "d0a7c46909441e9f2a2fb8efb818647f997b21597a4827af0dd4f35999727697",
+      "source_rect": [
+        490,
+        606,
+        1029,
+        930
+      ],
+      "stencil_bbox": [
+        13,
+        22,
+        529,
+        308
+      ]
+    },
+    "bottom": {
+      "path": "bottom.png",
+      "source_png_sha256": "5acd93c7fb2abed5449cb1cbb87a116044a90e1b77ca6606b0b89f7d177b55d5",
+      "outline_sha256": "e766953447aba8380d34176c87cb7dec70c63986bcd74d6194b5e0d06597b0c4",
+      "source_rect": [
+        1051,
+        630,
+        1531,
+        917
+      ],
+      "stencil_bbox": [
+        13,
+        24,
+        469,
+        269
+      ]
+    }
+  },
+  "art_review": "Six views inspected. Some elevations show part of the oblique natural cut near a broken edge.",
+  "user_acceptance": "pending"
+}

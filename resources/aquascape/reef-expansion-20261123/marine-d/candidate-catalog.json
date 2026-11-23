@@ -1,0 +1,304 @@
+{
+  "assets": [
+    {
+      "id": "eelgrass_meadow",
+      "name_zh": "鳗草疏草床",
+      "scientific_name": "Zostera marina",
+      "category": "plant",
+      "budget_type": "ribbon_plant",
+      "nominal_xyz_m": [
+        0.69,
+        0.54,
+        0.4
+      ],
+      "source_url": "https://marine.ucsc.edu/target/zostera/",
+      "habitat": "温带浅滩或港湾的砂泥底，横走根茎在沙床内，浅水及弱流背景",
+      "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/eelgrass_meadow.glb",
+      "editable_source": "resources/aquascape/reef-expansion-20261123/marine-d/eelgrass_meadow/eelgrass_meadow.blend",
+      "source_board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-eelgrass_meadow-20261123/output/eelgrass_meadow_six_views_raw.png",
+      "source_board_sha256": "363aa704709afeebfcc6e6acfaf5953f2fd9b84e7b8c2bbcda46495a26cdbe20",
+      "validation": "resources/aquascape/reef-expansion-20261123/marine-d/eelgrass_meadow/asset.validation.json",
+      "model_sha256": "3552742862403df05c783df8f8340621e757d5e4d6d7d14e99c15b014237e589",
+      "blender_sha256": "83f90bcae6e8ff5d2973f767aecc6a919297b0be602ec7cdbd93f1e697b467c7",
+      "triangles": 592,
+      "placement_anchor": "bottom",
+      "visual_review": "native candidate viewed; user approval pending",
+      "user_acceptance": "pending",
+      "rooted_current": {
+        "anchor_min": [
+          -0.2409612089395523,
+          -9.999999747378752e-05,
+          -0.05724969878792763
+        ],
+        "anchor_size": [
+          0.45710253715515137,
+          0.04415963590145111,
+          0.12352641671895981
+        ],
+        "amplitude": 0.095
+      },
+      "native_views": "resources/aquascape/reef-expansion-20261123/marine-d/eelgrass_meadow/godot-views.jpg"
+    },
+    {
+      "id": "giant_kelp",
+      "name_zh": "巨藻林丛",
+      "scientific_name": "Macrocystis pyrifera",
+      "category": "plant",
+      "budget_type": "broadleaf_plant",
+      "nominal_xyz_m": [
+        2.2,
+        3.65,
+        1.52
+      ],
+      "source_url": "https://www.montereybayaquarium.org/animals-the-ocean/animals-a-to-z/giant-kelp",
+      "habitat": "温带冷水岩礁，固着在硬底，游戏中仅表现未到水面的短段林丛",
+      "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/giant_kelp.glb",
+      "editable_source": "resources/aquascape/reef-expansion-20261123/marine-d/giant_kelp/giant_kelp.blend",
+      "source_board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-giant_kelp-20261123/output/giant_kelp_six_views_raw.png",
+      "source_board_sha256": "1de2b2285992a5282874afa764de2af501f70a0e1a80677da91c6cae5bacceee",
+      "validation": "resources/aquascape/reef-expansion-20261123/marine-d/giant_kelp/asset.validation.json",
+      "model_sha256": "b723885e0a487a418266a16dc28c8f1b33ac79d6c450db10c5abf87016a7f044",
+      "blender_sha256": "752802ec800258c041a5514fef2c105c07c3657f524c80c7926cad6e62535047",
+      "triangles": 984,
+      "placement_anchor": "bottom",
+      "visual_review": "native candidate viewed; user approval pending",
+      "user_acceptance": "pending",
+      "rooted_current": {
+        "anchor_min": [
+          -0.421195924282074,
+          -9.999999747378752e-05,
+          0.027596071362495422
+        ],
+        "anchor_size": [
+          0.0001999867963604629,
+          0.1556483805179596,
+          0.00019999983487650752
+        ],
+        "amplitude": 0.047
+      },
+      "native_views": "resources/aquascape/reef-expansion-20261123/marine-d/giant_kelp/godot-views.jpg"
+    },
+    {
+      "id": "halimeda_clump",
+      "name_zh": "仙掌藻节片丛",
+      "scientific_name": "Halimeda opuntia",
+      "category": "plant",
+      "budget_type": "broadleaf_plant",
+      "nominal_xyz_m": [
+        0.33,
+        0.24,
+        0.26
+      ],
+      "source_url": "https://invasions.si.edu/nemesis/species_summary/6925",
+      "habitat": "暖水浅礁裂隙和砂地；纤维固着器；钙化节片明显，较僵硬",
+      "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/halimeda_clump.glb",
+      "editable_source": "resources/aquascape/reef-expansion-20261123/marine-d/halimeda_clump/halimeda_clump.blend",
+      "source_board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-halimeda_clump-20261123/output/halimeda_clump_six_views_raw.png",
+      "source_board_sha256": "faf74d84a169934e2b27d10e0cc8067589312500d87cb91dcf1cb765d57dab40",
+      "validation": "resources/aquascape/reef-expansion-20261123/marine-d/halimeda_clump/asset.validation.json",
+      "model_sha256": "2723b45126185c4256710d5dc5e930fb9356a4ea8277489cdc2adb4b9e353718",
+      "blender_sha256": "97218af14204193114444b4cd5f05a90088f5eb453d658809174388bda000481",
+      "triangles": 940,
+      "placement_anchor": "bottom",
+      "visual_review": "native candidate viewed; user approval pending",
+      "user_acceptance": "pending",
+      "rooted_current": {
+        "anchor_min": [
+          -0.02131713554263115,
+          -9.999999747378752e-05,
+          -0.0016242357669398189
+        ],
+        "anchor_size": [
+          0.00019999983487650752,
+          0.015778673812747,
+          0.00019999995129182935
+        ],
+        "amplitude": 0.024
+      },
+      "native_views": "resources/aquascape/reef-expansion-20261123/marine-d/halimeda_clump/godot-views.jpg"
+    },
+    {
+      "id": "mangrove_pneumatophore_bank",
+      "name_zh": "黑红树笋根泥岸",
+      "scientific_name": "Avicennia germinans",
+      "category": "wood",
+      "budget_type": "wood",
+      "nominal_xyz_m": [
+        1.8,
+        0.48,
+        1.15
+      ],
+      "source_url": "https://www.ncei.noaa.gov/data/oceans/coris/library/NOAA/CRCP/other/other_crcp_publications/Watershed_USVI/steer_exisiting_studies_wetlandconservationplansttandstj.pdf",
+      "habitat": "加勒比河口潮间带，潮退可见；不用于长期全浸没的礁景，既有红树支根木为高拱，此模块是低泥脊笋根",
+      "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/mangrove_pneumatophore_bank.glb",
+      "editable_source": "resources/aquascape/reef-expansion-20261123/marine-d/mangrove_pneumatophore_bank/mangrove_pneumatophore_bank.blend",
+      "source_board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-mangrove_pneumatophore_bank-20261123/output/mangrove_pneumatophore_bank_six_views_raw.png",
+      "source_board_sha256": "33afd07d7b846d2a6db79d23bdab1cb8bfecea524b66745b8eb31b8115c57292",
+      "validation": "resources/aquascape/reef-expansion-20261123/marine-d/mangrove_pneumatophore_bank/asset.validation.json",
+      "model_sha256": "b1fdcd27129a3fdd643bd27741eaf1361e6035d73fbd06fdff67a629d6af2883",
+      "blender_sha256": "c34805e1f1b2e168eb34209b8be71890b01cb2f0cdd64f25a7975c571978c5e2",
+      "triangles": 1188,
+      "placement_anchor": "bottom",
+      "visual_review": "native candidate viewed; user approval pending",
+      "user_acceptance": "pending",
+      "native_views": "resources/aquascape/reef-expansion-20261123/marine-d/mangrove_pneumatophore_bank/godot-views.jpg"
+    },
+    {
+      "id": "red_forkweed",
+      "name_zh": "角叉菜叉枝丛",
+      "scientific_name": "Chondrus crispus",
+      "category": "plant",
+      "budget_type": "broadleaf_plant",
+      "nominal_xyz_m": [
+        0.25,
+        0.19,
+        0.23
+      ],
+      "source_url": "https://www.marlin.ac.uk/species/detail/1444",
+      "habitat": "温带北大西洋，较低潮间带至潮下硬底，与糖海带或绿藻做前景；不混入热带展缸",
+      "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/red_forkweed.glb",
+      "editable_source": "resources/aquascape/reef-expansion-20261123/marine-d/red_forkweed/red_forkweed.blend",
+      "source_board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-red_forkweed-20261123/output/red_forkweed_six_views_raw.png",
+      "source_board_sha256": "480128ba6d5e36ae85dcdb53c4136b9316011cd2468e7792a4e182fb954d210a",
+      "validation": "resources/aquascape/reef-expansion-20261123/marine-d/red_forkweed/asset.validation.json",
+      "model_sha256": "b4756487444d33716a998c029ebaed9c7ef2d943f7f326166a8063aeb5ae203d",
+      "blender_sha256": "93f9e06e72156181ff80618d123e4c477acfdd954e4119a9916b745319cb0da9",
+      "triangles": 648,
+      "placement_anchor": "bottom",
+      "visual_review": "native candidate viewed; user approval pending",
+      "user_acceptance": "pending",
+      "rooted_current": {
+        "anchor_min": [
+          -0.0004917571786791086,
+          -9.999999747378752e-05,
+          -0.0035634348168969154
+        ],
+        "anchor_size": [
+          0.00020000000949949026,
+          0.008656870573759079,
+          0.00020000006770715117
+        ],
+        "amplitude": 0.057
+      },
+      "native_views": "resources/aquascape/reef-expansion-20261123/marine-d/red_forkweed/godot-views.jpg"
+    },
+    {
+      "id": "sea_lettuce_fold",
+      "name_zh": "石莼褶片丛",
+      "scientific_name": "Ulva lactuca",
+      "category": "plant",
+      "budget_type": "broadleaf_plant",
+      "nominal_xyz_m": [
+        0.33,
+        0.21,
+        0.29
+      ],
+      "source_url": "https://www.marlin.ac.uk/species/detail/1467",
+      "habitat": "温带浅水岩面，小圆盘固着器，潮间带或浅潮下；无真根",
+      "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/sea_lettuce_fold.glb",
+      "editable_source": "resources/aquascape/reef-expansion-20261123/marine-d/sea_lettuce_fold/sea_lettuce_fold.blend",
+      "source_board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-sea_lettuce_fold-20261123/output/sea_lettuce_fold_six_views_raw.png",
+      "source_board_sha256": "36869e2cca31b3b9b0eb84b0e8f33f2587513578a3ab3b08c54fb0cabeddf0fa",
+      "validation": "resources/aquascape/reef-expansion-20261123/marine-d/sea_lettuce_fold/asset.validation.json",
+      "model_sha256": "bd60a58c239321702e250f838923c88f76c252e6bd045f3d3151b4916fb71f1c",
+      "blender_sha256": "4fce7becbb803867fef2599abb076a08673146e5c1937fd7d957d574832b0e22",
+      "triangles": 588,
+      "placement_anchor": "bottom",
+      "visual_review": "native candidate viewed; user approval pending",
+      "user_acceptance": "pending",
+      "rooted_current": {
+        "anchor_min": [
+          -0.004470054060220718,
+          -9.999999747378752e-05,
+          0.013323291204869747
+        ],
+        "anchor_size": [
+          0.00019999983487650752,
+          0.003893085988238454,
+          0.00019999983487650752
+        ],
+        "amplitude": 0.085
+      },
+      "native_views": "resources/aquascape/reef-expansion-20261123/marine-d/sea_lettuce_fold/godot-views.jpg"
+    },
+    {
+      "id": "sugar_kelp",
+      "name_zh": "单叶糖海带",
+      "scientific_name": "Saccharina latissima",
+      "category": "plant",
+      "budget_type": "ribbon_plant",
+      "nominal_xyz_m": [
+        0.99,
+        0.78,
+        0.69
+      ],
+      "source_url": "https://seaweed.ie/descriptions/Saccharina_latissima.php",
+      "habitat": "北大西洋偏冷岩礁的硬底；与大西洋鳗草、石莼、角叉菜可用过渡布景，和暖水草床分区",
+      "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/sugar_kelp.glb",
+      "editable_source": "resources/aquascape/reef-expansion-20261123/marine-d/sugar_kelp/sugar_kelp.blend",
+      "source_board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-sugar_kelp-20261123/output/sugar_kelp_six_views_raw.png",
+      "source_board_sha256": "bf60e78054f1f9bcc7c5b5c7fee571306cff29d46929c4b33b409a522b5297fd",
+      "validation": "resources/aquascape/reef-expansion-20261123/marine-d/sugar_kelp/asset.validation.json",
+      "model_sha256": "8257b897056bcd2ef145d6f41de92520d69e36516b9187523151dd26c7de195f",
+      "blender_sha256": "00cd8f12aab197f36b456577bf7c11ecd2f9c3ecf51493f4ca11eda21507ae9a",
+      "triangles": 540,
+      "placement_anchor": "bottom",
+      "visual_review": "native candidate viewed; user approval pending",
+      "user_acceptance": "pending",
+      "rooted_current": {
+        "anchor_min": [
+          -0.022199135273694992,
+          -9.999999747378752e-05,
+          -0.004337507300078869
+        ],
+        "anchor_size": [
+          0.03407319635152817,
+          0.05537443235516548,
+          0.016359440982341766
+        ],
+        "amplitude": 0.089
+      },
+      "native_views": "resources/aquascape/reef-expansion-20261123/marine-d/sugar_kelp/godot-views.jpg"
+    },
+    {
+      "id": "turtle_grass_meadow",
+      "name_zh": "龟草矮草床",
+      "scientific_name": "Thalassia testudinum",
+      "category": "plant",
+      "budget_type": "ribbon_plant",
+      "nominal_xyz_m": [
+        0.65,
+        0.29,
+        0.48
+      ],
+      "source_url": "https://www.floridamuseum.ufl.edu/southflorida/habitats/seagrasses/species/",
+      "habitat": "暖水加勒比或佛罗里达沙地、砂砾底；真根与根茎埋入底床",
+      "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/turtle_grass_meadow.glb",
+      "editable_source": "resources/aquascape/reef-expansion-20261123/marine-d/turtle_grass_meadow/turtle_grass_meadow.blend",
+      "source_board": "resources/aquascape/reef-expansion-20261123/sources/aquascape-d-turtle_grass_meadow-20261123/output/turtle_grass_meadow_six_views_raw.png",
+      "source_board_sha256": "275316a01bdb912e9977a949b1d4ddbd5f3074e87d056ea408f723e9045ce968",
+      "validation": "resources/aquascape/reef-expansion-20261123/marine-d/turtle_grass_meadow/asset.validation.json",
+      "model_sha256": "b0b530f620f6d94a8da84ec87ab8849445c10b7c21e49824519402b08e9304d7",
+      "blender_sha256": "ac55abd8420b750ae273e7574e14955a314194065dba343f06426c2e45f53fab",
+      "triangles": 596,
+      "placement_anchor": "bottom",
+      "visual_review": "native candidate viewed; user approval pending",
+      "user_acceptance": "pending",
+      "rooted_current": {
+        "anchor_min": [
+          -0.1701894849538803,
+          -9.999999747378752e-05,
+          -0.06982651352882385
+        ],
+        "anchor_size": [
+          0.35751667618751526,
+          0.02553253248333931,
+          0.12669014930725098
+        ],
+        "amplitude": 0.11
+      },
+      "native_views": "resources/aquascape/reef-expansion-20261123/marine-d/turtle_grass_meadow/godot-views.jpg"
+    }
+  ],
+  "user_acceptance": "pending"
+}

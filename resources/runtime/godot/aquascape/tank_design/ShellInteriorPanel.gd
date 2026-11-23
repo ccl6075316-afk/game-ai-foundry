@@ -3,6 +3,10 @@ const Interior=preload("ShellInterior.gd")
 const Fish=preload("../FishDisplayCatalog.gd")
 var session: RefCounted
 var decor:=OptionButton.new()
+var prop_modes:=HBoxContainer.new()
+var prop_mode_buttons: Dictionary={}
+var prop_label:=Label.new()
+var algae_toggle:=CheckButton.new()
 var species:=OptionButton.new()
 var stock_button:=Button.new()
 var retrieve_button:=Button.new()
@@ -35,7 +39,30 @@ func setup(owner_session: RefCounted,bed_page: VBoxContainer) -> void:
     for id in Interior.assets():
         decor.add_item(Interior.assets()[id].name_zh)
         decor.set_item_metadata(decor.item_count-1,id)
-    add_modes(props,{"摆放":"place","移除":"remove_prop"},1)
+    add_modes(props,{"摆放":"place","变换":"move_prop","移除":"remove_prop"},1)
+    props.add_child(prop_label)
+    props.add_child(prop_modes)
+    algae_toggle.text="藻覆盖"
+    algae_toggle.hide()
+    algae_toggle.toggled.connect(func(enabled: bool):
+        if not session.prop_editor.set_selected_algae(enabled):
+            algae_toggle.set_pressed_no_signal(not enabled)
+    )
+    props.add_child(algae_toggle)
+    var group:=ButtonGroup.new()
+    for spec in [["move","移动 W"],["rotate","旋转 E"],["scale","缩放 R"]]:
+        var mode:String=spec[0]
+        var button:=Button.new()
+        button.text=spec[1]
+        button.toggle_mode=true
+        button.button_group=group
+        button.focus_mode=Control.FOCUS_NONE
+        button.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+        button.pressed.connect(func():set_prop_mode(mode))
+        prop_modes.add_child(button)
+        prop_mode_buttons[mode]=button
+    prop_label.hide()
+    prop_modes.hide()
     var fish:=get_child(2)
     fish.add_child(species)
     var actions:=HBoxContainer.new()
@@ -79,9 +106,29 @@ func add_modes(page: Control,options: Dictionary,index: int) -> void:
         line.add_child(button)
 
 func set_tool(id: String) -> void:
+    if tool=="move_prop" and id!=tool:session.prop_editor.clear_selection()
     tool=id
-    status.text={"raise":"按住左键在缸底堆沙。","lower":"按住左键挖低底床。","place":"选择布景，再点缸底摆放。","remove_prop":"点击要移除的布景。","fish_idle":"选择鱼种，点「放鱼」即可入缸。","remove_fish":"点击正在游动的鱼即可收回。","":"调节这只展缸的灯色和亮度。"}[id]
+    status.text={"raise":"按住左键在缸底堆沙。","lower":"按住左键挖低底床。","place":"选择布景，再点缸底摆放。","move_prop":"点击选中要调整的布景或水草。","remove_prop":"点击要移除的布景。","fish_idle":"选择鱼种，点「放鱼」即可入缸。","remove_fish":"点击正在游动的鱼即可收回。","":"调节这只展缸的灯色和亮度。"}[id]
     if id=="fish_idle" and species.item_count==0:status.text="仓库里暂无可放入的鱼。"
+
+func select_prop(item: Dictionary) -> void:
+    prop_label.text=Interior.assets()[item.id].name_zh if not item.is_empty() else ""
+    prop_label.visible=not item.is_empty()
+    algae_toggle.visible=not item.is_empty() and Interior.supports_algae(item.id)
+    algae_toggle.set_pressed_no_signal(item.get("algae",false))
+    prop_modes.visible=prop_label.visible
+    if prop_label.visible:set_prop_mode(session.prop_editor.gizmo.mode)
+    else:status.text="点击选中要调整的布景或水草。"
+
+func set_prop_mode(mode: String) -> void:
+    session.prop_editor.set_mode(mode)
+    for key in prop_mode_buttons:
+        prop_mode_buttons[key].set_pressed_no_signal(key==mode)
+    status.text={
+        "move":"拖动轴箭头沿指定方向移动，也可直接拖物件贴着底床移动。",
+        "rotate":"拖动圆环绕对应轴旋转。",
+        "scale":"拖动轴端方块按轴缩放，拖动中心方块等比缩放。"
+    }[mode]
 
 func sync(bed: Dictionary, entering: bool) -> void:
     brightness.set_value_no_signal(bed.get("brightness",1.0))

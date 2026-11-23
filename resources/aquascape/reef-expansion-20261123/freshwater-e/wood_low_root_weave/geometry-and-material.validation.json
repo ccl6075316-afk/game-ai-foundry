@@ -1,0 +1,32 @@
+{
+  "id": "wood_low_root_weave",
+  "ok": true,
+  "triangles": 980,
+  "connected_components": 1,
+  "euler": -2,
+  "vertex_bounds_xyz_m": [
+    2.4193546772003174,
+    0.5690475702285767,
+    1.4686557054519653
+  ],
+  "model_sha256": "52e824bbd4db652620f8f15914d24dfc791bca8d6081e29714b1e85d9dbd70ea",
+  "open_edges": 0,
+  "nonmanifold": 0,
+  "signed_volume_m3": 0.17262761294841766,
+  "material_count": 1,
+  "atlas_size": [
+    2048,
+    2048
+  ],
+  "source_texel_shares": {
+    "front": 0.1343,
+    "right": 0.0567,
+    "rear": 0.1448,
+    "left": 0.1055,
+    "top": 0.2788,
+    "bottom": 0.28
+  },
+  "bore_views": [],
+  "gray_sha256": "9319d493067f39bc896d3f100f9422eb7e8c4bd8900a63db878457f36a65f7fb",
+  "source_blender_sha256": "0e156211d230d1cb8e70736fc6de14de7a38b58df3e778940761b591ee8007f0"
+}

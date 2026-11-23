@@ -1,0 +1,194 @@
+{
+  "id": "reef_brain_coral",
+  "name": "半球脑纹硬珊瑚",
+  "species": null,
+  "geography": "Caribbean",
+  "category": "scleractinian",
+  "nominal_xyz_m": [
+    0.85,
+    0.52,
+    0.77
+  ],
+  "ecology_and_use": "参考加勒比暖水硬底的圆丘脑纹类，非定种。中景团块，用走向连续的沟脊辨认。",
+  "primary_reference": "https://flowergarden.noaa.gov/education/coralguide.html",
+  "approvals": {
+    "user_intent": "pending",
+    "user_native": "pending"
+  },
+  "source": {
+    "file": "six-material-views.png",
+    "sha256": "0d51470296f13e27b62fcf42ca8742341cbec1964d15355fd1a05333689177f7",
+    "status": "draft_intent",
+    "views": {
+      "front": [
+        14,
+        141,
+        504,
+        415
+      ],
+      "right": [
+        553,
+        141,
+        993,
+        415
+      ],
+      "rear": [
+        1034,
+        141,
+        1522,
+        415
+      ],
+      "left": [
+        30,
+        606,
+        499,
+        879
+      ],
+      "top": [
+        553,
+        523,
+        993,
+        952
+      ],
+      "bottom": [
+        1043,
+        605,
+        1513,
+        887
+      ]
+    },
+    "review": "六面外轮廓低圆拱。画面明确了连续蜿蜒的脊和没有脑纹的着陆底，几何保留较宽的高低波纹，细密沟脊用像素材质表达。"
+  },
+  "shape_specification": "Low full irregular hemispherical brain coral with warm sage ochre tissue and deep winding continuous maze ridges; narrow brown valleys. Broad rounded continuous body with a low, flattened uneven underside rooted flush to rock. The gray silhouette has softly scalloped ridges, not stone slab layers or perfect sphere.",
+  "shape_method": "brain",
+  "geometry": {
+    "source_field_components": 1,
+    "isolated_voxels_removed": 0,
+    "bounds_xyz_m": [
+      0.856039822101593,
+      0.5202198028564453,
+      0.7750577330589294
+    ],
+    "connected_components": 1,
+    "euler_characteristic": 2,
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "signed_volume_m3": 0.15723437070846558,
+    "triangle_count": 396,
+    "budget_type": "rock",
+    "preferred_triangles": 400,
+    "hard_triangle_limit": 600,
+    "ground_y_min": 0.0,
+    "contact_vertices": 17,
+    "projection": {
+      "front": {
+        "silhouette_iou": 0.9103159766964918,
+        "span_m": [
+          0.85,
+          0.52
+        ]
+      },
+      "right": {
+        "silhouette_iou": 0.903245930010263,
+        "span_m": [
+          0.77,
+          0.52
+        ]
+      },
+      "rear": {
+        "silhouette_iou": 0.9158828198414364,
+        "span_m": [
+          0.85,
+          0.52
+        ]
+      },
+      "left": {
+        "silhouette_iou": 0.9117058576927475,
+        "span_m": [
+          0.77,
+          0.52
+        ]
+      },
+      "top": {
+        "silhouette_iou": 0.8992926637578255,
+        "span_m": [
+          0.85,
+          0.77
+        ]
+      },
+      "bottom": {
+        "silhouette_iou": 0.8600693558598143,
+        "span_m": [
+          0.85,
+          0.77
+        ]
+      }
+    }
+  },
+  "material": {
+    "native_source_pixel_selection": true,
+    "filter": "nearest",
+    "atlas": 1536,
+    "macro_shadow_removed_for_cavities": false,
+    "primitive_count": 1,
+    "material_count": 1,
+    "source_fractions": {
+      "front": 0.1597,
+      "rear": 0.1601,
+      "left": 0.1285,
+      "right": 0.1537,
+      "top": 0.3052,
+      "bottom": 0.0927
+    }
+  },
+  "blend": {
+    "file": "reef_brain_coral.blend",
+    "sha256": "21e2dd55001b53a348443ebeaaa5a0236746becd2de0b6884c43409d956e2267",
+    "cold_geometry_uv_texture_pass": true
+  },
+  "glb": {
+    "path": "projects/fishing-2d/game/assets/aquascape-expansion-v1/reef_brain_coral.glb",
+    "sha256": "3d92cd8700741efdf2686de973880ad1e5e6795bbe17598be3bb912b0a6a28c4",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "reef_brain_coral",
+        "triangles": 396,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "半球脑纹硬珊瑚",
+        "size": [
+          1536,
+          1536
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "current_status": "static_candidate_for_user_review",
+  "scope": "低面展缸艺术模块。结构与方向参考六面意向，非生物实测。相机近似会影响投影重叠。",
+  "native_review": {
+    "file": "godot-native-review.jpg",
+    "engine": "Godot 4.7.1 stable, macOS Compatibility",
+    "rendered_views": [
+      "angle",
+      "front",
+      "right",
+      "rear",
+      "left",
+      "top",
+      "bottom",
+      "oblique"
+    ],
+    "mode": "fresh-process direct GLB, gray and material under the same lights",
+    "verified_texture_filter": "nearest",
+    "observations": "岩栖圆丘及表面脑纹明确。从俯视可见少量较利的基面沟边，细密蜿纹以颜色为主。",
+    "user_acceptance": "pending"
+  }
+}

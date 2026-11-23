@@ -1,0 +1,80 @@
+{
+  "id": "reef_shelf_terrace",
+  "name_zh": "双层礁台",
+  "geometry_budget": "rock",
+  "nominal_xyz_m": [
+    3.4,
+    1.7,
+    1.8
+  ],
+  "views": {
+    "front": {
+      "path": "front.png",
+      "source_png_sha256": "a9863b2b2d1ca7c6334d200f50dbd65e190ce7a72500cf4e22316b73b60de001",
+      "outline_sha256": "7bfdeb6c40b13e89052f2dff2800eef84098021820f59845061130ba548aa373",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_shelf_terrace-20261123/output/reef_shelf_terrace_six_views_raw.png",
+      "input_sha256": "7eb761cc8b6b13ff992a7c48967aae4c36f18b09f9ab88bcfd9ac5e954d0271b",
+      "pixel_size": [
+        538,
+        309
+      ]
+    },
+    "right": {
+      "path": "right.png",
+      "source_png_sha256": "67e0c63cdab34b097b117b026d3956da67e8fcca49508aefe53b3f387d3d9430",
+      "outline_sha256": "d065659d3c08c8f42a60889878ded5fa91c79b0201a6b96c96c3ca2b1a768435",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-fix-reef_shelf_terrace-20261123/output/reef_shelf_terrace_corrected_pair_raw.png",
+      "input_sha256": "41989b92aedb9dfcf2e165e39f209b7d582196540361646104371906f7a85676",
+      "pixel_size": [
+        650,
+        376
+      ]
+    },
+    "rear": {
+      "path": "rear.png",
+      "source_png_sha256": "a859774b5570bc92c2835a52a111b7a02d0f965a791aac8888f31cf8a2bf14c1",
+      "outline_sha256": "3283a4d8bfda34fd6075438a3f6e1f4cf4bd704e4abb4a3b071dd728c0ddcfa5",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_shelf_terrace-20261123/output/reef_shelf_terrace_six_views_raw.png",
+      "input_sha256": "7eb761cc8b6b13ff992a7c48967aae4c36f18b09f9ab88bcfd9ac5e954d0271b",
+      "pixel_size": [
+        492,
+        309
+      ]
+    },
+    "left": {
+      "path": "left.png",
+      "source_png_sha256": "9ec9d625fb8ef4ed8daad1ae1cc7815d940c6c23dd7d8175e9a760d882aae452",
+      "outline_sha256": "5c54d8f4052c41f492564266bdda648a0f1a1ad4e550ed7821e10b0380fa98c4",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-fix-reef_shelf_terrace-20261123/output/reef_shelf_terrace_corrected_pair_raw.png",
+      "input_sha256": "41989b92aedb9dfcf2e165e39f209b7d582196540361646104371906f7a85676",
+      "pixel_size": [
+        650,
+        380
+      ]
+    },
+    "top": {
+      "path": "top.png",
+      "source_png_sha256": "56d3bc1052c44d7320771178607e8eaee96731479ca90e5718384cd0cd449cb0",
+      "outline_sha256": "0d46d099b70d5b7adaf0a78704aa826c007a71bbf1cdf54dada81ae0509bbdfb",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_shelf_terrace-20261123/output/reef_shelf_terrace_six_views_raw.png",
+      "input_sha256": "7eb761cc8b6b13ff992a7c48967aae4c36f18b09f9ab88bcfd9ac5e954d0271b",
+      "pixel_size": [
+        463,
+        350
+      ]
+    },
+    "bottom": {
+      "path": "bottom.png",
+      "source_png_sha256": "92ad70438736233e0c2ba1830a70f60135af623d47bf878c59dfef7a74968953",
+      "outline_sha256": "0ebe4fb8e8ff32e458c96629dff1b4c16b5dffbc1a34d5c809441748bb834192",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_shelf_terrace-20261123/output/reef_shelf_terrace_six_views_raw.png",
+      "input_sha256": "7eb761cc8b6b13ff992a7c48967aae4c36f18b09f9ab88bcfd9ac5e954d0271b",
+      "pixel_size": [
+        469,
+        353
+      ]
+    }
+  },
+  "review": "Original end images had matching directions. Replaced LEFT and RIGHT with the mirrored-height corrected pair. Independent ledges on the painted front at two heights, with an irregular broad base seen from underneath; approximate orthographic end envelopes.",
+  "user_acceptance": "pending"
+}

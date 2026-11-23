@@ -1,0 +1,131 @@
+{
+  "id": "river_obsidian_fault",
+  "name_zh": "黑曜断层板",
+  "environment": "freshwater",
+  "geometry_budget": "rock",
+  "nominal_xyz_m": [
+    1.7,
+    1.0,
+    1.2
+  ],
+  "views": {
+    "front": {
+      "path": "front.png",
+      "source_png_sha256": "fbf043cf1afaa2c5125140d231c28690c4f86ccd3c6960e116b0a3021bc85079",
+      "outline_sha256": "842a79c65ac0ac4ef0d112dd595e5c5644f778e0d419d1081a962ad1eea8cb0d",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_obsidian_fault-r2-20261123/output/river_obsidian_fault_six_views_raw.png",
+      "input_sha256": "ee8e67e2d1143b3fccdc815b69e88952fa3a327e545193ea8759ec7b0a8d602e",
+      "panel_crop_px": [
+        5,
+        65,
+        507,
+        478
+      ],
+      "pixel_size": [
+        476,
+        351
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "right": {
+      "path": "right.png",
+      "source_png_sha256": "0950c90501b6fbd73bd038cef61ea72ebfd782bffe03b8b122240149f322a770",
+      "outline_sha256": "dfe0988549f1ddc14f21fa8a019acce10c72708c0b6d7127d7939a0f929fb33c",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_obsidian_fault-r2-20261123/output/river_obsidian_fault_six_views_raw.png",
+      "input_sha256": "ee8e67e2d1143b3fccdc815b69e88952fa3a327e545193ea8759ec7b0a8d602e",
+      "panel_crop_px": [
+        582,
+        65,
+        957,
+        478
+      ],
+      "pixel_size": [
+        344,
+        353
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "rear": {
+      "path": "rear.png",
+      "source_png_sha256": "e2483bdae36764a2ba84e8d6d45e944dc7763001704c0589fc53f8908f39f6bd",
+      "outline_sha256": "5317b38df3fb88653fb42730c0c3b71b49ee3e6b0627234bc9ee278d17fb2b3a",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_obsidian_fault-r2-20261123/output/river_obsidian_fault_six_views_raw.png",
+      "input_sha256": "ee8e67e2d1143b3fccdc815b69e88952fa3a327e545193ea8759ec7b0a8d602e",
+      "panel_crop_px": [
+        1029,
+        67,
+        1527,
+        480
+      ],
+      "pixel_size": [
+        477,
+        349
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "left": {
+      "path": "left.png",
+      "source_png_sha256": "7611b817670e7a86cf5afcf457a4c2e7c4ff2b28e43ecf8b4ff1ac7eb9af60df",
+      "outline_sha256": "5e62f824f4140ba274b73299da9fe69c10e5ba77b3e3a87b42fe3b8fc260b9b5",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_obsidian_fault-r2-20261123/output/river_obsidian_fault_six_views_raw.png",
+      "input_sha256": "ee8e67e2d1143b3fccdc815b69e88952fa3a327e545193ea8759ec7b0a8d602e",
+      "panel_crop_px": [
+        67,
+        584,
+        439,
+        978
+      ],
+      "pixel_size": [
+        341,
+        355
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "top": {
+      "path": "top.png",
+      "source_png_sha256": "3acda20e9e340b242b94351d9f5896d3a31065fe928737436cb0546bb8459530",
+      "outline_sha256": "ca00eb9b7fc18ba8846532ae3f0e4035a68bd7707bf786b4f0c84947ba135a31",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_obsidian_fault-r2-20261123/output/river_obsidian_fault_six_views_raw.png",
+      "input_sha256": "ee8e67e2d1143b3fccdc815b69e88952fa3a327e545193ea8759ec7b0a8d602e",
+      "panel_crop_px": [
+        521,
+        580,
+        1010,
+        966
+      ],
+      "pixel_size": [
+        471,
+        331
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    },
+    "bottom": {
+      "path": "bottom.png",
+      "source_png_sha256": "ab5ab558e84226b6c5d52eed3d56423ee3afe299a62c63672bac7ad49a2cb690",
+      "outline_sha256": "46e65faa6d6d65066fc66c5291743ab0f945525b6e48f69ada4f516858361b7a",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-b-river_obsidian_fault-r2-20261123/output/river_obsidian_fault_six_views_raw.png",
+      "input_sha256": "ee8e67e2d1143b3fccdc815b69e88952fa3a327e545193ea8759ec7b0a8d602e",
+      "panel_crop_px": [
+        1036,
+        570,
+        1533,
+        959
+      ],
+      "pixel_size": [
+        474,
+        344
+      ],
+      "edited_white_artifact": false,
+      "flipped_y_to_world_camera": false
+    }
+  },
+  "original_front": null,
+  "source_style": "Foundry OpenAI image generation based on the documented style, original concept sheet and crops retained",
+  "review": "新版中心高、两翼低，前右贝壳状剥口在右侧可见，其余保留暗色大断面和石脚。贝壳剥口单独做真实凹面。",
+  "user_acceptance": "pending"
+}

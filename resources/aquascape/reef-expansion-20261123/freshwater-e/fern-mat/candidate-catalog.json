@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "assets": [
+    {
+      "id": "riverwort_moss_mat",
+      "name": "溪床贴石藓片",
+      "label": "溪床贴石藓片",
+      "category": "plant",
+      "budget_type": "broadleaf_plant",
+      "nominal_xyz_m": [
+        0.48,
+        0.14,
+        0.32
+      ],
+      "triangles": 732,
+      "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/riverwort_moss_mat.glb",
+      "source_glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/riverwort_moss_mat.glb",
+      "editable_source": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/riverwort_moss_mat/riverwort_moss_mat.blend",
+      "source_intent": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/riverwort_moss_mat/six-material-views-r2.png",
+      "validation": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/riverwort_moss_mat/validation.json",
+      "source_url": "https://www.britishbryologicalsociety.org.uk/learning/species-finder/riccardia-chamedryfolia/",
+      "habitat": "淡水溪床硬附着的扁叶状枝体模块，参照溪生苔类，非定种。",
+      "user_acceptance": "pending",
+      "native_review": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/riverwort_moss_mat/godot-native-review.jpg"
+    },
+    {
+      "id": "laceleaf_rosette",
+      "name": "透孔莲座水草",
+      "label": "透孔莲座水草",
+      "category": "plant",
+      "budget_type": "broadleaf_plant",
+      "nominal_xyz_m": [
+        0.78,
+        0.72,
+        0.63
+      ],
+      "triangles": 952,
+      "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/laceleaf_rosette.glb",
+      "source_glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/laceleaf_rosette.glb",
+      "editable_source": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/laceleaf_rosette/laceleaf_rosette.blend",
+      "source_intent": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/laceleaf_rosette/six-material-views.png",
+      "validation": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/laceleaf_rosette/validation.json",
+      "scientific_name": "Aponogeton madagascariensis",
+      "source_url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:82957-1",
+      "habitat": "马达加斯加及科摩罗的沉水淡水莲座，叶柄由一个完整地下根冠生长。用于淡水中景。",
+      "rooted_current": {
+        "anchor_min": [
+          -0.021571619186367106,
+          0.1458616601725876,
+          -0.018315689350404236
+        ],
+        "anchor_size": [
+          0.05077628114403479,
+          0.006806126069081847,
+          0.03866088381948909
+        ],
+        "amplitude": 0.061
+      },
+      "user_acceptance": "pending",
+      "material_mode": "mask",
+      "native_review": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/laceleaf_rosette/godot-native-review.jpg"
+    },
+    {
+      "id": "bolbitis_fern_clump",
+      "name": "沉木羽叶蕨",
+      "label": "沉木羽叶蕨",
+      "category": "plant",
+      "budget_type": "broadleaf_plant",
+      "nominal_xyz_m": [
+        0.93,
+        0.57,
+        0.62
+      ],
+      "triangles": 974,
+      "model": "projects/fishing-2d/game/assets/aquascape-expansion-v1/bolbitis_fern_clump.glb",
+      "source_glb": "projects/fishing-2d/game/assets/aquascape-expansion-v1/bolbitis_fern_clump.glb",
+      "editable_source": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/bolbitis_fern_clump/bolbitis_fern_clump.blend",
+      "source_intent": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/bolbitis_fern_clump/six-material-views.png",
+      "validation": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/bolbitis_fern_clump/validation.json",
+      "scientific_name": "Bolbitis heudelotii",
+      "source_url": "https://biodiversityadvisor.sanbi.org/search/detail/0c4c5fdf-7c21-4d81-a085-1204c3680c62",
+      "habitat": "热带非洲溪流硬基附生蕨，沿水平根茎出叶，羽状复叶可供淡水溪景搭配。",
+      "rooted_current": {
+        "anchor_min": [
+          -0.21877506660977772,
+          0.11487099705042549,
+          -0.05087675230910617
+        ],
+        "anchor_size": [
+          0.40985730797299336,
+          0.013201488211768517,
+          0.06305997844251005
+        ],
+        "amplitude": 0.041
+      },
+      "user_acceptance": "pending",
+      "native_review": "resources/aquascape/reef-expansion-20261123/freshwater-e/fern-mat/candidates/bolbitis_fern_clump/godot-native-review.jpg"
+    }
+  ]
+}

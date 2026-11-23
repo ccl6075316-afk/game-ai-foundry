@@ -1,0 +1,579 @@
+{
+  "ok": true,
+  "stage": "gray_geometry_review",
+  "user_acceptance": "pending",
+  "source_views": {
+    "left": {
+      "path": "resources/aquascape/reef-expansion-20261123/arch-four-views/arch-left.png",
+      "sha256": "41174b08a9c57bb128ed84c6f304c5f30b6d7bbdf92a3ccda16d2e26b3002408"
+    },
+    "right": {
+      "path": "resources/aquascape/reef-expansion-20261123/arch-four-views/arch-right.png",
+      "sha256": "50fa68ac781f6c66a719cbfd4c19657a723a0c2a4175ff2054965900e64a2852"
+    },
+    "top": {
+      "path": "resources/aquascape/reef-expansion-20261123/arch-four-views/arch-top.png",
+      "sha256": "0c0aa224c800b6bfea89b3a458951dedd1c65599f1f4bd2204272ae93a2c4677"
+    },
+    "bottom": {
+      "path": "resources/aquascape/reef-expansion-20261123/arch-four-views/arch-bottom.png",
+      "sha256": "c05dfc0da2aaa889db66fe303534d1d0439cd83e748b102983f896bbbe1c41b4"
+    }
+  },
+  "gray_model": {
+    "path": "resources/aquascape/reef-expansion-20261123/arch-four-views/reef_through_arch_gray.glb",
+    "sha256": "ff077402bd43afc633a7e5688fd0a04e67284cac05a18abbc4db752f2dc9bf1c",
+    "ok": true,
+    "meshes": [
+      {
+        "name": "reef_through_arch_gray",
+        "triangles": 656,
+        "finite_and_nonzero_area": true
+      }
+    ],
+    "textures": [
+      {
+        "name": "Neutral shape review",
+        "size": [
+          4,
+          4
+        ],
+        "opaque": true
+      }
+    ],
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "failures": []
+  },
+  "triangles": 656,
+  "budget": {
+    "preferred": 700,
+    "hard_limit": 1000
+  },
+  "bounds_xyz_m": [
+    4.430000305175781,
+    2.740000009536743,
+    2.009999990463257
+  ],
+  "overlays": {
+    "left": {
+      "silhouette_iou": 0.9653477363757738,
+      "passed": true
+    },
+    "right": {
+      "silhouette_iou": 0.9653477363757738,
+      "passed": true
+    },
+    "top": {
+      "silhouette_iou": 0.9655361734280635,
+      "passed": true
+    },
+    "bottom": {
+      "silhouette_iou": 0.9655361734280635,
+      "passed": true
+    }
+  },
+  "aperture": {
+    "samples": [
+      {
+        "x": -0.58,
+        "y": 0.22,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": -0.29,
+        "y": 0.22,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.0,
+        "y": 0.22,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.32,
+        "y": 0.22,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.65,
+        "y": 0.22,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.77,
+        "y": 0.22,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": -0.58,
+        "y": 0.42,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": -0.29,
+        "y": 0.42,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.0,
+        "y": 0.42,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.32,
+        "y": 0.42,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.65,
+        "y": 0.42,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.77,
+        "y": 0.42,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": -0.58,
+        "y": 0.65,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": -0.29,
+        "y": 0.65,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.0,
+        "y": 0.65,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.32,
+        "y": 0.65,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.65,
+        "y": 0.65,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.77,
+        "y": 0.65,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": -0.58,
+        "y": 0.88,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": -0.29,
+        "y": 0.88,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.0,
+        "y": 0.88,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.32,
+        "y": 0.88,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.65,
+        "y": 0.88,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.77,
+        "y": 0.88,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": -0.58,
+        "y": 1.1,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": -0.29,
+        "y": 1.1,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.0,
+        "y": 1.1,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.32,
+        "y": 1.1,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.65,
+        "y": 1.1,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.77,
+        "y": 1.1,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": -0.58,
+        "y": 1.22,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": -0.29,
+        "y": 1.22,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.0,
+        "y": 1.22,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.32,
+        "y": 1.22,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.65,
+        "y": 1.22,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": 0.77,
+        "y": 1.22,
+        "from_front": true,
+        "clear": true
+      },
+      {
+        "x": -0.58,
+        "y": 0.22,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": -0.29,
+        "y": 0.22,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.0,
+        "y": 0.22,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.32,
+        "y": 0.22,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.65,
+        "y": 0.22,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.77,
+        "y": 0.22,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": -0.58,
+        "y": 0.42,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": -0.29,
+        "y": 0.42,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.0,
+        "y": 0.42,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.32,
+        "y": 0.42,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.65,
+        "y": 0.42,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.77,
+        "y": 0.42,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": -0.58,
+        "y": 0.65,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": -0.29,
+        "y": 0.65,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.0,
+        "y": 0.65,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.32,
+        "y": 0.65,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.65,
+        "y": 0.65,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.77,
+        "y": 0.65,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": -0.58,
+        "y": 0.88,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": -0.29,
+        "y": 0.88,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.0,
+        "y": 0.88,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.32,
+        "y": 0.88,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.65,
+        "y": 0.88,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.77,
+        "y": 0.88,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": -0.58,
+        "y": 1.1,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": -0.29,
+        "y": 1.1,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.0,
+        "y": 1.1,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.32,
+        "y": 1.1,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.65,
+        "y": 1.1,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.77,
+        "y": 1.1,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": -0.58,
+        "y": 1.22,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": -0.29,
+        "y": 1.22,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.0,
+        "y": 1.22,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.32,
+        "y": 1.22,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.65,
+        "y": 1.22,
+        "from_front": false,
+        "clear": true
+      },
+      {
+        "x": 0.77,
+        "y": 1.22,
+        "from_front": false,
+        "clear": true
+      }
+    ],
+    "opposite_sides_clear": true,
+    "closed_rock_outside_opening": true,
+    "outer_hits": {
+      "left_foot": [
+        1.2178282809904937,
+        2.6534283126791545
+      ],
+      "right_foot": [
+        1.3281742369760834,
+        2.871938437423349
+      ],
+      "roof": [
+        1.509418008950566,
+        2.714800025414697
+      ]
+    }
+  },
+  "ground": {
+    "left_contact_vertices": 15,
+    "right_contact_vertices": 15,
+    "vertices_under_ground": 0
+  },
+  "source_design": {
+    "path": "resources/aquascape/reef-expansion-20261123/arch-four-views/arch-design.json",
+    "sha256": "ef62d49813f5c5d68c683399b0c9bc830160d271a64dbf30c6b1f18ce1fe9368",
+    "bytes": 2533
+  },
+  "original_front": {
+    "path": "projects/aquascape-reef-foundation-style-r2-20261123/output/reef_through_arch_front_raw.png",
+    "sha256": "009c700c3795447c7841441829f277c53030e513d27345a1fa69033256c4b30e",
+    "bytes": 1544002
+  },
+  "editable_source": {
+    "path": "resources/aquascape/reef-expansion-20261123/arch-four-views/reef_through_arch_gray.blend",
+    "sha256": "b11cecffeff524488dc2c362f5375fd835bdfe1ffdf22e3d275e9a2853e57cd2",
+    "bytes": 104155,
+    "blender_cold_read_matches_polygon_points_uv_and_embedded_gray_texture": true
+  },
+  "native_review": {
+    "engine": "Godot 4.7.1 Compatibility on Apple M4",
+    "views": [
+      "left",
+      "right",
+      "top",
+      "bottom",
+      "front",
+      "rear",
+      "perspective"
+    ],
+    "geometric_comparison": "The side views retain the stepped shoulders and opened rock is visible only on the front and rear views. The underside shows two separate contact pads. The passage is plainly open in the oblique view.",
+    "outputs": [
+      {
+        "path": "resources/aquascape/reef-expansion-20261123/arch-four-views/arch-godot-six.jpg",
+        "sha256": "c4854b793d28e8d4aa028bdbb93acae156d6fa34b5d233ed57a3d8836e356c35",
+        "bytes": 62225
+      },
+      {
+        "path": "resources/aquascape/reef-expansion-20261123/arch-four-views/arch-godot-gray.jpg",
+        "sha256": "b6beb1752bd101c71e50a2a086ac23d26d9518e84c2795e762c53417ab236bc2",
+        "bytes": 59523
+      }
+    ]
+  },
+  "cleanup": {
+    "count": 18,
+    "bytes": 1281446,
+    "reason": "Redundant mesh exchange, automatic Blender backup and reproducible screenshot frames after keeping the Godot contact sheet and hero still."
+  }
+}

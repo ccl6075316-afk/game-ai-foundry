@@ -1,0 +1,80 @@
+{
+  "id": "reef_pinnacle",
+  "name_zh": "礁柱",
+  "geometry_budget": "rock",
+  "nominal_xyz_m": [
+    1.3,
+    3.25,
+    1.15
+  ],
+  "views": {
+    "front": {
+      "path": "front.png",
+      "source_png_sha256": "df87c854f72a3f58dcfa894cbfa014999a9863d65efab2142569e61014412563",
+      "outline_sha256": "10d0573ab8dc20f22a9dd2ed0ed97154f19f993329826caea79ac7c839f15636",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_pinnacle-20261123/output/reef_pinnacle_six_views_raw.png",
+      "input_sha256": "df314875a1c6a69e42ad6bad61d88537225d719653ea0ee4e33378e4a3287a1e",
+      "pixel_size": [
+        315,
+        445
+      ]
+    },
+    "right": {
+      "path": "right.png",
+      "source_png_sha256": "dd6c5592d823437a067fa40907a77052c8a7d1bfd98d2eca1676f11dffe2ed3e",
+      "outline_sha256": "8256e475ea94013df67d26403b69837f1e7338631ef838733eb783f6ef2ffbed",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_pinnacle-20261123/output/reef_pinnacle_six_views_raw.png",
+      "input_sha256": "df314875a1c6a69e42ad6bad61d88537225d719653ea0ee4e33378e4a3287a1e",
+      "pixel_size": [
+        277,
+        450
+      ]
+    },
+    "rear": {
+      "path": "rear.png",
+      "source_png_sha256": "997d4d22e7f85a8787a5a7ad425bd2e139fa3cb13b790a046ad5ffa34f3b405c",
+      "outline_sha256": "f5b2c1f439023c40a1804fd63c742137becb9034c40b67727bc9ff8d5d7e92a4",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_pinnacle-20261123/output/reef_pinnacle_six_views_raw.png",
+      "input_sha256": "df314875a1c6a69e42ad6bad61d88537225d719653ea0ee4e33378e4a3287a1e",
+      "pixel_size": [
+        318,
+        447
+      ]
+    },
+    "left": {
+      "path": "left.png",
+      "source_png_sha256": "491fea204128a49e9363d5191f60f7c31ddba917f9a3d16d919ec56e42f19060",
+      "outline_sha256": "cb47468bb186ac8bc10d1bf559d0cbd503fff2b8fe0f8f772731cbbc4324172f",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_pinnacle-20261123/output/reef_pinnacle_six_views_raw.png",
+      "input_sha256": "df314875a1c6a69e42ad6bad61d88537225d719653ea0ee4e33378e4a3287a1e",
+      "pixel_size": [
+        296,
+        449
+      ]
+    },
+    "top": {
+      "path": "top.png",
+      "source_png_sha256": "2d8f7e4b72be24cceeba1b16bbe13389b1f908093b533c8ddf7c47606d79ced2",
+      "outline_sha256": "f65dfbede99377be1c4e48b1833402bb40bd854106d342805c0e1ea7e3ae9f13",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_pinnacle-20261123/output/reef_pinnacle_six_views_raw.png",
+      "input_sha256": "df314875a1c6a69e42ad6bad61d88537225d719653ea0ee4e33378e4a3287a1e",
+      "pixel_size": [
+        419,
+        239
+      ]
+    },
+    "bottom": {
+      "path": "bottom.png",
+      "source_png_sha256": "dad741ce0bbeeca4cbc23ce365ade2a14eeec7ac5265d7389638e107eca07c68",
+      "outline_sha256": "3dd8cef90cddc8a8808eaed87afcc420beab3ee0fae5cdc2f09df069981c4e4c",
+      "input": "resources/aquascape/reef-expansion-20261123/sources/aquascape-six-reef_pinnacle-20261123/output/reef_pinnacle_six_views_raw.png",
+      "input_sha256": "df314875a1c6a69e42ad6bad61d88537225d719653ea0ee4e33378e4a3287a1e",
+      "pixel_size": [
+        416,
+        249
+      ]
+    }
+  },
+  "review": "Front and rear mirror the leaning taper. Left and right have solid different narrow, porous facets; matched basal flare. Top and underside agree on an uneven pad outline. Painted pores are interpreted as blind depressions.",
+  "user_acceptance": "pending"
+}

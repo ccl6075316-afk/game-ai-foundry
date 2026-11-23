@@ -1,0 +1,122 @@
+[
+  {
+    "id": "giant_kelp",
+    "name_zh": "巨藻林丛",
+    "scientific_name": "Macrocystis pyrifera",
+    "category": "plant",
+    "budget_type": "broadleaf_plant",
+    "nominal_xyz_m": [
+      2.2,
+      3.65,
+      1.52
+    ],
+    "source_url": "https://www.montereybayaquarium.org/animals-the-ocean/animals-a-to-z/giant-kelp",
+    "habitat": "温带冷水岩礁，固着在硬底，游戏中仅表现未到水面的短段林丛",
+    "brief": "One naturally grown juvenile giant kelp cluster, Monterey rocky coast. A shared compact branching holdfast anchored at ground level without a boulder, olive-brown flexible vertical stipes. See the airy gaps between the tall stalks. Lance-shaped corrugated ochre-olive blades on small rounded gas floats at their base; growth concentrated above mid-height but some blades below. An airy off-center upper crown widening toward one side. A marine brown macroalga with a clean natural kelp forest silhouette, not pinnate leaves and not a freshwater plant."
+  },
+  {
+    "id": "eelgrass_meadow",
+    "name_zh": "鳗草疏草床",
+    "scientific_name": "Zostera marina",
+    "category": "plant",
+    "budget_type": "ribbon_plant",
+    "nominal_xyz_m": [
+      0.69,
+      0.54,
+      0.4
+    ],
+    "source_url": "https://marine.ucsc.edu/target/zostera/",
+    "habitat": "温带浅滩或港湾的砂泥底，横走根茎在沙床内，浅水及弱流背景",
+    "brief": "One naturally grown small patch of eelgrass, Zostera marina. Long narrow flat ribbon blades with rounded ends, cooler olive to deep green, mostly rising and bending in separate loose groups with spaces between, individual shoots emerge along the creeping subterranean rhizome. Wide base, no dense singular oversized crown. Depict the fine subtle connect line of rhizome and short rootlets only in the lower view, no pot or chunk of sand; do not inflate plant into broad leaves. One coherent asymmetric elongated patch."
+  },
+  {
+    "id": "sugar_kelp",
+    "name_zh": "单叶糖海带",
+    "scientific_name": "Saccharina latissima",
+    "category": "plant",
+    "budget_type": "ribbon_plant",
+    "nominal_xyz_m": [
+      0.99,
+      0.78,
+      0.69
+    ],
+    "source_url": "https://seaweed.ie/descriptions/Saccharina_latissima.php",
+    "habitat": "北大西洋偏冷岩礁的硬底；与大西洋鳗草、石莼、角叉菜可用过渡布景，和暖水草床分区",
+    "brief": "One naturally grown patch of sugar kelp S. latissima, with dominant undivided elongated ruffled strap blades, broad toward the lower-middle blade and narrowing, heavy gentle curvature because the blade is long and has no floats. A subtle pitted dark olive-brown central belt and soft golden-brown wavy margins. Short flexible stipes and a compact clasping holdfast separate under the wide overhang. Slightly low sprawling but elevated stand. No floats, branching blades, pea-like beads, or leaves on a tall stipe."
+  },
+  {
+    "id": "sea_lettuce_fold",
+    "name_zh": "石莼褶片丛",
+    "scientific_name": "Ulva lactuca",
+    "category": "plant",
+    "budget_type": "broadleaf_plant",
+    "nominal_xyz_m": [
+      0.33,
+      0.21,
+      0.29
+    ],
+    "source_url": "https://www.marlin.ac.uk/species/detail/1467",
+    "habitat": "温带浅水岩面，小圆盘固着器，潮间带或浅潮下；无真根",
+    "brief": "One naturally grown compact sea lettuce clump, Ulva lettuce type. Broad membranous vivid yellow green blades, translucent-looking, with open broad folds, rounded ragged ruffles of real thickness perpendicular to view, no stems or veins. Early rocky shallow marine growth, see a small dark green disc holdfast at the base. Cupped broad creases, unbranched crumpled blades fanning to form broad shallow asymmetrical low blob with scalloped negative space. No coral, ball moss, grass, or bunch of rounded succulent leaves."
+  },
+  {
+    "id": "turtle_grass_meadow",
+    "name_zh": "龟草矮草床",
+    "scientific_name": "Thalassia testudinum",
+    "category": "plant",
+    "budget_type": "ribbon_plant",
+    "nominal_xyz_m": [
+      0.65,
+      0.29,
+      0.48
+    ],
+    "source_url": "https://www.floridamuseum.ufl.edu/southflorida/habitats/seagrasses/species/",
+    "habitat": "暖水加勒比或佛罗里达沙地、砂砾底；真根与根茎埋入底床",
+    "brief": "One naturally grown portion of a warm Caribbean turtle grass bed, Thalassia testudinum. Flat long blades but broad ribbons with rounded squared tips, a soft dense low canopy leaning horizontally in a wide current. Fresh bright yellowish green bands and restrained longitudinal vein texture. Multiple low shoots along the buried rhizome, arranged in a broad low cluster, with light passing between the fronds. A tiny visible cut of the rhizome and rootlets from direct underside only; no sand slab, stone, or debris."
+  },
+  {
+    "id": "halimeda_clump",
+    "name_zh": "仙掌藻节片丛",
+    "scientific_name": "Halimeda opuntia",
+    "category": "plant",
+    "budget_type": "broadleaf_plant",
+    "nominal_xyz_m": [
+      0.33,
+      0.24,
+      0.26
+    ],
+    "source_url": "https://invasions.si.edu/nemesis/species_summary/6925",
+    "habitat": "暖水浅礁裂隙和砂地；纤维固着器；钙化节片明显，较僵硬",
+    "brief": "One naturally grown low clump of prostrate sea cactus alga Halimeda opuntia, littoral warm reef. Broad kidney-shaped or three-lobed emerald-to-muted sage green calcified individual jointed segments, built into compact spreading three-dimensional chains that branch near nodes. Material subtly chalky with pale muted margins, still clean macroalga green. Well-defined articulations and jagged footprint with grounded small fibrous holdfast, no reef boulder, no coral polyps or cactus spines."
+  },
+  {
+    "id": "red_forkweed",
+    "name_zh": "角叉菜叉枝丛",
+    "scientific_name": "Chondrus crispus",
+    "category": "plant",
+    "budget_type": "broadleaf_plant",
+    "nominal_xyz_m": [
+      0.25,
+      0.19,
+      0.23
+    ],
+    "source_url": "https://www.marlin.ac.uk/species/detail/1444",
+    "habitat": "温带北大西洋，较低潮间带至潮下硬底，与糖海带或绿藻做前景；不混入热带展缸",
+    "brief": "One naturally grown Chondrus crispus rock-attached red seaweed tuft. Wine-red to burgundy and muted orange, thin flattened fronds on short stalks from one basal disc, each organically dichotomous with rounded U-shaped forks and paddle-shaped tips. Tidy low upright tuft with a genuine 3D spread and many clearly visible Y-shaped negative spaces. No coral polyps, circular leaves, or beads. Only one small disk holdfast at ground level, no rock."
+  },
+  {
+    "id": "mangrove_pneumatophore_bank",
+    "name_zh": "黑红树笋根泥岸",
+    "scientific_name": "Avicennia germinans",
+    "category": "wood",
+    "budget_type": "wood",
+    "nominal_xyz_m": [
+      1.8,
+      0.48,
+      1.15
+    ],
+    "source_url": "https://www.ncei.noaa.gov/data/oceans/coris/library/NOAA/CRCP/other/other_crcp_publications/Watershed_USVI/steer_exisiting_studies_wetlandconservationplansttandstj.pdf",
+    "habitat": "加勒比河口潮间带，潮退可见；不用于长期全浸没的礁景，既有红树支根木为高拱，此模块是低泥脊笋根",
+    "brief": "One standalone irregular low compact black mangrove tidal mud bank module, cropped section of nature. From a low broad dark-silt bank emerge a forest of separate short woody pencil-like finger-shaped pneumatophores, mostly upright with subtle taper and blunt rounded points, unequal height. Black mangrove root ecology Avicennia germinans. The roots run unseen in the soil and rise like individual narrow quills, no big trunk, no aerial arches, no foliage. Mostly exposed mud with a rugged boundary that can meet the game's sand bank. Natural irregular intertidal mud color dark tan clay; wood is dark reddish gray, calm readable silhouette. No water, no loose pebbles."
+  }
+]

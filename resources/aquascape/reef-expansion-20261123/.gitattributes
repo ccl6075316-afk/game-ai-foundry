@@ -1,0 +1,2 @@
+# Keep editable Blender masters out of Git's ordinary object history.
+*.blend filter=lfs diff=lfs merge=lfs -text
