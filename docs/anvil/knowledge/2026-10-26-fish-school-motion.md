@@ -28,7 +28,7 @@ Preserve straight/positive/negative trajectory tests at equal native phases. Tes
 - `resources/runtime/godot/fish-school/FishSchoolMotionAdapter.gd`: actual delayed steering, native pose recomposition.
 - `resources/runtime/godot/fish-school/FishSchoolReview.gd`: fixed clock, native pose cadence and placement; deployed copies are byte-identical.
 - `resources/scripts/volume-fish/test_school_motion_v2.gd`, `test_school_clock_backlog_v2.gd`, `test_school_motion_adapter_v2.gd`:12,4,15 checks.
-- `projects/fishing-2d/plans/reviews/fish-school-motion-v2/validation-report.json`: final state, source-bound reports, four refreshed benchmarks and visual evidence.
+- The current playback and validation records are in the [species swim handoff](../../../projects/fishing-2d/plans/reviews/individual-swim-20261121/HANDOFF.md).
 
 All four debug phase reviews approved; code review approved the isolated prototype. Native production files and species parameters remained unchanged. Actual two-fish Metal capture shows reversed body curvature; this is not biological, full-body collision, continuous fin-root or formal fish-asset acceptance. User visual acceptance remains pending.
 
