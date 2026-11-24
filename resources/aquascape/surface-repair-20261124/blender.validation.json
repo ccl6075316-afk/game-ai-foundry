@@ -1,0 +1,440 @@
+{
+  "ok": true,
+  "count": 31,
+  "items": [
+    {
+      "id": "bamboo_shelter",
+      "blend_sha256": "73b428617fa6062ea53f188b848f95a8a66d42fe6d2ae9c951f3cf12a8d3f973",
+      "model_sha256": "25db5c40ddb43ba881994cb8c5d6c510a9a0874b10d6e414563388085442866c",
+      "packed_atlas_sha256": "9e101d4b8cf5cd1c51830bccb49e913543c51c18b7dec4d16f6e11a7153f0c48",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 4848,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 6.14263117313385e-05
+    },
+    {
+      "id": "basalt_column",
+      "blend_sha256": "c1493859194774e0f59fe7ad17872ae5212d1225204fee06f57f0cfb56939db2",
+      "model_sha256": "0d860b5a215ceceea7b004ab93b83da1a55c061ec3dda83cb4aff4de4193db9c",
+      "packed_atlas_sha256": "c7e83ff03a91035b86cb4ab6897ebf02815493c98d0ba91f74be03fe32783bf3",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 1608,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 5.5164098739624023e-05
+    },
+    {
+      "id": "broken_column",
+      "blend_sha256": "95fe26e5803d4a43bd3deb0a307ea7d1ceb89db6799fd7ab566c4c1b6e69806b",
+      "model_sha256": "61e08a4d413a5e879af7748f6a833e151aba964d4a3bdfe8d29ef1e9d5eecb2f",
+      "packed_atlas_sha256": "b535d002a0e0c06d521d48b4b2f1ed90a11cd30e2f951f33ddc2323d9d43177f",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 4848,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 2.446770668029785e-05
+    },
+    {
+      "id": "clay_pipe",
+      "blend_sha256": "09bc03fe9fa3357a8a96acc2ca1e7e6ac186d373409145c389cd8d55da99a62e",
+      "model_sha256": "ad6640011cc28f0d154e7eda4db420677e38a8e68082a650643c2d70bdc9fde0",
+      "packed_atlas_sha256": "af095213d84f1fc365fe3d02bb7bddb81b95f535257af6702810cd219b82fa35",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 3600,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 0.00046262145042419434
+    },
+    {
+      "id": "coconut_shelter",
+      "blend_sha256": "c9eab598fc4923bf7c409f82cab3db54ee2355ce98e53b98c64fb27e0722c348",
+      "model_sha256": "a6072ec845b60b4891b2c06022f04655e0f639d0b62f864c02853ce663dce957",
+      "packed_atlas_sha256": "bfa5bd5804b94809cc8173e8b4c6f872c0574a80d2bc6a70ffcf93dfa43d9cee",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 3600,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 0.00015644903760403395
+    },
+    {
+      "id": "dragon_stone",
+      "blend_sha256": "675e1ec559174b87c15a1c556681e809dac24d614355cce6b7d7522ab286076c",
+      "model_sha256": "8eb8821086d13620f845142343893e6f6aaf2bc8d022f3415737d267c757f5ad",
+      "packed_atlas_sha256": "c70b5ebb3a06f77e3beab52f7c415e2e5ab24c41ec35f18586270998ba4dbb46",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 1728,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 5.632638931274414e-06
+    },
+    {
+      "id": "driftwood",
+      "blend_sha256": "5f35d0ffabf95a8fd927c3ef76516837a6e806a2482cd545049041d4319292e8",
+      "model_sha256": "4d4a3a2af7e41e15ba98898ff3d2283f3a1e1a92d4ecde03d78bab05e334044a",
+      "packed_atlas_sha256": "97e1560202b775480e3b7364b1c083d3951aacb9eb2eb610296c5961d13780e2",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 3228,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 7.510185241699219e-06
+    },
+    {
+      "id": "iron_anchor",
+      "blend_sha256": "a0e79cab28dc692369031d56537138a1428ac252af9782cd8f3f5869d66552f2",
+      "model_sha256": "e383a1f8ad44ac4871e0fefca81906250fa2fb160b503b5c82eb14877aef17d7",
+      "packed_atlas_sha256": "d45666a808b3759f9f47e7cf67ca7328a01d7c4e5f63fb806f15a81ef512e8d4",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 3600,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 0.002780437469482422
+    },
+    {
+      "id": "lava_rock",
+      "blend_sha256": "78210e94af21bab1c742dc4adce9fcad25e46efdb0bd257da8dc4e8133013408",
+      "model_sha256": "257019abc27bcbd90a2cf32bf78859541f90c1bf4e1f2817b9c397eb8c163544",
+      "packed_atlas_sha256": "1985b04c5b34c92b0591f7d28aa08562cc94a8bf2f11781d60063e11cbfc8c48",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 1728,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 5.990266799926758e-06
+    },
+    {
+      "id": "mangrove_root",
+      "blend_sha256": "94405c48cf566b130b6ab4ef62164711e632482cc7f7315f6150908286528030",
+      "model_sha256": "e89f34dbf172ebdb8087aff15a23937a3be265f2279e6a59cf7ea7bec0990393",
+      "packed_atlas_sha256": "7e879e31a284f84a5684aba5dd717aad3cfe9eaba0451b9f3edaf96a4da4fb14",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 3228,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 8.404254913330078e-06
+    },
+    {
+      "id": "mopani_wood",
+      "blend_sha256": "77bde18dd2ea324187b7454b6fa199179a59eae142e6498301e2f4b91663d7d3",
+      "model_sha256": "9408eef138ea1af220a0ef02c88ba2f18a56aeabd0dd8d2c2b645611b97cdda7",
+      "packed_atlas_sha256": "2694942e7656b77213e47257169bbc9287c37318752f402bb902b8e8b4b9e98c",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 3228,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 1.7896294593811035e-05
+    },
+    {
+      "id": "pale_limestone",
+      "blend_sha256": "ceb47ace4ebd71f9c5cb1fbea36db098e28ea7a2fe77659eb2d5ff5634a53882",
+      "model_sha256": "96804251ad32033307fa479b89036248205fa0effa84a454049654ffb9fe0618",
+      "packed_atlas_sha256": "a4e4c54335d9b5ecc7569626e3fd84b5ded64cfc702ed1e6779511a5ee050de9",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 1608,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 4.341825842857361e-06
+    },
+    {
+      "id": "quartz_rock",
+      "blend_sha256": "ee823409df424ee7716e1e08f35810120ee537ff971bce9197ee0c91bbcacf46",
+      "model_sha256": "fce3432afcd549568b4938b5543a92710a3a68be3f26d02d92b94b56e4534492",
+      "packed_atlas_sha256": "e316f827fad3860143145d720b7a788c8694e1638f2e5ddbd986806605f5b0a9",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 1608,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 1.5169382095336914e-05
+    },
+    {
+      "id": "red_sandstone",
+      "blend_sha256": "128e8f26103c7419b5eeba324069cd8ba8e78ac16a31566d31a7a72871cace4c",
+      "model_sha256": "13f7497a824a29af262d35ba528bfdea721e69c8f3129ffb74c3876300bc2c75",
+      "packed_atlas_sha256": "2fa801d609b1796949ab178f091a178b0955c2fb27c09aa37998488cfd5c1d10",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 1608,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 1.6510486602783203e-05
+    },
+    {
+      "id": "reef_brain_coral",
+      "blend_sha256": "37d508bfe937babed0cfae17f99980ead413088af37228f9c07eea42ffb9138c",
+      "model_sha256": "a1f82f29b78cc0c387e247471d69a5ca6297d582628721e1d4063a47769af75d",
+      "packed_atlas_sha256": "dd11d6e4f46ffdcf16de5f191dfeb962600389835f5c04c0de036810d9454248",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 1728,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 0.002902120351791382
+    },
+    {
+      "id": "river_boulder",
+      "blend_sha256": "2da37474b765d52fcb8b70308cde0e5e1ff5b82e3ee8fb191826c5a2af512c38",
+      "model_sha256": "f066cf722f8c8047cd471f5bbc03a5e4a88f1aa4eb269aa5778e3813552d941f",
+      "packed_atlas_sha256": "e11c6b54296e522d31db54709dedc8a3652bfe1f4e289e4c798db9d29dacef01",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 1608,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 1.233816146850586e-05
+    },
+    {
+      "id": "rock",
+      "blend_sha256": "9a3f8c42f384d1df43f4f6c1aac8bd60742be570dc9ec19cbb2189fe6b8a3a94",
+      "model_sha256": "e5729f91073635808e08125be1d42e26ab82e044ad3389a3e26376c299f45dda",
+      "packed_atlas_sha256": "bf58aad76e2e609cf941e51153a94d9caf66c274f770d1ef3fcaaf95be1ae417",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 1608,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 1.023709774017334e-05
+    },
+    {
+      "id": "root_fan",
+      "blend_sha256": "ecf1bb193c68b945967944b75870791000fefc510dbb118ad3defc4860a532d0",
+      "model_sha256": "251eb1be7cd5f9020930d7a03f45e2949c02930fdb5a6a98a0a09c5b485ddf98",
+      "packed_atlas_sha256": "829dd42250260fed8ee1d90a212deb43eb8aba39a81e2e0ce719023aff46e277",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 3228,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 1.3343989849090576e-05
+    },
+    {
+      "id": "root_stump",
+      "blend_sha256": "ad5c5feb6c3a820ae50725df720631e9b512f5453ea566b948c54471d31faacd",
+      "model_sha256": "122ff37119eb4b0075bca7136972f92acde7b7af85e7337c91cca2a9a2443088",
+      "packed_atlas_sha256": "ff24646e7a788966328d2d5284facd51c9edeebffe1de68408ef3b21333a9b3f",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 3228,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 6.9141387939453125e-06
+    },
+    {
+      "id": "ruin_arch",
+      "blend_sha256": "6c74bf030b0ec116e6e77e8b3dbd25503b86747215a02d49efbbb605ca165f1b",
+      "model_sha256": "44c43e4c3f8b84a8ef7f8e56d4051e41397f82d0c469125a36c52803716d8bed",
+      "packed_atlas_sha256": "d43f85a47c3b4ae02c72364e121e806a1fbb11834a2ca9737e933da215dc7c9d",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 4848,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 2.491474151611328e-05
+    },
+    {
+      "id": "ruined_tower",
+      "blend_sha256": "e89c2fcfcf03ecde09e041339c7305eb0b69fdf41240193d67b5ae8875641817",
+      "model_sha256": "000ebb33ce1bf4479dbefa4a620f3abdb5c3d6b8cb8896cd0fd6b59977cacdd3",
+      "packed_atlas_sha256": "e875a5b385cb681088a0830ec1eb89e86642e687840a053d0e15cd081785df85",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 4848,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 3.4496188163757324e-05
+    },
+    {
+      "id": "shipwreck",
+      "blend_sha256": "a0b398ea9b71da32b5df215c86bc380c34fd5749c9013c6532c1c1e8cbba52b9",
+      "model_sha256": "d0a07729c419a23f3eabd36a2b7b8f5cbba1498235590a827787eec52eeb5b07",
+      "packed_atlas_sha256": "0fd8e9035850465368c17af7d7ef3e6663d3ac1d545891e588dc48013d5e25a1",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 3600,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 0.000168635044246912
+    },
+    {
+      "id": "slate_cave",
+      "blend_sha256": "a54341862eef812561692b86fcede6b533b817bef9f9e75726f51234d25a0cf9",
+      "model_sha256": "fa58e462eec84e14b41fd68edec9e2fab540c382ef3b1dbb9a83bb5b7613e784",
+      "packed_atlas_sha256": "de0b19ccf9696dc5289aa9affc4e296e352389417289f212a182431aee20d7bc",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 4848,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 2.516806125640869e-05
+    },
+    {
+      "id": "slate_stack",
+      "blend_sha256": "a46f191bf7f62ea765f9376dae17aad8e8cf3ecc50b167512e80abecc43c2e38",
+      "model_sha256": "715425cb08639f96b7ac0226ab9d707eb19fa4ec34af78d29a4c093ea0819b1b",
+      "packed_atlas_sha256": "80f96dffd2b5d0526e4cd139c7d169641e6b1fbbc64513efa38a261dffcff328",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 1608,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 6.712973117828369e-06
+    },
+    {
+      "id": "spider_wood",
+      "blend_sha256": "8002994a5f4de4362c1c606a603ea5d22630421ae06fc61878498312ecedfbb2",
+      "model_sha256": "814ac87e8d327d5030e7ba509b9e8544ef7bf60ffe5bcadd2efe5c30a4d1f3dc",
+      "packed_atlas_sha256": "84a48b437b488695d2b3d1371cc7ea6fb1ba9ace42217789d342f334b9fe840e",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 3228,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 2.4142209440469742e-05
+    },
+    {
+      "id": "stone_bridge",
+      "blend_sha256": "c783437594b58e929630903811f6feb6fbd540904985429061efe6e64a973de4",
+      "model_sha256": "15298981d348078f5109c8a4f794c669f517b55b52c7971da0978f7edd7700a3",
+      "packed_atlas_sha256": "f851ff6b91dab937ed2e06e5dc40e582c87206a688d3508acf75356c508faba0",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 4848,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 3.713369369506836e-05
+    },
+    {
+      "id": "stone_lantern",
+      "blend_sha256": "3ea58dd4c778768e4389a28fdc9adb28e97d9de40ff3babc0704dad50f4cdbc8",
+      "model_sha256": "822a8008237b4d8e1f7d37f8636e251bdcb762b7108eaa789d92fac9a93b12d0",
+      "packed_atlas_sha256": "2079aecd7c593be921cd0c75102d2ceb50151f98a0fa3e3e5bac07e2e2ea3b6f",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 4848,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 5.0512608140707016e-05
+    },
+    {
+      "id": "terracotta_jar",
+      "blend_sha256": "0775a4ea606d73f77cf4f4ded5288c87fdd55c5c2f96ed513aafd5197239c011",
+      "model_sha256": "ea96dbcd0ed5dfd96a80714f1c21e0275f6881dfad22b4d31cca51b65b3cddc3",
+      "packed_atlas_sha256": "e84d8d3cdc28e936dabd59a6e7c4f84d27094fde35cbd2f28752bdf77cef5ec0",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 3600,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 0.00017499923706054688
+    },
+    {
+      "id": "treasure_chest",
+      "blend_sha256": "9919f1846cf5271bd8d39ef99c42e31eb7921e208b0fca409751f986e9db7b3d",
+      "model_sha256": "235294cc008c1939dfcdbab0eca6a820614e675e678446084417500fbd41c179",
+      "packed_atlas_sha256": "808e105768dd054daac5612ce3497905c288cf7e5590b1a495c2e27b13df5ca7",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 3600,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 0.00017464463599026203
+    },
+    {
+      "id": "twisted_branch",
+      "blend_sha256": "99023dad2490b354e9a86901345a208cf49a61e14c9d9d0c860706dcae05df35",
+      "model_sha256": "96ffcefd224ce55ec974750e16f2552472f9e9cb23965cecb59e279aec430f37",
+      "packed_atlas_sha256": "9b8e4f0d4570c5c538614576352293341193c478463e53f3dc7c33ca67ca2c16",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 3228,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 9.574741125106812e-05
+    },
+    {
+      "id": "weathered_log",
+      "blend_sha256": "2c078861ac779d64a95f3909417ec8dde2ad16bd128a55ec6ece4bae2f9ed713",
+      "model_sha256": "e718bbca1403cc12f0af098fd1071ec3bb9eb714d5e37b904d7db501792b9198",
+      "packed_atlas_sha256": "c2414cdfd8f4411fa922dcda5cfdc28fbf97cde6670f759224794a95794dbe22",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 3228,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 2.5860965251922607e-05
+    }
+  ]
+}

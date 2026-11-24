@@ -1,0 +1,334 @@
+{
+  "ok": true,
+  "scope": "Generated duplicates for this release, after all current source boards and masters were verified and transferred to LFS.",
+  "files_removed": 2676,
+  "bytes_removed": 979544906,
+  "removed": [
+    {
+      "path": "projects/aquascape-surface-review-bamboo_shelter-20261124",
+      "files": 59,
+      "bytes": 11006271
+    },
+    {
+      "path": "projects/aquascape-surface-review-basalt_column-20261124",
+      "files": 59,
+      "bytes": 11301311
+    },
+    {
+      "path": "projects/aquascape-surface-review-broken_column-20261124",
+      "files": 59,
+      "bytes": 10576903
+    },
+    {
+      "path": "projects/aquascape-surface-review-clay_pipe-20261124",
+      "files": 59,
+      "bytes": 10623815
+    },
+    {
+      "path": "projects/aquascape-surface-review-coconut_shelter-20261124",
+      "files": 59,
+      "bytes": 12258084
+    },
+    {
+      "path": "projects/aquascape-surface-review-dragon_stone-20261124",
+      "files": 59,
+      "bytes": 11156859
+    },
+    {
+      "path": "projects/aquascape-surface-review-driftwood-20261124",
+      "files": 59,
+      "bytes": 9962224
+    },
+    {
+      "path": "projects/aquascape-surface-review-iron_anchor-20261124",
+      "files": 59,
+      "bytes": 9697463
+    },
+    {
+      "path": "projects/aquascape-surface-review-lava_rock-20261124",
+      "files": 59,
+      "bytes": 11693529
+    },
+    {
+      "path": "projects/aquascape-surface-review-mangrove_root-20261124",
+      "files": 59,
+      "bytes": 10900666
+    },
+    {
+      "path": "projects/aquascape-surface-review-mopani_wood-20261124",
+      "files": 59,
+      "bytes": 11022823
+    },
+    {
+      "path": "projects/aquascape-surface-review-pale_limestone-20261124",
+      "files": 59,
+      "bytes": 10896186
+    },
+    {
+      "path": "projects/aquascape-surface-review-quartz_rock-20261124",
+      "files": 59,
+      "bytes": 11778051
+    },
+    {
+      "path": "projects/aquascape-surface-review-red_sandstone-20261124",
+      "files": 59,
+      "bytes": 10973282
+    },
+    {
+      "path": "projects/aquascape-surface-review-river_boulder-20261124",
+      "files": 59,
+      "bytes": 11577148
+    },
+    {
+      "path": "projects/aquascape-surface-review-rock-20261124",
+      "files": 59,
+      "bytes": 10586163
+    },
+    {
+      "path": "projects/aquascape-surface-review-root_fan-20261124",
+      "files": 59,
+      "bytes": 10922330
+    },
+    {
+      "path": "projects/aquascape-surface-review-root_stump-20261124",
+      "files": 59,
+      "bytes": 10785743
+    },
+    {
+      "path": "projects/aquascape-surface-review-ruin_arch-20261124",
+      "files": 59,
+      "bytes": 10577296
+    },
+    {
+      "path": "projects/aquascape-surface-review-ruined_tower-20261124",
+      "files": 59,
+      "bytes": 12668181
+    },
+    {
+      "path": "projects/aquascape-living-review-shipwreck-20261124",
+      "files": 59,
+      "bytes": 10120344
+    },
+    {
+      "path": "projects/aquascape-surface-review-slate_cave-20261124",
+      "files": 59,
+      "bytes": 11115764
+    },
+    {
+      "path": "projects/aquascape-surface-review-slate_stack-20261124",
+      "files": 59,
+      "bytes": 10803489
+    },
+    {
+      "path": "projects/aquascape-surface-review-spider_wood-20261124",
+      "files": 59,
+      "bytes": 11005437
+    },
+    {
+      "path": "projects/aquascape-surface-review-stone_bridge-20261124",
+      "files": 59,
+      "bytes": 10578846
+    },
+    {
+      "path": "projects/aquascape-surface-review-stone_lantern-20261124",
+      "files": 59,
+      "bytes": 11139321
+    },
+    {
+      "path": "projects/aquascape-surface-review-terracotta_jar-20261124",
+      "files": 59,
+      "bytes": 11660644
+    },
+    {
+      "path": "projects/aquascape-living-review-treasure_chest-20261124",
+      "files": 59,
+      "bytes": 11207467
+    },
+    {
+      "path": "projects/aquascape-surface-review-twisted_branch-20261124",
+      "files": 59,
+      "bytes": 9506688
+    },
+    {
+      "path": "projects/aquascape-surface-review-weathered_log-20261124",
+      "files": 59,
+      "bytes": 10387161
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/texture-audit",
+      "files": 634,
+      "bytes": 277487898
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/source-art/shipwreck",
+      "files": 3,
+      "bytes": 6008796
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/source-art/treasure_chest",
+      "files": 3,
+      "bytes": 7765815
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/source-art/rebake_decor.py",
+      "files": 1,
+      "bytes": 4731
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/source-art/six-views.webp",
+      "files": 1,
+      "bytes": 345426
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/source-art/shipwreck-approved-reference.jpg",
+      "files": 1,
+      "bytes": 149318
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/source-art/treasure_chest-approved-reference.jpg",
+      "files": 1,
+      "bytes": 167482
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/freeze_release.py",
+      "files": 1,
+      "bytes": 7754
+    },
+    {
+      "path": "work/surface-repair-20261124/review/check",
+      "files": 18,
+      "bytes": 17946755
+    },
+    {
+      "path": "work/surface-repair-20261124/review/baseline",
+      "files": 31,
+      "bytes": 44813020
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/shipwreck-comparison.png",
+      "files": 1,
+      "bytes": 948090
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/dragon_stone-ends.png",
+      "files": 1,
+      "bytes": 1481566
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/shipwreck-gray-pair.png",
+      "files": 1,
+      "bytes": 402512
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/treasure_chest-ends.png",
+      "files": 1,
+      "bytes": 1381851
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/algae-area-low-strength-high.png",
+      "files": 1,
+      "bytes": 1132073
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/comparison.png",
+      "files": 1,
+      "bytes": 1125549
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/slate_cave-gray-pair.png",
+      "files": 1,
+      "bytes": 433058
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/dragon_stone-comparison.png",
+      "files": 1,
+      "bytes": 1193312
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/shipwreck-ends.png",
+      "files": 1,
+      "bytes": 1015559
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/slate_cave-ends.png",
+      "files": 1,
+      "bytes": 1423446
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/treasure_chest-gray-pair.png",
+      "files": 1,
+      "bytes": 398710
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/treasure_chest-comparison.png",
+      "files": 1,
+      "bytes": 1560357
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/algae-area-high-strength-low.png",
+      "files": 1,
+      "bytes": 1115013
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/rock-comparison.png",
+      "files": 1,
+      "bytes": 937274
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/dragon_stone-gray-pair.png",
+      "files": 1,
+      "bytes": 408752
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/rock-gray-pair.png",
+      "files": 1,
+      "bytes": 369127
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/rock-ends.png",
+      "files": 1,
+      "bytes": 1417584
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/slate_cave-comparison.png",
+      "files": 1,
+      "bytes": 1232812
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/algae-variation.webp",
+      "files": 1,
+      "bytes": 83214
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/scenery-candidates.webp",
+      "files": 1,
+      "bytes": 146604
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/release-tests/color",
+      "files": 32,
+      "bytes": 6756946
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/release-tests/gray",
+      "files": 32,
+      "bytes": 1177040
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/release-tests/rebuild",
+      "files": 97,
+      "bytes": 225404953
+    },
+    {
+      "path": "work/aquascape-inspector-20261124/release-tests/clean-baseline",
+      "files": 31,
+      "bytes": 44813020
+    }
+  ],
+  "retained": [
+    "31 verified editable masters with their six-view boards",
+    "current game GLBs",
+    "representative native render evidence",
+    "both local live coral candidates and their source projects"
+  ]
+}

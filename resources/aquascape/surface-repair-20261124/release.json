@@ -1,0 +1,5697 @@
+{
+  "catalog_inspected": 100,
+  "original_color_views": 800,
+  "original_gray_views": 800,
+  "legacy_surface_streaks": 30,
+  "additional_relief_issue": 1,
+  "native_preview_count": 31,
+  "geometry_revised": 25,
+  "candidate_views": 496,
+  "basis": "Native review of apparent texture stretch and larger structural relief. Alpha-cut foliage is judged by its visible leaf shape.",
+  "scope": "31 in-place aquarium asset repairs. Native color and gray preview reviewed.",
+  "user_acceptance": {
+    "state": "accepted_for_release",
+    "date": "2026-11-24",
+    "message": "行 这个造景提代码吧"
+  },
+  "ok": true,
+  "version": 1,
+  "catalog_count": 100,
+  "base_game_revision": "c0ac7eaefc8f6a542bca5e823c287ad03670cb66",
+  "budget_policy_sha256": "51de78ce3f61adb8465b71b8b98098a76538172e392f5b0c3ae585ed9f3c4698",
+  "items": [
+    {
+      "id": "bamboo_shelter",
+      "name_zh": "竹节躲避屋",
+      "source_sha256": "f3f8374de2bcb69bf92ae476725a314a395fbd8b62f191de1dd7223734190953",
+      "source_boxes": {
+        "front": [
+          16,
+          117,
+          507,
+          398
+        ],
+        "right": [
+          592,
+          83,
+          952,
+          418
+        ],
+        "rear": [
+          1030,
+          117,
+          1521,
+          398
+        ],
+        "left": [
+          17,
+          595,
+          500,
+          886
+        ],
+        "top": [
+          557,
+          596,
+          1026,
+          886
+        ],
+        "bottom": [
+          1110,
+          600,
+          1519,
+          892
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.2252,
+        "right": 0.0717,
+        "rear": 0.2102,
+        "left": 0.0726,
+        "top": 0.2209,
+        "bottom": 0.1994
+      },
+      "triangles": 1616,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.44,
+              0.54,
+              0.89
+            ],
+            [
+              0.041,
+              0.21,
+              0.151
+            ],
+            0.072
+          ],
+          [
+            [
+              0.45,
+              0.66,
+              0.16
+            ],
+            [
+              0.045,
+              0.193,
+              0.14
+            ],
+            0.066
+          ],
+          [
+            [
+              0.54,
+              0.74,
+              0.64
+            ],
+            [
+              0.07,
+              0.11,
+              0.11
+            ],
+            -0.033
+          ]
+        ],
+        "max_groove_m": -0.002939233323559165,
+        "max_protrusion_m": 0.007205773610621691,
+        "width_height_depth_original_m": [
+          0.24028418958187103,
+          0.11308518052101135,
+          0.1271648108959198
+        ],
+        "width_height_depth_candidate_m": [
+          0.24028418958187103,
+          0.11307995766401291,
+          0.1271648108959198
+        ],
+        "local_simplification_distance_median_m": 0.00215559554560061,
+        "shell_topology_before": [
+          1,
+          0
+        ],
+        "shell_topology_after": [
+          1,
+          0
+        ],
+        "cavity": {
+          "clear_before": 81,
+          "still_clear": 81,
+          "passed": true
+        }
+      },
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 486,
+        "p05_m": -1.667659962543977e-05,
+        "p95_m": 0.0034286225280655627,
+        "min_m": -0.000848892580159466,
+        "max_m": 0.0069279952886514284
+      },
+      "model": "res://assets/aquascape-v11/solids/bamboo_shelter.glb",
+      "before_sha256": "7ba49601907d7855070ee0a74572367ca878465b61eb9bc2282196c4ebc7be63",
+      "geometry_changed": true,
+      "after_sha256": "25db5c40ddb43ba881994cb8c5d6c510a9a0874b10d6e414563388085442866c",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/bamboo_shelter/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/bamboo_shelter/bamboo_shelter.blend",
+      "whole_instance_budget": "decor",
+      "hard_limit": 2000,
+      "shell_topology_components_euler": [
+        1,
+        0
+      ],
+      "dimensions_m": [
+        0.24028418958187103,
+        0.11307995766401291,
+        0.1271648108959198
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [
+        {
+          "name": "open_end_to_end_tunnel",
+          "origin_m": [
+            -0.25,
+            0.05524439918533605,
+            0
+          ],
+          "direction": [
+            1,
+            0,
+            0
+          ],
+          "length_m": 0.5,
+          "expected": "empty",
+          "surface_hits_m": [],
+          "ok": true
+        }
+      ],
+      "semantic_updated": [
+        {
+          "name": "open_end_to_end_tunnel",
+          "origin_m": [
+            -0.25,
+            0.05524439918533605,
+            0
+          ],
+          "direction": [
+            1,
+            0,
+            0
+          ],
+          "length_m": 0.5,
+          "expected": "empty",
+          "surface_hits_m": [],
+          "ok": true
+        }
+      ],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: one short golden-green bamboo stem lying on its side along X; open through both cut ends, deep inner pale tan cavity, rolled split lip and irregular old node near just left of center.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "bamboo_shelter_six_views"
+    },
+    {
+      "id": "basalt_column",
+      "name_zh": "玄武岩断柱",
+      "source_sha256": "c2accad7604b9ad18503d7d958bf543b873792d70b1f264ff8bda71520791c26",
+      "source_boxes": {
+        "front": [
+          115,
+          32,
+          439,
+          484
+        ],
+        "right": [
+          637,
+          41,
+          907,
+          484
+        ],
+        "rear": [
+          1143,
+          32,
+          1427,
+          484
+        ],
+        "left": [
+          95,
+          557,
+          456,
+          964
+        ],
+        "top": [
+          581,
+          570,
+          982,
+          937
+        ],
+        "bottom": [
+          1133,
+          568,
+          1439,
+          949
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.163,
+        "right": 0.1724,
+        "rear": 0.2072,
+        "left": 0.1539,
+        "top": 0.1913,
+        "bottom": 0.1121
+      },
+      "triangles": 536,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.34,
+              0.66,
+              0.8
+            ],
+            [
+              0.093,
+              0.18,
+              0.15
+            ],
+            -0.095
+          ],
+          [
+            [
+              0.55,
+              0.65,
+              0.82
+            ],
+            [
+              0.108,
+              0.23,
+              0.16
+            ],
+            0.101
+          ],
+          [
+            [
+              0.7,
+              0.52,
+              0.63
+            ],
+            [
+              0.1,
+              0.21,
+              0.22
+            ],
+            -0.08
+          ],
+          [
+            [
+              0.36,
+              0.53,
+              0.17
+            ],
+            [
+              0.1,
+              0.21,
+              0.19
+            ],
+            0.075
+          ],
+          [
+            [
+              0.54,
+              0.68,
+              0.15
+            ],
+            [
+              0.074,
+              0.2,
+              0.19
+            ],
+            -0.089
+          ],
+          [
+            [
+              0.68,
+              0.43,
+              0.21
+            ],
+            [
+              0.1,
+              0.19,
+              0.19
+            ],
+            0.078
+          ]
+        ],
+        "max_groove_m": -0.016258176416158676,
+        "max_protrusion_m": 0.013380414806306362,
+        "width_height_depth_original_m": [
+          0.22730837762355804,
+          0.34750896692276,
+          0.2113749235868454
+        ],
+        "width_height_depth_candidate_m": [
+          0.22738997638225555,
+          0.34852343797683716,
+          0.21199661493301392
+        ],
+        "local_simplification_distance_median_m": 0.0033345644795916667,
+        "shell_topology_before": [
+          26,
+          30
+        ],
+        "shell_topology_after": [
+          26,
+          30
+        ],
+        "cavity": null
+      },
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 524,
+        "p05_m": -0.012091122993615441,
+        "p95_m": 0.009295812534014002,
+        "min_m": -0.1373210824662323,
+        "max_m": 0.11903950728165691
+      },
+      "model": "res://assets/aquascape-v9/solids/basalt_column.glb",
+      "before_sha256": "e3ed25e52e07c2955ad8b4290073a6a37279105b18ff9cab426273c71101f924",
+      "geometry_changed": true,
+      "after_sha256": "0d860b5a215ceceea7b004ab93b83da1a55c061ec3dda83cb4aff4de4193db9c",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/basalt_column/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/basalt_column/basalt_column.blend",
+      "whole_instance_budget": "rock",
+      "hard_limit": 600,
+      "shell_topology_components_euler": [
+        26,
+        30
+      ],
+      "dimensions_m": [
+        0.22738997638225555,
+        0.34852343797683716,
+        0.21199661493301392
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [],
+      "semantic_updated": [],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: one dark gray natural volcanic fragment with three unequal angular basalt prisms joined tightly at their rooting foot, tallest thin prism at slightly right of center from front, true relief of protruding and receding connected vertical prism facets with irregular sloping broken tips.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "basalt_column_six_views"
+    },
+    {
+      "id": "broken_column",
+      "name_zh": "残缺石柱",
+      "source_sha256": "5806dc20c8e89afdeabad848cb0fd1587f8969e8d4993428b3253dfdad4bc578",
+      "source_boxes": {
+        "front": [
+          137,
+          39,
+          411,
+          479
+        ],
+        "right": [
+          659,
+          39,
+          883,
+          479
+        ],
+        "rear": [
+          1128,
+          39,
+          1399,
+          479
+        ],
+        "left": [
+          147,
+          534,
+          408,
+          959
+        ],
+        "top": [
+          608,
+          619,
+          935,
+          943
+        ],
+        "bottom": [
+          1096,
+          625,
+          1431,
+          943
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.2246,
+        "right": 0.1839,
+        "rear": 0.1744,
+        "left": 0.1304,
+        "top": 0.2443,
+        "bottom": 0.0424
+      },
+      "triangles": 1616,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.34,
+              0.59,
+              0.86
+            ],
+            [
+              0.073,
+              0.26,
+              0.19
+            ],
+            -0.062
+          ],
+          [
+            [
+              0.53,
+              0.63,
+              0.89
+            ],
+            [
+              0.059,
+              0.27,
+              0.18
+            ],
+            -0.074
+          ],
+          [
+            [
+              0.7,
+              0.65,
+              0.85
+            ],
+            [
+              0.067,
+              0.24,
+              0.17
+            ],
+            -0.065
+          ],
+          [
+            [
+              0.4,
+              0.61,
+              0.84
+            ],
+            [
+              0.05,
+              0.27,
+              0.16
+            ],
+            0.069
+          ],
+          [
+            [
+              0.62,
+              0.64,
+              0.85
+            ],
+            [
+              0.052,
+              0.241,
+              0.14
+            ],
+            0.072
+          ],
+          [
+            [
+              0.83,
+              0.65,
+              0.6
+            ],
+            [
+              0.095,
+              0.27,
+              0.143
+            ],
+            -0.058
+          ],
+          [
+            [
+              0.44,
+              0.79,
+              0.18
+            ],
+            [
+              0.07,
+              0.24,
+              0.15
+            ],
+            -0.055
+          ],
+          [
+            [
+              0.61,
+              0.63,
+              0.16
+            ],
+            [
+              0.072,
+              0.25,
+              0.17
+            ],
+            0.058
+          ]
+        ],
+        "max_groove_m": -0.009268542751669884,
+        "max_protrusion_m": 0.006897737737745047,
+        "width_height_depth_original_m": [
+          0.152838796377182,
+          0.23948121070861816,
+          0.14835312962532043
+        ],
+        "width_height_depth_candidate_m": [
+          0.15281549096107483,
+          0.2388947606086731,
+          0.1483152210712433
+        ],
+        "local_simplification_distance_median_m": 0.0035766345934729682,
+        "shell_topology_before": [
+          1,
+          2
+        ],
+        "shell_topology_after": [
+          1,
+          2
+        ],
+        "cavity": null
+      },
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 528,
+        "p05_m": -0.007260527213143565,
+        "p95_m": 0.0020222036078988734,
+        "min_m": -0.1467512167172978,
+        "max_m": 0.007582916263697975
+      },
+      "model": "res://assets/aquascape-v9/solids/broken_column.glb",
+      "before_sha256": "e85bd16f2840fd1ebc91b850181b81a2c3d4af8d57f3fbbbb60d7981ec0f3518",
+      "geometry_changed": true,
+      "after_sha256": "61e08a4d413a5e879af7748f6a833e151aba964d4a3bdfe8d29ef1e9d5eecb2f",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/broken_column/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/broken_column/broken_column.blend",
+      "whole_instance_budget": "decor",
+      "hard_limit": 2000,
+      "shell_topology_components_euler": [
+        1,
+        2
+      ],
+      "dimensions_m": [
+        0.15281549096107483,
+        0.2388947606086731,
+        0.1483152210712433
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [],
+      "semantic_updated": [],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: one ruined gray limestone classical fluted pillar with a squared stepped base, faceted half cylinder interrupted by a genuine diagonal broken top, deep vertical flutes and chipped edges; floor-facing base is plain stone.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "broken_column_six_views"
+    },
+    {
+      "id": "clay_pipe",
+      "name_zh": "陶制躲避管",
+      "source_sha256": "2e8d26ac1d22420482493790032caaa04cd7bea48d54d568e76edf45a71478e0",
+      "source_boxes": {
+        "front": [
+          25,
+          135,
+          497,
+          396
+        ],
+        "right": [
+          602,
+          99,
+          940,
+          435
+        ],
+        "left": [
+          1123,
+          99,
+          1460,
+          435
+        ],
+        "rear": [
+          26,
+          627,
+          497,
+          883
+        ],
+        "top": [
+          539,
+          624,
+          1001,
+          883
+        ],
+        "bottom": [
+          1056,
+          625,
+          1517,
+          883
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.2243,
+        "right": 0.0529,
+        "left": 0.0474,
+        "rear": 0.2543,
+        "top": 0.2287,
+        "bottom": 0.1924
+      },
+      "triangles": 1200,
+      "relief": null,
+      "cavity": {
+        "clear_before": 81,
+        "still_clear": 81,
+        "passed": true
+      },
+      "model": "res://assets/aquascape-v9/solids/clay_pipe.glb",
+      "before_sha256": "870e8c0d55b5d00ccf6128577f855bc8928c87c89c49d9e8086cc71b4ccf6184",
+      "geometry_changed": false,
+      "after_sha256": "ad6640011cc28f0d154e7eda4db420677e38a8e68082a650643c2d70bdc9fde0",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/clay_pipe/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/clay_pipe/clay_pipe.blend",
+      "whole_instance_budget": "decor",
+      "hard_limit": 2000,
+      "shell_topology_components_euler": [
+        1,
+        0
+      ],
+      "dimensions_m": [
+        0.25025510787963867,
+        0.10076043754816055,
+        0.11015233397483826
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [
+        {
+          "name": "open_end_to_end_tunnel",
+          "origin_m": [
+            -0.25,
+            0.04976303317535545,
+            0
+          ],
+          "direction": [
+            1,
+            0,
+            0
+          ],
+          "length_m": 0.5,
+          "expected": "empty",
+          "surface_hits_m": [],
+          "ok": true
+        }
+      ],
+      "semantic_updated": [
+        {
+          "name": "open_end_to_end_tunnel",
+          "origin_m": [
+            -0.25,
+            0.04976303317535545,
+            0
+          ],
+          "direction": [
+            1,
+            0,
+            0
+          ],
+          "length_m": 0.5,
+          "expected": "empty",
+          "surface_hits_m": [],
+          "ok": true
+        }
+      ],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: one short burnt orange terracotta cylinder lying along X with isolated thicker rims and complete open through bore, matte terracotta fine stoneware fired on front/back with locally worn specks, physically appropriate inside/outside tube wall.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "clay_pipe_six_views"
+    },
+    {
+      "id": "coconut_shelter",
+      "name_zh": "椰壳小屋",
+      "source_sha256": "6c95e3382a4f27d955dd9699751ab591aa977bb61c7fde1d379c9db63bef8605",
+      "source_boxes": {
+        "front": [
+          16,
+          79,
+          510,
+          374
+        ],
+        "right": [
+          555,
+          78,
+          1002,
+          374
+        ],
+        "rear": [
+          1056,
+          78,
+          1523,
+          374
+        ],
+        "left": [
+          21,
+          551,
+          510,
+          852
+        ],
+        "top": [
+          558,
+          517,
+          1000,
+          958
+        ],
+        "bottom": [
+          1060,
+          540,
+          1531,
+          916
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.1778,
+        "right": 0.1691,
+        "rear": 0.1236,
+        "left": 0.1574,
+        "top": 0.1338,
+        "bottom": 0.2383
+      },
+      "triangles": 1200,
+      "relief": null,
+      "model": "res://assets/aquascape-v9/solids/coconut_shelter.glb",
+      "before_sha256": "8a619552ea8e403c71a5aa4f20831d3a8e3baf47a5b2a3cf9f76e89f80dd5e44",
+      "geometry_changed": false,
+      "after_sha256": "a6072ec845b60b4891b2c06022f04655e0f639d0b62f864c02853ce663dce957",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/coconut_shelter/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/coconut_shelter/coconut_shelter.blend",
+      "whole_instance_budget": "decor",
+      "hard_limit": 2000,
+      "shell_topology_components_euler": [
+        1,
+        2
+      ],
+      "dimensions_m": [
+        0.19085903465747833,
+        0.10161888599395752,
+        0.16643866896629333
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [
+        {
+          "name": "open_front_door",
+          "origin_m": [
+            0,
+            0.022347619047619047,
+            0.16736850261290126
+          ],
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length_m": 0.16736850261290126,
+          "expected": "empty",
+          "surface_hits_m": [],
+          "ok": true
+        },
+        {
+          "name": "rear_shell_wall",
+          "origin_m": [
+            0,
+            0.022347619047619047,
+            0.16736850261290126
+          ],
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length_m": 0.3347370052258025,
+          "expected": "solid",
+          "surface_hits_m": [
+            0.23663432668122164,
+            0.25106989872242697
+          ],
+          "ok": true
+        }
+      ],
+      "semantic_updated": [
+        {
+          "name": "open_front_door",
+          "origin_m": [
+            0,
+            0.022347619047619047,
+            0.16736850261290126
+          ],
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length_m": 0.16736850261290126,
+          "expected": "empty",
+          "surface_hits_m": [],
+          "ok": true
+        },
+        {
+          "name": "rear_shell_wall",
+          "origin_m": [
+            0,
+            0.022347619047619047,
+            0.16736850261290126
+          ],
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length_m": 0.3347370052258025,
+          "expected": "solid",
+          "surface_hits_m": [
+            0.23663432668122164,
+            0.25106989872242697
+          ],
+          "ok": true
+        }
+      ],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: single coarse intact brown half coconut shell resting open side down as a domed hide, one low front arch opening, rear/side solid shell, underside should see rim and inside rough tan fibers while top is only outward round coconut.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "coconut_shelter_six_views"
+    },
+    {
+      "id": "dragon_stone",
+      "name_zh": "黄龙石",
+      "source_sha256": "74db5e36e928f690087a7ef00955ed0ea6168760ba335b85b25c9be75c61aaef",
+      "source_boxes": {
+        "front": [
+          23,
+          65,
+          521,
+          411
+        ],
+        "right": [
+          577,
+          69,
+          969,
+          409
+        ],
+        "rear": [
+          1092,
+          69,
+          1502,
+          410
+        ],
+        "left": [
+          29,
+          539,
+          487,
+          896
+        ],
+        "top": [
+          561,
+          556,
+          997,
+          910
+        ],
+        "bottom": [
+          1080,
+          560,
+          1476,
+          900
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.223,
+        "right": 0.1615,
+        "rear": 0.1658,
+        "left": 0.1626,
+        "top": 0.1436,
+        "bottom": 0.1434
+      },
+      "triangles": 576,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.28,
+              0.67,
+              0.69
+            ],
+            [
+              0.13,
+              0.13,
+              0.18
+            ],
+            0.095
+          ],
+          [
+            [
+              0.45,
+              0.49,
+              0.9
+            ],
+            [
+              0.12,
+              0.16,
+              0.16
+            ],
+            -0.14
+          ],
+          [
+            [
+              0.25,
+              0.32,
+              0.87
+            ],
+            [
+              0.1,
+              0.12,
+              0.18
+            ],
+            -0.12
+          ],
+          [
+            [
+              0.71,
+              0.27,
+              0.62
+            ],
+            [
+              0.13,
+              0.16,
+              0.24
+            ],
+            0.11
+          ],
+          [
+            [
+              0.53,
+              0.36,
+              0.22
+            ],
+            [
+              0.16,
+              0.14,
+              0.2
+            ],
+            -0.1
+          ],
+          [
+            [
+              0.25,
+              0.58,
+              0.32
+            ],
+            [
+              0.13,
+              0.14,
+              0.23
+            ],
+            0.09
+          ],
+          [
+            [
+              0.8,
+              0.22,
+              0.27
+            ],
+            [
+              0.13,
+              0.12,
+              0.19
+            ],
+            -0.1
+          ],
+          [
+            [
+              0.63,
+              0.26,
+              0.7
+            ],
+            [
+              0.083,
+              0.083,
+              0.135
+            ],
+            -0.09
+          ]
+        ],
+        "max_groove_m": -0.05386606231331825,
+        "max_protrusion_m": 0.02419119141995907,
+        "width_height_depth_original_m": [
+          0.31931638717651367,
+          0.23025186359882355,
+          0.24709203839302063
+        ],
+        "width_height_depth_candidate_m": [
+          0.32106882333755493,
+          0.23054182529449463,
+          0.24850955605506897
+        ],
+        "local_simplification_distance_median_m": 0.007089035183882415,
+        "shell_topology_before": [
+          1,
+          2
+        ],
+        "shell_topology_after": [
+          1,
+          2
+        ],
+        "cavity": null
+      },
+      "cavity": null,
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 440,
+        "p05_m": -0.052159774333905916,
+        "p95_m": 0.019681250884666268,
+        "min_m": -0.16097050746477498,
+        "max_m": 0.10554302406623231
+      },
+      "model": "res://assets/aquascape-v11/solids/dragon_stone.glb",
+      "before_sha256": "b5fded1032fb85223e1449ddb965ab3efb905f340052221f3fa7a71a98b74f0b",
+      "geometry_changed": true,
+      "after_sha256": "8eb8821086d13620f845142343893e6f6aaf2bc8d022f3415737d267c757f5ad",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/dragon_stone/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/dragon_stone/dragon_stone.blend",
+      "whole_instance_budget": "rock",
+      "hard_limit": 600,
+      "shell_topology_components_euler": [
+        1,
+        2
+      ],
+      "dimensions_m": [
+        0.32106882333755493,
+        0.23054182529449463,
+        0.24850955605506897
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [],
+      "semantic_updated": [],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: angular ochre honeycomb dragon rock, low asymmetric rough wedge with high left shoulder when facing front, irregular honeycomb pitting, big forward slabs, broken overhangs and deep eroded channels, sides and top are genuinely sculpted, smaller mineral grit stays in color.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "dragon_stone_six_views"
+    },
+    {
+      "id": "driftwood",
+      "name_zh": "分叉沉木",
+      "source_sha256": "880bb0d262d128a8874c07bff006ae114ed5353f0507cd14bc3cb6a5efc19d6f",
+      "source_boxes": {
+        "front": [
+          27,
+          83,
+          519,
+          437
+        ],
+        "right": [
+          671,
+          59,
+          932,
+          439
+        ],
+        "rear": [
+          1157,
+          61,
+          1420,
+          447
+        ],
+        "left": [
+          29,
+          630,
+          510,
+          858
+        ],
+        "top": [
+          557,
+          604,
+          1010,
+          829
+        ],
+        "bottom": [
+          1068,
+          596,
+          1500,
+          870
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.2523,
+        "right": 0.1411,
+        "rear": 0.2661,
+        "left": 0.1127,
+        "top": 0.0937,
+        "bottom": 0.134
+      },
+      "triangles": 1076,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.49,
+              0.53,
+              0.85
+            ],
+            [
+              0.14,
+              0.075,
+              0.14
+            ],
+            -0.08
+          ],
+          [
+            [
+              0.57,
+              0.65,
+              0.84
+            ],
+            [
+              0.155,
+              0.081,
+              0.186
+            ],
+            0.076
+          ],
+          [
+            [
+              0.37,
+              0.45,
+              0.16
+            ],
+            [
+              0.131,
+              0.09,
+              0.161
+            ],
+            -0.079
+          ],
+          [
+            [
+              0.61,
+              0.56,
+              0.189
+            ],
+            [
+              0.132,
+              0.098,
+              0.175
+            ],
+            0.076
+          ]
+        ],
+        "max_groove_m": -0.015814034268260002,
+        "max_protrusion_m": 0.016055939719080925,
+        "width_height_depth_original_m": [
+          0.5411348342895508,
+          0.33981189131736755,
+          0.228287935256958
+        ],
+        "width_height_depth_candidate_m": [
+          0.5411216020584106,
+          0.33980903029441833,
+          0.2282601296901703
+        ],
+        "local_simplification_distance_median_m": 0.008963536613403872,
+        "shell_topology_before": [
+          1,
+          2
+        ],
+        "shell_topology_after": [
+          1,
+          2
+        ],
+        "cavity": null
+      },
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 318,
+        "p05_m": -0.009146254578465554,
+        "p95_m": 0.01522831626488382,
+        "min_m": -0.04726550095912624,
+        "max_m": 0.1752623051026993
+      },
+      "model": "res://assets/aquascape-v9/solids/driftwood.glb",
+      "before_sha256": "83723fc16f9d33b1fd620da66eb9e63f6a8bd9c6ac44e55415c10d99dd97fcda",
+      "geometry_changed": true,
+      "after_sha256": "4d4a3a2af7e41e15ba98898ff3d2283f3a1e1a92d4ecde03d78bab05e334044a",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/driftwood/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/driftwood/driftwood.blend",
+      "whole_instance_budget": "wood",
+      "hard_limit": 1200,
+      "shell_topology_components_euler": [
+        1,
+        2
+      ],
+      "dimensions_m": [
+        0.5411216020584106,
+        0.33980903029441833,
+        0.2282601296901703
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [],
+      "semantic_updated": [],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: one gnarled gray-brown forked freshwater hardwood limb, asymmetric fork rising into two fore/back extremities, connected knotted shoulders and small low root points; grain wraps by branch along the individual natural growth direction.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "driftwood_six_views"
+    },
+    {
+      "id": "iron_anchor",
+      "name_zh": "旧船锚",
+      "source_sha256": "21f2034a5a25db65ad017f7bf9af140cfda84eb12ffe78d0903356757a170fc5",
+      "source_boxes": {
+        "front": [
+          119,
+          20,
+          462,
+          484
+        ],
+        "right": [
+          737,
+          20,
+          796,
+          485
+        ],
+        "rear": [
+          1079,
+          20,
+          1422,
+          484
+        ],
+        "left": [
+          261,
+          525,
+          320,
+          967
+        ],
+        "top": [
+          528,
+          720,
+          1011,
+          805
+        ],
+        "bottom": [
+          1088,
+          587,
+          1419,
+          929
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.2671,
+        "right": 0.1623,
+        "rear": 0.2743,
+        "left": 0.1574,
+        "top": 0.0715,
+        "bottom": 0.0674
+      },
+      "triangles": 1200,
+      "relief": null,
+      "model": "res://assets/aquascape-v9/solids/iron_anchor.glb",
+      "before_sha256": "3d1abcb80ba0c9f67f20b929f2675db150b7783e6f1c4bf3e7097417797fbcde",
+      "geometry_changed": false,
+      "after_sha256": "e383a1f8ad44ac4871e0fefca81906250fa2fb160b503b5c82eb14877aef17d7",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/iron_anchor/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/iron_anchor/iron_anchor.blend",
+      "whole_instance_budget": "decor",
+      "hard_limit": 2000,
+      "shell_topology_components_euler": [
+        1,
+        0
+      ],
+      "dimensions_m": [
+        0.22099590301513672,
+        0.3223753869533539,
+        0.03167776018381119
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [],
+      "semantic_updated": [],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: one vertically standing dark forged iron anchor with a circular hanging eye, short crossbar, curved stock and flukes, physical side thickness narrow; reveal forged surface, hammered grain, medium scattered oxidation and layer seams without stripes.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "iron_anchor_six_views"
+    },
+    {
+      "id": "lava_rock",
+      "name_zh": "火山熔岩石",
+      "source_sha256": "a91edc007c59c8aeaf8550b6dc09b55f1cb9f4d069dbf0607f797222ba10cc7c",
+      "source_boxes": {
+        "front": [
+          22,
+          92,
+          515,
+          401
+        ],
+        "right": [
+          557,
+          87,
+          985,
+          408
+        ],
+        "rear": [
+          1040,
+          87,
+          1509,
+          416
+        ],
+        "left": [
+          22,
+          591,
+          503,
+          915
+        ],
+        "top": [
+          544,
+          574,
+          1003,
+          941
+        ],
+        "bottom": [
+          1044,
+          583,
+          1513,
+          932
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.2478,
+        "right": 0.1281,
+        "rear": 0.21,
+        "left": 0.1008,
+        "top": 0.1684,
+        "bottom": 0.1448
+      },
+      "triangles": 576,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.235,
+              0.5,
+              0.84
+            ],
+            [
+              0.116,
+              0.12,
+              0.18
+            ],
+            -0.148
+          ],
+          [
+            [
+              0.46,
+              0.72,
+              0.76
+            ],
+            [
+              0.125,
+              0.095,
+              0.17
+            ],
+            -0.129
+          ],
+          [
+            [
+              0.7,
+              0.34,
+              0.88
+            ],
+            [
+              0.102,
+              0.129,
+              0.18
+            ],
+            -0.14
+          ],
+          [
+            [
+              0.81,
+              0.53,
+              0.55
+            ],
+            [
+              0.13,
+              0.117,
+              0.21
+            ],
+            -0.115
+          ],
+          [
+            [
+              0.52,
+              0.57,
+              0.21
+            ],
+            [
+              0.1,
+              0.11,
+              0.18
+            ],
+            -0.12
+          ],
+          [
+            [
+              0.4,
+              0.26,
+              0.14
+            ],
+            [
+              0.092,
+              0.106,
+              0.2
+            ],
+            -0.09
+          ],
+          [
+            [
+              0.26,
+              0.47,
+              0.37
+            ],
+            [
+              0.16,
+              0.153,
+              0.18
+            ],
+            0.075
+          ],
+          [
+            [
+              0.57,
+              0.46,
+              0.83
+            ],
+            [
+              0.17,
+              0.15,
+              0.18
+            ],
+            0.079
+          ]
+        ],
+        "max_groove_m": -0.04878285899758339,
+        "max_protrusion_m": 0.009721417911350727,
+        "width_height_depth_original_m": [
+          0.30313414335250854,
+          0.17937636375427246,
+          0.22377458214759827
+        ],
+        "width_height_depth_candidate_m": [
+          0.2958427965641022,
+          0.17931373417377472,
+          0.20346802473068237
+        ],
+        "local_simplification_distance_median_m": 0.006528242804566492,
+        "shell_topology_before": [
+          1,
+          2
+        ],
+        "shell_topology_after": [
+          1,
+          2
+        ],
+        "cavity": null
+      },
+      "cavity": null,
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 558,
+        "p05_m": -0.04016829893613468,
+        "p95_m": 0.005373310515635606,
+        "min_m": -0.15937382770004313,
+        "max_m": 0.02115071291596471
+      },
+      "model": "res://assets/aquascape-v11/solids/lava_rock.glb",
+      "before_sha256": "8e1215fdf0fff02cd00f9a9f3eaf699189da9facd8df48d79c6164bf0c57d963",
+      "geometry_changed": true,
+      "after_sha256": "257019abc27bcbd90a2cf32bf78859541f90c1bf4e1f2817b9c397eb8c163544",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/lava_rock/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/lava_rock/lava_rock.blend",
+      "whole_instance_budget": "rock",
+      "hard_limit": 600,
+      "shell_topology_components_euler": [
+        1,
+        2
+      ],
+      "dimensions_m": [
+        0.2958427965641022,
+        0.17931373417377472,
+        0.20346802473068237
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [],
+      "semantic_updated": [],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: one irregular squat low round lump of rusty red vesicular volcanic scoria, cavities of different diameters, dark gray pits, coarse red/brown relief and a solid underside, no long straight bands.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "lava_rock_six_views"
+    },
+    {
+      "id": "mangrove_root",
+      "name_zh": "红树支根木",
+      "source_sha256": "82f3cbfe816a460996063153d69f56299dabb8c03a72d958c427249af5fc47b1",
+      "source_boxes": {
+        "front": [
+          22,
+          88,
+          518,
+          420
+        ],
+        "right": [
+          559,
+          79,
+          989,
+          426
+        ],
+        "rear": [
+          1049,
+          87,
+          1514,
+          419
+        ],
+        "left": [
+          26,
+          549,
+          480,
+          925
+        ],
+        "top": [
+          562,
+          549,
+          992,
+          928
+        ],
+        "bottom": [
+          1041,
+          562,
+          1514,
+          924
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.173,
+        "right": 0.1807,
+        "rear": 0.1918,
+        "left": 0.1612,
+        "top": 0.1125,
+        "bottom": 0.1807
+      },
+      "triangles": 1076,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.53,
+              0.51,
+              0.8
+            ],
+            [
+              0.087,
+              0.255,
+              0.187
+            ],
+            -0.085
+          ],
+          [
+            [
+              0.46,
+              0.48,
+              0.79
+            ],
+            [
+              0.08,
+              0.211,
+              0.183
+            ],
+            0.087
+          ],
+          [
+            [
+              0.69,
+              0.42,
+              0.73
+            ],
+            [
+              0.134,
+              0.087,
+              0.18
+            ],
+            0.093
+          ],
+          [
+            [
+              0.35,
+              0.46,
+              0.21
+            ],
+            [
+              0.099,
+              0.174,
+              0.163
+            ],
+            -0.071
+          ],
+          [
+            [
+              0.53,
+              0.6,
+              0.15
+            ],
+            [
+              0.092,
+              0.17,
+              0.13
+            ],
+            0.061
+          ]
+        ],
+        "max_groove_m": -0.020166900008916855,
+        "max_protrusion_m": 0.0248247180134058,
+        "width_height_depth_original_m": [
+          0.3866123557090759,
+          0.2452402114868164,
+          0.31464868783950806
+        ],
+        "width_height_depth_candidate_m": [
+          0.3865912854671478,
+          0.24515672028064728,
+          0.3144092559814453
+        ],
+        "local_simplification_distance_median_m": 0.00986392657694024,
+        "shell_topology_before": [
+          1,
+          -40
+        ],
+        "shell_topology_after": [
+          1,
+          -40
+        ],
+        "cavity": null
+      },
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 348,
+        "p05_m": -0.012307851283569366,
+        "p95_m": 0.021287329824314638,
+        "min_m": -0.1600775361137352,
+        "max_m": 0.14206554658179998
+      },
+      "model": "res://assets/aquascape-v11/solids/mangrove_root.glb",
+      "before_sha256": "c7e972af98bd1e1204d83879b461359add5bafadaef6cfc1e23ff4194ebde5fa",
+      "geometry_changed": true,
+      "after_sha256": "e89f34dbf172ebdb8087aff15a23937a3be265f2279e6a59cf7ea7bec0990393",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/mangrove_root/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/mangrove_root/mangrove_root.blend",
+      "whole_instance_budget": "wood",
+      "hard_limit": 1200,
+      "shell_topology_components_euler": [
+        1,
+        -40
+      ],
+      "dimensions_m": [
+        0.3865912854671478,
+        0.24515672028064728,
+        0.3144092559814453
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [],
+      "semantic_updated": [],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: one dark woody red-mangrove root foot with a short rear trunk stub and flared arched knees rooting around all sides, rich dark rust and brown distinct branch grain direction, underlying root portals visible in the matching guide and underside.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "mangrove_root_six_views"
+    },
+    {
+      "id": "mopani_wood",
+      "name_zh": "双色莫帕尼木",
+      "source_sha256": "06db8139b2c81cfc88a486d30a445488a2c210979c90b0a52a129b431c6bfbba",
+      "source_boxes": {
+        "front": [
+          39,
+          92,
+          519,
+          412
+        ],
+        "right": [
+          593,
+          85,
+          922,
+          434
+        ],
+        "rear": [
+          1114,
+          77,
+          1492,
+          432
+        ],
+        "left": [
+          42,
+          577,
+          492,
+          888
+        ],
+        "top": [
+          538,
+          569,
+          1007,
+          898
+        ],
+        "bottom": [
+          1076,
+          582,
+          1491,
+          886
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.183,
+        "right": 0.1962,
+        "rear": 0.1418,
+        "left": 0.1641,
+        "top": 0.1558,
+        "bottom": 0.1591
+      },
+      "triangles": 1076,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.59,
+              0.49,
+              0.85
+            ],
+            [
+              0.17,
+              0.09,
+              0.16
+            ],
+            -0.083
+          ],
+          [
+            [
+              0.49,
+              0.55,
+              0.79
+            ],
+            [
+              0.157,
+              0.104,
+              0.185
+            ],
+            0.089
+          ],
+          [
+            [
+              0.21,
+              0.31,
+              0.71
+            ],
+            [
+              0.137,
+              0.112,
+              0.21
+            ],
+            0.092
+          ],
+          [
+            [
+              0.77,
+              0.55,
+              0.25
+            ],
+            [
+              0.127,
+              0.13,
+              0.11
+            ],
+            -0.074
+          ],
+          [
+            [
+              0.38,
+              0.46,
+              0.17
+            ],
+            [
+              0.15,
+              0.103,
+              0.18
+            ],
+            0.081
+          ]
+        ],
+        "max_groove_m": -0.015200398862361908,
+        "max_protrusion_m": 0.02147207036614418,
+        "width_height_depth_original_m": [
+          0.368121862411499,
+          0.23435929417610168,
+          0.24044759571552277
+        ],
+        "width_height_depth_candidate_m": [
+          0.3683376908302307,
+          0.23433250188827515,
+          0.24360689520835876
+        ],
+        "local_simplification_distance_median_m": 0.00831770340223631,
+        "shell_topology_before": [
+          1,
+          2
+        ],
+        "shell_topology_after": [
+          1,
+          2
+        ],
+        "cavity": null
+      },
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 420,
+        "p05_m": -0.008437016557251537,
+        "p95_m": 0.02246285862732792,
+        "min_m": -0.13864137189983355,
+        "max_m": 0.07503365599653544
+      },
+      "model": "res://assets/aquascape-v11/solids/mopani_wood.glb",
+      "before_sha256": "e15ff739228515d25e993ee7d9dfb25eb50e94b6cc2459faac7926ea55282218",
+      "geometry_changed": true,
+      "after_sha256": "9408eef138ea1af220a0ef02c88ba2f18a56aeabd0dd8d2c2b645611b97cdda7",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/mopani_wood/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/mopani_wood/mopani_wood.blend",
+      "whole_instance_budget": "wood",
+      "hard_limit": 1200,
+      "shell_topology_components_euler": [
+        1,
+        2
+      ],
+      "dimensions_m": [
+        0.3683376908302307,
+        0.23433250188827515,
+        0.24360689520835876
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [],
+      "semantic_updated": [],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: one chunky tangled hard dark brown central wood remnant with twisted multiple irregular branches and golden cream peeled areas separated by soft chips, each branch with local grain aligned along its axis, relatively low horizontal profile.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "mopani_wood_six_views"
+    },
+    {
+      "id": "pale_limestone",
+      "name_zh": "浅色风化石",
+      "source_sha256": "547fff4a148bf9e62a49ef314bbfc31d7bb42eea86c6362b510766e24314b85e",
+      "source_boxes": {
+        "front": [
+          13,
+          169,
+          497,
+          408
+        ],
+        "right": [
+          544,
+          126,
+          994,
+          409
+        ],
+        "rear": [
+          1052,
+          174,
+          1522,
+          402
+        ],
+        "left": [
+          14,
+          580,
+          497,
+          888
+        ],
+        "top": [
+          545,
+          580,
+          1007,
+          888
+        ],
+        "bottom": [
+          1072,
+          588,
+          1522,
+          846
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.2166,
+        "right": 0.0863,
+        "rear": 0.2102,
+        "left": 0.1011,
+        "top": 0.2176,
+        "bottom": 0.1682
+      },
+      "triangles": 536,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.22,
+              0.64,
+              0.75
+            ],
+            [
+              0.165,
+              0.145,
+              0.21
+            ],
+            0.082
+          ],
+          [
+            [
+              0.48,
+              0.44,
+              0.84
+            ],
+            [
+              0.15,
+              0.07,
+              0.2
+            ],
+            -0.091
+          ],
+          [
+            [
+              0.77,
+              0.62,
+              0.72
+            ],
+            [
+              0.17,
+              0.15,
+              0.17
+            ],
+            0.072
+          ],
+          [
+            [
+              0.64,
+              0.51,
+              0.18
+            ],
+            [
+              0.21,
+              0.065,
+              0.2
+            ],
+            -0.1
+          ],
+          [
+            [
+              0.31,
+              0.42,
+              0.17
+            ],
+            [
+              0.19,
+              0.09,
+              0.21
+            ],
+            0.08
+          ],
+          [
+            [
+              0.44,
+              0.68,
+              0.46
+            ],
+            [
+              0.13,
+              0.17,
+              0.13
+            ],
+            -0.081
+          ]
+        ],
+        "max_groove_m": -0.013655714690685272,
+        "max_protrusion_m": 0.011976082809269428,
+        "width_height_depth_original_m": [
+          0.27662113308906555,
+          0.1310049295425415,
+          0.18102937936782837
+        ],
+        "width_height_depth_candidate_m": [
+          0.28012919425964355,
+          0.12998522818088531,
+          0.18620982766151428
+        ],
+        "local_simplification_distance_median_m": 0.005604277548937301,
+        "shell_topology_before": [
+          1,
+          2
+        ],
+        "shell_topology_after": [
+          1,
+          2
+        ],
+        "cavity": null
+      },
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 540,
+        "p05_m": -0.00893926902114847,
+        "p95_m": 0.011280273465174117,
+        "min_m": -0.09277231966764227,
+        "max_m": 0.09253702738561703
+      },
+      "model": "res://assets/aquascape-v9/solids/pale_limestone.glb",
+      "before_sha256": "c45f4a70e388e87a74ea7bce3ff1968f8a90f868cdaeb077129597d1ffe08e27",
+      "geometry_changed": true,
+      "after_sha256": "96804251ad32033307fa479b89036248205fa0effa84a454049654ffb9fe0618",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/pale_limestone/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/pale_limestone/pale_limestone.blend",
+      "whole_instance_budget": "rock",
+      "hard_limit": 600,
+      "shell_topology_components_euler": [
+        1,
+        2
+      ],
+      "dimensions_m": [
+        0.28012919425964355,
+        0.12998522818088531,
+        0.18620982766151428
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [],
+      "semantic_updated": [],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: one low elongated angular buff gray limestone block with an indented shallow saddle, rumpled eroded bedding planes and overhanging chips, inverse side lower with inset strata, chalk broken deposits on top, no repeating horizontal ladder.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "pale_limestone_six_views"
+    },
+    {
+      "id": "quartz_rock",
+      "name_zh": "乳白石英岩",
+      "source_sha256": "520aaac1548aeda5180984a4bebd6a0d8370db6f475aa05f61f1d0791b0d3be0",
+      "source_boxes": {
+        "front": [
+          17,
+          90,
+          524,
+          427
+        ],
+        "right": [
+          567,
+          77,
+          990,
+          438
+        ],
+        "rear": [
+          1039,
+          90,
+          1520,
+          438
+        ],
+        "left": [
+          25,
+          570,
+          524,
+          929
+        ],
+        "top": [
+          547,
+          568,
+          1015,
+          934
+        ],
+        "bottom": [
+          1051,
+          596,
+          1511,
+          929
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.2082,
+        "right": 0.1378,
+        "rear": 0.2016,
+        "left": 0.1427,
+        "top": 0.1581,
+        "bottom": 0.1517
+      },
+      "triangles": 536,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.38,
+              0.62,
+              0.79
+            ],
+            [
+              0.17,
+              0.15,
+              0.14
+            ],
+            0.108
+          ],
+          [
+            [
+              0.52,
+              0.42,
+              0.83
+            ],
+            [
+              0.13,
+              0.14,
+              0.17
+            ],
+            -0.077
+          ],
+          [
+            [
+              0.75,
+              0.52,
+              0.73
+            ],
+            [
+              0.135,
+              0.13,
+              0.21
+            ],
+            0.079
+          ],
+          [
+            [
+              0.37,
+              0.49,
+              0.22
+            ],
+            [
+              0.19,
+              0.12,
+              0.19
+            ],
+            -0.095
+          ],
+          [
+            [
+              0.64,
+              0.7,
+              0.37
+            ],
+            [
+              0.172,
+              0.14,
+              0.16
+            ],
+            0.078
+          ],
+          [
+            [
+              0.92,
+              0.46,
+              0.51
+            ],
+            [
+              0.14,
+              0.13,
+              0.22
+            ],
+            -0.083
+          ]
+        ],
+        "max_groove_m": -0.013292207382619381,
+        "max_protrusion_m": 0.017863333225250244,
+        "width_height_depth_original_m": [
+          0.28478044271469116,
+          0.1580791175365448,
+          0.20297318696975708
+        ],
+        "width_height_depth_candidate_m": [
+          0.2794077396392822,
+          0.15859495103359222,
+          0.20132341980934143
+        ],
+        "local_simplification_distance_median_m": 0.007091316563245658,
+        "shell_topology_before": [
+          1,
+          2
+        ],
+        "shell_topology_after": [
+          1,
+          2
+        ],
+        "cavity": null
+      },
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 532,
+        "p05_m": -0.010391208281382259,
+        "p95_m": 0.01697897407597387,
+        "min_m": -0.060784016888452974,
+        "max_m": 0.11854375011242002
+      },
+      "model": "res://assets/aquascape-v11/solids/quartz_rock.glb",
+      "before_sha256": "984f88a57841fb5b1176922bd3651ae1668362bad0c7ddea3d11c64f42c93b1b",
+      "geometry_changed": true,
+      "after_sha256": "fce3432afcd549568b4938b5543a92710a3a68be3f26d02d92b94b56e4534492",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/quartz_rock/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/quartz_rock/quartz_rock.blend",
+      "whole_instance_budget": "rock",
+      "hard_limit": 600,
+      "shell_topology_components_euler": [
+        1,
+        2
+      ],
+      "dimensions_m": [
+        0.2794077396392822,
+        0.15859495103359222,
+        0.20132341980934143
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [],
+      "semantic_updated": [],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: one asymmetrical milky gray ivory quartz boulder, rounded uneven polygonal lumps with clustered light quartz veins and true rough medium-scale ridges and recesses, side rear and top white/gray quartz with distinct natural camera-specific physical patches.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "quartz_rock_six_views"
+    },
+    {
+      "id": "red_sandstone",
+      "name_zh": "红褐层砂岩",
+      "source_sha256": "a3819db006ac5fe1889d1c122a51573fd3209053622b7a9ad5d08eb957fb9e37",
+      "source_boxes": {
+        "front": [
+          30,
+          144,
+          523,
+          382
+        ],
+        "right": [
+          565,
+          132,
+          978,
+          384
+        ],
+        "rear": [
+          1038,
+          144,
+          1510,
+          391
+        ],
+        "left": [
+          30,
+          615,
+          496,
+          879
+        ],
+        "top": [
+          532,
+          604,
+          1008,
+          887
+        ],
+        "bottom": [
+          1054,
+          621,
+          1512,
+          874
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.2427,
+        "right": 0.1103,
+        "rear": 0.2201,
+        "left": 0.0727,
+        "top": 0.2197,
+        "bottom": 0.1345
+      },
+      "triangles": 536,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.41,
+              0.62,
+              0.8
+            ],
+            [
+              0.26,
+              0.073,
+              0.12
+            ],
+            0.099
+          ],
+          [
+            [
+              0.51,
+              0.46,
+              0.87
+            ],
+            [
+              0.29,
+              0.059,
+              0.14
+            ],
+            -0.106
+          ],
+          [
+            [
+              0.49,
+              0.34,
+              0.89
+            ],
+            [
+              0.245,
+              0.07,
+              0.16
+            ],
+            0.086
+          ],
+          [
+            [
+              0.48,
+              0.56,
+              0.14
+            ],
+            [
+              0.25,
+              0.065,
+              0.15
+            ],
+            -0.09
+          ],
+          [
+            [
+              0.71,
+              0.53,
+              0.18
+            ],
+            [
+              0.23,
+              0.071,
+              0.19
+            ],
+            0.088
+          ],
+          [
+            [
+              0.89,
+              0.44,
+              0.5
+            ],
+            [
+              0.13,
+              0.058,
+              0.17
+            ],
+            -0.09
+          ]
+        ],
+        "max_groove_m": -0.019199272617697716,
+        "max_protrusion_m": 0.022366438060998917,
+        "width_height_depth_original_m": [
+          0.36165475845336914,
+          0.16923929750919342,
+          0.24264271557331085
+        ],
+        "width_height_depth_candidate_m": [
+          0.36243030428886414,
+          0.16923928260803223,
+          0.24427436292171478
+        ],
+        "local_simplification_distance_median_m": 0.009099291224496263,
+        "shell_topology_before": [
+          1,
+          2
+        ],
+        "shell_topology_after": [
+          1,
+          2
+        ],
+        "cavity": null
+      },
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 526,
+        "p05_m": -0.008805847189396934,
+        "p95_m": 0.016655618076635167,
+        "min_m": -0.02487415468395454,
+        "max_m": 0.03836129763708196
+      },
+      "model": "res://assets/aquascape-v9/solids/red_sandstone.glb",
+      "before_sha256": "9b92d25dd0aa097407c198d3b2b5403f3806405308ec2f54bb0e95ceb181b124",
+      "geometry_changed": true,
+      "after_sha256": "13f7497a824a29af262d35ba528bfdea721e69c8f3129ffb74c3876300bc2c75",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/red_sandstone/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/red_sandstone/red_sandstone.blend",
+      "whole_instance_budget": "rock",
+      "hard_limit": 600,
+      "shell_topology_components_euler": [
+        1,
+        2
+      ],
+      "dimensions_m": [
+        0.36243030428886414,
+        0.16923928260803223,
+        0.24427436292171478
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [],
+      "semantic_updated": [],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: one low red-brown sandstone slab with three visibly stepped and crumbling layers and an asymmetric tilted main shoulder; natural individual thin strata mildly winding and breaking across chips, eroded ledges and dark recesses on all non-contact surfaces.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "red_sandstone_six_views"
+    },
+    {
+      "id": "reef_brain_coral",
+      "name_zh": "半球脑纹硬珊瑚",
+      "source_sha256": "0d51470296f13e27b62fcf42ca8742341cbec1964d15355fd1a05333689177f7",
+      "source_boxes": {
+        "front": [
+          14,
+          141,
+          504,
+          415
+        ],
+        "right": [
+          553,
+          141,
+          992,
+          415
+        ],
+        "rear": [
+          1034,
+          141,
+          1522,
+          415
+        ],
+        "left": [
+          31,
+          606,
+          499,
+          879
+        ],
+        "top": [
+          553,
+          523,
+          993,
+          952
+        ],
+        "bottom": [
+          1044,
+          606,
+          1512,
+          886
+        ]
+      },
+      "outline_uv_registration": [],
+      "source_view_ownership": {
+        "front": 0.1787,
+        "right": 0.1552,
+        "rear": 0.1895,
+        "left": 0.1607,
+        "top": 0.2654,
+        "bottom": 0.0504
+      },
+      "triangles": 576,
+      "relief": {
+        "planned_zones": "Six-view pigment aligned macro groove relief",
+        "max_groove_m": -0.022889671847224236,
+        "max_protrusion_m": 0.022889671847224236,
+        "width_height_depth_original_m": [
+          0.856039822101593,
+          0.5202198028564453,
+          0.7750577330589294
+        ],
+        "width_height_depth_candidate_m": [
+          0.8477215766906738,
+          0.5292481780052185,
+          0.7625008821487427
+        ],
+        "local_simplification_distance_median_m": 0.028682206375419447,
+        "shell_topology_before": [
+          1,
+          2
+        ],
+        "shell_topology_after": [
+          1,
+          2
+        ],
+        "cavity": null
+      },
+      "cavity": null,
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 564,
+        "p05_m": -0.03235094604874009,
+        "p95_m": 0.03120427070970174,
+        "min_m": -0.15478308332322932,
+        "max_m": 0.12153699648844352
+      },
+      "model": "res://assets/aquascape-expansion-v1/reef_brain_coral.glb",
+      "before_sha256": "3d92cd8700741efdf2686de973880ad1e5e6795bbe17598be3bb912b0a6a28c4",
+      "geometry_changed": true,
+      "after_sha256": "a1f82f29b78cc0c387e247471d69a5ca6297d582628721e1d4063a47769af75d",
+      "source_art": "resources/aquascape/reef-expansion-20261123/corals-c/candidates/reef_brain_coral/six-material-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/reef_brain_coral/reef_brain_coral.blend",
+      "whole_instance_budget": "rock",
+      "hard_limit": 600,
+      "shell_topology_components_euler": [
+        1,
+        2
+      ],
+      "dimensions_m": [
+        0.8477215766906738,
+        0.5292481780052185,
+        0.7625008821487427
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [],
+      "semantic_updated": []
+    },
+    {
+      "id": "river_boulder",
+      "name_zh": "圆卵溪石",
+      "source_sha256": "54cbb6c2332585bd6df94155079cbb8b06abc96963e5e02d4fe280800fdab7e7",
+      "source_boxes": {
+        "front": [
+          10,
+          131,
+          496,
+          379
+        ],
+        "right": [
+          530,
+          107,
+          1006,
+          390
+        ],
+        "rear": [
+          1040,
+          131,
+          1526,
+          384
+        ],
+        "left": [
+          11,
+          578,
+          496,
+          903
+        ],
+        "top": [
+          530,
+          559,
+          1006,
+          921
+        ],
+        "bottom": [
+          1040,
+          604,
+          1526,
+          897
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.1626,
+        "right": 0.1087,
+        "rear": 0.2459,
+        "left": 0.0703,
+        "top": 0.2317,
+        "bottom": 0.1809
+      },
+      "triangles": 536,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.34,
+              0.67,
+              0.67
+            ],
+            [
+              0.2,
+              0.16,
+              0.18
+            ],
+            0.087
+          ],
+          [
+            [
+              0.48,
+              0.52,
+              0.83
+            ],
+            [
+              0.152,
+              0.088,
+              0.13
+            ],
+            -0.084
+          ],
+          [
+            [
+              0.76,
+              0.5,
+              0.66
+            ],
+            [
+              0.15,
+              0.18,
+              0.2
+            ],
+            0.069
+          ],
+          [
+            [
+              0.64,
+              0.55,
+              0.16
+            ],
+            [
+              0.18,
+              0.13,
+              0.18
+            ],
+            -0.066
+          ],
+          [
+            [
+              0.45,
+              0.32,
+              0.17
+            ],
+            [
+              0.18,
+              0.14,
+              0.14
+            ],
+            0.057
+          ]
+        ],
+        "max_groove_m": -0.010455165058374405,
+        "max_protrusion_m": 0.01575545221567154,
+        "width_height_depth_original_m": [
+          0.3022770285606384,
+          0.15374669432640076,
+          0.2132110744714737
+        ],
+        "width_height_depth_candidate_m": [
+          0.30541110038757324,
+          0.15397003293037415,
+          0.21335667371749878
+        ],
+        "local_simplification_distance_median_m": 0.009489730153406744,
+        "shell_topology_before": [
+          7,
+          12
+        ],
+        "shell_topology_after": [
+          7,
+          12
+        ],
+        "cavity": null
+      },
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 564,
+        "p05_m": -0.004422241011629032,
+        "p95_m": 0.01396663425135911,
+        "min_m": -0.014123196972970098,
+        "max_m": 0.05880084998204316
+      },
+      "model": "res://assets/aquascape-v9/solids/river_boulder.glb",
+      "before_sha256": "6643b8fd99312fad7da6d6b242e2a2ee8d5625f7fd7ed955db81028b05c7f5a5",
+      "geometry_changed": true,
+      "after_sha256": "f066cf722f8c8047cd471f5bbc03a5e4a88f1aa4eb269aa5778e3813552d941f",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/river_boulder/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/river_boulder/river_boulder.blend",
+      "whole_instance_budget": "rock",
+      "hard_limit": 600,
+      "shell_topology_components_euler": [
+        7,
+        12
+      ],
+      "dimensions_m": [
+        0.30541110038757324,
+        0.15397003293037415,
+        0.21335667371749878
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [],
+      "semantic_updated": [],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: a single low round brown-gray stream boulder, worn rough facets, chipped quartz grain, continuous mass and subtle localized wet mineral pockets, relief is moderate with rolling bulges and slanted cracks, no planar banding.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "river_boulder_six_views"
+    },
+    {
+      "id": "rock",
+      "name_zh": "阶台灰岩",
+      "source_sha256": "2f3d203397a68e7b29e08646f45089cee1dd218f6c2e513d934b553041ad08fd",
+      "source_boxes": {
+        "front": [
+          28,
+          160,
+          525,
+          370
+        ],
+        "right": [
+          596,
+          116,
+          972,
+          394
+        ],
+        "rear": [
+          1051,
+          113,
+          1502,
+          394
+        ],
+        "left": [
+          27,
+          614,
+          510,
+          852
+        ],
+        "top": [
+          562,
+          615,
+          1015,
+          847
+        ],
+        "bottom": [
+          1083,
+          621,
+          1491,
+          855
+        ]
+      },
+      "outline_uv_registration": [
+        "top"
+      ],
+      "source_view_ownership": {
+        "front": 0.2317,
+        "right": 0.1352,
+        "rear": 0.1852,
+        "left": 0.0829,
+        "top": 0.2423,
+        "bottom": 0.1226
+      },
+      "triangles": 536,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.72,
+              0.66,
+              0.84
+            ],
+            [
+              0.17,
+              0.14,
+              0.2
+            ],
+            0.12
+          ],
+          [
+            [
+              0.63,
+              0.42,
+              0.86
+            ],
+            [
+              0.27,
+              0.07,
+              0.14
+            ],
+            -0.115
+          ],
+          [
+            [
+              0.39,
+              0.44,
+              0.15
+            ],
+            [
+              0.25,
+              0.085,
+              0.19
+            ],
+            -0.092
+          ],
+          [
+            [
+              0.25,
+              0.48,
+              0.76
+            ],
+            [
+              0.162,
+              0.071,
+              0.19
+            ],
+            0.083
+          ],
+          [
+            [
+              0.72,
+              0.82,
+              0.35
+            ],
+            [
+              0.155,
+              0.139,
+              0.21
+            ],
+            0.087
+          ],
+          [
+            [
+              0.94,
+              0.49,
+              0.49
+            ],
+            [
+              0.15,
+              0.07,
+              0.2
+            ],
+            -0.087
+          ]
+        ],
+        "max_groove_m": -0.016021642833948135,
+        "max_protrusion_m": 0.020204834640026093,
+        "width_height_depth_original_m": [
+          0.3823513388633728,
+          0.16066233813762665,
+          0.1871977150440216
+        ],
+        "width_height_depth_candidate_m": [
+          0.3804055452346802,
+          0.16067425906658173,
+          0.19752973318099976
+        ],
+        "local_simplification_distance_median_m": 0.005486431192320278,
+        "shell_topology_before": [
+          1,
+          2
+        ],
+        "shell_topology_after": [
+          1,
+          2
+        ],
+        "cavity": null
+      },
+      "cavity": null,
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 496,
+        "p05_m": -0.00972865348909454,
+        "p95_m": 0.016377764232158656,
+        "min_m": -0.03720474520735634,
+        "max_m": 0.17959308137854935
+      },
+      "model": "res://assets/aquascape-v9/solids/rock.glb",
+      "before_sha256": "9bdaa81b113f7d443582c976153b5792f1c6fae3485296fe15e5d1f8177e6be9",
+      "geometry_changed": true,
+      "after_sha256": "e5729f91073635808e08125be1d42e26ab82e044ad3389a3e26376c299f45dda",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/rock/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/rock/rock.blend",
+      "whole_instance_budget": "rock",
+      "hard_limit": 600,
+      "shell_topology_components_euler": [
+        1,
+        2
+      ],
+      "dimensions_m": [
+        0.3804055452346802,
+        0.16067425906658173,
+        0.19752973318099976
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [],
+      "semantic_updated": [],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: a low wide slate blue-gray ledged limestone step with a taller rear-right crown and facing uneven jagged planar chunks; individually chipped rocks physically bulge, lower rocky ledges erode under their borders and leave inset shadows, true roughness continues around sides and top.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "rock_six_views"
+    },
+    {
+      "id": "root_fan",
+      "name_zh": "扇形根木",
+      "source_sha256": "74e1b9f708b3b4c35dd4479026211b67ee7b1bc9240806303f3db96a15da8500",
+      "source_boxes": {
+        "front": [
+          20,
+          86,
+          506,
+          386
+        ],
+        "right": [
+          563,
+          62,
+          989,
+          393
+        ],
+        "rear": [
+          1046,
+          66,
+          1517,
+          404
+        ],
+        "left": [
+          33,
+          576,
+          489,
+          926
+        ],
+        "top": [
+          568,
+          574,
+          981,
+          926
+        ],
+        "bottom": [
+          1066,
+          603,
+          1507,
+          909
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.1661,
+        "right": 0.1384,
+        "rear": 0.1621,
+        "left": 0.1296,
+        "top": 0.2096,
+        "bottom": 0.1942
+      },
+      "triangles": 1076,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.49,
+              0.53,
+              0.85
+            ],
+            [
+              0.114,
+              0.17,
+              0.18
+            ],
+            -0.089
+          ],
+          [
+            [
+              0.65,
+              0.31,
+              0.68
+            ],
+            [
+              0.2,
+              0.09,
+              0.17
+            ],
+            0.089
+          ],
+          [
+            [
+              0.24,
+              0.36,
+              0.69
+            ],
+            [
+              0.114,
+              0.09,
+              0.18
+            ],
+            0.092
+          ],
+          [
+            [
+              0.47,
+              0.59,
+              0.18
+            ],
+            [
+              0.111,
+              0.16,
+              0.192
+            ],
+            -0.094
+          ],
+          [
+            [
+              0.69,
+              0.42,
+              0.22
+            ],
+            [
+              0.13,
+              0.12,
+              0.17
+            ],
+            0.08
+          ]
+        ],
+        "max_groove_m": -0.024630585685372353,
+        "max_protrusion_m": 0.02528228983283043,
+        "width_height_depth_original_m": [
+          0.36836349964141846,
+          0.21256059408187866,
+          0.2943756580352783
+        ],
+        "width_height_depth_candidate_m": [
+          0.36836153268814087,
+          0.21254999935626984,
+          0.29392728209495544
+        ],
+        "local_simplification_distance_median_m": 0.006738000686699715,
+        "shell_topology_before": [
+          1,
+          2
+        ],
+        "shell_topology_after": [
+          1,
+          2
+        ],
+        "cavity": null
+      },
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 368,
+        "p05_m": -0.019115044019009687,
+        "p95_m": 0.028313677105620577,
+        "min_m": -0.13660713023870466,
+        "max_m": 0.0951528336979579
+      },
+      "model": "res://assets/aquascape-v9/solids/root_fan.glb",
+      "before_sha256": "fdfecaa203412eafbe73c55b52fd2e7ad05f68d22783ad61c78e1c8c884e04bc",
+      "geometry_changed": true,
+      "after_sha256": "251eb1be7cd5f9020930d7a03f45e2949c02930fdb5a6a98a0a09c5b485ddf98",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/root_fan/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/root_fan/root_fan.blend",
+      "whole_instance_budget": "wood",
+      "hard_limit": 1200,
+      "shell_topology_components_euler": [
+        1,
+        2
+      ],
+      "dimensions_m": [
+        0.36836153268814087,
+        0.21254999935626984,
+        0.29392728209495544
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [],
+      "semantic_updated": [],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: a single reddish brown hardwood fan of splayed low root forks from a shared crown, connected natural limbs with clipped stubs, organic tunnel gaps and isolated fork end cuts, grain curves through each foot.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "root_fan_six_views"
+    },
+    {
+      "id": "root_stump",
+      "name_zh": "多根木桩",
+      "source_sha256": "37af9866004347a46feae7de24567b823632d9e877e875d702e623d5ceb9cae3",
+      "source_boxes": {
+        "front": [
+          17,
+          73,
+          522,
+          453
+        ],
+        "right": [
+          585,
+          68,
+          1007,
+          456
+        ],
+        "rear": [
+          1054,
+          67,
+          1504,
+          456
+        ],
+        "left": [
+          18,
+          551,
+          509,
+          942
+        ],
+        "top": [
+          553,
+          538,
+          1022,
+          932
+        ],
+        "bottom": [
+          1101,
+          580,
+          1507,
+          893
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.185,
+        "right": 0.2139,
+        "rear": 0.1736,
+        "left": 0.1228,
+        "top": 0.1224,
+        "bottom": 0.1823
+      },
+      "triangles": 1076,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.51,
+              0.51,
+              0.78
+            ],
+            [
+              0.084,
+              0.22,
+              0.21
+            ],
+            -0.07
+          ],
+          [
+            [
+              0.44,
+              0.55,
+              0.81
+            ],
+            [
+              0.074,
+              0.19,
+              0.19
+            ],
+            0.092
+          ],
+          [
+            [
+              0.65,
+              0.36,
+              0.78
+            ],
+            [
+              0.12,
+              0.105,
+              0.21
+            ],
+            0.079
+          ],
+          [
+            [
+              0.53,
+              0.6,
+              0.2
+            ],
+            [
+              0.093,
+              0.21,
+              0.155
+            ],
+            -0.085
+          ],
+          [
+            [
+              0.63,
+              0.39,
+              0.16
+            ],
+            [
+              0.1,
+              0.16,
+              0.177
+            ],
+            0.082
+          ]
+        ],
+        "max_groove_m": -0.012668774463236332,
+        "max_protrusion_m": 0.0166742242872715,
+        "width_height_depth_original_m": [
+          0.33429276943206787,
+          0.23180890083312988,
+          0.2508125901222229
+        ],
+        "width_height_depth_candidate_m": [
+          0.3343576192855835,
+          0.2309371829032898,
+          0.2568952143192291
+        ],
+        "local_simplification_distance_median_m": 0.005635859783820411,
+        "shell_topology_before": [
+          1,
+          2
+        ],
+        "shell_topology_after": [
+          1,
+          2
+        ],
+        "cavity": null
+      },
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 298,
+        "p05_m": -0.008726915703956178,
+        "p95_m": 0.019928240325016357,
+        "min_m": -0.07110960614230144,
+        "max_m": 0.08396244687675095
+      },
+      "model": "res://assets/aquascape-v9/solids/root_stump.glb",
+      "before_sha256": "b2667ca096a76f1caf6a06d31ddfe0958926aac7b2c025608cb4dd94de06c531",
+      "geometry_changed": true,
+      "after_sha256": "122ff37119eb4b0075bca7136972f92acde7b7af85e7337c91cca2a9a2443088",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/root_stump/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/root_stump/root_stump.blend",
+      "whole_instance_budget": "wood",
+      "hard_limit": 1200,
+      "shell_topology_components_euler": [
+        1,
+        2
+      ],
+      "dimensions_m": [
+        0.3343576192855835,
+        0.2309371829032898,
+        0.2568952143192291
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [],
+      "semantic_updated": [],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: one upright gray-brown low hardwood stump with uneven tall broken trunk and a spreading multi-root buttress, carved fluted buttress marks taper into rounded arching feet, natural grain in each branch direction and rough top break.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "root_stump_six_views"
+    },
+    {
+      "id": "ruin_arch",
+      "name_zh": "遗迹拱门",
+      "source_sha256": "1d2ba9241dbe78e678adfc50ac68d46b5becf4c1e15d76a4031febf11a91e90c",
+      "source_boxes": {
+        "front": [
+          77,
+          22,
+          475,
+          483
+        ],
+        "right": [
+          712,
+          23,
+          826,
+          485
+        ],
+        "rear": [
+          1062,
+          22,
+          1460,
+          483
+        ],
+        "left": [
+          216,
+          535,
+          334,
+          996
+        ],
+        "top": [
+          528,
+          680,
+          1010,
+          837
+        ],
+        "bottom": [
+          1084,
+          606,
+          1466,
+          927
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.2735,
+        "right": 0.2037,
+        "rear": 0.1922,
+        "left": 0.1634,
+        "top": 0.0932,
+        "bottom": 0.074
+      },
+      "triangles": 1616,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.18,
+              0.39,
+              0.86
+            ],
+            [
+              0.1,
+              0.07,
+              0.16
+            ],
+            0.055
+          ],
+          [
+            [
+              0.84,
+              0.52,
+              0.86
+            ],
+            [
+              0.1,
+              0.069,
+              0.16
+            ],
+            0.057
+          ],
+          [
+            [
+              0.24,
+              0.47,
+              0.92
+            ],
+            [
+              0.105,
+              0.045,
+              0.11
+            ],
+            -0.04
+          ],
+          [
+            [
+              0.75,
+              0.44,
+              0.88
+            ],
+            [
+              0.107,
+              0.045,
+              0.13
+            ],
+            -0.041
+          ],
+          [
+            [
+              0.32,
+              0.81,
+              0.78
+            ],
+            [
+              0.07,
+              0.072,
+              0.15
+            ],
+            0.06
+          ],
+          [
+            [
+              0.56,
+              0.94,
+              0.75
+            ],
+            [
+              0.092,
+              0.07,
+              0.15
+            ],
+            0.058
+          ],
+          [
+            [
+              0.75,
+              0.82,
+              0.81
+            ],
+            [
+              0.065,
+              0.045,
+              0.13
+            ],
+            -0.05
+          ],
+          [
+            [
+              0.24,
+              0.45,
+              0.19
+            ],
+            [
+              0.085,
+              0.055,
+              0.15
+            ],
+            -0.052
+          ],
+          [
+            [
+              0.71,
+              0.84,
+              0.22
+            ],
+            [
+              0.09,
+              0.075,
+              0.16
+            ],
+            0.054
+          ],
+          [
+            [
+              0.87,
+              0.39,
+              0.45
+            ],
+            [
+              0.11,
+              0.069,
+              0.18
+            ],
+            -0.044
+          ]
+        ],
+        "max_groove_m": -0.0035290142986923456,
+        "max_protrusion_m": 0.004026580136269331,
+        "width_height_depth_original_m": [
+          0.22137866914272308,
+          0.2647549510002136,
+          0.07167811691761017
+        ],
+        "width_height_depth_candidate_m": [
+          0.22137866914272308,
+          0.26645147800445557,
+          0.07167812436819077
+        ],
+        "local_simplification_distance_median_m": 0.0036766052723851096,
+        "shell_topology_before": [
+          1,
+          2
+        ],
+        "shell_topology_after": [
+          1,
+          2
+        ],
+        "cavity": {
+          "clear_before": 81,
+          "still_clear": 81,
+          "passed": true
+        }
+      },
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 442,
+        "p05_m": -0.0008111695872602381,
+        "p95_m": 0.0026801129432118508,
+        "min_m": -0.003042770073155565,
+        "max_m": 0.05598754991857516
+      },
+      "model": "res://assets/aquascape-v9/solids/ruin_arch.glb",
+      "before_sha256": "74e3e50e15190427f3a5a3ad971963f10b41c3205b5668c9311f6c428de6e023",
+      "geometry_changed": true,
+      "after_sha256": "44c43e4c3f8b84a8ef7f8e56d4051e41397f82d0c469125a36c52803716d8bed",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/ruin_arch/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/ruin_arch/ruin_arch.blend",
+      "whole_instance_budget": "decor",
+      "hard_limit": 2000,
+      "shell_topology_components_euler": [
+        1,
+        2
+      ],
+      "dimensions_m": [
+        0.22137866914272308,
+        0.26645147800445557,
+        0.07167812436819077
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [
+        {
+          "name": "open_front_to_back_passage",
+          "origin_m": [
+            0,
+            0.06560714285714286,
+            0.06815102319374872
+          ],
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length_m": 0.13630204638749743,
+          "expected": "empty",
+          "surface_hits_m": [],
+          "ok": true
+        }
+      ],
+      "semantic_updated": [
+        {
+          "name": "open_front_to_back_passage",
+          "origin_m": [
+            0,
+            0.06560714285714286,
+            0.06815102319374872
+          ],
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length_m": 0.13630204638749743,
+          "expected": "empty",
+          "surface_hits_m": [],
+          "ok": true
+        }
+      ],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: one standalone classical limestone gate, tall true open arch between two bases; pale stone architectural arch with individually irregular voussoir blocks and large cubic stone jambs, continuous dark shaded inner barrel, brick faces distinguish moderate physically inset mortar sockets and chiseled blocks.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "ruin_arch_six_views"
+    },
+    {
+      "id": "ruined_tower",
+      "name_zh": "残破城堡塔",
+      "source_sha256": "5a2551fc7df85214522a7d5785e143e1e3ccc35a40b1ae9cb887946490fd5842",
+      "source_boxes": {
+        "front": [
+          37,
+          31,
+          545,
+          482
+        ],
+        "right": [
+          612,
+          32,
+          946,
+          483
+        ],
+        "rear": [
+          1026,
+          32,
+          1493,
+          483
+        ],
+        "left": [
+          45,
+          542,
+          493,
+          967
+        ],
+        "top": [
+          561,
+          562,
+          990,
+          946
+        ],
+        "bottom": [
+          1100,
+          566,
+          1475,
+          918
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.1869,
+        "right": 0.1571,
+        "rear": 0.1789,
+        "left": 0.2003,
+        "top": 0.1561,
+        "bottom": 0.1208
+      },
+      "triangles": 1616,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.24,
+              0.68,
+              0.79
+            ],
+            [
+              0.13,
+              0.091,
+              0.14
+            ],
+            0.081
+          ],
+          [
+            [
+              0.5,
+              0.73,
+              0.85
+            ],
+            [
+              0.18,
+              0.062,
+              0.13
+            ],
+            -0.07
+          ],
+          [
+            [
+              0.76,
+              0.66,
+              0.81
+            ],
+            [
+              0.105,
+              0.069,
+              0.16
+            ],
+            0.076
+          ],
+          [
+            [
+              0.13,
+              0.37,
+              0.85
+            ],
+            [
+              0.1,
+              0.07,
+              0.16
+            ],
+            0.067
+          ],
+          [
+            [
+              0.85,
+              0.38,
+              0.79
+            ],
+            [
+              0.1,
+              0.065,
+              0.15
+            ],
+            -0.053
+          ],
+          [
+            [
+              0.54,
+              0.72,
+              0.13
+            ],
+            [
+              0.28,
+              0.058,
+              0.15
+            ],
+            -0.073
+          ],
+          [
+            [
+              0.38,
+              0.65,
+              0.16
+            ],
+            [
+              0.1,
+              0.08,
+              0.15
+            ],
+            0.07
+          ],
+          [
+            [
+              0.91,
+              0.58,
+              0.52
+            ],
+            [
+              0.085,
+              0.058,
+              0.18
+            ],
+            0.063
+          ]
+        ],
+        "max_groove_m": -0.013809945434331894,
+        "max_protrusion_m": 0.013776076957583427,
+        "width_height_depth_original_m": [
+          0.25278520584106445,
+          0.21797171235084534,
+          0.20675760507583618
+        ],
+        "width_height_depth_candidate_m": [
+          0.2527713477611542,
+          0.2179746925830841,
+          0.20675776898860931
+        ],
+        "local_simplification_distance_median_m": 0.0039495170977534855,
+        "shell_topology_before": [
+          1,
+          2
+        ],
+        "shell_topology_after": [
+          1,
+          2
+        ],
+        "cavity": {
+          "clear_before": 81,
+          "still_clear": 81,
+          "passed": true
+        }
+      },
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 506,
+        "p05_m": -0.006117096620186273,
+        "p95_m": 0.007922329596127195,
+        "min_m": -0.083924531771291,
+        "max_m": 0.07419807501647055
+      },
+      "model": "res://assets/aquascape-v11/solids/ruined_tower.glb",
+      "before_sha256": "b0fbf4c4103b59c9c64a2cfbfa2fe31fe8064ebb9046144858cbccd6acaa705c",
+      "geometry_changed": true,
+      "after_sha256": "000ebb33ce1bf4479dbefa4a620f3abdb5c3d6b8cb8896cd0fd6b59977cacdd3",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/ruined_tower/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/ruined_tower/ruined_tower.blend",
+      "whole_instance_budget": "decor",
+      "hard_limit": 2000,
+      "shell_topology_components_euler": [
+        1,
+        2
+      ],
+      "dimensions_m": [
+        0.2527713477611542,
+        0.2179746925830841,
+        0.20675776898860931
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [
+        {
+          "name": "open_front_to_back_passage",
+          "origin_m": [
+            0,
+            0.06361788617886178,
+            0.20711093543042292
+          ],
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length_m": 0.41422187086084583,
+          "expected": "empty",
+          "surface_hits_m": [],
+          "ok": true
+        },
+        {
+          "name": "solid_roof",
+          "origin_m": [
+            0,
+            0.25447154471544714,
+            0
+          ],
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "length_m": 0.20145663956639565,
+          "expected": "solid",
+          "surface_hits_m": [
+            0.07970989562788997,
+            0.13594058426846367
+          ],
+          "ok": true
+        }
+      ],
+      "semantic_updated": [
+        {
+          "name": "open_front_to_back_passage",
+          "origin_m": [
+            0,
+            0.06361788617886178,
+            0.20711093543042292
+          ],
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length_m": 0.41422187086084583,
+          "expected": "empty",
+          "surface_hits_m": [],
+          "ok": true
+        },
+        {
+          "name": "solid_roof",
+          "origin_m": [
+            0,
+            0.25447154471544714,
+            0
+          ],
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "length_m": 0.20145663956639565,
+          "expected": "solid",
+          "surface_hits_m": [
+            0.08013259496385702,
+            0.13648161771816167
+          ],
+          "ok": true
+        }
+      ],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: one squat medieval stone passage tower with uneven battered crenellations and a broad genuine open arch, individually chipped gray stacked masonry and sparse dark green moss localized in mortar; real broken roofline, recesses and positive block bosses, no attached stairs or window.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "ruined_tower_six_views"
+    },
+    {
+      "id": "shipwreck",
+      "source_sha256": "1cbb4a92ec9e6fb219d18bdb2a429a552717e66760901be512b5680f69e4fe2d",
+      "source_crops": {
+        "front": [
+          39,
+          156,
+          526,
+          384
+        ],
+        "right": [
+          667,
+          125,
+          931,
+          411
+        ],
+        "left": [
+          1129,
+          157,
+          1428,
+          411
+        ],
+        "rear": [
+          43,
+          629,
+          517,
+          828
+        ],
+        "top": [
+          570,
+          646,
+          1026,
+          827
+        ],
+        "bottom": [
+          1050,
+          641,
+          1513,
+          837
+        ]
+      },
+      "same_position_and_normal_streams": true,
+      "triangles": 1200,
+      "projected_texel_shares": {
+        "front": 0.2016,
+        "right": 0.0733,
+        "left": 0.149,
+        "rear": 0.2011,
+        "top": 0.263,
+        "bottom": 0.1121
+      },
+      "model": "res://assets/aquascape-v9/solids/shipwreck.glb",
+      "before_sha256": "2d741c00491e46deff780c925251d83f0c62b28535ad1f5cdbb558bcdae0922a",
+      "geometry_changed": false,
+      "after_sha256": "d0a07729c419a23f3eabd36a2b7b8f5cbba1498235590a827787eec52eeb5b07",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/shipwreck/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/shipwreck/shipwreck.blend",
+      "whole_instance_budget": "decor",
+      "hard_limit": 2000,
+      "shell_topology_components_euler": [
+        1,
+        2
+      ],
+      "dimensions_m": [
+        0.33400994539260864,
+        0.1576577126979828,
+        0.12599879503250122
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [
+        {
+          "name": "open_cargo_well",
+          "origin_m": [
+            0.0442,
+            0.18878453038674034,
+            0
+          ],
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "length_m": 0.13529558011049725,
+          "expected": "empty",
+          "surface_hits_m": [],
+          "ok": true
+        },
+        {
+          "name": "solid_hold_floor",
+          "origin_m": [
+            0.0442,
+            0.18878453038674034,
+            0
+          ],
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "length_m": 0.23598066298342543,
+          "expected": "solid",
+          "surface_hits_m": [
+            0.15725201267554106,
+            0.1872621508271134
+          ],
+          "ok": true
+        }
+      ],
+      "semantic_updated": [
+        {
+          "name": "open_cargo_well",
+          "origin_m": [
+            0.0442,
+            0.18878453038674034,
+            0
+          ],
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "length_m": 0.13529558011049725,
+          "expected": "empty",
+          "surface_hits_m": [],
+          "ok": true
+        },
+        {
+          "name": "solid_hold_floor",
+          "origin_m": [
+            0.0442,
+            0.18878453038674034,
+            0
+          ],
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "length_m": 0.23598066298342543,
+          "expected": "solid",
+          "surface_hits_m": [
+            0.15725201267554106,
+            0.1872621508271134
+          ],
+          "ok": true
+        }
+      ],
+      "source_intent": "Material restoration for the exact existing small open wooden hull wreck, a low longitudinal curved shipwreck with torn rib ends and authentic open inside. Base ratio X:Y:Z 34:16:12; match actual orientation, the aged timbers and openings from the supplied reference. Keep the deck/hull opening empty so we can see the inner ribs and floor. Render outside hull strakes along their curved woody geometry, collar end grain on broken structural ends, upright or radial ribs inside the hold, end-grain blocks and bent grain changing naturally at bow/stern. Underbody should show proper wet keel with its own distinct curved timber streaks. Draw real scale weathered boards with localized splits; remove repeated horizontal smeared wallpaper stripes or homogeneous color fill on any end surface. No added sails, rigging, cargo, fish, or sand.\nThe reference board left-to-right shows FRONT, RIGHT and TOP of the existing accepted design. Match its actual parts. The reference is form and paint finish. Replace missing surfaces with original material drawing.\nRender ONE six-direction board of the identical object in true orthographic projection, 3 columns by 2 rows with white gutters and plain pure white backgrounds. Top row in order FRONT (+Z), RIGHT (+X), BACK (-Z). Bottom row LEFT (-X), TOP (+Y, true straight-down plan), BOTTOM (-Y, true straight-up underside). Keep silhouettes and structural landmarks consistent across opposite views, with physically correct mirrored viewpoint and occlusion. Preserve a recognisable top/underbody relationship and correct contact area. Rear and end surfaces show their own physical grain/materials. Do not show a front wall in plan view. Exact single object in every slot, no extra objects, UI, text beyond the six compact view labels, reflections, ground shadows or background scene. All edges and pixel grain tidy and deliberate; fine crisp pixel-art color clusters and large controlled masses, no smooth CGI or smeared fill.",
+      "source_workflow_asset": "shipwreck"
+    },
+    {
+      "id": "slate_cave",
+      "name_zh": "石板躲避洞",
+      "source_sha256": "e448fcf4afc1b0507078a1a35e6b6acaecb3319879f308fdcb3223e82bc5af1a",
+      "source_boxes": {
+        "front": [
+          32,
+          174,
+          561,
+          440
+        ],
+        "right": [
+          600,
+          170,
+          919,
+          444
+        ],
+        "rear": [
+          984,
+          170,
+          1499,
+          443
+        ],
+        "left": [
+          122,
+          562,
+          431,
+          840
+        ],
+        "top": [
+          501,
+          559,
+          943,
+          843
+        ],
+        "bottom": [
+          1000,
+          558,
+          1449,
+          847
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.2083,
+        "right": 0.1407,
+        "rear": 0.113,
+        "left": 0.1163,
+        "top": 0.1998,
+        "bottom": 0.222
+      },
+      "triangles": 1616,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.45,
+              0.82,
+              0.82
+            ],
+            [
+              0.32,
+              0.069,
+              0.15
+            ],
+            0.064
+          ],
+          [
+            [
+              0.54,
+              0.68,
+              0.92
+            ],
+            [
+              0.27,
+              0.06,
+              0.12
+            ],
+            -0.066
+          ],
+          [
+            [
+              0.16,
+              0.41,
+              0.83
+            ],
+            [
+              0.105,
+              0.106,
+              0.12
+            ],
+            0.062
+          ],
+          [
+            [
+              0.86,
+              0.39,
+              0.85
+            ],
+            [
+              0.11,
+              0.08,
+              0.17
+            ],
+            -0.048
+          ],
+          [
+            [
+              0.49,
+              0.73,
+              0.13
+            ],
+            [
+              0.27,
+              0.063,
+              0.12
+            ],
+            0.077
+          ],
+          [
+            [
+              0.54,
+              0.62,
+              0.12
+            ],
+            [
+              0.22,
+              0.05,
+              0.12
+            ],
+            -0.069
+          ],
+          [
+            [
+              0.88,
+              0.62,
+              0.46
+            ],
+            [
+              0.12,
+              0.072,
+              0.25
+            ],
+            -0.062
+          ],
+          [
+            [
+              0.86,
+              0.51,
+              0.43
+            ],
+            [
+              0.11,
+              0.065,
+              0.24
+            ],
+            0.071
+          ]
+        ],
+        "max_groove_m": -0.01136042270809412,
+        "max_protrusion_m": 0.01150599680840969,
+        "width_height_depth_original_m": [
+          0.30212223529815674,
+          0.12178312242031097,
+          0.19669869542121887
+        ],
+        "width_height_depth_candidate_m": [
+          0.3023156225681305,
+          0.12177887558937073,
+          0.19925092160701752
+        ],
+        "local_simplification_distance_median_m": 0.004353778824775743,
+        "shell_topology_before": [
+          1,
+          0
+        ],
+        "shell_topology_after": [
+          1,
+          0
+        ],
+        "cavity": {
+          "clear_before": 81,
+          "still_clear": 81,
+          "passed": true
+        }
+      },
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 504,
+        "p05_m": -0.005811102424634692,
+        "p95_m": 0.005376738564496543,
+        "min_m": -0.038472405804309745,
+        "max_m": 0.011270936937356368
+      },
+      "model": "res://assets/aquascape-v11/solids/slate_cave.glb",
+      "before_sha256": "f98ea1050cbcf72332d0417b3a80d5baca07eafe348821d6f5a205fd0da0137b",
+      "geometry_changed": true,
+      "after_sha256": "fa58e462eec84e14b41fd68edec9e2fab540c382ef3b1dbb9a83bb5b7613e784",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/slate_cave/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/slate_cave/slate_cave.blend",
+      "whole_instance_budget": "decor",
+      "hard_limit": 2000,
+      "shell_topology_components_euler": [
+        1,
+        0
+      ],
+      "dimensions_m": [
+        0.3023156225681305,
+        0.12177887558937073,
+        0.19925092160701752
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [
+        {
+          "name": "open_front_to_back_passage",
+          "origin_m": [
+            0,
+            0.03505390835579515,
+            0.19437352187394824
+          ],
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length_m": 0.3887470437478965,
+          "expected": "empty",
+          "surface_hits_m": [],
+          "ok": true
+        },
+        {
+          "name": "solid_roof",
+          "origin_m": [
+            0,
+            0.1402156334231806,
+            0
+          ],
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "length_m": 0.11100404312668463,
+          "expected": "solid",
+          "surface_hits_m": [
+            0.02507271876121457,
+            0.07243970946503811
+          ],
+          "ok": true
+        }
+      ],
+      "semantic_updated": [
+        {
+          "name": "open_front_to_back_passage",
+          "origin_m": [
+            0,
+            0.03505390835579515,
+            0.19437352187394824
+          ],
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length_m": 0.3887470437478965,
+          "expected": "empty",
+          "surface_hits_m": [],
+          "ok": true
+        },
+        {
+          "name": "solid_roof",
+          "origin_m": [
+            0,
+            0.1402156334231806,
+            0
+          ],
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "length_m": 0.11100404312668463,
+          "expected": "solid",
+          "surface_hits_m": [
+            0.024953031857309106,
+            0.07109131380274487
+          ],
+          "ok": true
+        }
+      ],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: one low dark blue-gray slate rock shelter with a clear wide walk-through horizontal rectangular opening, thick roof and two stone walls, natural chipped layering, solid slate floor, complete visible internal thickness, crooked layers on sidewalls and top; preserve both entrances.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "slate_cave_six_views"
+    },
+    {
+      "id": "slate_stack",
+      "name_zh": "青灰叠层石",
+      "source_sha256": "c97ade34683267f8dd16f55250873a9558f8e8c89be9d220e2e09c2cf86bf3bb",
+      "source_boxes": {
+        "front": [
+          21,
+          174,
+          526,
+          380
+        ],
+        "right": [
+          588,
+          156,
+          993,
+          390
+        ],
+        "rear": [
+          1043,
+          169,
+          1514,
+          388
+        ],
+        "left": [
+          21,
+          599,
+          511,
+          864
+        ],
+        "top": [
+          554,
+          578,
+          1001,
+          874
+        ],
+        "bottom": [
+          1052,
+          618,
+          1513,
+          855
+        ]
+      },
+      "outline_uv_registration": [
+        "top"
+      ],
+      "source_view_ownership": {
+        "front": 0.2563,
+        "right": 0.0794,
+        "rear": 0.1753,
+        "left": 0.1175,
+        "top": 0.2466,
+        "bottom": 0.1249
+      },
+      "triangles": 536,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.78,
+              0.69,
+              0.72
+            ],
+            [
+              0.22,
+              0.085,
+              0.19
+            ],
+            0.085
+          ],
+          [
+            [
+              0.68,
+              0.54,
+              0.82
+            ],
+            [
+              0.23,
+              0.055,
+              0.15
+            ],
+            -0.118
+          ],
+          [
+            [
+              0.47,
+              0.46,
+              0.83
+            ],
+            [
+              0.23,
+              0.075,
+              0.17
+            ],
+            0.101
+          ],
+          [
+            [
+              0.44,
+              0.32,
+              0.83
+            ],
+            [
+              0.247,
+              0.063,
+              0.16
+            ],
+            -0.096
+          ],
+          [
+            [
+              0.46,
+              0.53,
+              0.16
+            ],
+            [
+              0.28,
+              0.058,
+              0.14
+            ],
+            -0.093
+          ],
+          [
+            [
+              0.78,
+              0.48,
+              0.22
+            ],
+            [
+              0.17,
+              0.063,
+              0.17
+            ],
+            0.079
+          ],
+          [
+            [
+              0.88,
+              0.47,
+              0.48
+            ],
+            [
+              0.125,
+              0.058,
+              0.19
+            ],
+            -0.085
+          ]
+        ],
+        "max_groove_m": -0.019840650260448456,
+        "max_protrusion_m": 0.01617911085486412,
+        "width_height_depth_original_m": [
+          0.38256120681762695,
+          0.15507780015468597,
+          0.24789473414421082
+        ],
+        "width_height_depth_candidate_m": [
+          0.3821879029273987,
+          0.1551528126001358,
+          0.24992269277572632
+        ],
+        "local_simplification_distance_median_m": 0.007982024232403016,
+        "shell_topology_before": [
+          1,
+          2
+        ],
+        "shell_topology_after": [
+          1,
+          2
+        ],
+        "cavity": null
+      },
+      "cavity": null,
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 512,
+        "p05_m": -0.015032707693841855,
+        "p95_m": 0.010455956933144295,
+        "min_m": -0.19633879820647643,
+        "max_m": 0.0672543112673813
+      },
+      "model": "res://assets/aquascape-v11/solids/slate_stack.glb",
+      "before_sha256": "d5b63040a332cfb934934bdcd60ec9905bbf623efe889294a8a5ded6b1b87dfc",
+      "geometry_changed": true,
+      "after_sha256": "715425cb08639f96b7ac0226ab9d707eb19fa4ec34af78d29a4c093ea0819b1b",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/slate_stack/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/slate_stack/slate_stack.blend",
+      "whole_instance_budget": "rock",
+      "hard_limit": 600,
+      "shell_topology_components_euler": [
+        1,
+        2
+      ],
+      "dimensions_m": [
+        0.3821879029273987,
+        0.1551528126001358,
+        0.24992269277572632
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [],
+      "semantic_updated": [],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: one low bluish-gray stepped slate outcrop with three or four horizontally stacked connected slabs, naturally irregular cracked terrace lips and corroded shadow gaps, omit textural bands pasted on the sides; real thick neck and chipped angles.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "slate_stack_six_views"
+    },
+    {
+      "id": "spider_wood",
+      "name_zh": "蛛根沉木",
+      "source_sha256": "4512a15a3b2378fb691cd76ccc59c2660ce1ef5c92354261b6e455bc904dc0bc",
+      "source_boxes": {
+        "front": [
+          30,
+          75,
+          540,
+          427
+        ],
+        "right": [
+          582,
+          42,
+          992,
+          448
+        ],
+        "rear": [
+          1046,
+          75,
+          1509,
+          448
+        ],
+        "left": [
+          18,
+          590,
+          504,
+          932
+        ],
+        "top": [
+          535,
+          580,
+          1023,
+          947
+        ],
+        "bottom": [
+          1075,
+          580,
+          1521,
+          927
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.1872,
+        "right": 0.1614,
+        "rear": 0.1961,
+        "left": 0.1369,
+        "top": 0.1439,
+        "bottom": 0.1744
+      },
+      "triangles": 1076,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.46,
+              0.43,
+              0.82
+            ],
+            [
+              0.15,
+              0.12,
+              0.17
+            ],
+            0.074
+          ],
+          [
+            [
+              0.42,
+              0.32,
+              0.89
+            ],
+            [
+              0.095,
+              0.09,
+              0.14
+            ],
+            -0.069
+          ],
+          [
+            [
+              0.49,
+              0.44,
+              0.21
+            ],
+            [
+              0.161,
+              0.111,
+              0.13
+            ],
+            0.062
+          ],
+          [
+            [
+              0.64,
+              0.43,
+              0.23
+            ],
+            [
+              0.088,
+              0.097,
+              0.16
+            ],
+            -0.071
+          ]
+        ],
+        "max_groove_m": -0.007665286771953106,
+        "max_protrusion_m": 0.012975695542991161,
+        "width_height_depth_original_m": [
+          0.365667462348938,
+          0.20621441304683685,
+          0.22578230500221252
+        ],
+        "width_height_depth_candidate_m": [
+          0.36566996574401855,
+          0.20621010661125183,
+          0.22655536234378815
+        ],
+        "local_simplification_distance_median_m": 0.006828359429154087,
+        "shell_topology_before": [
+          1,
+          -2
+        ],
+        "shell_topology_after": [
+          1,
+          -2
+        ],
+        "cavity": null
+      },
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 292,
+        "p05_m": -0.003392877159301906,
+        "p95_m": 0.019657055326446488,
+        "min_m": -0.08400202427765124,
+        "max_m": 0.0792413162869336
+      },
+      "model": "res://assets/aquascape-v11/solids/spider_wood.glb",
+      "before_sha256": "e762d978aa6bcf67a46a28649898ad8afec202c8bb18facb2c165d4536879496",
+      "geometry_changed": true,
+      "after_sha256": "814ac87e8d327d5030e7ba509b9e8544ef7bf60ffe5bcadd2efe5c30a4d1f3dc",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/spider_wood/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/spider_wood/spider_wood.blend",
+      "whole_instance_budget": "wood",
+      "hard_limit": 1200,
+      "shell_topology_components_euler": [
+        1,
+        -2
+      ],
+      "dimensions_m": [
+        0.36566996574401855,
+        0.20621010661125183,
+        0.22655536234378815
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [],
+      "semantic_updated": [],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: a single large tan freshwater spider-root knot with many diverging dark twisted branches of different diameters, physically branching voids and small blunt break ends, blond red-brown bark grain crossing around each branch fork.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "spider_wood_six_views"
+    },
+    {
+      "id": "stone_bridge",
+      "name_zh": "苔色拱桥",
+      "source_sha256": "88f40790fa1187358a0e2275fe354587deb3e495b607aa83fae2a8753f53c184",
+      "source_boxes": {
+        "front": [
+          18,
+          152,
+          530,
+          381
+        ],
+        "right": [
+          640,
+          137,
+          902,
+          402
+        ],
+        "rear": [
+          1006,
+          152,
+          1519,
+          381
+        ],
+        "left": [
+          41,
+          624,
+          509,
+          842
+        ],
+        "top": [
+          553,
+          614,
+          987,
+          849
+        ],
+        "bottom": [
+          1026,
+          600,
+          1514,
+          833
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.2269,
+        "right": 0.1566,
+        "rear": 0.1798,
+        "left": 0.145,
+        "top": 0.1775,
+        "bottom": 0.1143
+      },
+      "triangles": 1616,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.52,
+              0.89,
+              0.84
+            ],
+            [
+              0.27,
+              0.077,
+              0.13
+            ],
+            0.063
+          ],
+          [
+            [
+              0.55,
+              0.78,
+              0.9
+            ],
+            [
+              0.24,
+              0.057,
+              0.12
+            ],
+            -0.059
+          ],
+          [
+            [
+              0.25,
+              0.54,
+              0.86
+            ],
+            [
+              0.12,
+              0.06,
+              0.139
+            ],
+            0.047
+          ],
+          [
+            [
+              0.77,
+              0.55,
+              0.82
+            ],
+            [
+              0.13,
+              0.048,
+              0.145
+            ],
+            0.057
+          ],
+          [
+            [
+              0.46,
+              0.82,
+              0.17
+            ],
+            [
+              0.25,
+              0.073,
+              0.14
+            ],
+            0.061
+          ],
+          [
+            [
+              0.28,
+              0.69,
+              0.19
+            ],
+            [
+              0.15,
+              0.05,
+              0.13
+            ],
+            -0.05
+          ],
+          [
+            [
+              0.87,
+              0.55,
+              0.48
+            ],
+            [
+              0.09,
+              0.055,
+              0.23
+            ],
+            -0.044
+          ]
+        ],
+        "max_groove_m": -0.005199075676500797,
+        "max_protrusion_m": 0.006462621036916971,
+        "width_height_depth_original_m": [
+          0.30396658182144165,
+          0.12334825098514557,
+          0.13491880893707275
+        ],
+        "width_height_depth_candidate_m": [
+          0.30386659502983093,
+          0.1265132576227188,
+          0.13786524534225464
+        ],
+        "local_simplification_distance_median_m": 0.004488056615521293,
+        "shell_topology_before": [
+          1,
+          2
+        ],
+        "shell_topology_after": [
+          1,
+          2
+        ],
+        "cavity": {
+          "clear_before": 81,
+          "still_clear": 81,
+          "passed": true
+        }
+      },
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 544,
+        "p05_m": -0.0012450534965917303,
+        "p95_m": 0.004512526821157726,
+        "min_m": -0.042605964622127124,
+        "max_m": 0.0288443665416932
+      },
+      "model": "res://assets/aquascape-v9/solids/stone_bridge.glb",
+      "before_sha256": "13663aea5bd61a54e8dbf535292c2862d97a669a9fd44f2cf9125b0df018e0de",
+      "geometry_changed": true,
+      "after_sha256": "15298981d348078f5109c8a4f794c669f517b55b52c7971da0978f7edd7700a3",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/stone_bridge/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/stone_bridge/stone_bridge.blend",
+      "whole_instance_budget": "decor",
+      "hard_limit": 2000,
+      "shell_topology_components_euler": [
+        1,
+        2
+      ],
+      "dimensions_m": [
+        0.30386659502983093,
+        0.1265132576227188,
+        0.13786524534225464
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [
+        {
+          "name": "open_front_to_back_passage",
+          "origin_m": [
+            0,
+            0.030348837209302322,
+            0.13117042937162188
+          ],
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length_m": 0.26234085874324375,
+          "expected": "empty",
+          "surface_hits_m": [],
+          "ok": true
+        }
+      ],
+      "semantic_updated": [
+        {
+          "name": "open_front_to_back_passage",
+          "origin_m": [
+            0,
+            0.030348837209302322,
+            0.13117042937162188
+          ],
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length_m": 0.26234085874324375,
+          "expected": "empty",
+          "surface_hits_m": [],
+          "ok": true
+        }
+      ],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: one low gracefully arching rectangular limestone footbridge, true underside barrel through-arch, individual stone blocks and uneven low ledges, walkable top with separate stone slabs, restrained olive moss in protected joints and chiseled edges, flat ends with real short faces but textured bricks.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "stone_bridge_six_views"
+    },
+    {
+      "id": "stone_lantern",
+      "name_zh": "小石灯笼",
+      "source_sha256": "a454f3959d4c72b905eb65919d214d2aae3b8adb5165f35838aad718e82f47e1",
+      "source_boxes": {
+        "front": [
+          101,
+          15,
+          442,
+          468
+        ],
+        "right": [
+          621,
+          15,
+          910,
+          468
+        ],
+        "rear": [
+          1105,
+          15,
+          1441,
+          468
+        ],
+        "left": [
+          110,
+          530,
+          434,
+          972
+        ],
+        "top": [
+          578,
+          567,
+          958,
+          955
+        ],
+        "bottom": [
+          1094,
+          575,
+          1454,
+          940
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.1741,
+        "right": 0.1092,
+        "rear": 0.1145,
+        "left": 0.124,
+        "top": 0.2031,
+        "bottom": 0.2752
+      },
+      "triangles": 1616,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.5,
+              0.74,
+              0.8
+            ],
+            [
+              0.23,
+              0.055,
+              0.12
+            ],
+            0.065
+          ],
+          [
+            [
+              0.61,
+              0.69,
+              0.88
+            ],
+            [
+              0.18,
+              0.045,
+              0.12
+            ],
+            -0.055
+          ],
+          [
+            [
+              0.27,
+              0.3,
+              0.8
+            ],
+            [
+              0.18,
+              0.058,
+              0.12
+            ],
+            0.052
+          ],
+          [
+            [
+              0.44,
+              0.19,
+              0.83
+            ],
+            [
+              0.25,
+              0.05,
+              0.15
+            ],
+            -0.045
+          ],
+          [
+            [
+              0.5,
+              0.72,
+              0.23
+            ],
+            [
+              0.25,
+              0.056,
+              0.12
+            ],
+            0.058
+          ],
+          [
+            [
+              0.76,
+              0.73,
+              0.47
+            ],
+            [
+              0.113,
+              0.051,
+              0.18
+            ],
+            -0.047
+          ]
+        ],
+        "max_groove_m": -0.006915249861776829,
+        "max_protrusion_m": 0.009373187087476254,
+        "width_height_depth_original_m": [
+          0.18159033358097076,
+          0.24465923011302948,
+          0.16524451971054077
+        ],
+        "width_height_depth_candidate_m": [
+          0.1820373237133026,
+          0.24465924501419067,
+          0.1661577820777893
+        ],
+        "local_simplification_distance_median_m": 0.004847088370553228,
+        "shell_topology_before": [
+          1,
+          -4
+        ],
+        "shell_topology_after": [
+          1,
+          -4
+        ],
+        "cavity": null
+      },
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 464,
+        "p05_m": -0.0013445930422057314,
+        "p95_m": 0.0024035263466471645,
+        "min_m": -0.006579629516086621,
+        "max_m": 0.008699920655558357
+      },
+      "model": "res://assets/aquascape-v9/solids/stone_lantern.glb",
+      "before_sha256": "6224ec2b784e936a8ee0c0423a207783d6a2ba7b91cd9b719f0232a01953f752",
+      "geometry_changed": true,
+      "after_sha256": "822a8008237b4d8e1f7d37f8636e251bdcb762b7108eaa789d92fac9a93b12d0",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/stone_lantern/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/stone_lantern/stone_lantern.blend",
+      "whole_instance_budget": "decor",
+      "hard_limit": 2000,
+      "shell_topology_components_euler": [
+        1,
+        -4
+      ],
+      "dimensions_m": [
+        0.1820373237133026,
+        0.24465924501419067,
+        0.1661577820777893
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [
+        {
+          "name": "open_lamp_chamber_front_back",
+          "origin_m": [
+            0,
+            0.13521951219512196,
+            0.16347285032646042
+          ],
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length_m": 0.32694570065292083,
+          "expected": "empty",
+          "surface_hits_m": [],
+          "ok": true
+        },
+        {
+          "name": "open_lamp_chamber_left_right",
+          "origin_m": [
+            -0.18,
+            0.13521951219512196,
+            0
+          ],
+          "direction": [
+            1,
+            0,
+            0
+          ],
+          "length_m": 0.36,
+          "expected": "empty",
+          "surface_hits_m": [],
+          "ok": true
+        }
+      ],
+      "semantic_updated": [
+        {
+          "name": "open_lamp_chamber_front_back",
+          "origin_m": [
+            0,
+            0.13521951219512196,
+            0.16347285032646042
+          ],
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length_m": 0.32694570065292083,
+          "expected": "empty",
+          "surface_hits_m": [],
+          "ok": true
+        },
+        {
+          "name": "open_lamp_chamber_left_right",
+          "origin_m": [
+            -0.18,
+            0.13521951219512196,
+            0
+          ],
+          "direction": [
+            1,
+            0,
+            0
+          ],
+          "length_m": 0.36,
+          "expected": "empty",
+          "surface_hits_m": [],
+          "ok": true
+        }
+      ],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: one old gray limestone garden lantern, broad tiered low pagoda slab roof over a genuine open rectangular four-pillar chamber and a thick square stepped foot, chips and real tiered offsets, no glowing pixels or bulbs; chamber dark and open.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "stone_lantern_six_views"
+    },
+    {
+      "id": "terracotta_jar",
+      "name_zh": "旧陶罐",
+      "source_sha256": "ec12cd8668e673171a0f8b57f5782ea8b101b575ca867601908ed29b1512133e",
+      "source_boxes": {
+        "front": [
+          68,
+          37,
+          446,
+          468
+        ],
+        "right": [
+          582,
+          38,
+          954,
+          467
+        ],
+        "rear": [
+          1091,
+          37,
+          1468,
+          468
+        ],
+        "left": [
+          71,
+          551,
+          443,
+          979
+        ],
+        "top": [
+          567,
+          555,
+          970,
+          977
+        ],
+        "bottom": [
+          1078,
+          560,
+          1478,
+          976
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.1933,
+        "right": 0.2417,
+        "rear": 0.2057,
+        "left": 0.2417,
+        "top": 0.0553,
+        "bottom": 0.0622
+      },
+      "triangles": 1200,
+      "relief": null,
+      "model": "res://assets/aquascape-v9/solids/terracotta_jar.glb",
+      "before_sha256": "e65086753f1796855329d758712ca058172585859d772f679e6f989284f2cbcd",
+      "geometry_changed": false,
+      "after_sha256": "ea96dbcd0ed5dfd96a80714f1c21e0275f6881dfad22b4d31cca51b65b3cddc3",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/terracotta_jar/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/terracotta_jar/terracotta_jar.blend",
+      "whole_instance_budget": "decor",
+      "hard_limit": 2000,
+      "shell_topology_components_euler": [
+        1,
+        2
+      ],
+      "dimensions_m": [
+        0.170251727104187,
+        0.19852852821350098,
+        0.16897839307785034
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [
+        {
+          "name": "open_top_to_inside",
+          "origin_m": [
+            0,
+            0.23824510813594232,
+            0
+          ],
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "length_m": 0.1389763130792997,
+          "expected": "empty",
+          "surface_hits_m": [],
+          "ok": true
+        },
+        {
+          "name": "solid_jar_bottom",
+          "origin_m": [
+            0,
+            0.23824510813594232,
+            0
+          ],
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "length_m": 0.2978063851699279,
+          "expected": "solid",
+          "surface_hits_m": [
+            0.21441766846569799,
+            0.23784568438954232
+          ],
+          "ok": true
+        }
+      ],
+      "semantic_updated": [
+        {
+          "name": "open_top_to_inside",
+          "origin_m": [
+            0,
+            0.23824510813594232,
+            0
+          ],
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "length_m": 0.1389763130792997,
+          "expected": "empty",
+          "surface_hits_m": [],
+          "ok": true
+        },
+        {
+          "name": "solid_jar_bottom",
+          "origin_m": [
+            0,
+            0.23824510813594232,
+            0
+          ],
+          "direction": [
+            0,
+            -1,
+            0
+          ],
+          "length_m": 0.2978063851699279,
+          "expected": "solid",
+          "surface_hits_m": [
+            0.21441766846569799,
+            0.23784568438954232
+          ],
+          "ok": true
+        }
+      ],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: a single squat rounded worn orange-brown ceramic urn, rough lip flared outward around the genuine open top cavity, foot grime and inconspicuous terracotta pits, faint hand-thrown roundness and old localized chips; scar detail only, no applied stripe midline.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "terracotta_jar_six_views"
+    },
+    {
+      "id": "treasure_chest",
+      "source_sha256": "356f0232ad49d7b8c0763c0d1d06b618b66210bedf6886470745a0b3fad603fd",
+      "source_crops": {
+        "front": [
+          31,
+          118,
+          509,
+          438
+        ],
+        "right": [
+          624,
+          68,
+          913,
+          449
+        ],
+        "rear": [
+          1027,
+          113,
+          1505,
+          439
+        ],
+        "left": [
+          110,
+          537,
+          408,
+          925
+        ],
+        "top": [
+          527,
+          591,
+          988,
+          891
+        ],
+        "bottom": [
+          1044,
+          585,
+          1501,
+          898
+        ]
+      },
+      "same_position_and_normal_streams": true,
+      "triangles": 1200,
+      "projected_texel_shares": {
+        "front": 0.1949,
+        "right": 0.1353,
+        "rear": 0.18,
+        "left": 0.1213,
+        "top": 0.1488,
+        "bottom": 0.2197
+      },
+      "model": "res://assets/aquascape-v9/solids/treasure_chest.glb",
+      "before_sha256": "c7efad38d1b5a4bb62b7fa4f89fbd89dbaaafc911d7bd20a503dbead25c47c4c",
+      "geometry_changed": false,
+      "after_sha256": "235294cc008c1939dfcdbab0eca6a820614e675e678446084417500fbd41c179",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/treasure_chest/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/treasure_chest/treasure_chest.blend",
+      "whole_instance_budget": "decor",
+      "hard_limit": 2000,
+      "shell_topology_components_euler": [
+        1,
+        2
+      ],
+      "dimensions_m": [
+        0.23500119149684906,
+        0.15412047505378723,
+        0.13568566739559174
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [],
+      "semantic_updated": [],
+      "source_intent": "Art restoration for the existing small CLOSED underwater treasure chest model. Reference gives the existing front, end and top silhouette. Long axis X, approximate ratio X:Y:Z 23:15:13. Keep its convex arched lid, substantial wooden chest body, distinct front latch and narrow iron straps; keep any key geometry from the guide. Existing stripes were stretched pixels from missing views. Render hardwood separately on every physical plane, with actual local weathered grain, individually painted plank ends and worn charcoal metal. Long planks follow length along the lid; end-grain, short upright cuts and distinct hardware on the end faces. Rusted fasteners and small split chips join naturally, with very subtle localized green staining in hollows. Avoid repeating horizontal bands on exposed end faces and blanket projection fill.\nThe reference board left-to-right shows FRONT, RIGHT and TOP of the existing accepted design. Match its actual parts. The reference is form and paint finish. Replace missing surfaces with original material drawing.\nRender ONE six-direction board of the identical object in true orthographic projection, 3 columns by 2 rows with white gutters and plain pure white backgrounds. Top row in order FRONT (+Z), RIGHT (+X), BACK (-Z). Bottom row LEFT (-X), TOP (+Y, true straight-down plan), BOTTOM (-Y, true straight-up underside). Keep silhouettes and structural landmarks consistent across opposite views, with physically correct mirrored viewpoint and occlusion. Preserve a recognisable top/underbody relationship and correct contact area. Rear and end surfaces show their own physical grain/materials. Do not show a front wall in plan view. Exact single object in every slot, no extra objects, UI, text beyond the six compact view labels, reflections, ground shadows or background scene. All edges and pixel grain tidy and deliberate; fine crisp pixel-art color clusters and large controlled masses, no smooth CGI or smeared fill.",
+      "source_workflow_asset": "treasure_chest"
+    },
+    {
+      "id": "twisted_branch",
+      "name_zh": "弯扭漂木",
+      "source_sha256": "137b964be161f646bbb93a0b128c43673865c82bafcc31182d18472d78bd81bf",
+      "source_boxes": {
+        "front": [
+          36,
+          165,
+          486,
+          316
+        ],
+        "right": [
+          605,
+          128,
+          929,
+          400
+        ],
+        "rear": [
+          1051,
+          165,
+          1499,
+          315
+        ],
+        "left": [
+          38,
+          693,
+          476,
+          853
+        ],
+        "top": [
+          537,
+          711,
+          998,
+          859
+        ],
+        "bottom": [
+          1052,
+          713,
+          1499,
+          851
+        ]
+      },
+      "source_view_ownership": {
+        "front": 0.2976,
+        "right": 0.0335,
+        "rear": 0.1975,
+        "left": 0.1169,
+        "top": 0.1759,
+        "bottom": 0.1787
+      },
+      "triangles": 1076,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.49,
+              0.54,
+              0.8
+            ],
+            [
+              0.235,
+              0.072,
+              0.18
+            ],
+            -0.081
+          ],
+          [
+            [
+              0.53,
+              0.63,
+              0.8
+            ],
+            [
+              0.227,
+              0.083,
+              0.16
+            ],
+            0.075
+          ],
+          [
+            [
+              0.2,
+              0.5,
+              0.75
+            ],
+            [
+              0.12,
+              0.122,
+              0.2
+            ],
+            0.082
+          ],
+          [
+            [
+              0.63,
+              0.43,
+              0.17
+            ],
+            [
+              0.22,
+              0.104,
+              0.174
+            ],
+            -0.087
+          ]
+        ],
+        "max_groove_m": -0.010747560299932957,
+        "max_protrusion_m": 0.009590060450136662,
+        "width_height_depth_original_m": [
+          0.40693122148513794,
+          0.13532546162605286,
+          0.16273589432239532
+        ],
+        "width_height_depth_candidate_m": [
+          0.4071651101112366,
+          0.13532966375350952,
+          0.16566102206707
+        ],
+        "local_simplification_distance_median_m": 0.004822750144784671,
+        "shell_topology_before": [
+          1,
+          2
+        ],
+        "shell_topology_after": [
+          1,
+          2
+        ],
+        "cavity": null
+      },
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 362,
+        "p05_m": -0.007818334105182807,
+        "p95_m": 0.007145558728948394,
+        "min_m": -0.13035978820711763,
+        "max_m": 0.20454999725299783
+      },
+      "model": "res://assets/aquascape-v9/solids/twisted_branch.glb",
+      "before_sha256": "5012dae36108d642e444c893fabfb8f4c3c52962ce2a71ca5423a9964c604675",
+      "geometry_changed": true,
+      "after_sha256": "96ffcefd224ce55ec974750e16f2552472f9e9cb23965cecb59e279aec430f37",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/twisted_branch/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/twisted_branch/twisted_branch.blend",
+      "whole_instance_budget": "wood",
+      "hard_limit": 1200,
+      "shell_topology_components_euler": [
+        1,
+        2
+      ],
+      "dimensions_m": [
+        0.4071651101112366,
+        0.13532966375350952,
+        0.16566102206707
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [],
+      "semantic_updated": [],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: one gently S-shaped slender brown underwater hardwood branch, one raised cut goes up to the right, shorter fork toward left, high/low positions follow guide, dark knot spiraled grain follows each local branch.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "twisted_branch_six_views"
+    },
+    {
+      "id": "weathered_log",
+      "name_zh": "剥皮老木段",
+      "source_sha256": "6e7ec7aa07eebe1b8d3252440b5c3255a19effe1e2f513f38e9a00e911e45f10",
+      "source_boxes": {
+        "front": [
+          19,
+          148,
+          507,
+          390
+        ],
+        "right": [
+          564,
+          130,
+          1007,
+          399
+        ],
+        "rear": [
+          1061,
+          113,
+          1520,
+          401
+        ],
+        "left": [
+          19,
+          597,
+          505,
+          853
+        ],
+        "top": [
+          554,
+          622,
+          1021,
+          853
+        ],
+        "bottom": [
+          1082,
+          642,
+          1509,
+          849
+        ]
+      },
+      "outline_uv_registration": [
+        "top"
+      ],
+      "source_view_ownership": {
+        "front": 0.2045,
+        "right": 0.0918,
+        "rear": 0.198,
+        "left": 0.1086,
+        "top": 0.2532,
+        "bottom": 0.1439
+      },
+      "triangles": 1076,
+      "relief": {
+        "planned_zones": [
+          [
+            [
+              0.63,
+              0.48,
+              0.83
+            ],
+            [
+              0.21,
+              0.078,
+              0.187
+            ],
+            -0.094
+          ],
+          [
+            [
+              0.51,
+              0.57,
+              0.8
+            ],
+            [
+              0.23,
+              0.096,
+              0.18
+            ],
+            0.088
+          ],
+          [
+            [
+              0.21,
+              0.53,
+              0.69
+            ],
+            [
+              0.115,
+              0.17,
+              0.211
+            ],
+            0.093
+          ],
+          [
+            [
+              0.53,
+              0.48,
+              0.13
+            ],
+            [
+              0.247,
+              0.098,
+              0.151
+            ],
+            -0.099
+          ],
+          [
+            [
+              0.81,
+              0.5,
+              0.19
+            ],
+            [
+              0.102,
+              0.106,
+              0.177
+            ],
+            0.082
+          ]
+        ],
+        "max_groove_m": -0.010363155044615269,
+        "max_protrusion_m": 0.01905352622270584,
+        "width_height_depth_original_m": [
+          0.3750694692134857,
+          0.1566856950521469,
+          0.19789090752601624
+        ],
+        "width_height_depth_candidate_m": [
+          0.3789489269256592,
+          0.15706735849380493,
+          0.19850923120975494
+        ],
+        "local_simplification_distance_median_m": 0.005375999078144137,
+        "shell_topology_before": [
+          1,
+          2
+        ],
+        "shell_topology_after": [
+          1,
+          2
+        ],
+        "cavity": null
+      },
+      "cavity": null,
+      "native_export_surface_probes": {
+        "compared_surface_intercepts": 424,
+        "p05_m": -0.006058930947701293,
+        "p95_m": 0.013730503031774914,
+        "min_m": -0.07857026473502715,
+        "max_m": 0.023526088890923946
+      },
+      "model": "res://assets/aquascape-v9/solids/weathered_log.glb",
+      "before_sha256": "88c0e2850e3d0ea56813c9c1dead1703caccc5c23853e4c884e76ce1dd75a146",
+      "geometry_changed": true,
+      "after_sha256": "e718bbca1403cc12f0af098fd1071ec3bb9eb714d5e37b904d7db501792b9198",
+      "source_art": "resources/aquascape/surface-repair-20261124/source/weathered_log/six-views.png",
+      "editable": "resources/aquascape/surface-repair-20261124/source/weathered_log/weathered_log.blend",
+      "whole_instance_budget": "wood",
+      "hard_limit": 1200,
+      "shell_topology_components_euler": [
+        1,
+        2
+      ],
+      "dimensions_m": [
+        0.3789489269256592,
+        0.15706735849380493,
+        0.19850923120975494
+      ],
+      "material_surfaces": 1,
+      "embedded_textures": 1,
+      "semantic_baseline": [],
+      "semantic_updated": [],
+      "source_intent": "Create an all-face source art for the current aquarium prop. Its identity: one squat curved old hardwood log with weathered bark and pale cut surfaces, fork breaks at one end and uneven chunky old root foot, stronger bark flutes on one flank, grain always matched along the actual local branch.\nOne board with exactly six orthographic views of THE SAME object, in equal cells of 3 columns and 2 rows, each full isolated object on pure white, no outside shadows or perspective, no titles required. Top row FRONT +Z, RIGHT +X, BACK -Z. Bottom row LEFT -X, TOP true directly down, BOTTOM true directly up. Physical left/right silhouettes consume the object's width axis. Bottom shows actual underside and contact feet or hole if present; top shows actual plan. Preserve the original form, contact foot, direction, apertures and major art landmarks from the combined guide; improve substantial relief where visibly intended. Normal front and rear make the same object seen from opposite axes. Use detailed native crisp pixel-art, measured paint clusters with real local stone grain, woody fibers, masonry, pottery or forged surface. Paint each six projected plane individually with its own specific opposing visible elements and no camera-induced stretching. The guide captures obsolete artifacts; replace repeating ruler-straight one-dimensional streaks with painted surface detail. Do not copy stretched color, outline silhouette only in the gray guide. No surplus props, text or labels. Keep generous white gutters separating all six views.",
+      "source_workflow_asset": "weathered_log_six_views"
+    }
+  ],
+  "released_game_revision": "6a4f0d5a5bdde0c72b89529cd9ae1b5ab492ce33",
+  "verified_rebuilt_glbs": 31
+}

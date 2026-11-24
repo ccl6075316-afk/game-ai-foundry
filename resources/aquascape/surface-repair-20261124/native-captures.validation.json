@@ -1,0 +1,340 @@
+{
+  "ok": true,
+  "godot": "4.7.1.stable.mono.official.a13da4feb",
+  "renderer": "OpenGL Compatibility / Apple M4",
+  "source": "Game catalog PackedScene imports in fresh processes",
+  "camera_views": [
+    "front",
+    "back",
+    "right",
+    "left",
+    "top",
+    "bottom",
+    "front angle",
+    "back angle"
+  ],
+  "captures": [
+    {
+      "mode": "color",
+      "items": [
+        {
+          "id": "bamboo_shelter",
+          "mean_absolute_rgb_error_8bit": 0.4506,
+          "maximum_absolute_rgb_error_8bit": 15
+        },
+        {
+          "id": "basalt_column",
+          "mean_absolute_rgb_error_8bit": 0.2813,
+          "maximum_absolute_rgb_error_8bit": 15
+        },
+        {
+          "id": "broken_column",
+          "mean_absolute_rgb_error_8bit": 0.3805,
+          "maximum_absolute_rgb_error_8bit": 13
+        },
+        {
+          "id": "clay_pipe",
+          "mean_absolute_rgb_error_8bit": 0.3904,
+          "maximum_absolute_rgb_error_8bit": 15
+        },
+        {
+          "id": "coconut_shelter",
+          "mean_absolute_rgb_error_8bit": 0.4543,
+          "maximum_absolute_rgb_error_8bit": 15
+        },
+        {
+          "id": "dragon_stone",
+          "mean_absolute_rgb_error_8bit": 0.4052,
+          "maximum_absolute_rgb_error_8bit": 16
+        },
+        {
+          "id": "driftwood",
+          "mean_absolute_rgb_error_8bit": 0.194,
+          "maximum_absolute_rgb_error_8bit": 14
+        },
+        {
+          "id": "iron_anchor",
+          "mean_absolute_rgb_error_8bit": 0.1004,
+          "maximum_absolute_rgb_error_8bit": 13
+        },
+        {
+          "id": "lava_rock",
+          "mean_absolute_rgb_error_8bit": 0.501,
+          "maximum_absolute_rgb_error_8bit": 16
+        },
+        {
+          "id": "mangrove_root",
+          "mean_absolute_rgb_error_8bit": 0.3113,
+          "maximum_absolute_rgb_error_8bit": 14
+        },
+        {
+          "id": "mopani_wood",
+          "mean_absolute_rgb_error_8bit": 0.3886,
+          "maximum_absolute_rgb_error_8bit": 16
+        },
+        {
+          "id": "pale_limestone",
+          "mean_absolute_rgb_error_8bit": 0.5137,
+          "maximum_absolute_rgb_error_8bit": 16
+        },
+        {
+          "id": "quartz_rock",
+          "mean_absolute_rgb_error_8bit": 0.5397,
+          "maximum_absolute_rgb_error_8bit": 15
+        },
+        {
+          "id": "red_sandstone",
+          "mean_absolute_rgb_error_8bit": 0.4876,
+          "maximum_absolute_rgb_error_8bit": 15
+        },
+        {
+          "id": "reef_brain_coral",
+          "mean_absolute_rgb_error_8bit": 0.4707,
+          "maximum_absolute_rgb_error_8bit": 16
+        },
+        {
+          "id": "river_boulder",
+          "mean_absolute_rgb_error_8bit": 0.4966,
+          "maximum_absolute_rgb_error_8bit": 14
+        },
+        {
+          "id": "rock",
+          "mean_absolute_rgb_error_8bit": 0.377,
+          "maximum_absolute_rgb_error_8bit": 14
+        },
+        {
+          "id": "root_fan",
+          "mean_absolute_rgb_error_8bit": 0.3437,
+          "maximum_absolute_rgb_error_8bit": 14
+        },
+        {
+          "id": "root_stump",
+          "mean_absolute_rgb_error_8bit": 0.2524,
+          "maximum_absolute_rgb_error_8bit": 14
+        },
+        {
+          "id": "ruin_arch",
+          "mean_absolute_rgb_error_8bit": 0.2373,
+          "maximum_absolute_rgb_error_8bit": 15
+        },
+        {
+          "id": "ruined_tower",
+          "mean_absolute_rgb_error_8bit": 0.3909,
+          "maximum_absolute_rgb_error_8bit": 17
+        },
+        {
+          "id": "shipwreck",
+          "mean_absolute_rgb_error_8bit": 0.3063,
+          "maximum_absolute_rgb_error_8bit": 14
+        },
+        {
+          "id": "slate_cave",
+          "mean_absolute_rgb_error_8bit": 0.4246,
+          "maximum_absolute_rgb_error_8bit": 14
+        },
+        {
+          "id": "slate_stack",
+          "mean_absolute_rgb_error_8bit": 0.3657,
+          "maximum_absolute_rgb_error_8bit": 14
+        },
+        {
+          "id": "spider_wood",
+          "mean_absolute_rgb_error_8bit": 0.2385,
+          "maximum_absolute_rgb_error_8bit": 14
+        },
+        {
+          "id": "stone_bridge",
+          "mean_absolute_rgb_error_8bit": 0.4806,
+          "maximum_absolute_rgb_error_8bit": 16
+        },
+        {
+          "id": "stone_lantern",
+          "mean_absolute_rgb_error_8bit": 0.3123,
+          "maximum_absolute_rgb_error_8bit": 14
+        },
+        {
+          "id": "terracotta_jar",
+          "mean_absolute_rgb_error_8bit": 0.3928,
+          "maximum_absolute_rgb_error_8bit": 16
+        },
+        {
+          "id": "treasure_chest",
+          "mean_absolute_rgb_error_8bit": 0.5225,
+          "maximum_absolute_rgb_error_8bit": 14
+        },
+        {
+          "id": "twisted_branch",
+          "mean_absolute_rgb_error_8bit": 0.2202,
+          "maximum_absolute_rgb_error_8bit": 13
+        },
+        {
+          "id": "weathered_log",
+          "mean_absolute_rgb_error_8bit": 0.3431,
+          "maximum_absolute_rgb_error_8bit": 14
+        }
+      ],
+      "native_imported_frames": 248
+    },
+    {
+      "mode": "gray",
+      "items": [
+        {
+          "id": "bamboo_shelter",
+          "mean_absolute_rgb_error_8bit": 0.0763,
+          "maximum_absolute_rgb_error_8bit": 13
+        },
+        {
+          "id": "basalt_column",
+          "mean_absolute_rgb_error_8bit": 0.0396,
+          "maximum_absolute_rgb_error_8bit": 13
+        },
+        {
+          "id": "broken_column",
+          "mean_absolute_rgb_error_8bit": 0.0322,
+          "maximum_absolute_rgb_error_8bit": 11
+        },
+        {
+          "id": "clay_pipe",
+          "mean_absolute_rgb_error_8bit": 0.0703,
+          "maximum_absolute_rgb_error_8bit": 13
+        },
+        {
+          "id": "coconut_shelter",
+          "mean_absolute_rgb_error_8bit": 0.0872,
+          "maximum_absolute_rgb_error_8bit": 14
+        },
+        {
+          "id": "dragon_stone",
+          "mean_absolute_rgb_error_8bit": 0.0297,
+          "maximum_absolute_rgb_error_8bit": 10
+        },
+        {
+          "id": "driftwood",
+          "mean_absolute_rgb_error_8bit": 0.0611,
+          "maximum_absolute_rgb_error_8bit": 14
+        },
+        {
+          "id": "iron_anchor",
+          "mean_absolute_rgb_error_8bit": 0.0377,
+          "maximum_absolute_rgb_error_8bit": 12
+        },
+        {
+          "id": "lava_rock",
+          "mean_absolute_rgb_error_8bit": 0.0601,
+          "maximum_absolute_rgb_error_8bit": 13
+        },
+        {
+          "id": "mangrove_root",
+          "mean_absolute_rgb_error_8bit": 0.0627,
+          "maximum_absolute_rgb_error_8bit": 13
+        },
+        {
+          "id": "mopani_wood",
+          "mean_absolute_rgb_error_8bit": 0.0642,
+          "maximum_absolute_rgb_error_8bit": 14
+        },
+        {
+          "id": "pale_limestone",
+          "mean_absolute_rgb_error_8bit": 0.03,
+          "maximum_absolute_rgb_error_8bit": 10
+        },
+        {
+          "id": "quartz_rock",
+          "mean_absolute_rgb_error_8bit": 0.0393,
+          "maximum_absolute_rgb_error_8bit": 12
+        },
+        {
+          "id": "red_sandstone",
+          "mean_absolute_rgb_error_8bit": 0.0335,
+          "maximum_absolute_rgb_error_8bit": 12
+        },
+        {
+          "id": "reef_brain_coral",
+          "mean_absolute_rgb_error_8bit": 0.0773,
+          "maximum_absolute_rgb_error_8bit": 12
+        },
+        {
+          "id": "river_boulder",
+          "mean_absolute_rgb_error_8bit": 0.0299,
+          "maximum_absolute_rgb_error_8bit": 12
+        },
+        {
+          "id": "rock",
+          "mean_absolute_rgb_error_8bit": 0.0328,
+          "maximum_absolute_rgb_error_8bit": 10
+        },
+        {
+          "id": "root_fan",
+          "mean_absolute_rgb_error_8bit": 0.0483,
+          "maximum_absolute_rgb_error_8bit": 12
+        },
+        {
+          "id": "root_stump",
+          "mean_absolute_rgb_error_8bit": 0.0509,
+          "maximum_absolute_rgb_error_8bit": 14
+        },
+        {
+          "id": "ruin_arch",
+          "mean_absolute_rgb_error_8bit": 0.0392,
+          "maximum_absolute_rgb_error_8bit": 12
+        },
+        {
+          "id": "ruined_tower",
+          "mean_absolute_rgb_error_8bit": 0.0521,
+          "maximum_absolute_rgb_error_8bit": 11
+        },
+        {
+          "id": "shipwreck",
+          "mean_absolute_rgb_error_8bit": 0.086,
+          "maximum_absolute_rgb_error_8bit": 11
+        },
+        {
+          "id": "slate_cave",
+          "mean_absolute_rgb_error_8bit": 0.0713,
+          "maximum_absolute_rgb_error_8bit": 12
+        },
+        {
+          "id": "slate_stack",
+          "mean_absolute_rgb_error_8bit": 0.0342,
+          "maximum_absolute_rgb_error_8bit": 11
+        },
+        {
+          "id": "spider_wood",
+          "mean_absolute_rgb_error_8bit": 0.0433,
+          "maximum_absolute_rgb_error_8bit": 13
+        },
+        {
+          "id": "stone_bridge",
+          "mean_absolute_rgb_error_8bit": 0.0552,
+          "maximum_absolute_rgb_error_8bit": 10
+        },
+        {
+          "id": "stone_lantern",
+          "mean_absolute_rgb_error_8bit": 0.0276,
+          "maximum_absolute_rgb_error_8bit": 11
+        },
+        {
+          "id": "terracotta_jar",
+          "mean_absolute_rgb_error_8bit": 0.0717,
+          "maximum_absolute_rgb_error_8bit": 14
+        },
+        {
+          "id": "treasure_chest",
+          "mean_absolute_rgb_error_8bit": 0.0671,
+          "maximum_absolute_rgb_error_8bit": 11
+        },
+        {
+          "id": "twisted_branch",
+          "mean_absolute_rgb_error_8bit": 0.0395,
+          "maximum_absolute_rgb_error_8bit": 13
+        },
+        {
+          "id": "weathered_log",
+          "mean_absolute_rgb_error_8bit": 0.0463,
+          "maximum_absolute_rgb_error_8bit": 12
+        }
+      ],
+      "native_imported_frames": 248
+    }
+  ]
+}
