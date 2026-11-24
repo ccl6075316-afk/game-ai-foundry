@@ -1,23 +1,22 @@
 extends SceneTree
-## Exercise the actual cold-imported meshes, the exhibit and both camera views.
+## Exercise the cold-imported visitor meshes inside the current exhibit.
 
 func _initialize() -> void:
     check.call_deferred()
 
 func check() -> void:
-    var scene = load("res://scenes/visitor_family_hall.tscn").instantiate()
+    var scene = load("res://scenes/current_exhibit.tscn").instantiate()
     root.add_child(scene)
     await process_frame
     var problems: Array[String] = []
     var guests := {}
-    var tank: Dictionary = scene.hall.objects[0]
-    var shell: AABB = tank.node.global_transform * scene.hall._bounds(tank.data)
-    var contents = tank.node.get_node("Shell/Contents")
-    if contents.swimmers.size() != 3 or not scene.hall.read_only:
+    var tank: Dictionary = scene.objects[0]
+    var shell: AABB = tank.node.global_transform * scene._bounds(tank.data)
+    if scene.swimmers.size() != 3 or not scene.read_only:
         problems.append("Expected a three-fish exhibit in a read-only hall")
-    if scene.family.get_child_count() != 4:
+    if scene.guests.get_child_count() != 4:
         problems.append("Expected four distinct guests")
-    for guest in scene.family.get_children():
+    for guest in scene.guests.get_children():
         var nodes: Array = guest.find_children("*", "MeshInstance3D", true, false)
         if guest is MeshInstance3D:
             nodes.append(guest)
@@ -31,14 +30,10 @@ func check() -> void:
             problems.append("Incorrect placement of " + str(guest.name))
         guests[str(guest.name)] = {"triangles":faces, "height_m":bounds.size.y,
             "clearance_from_glass_m":bounds.position.z - shell.end.z}
-    for closeup in [false, true]:
-        scene.set_view(closeup)
-        await process_frame
-        for guest in scene.family.get_children():
-            if not scene.camera.is_position_in_frustum(guest.global_position) or not scene.camera.is_position_in_frustum(
-                    guest.global_position + Vector3.UP * guests[str(guest.name)].height_m):
-                problems.append("Guest outside camera view: " + str(guest.name))
-    print("VISITOR_FAMILY ", JSON.stringify({"guests":guests,"fish":contents.swimmers.size(),"problems":problems}))
+        if not scene.eye.is_position_in_frustum(guest.global_position) or not scene.eye.is_position_in_frustum(
+                guest.global_position + Vector3.UP * bounds.size.y):
+            problems.append("Guest outside camera view: " + str(guest.name))
+    print("VISITOR_FAMILY ", JSON.stringify({"guests":guests,"fish":scene.swimmers.size(),"problems":problems}))
     scene.queue_free()
     await process_frame
     await process_frame

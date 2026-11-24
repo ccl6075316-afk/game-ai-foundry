@@ -193,14 +193,7 @@ func _player() -> void:
     eye=Camera3D.new();eye.position.y=.74;eye.fov=68;eye.near=.04;eye.far=70;player.add_child(eye)
 
 func _default_state() -> Dictionary:
-    if start_empty:
-        return {"schema_version":1,"floor_style":0,"wall_style":0,"objects":[]}
-    return {"schema_version":1,"floor_style":0,"wall_style":0,"objects":[
-        {"id":"exhibit-main","kind":"tank","name":"沉船与遗迹主缸","at":[0,-4.8],"yaw":0.0,"scale":1.0,"fish_count":8,"content":{}},
-        {"id":"exhibit-side","kind":"tank","name":"侧厅海鱼缸","at":[-5.7,-.15],"yaw":PI/2,"scale":.65,"fish_count":4,"content":{}},
-        {"id":"bench-1","kind":"bench","name":"观赏长凳","at":[0,.85],"yaw":0.0,"scale":1.0},
-        {"id":"plinth-1","kind":"plinth","name":"石灯展示台","at":[5.8,-3.5],"yaw":0.0,"scale":1.0}
-    ]}
+    return {"schema_version":1,"floor_style":0,"wall_style":0,"objects":[]}
 
 func _bounds(data: Dictionary) -> AABB:
     return layout_rules._bounds(data)

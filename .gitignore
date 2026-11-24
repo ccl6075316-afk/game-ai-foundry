@@ -10,6 +10,7 @@ games/
 *.png
 *.jpg
 *.jpeg
+!/resources/runtime/godot/aquascape/tank_design/StoneAlgae.png
 config.local.json
 .godot/
 *.import

@@ -2,7 +2,7 @@
 
 **2026-11-21 逐鱼游动交付**。用户要求展示鱼的游动时随附一篇该物种的实证资料，包括日常速度、推进方式、能否守位及条件。新鱼及已做的鲤鱼、蓝鳃太阳鱼、大黄鱼同样执行。制作前查同种原始录像或观测分析，按[游动 SOP 第 8 节](resources/skills/fish-volume-production/references/production-sop.md#8-骨骼动作与衔接)核对实机。待补的鱼可交研究资料，不交游动效果。
 
-**2026-11-20 展缸试玩交接**。游戏仓库 `fishing-2d` 的 `main` 包含 Windows 入口 `open-tank-design.cmd`、三鱼矩形缸布局和 [文字交接](https://github.com/ccl6075316-afk/fishing-2d/blob/0fba2969043ef255f353d49575a71147e184f976/docs/HALL-HANDOFF-20261120.md)。本库的大厅部署源通过 `resources/scripts/aquascape/test_hall_source_sync.py` 与游戏校对。
+**2026-11-24 展缸试玩交接**。游戏仓库 `fishing-2d` 的入口 `open-tank-design.cmd` 指向当前展缸，真实水族馆样板由 `open-aquarium-reference-gallery.cmd` 打开。游戏的 `docs/HALL-HANDOFF-20261120.md` 记录新展缸、空大厅与正式存档入口。本库的大厅部署源通过 `resources/scripts/aquascape/test_hall_source_sync.py` 与游戏校对。
 
 **2026-11-17 路氏与无沟双髻鲨发布**：用户接受联合 Godot 返修版并授权正式安装和提交推送。两鱼均 3994 三角、22 骨、8 鳍。路氏尾鳍与尾柄接色及共享外环法线已顺平，两鱼独立小猎物摄入与大猎物夹持。正式冷导、490/072/077、四动作/缓存/96 次钓鱼上唇以及两支各 241 个口腔和 267 个鳍姿态通过。运行时 SOP 通过，完整资料、形态、原画唇域和全动画展示待补。新风格 28/28，入口 `resources/volume-fish/final-hammerheads-20261117/release.json`。
 

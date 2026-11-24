@@ -31,6 +31,9 @@ def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--root',type=Path,required=True);p.add_argument('--godot',type=Path);p.add_argument('--record-note');p.add_argument('--review-dir',type=Path);p.add_argument('--build-tools',action='store_true');p.add_argument('--pixel-style',action='store_true');p.add_argument('--lighting',action='store_true');p.add_argument('--blue-atmosphere',action='store_true');p.add_argument('--water',action='store_true');a=p.parse_args()
+    scenes = a.root.resolve() / 'projects/fishing-2d/game/scenes'
+    if (scenes / 'current_exhibit.tscn').is_file() and not (scenes / 'aquarium_hall_3d_review.tscn').is_file():
+        p.error('Historical hall reviews are retired in this checkout. Play res://scenes/current_exhibit.tscn for the current exhibit.')
     if a.blue_atmosphere:a.lighting=a.pixel_style=a.build_tools=True
     if a.water:a.pixel_style=a.build_tools=True
     root=a.root.resolve();game=root/'projects/fishing-2d/game';review=root/('projects/fishing-2d/plans/reviews/aquarium-water-v6' if a.water else 'projects/fishing-2d/plans/reviews/aquarium-hall-blue-v5' if a.blue_atmosphere else 'projects/fishing-2d/plans/reviews/aquarium-hall-lighting-v4' if a.lighting else 'projects/fishing-2d/plans/reviews/aquarium-hall-style-v3' if a.pixel_style else 'projects/fishing-2d/plans/reviews/aquarium-hall-build-v2' if a.build_tools else 'projects/fishing-2d/plans/reviews/aquarium-hall-3d-v1');review.mkdir(parents=True,exist_ok=True);source=root/'resources/runtime/godot/aquascape'
