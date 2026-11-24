@@ -1,0 +1,34 @@
+{
+  "ok": true,
+  "count": 2,
+  "items": [
+    {
+      "id": "live_elkhorn_colony",
+      "blend_sha256": "b947f70baead06e6aadf77bd294dc3c3c6bc060b1ed2ca758812778e8f8f5dd0",
+      "model_sha256": "7147f4ccf15326ff7dd252be73b6a02b5a6440779a8ea5c34a66ad22bee9c4de",
+      "packed_atlas_sha256": "0f88ec8f135798fcb981b946a230b72f652cfdd403004ca24e7302e9c29b4eaa",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 2862,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 0.0007009506225585938
+    },
+    {
+      "id": "live_massive_coral_colony",
+      "blend_sha256": "76eeae42e0538161267f076fe781ece6a00f37dfbd55f27858b720d0fa9e45ff",
+      "model_sha256": "f5d3cf7e6f73a4b96e6476efd92fa5e822047161f9ef056d40b694331348a1de",
+      "packed_atlas_sha256": "1db0d47894f0e1eae51d2054dc2c2b35e95f469745d21b11af5c5225d9523417",
+      "atlas_size_px": [
+        2048,
+        2048
+      ],
+      "triangle_corners": 2562,
+      "max_position_error_m": 0.0,
+      "max_uv_error": 0.0,
+      "max_normal_component_error": 0.0005487501621246338
+    }
+  ]
+}

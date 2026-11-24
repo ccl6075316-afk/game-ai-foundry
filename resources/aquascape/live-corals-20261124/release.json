@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "catalog_count": 102,
+  "optional_algae": 32,
+  "budget_choice": "Meter-scale rigid reef structures use the existing large_rock profile of 700 preferred and 1000 maximum, equivalent in limits to the temporary proxy profile.",
+  "user_acceptance": {
+    "state": "accepted_for_release",
+    "date": "2026-11-24",
+    "message": "珊瑚也没问题 提交吧"
+  },
+  "items": [
+    {
+      "id": "live_elkhorn_colony",
+      "name_zh": "大型活麋角珊瑚",
+      "texture": [
+        2048,
+        2048
+      ],
+      "topology": {
+        "connected_components": 1,
+        "euler_characteristic": 2,
+        "open_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "size_m": [
+        2.7,
+        1.25,
+        1.72
+      ],
+      "layout": {
+        "source_field_components": 1,
+        "isolated_voxels_removed": 0,
+        "bounds_xyz_m": [
+          2.707469940185547,
+          1.2494899034500122,
+          1.7051949501037598
+        ]
+      },
+      "view_crops": {
+        "front": [
+          26,
+          76,
+          574,
+          452
+        ],
+        "right": [
+          569,
+          76,
+          969,
+          456
+        ],
+        "rear": [
+          981,
+          76,
+          1515,
+          456
+        ],
+        "left": [
+          28,
+          541,
+          507,
+          934
+        ],
+        "top": [
+          550,
+          541,
+          1005,
+          960
+        ],
+        "bottom": [
+          1039,
+          541,
+          1515,
+          934
+        ]
+      },
+      "source_views": {
+        "front": 0.1455,
+        "right": 0.0965,
+        "rear": 0.1522,
+        "left": 0.1006,
+        "top": 0.2851,
+        "bottom": 0.2201
+      },
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000,
+        "type": "large_rock"
+      },
+      "triangles": 954,
+      "habitat": "加勒比暖礁",
+      "reference": "https://www.fisheries.noaa.gov/species/elkhorn-coral",
+      "normalized_geometry_sha256": "e649aed47e30d9b6756066982417143da32dc5e0a315cd87fcc0111cd4d8ef99",
+      "source_art": "resources/aquascape/live-corals-20261124/source/live_elkhorn_colony/six-views.png",
+      "source_sha256": "3ef9f75c9074dccbeb9b980face0b0842723f495151edba1b5aa7b589a68295f",
+      "source_intent": "Design a substantial live Acropora palmata colony for a warm Caribbean aquascape at 2.7 by 1.25 by 1.72 metres X Y Z, a distinct model rather than a scaled copy of the existing detached fragment. Thick wide asymmetrically sprawling frond-like blades, with later-moving shaded spaces between three high canopies, a sheltered open crescent under the broad outward fronds, and one sturdy contact trunk remains readable on bottom view. Healthy tissue covers the WHOLE colony, including branching bases, underside and interior shaded branches. Main material rich ochre/olive-brown and honeygold pigment; soft amber/russet alive mottling, small darker visible grouped polyp cups and pale NEW growing rims only at some tips. Intact skin everywhere, never bleached chalk or exposed pale bone. Polyps fine-scale and clustered, no large isolated flower heads. Pixel-art visual language, warm living surfaces, credible ecology rather than neon ornament. Use multiple indisputably connected split blunt antler-like fronds that rise and angle off the trunk, with long-flat paddle fingers branching two or three times irregularly, generous open spaces between and rounded contours. Plate or round fan shapes and flower-shaped coral heads do not fit this species. Contrasting fine polyp tissue along face, scale down any visible polyp dots greatly.\nUse the reference only for crisp painted pixel finish. Create the independent living colony described here, including its pigmentation and architecture.\nRender ONE six-direction board of the identical object in true orthographic projection, 3 columns by 2 rows with white gutters and plain pure white backgrounds. Top row in order FRONT (+Z), RIGHT (+X), BACK (-Z). Bottom row LEFT (-X), TOP (+Y, true straight-down plan), BOTTOM (-Y, true straight-up underside). Keep silhouettes and structural landmarks consistent across opposite views, with physically correct mirrored viewpoint and occlusion. Preserve a recognisable top/underbody relationship and correct contact area. Rear and end surfaces show their own physical grain/materials. Do not show a front wall in plan view. Exact single object in every slot, no extra objects, UI, text beyond the six compact view labels, reflections, ground shadows or background scene. All edges and pixel grain tidy and deliberate; fine crisp pixel-art color clusters and large controlled masses, no smooth CGI or smeared fill.",
+      "editable": "resources/aquascape/live-corals-20261124/source/live_elkhorn_colony/live_elkhorn_colony.blend",
+      "model": "res://assets/aquascape-expansion-v1/live_elkhorn_colony.glb",
+      "after_sha256": "7147f4ccf15326ff7dd252be73b6a02b5a6440779a8ea5c34a66ad22bee9c4de",
+      "comparison_gray_geometry_matched": true,
+      "whole_instance_budget": "large_rock",
+      "hard_limit": 1000,
+      "aligned_bottom_y_m": 0.0,
+      "environment": "Caribbean",
+      "material_surfaces": 1,
+      "embedded_textures": 1
+    },
+    {
+      "id": "live_massive_coral_colony",
+      "name_zh": "大型活团块珊瑚",
+      "texture": [
+        2048,
+        2048
+      ],
+      "topology": {
+        "connected_components": 1,
+        "euler_characteristic": 2,
+        "open_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "size_m": [
+        2.15,
+        1.35,
+        1.66
+      ],
+      "layout": {
+        "source_field_components": 1,
+        "isolated_voxels_removed": 0,
+        "bounds_xyz_m": [
+          2.151231288909912,
+          1.351057767868042,
+          1.6618874073028564
+        ]
+      },
+      "view_crops": {
+        "front": [
+          24,
+          95,
+          521,
+          394
+        ],
+        "right": [
+          561,
+          108,
+          976,
+          395
+        ],
+        "rear": [
+          1026,
+          95,
+          1518,
+          392
+        ],
+        "left": [
+          21,
+          597,
+          508,
+          888
+        ],
+        "top": [
+          546,
+          556,
+          1001,
+          945
+        ],
+        "bottom": [
+          1036,
+          570,
+          1518,
+          932
+        ]
+      },
+      "source_views": {
+        "front": 0.1587,
+        "right": 0.1199,
+        "rear": 0.1835,
+        "left": 0.1275,
+        "top": 0.2219,
+        "bottom": 0.1884
+      },
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000,
+        "type": "large_rock"
+      },
+      "triangles": 854,
+      "habitat": "热带印太硬底",
+      "reference": "https://lifg.australian.museum/Group.html?groupId=f1c5pokN",
+      "normalized_geometry_sha256": "df1f878684041eb078f1d884901f67ecd08f196b717578df6e5d8a050d34dd0e",
+      "source_art": "resources/aquascape/live-corals-20261124/source/live_massive_coral_colony/six-views.png",
+      "source_sha256": "c53ad506c9456644ba18e8afef6aafbff4b5c8535bd0f45520a31570363202cd",
+      "source_intent": "Design one massive, live tropical Indo-Pacific Porites-type head for hard rocky substrate, a growth-form reference with no species assertion. 2.15 x 1.35 x 1.66 metres X Y Z. Broad high dome with a busy natural low shoulder, irregular coalescing soft-edged lobes and small depressions. Retain real overall negative spaces between lobes, one coherent subsurface trunk/base and a dark underside naturally shaped from its bed. Color and material read as one vibrant colony of living coral tissue, saturated but plausible olive gold with moss-green shadows, amber ridges and fine ordered grouped polyp pores. Highest contrast is clustered around healthy growing surfaces and warm shaded sides. No skull white skeleton, pale plain limestone or flower buds attached to a stone. Use deliberately simplified crisp pigment patches to make form readable in an aquarium view. No texture-only colored lumps standing in for real mass. This is a densely continuous single mound with unequal solid coalescing inflated lobes attached from their root to their head, with rounded dimpled thick outer surface like a living coral boulder. No plates, fans, open architectural ruffles, separate pom-poms, finger trees nor overhanging mushroom caps. Back and side also a rounded massive bulging lump. Bottom is a compact dark irregular contact slab with roots of lobes meeting it. Fine spaced coral pores.\nUse the reference only for crisp painted pixel finish. Create the independent living colony described here, including its pigmentation and architecture.\nRender ONE six-direction board of the identical object in true orthographic projection, 3 columns by 2 rows with white gutters and plain pure white backgrounds. Top row in order FRONT (+Z), RIGHT (+X), BACK (-Z). Bottom row LEFT (-X), TOP (+Y, true straight-down plan), BOTTOM (-Y, true straight-up underside). Keep silhouettes and structural landmarks consistent across opposite views, with physically correct mirrored viewpoint and occlusion. Preserve a recognisable top/underbody relationship and correct contact area. Rear and end surfaces show their own physical grain/materials. Do not show a front wall in plan view. Exact single object in every slot, no extra objects, UI, text beyond the six compact view labels, reflections, ground shadows or background scene. All edges and pixel grain tidy and deliberate; fine crisp pixel-art color clusters and large controlled masses, no smooth CGI or smeared fill.",
+      "editable": "resources/aquascape/live-corals-20261124/source/live_massive_coral_colony/live_massive_coral_colony.blend",
+      "model": "res://assets/aquascape-expansion-v1/live_massive_coral_colony.glb",
+      "after_sha256": "f5d3cf7e6f73a4b96e6476efd92fa5e822047161f9ef056d40b694331348a1de",
+      "comparison_gray_geometry_matched": true,
+      "whole_instance_budget": "large_rock",
+      "hard_limit": 1000,
+      "aligned_bottom_y_m": 0.0,
+      "environment": "Indo-Pacific",
+      "material_surfaces": 1,
+      "embedded_textures": 1
+    }
+  ],
+  "released_game_revision": "758b4bcc9fe04519ff202c1a4d6c5eab30007e4e",
+  "native_review": "verified_in_godot_4.7.1_composition_and_placement",
+  "rebuilt_glb_bytes_matched": 2
+}

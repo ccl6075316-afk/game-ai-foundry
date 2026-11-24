@@ -1,0 +1,29 @@
+{
+  "design": {"kind":"rect","width":15.0,"depth":8.0,"height":5.1,"radii":[0,0,0,0]},
+  "layouts": [
+    {
+      "id":"caribbean-elkhorn", "title":"加勒比浅礁 · 大型活麋角珊瑚", "substrate":"fine_sand", "depth_cm":12.0,
+      "fog_color":"467f9a", "backdrop_bottom":"183552", "backdrop_top":"397589",
+      "eye":[1.0,4.0,14.0], "camera_size":6.15, "lane_z":2.7,
+      "items":[
+        {"key":"shelf","ids":["reef_shelf_terrace"],"at":[-0.30,-0.50],"size":3.12,"yaw":-8},
+        {"ids":["reef_double_rift"],"at":[2.70,-2.05],"size":3.26,"yaw":12},
+        {"ids":["reef_rubble_apron"],"at":[-2.67,0.34],"size":1.54,"yaw":-8},
+        {"ids":["live_elkhorn_colony"],"support":"shelf","at":[-0.23,-0.43],"top":1.18,"size":2.70,"yaw":14},
+        {"ids":["reef_finger_coral"],"support":"shelf","at":[-1.30,0.03],"top":0.66,"size":0.48,"yaw":-15}
+      ]
+    },
+    {
+      "id":"indo-pacific-massive", "title":"印太暖礁 · 大型活团块珊瑚", "substrate":"fine_sand", "depth_cm":12.0,
+      "fog_color":"427b90", "backdrop_bottom":"113847", "backdrop_top":"387b8f",
+      "eye":[-0.8,4.5,14.8], "camera_size":5.85, "lane_z":2.7,
+      "items":[
+        {"key":"hummock","ids":["reef_isolated_hummock"],"at":[0.44,0.06],"size":2.84,"yaw":-10},
+        {"key":"ledge","ids":["reef_shelf_terrace"],"at":[-2.50,-1.48],"size":2.87,"yaw":-17},
+        {"ids":["reef_rubble_apron"],"at":[2.35,-0.90],"size":1.88,"yaw":12},
+        {"ids":["live_massive_coral_colony"],"support":"hummock","at":[0.50,0.11],"top":1.02,"size":2.15,"yaw":13},
+        {"ids":["reef_foliose_coral"],"support":"ledge","at":[-2.35,-1.26],"top":1.0,"size":0.86,"yaw":12}
+      ]
+    }
+  ]
+}

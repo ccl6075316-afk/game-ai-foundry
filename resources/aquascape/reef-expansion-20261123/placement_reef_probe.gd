@@ -29,6 +29,13 @@ func _audit() -> void:
         "reef_pinnacle":Vector2(5.0,-2.9),
         "reef_rubble_apron":Vector2(-0.9,2.5),
     }
+    var large_corals := {
+        "live_elkhorn_colony": Vector2(-2.2, -0.8),
+        "live_massive_coral_colony": Vector2(2.4, -0.45),
+    }
+    for id: String in large_corals:
+        if Interior.assets().has(id):
+            new_positions[id] = large_corals[id]
     for catalog: Array in catalogs:
         for row: Dictionary in catalog:
             var id: String = row.id
@@ -75,6 +82,7 @@ func _audit() -> void:
     var floating_count := 0
     var placed_floating := 0
     var new_large := 0
+    var coral_sizes_ok := true
     var contour := Design.contour(design)
     for i: int in primary.props.size():
         var entry: Dictionary = primary.props[i]
@@ -93,9 +101,11 @@ func _audit() -> void:
         restored_count += int(matched)
         var size: float = node.transform.basis.get_scale().x
         if new_positions.has(id) and size > 1.0: new_large+=1
+        if large_corals.has(id):
+            coral_sizes_ok = coral_sizes_ok and is_equal_approx(size, float(Interior.assets()[id].placement_size_m))
         native_rows[id].merge({"fits_tank":fits,"normalized_base":attached,"restored_same_transform":matched,"longest_dimension_m":size})
     var count := items.size()
-    var ok := new_large == new_positions.size() and saved and registry_order and selection_valid and restored_valid and count == primary.props.size() and count == restored_count and count == attached_count and count == fits_count and floating_count == placed_floating
+    var ok := new_large == new_positions.size() and coral_sizes_ok and saved and registry_order and selection_valid and restored_valid and count == primary.props.size() and count == restored_count and count == attached_count and count == fits_count and floating_count == placed_floating
     var result := {"command":"aquascape.exhibit-prop-registry","ok":ok,"status":"done" if ok else "failed","catalog_count":count,"new_meter_scale":new_large,"registry_order_matches_source":registry_order,"save_ok":saved,"valid_input":selection_valid,"valid_readback":restored_valid,"created":primary.props.size(),"contained":fits_count,"normalized_base":attached_count,"floating_on_waterline":placed_floating,"restored_same_transform":restored_count,"rows":native_rows,"scope":"Headless placement through ShellContentsView and temporary HallLayoutStore save/reload; no player save accessed."}
     var out := FileAccess.open(report_path, FileAccess.WRITE)
     out.store_string(JSON.stringify(result, "  ") + "\n")

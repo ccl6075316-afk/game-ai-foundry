@@ -99,10 +99,11 @@ def verify(row, bind_normals):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("report", type=Path)
+    parser.add_argument("--release", type=Path, default=RELEASE / "release.json")
     parser.add_argument("--bind-normals", action="store_true",
                         help="Transfer deployed corner normals into a master if they differ")
     args = parser.parse_args(sys.argv[sys.argv.index("--") + 1:])
-    release = json.loads((RELEASE / "release.json").read_text())
+    release = json.loads(args.release.read_text(encoding="utf-8"))
     rows = [verify(row, args.bind_normals) for row in release["items"]]
     args.report.write_text(json.dumps({"ok":True, "count":len(rows), "items":rows}, indent=2) + "\n")
     print(f"Cold Blender source matches deployed models for {len(rows)} items.")
