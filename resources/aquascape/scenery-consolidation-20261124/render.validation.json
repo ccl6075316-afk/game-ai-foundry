@@ -1,0 +1,1001 @@
+{
+  "ok": true,
+  "renderer": "Godot 4.7.1 / macOS M4 OpenGL Compatibility",
+  "scope": "105 imported solid-scene views with the same fixed cameras and lighting before/after embedded texture import.",
+  "resolution": [
+    416,
+    320
+  ],
+  "models": {
+    "bamboo_shelter": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v11/solids/bamboo_shelter.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v11/solids/bamboo_shelter.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "basalt_column": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/basalt_column.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/basalt_column.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "algae": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "broken_column": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/broken_column.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/broken_column.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "algae": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "clay_pipe": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/clay_pipe.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/clay_pipe.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "coconut_shelter": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/coconut_shelter.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/coconut_shelter.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "dragon_stone": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v11/solids/dragon_stone.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v11/solids/dragon_stone.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "algae": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "driftwood": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/driftwood.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/driftwood.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "iron_anchor": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/iron_anchor.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/iron_anchor.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "lava_rock": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v11/solids/lava_rock.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v11/solids/lava_rock.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "algae": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "mangrove_root": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v11/solids/mangrove_root.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v11/solids/mangrove_root.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "mopani_wood": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v11/solids/mopani_wood.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v11/solids/mopani_wood.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "pale_limestone": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/pale_limestone.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/pale_limestone.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "algae": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "quartz_rock": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v11/solids/quartz_rock.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v11/solids/quartz_rock.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "algae": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "red_sandstone": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/red_sandstone.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/red_sandstone.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "algae": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "river_boulder": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/river_boulder.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/river_boulder.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "algae": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "rock": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/rock.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/rock.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "algae": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "root_fan": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/root_fan.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/root_fan.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "root_stump": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/root_stump.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/root_stump.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "ruin_arch": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/ruin_arch.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/ruin_arch.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "algae": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "ruined_tower": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v11/solids/ruined_tower.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v11/solids/ruined_tower.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "algae": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "shipwreck": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/shipwreck.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/shipwreck.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "slate_cave": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v11/solids/slate_cave.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v11/solids/slate_cave.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "algae": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "slate_stack": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v11/solids/slate_stack.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v11/solids/slate_stack.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "algae": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "spider_wood": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v11/solids/spider_wood.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v11/solids/spider_wood.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "stone_bridge": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/stone_bridge.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/stone_bridge.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "algae": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "stone_lantern": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/stone_lantern.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/stone_lantern.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "algae": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "terracotta_jar": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/terracotta_jar.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/terracotta_jar.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "treasure_chest": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/treasure_chest.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/treasure_chest.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "twisted_branch": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/twisted_branch.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/twisted_branch.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    },
+    "weathered_log": {
+      "import_before": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/weathered_log.glb",
+        "texture_mipmaps": true
+      },
+      "import_after": {
+        "animation": "",
+        "filter": 0,
+        "mesh_nodes": 1,
+        "model": "res://assets/aquascape-v9/solids/weathered_log.glb",
+        "texture_mipmaps": false
+      },
+      "views": {
+        "far": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "near": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        },
+        "opposite": {
+          "changed_pixels": 0,
+          "mean_absolute_rgb_error_8bit": 0.0
+        }
+      },
+      "motion_a_to_b_changed_pixels": null
+    }
+  }
+}

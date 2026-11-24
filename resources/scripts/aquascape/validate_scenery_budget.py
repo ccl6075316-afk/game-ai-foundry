@@ -63,6 +63,15 @@ def validate(root,catalog_paths,output):
             elif row.get('rooted_current'):
                 detail,current_failures=validate_rooted_current(d,b,row['rooted_current'])
                 local.extend(current_failures)
+                if row.get('geometry_revision')=='consolidated-vertex-current-v10':
+                    from merge_plant_meshes import validate_merge
+
+                    src=game/row['merge_source_model'].removeprefix('res://')
+                    reference=game/row['shader_model'].removeprefix('res://')
+                    try:
+                        detail['merge']=validate_merge(src,reference,path,row['rooted_current'])
+                    except (AssertionError, ValueError) as error:
+                        local.append(f'Combined vertex-current plant verification failed: {error}')
             elif row.get('animated'):
                 src=game/row['pre_budget_model'].removeprefix('res://');original,ob=read_glb(src)
                 def payload(doc,binary,im):

@@ -11,22 +11,32 @@ from build_from_art import Glb
 from rig_plant_current import read_glb,array
 from optimize_scenery import load,save,sha,metrics
 
+def native_atlas(images, layout=None):
+    """Pack untouched texels with duplicated nearest-neighbor gutters."""
+    pad=8
+    if layout is None:
+        area=sum((im.width+pad*2)*(im.height+pad*2) for im in images)
+        width=2**math.ceil(math.log2(max(max(im.width+pad*2 for im in images),math.sqrt(area))))
+        xy=[];x=0;y=0;line=0
+        for im in images:
+            if x+im.width+pad*2>width:y+=line;x=0;line=0
+            xy.append((x+pad,y+pad));x+=im.width+pad*2;line=max(line,im.height+pad*2)
+        height=2**math.ceil(math.log2(y+line))
+    else:
+        width,height,xy=layout(images,pad)
+    atlas=Image.new('RGBA',(width,height),(0,0,0,255))
+    for im,(x,y) in zip(images,xy):
+        # Repeat native edge colors into the gutters. No source resampling.
+        a=np.pad(np.asarray(im),((pad,pad),(pad,pad),(0,0)),mode='edge')
+        atlas.paste(Image.fromarray(a),(x-pad,y-pad))
+    return atlas, xy
+
 def build(source,out,atlas_path):
     d,b=read_glb(source);images=[]
     for image in d['images']:
         view=d['bufferViews'][image['bufferView']];off=view.get('byteOffset',0)
         images.append(Image.open(io.BytesIO(b[off:off+view['byteLength']])).convert('RGBA'))
-    pad=8;area=sum((im.width+pad*2)*(im.height+pad*2) for im in images)
-    width=2**math.ceil(math.log2(max(max(im.width+pad*2 for im in images),math.sqrt(area))))
-    xy=[];x=0;y=0;line=0
-    for im in images:
-        if x+im.width+pad*2>width:y+=line;x=0;line=0
-        xy.append((x+pad,y+pad));x+=im.width+pad*2;line=max(line,im.height+pad*2)
-    height=2**math.ceil(math.log2(y+line));atlas=Image.new('RGBA',(width,height),(0,0,0,255))
-    for im,(x,y) in zip(images,xy):
-        # Repeat native edge colors into the gutters. No source resampling.
-        a=np.pad(np.asarray(im),((pad,pad),(pad,pad),(0,0)),mode='edge')
-        atlas.paste(Image.fromarray(a),(x-pad,y-pad))
+    atlas,xy=native_atlas(images);width,height=atlas.size
     atlas.save(atlas_path)
     allv=np.vstack([array(d,b,p['attributes']['POSITION']) for m in d['meshes'] for p in m['primitives']]);low=allv.min(0);size=np.maximum(np.ptp(allv,axis=0),1e-6)
     parts={k:[] for k in ['POSITION','NORMAL','TEXCOORD_0','TEXCOORD_1','COLOR_0']}

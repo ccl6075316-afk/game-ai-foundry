@@ -1,0 +1,356 @@
+{
+  "count": 40,
+  "items": {
+    "amazon_sword": {
+      "animation": "rooted_vertex_shader",
+      "clips": 0,
+      "external_dependencies": [],
+      "filter": 0,
+      "material_surfaces": 1,
+      "mesh_nodes": 1,
+      "model": "res://assets/aquascape-v10/merged-plants/amazon_sword.glb",
+      "old_nominal_bounds_preserved": true,
+      "skeletons": 0
+    },
+    "anubias": {
+      "animation": "rooted_vertex_shader",
+      "clips": 0,
+      "external_dependencies": [],
+      "filter": 0,
+      "material_surfaces": 1,
+      "mesh_nodes": 1,
+      "model": "res://assets/aquascape-v10/merged-plants/anubias.glb",
+      "old_nominal_bounds_preserved": true,
+      "skeletons": 0
+    },
+    "aponogeton": {
+      "animation": "rooted_vertex_shader",
+      "clips": 0,
+      "external_dependencies": [],
+      "filter": 0,
+      "material_surfaces": 1,
+      "mesh_nodes": 1,
+      "model": "res://assets/aquascape-v10/merged-plants/aponogeton.glb",
+      "old_nominal_bounds_preserved": true,
+      "skeletons": 0
+    },
+    "bamboo_shelter": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v11/solids/bamboo_shelter.glb",
+      "surfaces": 1
+    },
+    "basalt_column": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v9/solids/basalt_column.glb",
+      "surfaces": 1
+    },
+    "broken_column": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v9/solids/broken_column.glb",
+      "surfaces": 1
+    },
+    "bucephalandra": {
+      "animation": "rooted_vertex_shader",
+      "clips": 0,
+      "external_dependencies": [],
+      "filter": 0,
+      "material_surfaces": 1,
+      "mesh_nodes": 1,
+      "model": "res://assets/aquascape-v10/merged-plants/bucephalandra.glb",
+      "old_nominal_bounds_preserved": true,
+      "skeletons": 0
+    },
+    "clay_pipe": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v9/solids/clay_pipe.glb",
+      "surfaces": 1
+    },
+    "coconut_shelter": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v9/solids/coconut_shelter.glb",
+      "surfaces": 1
+    },
+    "crypt_crispatula": {
+      "animation": "rooted_vertex_shader",
+      "clips": 0,
+      "external_dependencies": [],
+      "filter": 0,
+      "material_surfaces": 1,
+      "mesh_nodes": 1,
+      "model": "res://assets/aquascape-v10/merged-plants/crypt_crispatula.glb",
+      "old_nominal_bounds_preserved": true,
+      "skeletons": 0
+    },
+    "crypt_wendtii": {
+      "animation": "rooted_vertex_shader",
+      "clips": 0,
+      "external_dependencies": [],
+      "filter": 0,
+      "material_surfaces": 1,
+      "mesh_nodes": 1,
+      "model": "res://assets/aquascape-v10/merged-plants/crypt_wendtii.glb",
+      "old_nominal_bounds_preserved": true,
+      "skeletons": 0
+    },
+    "dragon_stone": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v11/solids/dragon_stone.glb",
+      "surfaces": 1
+    },
+    "driftwood": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v9/solids/driftwood.glb",
+      "surfaces": 1
+    },
+    "dwarf_sagittaria": {
+      "animation": "rooted_vertex_shader",
+      "clips": 0,
+      "external_dependencies": [],
+      "filter": 0,
+      "material_surfaces": 1,
+      "mesh_nodes": 1,
+      "model": "res://assets/aquascape-v10/merged-plants/dwarf_sagittaria.glb",
+      "old_nominal_bounds_preserved": true,
+      "skeletons": 0
+    },
+    "iron_anchor": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v9/solids/iron_anchor.glb",
+      "surfaces": 1
+    },
+    "java_fern": {
+      "animation": "rooted_vertex_shader",
+      "clips": 0,
+      "external_dependencies": [],
+      "filter": 0,
+      "material_surfaces": 1,
+      "mesh_nodes": 1,
+      "model": "res://assets/aquascape-v10/merged-plants/java_fern.glb",
+      "old_nominal_bounds_preserved": true,
+      "skeletons": 0
+    },
+    "lagenandra_red": {
+      "animation": "rooted_vertex_shader",
+      "clips": 0,
+      "external_dependencies": [],
+      "filter": 0,
+      "material_surfaces": 1,
+      "mesh_nodes": 1,
+      "model": "res://assets/aquascape-v10/merged-plants/lagenandra_red.glb",
+      "old_nominal_bounds_preserved": true,
+      "skeletons": 0
+    },
+    "lava_rock": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v11/solids/lava_rock.glb",
+      "surfaces": 1
+    },
+    "mangrove_root": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v11/solids/mangrove_root.glb",
+      "surfaces": 1
+    },
+    "mopani_wood": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v11/solids/mopani_wood.glb",
+      "surfaces": 1
+    },
+    "pale_limestone": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v9/solids/pale_limestone.glb",
+      "surfaces": 1
+    },
+    "quartz_rock": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v11/solids/quartz_rock.glb",
+      "surfaces": 1
+    },
+    "red_sandstone": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v9/solids/red_sandstone.glb",
+      "surfaces": 1
+    },
+    "river_boulder": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v9/solids/river_boulder.glb",
+      "surfaces": 1
+    },
+    "rock": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v9/solids/rock.glb",
+      "surfaces": 1
+    },
+    "root_fan": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v9/solids/root_fan.glb",
+      "surfaces": 1
+    },
+    "root_stump": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v9/solids/root_stump.glb",
+      "surfaces": 1
+    },
+    "ruin_arch": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v9/solids/ruin_arch.glb",
+      "surfaces": 1
+    },
+    "ruined_tower": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v11/solids/ruined_tower.glb",
+      "surfaces": 1
+    },
+    "shipwreck": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v9/solids/shipwreck.glb",
+      "surfaces": 1
+    },
+    "slate_cave": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v11/solids/slate_cave.glb",
+      "surfaces": 1
+    },
+    "slate_stack": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v11/solids/slate_stack.glb",
+      "surfaces": 1
+    },
+    "spider_wood": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v11/solids/spider_wood.glb",
+      "surfaces": 1
+    },
+    "stone_bridge": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v9/solids/stone_bridge.glb",
+      "surfaces": 1
+    },
+    "stone_lantern": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v9/solids/stone_lantern.glb",
+      "surfaces": 1
+    },
+    "terracotta_jar": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v9/solids/terracotta_jar.glb",
+      "surfaces": 1
+    },
+    "treasure_chest": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v9/solids/treasure_chest.glb",
+      "surfaces": 1
+    },
+    "twisted_branch": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v9/solids/twisted_branch.glb",
+      "surfaces": 1
+    },
+    "vallisneria": {
+      "animation": "rooted_vertex_shader",
+      "clips": 0,
+      "external_dependencies": [],
+      "filter": 0,
+      "material_surfaces": 1,
+      "mesh_nodes": 1,
+      "model": "res://assets/aquascape-v10/merged-plants/vallisneria.glb",
+      "old_nominal_bounds_preserved": true,
+      "skeletons": 0
+    },
+    "weathered_log": {
+      "external_dependencies": [],
+      "mesh": 1,
+      "nearest": true,
+      "original_glb_texels_equal": true,
+      "path": "res://assets/aquascape-v9/solids/weathered_log.glb",
+      "surfaces": 1
+    }
+  },
+  "ok": true
+}

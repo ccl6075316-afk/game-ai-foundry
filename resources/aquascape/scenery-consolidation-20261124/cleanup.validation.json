@@ -1,0 +1,278 @@
+{
+  "ok": true,
+  "removed": [
+    {
+      "path": "game/assets/aquascape-v11/solids/bamboo_shelter_New artwork from six orthographic views.png",
+      "bytes": 3773771
+    },
+    {
+      "path": "game/assets/aquascape-v11/solids/bamboo_shelter_New artwork from six orthographic views.png.import",
+      "bytes": 1160
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/basalt_column_New artwork from six orthographic views.png",
+      "bytes": 2882841
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/basalt_column_New artwork from six orthographic views.png.import",
+      "bytes": 1156
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/broken_column_New artwork from six orthographic views.png",
+      "bytes": 3048221
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/broken_column_New artwork from six orthographic views.png.import",
+      "bytes": 1156
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/clay_pipe_New artwork from six orthographic views.png",
+      "bytes": 4152802
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/clay_pipe_New artwork from six orthographic views.png.import",
+      "bytes": 1143
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/coconut_shelter_New artwork from six orthographic views.png",
+      "bytes": 4253538
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/coconut_shelter_New artwork from six orthographic views.png.import",
+      "bytes": 1162
+    },
+    {
+      "path": "game/assets/aquascape-v11/solids/dragon_stone_New artwork from six orthographic views.png",
+      "bytes": 3626455
+    },
+    {
+      "path": "game/assets/aquascape-v11/solids/dragon_stone_New artwork from six orthographic views.png.import",
+      "bytes": 1154
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/driftwood_New artwork from six orthographic views.png",
+      "bytes": 2183761
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/driftwood_New artwork from six orthographic views.png.import",
+      "bytes": 1144
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/iron_anchor_New artwork from six orthographic views.png",
+      "bytes": 2222196
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/iron_anchor_New artwork from six orthographic views.png.import",
+      "bytes": 1150
+    },
+    {
+      "path": "game/assets/aquascape-v11/solids/lava_rock_New artwork from six orthographic views.png",
+      "bytes": 3831280
+    },
+    {
+      "path": "game/assets/aquascape-v11/solids/lava_rock_New artwork from six orthographic views.png.import",
+      "bytes": 1145
+    },
+    {
+      "path": "game/assets/aquascape-v11/solids/mangrove_root_New artwork from six orthographic views.png",
+      "bytes": 3570449
+    },
+    {
+      "path": "game/assets/aquascape-v11/solids/mangrove_root_New artwork from six orthographic views.png.import",
+      "bytes": 1157
+    },
+    {
+      "path": "game/assets/aquascape-v11/solids/mopani_wood_New artwork from six orthographic views.png",
+      "bytes": 3452929
+    },
+    {
+      "path": "game/assets/aquascape-v11/solids/mopani_wood_New artwork from six orthographic views.png.import",
+      "bytes": 1151
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/pale_limestone_New artwork from six orthographic views.png",
+      "bytes": 3118145
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/pale_limestone_New artwork from six orthographic views.png.import",
+      "bytes": 1158
+    },
+    {
+      "path": "game/assets/aquascape-v11/solids/quartz_rock_New artwork from six orthographic views.png",
+      "bytes": 3466170
+    },
+    {
+      "path": "game/assets/aquascape-v11/solids/quartz_rock_New artwork from six orthographic views.png.import",
+      "bytes": 1150
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/red_sandstone_New artwork from six orthographic views.png",
+      "bytes": 3189909
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/red_sandstone_New artwork from six orthographic views.png.import",
+      "bytes": 1155
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/river_boulder_New artwork from six orthographic views.png",
+      "bytes": 3562468
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/river_boulder_New artwork from six orthographic views.png.import",
+      "bytes": 1156
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/rock_New artwork from six orthographic views.png",
+      "bytes": 2807339
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/rock_New artwork from six orthographic views.png.import",
+      "bytes": 1129
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/root_fan_New artwork from six orthographic views.png",
+      "bytes": 3400295
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/root_fan_New artwork from six orthographic views.png.import",
+      "bytes": 1140
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/root_stump_New artwork from six orthographic views.png",
+      "bytes": 3025543
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/root_stump_New artwork from six orthographic views.png.import",
+      "bytes": 1147
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/ruin_arch_New artwork from six orthographic views.png",
+      "bytes": 3317306
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/ruin_arch_New artwork from six orthographic views.png.import",
+      "bytes": 1144
+    },
+    {
+      "path": "game/assets/aquascape-v11/solids/ruined_tower_New artwork from six orthographic views.png",
+      "bytes": 4029168
+    },
+    {
+      "path": "game/assets/aquascape-v11/solids/ruined_tower_New artwork from six orthographic views.png.import",
+      "bytes": 1154
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/shipwreck_Six painted wood faces.png",
+      "bytes": 2885928
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/shipwreck_Six painted wood faces.png.import",
+      "bytes": 1092
+    },
+    {
+      "path": "game/assets/aquascape-v11/solids/slate_cave_New artwork from six orthographic views.png",
+      "bytes": 3508258
+    },
+    {
+      "path": "game/assets/aquascape-v11/solids/slate_cave_New artwork from six orthographic views.png.import",
+      "bytes": 1148
+    },
+    {
+      "path": "game/assets/aquascape-v11/solids/slate_stack_New artwork from six orthographic views.png",
+      "bytes": 2924500
+    },
+    {
+      "path": "game/assets/aquascape-v11/solids/slate_stack_New artwork from six orthographic views.png.import",
+      "bytes": 1151
+    },
+    {
+      "path": "game/assets/aquascape-v11/solids/spider_wood_New artwork from six orthographic views.png",
+      "bytes": 3012340
+    },
+    {
+      "path": "game/assets/aquascape-v11/solids/spider_wood_New artwork from six orthographic views.png.import",
+      "bytes": 1151
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/stone_bridge_New artwork from six orthographic views.png",
+      "bytes": 3589680
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/stone_bridge_New artwork from six orthographic views.png.import",
+      "bytes": 1153
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/stone_lantern_New artwork from six orthographic views.png",
+      "bytes": 4010404
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/stone_lantern_New artwork from six orthographic views.png.import",
+      "bytes": 1156
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/terracotta_jar_New artwork from six orthographic views.png",
+      "bytes": 4284859
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/terracotta_jar_New artwork from six orthographic views.png.import",
+      "bytes": 1159
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/treasure_chest_Six painted wood faces.png",
+      "bytes": 3764195
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/treasure_chest_Six painted wood faces.png.import",
+      "bytes": 1107
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/twisted_branch_New artwork from six orthographic views.png",
+      "bytes": 1899235
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/twisted_branch_New artwork from six orthographic views.png.import",
+      "bytes": 1159
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/weathered_log_New artwork from six orthographic views.png",
+      "bytes": 3032282
+    },
+    {
+      "path": "game/assets/aquascape-v9/solids/weathered_log_New artwork from six orthographic views.png.import",
+      "bytes": 1155
+    }
+  ],
+  "bytes_removed": 99860709,
+  "retired_review_outputs": [
+    {
+      "path": "resources/aquascape/scenery-consolidation-20261124/evidence/embedded.webp",
+      "files": 1,
+      "bytes": 56806
+    },
+    {
+      "path": "resources/aquascape/scenery-consolidation-20261124/evidence/plants.webp",
+      "files": 1,
+      "bytes": 69172
+    },
+    {
+      "path": "work/aquascape-consolidation-20261124",
+      "files": 33,
+      "bytes": 216623
+    },
+    {
+      "path": "work/surface-repair-20261124/review/check/comparison.png",
+      "files": 1,
+      "bytes": 1129269
+    },
+    {
+      "path": "work/surface-repair-20261124/review/check/algae-area-high-strength-low.png",
+      "files": 1,
+      "bytes": 1118877
+    },
+    {
+      "path": "work/surface-repair-20261124/review/check/algae-area-low-strength-high.png",
+      "files": 1,
+      "bytes": 1136376
+    }
+  ]
+}

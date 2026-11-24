@@ -1,0 +1,40 @@
+{
+  "clumps": 60,
+  "resolution": [
+    680,
+    390
+  ],
+  "samples": {
+    "merged": [
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60,
+      60
+    ],
+    "original": [
+      1098,
+      1098,
+      1098,
+      1098,
+      1098,
+      1098,
+      1098,
+      1098,
+      1098,
+      1098,
+      1098,
+      1098,
+      1098
+    ]
+  },
+  "scope": "Single Compatibility viewport, skin baseline and official live vertex motion, no fish, no shadows, no water."
+}

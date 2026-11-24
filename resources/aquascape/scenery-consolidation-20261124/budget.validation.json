@@ -1,0 +1,566 @@
+{
+  "schema_version": 1,
+  "command": "aquascape.validate-scenery-budget",
+  "ok": true,
+  "status": "done",
+  "next_action": "human_review",
+  "inputs": {
+    "policy_sha256": "51de78ce3f61adb8465b71b8b98098a76538172e392f5b0c3ae585ed9f3c4698"
+  },
+  "outputs": [
+    {
+      "id": "anubias",
+      "path": "projects/fishing-2d/game/assets/aquascape-v10/merged-plants/anubias.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 804,
+      "vertices": 2412,
+      "bytes": 527212,
+      "sha256": "6b8b7a46d79c1a8c62eaada7a9257a900c23190d6fae3f140800db4e75c2c76e",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "root_pinned_vertices": 582,
+      "root_motion_m": 0.0,
+      "loop_seam_m": 4.894404296899575e-09,
+      "max_tip_motion_m": 0.020056897122274375,
+      "current_samples": 41,
+      "merge": {
+        "source_sha256": "b86eacee62275be38d8d221f3bd0dbee5c28839ab7df970e8caed1caec706bb0",
+        "previous_shader_sha256": "3c96ed7deb31fefdca4279788b8495a390f7bbf637b62591309f6dc018f06946",
+        "sha256": "6b8b7a46d79c1a8c62eaada7a9257a900c23190d6fae3f140800db4e75c2c76e",
+        "source_surfaces": 18,
+        "surfaces": 1,
+        "source_atlas_pixels": 379351,
+        "texture_px": [
+          964,
+          520
+        ],
+        "triangles": 804,
+        "skeletons": 0,
+        "animation_clips": 0,
+        "shader_poses": 81,
+        "duration_s": 10.0,
+        "rooted_current": {
+          "anchor_min": [
+            -0.09539160132408142,
+            -5.2462575695244595e-05,
+            -0.022079043090343475
+          ],
+          "anchor_size": [
+            0.1867852807044983,
+            0.08807852119207382,
+            0.05489584431052208
+          ],
+          "amplitude": 0.18
+        },
+        "max_pinned_motion_m": 0.0,
+        "loop_seam_m": 8.662594755108419e-11,
+        "max_tip_displacement_m": 0.020056896314336846
+      },
+      "failures": []
+    },
+    {
+      "id": "java_fern",
+      "path": "projects/fishing-2d/game/assets/aquascape-v10/merged-plants/java_fern.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 884,
+      "vertices": 2652,
+      "bytes": 491036,
+      "sha256": "261bddc52b90e35eaadcf99c85c726839e7e29af3ea60f1f772fa2fff20f002a",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "root_pinned_vertices": 604,
+      "root_motion_m": 0.0,
+      "loop_seam_m": 1.878481720966376e-08,
+      "max_tip_motion_m": 0.08763837730331839,
+      "current_samples": 41,
+      "merge": {
+        "source_sha256": "5a9bc120f082b6b64232a9a83e5a8929a653a8f36d5cb41a714c30ea3700b320",
+        "previous_shader_sha256": "ca67889a0c8fb2efbf13ad52bb6c59151c28aeed6ae27c4c976619a81fa11910",
+        "sha256": "261bddc52b90e35eaadcf99c85c726839e7e29af3ea60f1f772fa2fff20f002a",
+        "source_surfaces": 17,
+        "surfaces": 1,
+        "source_atlas_pixels": 432135,
+        "texture_px": [
+          876,
+          632
+        ],
+        "triangles": 884,
+        "skeletons": 0,
+        "animation_clips": 0,
+        "shader_poses": 81,
+        "duration_s": 10.0,
+        "rooted_current": {
+          "anchor_min": [
+            -0.09132782369852066,
+            -5.5933462135726586e-05,
+            -0.042800839990377426
+          ],
+          "anchor_size": [
+            0.32371124625205994,
+            0.3058670461177826,
+            0.156815305352211
+          ],
+          "amplitude": 0.18
+        },
+        "max_pinned_motion_m": 0.0,
+        "loop_seam_m": 4.232426061404901e-10,
+        "max_tip_displacement_m": 0.08763837415904666
+      },
+      "failures": []
+    },
+    {
+      "id": "bucephalandra",
+      "path": "projects/fishing-2d/game/assets/aquascape-v10/merged-plants/bucephalandra.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 864,
+      "vertices": 2592,
+      "bytes": 555076,
+      "sha256": "337ab5d92a54ca34b8fdae179cbb64e89cc0bbeea63f4585a0ba042c6f0fad2f",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "root_pinned_vertices": 414,
+      "root_motion_m": 7.347880536484578e-19,
+      "loop_seam_m": 5.485232079634743e-09,
+      "max_tip_motion_m": 0.019422808571311446,
+      "current_samples": 41,
+      "merge": {
+        "source_sha256": "768cf9a52ffffcca799a4691a37a15b24d477e41b88c446bd19386f1e4d8dd1b",
+        "previous_shader_sha256": "d9a59ba5bc2dad9c0e051361ce92b070d15a1b5f7edb60102647997d3210ffc5",
+        "sha256": "337ab5d92a54ca34b8fdae179cbb64e89cc0bbeea63f4585a0ba042c6f0fad2f",
+        "source_surfaces": 18,
+        "surfaces": 1,
+        "source_atlas_pixels": 462952,
+        "texture_px": [
+          1200,
+          504
+        ],
+        "triangles": 864,
+        "skeletons": 0,
+        "animation_clips": 0,
+        "shader_poses": 81,
+        "duration_s": 10.0,
+        "rooted_current": {
+          "anchor_min": [
+            -0.08580378443002701,
+            -6.540142931044102e-05,
+            -0.017766935750842094
+          ],
+          "anchor_size": [
+            0.14639343321323395,
+            0.07885340601205826,
+            0.04909683018922806
+          ],
+          "amplitude": 0.18
+        },
+        "max_pinned_motion_m": 7.347880536484578e-19,
+        "loop_seam_m": 8.252933392903376e-11,
+        "max_tip_displacement_m": 0.019429925419999546
+      },
+      "failures": []
+    },
+    {
+      "id": "crypt_wendtii",
+      "path": "projects/fishing-2d/game/assets/aquascape-v10/merged-plants/crypt_wendtii.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 720,
+      "vertices": 2160,
+      "bytes": 405412,
+      "sha256": "e5cf1b80f8b1826cefc86911f373c1e75f4d05a7c2cf54f6ee336c587d611404",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "root_pinned_vertices": 456,
+      "root_motion_m": 1.1021820804726868e-18,
+      "loop_seam_m": 1.4713293431382018e-08,
+      "max_tip_motion_m": 0.048422664859315394,
+      "current_samples": 41,
+      "merge": {
+        "source_sha256": "0348ccd112b1e0f4bba93a922858ea7611b22ab9d883336fd4d8e47b9fcca177",
+        "previous_shader_sha256": "9671fcff7ff01784598e0868f2f16094b408f8d75ea230e1a6762bf9a1415e44",
+        "sha256": "e5cf1b80f8b1826cefc86911f373c1e75f4d05a7c2cf54f6ee336c587d611404",
+        "source_surfaces": 19,
+        "surfaces": 1,
+        "source_atlas_pixels": 448432,
+        "texture_px": [
+          516,
+          1012
+        ],
+        "triangles": 720,
+        "skeletons": 0,
+        "animation_clips": 0,
+        "shader_poses": 81,
+        "duration_s": 10.0,
+        "rooted_current": {
+          "anchor_min": [
+            -0.07462677359580994,
+            -7.318028656300157e-05,
+            -0.06374628841876984
+          ],
+          "anchor_size": [
+            0.13417214155197144,
+            0.19565606117248535,
+            0.15460723638534546
+          ],
+          "amplitude": 0.18
+        },
+        "max_pinned_motion_m": 1.1021820804726868e-18,
+        "loop_seam_m": 2.0913801895847084e-10,
+        "max_tip_displacement_m": 0.048422662908740054
+      },
+      "failures": []
+    },
+    {
+      "id": "crypt_crispatula",
+      "path": "projects/fishing-2d/game/assets/aquascape-v10/merged-plants/crypt_crispatula.glb",
+      "ok": true,
+      "budget_type": "ribbon_plant",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 432,
+      "vertices": 1296,
+      "bytes": 293172,
+      "sha256": "b6b9bcbbf687eec97878cb0618e9069025837d23d55420afc72bf3e5f5514cd9",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "root_pinned_vertices": 468,
+      "root_motion_m": 1.1021820804726868e-18,
+      "loop_seam_m": 2.1994075699032703e-08,
+      "max_tip_motion_m": 0.08964240424048593,
+      "current_samples": 41,
+      "merge": {
+        "source_sha256": "de42056623f7f3f0224b8556e3f2f24512e83a4cae3623a606bda9c9f3d41587",
+        "previous_shader_sha256": "737b7aef2a0da56c572ec93bebd992e47988d8ef0f34e9e06ecd803ba3cd1c71",
+        "sha256": "b6b9bcbbf687eec97878cb0618e9069025837d23d55420afc72bf3e5f5514cd9",
+        "source_surfaces": 18,
+        "surfaces": 1,
+        "source_atlas_pixels": 373915,
+        "texture_px": [
+          712,
+          616
+        ],
+        "triangles": 432,
+        "skeletons": 0,
+        "animation_clips": 0,
+        "shader_poses": 81,
+        "duration_s": 10.0,
+        "rooted_current": {
+          "anchor_min": [
+            -0.09816985577344894,
+            -7.318028656300157e-05,
+            -0.1417534500360489
+          ],
+          "anchor_size": [
+            0.1905764937400818,
+            0.3509051203727722,
+            0.2659199833869934
+          ],
+          "amplitude": 0.18
+        },
+        "max_pinned_motion_m": 1.1021820804726868e-18,
+        "loop_seam_m": 3.8716652169259106e-10,
+        "max_tip_displacement_m": 0.0896424006294855
+      },
+      "failures": []
+    },
+    {
+      "id": "amazon_sword",
+      "path": "projects/fishing-2d/game/assets/aquascape-v10/merged-plants/amazon_sword.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 800,
+      "vertices": 2400,
+      "bytes": 472892,
+      "sha256": "d63bd6df94a17dc4325167cfd112ca47ba9ca472af1686c9c3e1bd8e9105a196",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "root_pinned_vertices": 650,
+      "root_motion_m": 1.1021820804726868e-18,
+      "loop_seam_m": 1.873210063670626e-08,
+      "max_tip_motion_m": 0.07621910710747479,
+      "current_samples": 41,
+      "merge": {
+        "source_sha256": "071437ec8f3337d873b6ce6a1b79018563a98f4f2238d08f8d9926f030871820",
+        "previous_shader_sha256": "963ed4d57c2a293d45266a6458bdc9018e8bef86e383811573eff655a0669f7e",
+        "sha256": "d63bd6df94a17dc4325167cfd112ca47ba9ca472af1686c9c3e1bd8e9105a196",
+        "source_surfaces": 19,
+        "surfaces": 1,
+        "source_atlas_pixels": 471811,
+        "texture_px": [
+          512,
+          1072
+        ],
+        "triangles": 800,
+        "skeletons": 0,
+        "animation_clips": 0,
+        "shader_poses": 81,
+        "duration_s": 10.0,
+        "rooted_current": {
+          "anchor_min": [
+            -0.10014401376247406,
+            -7.318028656300157e-05,
+            -0.12743964791297913
+          ],
+          "anchor_size": [
+            0.19689010083675385,
+            0.300422340631485,
+            0.2295779287815094
+          ],
+          "amplitude": 0.18
+        },
+        "max_pinned_motion_m": 1.1021820804726868e-18,
+        "loop_seam_m": 3.2919116266261837e-10,
+        "max_tip_displacement_m": 0.07621910403719537
+      },
+      "failures": []
+    },
+    {
+      "id": "dwarf_sagittaria",
+      "path": "projects/fishing-2d/game/assets/aquascape-v10/merged-plants/dwarf_sagittaria.glb",
+      "ok": true,
+      "budget_type": "ribbon_plant",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 496,
+      "vertices": 1488,
+      "bytes": 348176,
+      "sha256": "8542b9531e7df4088580f35203f6cf7ede4020282a171f1a4b99c7bb63e872e8",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "root_pinned_vertices": 502,
+      "root_motion_m": 1.1021820804726868e-18,
+      "loop_seam_m": 8.228301956701447e-09,
+      "max_tip_motion_m": 0.03179628740099611,
+      "current_samples": 41,
+      "merge": {
+        "source_sha256": "a97542351e7c3c324e72b15f72cd4d0fe697f5e57c449e9083ec0819f59bacce",
+        "previous_shader_sha256": "fd9dc27487c221480cda1a05fa86192f6ad6e6b2723023b93d11d074aca9175a",
+        "sha256": "8542b9531e7df4088580f35203f6cf7ede4020282a171f1a4b99c7bb63e872e8",
+        "source_surfaces": 20,
+        "surfaces": 1,
+        "source_atlas_pixels": 467193,
+        "texture_px": [
+          956,
+          584
+        ],
+        "triangles": 496,
+        "skeletons": 0,
+        "animation_clips": 0,
+        "shader_poses": 81,
+        "duration_s": 10.0,
+        "rooted_current": {
+          "anchor_min": [
+            -0.04932507127523422,
+            -7.318028656300157e-05,
+            -0.05575957149267197
+          ],
+          "anchor_size": [
+            0.09110736846923828,
+            0.13190974295139313,
+            0.12252599000930786
+          ],
+          "amplitude": 0.18
+        },
+        "max_pinned_motion_m": 1.1021820804726868e-18,
+        "loop_seam_m": 1.3732851308743128e-10,
+        "max_tip_displacement_m": 0.03179628612016915
+      },
+      "failures": []
+    },
+    {
+      "id": "vallisneria",
+      "path": "projects/fishing-2d/game/assets/aquascape-v10/merged-plants/vallisneria.glb",
+      "ok": true,
+      "budget_type": "ribbon_plant",
+      "budget": {
+        "preferred": 400,
+        "hard_limit": 600
+      },
+      "triangles": 476,
+      "vertices": 1428,
+      "bytes": 299476,
+      "sha256": "c60bb235962a96c9538eb6f796ef4843810b34e96e71c803647e15a056e3cf09",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "root_pinned_vertices": 490,
+      "root_motion_m": 1.1021820804726868e-18,
+      "loop_seam_m": 3.046847038563981e-08,
+      "max_tip_motion_m": 0.10146703631724688,
+      "current_samples": 41,
+      "merge": {
+        "source_sha256": "0aa22e67b77acf53b8dd6014311b861077381af503559a3ee3bd9b78c87dbc20",
+        "previous_shader_sha256": "baf173c88ed69e5f96712f25524fa196fdf2c02ede55dc14bb7dcd25fa68cb42",
+        "sha256": "c60bb235962a96c9538eb6f796ef4843810b34e96e71c803647e15a056e3cf09",
+        "source_surfaces": 19,
+        "surfaces": 1,
+        "source_atlas_pixels": 445844,
+        "texture_px": [
+          884,
+          612
+        ],
+        "triangles": 476,
+        "skeletons": 0,
+        "animation_clips": 0,
+        "shader_poses": 81,
+        "duration_s": 10.0,
+        "rooted_current": {
+          "anchor_min": [
+            -0.13253404200077057,
+            -7.318028656300157e-05,
+            -0.19970037043094635
+          ],
+          "anchor_size": [
+            0.29347458481788635,
+            0.3686216175556183,
+            0.3279358148574829
+          ],
+          "amplitude": 0.18
+        },
+        "max_pinned_motion_m": 1.1021820804726868e-18,
+        "loop_seam_m": 4.382372350170473e-10,
+        "max_tip_displacement_m": 0.1014670322299233
+      },
+      "failures": []
+    },
+    {
+      "id": "aponogeton",
+      "path": "projects/fishing-2d/game/assets/aquascape-v10/merged-plants/aponogeton.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 852,
+      "vertices": 2556,
+      "bytes": 448060,
+      "sha256": "b3101c5da88cf15099cb112d2bc41d84be7bb228384a1b75ffdc4c862c493e59",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "root_pinned_vertices": 432,
+      "root_motion_m": 1.1021820804726868e-18,
+      "loop_seam_m": 2.4923474115415277e-08,
+      "max_tip_motion_m": 0.07926251786686869,
+      "current_samples": 41,
+      "merge": {
+        "source_sha256": "989846019e5bcf095c3498cddba3e27cae7f978a7bf843b1686b3cd1baef5dee",
+        "previous_shader_sha256": "14dfbe7121ada4265a8c58042d0c9f88c1cea76b5bc222e15af1c0e1e3be39d1",
+        "sha256": "b3101c5da88cf15099cb112d2bc41d84be7bb228384a1b75ffdc4c862c493e59",
+        "source_surfaces": 18,
+        "surfaces": 1,
+        "source_atlas_pixels": 467579,
+        "texture_px": [
+          928,
+          596
+        ],
+        "triangles": 852,
+        "skeletons": 0,
+        "animation_clips": 0,
+        "shader_poses": 81,
+        "duration_s": 10.0,
+        "rooted_current": {
+          "anchor_min": [
+            -0.11301622539758682,
+            -7.318028656300157e-05,
+            -0.1328030377626419
+          ],
+          "anchor_size": [
+            0.20868593454360962,
+            0.31240808963775635,
+            0.2575347423553467
+          ],
+          "amplitude": 0.18
+        },
+        "max_pinned_motion_m": 1.1021820804726868e-18,
+        "loop_seam_m": 3.423356809124977e-10,
+        "max_tip_displacement_m": 0.07926251467399374
+      },
+      "failures": []
+    },
+    {
+      "id": "lagenandra_red",
+      "path": "projects/fishing-2d/game/assets/aquascape-v10/merged-plants/lagenandra_red.glb",
+      "ok": true,
+      "budget_type": "broadleaf_plant",
+      "budget": {
+        "preferred": 700,
+        "hard_limit": 1000
+      },
+      "triangles": 880,
+      "vertices": 2640,
+      "bytes": 720092,
+      "sha256": "ad109584d23f3ee40dfcf14b016d071e88dfd3dbfe59bdd8b7be62e1874bb022",
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "root_pinned_vertices": 626,
+      "root_motion_m": 7.347880536484578e-19,
+      "loop_seam_m": 1.0234876114899519e-08,
+      "max_tip_motion_m": 0.04415384718967024,
+      "current_samples": 41,
+      "merge": {
+        "source_sha256": "0e4500fc72d3c7caabb2fa9b215b931e1e1dac7ea9c736012de3a891935b8a3c",
+        "previous_shader_sha256": "260235a7acd549db41ded4866e6ad032c1cea8059cbae53625a85c7362d40d73",
+        "sha256": "ad109584d23f3ee40dfcf14b016d071e88dfd3dbfe59bdd8b7be62e1874bb022",
+        "source_surfaces": 17,
+        "surfaces": 1,
+        "source_atlas_pixels": 556007,
+        "texture_px": [
+          1204,
+          536
+        ],
+        "triangles": 880,
+        "skeletons": 0,
+        "animation_clips": 0,
+        "shader_poses": 81,
+        "duration_s": 10.0,
+        "rooted_current": {
+          "anchor_min": [
+            -0.1867763102054596,
+            -6.540142931044102e-05,
+            -0.042235761880874634
+          ],
+          "anchor_size": [
+            0.2948549687862396,
+            0.16133417189121246,
+            0.10644511133432388
+          ],
+          "amplitude": 0.18
+        },
+        "max_pinned_motion_m": 7.347880536484578e-19,
+        "loop_seam_m": 1.8132003723835942e-10,
+        "max_tip_displacement_m": 0.044170025913169104
+      },
+      "failures": []
+    }
+  ],
+  "failures": [],
+  "limitations": [
+    "Discrete CPU poses and ray probes supplement actual multi-view native visual review."
+  ]
+}

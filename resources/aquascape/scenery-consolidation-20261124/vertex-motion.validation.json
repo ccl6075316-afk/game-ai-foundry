@@ -1,0 +1,72 @@
+{
+  "ok": true,
+  "renderer": "Godot 4.7.1 / macOS M4 OpenGL Compatibility",
+  "shader_path": "res://scripts/aquarium/tank_design/RootedCurrent.gdshader",
+  "resolution": [
+    416,
+    320
+  ],
+  "comparison_delay_s": 0.57,
+  "models": {
+    "amazon_sword": {
+      "rest_changed_pixels": 139,
+      "rest_rgb_mae_8bit": 0.0050180288461538465,
+      "shader_disabled_changed_pixels": 0,
+      "shader_active_changed_pixels": 31305
+    },
+    "anubias": {
+      "rest_changed_pixels": 135,
+      "rest_rgb_mae_8bit": 0.005288461538461539,
+      "shader_disabled_changed_pixels": 0,
+      "shader_active_changed_pixels": 14074
+    },
+    "aponogeton": {
+      "rest_changed_pixels": 137,
+      "rest_rgb_mae_8bit": 0.006292568108974359,
+      "shader_disabled_changed_pixels": 0,
+      "shader_active_changed_pixels": 22766
+    },
+    "bucephalandra": {
+      "rest_changed_pixels": 87,
+      "rest_rgb_mae_8bit": 0.0033854166666666668,
+      "shader_disabled_changed_pixels": 0,
+      "shader_active_changed_pixels": 16731
+    },
+    "crypt_crispatula": {
+      "rest_changed_pixels": 51,
+      "rest_rgb_mae_8bit": 0.0036283052884615386,
+      "shader_disabled_changed_pixels": 0,
+      "shader_active_changed_pixels": 19850
+    },
+    "crypt_wendtii": {
+      "rest_changed_pixels": 115,
+      "rest_rgb_mae_8bit": 0.005859375,
+      "shader_disabled_changed_pixels": 0,
+      "shader_active_changed_pixels": 26124
+    },
+    "dwarf_sagittaria": {
+      "rest_changed_pixels": 52,
+      "rest_rgb_mae_8bit": 0.00224609375,
+      "shader_disabled_changed_pixels": 0,
+      "shader_active_changed_pixels": 16362
+    },
+    "java_fern": {
+      "rest_changed_pixels": 135,
+      "rest_rgb_mae_8bit": 0.011763822115384615,
+      "shader_disabled_changed_pixels": 0,
+      "shader_active_changed_pixels": 25378
+    },
+    "lagenandra_red": {
+      "rest_changed_pixels": 99,
+      "rest_rgb_mae_8bit": 0.007178986378205128,
+      "shader_disabled_changed_pixels": 0,
+      "shader_active_changed_pixels": 21901
+    },
+    "vallisneria": {
+      "rest_changed_pixels": 83,
+      "rest_rgb_mae_8bit": 0.003520633012820513,
+      "shader_disabled_changed_pixels": 0,
+      "shader_active_changed_pixels": 20366
+    }
+  }
+}
