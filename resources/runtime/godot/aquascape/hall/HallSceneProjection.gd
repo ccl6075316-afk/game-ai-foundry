@@ -59,6 +59,12 @@ func _update_shell(row: Dictionary,data: Dictionary) -> void:
     var collision: CollisionShape3D=row.body.get_child(0)
     collision.shape.size=bounds.size
     collision.position=bounds.get_center()
+    for child in world.get_children():
+        if child is CharacterBody3D:
+            if data.get("interior",{}).get("passage",{}).is_empty():
+                child.remove_collision_exception_with(row.body)
+            else:
+                child.add_collision_exception_with(row.body)
 
 func _create(data: Dictionary) -> Dictionary:
     var root := Node3D.new();root.name=data.id;world.add_child(root)

@@ -11,6 +11,9 @@ var props: Array[Dictionary]=[]
 var swimmers: Array[Dictionary]=[]
 var elapsed:=0.0
 var light_layer:=0
+var editing:=false
+var passage: Node3D
+var passage_state: Array=[]
 
 func _ready() -> void:
     # The hall floor and neighbouring exhibits must keep their own lighting.
@@ -29,6 +32,17 @@ func _ready() -> void:
     set_process(false)
 
 func sync(data: Dictionary,bed: Dictionary) -> void:
+    var route: Dictionary=bed.get("passage",{})
+    if [route,data.design]!=passage_state:
+        if is_instance_valid(passage):
+            remove_child(passage)
+            passage.queue_free()
+        passage=preload("ShellPassageView.gd").new()
+        add_child(passage)
+        passage.build(route,data.design,editing)
+        for mesh:MeshInstance3D in passage.find_children("*","MeshInstance3D",true,false):
+            mesh.layers=light_layer | 1
+        passage_state=[route.duplicate(true),data.design.duplicate(true)]
     var box:=Interior.bounds(data.design)
     var path:=Design.contour(data.design)
     var height:float=data.design.height

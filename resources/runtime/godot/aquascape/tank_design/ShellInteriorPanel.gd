@@ -15,7 +15,8 @@ var tint:=OptionButton.new()
 var brush:=HSlider.new()
 var status:=Label.new()
 var tool:="raise"
-var modes:=["raise","place","fish_idle",""]
+var modes:=["raise","place","fish_idle","","passage"]
+var passage_tools: VBoxContainer
 var last_stock: Dictionary={}
 
 func setup(owner_session: RefCounted,bed_page: VBoxContainer) -> void:
@@ -27,7 +28,7 @@ func setup(owner_session: RefCounted,bed_page: VBoxContainer) -> void:
     add_theme_color_override("font_selected_color",Color.WHITE)
     add_theme_color_override("font_unselected_color",style.MUTED)
     add_theme_color_override("font_hovered_color",style.INK)
-    for label in ["底床","布景","鱼只","灯光"]:
+    for label in ["底床","布景","鱼只","灯光","观景"]:
         var page:=bed_page if get_child_count()==0 else VBoxContainer.new()
         page.name=label
         add_child(page)
@@ -83,6 +84,9 @@ func setup(owner_session: RefCounted,bed_page: VBoxContainer) -> void:
     slider(lights,"亮度",brightness,0,3,.05)
     brightness.value_changed.connect(func(v):session.update_bed({"brightness":v}))
     tint.item_selected.connect(func(i):session.update_bed({"tint":["neutral","warm","cool"][i]}))
+    passage_tools=preload("ShellPassagePanel.gd").new()
+    get_child(4).add_child(passage_tools)
+    passage_tools.setup(session,self)
     tab_changed.connect(func(i):set_tool(modes[i]))
     status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 
@@ -106,9 +110,10 @@ func add_modes(page: Control,options: Dictionary,index: int) -> void:
         line.add_child(button)
 
 func set_tool(id: String) -> void:
+    if tool=="passage" and id!=tool:passage_tools.clear_hover()
     if tool=="move_prop" and id!=tool:session.prop_editor.clear_selection()
     tool=id
-    status.text={"raise":"按住左键在缸底堆沙。","lower":"按住左键挖低底床。","place":"选择布景，再点缸底摆放。","move_prop":"点击选中要调整的布景或水草。","remove_prop":"点击要移除的布景。","fish_idle":"选择鱼种，点「放鱼」即可入缸。","remove_fish":"点击正在游动的鱼即可收回。","":"调节这只展缸的灯色和亮度。"}[id]
+    status.text={"passage":"先点缸壁设入口，移动鼠标预览，再点击延伸。绿色可建，红色不可建。点已有节点可调整。","raise":"按住左键在缸底堆沙。","lower":"按住左键挖低底床。","place":"选择布景，再点缸底摆放。","move_prop":"点击选中要调整的布景或水草。","remove_prop":"点击要移除的布景。","fish_idle":"选择鱼种，点「放鱼」即可入缸。","remove_fish":"点击正在游动的鱼即可收回。","":"调节这只展缸的灯色和亮度。"}[id]
     if id=="fish_idle" and species.item_count==0:status.text="仓库里暂无可放入的鱼。"
 
 func select_prop(item: Dictionary) -> void:
@@ -146,6 +151,11 @@ func sync(bed: Dictionary, entering: bool) -> void:
         last_stock=available
         stock_button.disabled=species.selected<0
     if entering:
+        passage_tools.entrance=null
+        passage_tools.selected=-1
+        passage_tools.width_segment=-1
+        passage_tools.moving=false
+        passage_tools.sync_controls(bed.get("passage",{}))
         current_tab=0
         set_tool(modes[0])
 
@@ -170,6 +180,12 @@ func stock_fish() -> void:
         status.text="已放入一条%s。"%Fish.LABELS[id]
 
 func use_at(p: Vector2) -> void:
+    if tool=="passage":
+        passage_tools.use_at(p)
+        return
+    if tool in ["raise","lower"] and session.draft.get("interior",{}).get("substrate")=="bare":
+        status.text="请先选择底床材料，再堆挖沙。"
+        return
     if tool not in ["raise","lower","place"]:return
     var design:Dictionary=session.draft.design
     var bed:Dictionary=session.draft.get("interior",preload("FinishedShell.gd").DEFAULT_BED).duplicate(true)

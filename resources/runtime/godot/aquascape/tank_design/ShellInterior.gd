@@ -35,6 +35,7 @@ static func length_m(id: String) -> float:
     return lengths.get(id, 0.0)
 
 static func valid(bed: Dictionary) -> bool:
+    if not preload("ShellPassage.gd").valid(bed.get("passage",{})):return false
     var heights = bed.get("heights", [])
     if not heights is Array or (heights.size() != 0 and heights.size() != (GRID+1)*(GRID+1)):return false
     for h in heights:
@@ -73,6 +74,7 @@ static func waterline(height: float) -> float:
     return height-minf(.09,height*.05)
 
 static func floor_y(uv: Vector2, bed: Dictionary, height: float) -> float:
+    if bed.substrate=="bare":return .04
     var base := float(bed.depth_cm)*.01
     var heights: Array=bed.get("heights",[])
     if heights.is_empty():return base
@@ -170,6 +172,7 @@ static func swim_position(design: Dictionary,bed: Dictionary,species: String) ->
     return best
 
 static func fits(design: Dictionary, bed: Dictionary) -> bool:
+    if preload("ShellPassage.gd").problem(design,bed)!="":return false
     var path:=Design.contour(design)
     var box:=bounds(design)
     for key in ["fish","props"]:

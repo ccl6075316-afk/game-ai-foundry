@@ -5,14 +5,15 @@ const BEDS = {
     "fine_sand": ["细沙", preload("res://assets/aquascape-sand-v1/fine-sand.png")],
     "river_gravel": ["河砾", preload("res://assets/aquascape-substrates-v2/river_gravel.png")],
     "aquasoil_dark": ["深色底泥", preload("res://assets/aquascape-substrates-v2/aquasoil_dark.png")],
-    "quartz_white": ["白石英", preload("res://assets/aquascape-substrates-v2/quartz_white.png")]
+    "quartz_white": ["白石英", preload("res://assets/aquascape-substrates-v2/quartz_white.png")],
+    "bare": ["裸缸底（无沙）", null]
 }
 const Interior=preload("ShellInterior.gd")
 const DEFAULT_BED = {"substrate":"fine_sand","depth_cm":5}
 static var finishes := {}
 
 static func valid_interior(value: Variant) -> bool:
-    return value is Dictionary and value.get("substrate") is String and BEDS.has(value.substrate) and Design.number(value.get("depth_cm")) and value.depth_cm>=1 and value.depth_cm<=20 and Interior.valid(value)
+    return value is Dictionary and value.get("substrate") is String and BEDS.has(value.substrate) and Design.number(value.get("depth_cm")) and value.depth_cm>=0 and value.depth_cm<=20 and (value.substrate!="bare" or (value.depth_cm==0 and value.get("heights",[]).is_empty())) and Interior.valid(value)
 
 static func paint(id: String) -> Material:
     if finishes.has(id):return finishes[id]
@@ -25,14 +26,15 @@ static func paint(id: String) -> Material:
     else:
         var solid := StandardMaterial3D.new()
         solid.cull_mode=BaseMaterial3D.CULL_DISABLED
-        if BEDS.has(id):
+        if BEDS.has(id) and id!="bare":
             solid.albedo_texture=BEDS[id][1]
             solid.emission_enabled=true
             solid.emission_texture=BEDS[id][1]
             solid.emission_energy_multiplier=.15
         else:
-            solid.albedo_color=Color("#485961")
-            solid.metallic=.42;solid.roughness=.36
+            solid.albedo_color=Color("#70898b") if id=="bare" else Color("#485961")
+            solid.metallic=0.0 if id=="bare" else .42
+            solid.roughness=.9 if id=="bare" else .36
         finishes[id]=solid
     return finishes[id]
 
@@ -61,7 +63,7 @@ static func build(data: Dictionary) -> ImmediateMesh:
     var triangles := Geometry2D.triangulate_polygon(path)
     var height: float=data.design.height
     var interior: Dictionary=data.get("interior",DEFAULT_BED)
-    var bed_y := float(interior.depth_cm)*.01
+    var bed_y := .04 if interior.substrate=="bare" else float(interior.depth_cm)*.01
     var mesh := ImmediateMesh.new()
     if interior.get("heights",[]).is_empty():
         cap(mesh,path,triangles,bed_y,paint(interior.substrate))
@@ -73,7 +75,20 @@ static func build(data: Dictionary) -> ImmediateMesh:
     else:
         base_rim=bed_y
     band(mesh,path,0,base_rim,paint("rim"))
-    band(mesh,path,base_rim,height,paint("glass"))
+    var glass:ShaderMaterial=paint("glass").duplicate()
+    var passage:Dictionary=interior.get("passage",{})
+    var route_points:=PackedVector4Array()
+    var passage_path:Array=passage.get("points",[])
+    for i in passage_path.size():
+        var point:Array=passage_path[i]
+        var start_radius:=preload("ShellPassage.gd").node_radius(passage,i)
+        var end_radius:=preload("ShellPassage.gd").segment_width(passage,mini(i,passage_path.size()-2))*.5
+        route_points.append(Vector4(point[0],point[1],start_radius,end_radius))
+    var count:=route_points.size()
+    route_points.resize(12)
+    glass.set_shader_parameter("passage_count",count)
+    glass.set_shader_parameter("passage_points",route_points)
+    band(mesh,path,base_rim,height,glass)
     cap(mesh,path,triangles,height-minf(.09,height*.05),paint("water"))
     band(mesh,path,height-.018,height,paint("rim"))
     return mesh

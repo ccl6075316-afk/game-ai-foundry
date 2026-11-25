@@ -14,6 +14,7 @@ NAMES += ['tank_design/'+name for name in [
     'FinishedShell.gd', 'Footprint.gd', 'HallShellCatalog.gd', 'HallShellHandles.gd',
     'HallShellInspector.gd', 'HallShellSession.gd', 'HallShellPropEditor.gd', 'PlanCanvas.gd', 'ShellBedMesh.gd',
     'ShellContentsView.gd', 'ArapaimaTankMotion.gd', 'ShellDesign.gd', 'ShellGlass.gdshader', 'ShellInterior.gd',
+    'ShellPassage.gd', 'ShellPassagePanel.gd', 'ShellPassageView.gd', 'ShellPassageGhost.gd',
     'ShellInteriorPanel.gd', 'ShellMesh.gd', 'TankPreview.gd', 'Workshop.gd',
     'StoneAlgae.gd', 'StoneAlgae.gdshader', 'StoneAlgae.png', 'RootedCurrent.gd', 'RootedCurrent.gdshader']]
 

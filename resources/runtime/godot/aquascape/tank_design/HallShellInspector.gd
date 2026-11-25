@@ -18,6 +18,7 @@ var interior_tools := preload("ShellInteriorPanel.gd").new()
 var edits := HBoxContainer.new()
 var overview := HBoxContainer.new()
 var apply_button := Button.new()
+var passage_button := Button.new()
 var substrate := OptionButton.new()
 var depth := SpinBox.new()
 var bound_mode := "none"
@@ -87,7 +88,7 @@ func setup(owner_hall: Control) -> void:
     bed_page.add_child(substrate)
     for id in Finished.BEDS:substrate.add_item(Finished.BEDS[id][0])
     substrate.item_selected.connect(func(_index):change_interior())
-    depth=add_field(bed_page,"厚度（厘米）",1,20,.5)
+    depth=add_field(bed_page,"厚度（厘米）",0,20,.5)
     depth.value_changed.connect(func(_v):change_interior())
     body.add_child(edits)
     edits.add_child(apply_button)
@@ -103,6 +104,9 @@ func setup(owner_hall: Control) -> void:
             if hall.selected>=0:
                 var row:Dictionary=hall.objects[hall.selected]
                 session.begin(kind,row.data,row))
+    passage_button.text="观景通道"
+    overview.add_child(passage_button)
+    passage_button.pressed.connect(edit_passage)
     body.add_child(placement_tools)
     placement_tools.add_theme_constant_override("separation",8)
     var placement := Label.new()
@@ -173,6 +177,7 @@ func bind_row(row: Dictionary) -> void:
     apply_button.text="保存缸形" if bound_mode=="shape" else "保存内部"
     syncing=true
     bound_data=data
+    passage_button.text="新建通道" if data.get("interior",{}).get("passage",{}).is_empty() else "编辑通道"
     title.text=data.name+"缸" if data.design.kind in ["rect","ellipse"] and not data.name.ends_with("缸") else data.name
     outline=Design.contour(data.design)
     diagram.queue_redraw()
@@ -226,7 +231,10 @@ func change_radius(value: float,index: int) -> void:
 
 func change_interior() -> void:
     if syncing or session.mode!="interior":return
-    session.update_bed({"substrate":Finished.BEDS.keys()[substrate.selected],"depth_cm":depth.value})
+    var id: String=Finished.BEDS.keys()[substrate.selected]
+    var fields: Dictionary={"substrate":id,"depth_cm":depth.value}
+    if id=="bare":fields.merge({"depth_cm":0,"heights":[]},true)
+    session.update_bed(fields)
 
 func change_position(value: float,index: int) -> void:
     var data := current()
@@ -235,3 +243,16 @@ func change_position(value: float,index: int) -> void:
     at[index]=value
     if not hall._execute_build("patch",{"id":data.id,"patch":{"at":at}}):
         bound_data={}
+
+func edit_passage() -> void:
+    if session.mode!="" or hall.selected<0 or hall.selected>=hall.objects.size():return
+    var row:Dictionary=hall.objects[hall.selected]
+    if row.data.kind!="shell" or row.data.id!=bound_data.get("id"):return
+    var id:String=row.data.id
+    if not session.begin("interior",row.data,row):return
+    await get_tree().process_frame
+    await get_tree().process_frame
+    if session.mode!="interior" or session.draft.get("id")!=id:return
+    interior_tools.current_tab=4
+    interior_tools.set_tool("passage")
+    interior_tools.status.text="编辑当前选中展缸的通道。点击节点选中后调整，完成后保存内部。"

@@ -1,5 +1,6 @@
 extends RefCounted
 ## A transient scene preview. Only Apply writes to the layout document.
+signal applied(kind: String, id: String)
 const Design=preload("ShellDesign.gd")
 const PreviewMesh=preload("ShellMesh.gd")
 const Finished=preload("FinishedShell.gd")
@@ -36,6 +37,7 @@ func begin(kind: String,data: Dictionary,existing: Dictionary={}) -> bool:
     if mode=="shape":preview.material_override=PreviewMesh.material()
     if mode=="interior":
         contents=preload("ShellContentsView.gd").new()
+        contents.editing=true
         preview.add_child(contents)
         camera_before={"size":hall.view_size,"target":hall.camera_target}
         var box:AABB=hall._transform(draft)*Design.bounds(draft.design)
@@ -56,7 +58,7 @@ func refresh() -> void:
     if mode=="shape":preview.mesh=PreviewMesh.build(Design.contour(draft.design),draft.design.height)
     else:
         var bed:Dictionary=draft.get("interior",Finished.DEFAULT_BED)
-        var mesh_data:=[draft.design,bed.substrate,bed.depth_cm,bed.get("heights",[])]
+        var mesh_data:=[draft.design,bed.substrate,bed.depth_cm,bed.get("heights",[]),bed.get("passage",{})]
         if mesh_data!=last_mesh_data:
             preview.mesh=Finished.build(draft)
             last_mesh_data=mesh_data
@@ -92,12 +94,14 @@ func save() -> bool:
             if row.data.id==id:
                 row.node.get_node("Shell/Contents").resume_fish_from(contents)
                 break
+    var saved_mode:=mode
     var message:="缸形已保存。" if mode=="shape" else "缸内布置已保存。"
     close()
     for i in hall.objects.size():
         if hall.objects[i].data.id==id:hall.selected=i;break
     hall._sync_panel()
     hall.notice=message
+    applied.emit(saved_mode,id)
     return true
 
 func cancel() -> void:
@@ -108,6 +112,7 @@ func cancel() -> void:
     hall.notice="已取消本次编辑。"
 
 func close() -> void:
+    hall.build_editor.shell_inspector.interior_tools.passage_tools.clear_hover()
     prop_editor.clear_selection()
     hall.build_editor.shells.handles.reset()
     if not source.is_empty() and is_instance_valid(source.node):source.node.show()
@@ -136,7 +141,8 @@ func update_bed(fields: Dictionary) -> void:
     bed.merge(fields,true)
     if not change({"interior":bed}):
         hall.build_editor.shell_inspector.bound_data={}
-        hall.build_editor.shell_inspector.interior_tools.status.text="现有鱼只需要更多水深。"
+        var reason:=preload("ShellPassage.gd").problem(draft.design,bed)
+        hall.build_editor.shell_inspector.interior_tools.status.text=reason if reason!="" else "现有鱼只需要更多水深。"
 
 func available_fish() -> Dictionary:
     var options:Dictionary={}
@@ -157,6 +163,9 @@ func available_fish() -> Dictionary:
 func interior_input(event: InputEvent) -> bool:
     var panel:Control=hall.build_editor.shell_inspector.interior_tools
     if panel.tool=="move_prop":return prop_editor.handle(event)
+    if panel.tool=="passage" and event is InputEventMouseMotion and event.button_mask==0:
+        preview_passage(event.position)
+        return true
     if event is InputEventMouseButton:
         if event.button_index!=MOUSE_BUTTON_LEFT:return false
         brushing=event.pressed and panel.tool in ["raise","lower"]
@@ -168,7 +177,22 @@ func interior_input(event: InputEvent) -> bool:
     apply_pointer(event.position)
     return true
 
+func preview_passage(point: Vector2) -> void:
+    var tools=hall.build_editor.shell_inspector.interior_tools.passage_tools
+    var screen:Vector2=point*Vector2(hall.viewport.size)/hall.canvas.size
+    var hit:Variant=bed_hit(screen)
+    if hit==null:tools.clear_hover()
+    else:tools.preview_at(hit)
+
 func tick_brush() -> void:
+    var panel=hall.build_editor.shell_inspector.interior_tools
+    if panel.tool=="passage":
+        var tools=panel.passage_tools
+        if hall.get_viewport().gui_get_hovered_control()!=hall.canvas:
+            tools.clear_hover()
+        elif tools.hover_point!=null:
+            # Finish the last throttled motion even after the pointer stops.
+            tools.preview_at(tools.hover_point)
     if not brushing or Time.get_ticks_usec()-last_stroke_usec<80000:return
     if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
         brushing=false
