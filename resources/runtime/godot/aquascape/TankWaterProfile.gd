@@ -1,12 +1,12 @@
 extends RefCounted
 ## Rendering properties only; independent of animal welfare / water cleanliness.
-const DEFAULT := {"enabled":true,"tint":"237b98","visibility_m":9.0,"strength":0.65,"reflection":0.10,"ripple":0.28,"caustics":0.28}
+const DEFAULT := {"enabled":true,"tint":"2f829c","visibility_m":8.0,"strength":0.82,"reflection":0.12,"ripple":0.28,"caustics":0.44}
 const LIMITS := {"visibility_m":[2.0,30.0],"strength":[0.0,1.0],"reflection":[0.0,0.4],"ripple":[0.0,1.0],"caustics":[0.0,1.0]}
 const PRESETS := [
-    {"name":"清澈浅水","tint":"398ca3","visibility_m":22.0,"strength":0.45,"reflection":0.07,"ripple":0.2,"caustics":0.22},
-    {"name":"蓝色观赏缸","tint":"237b98","visibility_m":9.0,"strength":0.65,"reflection":0.10,"ripple":0.28,"caustics":0.28},
-    {"name":"深蓝大缸","tint":"19547b","visibility_m":5.5,"strength":0.85,"reflection":0.13,"ripple":0.22,"caustics":0.18},
-    {"name":"自然淡水","tint":"537d62","visibility_m":7.0,"strength":0.65,"reflection":0.08,"ripple":0.22,"caustics":0.25}
+    {"name":"浅礁日光","tint":"398ba2","visibility_m":6.8,"strength":0.96,"reflection":0.14,"ripple":0.28,"caustics":0.58},
+    {"name":"蓝色观赏缸","tint":"2f829c","visibility_m":8.0,"strength":0.82,"reflection":0.12,"ripple":0.28,"caustics":0.44},
+    {"name":"深蓝大缸","tint":"19547b","visibility_m":6.0,"strength":0.95,"reflection":0.14,"ripple":0.22,"caustics":0.42},
+    {"name":"自然淡水","tint":"4ca68a","visibility_m":7.6,"strength":0.92,"reflection":0.12,"ripple":0.24,"caustics":0.52}
 ]
 
 static func valid(value: Variant) -> bool:

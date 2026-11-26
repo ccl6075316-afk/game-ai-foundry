@@ -4,6 +4,7 @@ const Algae = preload("StoneAlgae.gd")
 const Current = preload("RootedCurrent.gd")
 const Design = preload("ShellDesign.gd")
 const Factory = preload("../FishInstanceFactory.gd")
+const FishOptics = preload("../FishUnderwaterOptics.gd")
 static var profiles: Dictionary={}
 var factory: RefCounted
 var lamp := OmniLight3D.new()
@@ -57,10 +58,28 @@ func sync(data: Dictionary,bed: Dictionary) -> void:
         entry.root.transform=Interior.prop_pose(entry.item,box,path,bed,height,entry.bounds)
     var bed_top:=float(bed.depth_cm)*.01
     for h in bed.get("heights",[]):bed_top=maxf(bed_top,float(bed.depth_cm)*.01+h*Interior.waterline(height))
+    var wl:=Interior.waterline(height)
+    var tint_key:String=str(bed.get("tint","neutral"))
+    var top_light:Color={"neutral":Color("d4ecee"),"warm":Color("f0eedc"),"cool":Color("aedcef")}.get(tint_key,Color("d4ecee"))
+    var side_amb:Color={"neutral":Color("3588a0"),"warm":Color("3c8e9c"),"cool":Color("2274a6")}.get(tint_key,Color("3588a0"))
+    var caustic_str:=clampf(0.28+float(bed.get("brightness",1.0))*0.18,0.12,0.58)
+    var fish_env:={
+        "tank_origin_world":global_position,
+        "tank_half_xz":Vector2(maxf(box.size.x*.5,0.5),maxf(box.size.y*.5,0.5)),
+        "waterline":wl,
+        "sand_y":float(bed.depth_cm)*.01,
+        "top_water_light":top_light,
+        "side_water_ambient":side_amb,
+        "sand_bounce_color":Color("d8d0b8"),
+        "caustic_color":top_light,
+        "caustic_strength":caustic_str,
+        "reflection_strength":0.92,
+    }
     for entry in swimmers:
         var p:=box.position+box.size*Vector2(entry.item.u,entry.item.v)
-        entry.center=Vector3(p.x,lerpf(bed_top,Interior.waterline(height),.54),p.y)
+        entry.center=Vector3(p.x,lerpf(bed_top,wl,.54),p.y)
         entry.radius=minf(Interior.clearance(p,path)-entry.length*.61,entry.length*1.4)
+        if entry.has("optics"):FishOptics.apply_records(entry.optics,true,fish_env)
         if entry.has("arapaima"):entry.arapaima.fit(entry,box,bed,height,props)
     set_process(not swimmers.is_empty())
     if not swimmers.is_empty():_process(0)
@@ -120,7 +139,7 @@ func make_fish(item: Dictionary,index: int) -> Dictionary:
     if rig.is_empty():return {}
     for mesh: MeshInstance3D in rig.model.find_children("*","MeshInstance3D",true,false):
         mesh.layers=light_layer | 1
-    var entry: Dictionary={"item":item,"root":rig.carrier,"controller":rig.controller,"length":length_m,"sign":rig.profile.head_sign,"phase":phase}
+    var entry: Dictionary={"item":item,"root":rig.carrier,"controller":rig.controller,"length":length_m,"sign":rig.profile.head_sign,"phase":phase,"optics":FishOptics.wrap_model(rig.model,item.id)}
     if item.id=="arapaima":
         entry.arapaima=preload("ArapaimaTankMotion.gd").new()
         var release=factory._release(factory.model_path(item.id),item.id)
@@ -131,6 +150,11 @@ func _process(delta: float) -> void:
     if not is_visible_in_tree():return
     elapsed+=delta
     for entry in swimmers:
+        if entry.has("optics"):
+            FishOptics.set_clock(entry.optics,elapsed)
+            for rec in entry.optics:
+                if is_instance_valid(rec.mesh):
+                    (rec.lit as ShaderMaterial).set_shader_parameter("tank_origin_world",global_position)
         if entry.has("arapaima"):
             entry.arapaima.advance(entry,delta)
             continue

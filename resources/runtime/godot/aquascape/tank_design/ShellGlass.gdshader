@@ -26,15 +26,22 @@ void fragment() {
             if(distance_to_route<radius && local_position.y<top)discard;
         }
     }
-    float grazing = pow(1.0 - abs(dot(normalize(NORMAL),normalize(VIEW))), 2.5);
+    float grazing = pow(1.0 - abs(dot(normalize(NORMAL),normalize(VIEW))), 3.2);
     if (water) {
         vec2 p = local_position.xz;
-        float waves = sin(p.x*4.7+p.y*2.2+TIME*.72) + sin(p.y*7.6-p.x*1.8-TIME*.53);
-        float glint = smoothstep(1.55,2.0,waves);
-        ALBEDO = mix(vec3(.045,.19,.24),vec3(.42,.66,.68),grazing+.14*glint);
-        ALPHA = .23+.30*grazing+.07*glint;
+        float w = 0.0;
+        w += exp(sin(dot(p, vec2(0.94, 0.34)) * 2.1 + TIME * 1.10) - 1.0) * 0.42;
+        w += exp(sin(dot(p, vec2(-0.28, 0.96)) * 2.9 + TIME * 1.28 + 1.7) - 1.0) * 0.28;
+        w += exp(sin(dot(p, vec2(-0.88, -0.47)) * 4.1 + TIME * 1.45 + 3.4) - 1.0) * 0.18;
+        w += exp(sin(dot(p, vec2(0.56, -0.83)) * 5.6 + TIME * 1.65 + 5.1) - 1.0) * 0.12;
+        float crest = smoothstep(0.32, 0.85, w * 1.25);
+        vec3 deep_surf = vec3(0.06, 0.22, 0.32);
+        vec3 shallow_surf = vec3(0.24, 0.56, 0.68);
+        vec3 highlight = vec3(0.76, 0.90, 0.92);
+        ALBEDO = mix(deep_surf, shallow_surf, 0.35 + 0.55 * crest) + highlight * (crest * 0.16 + grazing * 0.22);
+        ALPHA = clamp(0.24 + 0.36 * grazing + 0.10 * crest, 0.18, 0.72);
     } else {
-        ALBEDO = mix(vec3(.16,.30,.34),vec3(.53,.72,.73),grazing);
-        ALPHA = .065+.27*grazing;
+        ALBEDO = mix(vec3(.16,.34,.42),vec3(.46,.68,.74),grazing);
+        ALPHA = .028+.20*grazing;
     }
 }

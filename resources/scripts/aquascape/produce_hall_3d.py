@@ -4,7 +4,7 @@ from pathlib import Path
 from datetime import datetime,timezone
 from catalog_workflows import call
 
-NAMES=['AquariumHall3D.gd','AquariumHall3DReview.gd','HallTank3D.gd','HallTankEditor.gd','HallFloor3D.gdshader','HallFootprint.gd','HallBuildReview.gd','HallStyleReview.gd','HallLighting.gd','HallLightingReview.gd','HallBlueBackdrop.gdshader','HallBlueReview.gd','TankWaterProfile.gd','TankWaterRenderer.gd','TankWaterVolume.gdshader','TankWaterPanel.gd','TankWaterReview.gd','FishRuntimeData.gd','FishAppearanceCache.gd','FishLoadingReview.gd']
+NAMES=['AquariumHall3D.gd','AquariumHall3DReview.gd','HallTank3D.gd','HallTankEditor.gd','HallFloor3D.gdshader','HallFootprint.gd','HallBuildReview.gd','HallStyleReview.gd','HallLighting.gd','HallLightingReview.gd','HallBlueBackdrop.gdshader','HallBlueReview.gd','TankWaterProfile.gd','TankWaterRenderer.gd','TankWaterVolume.gdshader','TankSurfaceUnderside.gdshader','TankLiningBackdrop.gdshader','FishUnderwaterLit.gdshader','FishUnderwaterOptics.gd','TankWaterPanel.gd','TankWaterReview.gd','FishRuntimeData.gd','FishAppearanceCache.gd','FishLoadingReview.gd']
 # Modules belong to the same reviewed source deployment as the host.
 NAMES += ['hall/'+name for name in ['HallLayoutRules.gd','HallLayoutStore.gd','HallEditHistory.gd','HallWalkController.gd','HallEditorPanel.gd','HallEditorController.gd','HallEditorInput.gd','HallTankSession.gd','HallLayoutDocument.gd','HallBuildCommands.gd','HallSceneProjection.gd','HallStoreys.gd']]
 
