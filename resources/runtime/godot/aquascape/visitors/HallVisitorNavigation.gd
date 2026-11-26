@@ -7,6 +7,7 @@ const CELL := .2
 const RADIUS := .37
 const CLEARANCE := RADIUS + CELL * .5
 const NEIGHBORS := [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP, Vector2i.DOWN]
+var supported_tiles: Variant=null
 var graph := AStar2D.new()
 var point_ids := {}
 var cells: Array[Vector2i] = []
@@ -18,7 +19,8 @@ var parcels: Array = []
 var rebuild_usec := 0
 var revision := 0
 
-func rebuild(new_parcels: Array, rows: Array) -> void:
+func rebuild(new_parcels: Array, rows: Array, support: Variant=null) -> void:
+    supported_tiles=support
     var started := Time.get_ticks_usec()
     revision += 1
     parcels = new_parcels.duplicate(true)
@@ -27,19 +29,38 @@ func rebuild(new_parcels: Array, rows: Array) -> void:
     if parcels.is_empty():
         rebuild_usec = Time.get_ticks_usec() - started
         return
+    var wall_rows := rows.map(func(row):return row.get("data",row)).filter(func(data):return data.kind=="wall")
+    var joints := preload("../hall/HallWallJoints.gd")
+    var ends := joints.offsets(wall_rows.map(func(data):return joints.wall(data)))
+    var wall_ends := {}
+    for i in wall_rows.size():wall_ends[wall_rows[i].get("id",str(i))]=ends[i]
     for row in rows:
         var data: Dictionary = row.get("data", row)
         var scale_factor := float(data.get("scale", 1.0))
         var transform := Transform2D(float(data.get("yaw", 0)), Vector2(float(data.at[0]), float(data.at[1])))
         # Godot 3D positive Y rotation maps (x,z) with the opposite 2D angle.
         transform = Transform2D(-float(data.get("yaw", 0)), transform.origin).scaled_local(Vector2.ONE * scale_factor)
-        if data.kind == "wall":
+        if data.kind == "wall" and data.get("wall_profile", "plain")=="rock":
+            var geometry := preload("../hall/HallRockWall.gd").build(data,data.get("_wall_ends",wall_ends.get(data.get("id",""),Vector2.ZERO)))
+            var elevation := float(data.get("_nav_wall_y",0))
+            for volume: AABB in geometry.volumes:
+                if volume.end.y<=elevation+.02 or volume.position.y>=elevation+1.85:continue
+                _obstacle(transform,Rect2(Vector2(volume.position.x,volume.position.z),Vector2(volume.size.x,volume.size.z)))
+        elif data.kind == "wall":
             var length := float(data.length)
-            if data.get("door", false):
-                _obstacle(transform, Rect2(-length / 2, -.09, (length - 1.2) / 2, .18))
-                _obstacle(transform, Rect2(.6, -.09, (length - 1.2) / 2, .18))
-            else: _obstacle(transform, Rect2(-length / 2, -.09, length, .18))
+            var depth := preload("../hall/HallArchitecture.gd").wall_depth(data)
+            if preload("../hall/HallArchitecture.gd").opening(data)=="door":
+                var hole := preload("../hall/HallArchitecture.gd").aperture(data)
+                _obstacle(transform, Rect2(-length / 2, -depth*.5, hole.position.x+length*.5, depth))
+                _obstacle(transform, Rect2(hole.end.x, -depth*.5, length*.5-hole.end.x, depth))
+            else: _obstacle(transform, Rect2(-length / 2, -depth*.5, length, depth))
         elif data.kind == "tank": _obstacle(transform, Rect2(-3.1, -1.6, 6.2, 3.2))
+        elif data.kind == "shell":
+            var box := preload("../tank_design/ShellDesign.gd").bounds(data.design)
+            _obstacle(transform,Rect2(Vector2(box.position.x,box.position.z),Vector2(box.size.x,box.size.z)))
+        elif data.kind == "column":
+            var width := float(data.get("width",.6))
+            _obstacle(transform,Rect2(-width*.5,-width*.5,width,width))
         elif data.kind == "bench": _obstacle(transform, Rect2(-1, -.34, 2, .68))
         elif data.kind == "stair": _obstacle(transform, Rect2(-Storeys.RUN*.5, -Storeys.WIDTH*.5, Storeys.RUN, Storeys.WIDTH))
         else: _obstacle(transform, Rect2(-.55, -.55, 1.1, 1.1))
@@ -92,6 +113,11 @@ func rebuild(new_parcels: Array, rows: Array) -> void:
 func _ground_clear(owned: Dictionary, point: Vector2) -> bool:
     # A visitor's clearance box spans at most two parcels per axis.
     var radius := CLEARANCE + .1
+    if supported_tiles!=null:
+        for z in range(floori(point.y-radius),floori(point.y+radius)+1):
+            for x in range(floori(point.x-radius),floori(point.x+radius)+1):
+                if not supported_tiles.has(Vector2i(x,z)):return false
+        return true
     var first := ((point - Vector2.ONE * radius - Footprint.ORIGIN) / Footprint.CELL).floor()
     var last := ((point + Vector2.ONE * radius - Footprint.ORIGIN) / Footprint.CELL).floor()
     for y in range(int(first.y), int(last.y) + 1):

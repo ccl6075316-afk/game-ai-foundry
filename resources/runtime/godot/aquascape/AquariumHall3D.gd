@@ -181,6 +181,7 @@ func _clear_geometry(node: Node3D) -> void:
     scene_projection._clear_geometry(node)
 
 func _rebuild_room() -> void:
+    scene_projection.exterior_options=preload("hall/HallExteriorWall.gd").settings(_state())
     scene_projection.rebuild_room(parcels,editing,floor_paint,wall_paint)
     room_geometry=scene_projection.room_geometry
     editor._refresh_parcel_hints()
@@ -213,13 +214,19 @@ func _restore(state: Dictionary) -> void:
 
 func _apply_document(reset_selection: bool=false,change: Dictionary={}) -> void:
     var kind: String=change.get("kind","")
-    if reset_selection or kind=="expand":_rebuild_room()
     var layout := _state()
+    var wall_finish_changed: bool=scene_projection.default_wall_finish!=int(layout.get("wall_finish",0))
+    scene_projection.default_wall_finish=int(layout.get("wall_finish",0))
+    if reset_selection or kind in ["expand","exterior"] or wall_finish_changed:_rebuild_room()
     if reset_selection or kind=="floor":
         var tiles: Array=layout.get("floor_tiles",[])
         floor_cells=Storeys.index(tiles)
         scene_projection.rebuild_floors(tiles,floor_paint)
-    objects=scene_projection.apply_layout(objects,layout,change)
+    objects=scene_projection.apply_layout(objects,layout,{} if wall_finish_changed else change)
+    if not is_instance_valid(scene_projection.architecture_view):
+        scene_projection.architecture_view=preload("hall/HallArchitectureView.gd").new()
+        world.add_child(scene_projection.architecture_view)
+    scene_projection.architecture_view.rebuild(layout,scene_projection,floor_paint)
     document.materialize_initial_content(scene_projection.initial_contents(objects),layout_rules)
     for row in objects:row.data=document.object_data(row.data.id)
     if reset_selection:
@@ -243,9 +250,9 @@ func _apply_document(reset_selection: bool=false,change: Dictionary={}) -> void:
         kind=="patch" and ("at" in change.fields or "yaw" in change.fields))
     editor._refresh_floor_view(update_guides,reset_selection or level_changed)
     _finishes();_sync_panel()
-    var spatial: bool=reset_selection or change.get("kind") in ["add","remove","expand"]
+    var spatial: bool=reset_selection or change.get("kind") in ["add","remove","expand","floor","region","exterior"]
     for field in change.get("fields",[]):
-        if field in ["at","yaw","scale","length","design"]:spatial=true
+        if field in ["at","yaw","scale","length","design","height","opening","opening_width","opening_height","opening_offset","sill","width","thickness","wall_profile","rock_depth","rock_relief","rock_size","rock_seed"]:spatial=true
     if spatial:_visitor_layout_changed()
 
 func _execute_build(kind: String,payload: Dictionary,remember: bool=true) -> bool:
@@ -270,6 +277,7 @@ func _redo() -> void:
 func _finishes() -> void:
     floor_paint.set_shader_parameter("tile_color",FLOOR_COLORS[floor_style])
     wall_paint.albedo_color=WALL_COLORS[wall_style]
+    scene_projection.refresh_exterior_tint()
 
 func _pick(screen: Vector2) -> int:
     var cam: Camera3D=editor_camera if editing else eye
@@ -297,6 +305,11 @@ func _mode(value: bool) -> void:
 func _safe_spawn() -> void:
     var query := PhysicsShapeQueryParameters3D.new();var capsule := CapsuleShape3D.new();capsule.radius=.25;capsule.height=1.7;query.shape=capsule;query.collision_mask=3
     var candidates: Array=[Vector3(0,.88,3.2),Vector3(3,.88,4.4),Vector3(-3,.88,4.4),Vector3(0,.88,6.1)]
+    if active_level>0:
+        var upper_candidates: Array=[]
+        for tile in document.floor_tiles():
+            if int(tile[1])==active_level:upper_candidates.append(Vector3(tile[0]+.5,Storeys.elevation(active_level)+.88,tile[2]+.5))
+        candidates=upper_candidates+candidates
     for cell in parcels:
         var r: Rect2=Footprint.rect(cell)
         for x in [1.0,3.0,5.0]:
@@ -360,7 +373,7 @@ func _sync_panel() -> void:
     editor._selection()
 
 func _visitor_layout_changed() -> void:
-    if is_instance_valid(visitor_crowd):visitor_crowd.set_layout(parcels,objects.filter(func(row):return Storeys.level(row.data)==0))
+    if is_instance_valid(visitor_crowd):visitor_crowd.set_layout(parcels,objects,document.floor_tiles(),preload("hall/HallExteriorWall.gd").settings(_state()))
 
 func _process(delta: float) -> void:
     if build_editor!=null:build_editor.tick()

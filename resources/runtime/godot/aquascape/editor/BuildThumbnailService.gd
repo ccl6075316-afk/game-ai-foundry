@@ -29,7 +29,7 @@ func generate(host: Control,items: Array) -> void:
     var camera := Camera3D.new();camera.projection=Camera3D.PROJECTION_ORTHOGONAL;camera.near=.02;camera.far=80;world.add_child(camera)
     for item in items:
         var data: Dictionary;var node: Node3D;var bounds: AABB
-        if item.id in ["parcel","floor","floor_erase"]:
+        if item.id in ["parcel","floor","floor_erase","finish","finish_erase","ceiling","ceiling_erase"]:
             node=Node3D.new();world.add_child(node);projection._box(node,Vector3(0,-.1,0),Vector3(6,.2,7),host.floor_paint)
             bounds=AABB(Vector3(-3,-.2,-3.5),Vector3(6,.2,7))
             if item.id!="parcel":
@@ -37,10 +37,15 @@ func generate(host: Control,items: Array) -> void:
                 projection._box(node,Vector3(0,.02,0),Vector3(3,.12,.55),paint)
                 if item.id=="floor":projection._box(node,Vector3(0,.03,0),Vector3(.55,.14,3),paint)
         else:
-            var kind: String="tank" if item.id.begins_with("tank_") else ("wall" if item.id in ["wall","door"] else item.id)
+            var kind: String="tank" if item.id.begins_with("tank_") else ("wall" if item.id in ["wall","door","window","half_wall","wall_wainscot","wall_pilaster","wall_recessed","wall_rock"] else ("column" if item.id=="column_round" else item.id))
             data={"id":"thumbnail-"+item.id,"kind":kind,"name":"预览","at":[0.0,0.0],"yaw":0.0,"scale":1.0}
             if kind=="tank":data.scale=[.5,.65,1.0][int(item.id.trim_prefix("tank_"))];data.fish_count=0;data.content={}
+            if kind=="column":data.round=item.id=="column_round"
             if kind=="wall":data.length=4.0;data.door=item.id=="door"
+            if kind=="wall":data.wall_profile={"wall_wainscot":"wainscot","half_wall":"wainscot","wall_pilaster":"pilaster","wall_recessed":"recessed","wall_rock":"rock"}.get(item.id,"plain")
+            if item.id=="wall_rock":data.wall_finish=5
+            if item.id=="half_wall":data.height=1.2
+            if item.id=="window":data.opening="window";data.opening_width=1.8;data.opening_height=1.5;data.sill=1.0
             var row: Dictionary=projection._create(data);node=row.node;bounds=host._transform(data)*host._bounds(data)
         var center := bounds.get_center();camera.size=maxf(bounds.size.x,bounds.size.y)*1.5+1
         camera.position=center+Vector3(9,7,11);camera.look_at(center)

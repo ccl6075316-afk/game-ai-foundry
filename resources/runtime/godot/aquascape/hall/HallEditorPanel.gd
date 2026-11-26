@@ -1,6 +1,14 @@
 extends Control
 ## The hall chrome owns global commands; the object controls follow selection.
 const Style = preload("HallInterfaceStyle.gd")
+var architecture_ui: RefCounted
+var wall_finish_picker: OptionButton
+var exterior_picker: OptionButton
+var exterior_material: OptionButton
+var exterior_fields: VBoxContainer
+var exterior_controls := {}
+var exterior_dragging := false
+var exterior_remembered := false
 var water_panel
 var side: PanelContainer
 var status: Label
@@ -101,6 +109,8 @@ func build(host: Control) -> void:
     lower_life_tools.toggle_mode=true
     _build_settings(host)
     _build_object_actions(host)
+    architecture_ui=preload("HallArchitecturePanel.gd").new()
+    architecture_ui.setup(host)
     inspection_tools=HBoxContainer.new()
     inspection_tools.position=Vector2(24,185);add_child(inspection_tools)
     button(inspection_tools,"下一条鱼",host.tank_session.next_fish)
@@ -129,8 +139,19 @@ func _build_settings(host: Control) -> void:
     var body := VBoxContainer.new();body.add_theme_constant_override("separation",10);settings.add_child(body)
     label(body,"场馆设置",23)
     var finishes := HBoxContainer.new();body.add_child(finishes)
-    button(finishes,"更换全馆地砖",func():host.editor._change_finish("floor_style"))
-    button(finishes,"更换全馆墙色",func():host.editor._change_finish("wall_style"))
+    button(finishes,"全馆地面配色",func():host.editor._change_finish("floor_style"))
+    button(finishes,"原有墙面配色",func():host.editor._change_finish("wall_style"))
+    var wall_row := HBoxContainer.new();body.add_child(wall_row)
+    label(wall_row,"全馆墙面材质")
+    wall_finish_picker=OptionButton.new();wall_row.add_child(wall_finish_picker)
+    for entry in preload("HallArchitecture.gd").WALL_NAMES:wall_finish_picker.add_item(entry)
+    wall_finish_picker.item_selected.connect(func(index):host._execute_build("style",{"key":"wall_finish","value":index}))
+    _build_exterior_settings(body,host)
+    button(body,"分区铺地材…",func():
+        settings.hide();catalog_open=true;host.build_editor.palette.show_category("地面");host.build_editor.choose("finish"))
+    button(body,"建造墙、门洞、窗洞和柱子…",func():
+        settings.hide();catalog_open=true;host.editor._set_tool("");host.build_editor.palette.show_category("墙和柱"))
+    label(body,"选中自建墙：独立选择材质、造型、厚度和洞口。",15)
     var visitors := HBoxContainer.new();body.add_child(visitors)
     label(visitors,"预览游客人数")
     visitor_spin=SpinBox.new();visitor_spin.max_value=200;visitor_spin.value=24
@@ -138,6 +159,33 @@ func _build_settings(host: Control) -> void:
     visitor_spin.value_changed.connect(func(v):if is_instance_valid(host.visitor_crowd):host.visitor_crowd.set_visitor_count(int(v)))
     button(visitors,"清零",func():visitor_spin.value=0)
     button(body,"收起设置",settings.hide)
+
+func _build_exterior_settings(body: VBoxContainer,host: Control) -> void:
+    var row := HBoxContainer.new();body.add_child(row);label(row,"自动外墙造型")
+    exterior_picker=OptionButton.new();row.add_child(exterior_picker)
+    exterior_picker.add_item("普通平墙");exterior_picker.add_item("凹凸岩壁")
+    exterior_picker.item_selected.connect(func(index):_patch_exterior(host,{"profile":"rock" if index==1 else "plain"}))
+    exterior_fields=VBoxContainer.new();body.add_child(exterior_fields)
+    var material_row := HBoxContainer.new();exterior_fields.add_child(material_row);label(material_row,"外墙岩面材质")
+    exterior_material=OptionButton.new();material_row.add_child(exterior_material)
+    for entry in preload("HallArchitecture.gd").WALL_NAMES:exterior_material.add_item(entry)
+    exterior_material.item_selected.connect(func(index):_patch_exterior(host,{"finish":index}))
+    for spec in [["depth","单侧凸出上限",.1,1.2,.05],["relief","起伏程度",0,1,.05],["size","岩块大小",.6,2,.1]]:
+        var line := HBoxContainer.new();exterior_fields.add_child(line)
+        var title := label(line,spec[1],15);title.custom_minimum_size.x=150
+        var slider := HSlider.new();slider.min_value=spec[2];slider.max_value=spec[3];slider.step=spec[4];slider.custom_minimum_size=Vector2(160,24);line.add_child(slider)
+        var number := label(line,"",15);number.custom_minimum_size.x=64
+        exterior_controls[spec[0]]={"slider":slider,"label":number}
+        slider.drag_started.connect(func():exterior_dragging=true;exterior_remembered=false)
+        slider.drag_ended.connect(func(_changed):exterior_dragging=false;exterior_remembered=false)
+        slider.value_changed.connect(func(value):_patch_exterior(host,{spec[0]:value}))
+    label(exterior_fields,"凸出会占用馆内空间，游客自动绕开。",15)
+
+func _patch_exterior(host: Control,fields: Dictionary) -> void:
+    if panel_sync:return
+    if host._execute_build("exterior",{"patch":fields},not exterior_dragging or not exterior_remembered):
+        if exterior_dragging:exterior_remembered=true
+    else:host._sync_panel()
 
 func _build_object_actions(host: Control) -> void:
     side=PanelContainer.new();add_child(side)
@@ -164,6 +212,13 @@ func _build_object_actions(host: Control) -> void:
 func sync(host: Control) -> void:
     if not is_instance_valid(side):return
     panel_sync=true
+    wall_finish_picker.select(int(host._state().get("wall_finish",0)))
+    var exterior := preload("HallExteriorWall.gd").settings(host._state())
+    exterior_picker.select(1 if exterior.profile=="rock" else 0);exterior_fields.visible=exterior.profile=="rock"
+    exterior_material.select(int(exterior.finish))
+    for key in exterior_controls:
+        exterior_controls[key].slider.set_value_no_signal(float(exterior[key]))
+        exterior_controls[key].label.text="%.2f%s" % [exterior[key],"" if key=="relief" else " m"]
     parcel_label.text="  /  %s    ·    %s m²" % ["布展" if host.editing else "逛馆",host.parcels.size()*42]
     mode_button.text="进入逛馆" if host.editing else "返回布展"
     floor_panel.get_parent().visible=host.editing and not host.tank_session.inspecting
@@ -190,6 +245,7 @@ func sync(host: Control) -> void:
         else:water_panel.hide()
     else:water_panel.hide()
     panel_sync=false
+    architecture_ui.sync()
 
 func tick(delta: float, notice: String) -> void:
     statistics_clock+=delta

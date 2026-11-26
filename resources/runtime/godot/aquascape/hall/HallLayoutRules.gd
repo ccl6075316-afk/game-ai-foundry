@@ -4,6 +4,7 @@ const Footprint=preload("res://scripts/aquarium/HallFootprint.gd")
 const Storeys=preload("res://scripts/aquarium/hall/HallStoreys.gd")
 const WaterProfile=preload("res://scripts/aquarium/TankWaterProfile.gd")
 const ShellDesign = preload("../tank_design/ShellDesign.gd")
+const Architecture=preload("HallArchitecture.gd")
 const MAX_OBJECTS=80
 const MAX_TANKS=8
 var placement_error := ""
@@ -11,7 +12,10 @@ var placement_error := ""
 func _bounds(data: Dictionary) -> AABB:
     if data.kind=="shell":return ShellDesign.bounds(data.design)
     if data.kind=="stair":return Storeys.stair_bounds()
-    if data.kind=="wall":return AABB(Vector3(-float(data.length)/2,0,-.09),Vector3(float(data.length),3.2,.18))
+    if data.kind=="wall":return AABB(Vector3(-float(data.length)/2,0,-Architecture.wall_depth(data)*.5),Vector3(float(data.length),Architecture.height(data),Architecture.wall_depth(data)))
+    if data.kind=="column":
+        var width := float(data.get("width",.6))
+        return AABB(Vector3(-width*.5,0,-width*.5),Vector3(width,Architecture.height(data),width))
     if data.kind=="tank":return AABB(Vector3(-3.1,0,-1.6),Vector3(6.2,3.3,3.2))
     if data.kind=="bench":return AABB(Vector3(-1,0,-.34),Vector3(2,.72,.68))
     return AABB(Vector3(-.55,0,-.55),Vector3(1.1,1.6,1.1))
@@ -123,10 +127,12 @@ func _valid_state(data: Variant,content_ids: Variant=null) -> bool:
     if version<3 and data.has("floor_tiles"):return false
     for key in ["floor_style","wall_style"]:
         if not _finite_number(data.get(key)) or data[key]!=int(data[key]) or data[key]<0 or data[key]>2:return false
+    if not Architecture.wall_id(data.get("wall_finish",0),false):return false
+    if not preload("HallExteriorWall.gd").valid(data.get("exterior_wall",{})):return false
     var ids: Array=[];var rows: Array=[];var tanks := 0
     for row in data.objects:
         if not row is Dictionary or not row.get("id") is String or row.id.is_empty() or row.id in ids:return false
-        if row.get("kind") not in ["tank","shell","bench","plinth","wall","stair"] or not row.get("name") is String or row.name.length()>80:return false
+        if row.get("kind") not in ["tank","shell","bench","plinth","wall","stair","column"] or not row.get("name") is String or row.name.length()>80:return false
         var level: Variant=row.get("level",0)
         if not _finite_number(level) or level!=int(level) or level<0 or level>Storeys.MAX_LEVEL:return false
         if version<3 and (level!=0 or row.kind=="stair"):return false
@@ -142,6 +148,8 @@ func _valid_state(data: Variant,content_ids: Variant=null) -> bool:
             if not _finite_number(row.get("length")) or not row.get("door") is bool or row.scale!=1:return false
             if row.length<(3 if row.door else .5) or row.length>18:return false
             if absf(sin(float(row.yaw)*2))>.0001:return false
+        if not Architecture.valid_object(row):
+            placement_error="墙高、柱宽或开口尺寸无效；洞口需完整位于墙内。";return false
         if row.kind=="shell":
             if not ShellDesign.valid(row.get("design")):return false
             if row.has("interior"):
@@ -156,4 +164,15 @@ func _valid_state(data: Variant,content_ids: Variant=null) -> bool:
             if (content_ids==null or row.id in content_ids) and not _valid_content(row.content):return false
         if not _valid_placement(row,rows,"",cells):return false
         rows.append(row);ids.append(row.id)
-    return version<3 or _valid_storeys(data)
+    if not _exterior_clear(data):return false
+    return (version<3 or _valid_storeys(data)) and Architecture.valid_regions(data,self)
+
+func _exterior_clear(layout: Dictionary) -> bool:
+    var exterior := preload("HallExteriorWall.gd")
+    for wall in exterior.walls(layout.get("parcels",Footprint.initial()),exterior.settings(layout)):
+        var occupied: AABB=_transform(wall)*_bounds(wall)
+        for data in layout.objects:
+            if data.kind=="wall" and absf(_transform(data).basis.x.dot(_transform(wall).basis.x))<.01:continue
+            if (_transform(data)*_bounds(data)).intersection(occupied).get_volume()>.0001:
+                placement_error="外墙凸出范围会碰到现有物件，请减小凸出或先移开靠墙物件。";return false
+    return true

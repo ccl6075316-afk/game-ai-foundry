@@ -1,6 +1,6 @@
 extends Node3D
 ## One instanced hall guest mesh supports three appearances.
-const Navigation = preload("res://scripts/aquarium/visitors/HallVisitorNavigation.gd")
+const Navigation = preload("res://scripts/aquarium/visitors/HallStoreyNavigation.gd")
 # Session trial limit; this does not define future hall or simulation capacity.
 const MAX_VISITORS := 200
 const ROUTES_PER_FRAME := 2
@@ -19,6 +19,9 @@ var resource_error := ""
 var rng := RandomNumberGenerator.new()
 var layout_parcels: Array = []
 var layout_rows: Array = []
+var layout_tiles: Array = []
+var visible_level := -1
+var lower_visible_level := -1
 var layout_signature := ""
 var dirty := true
 var rebuild_delay := 0.0
@@ -80,17 +83,20 @@ func set_visitor_count(count: int) -> void:
     # The navigation snapshot remains usable when only the population changes.
     if not dirty: _populate()
 
-func set_layout(parcels: Array, rows: Array) -> void:
+func set_layout(parcels: Array, rows: Array, tiles: Array=[], exterior: Dictionary={}) -> void:
     var geometry: Array = []
     for row in rows:
         var data: Dictionary = row.get("data", row)
-        geometry.append({"kind": data.kind, "at": data.at.duplicate(), "yaw": data.get("yaw", 0.0),
-            "scale": data.get("scale", 1.0), "length": data.get("length", 0.0), "door": data.get("door", false)})
-    var signature := JSON.stringify([parcels, geometry])
+        var shape := data.duplicate(true)
+        shape.erase("interior");shape.erase("content");shape.erase("water")
+        geometry.append(shape)
+    geometry.append_array(preload("../hall/HallExteriorWall.gd").walls(parcels,exterior))
+    var signature := JSON.stringify([parcels, geometry,tiles])
     if signature == layout_signature: return
     layout_signature = signature
     layout_parcels = parcels.duplicate(true)
     layout_rows = geometry
+    layout_tiles=tiles.duplicate(true)
     dirty = true; rebuild_delay = .12
     # Never render or advance people through a newly moved object while waiting for the grid.
     agents.clear(); occupancy.clear(); _hide_groups()
@@ -105,49 +111,49 @@ func _hide_groups() -> void:
 func _populate() -> void:
     agents.clear(); occupancy.clear()
     if not resources_ready or navigation.cells.is_empty() or requested_count == 0: return
-    var candidate_count: int = navigation.cells.size()
-    var candidates: Array = navigation.cells.duplicate()
+    var candidate_count: int = navigation.cells.filter(func(cell):return cell.y==0).size()
+    var candidates: Array = navigation.cells.filter(func(cell):return cell.y==0)
     for index in range(candidate_count - 1, 0, -1):
         var other := rng.randi_range(0, index)
-        var swap: Vector2i = candidates[index]
+        var swap: Vector3i = candidates[index]
         candidates[index] = candidates[other]; candidates[other] = swap
     # A randomized .8 m sublattice packs the requested stress population without
     # reducing clearance; arbitrary random sequential packing wastes floor space.
     var spaced: Array = []; var remainder: Array = []
     for id in candidates:
-        if posmod(id.x, 4) == 0 and posmod(id.y, 4) == 0: spaced.append(id)
+        if posmod(id.x, 4) == 0 and posmod(id.z, 4) == 0: spaced.append(id)
         else: remainder.append(id)
     candidates = spaced + remainder
     for attempt in range(candidate_count):
         if agents.size() >= requested_count: break
-        var point: Vector2 = navigation.position_of(candidates[attempt])
+        var point: Vector3 = navigation.position_of(candidates[attempt])
         if not _space_free(point, -1, SEPARATION + .02): continue
         var index := agents.size()
         var group_index := index % MESH_NAMES.size()
-        var agent := {"position": point, "target": point, "face": point, "path": PackedVector2Array(), "waypoint": 0,
+        var agent := {"position": point, "target": point, "face": point, "path": PackedVector3Array(), "waypoint": 0,
             "yaw": rng.randf_range(-PI, PI), "phase": rng.randf_range(0, TAU), "palette": index % 8,
             "appearance": (index / MESH_NAMES.size() + group_index) % APPEARANCE_NAMES.size(), "group": group_index, "motion": 0.0,
             "timer": rng.randf_range(0, 1.5), "stuck": 0.0, "velocity": 0.0, "state": "waiting", "speed": rng.randf_range(.62, .9)}
         agents.append(agent); _occupy(point, index)
     _upload()
 
-func _bucket(point: Vector2) -> Vector2i:
-    return Vector2i(floori(point.x / BUCKET), floori(point.y / BUCKET))
+func _bucket(point: Vector3) -> Vector3i:
+    return Vector3i(floori(point.x / BUCKET), floori(point.y / BUCKET),floori(point.z / BUCKET))
 
-func _occupy(point: Vector2, index: int) -> void:
+func _occupy(point: Vector3, index: int) -> void:
     var key := _bucket(point)
     if not occupancy.has(key): occupancy[key] = []
     occupancy[key].append(index)
 
-func _space_free(point: Vector2, except: int, distance: float = SEPARATION) -> bool:
+func _space_free(point: Vector3, except: int, distance: float = SEPARATION) -> bool:
     var key := _bucket(point)
     var reach := ceili(distance / BUCKET)
-    for y in range(-reach, reach + 1):
-        for x in range(-reach, reach + 1):
-            var nearby: Array = occupancy.get(key + Vector2i(x, y), [])
-            # Separation and bucket capacity keep this bounded even in crowded layouts.
-            for index in nearby:
-                if index != except and point.distance_squared_to(agents[index].position) < distance * distance: return false
+    for y in range(-reach,reach+1):
+        for z in range(-reach,reach+1):
+            for x in range(-reach,reach+1):
+                for index in occupancy.get(key+Vector3i(x,y,z),[]):
+                    if index!=except and point.distance_squared_to(agents[index].position)<distance*distance:return false
+
     return occupancy.get(key, []).size() < 4 or occupancy.get(key, []).has(except)
 
 func _process(delta: float) -> void:
@@ -161,7 +167,7 @@ func _process(delta: float) -> void:
         if rebuild_delay > 0:
             last_update_usec = Time.get_ticks_usec() - started
             return
-        navigation.rebuild(layout_parcels, layout_rows)
+        navigation.rebuild(layout_parcels, layout_rows,layout_tiles)
         dirty = false; _populate()
     var step := minf(delta, .05)
     crowd_time += step
@@ -181,19 +187,19 @@ func _process(delta: float) -> void:
             agent.timer = rng.randf_range(.5, 1.5)
         var moving := false
         if not agent.path.is_empty():
-            var target: Vector2 = agent.path[agent.waypoint]
-            var heading: Vector2 = target - Vector2(agent.position)
+            var target: Vector3 = agent.path[agent.waypoint]
+            var heading: Vector3 = target - Vector3(agent.position)
             var desired_speed: float = agent.speed
             if heading.length_squared() > .000001:
-                var target_yaw := atan2(-heading.x, -heading.y)
+                var target_yaw := atan2(-heading.x, -heading.z)
                 agent.yaw = rotate_toward(agent.yaw, target_yaw, step * 5.5)
                 desired_speed *= maxf(0.0, cos(angle_difference(agent.yaw, target_yaw)))
             if agent.waypoint == agent.path.size() - 1:
                 desired_speed = minf(desired_speed, sqrt(3.2 * heading.length()))
             agent.velocity = move_toward(agent.velocity, desired_speed, step * 1.8)
-            var next: Vector2 = agent.position.move_toward(target, agent.velocity * step)
+            var next: Vector3 = agent.position.move_toward(target, agent.velocity * step)
             if _space_free(next, index):
-                var before: Vector2 = agent.position
+                var before: Vector3 = agent.position
                 occupancy[_bucket(before)].erase(index)
                 agent.position = next; _occupy(next, index)
                 moving = before != next
@@ -204,16 +210,16 @@ func _process(delta: float) -> void:
                 if next.distance_squared_to(target) < .000001:
                     agent.waypoint += 1
                     if agent.waypoint >= agent.path.size():
-                        agent.path = PackedVector2Array(); agent.state = "watching"
+                        agent.path = PackedVector3Array(); agent.state = "watching"
                         agent.timer = rng.randf_range(3, 8)
             else:
                 agent.stuck += step
                 if agent.stuck > 2:
-                    agent.path = PackedVector2Array(); agent.state = "waiting"; agent.timer = rng.randf_range(.1, 1)
+                    agent.path = PackedVector3Array(); agent.state = "waiting"; agent.timer = rng.randf_range(.1, 1)
                     agent.stuck = 0.0
         elif agent.state == "watching":
-            var direction: Vector2 = agent.face - agent.position
-            if direction.length_squared() > .01: agent.yaw = lerp_angle(agent.yaw, atan2(-direction.x, -direction.y), minf(1, step * 5))
+            var direction: Vector3 = agent.face - agent.position
+            if direction.length_squared() > .01: agent.yaw = lerp_angle(agent.yaw, atan2(-direction.x, -direction.z), minf(1, step * 5))
         if not moving: agent.velocity = 0.0
         agent.motion = move_toward(agent.motion, 1.0 if moving else 0.0, step * 4)
     if not agents.is_empty(): route_cursor = (route_cursor + ROUTES_PER_FRAME) % agents.size()
@@ -224,13 +230,21 @@ func _upload() -> void:
     var used: Array[int] = []
     used.resize(groups.size()); used.fill(0)
     for agent in agents:
+        if visible_level>=0 and absf(agent.position.y-visible_level*3.6)>.25 and (lower_visible_level<0 or absf(agent.position.y-lower_visible_level*3.6)>.25):continue
         var group: int = agent.group
         if group >= groups.size(): continue
         var mesh: MultiMesh = groups[group].multimesh
-        mesh.set_instance_transform(used[group], Transform3D(Basis(Vector3.UP, agent.yaw), Vector3(agent.position.x, 0, agent.position.y)))
+        mesh.set_instance_transform(used[group], Transform3D(Basis(Vector3.UP, agent.yaw), agent.position))
         mesh.set_instance_custom_data(used[group], Color(agent.phase, agent.motion, float(agent.palette), float(agent.appearance)))
         used[group] += 1
-    for index in groups.size(): groups[index].multimesh.visible_instance_count = used[index]
+    var bounds := AABB(Vector3.ZERO,Vector3.ONE)
+    if not agents.is_empty():
+        bounds=AABB(agents[0].position,Vector3.ZERO)
+        for agent in agents:bounds=bounds.expand(agent.position)
+        bounds=bounds.grow(2)
+    for index in groups.size():
+        groups[index].custom_aabb=bounds
+        groups[index].multimesh.visible_instance_count = used[index]
 
 func get_review_snapshot() -> Dictionary:
     var walking := 0; var watching := 0; var instances: Array = []
@@ -242,7 +256,7 @@ func get_review_snapshot() -> Dictionary:
         var appearance: String = APPEARANCE_NAMES[agent.appearance]
         var variant := archetype + "_" + appearance
         variants[variant] = true; active_groups[agent.group] = true
-        instances.append({"position": [agent.position.x, agent.position.y], "target": [agent.target.x, agent.target.y],
+        instances.append({"position": [agent.position.x, agent.position.z], "elevation":agent.position.y, "target": [agent.target.x, agent.target.z],
             "state": agent.state, "yaw": agent.yaw, "variant": variant, "archetype": archetype,
             "appearance_group": agent.appearance, "appearance": appearance})
     return {"active_count": agents.size(), "requested_count": requested_count, "walking": walking, "watching": watching,

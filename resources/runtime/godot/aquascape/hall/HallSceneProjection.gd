@@ -1,5 +1,7 @@
 extends RefCounted
 ## Materialize a document into live geometry. No UI, history or file writes.
+const Architecture=preload("HallArchitecture.gd")
+var architecture_view: Node3D
 const WaterProfile=preload("res://scripts/aquarium/TankWaterProfile.gd")
 const Footprint=preload("res://scripts/aquarium/HallFootprint.gd")
 const WallJoints=preload("HallWallJoints.gd")
@@ -9,6 +11,10 @@ var rules: RefCounted
 var surface: Callable
 var hall_lighting: Node3D
 var wall_paint: StandardMaterial3D
+var default_wall_finish := 0
+var exterior_options: Dictionary={}
+var exterior_tint_materials: Array=[]
+var wall_materials := {}
 var room_geometry: Node3D
 var floor_geometry: Node3D
 var floor_guides: Node3D
@@ -86,6 +92,14 @@ func _create(data: Dictionary) -> Dictionary:
         _wall_geometry(root,data)
     elif data.kind=="stair":
         _stair_geometry(root,data)
+    elif data.kind=="column":
+        var width := float(data.get("width",.6))
+        var h := Architecture.height(data)
+        if data.get("round",false):
+            var node := MeshInstance3D.new();var mesh := CylinderMesh.new()
+            mesh.top_radius=width*.5;mesh.bottom_radius=width*.5;mesh.height=h;mesh.radial_segments=16
+            node.mesh=mesh;node.material_override=wall_paint;node.position.y=h*.5;root.add_child(node)
+        else:_box(root,Vector3(0,h*.5,0),Vector3(width,h,width),wall_paint)
     elif data.kind=="bench":
         var wood := _surface(Color("806547"),"hall_wood",Color.WHITE);var metal := _surface(Color("24434c"),"hall_wall")
         _box(root,Vector3(0,.48,0),Vector3(2,.12,.64),wood)
@@ -203,6 +217,9 @@ func show_floor_below(storey: int,editing: bool,objects: Array) -> void:
     var below := storey-1
     if below==0:
         for source in room_geometry.get_children():
+            if source.has_meta("exterior_wall"):
+                for mesh in source.find_children("*","MeshInstance3D",false,false):_reference_mesh(mesh,reference_wall_paint)
+                continue
             if not source is MeshInstance3D or source.name=="LowGuideLight":continue
             # Keep the taller ground perimeter below the active construction plane.
             var size: Vector3=source.mesh.size
@@ -294,38 +311,44 @@ func show_floor_guides(storey: int,editing: bool,parcels: Array,objects: Array,t
             var guide := _box(floor_guides,Vector3(spot.x+.5,y+.01,spot.z+.5),Vector3(.92,.018,.92),marker)
             guide.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
-func _wall_geometry(root: Node3D,data: Dictionary,ends:=Vector2.ZERO) -> void:
-    var body := StaticBody3D.new()
-    body.collision_layer=2
-    body.collision_mask=0
-    body.set_meta("hall_id",data.id)
-    root.add_child(body)
-    root.set_meta("wall_body",body)
-    root.set_meta("wall_profile",[data.length,data.get("door",false),ends])
-    var half_length: float=data.length*.5
-    var left := -half_length-ends.x*.09
-    var right := half_length+ends.y*.09
-    if data.get("door",false):
-        _wall_piece(root,body,left,-.6,0,3.12)
-        _wall_piece(root,body,-.6,.6,2.2,3.12)
-        _wall_piece(root,body,.6,right,0,3.12)
-    else:
-        _wall_piece(root,body,left,right,0,3.12)
-    # Cap and side meet at 3.12 m. Only the cap owns the visible 3.20 m surface.
-    var cap_left := -half_length-ends.x*.11
-    var cap_right := half_length+ends.y*.11
-    _box(root,Vector3((cap_left+cap_right)*.5,3.16,0),Vector3(cap_right-cap_left,.08,.22),_surface(Color("35535b"),"hall_wall"))
+func wall_material(index: int) -> Material:
+    if index<0:index=default_wall_finish
+    if index==0:return wall_paint
+    if not wall_materials.has(index):
+        var material := ShaderMaterial.new();material.shader=preload("HallWallMaterial.gdshader")
+        material.set_shader_parameter("artwork",load(Architecture.WALL_TEXTURES[index]))
+        material.set_shader_parameter("repeat_metres",Architecture.WALL_REPEATS[index])
+        material.set_shader_parameter("blend_axes",index==5)
+        wall_materials[index]=material
+    return wall_materials[index]
 
-func _wall_piece(root: Node3D,body: StaticBody3D,left: float,right: float,bottom: float,top: float) -> void:
-    var center := Vector3((left+right)*.5,(bottom+top)*.5,0)
-    var size := Vector3(right-left,top-bottom,.18)
-    _box(root,center,size,wall_paint)
-    var shape := CollisionShape3D.new()
-    var box := BoxShape3D.new()
-    box.size=size+Vector3(0,.08,0)
-    shape.shape=box
-    shape.position=center+Vector3.UP*.04
-    body.add_child(shape)
+func _wall_geometry(root: Node3D,data: Dictionary,ends:=Vector2.ZERO) -> void:
+    var body := StaticBody3D.new();body.collision_layer=2;body.collision_mask=0
+    body.set_meta("hall_id",data.id);root.add_child(body)
+    root.set_meta("wall_body",body)
+    root.set_meta("wall_profile",[data.duplicate(true),ends,default_wall_finish])
+    if data.get("wall_profile", "plain")=="rock":
+        var geometry := preload("HallRockWall.gd").build(data,ends)
+        var shape := CollisionShape3D.new();shape.shape=geometry.shape;body.add_child(shape)
+        var node := MeshInstance3D.new();node.mesh=geometry.mesh
+        node.material_override=wall_material(int(data.get("wall_finish",5)))
+        root.add_child(node);return
+    var parts := preload("HallWallForm.gd").parts(data,ends)
+    var main: Material=wall_material(int(data.get("wall_finish",-1)))
+    var trim: Material=main if int(data.get("trim_finish",-1))<0 else wall_material(int(data.trim_finish))
+    var groups := {false:[],true:[]}
+    for part in parts:
+        var shape := CollisionShape3D.new();var box := BoxShape3D.new();box.size=part.size
+        shape.shape=box;shape.position=part.at;body.add_child(shape)
+    for face in preload("HallWallForm.gd").exposed_faces(parts):
+        groups[face.trim if trim!=main else false].append(face)
+    for is_trim in groups:
+        if groups[is_trim].is_empty():continue
+        var surface_tool := SurfaceTool.new();surface_tool.begin(Mesh.PRIMITIVE_TRIANGLES)
+        for face in groups[is_trim]:preload("HallWallForm.gd").emit_face(surface_tool,face)
+        var node := MeshInstance3D.new();node.mesh=surface_tool.commit()
+        node.material_override=trim if is_trim else main
+        root.add_child(node)
 
 func _join_walls(rows: Array) -> void:
     var walls := rows.filter(func(row):return row.data.kind=="wall")
@@ -333,7 +356,7 @@ func _join_walls(rows: Array) -> void:
     var joins := WallJoints.offsets(parts)
     for i in walls.size():
         var row: Dictionary=walls[i]
-        if row.node.get_meta("wall_profile")==[row.data.length,row.data.get("door",false),joins[i]]:continue
+        if row.node.get_meta("wall_profile")==[row.data,joins[i],default_wall_finish]:continue
         _clear_geometry(row.node)
         _wall_geometry(row.node,row.data,joins[i])
         row.body=row.node.get_meta("wall_body")
@@ -341,7 +364,7 @@ func _join_walls(rows: Array) -> void:
 func rebuild_room(parcels: Array,editing: bool,floor_paint: Material,room_wall_paint: StandardMaterial3D) -> void:
     wall_paint=room_wall_paint
     if not is_instance_valid(room_geometry):room_geometry=Node3D.new();world.add_child(room_geometry)
-    _clear_geometry(room_geometry)
+    _clear_geometry(room_geometry);exterior_tint_materials.clear()
     var trim := _surface(Color("24434c"),"hall_wall")
     var boundaries: Array=[]
     var parts: Array=[]
@@ -359,6 +382,8 @@ func rebuild_room(parcels: Array,editing: bool,floor_paint: Material,room_wall_p
             var height := .65 if editing and edge[0]==[0,1] else 4.6
             boundaries.append(edge)
             parts.append(WallJoints.segment(mid-half,mid+half,0,height))
+    if exterior_options.get("profile","plain")=="rock":
+        _rock_perimeter(parcels,editing);return
     var joins := WallJoints.offsets(parts)
     for i in boundaries.size():
         var edge: Array=boundaries[i]
@@ -371,7 +396,7 @@ func rebuild_room(parcels: Array,editing: bool,floor_paint: Material,room_wall_p
         size[axis]+=(ends.x+ends.y)*.1
         size.y=parts[i].height
         pos.y=size.y*.5
-        _box(room_geometry,pos,size,wall_paint)
+        _box(room_geometry,pos,size,wall_material(-1))
         pos[axis]+=(ends.y-ends.x)*.005
         size[axis]+=(ends.x+ends.y)*.01
         size[2-axis]=.22
@@ -382,6 +407,25 @@ func rebuild_room(parcels: Array,editing: bool,floor_paint: Material,room_wall_p
         guide_pos.y=.23
         var guide_size := Vector3(.022,.035,.52) if axis==2 else Vector3(.52,.035,.022)
         hall_lighting.add_guide(room_geometry,guide_pos,guide_size)
+
+func _rock_perimeter(parcels: Array,editing: bool) -> void:
+    var paint: Material=wall_material(int(exterior_options.get("finish",5)))
+    if paint is StandardMaterial3D:
+        var wrapped := ShaderMaterial.new();wrapped.shader=preload("HallWallMaterial.gdshader")
+        wrapped.set_shader_parameter("artwork",paint.albedo_texture)
+        wrapped.set_shader_parameter("artwork_tint",paint.albedo_color);paint=wrapped
+    var cut_material: ShaderMaterial=paint.duplicate();cut_material.set_shader_parameter("cut_height",.65)
+    if int(exterior_options.get("finish",5))==0:exterior_tint_materials=[paint,cut_material]
+    for data in preload("HallExteriorWall.gd").walls(parcels,exterior_options):
+        var holder := Node3D.new();room_geometry.add_child(holder);holder.transform=_transform(data)
+        holder.set_meta("exterior_wall",data.id)
+        _wall_geometry(holder,data,data._wall_ends)
+        var body: StaticBody3D=holder.get_meta("wall_body");body.collision_layer=1;body.remove_meta("hall_id")
+        for mesh in holder.find_children("*","MeshInstance3D",false,false):
+            mesh.material_override=cut_material if editing and data._cutaway else paint
+
+func refresh_exterior_tint() -> void:
+    for material in exterior_tint_materials:material.set_shader_parameter("artwork_tint",wall_paint.albedo_color)
 
 func apply_layout(objects: Array,state: Dictionary,change: Dictionary={}) -> Array:
     var retained: Array=[]
@@ -395,6 +439,9 @@ func apply_layout(objects: Array,state: Dictionary,change: Dictionary={}) -> Arr
             if data.kind=="wall":walls_changed=true
         elif change.is_empty() or (change.get("kind")=="patch" and change.get("id")==data.id):
             var fields: Array=change.get("fields",[])
+            if data.kind=="column":
+                found.node.hide();found.body.collision_layer=0;found.node.queue_free()
+                found=_create(data)
             if data.kind=="tank":
                 if (change.is_empty() or "fish_count" in fields) and int(data.fish_count)!=int(found.data.fish_count):found.tank.set_fish_count(int(data.fish_count))
                 if (change.is_empty() or "content" in fields) and not data.get("content",{}).is_empty() and JSON.stringify(found.tank.content_state())!=JSON.stringify(data.content):found.tank.apply_content(data.content)

@@ -41,8 +41,16 @@ func execute(kind: String,payload: Dictionary,remember: bool=true,expected_revis
             if not Footprint.can_add(next.parcels,cell):return {"ok":false,"error":"这里已经铺过地块了。"}
             next.parcels.append(payload.cell.duplicate())
         "style":
-            if payload.get("key") not in ["floor_style","wall_style"]:return {"ok":false,"error":"未知表面样式。"}
+            if payload.get("key") not in ["floor_style","wall_style","wall_finish"]:return {"ok":false,"error":"未知表面样式。"}
             next[payload.key]=payload.get("value")
+        "exterior":
+            if not payload.get("patch") is Dictionary:return {"ok":false,"error":"外墙参数无效。"}
+            next.exterior_wall=preload("HallExteriorWall.gd").settings(next)
+            next.exterior_wall.merge(payload.patch,true)
+        "region":
+            var proposal := preload("HallArchitecture.gd").region_proposal(next,payload)
+            if not proposal.ok:return proposal
+            next=proposal.layout
         "floor":
             var proposal := floor_proposal(next,payload)
             if not proposal.ok:return proposal
@@ -81,6 +89,8 @@ func floor_proposal(layout: Dictionary,payload: Dictionary) -> Dictionary:
     candidate.schema_version=3
     candidate.floor_tiles=[]
     for cell in tiles:candidate.floor_tiles.append([cell.x,cell.y,cell.z])
+    for field in ["floor_finishes","ceilings"]:
+        candidate[field]=candidate.get(field,[]).filter(func(row):return row[1]==0 or tiles.has(Storeys.key(row)))
     rules.placement_error=""
     if not rules._valid_storeys(candidate):return {"ok":false,"error":rules.placement_error}
     return {"ok":true,"layout":candidate,"changed":changed}

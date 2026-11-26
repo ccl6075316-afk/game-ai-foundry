@@ -47,6 +47,7 @@ func set_preview(id: String,texture: Texture2D) -> void:
         if card.asset.id==id:card.preview.texture=texture
 
 func refresh() -> void:
+    (cards.get_parent() as ScrollContainer).scroll_horizontal=0
     for child in cards.get_children():cards.remove_child(child);child.queue_free()
     var card_group := ButtonGroup.new()
     for item in entries:
@@ -57,3 +58,10 @@ func refresh() -> void:
         b.tooltip_text=item.label+" · "+item.category+"\n拖入场景放置";b.focus_mode=Control.FOCUS_NONE
         b.toggle_mode=true;b.button_group=card_group;b.button_pressed=item.id==selected_asset
         b.pressed.connect(func():selected_asset=item.id;chosen.emit(item.id));cards.add_child(b)
+
+func show_category(title: String) -> void:
+    search.clear()
+    for index in tabs.tab_count:
+        if tabs.get_tab_title(index)==title:
+            tabs.current_tab=index;category.select(index);refresh()
+            return

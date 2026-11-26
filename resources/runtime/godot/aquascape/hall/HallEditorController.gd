@@ -20,7 +20,14 @@ var tank_size_index := 1
 var pending_yaw := 0.0
 var wall_anchor: Variant=null
 var wall_with_door := false
+var wall_with_window := false
+var wall_profile_choice := "plain"
+var wall_half_height := false
 var panning := false
+const Architecture=preload("HallArchitecture.gd")
+var region_finish := 0
+var ceiling_height := 6.6
+var column_round := false
 var floor_anchor: Variant=null
 var floor_preview_key: Array=[]
 
@@ -144,8 +151,9 @@ func _refresh_parcel_hints() -> void:
         var sign := Label3D.new();sign.text="＋ 6×7 m";sign.position=Vector3(p.x,.12,p.y);sign.rotation.x=-PI/2;sign.font_size=55;sign.pixel_size=.012;parcel_hints.add_child(sign)
 
 func _valid_placement(data: Dictionary,rows: Array,ignore_id: String="",cells: Array=[]) -> bool:
-    var valid: bool = host.layout_rules._valid_placement(data,rows,ignore_id,host.parcels if cells.is_empty() else cells)
+    var valid: bool = Architecture.valid_object(data) and host.layout_rules._valid_placement(data,rows,ignore_id,host.parcels if cells.is_empty() else cells)
     if valid:valid=host.layout_rules._valid_level_support(data,host.floor_cells)
+    if valid:valid=host.layout_rules._exterior_clear({"parcels":host.parcels,"exterior_wall":host._state().get("exterior_wall",{}),"objects":[data]})
     return valid
 
 func _change_finish(key: String) -> void:
@@ -190,11 +198,12 @@ func set_tank_size(index: int) -> void:
 func _candidate(kind: String,at: Vector3) -> Dictionary:
     var preset := [.5,.65,1.0]
     var snap := 1.0 if kind=="stair" else .25
-    var data := {"id":"placement-preview","kind":kind,"name":{"tank":"新展缸","bench":"观赏长凳","plinth":"石灯展示台","stair":"楼梯"}.get(kind,"隔墙"),"at":[snappedf(at.x,snap),snappedf(at.z,snap)],"yaw":pending_yaw,"scale":float(preset[tank_size_index]) if kind=="tank" else 1.0}
+    var data := {"id":"placement-preview","kind":kind,"name":{"tank":"新展缸","bench":"观赏长凳","plinth":"石灯展示台","stair":"楼梯","column":"建筑柱"}.get(kind,"隔墙"),"at":[snappedf(at.x,snap),snappedf(at.z,snap)],"yaw":pending_yaw,"scale":float(preset[tank_size_index]) if kind=="tank" else 1.0}
     if host.active_level>0:data.level=host.active_level
     if kind=="shell":
         data.design=host.build_editor.shells.active_design.duplicate(true)
         data.name=host.build_editor.shells.active_name
+    if kind=="column":data.height=3.2;data.width=.6;data.round=column_round
     if kind=="tank":data.fish_count=0;data.content={}
     return data
 
@@ -216,6 +225,11 @@ func _wall_candidate(start: Vector3,finish: Vector3) -> Dictionary:
     if along_x:finish.z=start.z;finish.x=start.x+clampf(finish.x-start.x,-18,18)
     else:finish.x=start.x;finish.z=start.z+clampf(finish.z-start.z,-18,18)
     var data := {"id":"wall-preview","kind":"wall","name":"门洞隔墙" if wall_with_door else "馆内隔墙","at":[(start.x+finish.x)/2,(start.z+finish.z)/2],"yaw":0.0 if along_x else PI/2,"scale":1.0,"length":start.distance_to(finish),"door":wall_with_door}
+    if wall_with_window:
+        data.name="窗洞墙";data.opening="window";data.opening_width=1.8;data.opening_height=1.5;data.sill=1.0
+    data.wall_profile=wall_profile_choice
+    if wall_profile_choice=="rock":data.wall_finish=5;data.name="立体岩壁"
+    if wall_half_height:data.height=1.2;data.name="半高墙"
     if host.active_level>0:data.level=host.active_level
     return data
 
@@ -245,6 +259,9 @@ func _set_tool(kind: String) -> void:
     if is_instance_valid(build_preview):host._clear_geometry(build_preview)
     _refresh_parcel_hints()
     host.notice={"shell":"把展缸拖到空地，放下后拖外框边线或顶点调大小。","parcel":"点击任意空地铺一块 6×7 米地基，可隔开铺设。","wall":"先点墙起点，再点终点；自动取直线，Esc 取消。","tank":"移动鼠标预览新展缸；Q/E 转向，点击放下，Esc 取消。","bench":"点击空地放长凳。","plinth":"点击空地放展示台。","stair":"点击放楼梯，Q/E 转向，箭头指向上层出口。","floor":"点击铺一格，拖动铺一片。黄色标记是楼梯出口。","floor_erase":"点击或拖动拆除楼板，留下挑空。","":"单击选中物件，再按住它拖动。"}.get(kind,"")
+    host._sync_panel()
+    if kind in Architecture.REGION_TOOLS:host.notice="拖动选择区域；左侧设置材料或天花高度，Esc 结束。"
+    if kind=="column":host.notice="点击放置柱子，选中后调整高度和宽度。"
     if kind=="parcel":
         var extent: Rect2=Footprint.extent(host.parcels)
         host.view_size=maxf(maxf(extent.size.y*1.45,extent.size.x*.98)+13,30);host._camera()
@@ -254,7 +271,7 @@ func _preview(at: Variant) -> void:
         if at!=null and host.editing:host.build_editor.shells.preview(at)
         else:host.build_editor.shells.ghost.hide()
         return
-    if at!=null and host.editing and pending_kind in ["floor","floor_erase"]:
+    if at!=null and host.editing and pending_kind in ["floor","floor_erase"]+Architecture.REGION_TOOLS:
         _preview_floor(at);return
     floor_preview_key=[]
     host._clear_geometry(build_preview)
@@ -269,14 +286,21 @@ func _preview(at: Variant) -> void:
             box=AABB(Vector3(snappedf(at.x,.5)-.12,at.y,snappedf(at.z,.5)-.12),Vector3(.24,.12,.24));allowed=Footprint.contains(host.parcels,box)
         else:
             var data := _wall_candidate(wall_anchor,at)
-            box=host._transform(data)*host._bounds(data);allowed=data.length>=(3 if data.door else .5) and _valid_placement(data,host.objects)
+            box=host._transform(data)*host._bounds(data);allowed=data.length>=(3 if data.door else .5) and Architecture.valid_object(data) and _valid_placement(data,host.objects)
     else:
         var data := _candidate(pending_kind,at)
         box=host._transform(data)*host._bounds(data);allowed=_valid_placement(data,host.objects) and host.objects.size()<host.MAX_OBJECTS
         if pending_kind in ["shell","tank"] and host.objects.filter(func(r):return r.data.kind in ["shell","tank"]).size()>=host.MAX_TANKS:allowed=false
     var paint: StandardMaterial3D = host._paint(Color(.3,.9,.65,.24) if allowed else Color(1,.28,.26,.30),true)
     paint.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA;paint.cull_mode=BaseMaterial3D.CULL_DISABLED
-    host._box(build_preview,box.get_center(),box.size,paint)
+    if pending_kind=="wall" and wall_anchor!=null:
+        var data := _wall_candidate(wall_anchor,at)
+        var holder := Node3D.new();build_preview.add_child(holder);holder.transform=host._transform(data)
+        if data.get("wall_profile", "plain")=="rock" and data.length>.01:
+            var mesh := MeshInstance3D.new();mesh.mesh=preload("HallRockWall.gd").build(data).mesh;mesh.material_override=paint;holder.add_child(mesh)
+        else:
+            for part in preload("HallWallForm.gd").parts(data):host._box(holder,part.at,part.size,paint)
+    else:host._box(build_preview,box.get_center(),box.size,paint)
     if pending_kind=="stair":
         var marker := Label3D.new()
         marker.text="上层出口 ↑";marker.billboard=BaseMaterial3D.BILLBOARD_ENABLED
@@ -287,7 +311,7 @@ func _preview(at: Variant) -> void:
 func _floor_payload(at: Vector3) -> Dictionary:
     var start: Vector3=at if floor_anchor==null else floor_anchor
     return {"start":[floori(start.x),host.active_level,floori(start.z)],"end":[floori(at.x),host.active_level,floori(at.z)],
-        "erase":pending_kind=="floor_erase"}
+        "erase":pending_kind=="floor_erase","tool":pending_kind,"value":ceiling_height if pending_kind=="ceiling" else region_finish}
 
 func _preview_floor(at: Vector3) -> void:
     var payload := _floor_payload(at)
@@ -295,7 +319,8 @@ func _preview_floor(at: Vector3) -> void:
     if floor_preview_key==key:return
     floor_preview_key=key
     host._clear_geometry(build_preview)
-    var result: Dictionary=host.build_commands.floor_proposal(host._state(),payload)
+    var result: Dictionary=Architecture.region_proposal(host._state(),payload) if pending_kind in Architecture.REGION_TOOLS else host.build_commands.floor_proposal(host._state(),payload)
+    if result.ok and pending_kind in Architecture.REGION_TOOLS:result.ok=Architecture.valid_regions(result.layout,host.layout_rules)
     var a := Storeys.key(payload.start)
     var b := Storeys.key(payload.end)
     var lo := a.min(b)
@@ -308,9 +333,9 @@ func _preview_floor(at: Vector3) -> void:
 func _commit_floor(at: Vector3) -> void:
     var payload := _floor_payload(at)
     floor_anchor=null
-    if host._execute_build("floor",payload):
-        host.notice="已拆除选区楼板。" if payload.erase else "已铺设选区地板。"
-    if pending_kind in ["floor","floor_erase"]:_preview_floor(at)
+    if host._execute_build("region" if pending_kind in Architecture.REGION_TOOLS else "floor",payload):
+        host.notice="区域设置已保存，可撤销。" if pending_kind in Architecture.REGION_TOOLS else ("已拆除选区楼板。" if payload.erase else "已铺设选区地板。")
+    if pending_kind in ["floor","floor_erase"]+Architecture.REGION_TOOLS:_preview_floor(at)
 
 func _change_level(direction: int) -> bool:
     if not host.editing or host.tank_session.inspecting or host.tank_session.active_editor!=null:return false
@@ -339,6 +364,7 @@ func _set_lower_life(value: bool) -> void:
 
 func _refresh_floor_view(update_guides: bool,update_reference: bool=false) -> void:
     host.scene_projection.show_floors(host.active_level,host.editing)
+    if is_instance_valid(host.scene_projection.architecture_view):host.scene_projection.architecture_view.set_view(host.active_level,host.editing)
     if update_reference:host.scene_projection.show_floor_below(host.active_level,host.editing,host.objects)
     host.visible_objects=[]
     for row in host.objects:
@@ -352,7 +378,10 @@ func _refresh_floor_view(update_guides: bool,update_reference: bool=false) -> vo
             row.tank.fish_visuals.visible=current or lower_fish
         row.body.collision_layer=2 if current else 0
         if current or incoming:host.visible_objects.append(row)
-    if is_instance_valid(host.visitor_crowd):host.visitor_crowd.visible=not host.editing or host.active_level==0 or (host.active_level==1 and host.show_lower_life)
+    if is_instance_valid(host.visitor_crowd):
+        host.visitor_crowd.visible=true
+        host.visitor_crowd.visible_level=host.active_level if host.editing else -1
+        host.visitor_crowd.lower_visible_level=host.active_level-1 if host.editing and host.show_lower_life else -1
     if update_guides:host.scene_projection.show_floor_guides(host.active_level,host.editing,host.parcels,host.objects,host.floor_cells)
 
 func _delete_selected() -> void:

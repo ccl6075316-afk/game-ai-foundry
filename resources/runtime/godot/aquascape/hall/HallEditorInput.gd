@@ -25,7 +25,7 @@ func canvas_input(host: Control,event: InputEvent) -> void:
         host.view_size=maxf(host.view_size*(.9 if event.button_index==MOUSE_BUTTON_WHEEL_UP else 1.1),1.0 if host.build_editor.shells.session.mode=="interior" else 10.0);host._camera();host.editor._preview(host.editor._floor_hit(host.pointer))
     if event.button_index==MOUSE_BUTTON_LEFT:
         var at: Variant=host.editor._floor_hit(host.pointer)
-        if host.editor.pending_kind in ["floor","floor_erase"]:
+        if host.editor.pending_kind in ["floor","floor_erase"]+host.editor.Architecture.REGION_TOOLS:
             if event.pressed:host.editor.floor_anchor=at;host.editor._preview(at)
             elif host.editor.floor_anchor!=null:
                 if at!=null:host.editor._commit_floor(at)

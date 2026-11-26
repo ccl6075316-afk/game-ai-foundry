@@ -9,6 +9,8 @@ NAMES=['AquariumHall3D.gd','AquariumHall3DReview.gd','HallTank3D.gd','HallTankEd
 NAMES += ['hall/'+name for name in ['HallLayoutRules.gd','HallLayoutStore.gd','HallEditHistory.gd','HallWalkController.gd','HallEditorPanel.gd','HallEditorController.gd','HallEditorInput.gd','HallTankSession.gd','HallLayoutDocument.gd','HallBuildCommands.gd','HallSceneProjection.gd','HallStoreys.gd']]
 
 NAMES += ['hall/HallInterfaceStyle.gd', 'hall/HallWallJoints.gd']
+NAMES += ['hall/HallWallForm.gd', 'hall/HallWallMaterial.gdshader', 'hall/HallRockWall.gd', 'hall/HallExteriorWall.gd']
+
 NAMES += ['PlantSwayMotion.gdshaderinc']
 NAMES += ['tank_design/'+name for name in [
     'FinishedShell.gd', 'Footprint.gd', 'HallShellCatalog.gd', 'HallShellHandles.gd',
@@ -24,6 +26,7 @@ NAMES += ['visitors/'+name for name in ['HallVisitorCrowd.gd','HallVisitorNaviga
 NAMES += ['passage/'+name for name in ['PassageRoute.gd','PassageSession.gd','PassageMesh.gd','PassageWorld.gd','PassagePanel.gd','PassageLab.gd','PassageDryVolume.gdshaderinc','PassageOuterGlass.gdshader']]
 
 NAMES += ['editor/'+name for name in ['BuildAssetCard.gd','BuildDropCanvas.gd','BuildPalette.gd','PropTransform.gd','EditorGizmo.gd','BuildEditorBridge.gd','BuildInspector.gd','BuildThumbnailService.gd']]
+NAMES += ['hall/HallArchitecture.gd', 'hall/HallArchitecturePanel.gd', 'hall/HallArchitectureView.gd', 'visitors/HallStoreyNavigation.gd', 'reviews/HallExhibitFloor.gdshader']
 # Shared tank editor and its drop canvas host are part of the same dependency set.
 NAMES += ['SandPlacementLab.gd','DecorPlacementLab.gd']
 

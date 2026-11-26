@@ -31,7 +31,7 @@ func setup(owner_value: Control,in_tank: bool) -> void:
     else:
         shells=preload("../tank_design/HallShellCatalog.gd").new(host)
         items=shells.entries()
-        for pair in [["tank_0","小型成品展缸","模块展缸"],["tank_1","中型成品展缸","模块展缸"],["tank_2","标准成品展缸","模块展缸"],["wall","实心隔墙","馆内建筑"],["door","门洞隔墙","馆内建筑"],["parcel","铺设地块","馆内建筑"],["stair","楼梯","馆内建筑"],["floor","铺楼板","馆内建筑"],["floor_erase","拆楼板","馆内建筑"],["bench","观赏长凳","家具"],["plinth","展示台","家具"]]:items.append({"id":pair[0],"label":pair[1],"category":pair[2]})
+        for pair in [["tank_0","小型成品展缸","模块展缸"],["tank_1","中型成品展缸","模块展缸"],["tank_2","标准成品展缸","模块展缸"],["wall","实心隔墙","墙和柱"],["door","门洞隔墙","墙和柱"],["window","窗洞墙","墙和柱"],["half_wall","半高墙","墙和柱"],["wall_wainscot","墙裙压顶墙","墙和柱"],["wall_pilaster","壁柱分段墙","墙和柱"],["wall_recessed","凹面框格墙","墙和柱"],["wall_rock","立体岩壁","墙和柱"],["parcel","铺设地块","地面"],["stair","楼梯","楼梯楼板"],["floor","铺楼板","楼梯楼板"],["floor_erase","拆楼板","楼梯楼板"],["column","方柱","墙和柱"],["column_round","圆柱","墙和柱"],["finish","分区铺地材","地面"],["finish_erase","还原地材","地面"],["ceiling","覆盖天花","天花"],["ceiling_erase","取消天花","天花"],["bench","观赏长凳","家具"],["plinth","展示台","家具"]]:items.append({"id":pair[0],"label":pair[1],"category":pair[2]})
         palette.theme=host.panel.theme
     palette.setup("造景目录" if tank else "建造目录",items,"tank" if tank else "hall")
     palette.chosen.connect(choose);palette.drag_started.connect(func(id):drag_asset=id;choose(id))
@@ -76,7 +76,12 @@ func choose(id: String) -> void:
         host.panel.water_panel.hide()
         if shells.templates.has(id):shells.choose(id)
         elif id.begins_with("tank_"):host.panel.choose_tank_size(host, int(id.trim_prefix("tank_")));host.editor._set_tool("tank")
-        elif id in ["wall","door"]:host.editor.wall_with_door=id=="door";host.editor._set_tool("wall")
+        elif id in ["column","column_round"]:host.editor.column_round=id=="column_round";host.editor._set_tool("column")
+        elif id in ["wall","door","window","half_wall","wall_wainscot","wall_pilaster","wall_recessed","wall_rock"]:
+            host.editor.wall_with_door=id=="door";host.editor.wall_with_window=id=="window"
+            host.editor.wall_half_height=id=="half_wall"
+            host.editor.wall_profile_choice={"wall_wainscot":"wainscot","half_wall":"wainscot","wall_pilaster":"pilaster","wall_recessed":"recessed","wall_rock":"rock"}.get(id,"plain")
+            host.editor._set_tool("wall")
         else:host.editor._set_tool(id)
 
 func set_mode(value: String) -> void:
@@ -93,8 +98,8 @@ func drop_asset(id: String,at: Vector2) -> void:
         var hit: Variant=host.editor._floor_hit(at*Vector2(host.viewport.size)/host.canvas.size)
         if hit!=null:
             if id in ["floor","floor_erase"] and host.editor.pending_kind!=id:return
-            if host.editor.pending_kind in ["tank","shell","bench","plinth","stair"]:host.editor._add_at(host.editor.pending_kind,hit)
-            elif host.editor.pending_kind in ["floor","floor_erase"]:
+            if host.editor.pending_kind in ["tank","shell","bench","plinth","stair","column"]:host.editor._add_at(host.editor.pending_kind,hit)
+            elif host.editor.pending_kind in ["floor","floor_erase"]+host.editor.Architecture.REGION_TOOLS:
                 host.editor.floor_anchor=hit;host.editor._commit_floor(hit)
             elif host.editor.pending_kind=="parcel":host.editor._expand_at(hit)
             elif host.editor.pending_kind=="wall":host.editor.wall_anchor=hit;host.notice="已放下墙起点，点击终点建墙。"
