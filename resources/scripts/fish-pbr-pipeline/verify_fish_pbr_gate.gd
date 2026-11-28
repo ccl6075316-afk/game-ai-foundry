@@ -1,4 +1,6 @@
 extends SceneTree
+
+const SourceGate := preload("fish_pbr_source_gate.gd")
 ## Universal Single-Material PBR Fish Hard QA Gate (Godot 4.7+).
 ## Usage:
 ##   Godot --path projects/fishing-2d/game --script resources/scripts/fish-pbr-pipeline/verify_fish_pbr_gate.gd -- \
@@ -34,10 +36,12 @@ func _parse_args() -> Dictionary:
 func _load_glb(path: String) -> Node3D:
 	var doc := GLTFDocument.new()
 	var state := GLTFState.new()
-	var err := doc.append_from_file(path, state)
-	if err != OK:
+	if doc.append_from_file(path, state) != OK:
 		return null
-	return doc.generate_scene(state) as Node3D
+	var model := doc.generate_scene(state) as Node3D
+	if model != null:
+		model.set_meta("source_pbr_streams", SourceGate.inspect(state.json))
+	return model
 
 func _settle(frames := 6) -> void:
 	for i in frames:
@@ -58,7 +62,7 @@ func _tex_vram_mb(tex: Texture2D) -> float:
 	return float(sz.x * sz.y) * 4.0 * 1.3333 / (1024.0 * 1024.0)
 
 func _find_existing_mouth_anchor(species: String) -> Dictionary:
-	for sub in ["width20261101", "eleven20261105"]:
+	for sub in ["width20261101", "eleven20261105", "static20261108"]:
 		var p := "res://assets/models/fish/motion/%s/%s-mouth-anchor.json" % [sub, species]
 		if FileAccess.file_exists(p):
 			return JSON.parse_string(FileAccess.get_file_as_string(p))
@@ -158,7 +162,7 @@ func _run() -> void:
 	model.scale = Vector3.ONE * (length_m / bounds.size.x)
 	model.position = -bounds.get_center() * model.scale
 
-	var checks := {}
+	var checks: Dictionary = model.get_meta("source_pbr_streams").duplicate()
 	checks["single_mesh_single_material_draw_call_1"] = (meshes.size() == 1 and mesh_node.mesh.get_surface_count() == 1)
 	checks["alpha_mode_mask_05"] = (
 		mat != null

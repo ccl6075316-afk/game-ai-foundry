@@ -1,0 +1,580 @@
+{
+  "african_catfish": {
+    "base_clip": "Swim",
+    "body_wave_radians": 0.18,
+    "constraints": [
+      "Pectoral_left",
+      "Pectoral_right",
+      "Pelvic_left",
+      "Pelvic_right"
+    ],
+    "median_fin_radians": 0.065,
+    "model_sha256": "e09b4b7d8cadfb77478dd047e90ca2733ebc3392a0f2f04ceb1cd0247a3f5072",
+    "paired_fin_radians": 0.18,
+    "standard_group": "long_body",
+    "clip_seconds": 2.41666674613953,
+    "controller": "res://scripts/aquarium/FishJawActionMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Swim",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left": 0.0686513036489487,
+      "Pectoral_right": 0.0686547830700874
+    }
+  },
+  "arapaima": {
+    "base_clip": "Animation",
+    "body_wave_radians": 0.24,
+    "constraints": [],
+    "median_fin_radians": 0.1,
+    "model_sha256": "4cc9e695fc0127a0c85844789df741300d5ade4469074eeed0d871948f2d3b40",
+    "paired_fin_radians": 0.26,
+    "standard_group": "long_body",
+    "clip_seconds": 2.0,
+    "controller": "res://scripts/aquarium/ArapaimaMouthAction.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Animation",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "AuxP_L_01": 0.143529132008553,
+      "AuxP_L_02": 0.143527463078499,
+      "AuxP_L_03": 0.143529132008553,
+      "AuxP_R_01": 0.14353246986866,
+      "AuxP_R_02": 0.143530800938606,
+      "AuxP_R_03": 0.143529132008553,
+      "Pectoral_left": 0.143527463078499,
+      "Pectoral_left_bodyframe_body_01": 0.143529132008553,
+      "Pectoral_left_bodyframe_body_03": 0.143529132008553,
+      "Pectoral_right": 0.143530800938606,
+      "Pectoral_right_bodyframe_body_01": 0.14353246986866,
+      "Pectoral_right_bodyframe_body_03": 0.143529132008553
+    }
+  },
+  "atlantic_sailfish": {
+    "base_clip": "Animation",
+    "body_wave_radians": 0.045,
+    "constraints": [],
+    "median_fin_radians": 0.024,
+    "model_sha256": "ae166d22da98b766da16228d6254fee508f733e5ba18b75dfdc3fa8a16b7b6cb",
+    "paired_fin_radians": 0.06,
+    "standard_group": "thunniform",
+    "clip_seconds": 2.41666674613953,
+    "controller": "res://scripts/aquarium/FishJawActionMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Animation",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left_2": 0.0863891690969467,
+      "Pectoral_right_2": 0.0863891690969467
+    }
+  },
+  "atlantic_salmon": {
+    "base_clip": "Swim",
+    "body_wave_radians": 0.14,
+    "constraints": [
+      "Pectoral_left",
+      "Pectoral_right",
+      "Pelvic_left",
+      "Pelvic_right"
+    ],
+    "median_fin_radians": 0.075,
+    "model_sha256": "d11e117d760d331fb4810e025b6df65d86b99ce06ca0ca8624e620eb7fb8c4f6",
+    "paired_fin_radians": 0.22,
+    "standard_group": "subcarangiform",
+    "clip_seconds": 2.41666674613953,
+    "controller": "res://scripts/aquarium/FishJawActionMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Swim",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left": 0.0664956495165825,
+      "Pectoral_right": 0.0664992332458496
+    }
+  },
+  "black_seabream": {
+    "base_clip": "Swim",
+    "body_wave_radians": 0.11,
+    "constraints": [
+      "Pectoral_left",
+      "Pectoral_right",
+      "Pelvic_left",
+      "Pelvic_right"
+    ],
+    "median_fin_radians": 0.07,
+    "model_sha256": "e18f9212d8df86036b21d6e43bad32c0667bcb58c5c5e3c4d189d0af7e7e5437",
+    "paired_fin_radians": 0.2,
+    "standard_group": "subcarangiform",
+    "clip_seconds": 2.41666674613953,
+    "controller": "res://scripts/aquarium/FishJawActionMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Swim",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left": 0.0686582550406456,
+      "Pectoral_right": 0.0686513036489487
+    }
+  },
+  "blacktip_reef_shark": {
+    "base_clip": "Swim",
+    "body_wave_radians": 0.21,
+    "constraints": [],
+    "median_fin_radians": null,
+    "model_sha256": "b61b3a50d79903768d69095d7ecdb66dc8ccd0751e1804471c4660081c9a192a",
+    "paired_fin_radians": null,
+    "standard_group": "shark",
+    "clip_seconds": 2.0,
+    "controller": "res://scripts/aquarium/FoundryFishMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Swim",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left": 0.0616957657039165,
+      "Pectoral_right": 0.0616957657039165
+    }
+  },
+  "bluegill": {
+    "base_clip": "Swim",
+    "body_wave_radians": 0.16,
+    "constraints": [
+      "Pectoral_left",
+      "Pectoral_right",
+      "Pelvic_left",
+      "Pelvic_right"
+    ],
+    "median_fin_radians": 0.1,
+    "model_sha256": "d74d684490d925abb8f1bc98f798e34ca3dc0dd04ec3c2495140d69e438a12f1",
+    "paired_fin_radians": 0.26,
+    "standard_group": "labriform",
+    "clip_seconds": 2.41666674613953,
+    "controller": "res://scripts/aquarium/FishJawActionMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Swim",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left": 0.110839553177357,
+      "Pectoral_right": 0.110835246741772
+    }
+  },
+  "brown_trout": {
+    "base_clip": "Swim",
+    "body_wave_radians": 0.1,
+    "constraints": [],
+    "median_fin_radians": 0.1,
+    "model_sha256": "4fa8147be65f2bf2d6fdeb60de3b48ebe0b1b9a29bfff0ea95e74ab842e3abd9",
+    "paired_fin_radians": 0.26,
+    "standard_group": "subcarangiform",
+    "clip_seconds": 2.41666674613953,
+    "controller": "res://scripts/aquarium/FishJawActionMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Swim",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left": 0.103448830544949,
+      "Pectoral_right": 0.103446520864964
+    }
+  },
+  "carp": {
+    "base_clip": "Swim",
+    "body_wave_radians": 0.11,
+    "constraints": [
+      "Pectoral_left",
+      "Pectoral_right",
+      "Pelvic_left",
+      "Pelvic_right"
+    ],
+    "median_fin_radians": 0.07,
+    "model_sha256": "c02e8674168977d10105359b5d7a20bc182cdf32dcb8cfbef482a4de20b20b2c",
+    "paired_fin_radians": 0.2,
+    "standard_group": "subcarangiform",
+    "clip_seconds": 2.41666674613953,
+    "controller": "res://scripts/aquarium/CommonCarpJawMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Swim",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left": 0.0686547830700874,
+      "Pectoral_right": 0.0686478316783905
+    }
+  },
+  "crucian": {
+    "base_clip": "Swim",
+    "body_wave_radians": 0.11,
+    "constraints": [
+      "Pectoral_left",
+      "Pectoral_right",
+      "Pelvic_left",
+      "Pelvic_right"
+    ],
+    "median_fin_radians": 0.07,
+    "model_sha256": "697c0d3acf150fd620f0419cd323fff4b173a5d6b41e9962071d10a5092afb9a",
+    "paired_fin_radians": 0.2,
+    "standard_group": "subcarangiform",
+    "clip_seconds": 2.41666674613953,
+    "controller": "res://scripts/aquarium/FishJawActionMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Swim",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left": 0.0686478316783905,
+      "Pectoral_right": 0.0686513036489487
+    }
+  },
+  "grass_carp": {
+    "base_clip": "Swim",
+    "body_wave_radians": 0.14,
+    "constraints": [
+      "Pectoral_left",
+      "Pectoral_right",
+      "Pelvic_left",
+      "Pelvic_right"
+    ],
+    "median_fin_radians": 0.065,
+    "model_sha256": "491e7c0222152f61cdba0bf9f383dce15d602d4e056d95d4f3a4e9cdd403b024",
+    "paired_fin_radians": 0.18,
+    "standard_group": "subcarangiform",
+    "clip_seconds": 2.41666674613953,
+    "controller": "res://scripts/aquarium/FishJawActionMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Swim",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left": 0.0686513036489487,
+      "Pectoral_right": 0.0686513036489487
+    }
+  },
+  "great_hammerhead": {
+    "base_clip": "Swim",
+    "body_wave_radians": 0.14,
+    "constraints": [
+      "Pectoral_left_bone",
+      "Pectoral_right_bone",
+      "Pelvic_left_bone",
+      "Pelvic_right_bone"
+    ],
+    "median_fin_radians": 0.025,
+    "model_sha256": "4f2665eb7d1db5ea05864f8d34887d4071d5c16b435fc3aafef54552a2844583",
+    "paired_fin_radians": 0.045,
+    "standard_group": "shark",
+    "clip_seconds": 2.20833325386047,
+    "controller": "res://scripts/aquarium/FoundryFishMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Swim",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left_bone": 0.0398895740509033,
+      "Pectoral_right_bone": 0.0398835949599743
+    }
+  },
+  "hairtail": {
+    "base_clip": "Animation",
+    "body_wave_radians": null,
+    "constraints": [
+      "Pectoral_Near",
+      "Pectoral_Far"
+    ],
+    "median_fin_radians": null,
+    "model_sha256": "d8ed7c139297a4e734d753a4d13a5b19f260cb5e3f64266901be15b1cd05e7b2",
+    "paired_fin_radians": null,
+    "standard_group": "long_body",
+    "clip_seconds": 2.04166674613953,
+    "controller": "res://scripts/aquarium/FoundryFishMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Animation",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_Far": 0.103716306388378,
+      "Pectoral_Near": 0.103714004158974
+    }
+  },
+  "mahi_mahi": {
+    "base_clip": "Swim",
+    "body_wave_radians": 0.12,
+    "constraints": [],
+    "median_fin_radians": 0.025,
+    "model_sha256": "3767ad7111b7f7e1cb6d68f875a8391ab19a5dbee6dd6762b227a8ec1b60e3e5",
+    "paired_fin_radians": 0.04,
+    "standard_group": "thunniform",
+    "clip_seconds": 1.58333337306976,
+    "controller": "res://scripts/aquarium/FishJawActionMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Swim",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left_2": 0.0756354406476021,
+      "Pectoral_right_2": 0.0797067433595657
+    }
+  },
+  "nile_tilapia": {
+    "base_clip": "Animation",
+    "body_wave_radians": 0.11,
+    "constraints": [
+      "Pectoral_left_2",
+      "Pectoral_right_2",
+      "Pelvic_left_2",
+      "Pelvic_right_2"
+    ],
+    "median_fin_radians": 0.07,
+    "model_sha256": "28a20e9cc8a2acf4c06570922cd2a6ddf41e86418875c15fea27ef85d2379755",
+    "paired_fin_radians": 0.2,
+    "standard_group": "subcarangiform",
+    "clip_seconds": 2.41666674613953,
+    "controller": "res://scripts/aquarium/FishJawActionMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Animation",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left_2": 0.0680964440107346,
+      "Pectoral_right_2": 0.0682574361562729
+    }
+  },
+  "pacific_bluefin_tuna": {
+    "base_clip": "Swim",
+    "body_wave_radians": 0.045,
+    "constraints": [],
+    "median_fin_radians": 0.024,
+    "model_sha256": "f3f582fc80d08bf18e008b6fd2180f94d58eb5d80d67d472843e59416d7b9660",
+    "paired_fin_radians": 0.06,
+    "standard_group": "thunniform",
+    "clip_seconds": 2.41666674613953,
+    "controller": "res://scripts/aquarium/PacificBluefinTunaJawMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Swim",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left_2": 0.0851212218403816,
+      "Pectoral_right_2": 0.0851156190037727
+    }
+  },
+  "peacock_bass": {
+    "base_clip": "Swim",
+    "body_wave_radians": 0.12,
+    "constraints": [],
+    "median_fin_radians": 0.1,
+    "model_sha256": "1047cbfb902a4b66ffdfc8c5bc8aeb2509b91e0a0e0de1cbf7836e17246d0ffe",
+    "paired_fin_radians": 0.26,
+    "standard_group": "subcarangiform",
+    "clip_seconds": 2.0,
+    "controller": "res://scripts/aquarium/PeacockMotion20261105.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Swim",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left": 0.0665637850761414,
+      "Pectoral_right": 0.0665602013468742
+    }
+  },
+  "piranha": {
+    "base_clip": "Swim",
+    "body_wave_radians": null,
+    "constraints": [
+      "Pectoral_left",
+      "Pectoral_right",
+      "Pelvic_left",
+      "Pelvic_right"
+    ],
+    "median_fin_radians": 0.08,
+    "model_sha256": "310eb305534b00e1cca1c7431abc73b593430576db453463d4dcc1976ac9f622",
+    "paired_fin_radians": 0.18,
+    "standard_group": "subcarangiform",
+    "clip_seconds": 2.41666674613953,
+    "controller": "res://scripts/aquarium/FishJawActionMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Swim",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left": 0.0197017248719931,
+      "Pectoral_right": 0.0196775067597628
+    }
+  },
+  "rainbow_trout": {
+    "base_clip": "Swim",
+    "body_wave_radians": 0.14,
+    "constraints": [
+      "Pectoral_left",
+      "Pectoral_right",
+      "Pelvic_left",
+      "Pelvic_right"
+    ],
+    "median_fin_radians": 0.065,
+    "model_sha256": "3f861bfad7029fe5bc890c0fa95bd56e6378de510bb90232a6b6f742f1f4d5ee",
+    "paired_fin_radians": 0.18,
+    "standard_group": "subcarangiform",
+    "clip_seconds": 2.41666674613953,
+    "controller": "res://scripts/aquarium/FishJawActionMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Swim",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left": 0.0686513036489487,
+      "Pectoral_right": 0.0686513036489487
+    }
+  },
+  "red_emperor": {
+    "base_clip": "Swim",
+    "body_wave_radians": 0.12,
+    "constraints": [
+      "Pectoral_left",
+      "Pectoral_right",
+      "Pelvic_left",
+      "Pelvic_right"
+    ],
+    "median_fin_radians": 0.075,
+    "model_sha256": "dd32e6b2b207b717034ee55eef25657c7677efd2b928760c5996e8b67adec713",
+    "paired_fin_radians": 0.22,
+    "standard_group": "subcarangiform",
+    "clip_seconds": 2.41666674613953,
+    "controller": "res://scripts/aquarium/FishJawActionMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Swim",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left": 0.0664956495165825,
+      "Pectoral_right": 0.0664956495165825
+    }
+  },
+  "red_seabream": {
+    "base_clip": "Swim",
+    "body_wave_radians": 0.11,
+    "constraints": [
+      "Pectoral_left",
+      "Pectoral_right",
+      "Pelvic_left",
+      "Pelvic_right"
+    ],
+    "median_fin_radians": 0.07,
+    "model_sha256": "37d152e46daddae31c5fd275f940e3f9f9855864975e5e44de1a6df56ce1d0c1",
+    "paired_fin_radians": 0.2,
+    "standard_group": "subcarangiform",
+    "clip_seconds": 2.41666674613953,
+    "controller": "res://scripts/aquarium/FishJawActionMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Swim",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left": 0.0686478316783905,
+      "Pectoral_right": 0.0686513036489487
+    }
+  },
+  "scalloped_hammerhead": {
+    "base_clip": "Swim",
+    "body_wave_radians": 0.14,
+    "constraints": [
+      "Pectoral_left_bone",
+      "Pectoral_right_bone",
+      "Pelvic_left_bone",
+      "Pelvic_right_bone"
+    ],
+    "median_fin_radians": 0.025,
+    "model_sha256": "533602b8b1824c8571b9ab176687ea99165475d81573b3275b2c4e1d882626b9",
+    "paired_fin_radians": 0.045,
+    "standard_group": "shark",
+    "clip_seconds": 1.83333337306976,
+    "controller": "res://scripts/aquarium/FoundryFishMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Swim",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left_bone": 0.0428581312298775,
+      "Pectoral_right_bone": 0.042869258671999
+    }
+  },
+  "sea_bass": {
+    "base_clip": "Swim",
+    "body_wave_radians": 0.14,
+    "constraints": [
+      "Pectoral_left",
+      "Pectoral_right",
+      "Pelvic_left",
+      "Pelvic_right"
+    ],
+    "median_fin_radians": 0.065,
+    "model_sha256": "cc27fdacd3c1bed9d581844fe730d05bc01f579afed068baa1922214863d5604",
+    "paired_fin_radians": 0.18,
+    "standard_group": "subcarangiform",
+    "clip_seconds": 2.41666674613953,
+    "controller": "res://scripts/aquarium/FishJawActionMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Swim",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left": 0.0686513036489487,
+      "Pectoral_right": 0.0686547830700874
+    }
+  },
+  "silver_arowana": {
+    "base_clip": "Animation",
+    "body_wave_radians": 0.31,
+    "constraints": [],
+    "median_fin_radians": null,
+    "model_sha256": "01a574fc09470955f470b44fc06cfd3e3961d8e82455d3d9df053af29e9611f1",
+    "paired_fin_radians": null,
+    "standard_group": "long_body",
+    "clip_seconds": 2.04166674613953,
+    "controller": "res://scripts/aquarium/FishJawActionMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Animation",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_+1": 0.271674603223801,
+      "Pectoral_-1": 0.171983510255814,
+      "Pectoral_tip_+1": 0.257764220237732,
+      "Pectoral_tip_-1": 0.208510801196098
+    }
+  },
+  "smooth_hammerhead": {
+    "base_clip": "Swim",
+    "body_wave_radians": 0.14,
+    "constraints": [
+      "Pectoral_left_bone",
+      "Pectoral_right_bone",
+      "Pelvic_left_bone",
+      "Pelvic_right_bone"
+    ],
+    "median_fin_radians": 0.025,
+    "model_sha256": "af8cf95377177918f2167027f7d959deb919ca72f7788013b88d9a03fbf52a19",
+    "paired_fin_radians": 0.045,
+    "standard_group": "shark",
+    "clip_seconds": 2.04166674613953,
+    "controller": "res://scripts/aquarium/FoundryFishMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Swim",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left_bone": 0.0399314016103745,
+      "Pectoral_right_bone": 0.0399433448910713
+    }
+  },
+  "whale_shark": {
+    "base_clip": "SlowCruise",
+    "body_wave_radians": 0.0,
+    "constraints": [],
+    "median_fin_radians": 0.023,
+    "model_sha256": "eccf3cf6be4d22c34e52ff67dc6240ed395e44c1c1f3aca7d7f18afe67de1131",
+    "paired_fin_radians": 0.045,
+    "standard_group": "shark",
+    "clip_seconds": 4.04166650772095,
+    "controller": "res://scripts/aquarium/WhaleSharkSuctionMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "SlowCruise",
+    "pectoral_native_max_change_from_first_frame_rad": {}
+  },
+  "yellow_croaker": {
+    "base_clip": "Swim",
+    "body_wave_radians": 0.14,
+    "constraints": [
+      "Pectoral_left",
+      "Pectoral_right",
+      "Pelvic_left",
+      "Pelvic_right"
+    ],
+    "median_fin_radians": 0.065,
+    "model_sha256": "e8b2c624ca799eac46dc0c38f709295dc150c0d1be6a1e969e9fb9e482d6f8a2",
+    "paired_fin_radians": 0.18,
+    "standard_group": "subcarangiform",
+    "clip_seconds": 2.41666674613953,
+    "controller": "res://scripts/aquarium/YellowCroakerJawMotion20261115.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Swim",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left": 0.0686547830700874,
+      "Pectoral_right": 0.0686547830700874
+    }
+  },
+  "zander": {
+    "base_clip": "Swim",
+    "body_wave_radians": 0.14,
+    "constraints": [
+      "Pectoral_left",
+      "Pectoral_right",
+      "Pelvic_left",
+      "Pelvic_right"
+    ],
+    "median_fin_radians": 0.065,
+    "model_sha256": "c110a9252496d11eaee5eb60a50bd6d81332cbb64843ccce739184202dcad3a9",
+    "paired_fin_radians": 0.18,
+    "standard_group": "subcarangiform",
+    "clip_seconds": 2.41666674613953,
+    "controller": "res://scripts/aquarium/FishJawActionMotion.gd",
+    "four_action_480_inside_envelope": true,
+    "native_clip": "Swim",
+    "pectoral_native_max_change_from_first_frame_rad": {
+      "Pectoral_left": 0.0686547830700874,
+      "Pectoral_right": 0.0686547830700874
+    }
+  }
+}

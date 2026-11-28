@@ -1,0 +1,417 @@
+{
+  "game_commit": "360e0d467f98e4ab317f4dd91553ee2efd4615ec",
+  "game_branch": "main",
+  "date": "2026-11-29",
+  "species_count": 31,
+  "game_validation": "plans/reviews/pbr-swimmers-release-20261129/install.validation.json",
+  "game_validation_sha256": "5c98664b35ea5bf191166372002a8633e73af0a8727cab0faf8117896706001a",
+  "changed_lfs_unique_objects": 190,
+  "changed_lfs_bytes": 152267719,
+  "catalog_sha256": "e95c919587a29a9b3df41e359bfdc5bcb5aa15bd322aae173d1df1c70492289f",
+  "lod_sha256": "1d6858cc4ef458045ae9d917c6bc29c492b3d7c9a9af8821321d2b9b265344d0",
+  "species": [
+    {
+      "id": "red_seabream",
+      "label": "真鲷",
+      "blend_sha256": "b36a231d904b9750996ba8e9719ac9dd4faf22d4610022849180a22bc7fa2776",
+      "accepted_glb_sha256": "83412231f22d244187326d212d2907cda4cac5578bc9965bd11c233a2734ef31",
+      "triangles_lod0_to_3": [
+        2938,
+        486,
+        126,
+        41
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "black_seabream",
+      "label": "黑鲷",
+      "blend_sha256": "2dc697293ab1b5da69d3b0caa84ed5404c28ccc567cb6dbe78ce93817238bda6",
+      "accepted_glb_sha256": "26ab9a1e3e57e481451de1f105feec3ed9b5d4b355466d38062e5c19a96cc061",
+      "triangles_lod0_to_3": [
+        3236,
+        494,
+        147,
+        53
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "sea_bass",
+      "label": "海鲈",
+      "blend_sha256": "dff27abe79df90246088f76ad16ac6ed7c7cf71ab3b0136169f430d594fce11c",
+      "accepted_glb_sha256": "5539fce62a26a094519fed8adcdfc27d0881303f5416cade790feee57976507d",
+      "triangles_lod0_to_3": [
+        3242,
+        498,
+        142,
+        54
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "loggerhead",
+      "label": "蠵龟",
+      "blend_sha256": "29de758de13bd5e02c90b9d153b49ef6cef40575435575b125f9571373214dae",
+      "accepted_glb_sha256": "282aead0787f280e642ee860220e63e20c74d9662543fb5971bbe24ad65fe54e",
+      "triangles_lod0_to_3": [
+        4438,
+        1297,
+        403,
+        117
+      ],
+      "hook": "ornamental"
+    },
+    {
+      "id": "skye_manta",
+      "label": "蝠鲼",
+      "blend_sha256": "4428673c2afc9184f8b7c531064000cab5e60c1fe1c5a9f27a676e59ade4e1da",
+      "accepted_glb_sha256": "389272ef6921320288ce7796b54fa69908d63220ac51829d77739c23986a4f7c",
+      "triangles_lod0_to_3": [
+        4952,
+        1292,
+        392,
+        116
+      ],
+      "hook": "ornamental"
+    },
+    {
+      "id": "red_emperor",
+      "label": "红皇帝鱼",
+      "blend_sha256": "8bfa5ad3c04586883624ea4467a9f4bd15f1d6b07c9bce93afaa5a5d3e37c3b7",
+      "accepted_glb_sha256": "e7fd4f5728dd03dc2844c29112cb789bc321850821b87692bc1a1b4374615a80",
+      "triangles_lod0_to_3": [
+        2606,
+        494,
+        134,
+        42
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "rainbow_trout",
+      "label": "虹鳟",
+      "blend_sha256": "a9f22ccf2879f444195f2d8ca231efe3a4df4d6ec14e7a53148dbea2835032ec",
+      "accepted_glb_sha256": "9af011f93debd1b53222adabae36353577eb1bad9b30652a96a87bab24c3a038",
+      "triangles_lod0_to_3": [
+        2760,
+        496,
+        134,
+        46
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "brown_trout",
+      "label": "褐鳟",
+      "blend_sha256": "15a454bea73a224bc9831986e61d85e4d3edae0a3040bb125cadff61943ea643",
+      "accepted_glb_sha256": "ceb34473dc8ab8b72150e6d46afa5ed4f8500b2c4853c27b1cd29032a2a34a46",
+      "triangles_lod0_to_3": [
+        2824,
+        494,
+        136,
+        46
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "atlantic_salmon",
+      "label": "大西洋鲑",
+      "blend_sha256": "ca33d0dec2d6e230333eafedba09b15196377dfee6bdbbea2d890490354e38ab",
+      "accepted_glb_sha256": "fba0871e13a7f77cbc9f8de70f6461094dfffca2d68f920ab31e7708ed437f68",
+      "triangles_lod0_to_3": [
+        2852,
+        492,
+        134,
+        46
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "crucian",
+      "label": "鲫鱼",
+      "blend_sha256": "9d66cd1251a7cabdf0c16465fd99a6b88e084df6fcdb7bd0a86f7002b7a7ba78",
+      "accepted_glb_sha256": "aa20ea0044e0e236d711bab8d82e123151673a351812082bd9eabc670c89e9a6",
+      "triangles_lod0_to_3": [
+        2580,
+        496,
+        132,
+        44
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "grass_carp",
+      "label": "草鱼",
+      "blend_sha256": "907dd8f1d9e64827cd8024e8ccd70761fe500c0a53cf5a4be0c4a2819a876202",
+      "accepted_glb_sha256": "56d70cb03917549e813844c93bb8939c6559150c4bee2bc1578825d742e4d416",
+      "triangles_lod0_to_3": [
+        2782,
+        496,
+        138,
+        42
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "bluegill",
+      "label": "蓝鳃太阳鱼",
+      "blend_sha256": "97ec57721b62b53ca1e3b1d803264142674a56ddec29955233c3c8b7655dd971",
+      "accepted_glb_sha256": "ba15ddb11ca5083067f57bff630fb51fbe19cc9b75abd8ede6093f600e56892b",
+      "triangles_lod0_to_3": [
+        2384,
+        498,
+        132,
+        46
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "nile_tilapia",
+      "label": "尼罗罗非鱼",
+      "blend_sha256": "bf857de7ea0c9b79d4b4d027153c793c2ee4ee44a7c09fbd70d3e1e786c73d04",
+      "accepted_glb_sha256": "bb08314aee56769de95c828586f3e29c55f24656061e8cdc36fbbf8fee71e2f1",
+      "triangles_lod0_to_3": [
+        2598,
+        495,
+        138,
+        44
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "carp",
+      "label": "鲤鱼",
+      "blend_sha256": "26ebc8f5376ee6fe48213e55805c8f38a9ffb31261bf09adba564d783cafbe34",
+      "accepted_glb_sha256": "c7839696b10c4fad6f3d62c4e93ffd60a1c51c8fb47fc92eb8b67bf6aafb27ea",
+      "triangles_lod0_to_3": [
+        2386,
+        493,
+        136,
+        46
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "piranha",
+      "label": "红腹食人鱼",
+      "blend_sha256": "68640f7dd3fb931cefaa2af3e6839a27e7c8a622eb912090bcad9f4f1bb26329",
+      "accepted_glb_sha256": "0c2fff7a52d20f99209db19e19c444c2feed09a8fda2135c73b6a519704ba7c6",
+      "triangles_lod0_to_3": [
+        2864,
+        492,
+        132,
+        45
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "peacock_bass",
+      "label": "孔雀鲈",
+      "blend_sha256": "d0a1b396ef310bd9163fd486ee57d6ec37fb537c2c18bf0ab465c73141a59465",
+      "accepted_glb_sha256": "3122fd7c2831d9f5ff85a8b296dd5a242287c19bc44e4ddb9a8dd5cd67e69cad",
+      "triangles_lod0_to_3": [
+        3140,
+        494,
+        135,
+        45
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "zander",
+      "label": "梭鲈",
+      "blend_sha256": "d0753277c605c942c255e61b494d900445ae61d9e26ab84b6dd839a10459915e",
+      "accepted_glb_sha256": "159a83a30f4a29ab6230b73b73754ae4b728b3a89293a3e19483528c1627e70f",
+      "triangles_lod0_to_3": [
+        2864,
+        494,
+        140,
+        44
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "yellow_croaker",
+      "label": "大黄鱼",
+      "blend_sha256": "ff1bf65b16cbe0583db07c1d2da58cd96d984959f2fd32d3196c84469a54b2a2",
+      "accepted_glb_sha256": "2d1b3a0e12102ddc00c3d17ecc35335dca343dff57ef647a9802d6a8b5cdd008",
+      "triangles_lod0_to_3": [
+        2968,
+        496,
+        136,
+        44
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "mahi_mahi",
+      "label": "鲯鳅",
+      "blend_sha256": "294d6a2bd3e6d048e2b026005e9bf2d70df4a910e52a5cf92a9abd63efcb9df4",
+      "accepted_glb_sha256": "5d11dd10b63b648581c99c7b3e176a0cc7ffa6c8a63661033d5dd1bd58e0b10e",
+      "triangles_lod0_to_3": [
+        2958,
+        498,
+        136,
+        41
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "pacific_bluefin_tuna",
+      "label": "太平洋蓝鳍金枪鱼",
+      "blend_sha256": "a822236e8ffdbbd5231322c7f08903ebaa376d62b5d071b4fc0d8fe34a223e84",
+      "accepted_glb_sha256": "621676a918da542019da64925f4a2c2db477557bf0d37430b30211cb9e3d6834",
+      "triangles_lod0_to_3": [
+        4840,
+        979,
+        298,
+        78
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "atlantic_sailfish",
+      "label": "大西洋旗鱼",
+      "blend_sha256": "cc5f75fff76e57bfbb9f59e9c91293cc22b6312a821f11d8699c75c540a1a058",
+      "accepted_glb_sha256": "75b96c481f30958b9b6bf1f338cb0ca9eaa1285819d8b2937f6c52d4c9170bd5",
+      "triangles_lod0_to_3": [
+        4828,
+        994,
+        296,
+        76
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "hairtail",
+      "label": "带鱼",
+      "blend_sha256": "e2c6108322e8900fb422e34704f83033be7c29fea726d063b0a03270186f9b13",
+      "accepted_glb_sha256": "c7734a2420399d53e36a43acee1e009c37b67bf3b26231d197e1cbb83a5e8e66",
+      "triangles_lod0_to_3": [
+        2748,
+        494,
+        136,
+        40
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "silver_arowana",
+      "label": "银龙鱼",
+      "blend_sha256": "776ed016d764a610504f9e278fac9bb7dd8e711fe682a39cf78c7071baa9c11e",
+      "accepted_glb_sha256": "261af72c0254f6892400f1373f3a9fdb618a3582343a58d2171e4455175a900b",
+      "triangles_lod0_to_3": [
+        2896,
+        494,
+        138,
+        45
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "arapaima",
+      "label": "巨骨舌鱼",
+      "blend_sha256": "5d41f875e4128a535fa4a7bd59ebccb78d14fb676a7d99157cec297b998fd33c",
+      "accepted_glb_sha256": "3ea8dc81cfa466245995055ae1320b2950b25f0c64cb33a12227697429feaf50",
+      "triangles_lod0_to_3": [
+        4820,
+        998,
+        299,
+        91
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "african_catfish",
+      "label": "非洲鲇鱼",
+      "blend_sha256": "cd97913b5e63ab425fe1e976b9cdba5eee67e38d3e1d52483baa72af6d77ba0d",
+      "accepted_glb_sha256": "88a514fc3544c881788ffc35f2cdc8ddcb44f07a4e470790afe85e5719364d79",
+      "triangles_lod0_to_3": [
+        2976,
+        495,
+        137,
+        45
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "blacktip_reef_shark",
+      "label": "黑鳍礁鲨",
+      "blend_sha256": "f384e7c456cf14c92879d58e458770fdf08deb3f7133743efc7f8abb90bfd2c3",
+      "accepted_glb_sha256": "1defabe6319ed277130f1abc1f3697b43ed4228d05eff681631a42d2bf0a8885",
+      "triangles_lod0_to_3": [
+        5878,
+        990,
+        307,
+        80
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "great_hammerhead",
+      "label": "大双髻鲨",
+      "blend_sha256": "661daa9a47152692851c8c63bcf012f12ac3fbb6037acdf0663b48d072344670",
+      "accepted_glb_sha256": "cd65673063c74cb0d776254e521487fc63c64b87686322e8d818d6ec897c1fd1",
+      "triangles_lod0_to_3": [
+        5498,
+        2043,
+        542,
+        108
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "scalloped_hammerhead",
+      "label": "路氏双髻鲨",
+      "blend_sha256": "7ebcf93032f1ab0c20054ba8a990a4b336624c3115edacc6443722c61f4ac316",
+      "accepted_glb_sha256": "85f5dacedc35a1393cec9d04d75ae22e09c5474e6c62f796ba64a01dff61c2bf",
+      "triangles_lod0_to_3": [
+        3994,
+        1032,
+        298,
+        88
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "smooth_hammerhead",
+      "label": "无沟双髻鲨",
+      "blend_sha256": "6e78f96936460a2d651539ee7fb4569a2772c60275b5021e628d50ee915e26c6",
+      "accepted_glb_sha256": "c22f4a73d97776765f190a33ff9c37c1a09dd98aea65f7e5268a46c22c1e4188",
+      "triangles_lod0_to_3": [
+        4602,
+        1030,
+        294,
+        96
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "whale_shark",
+      "label": "鲸鲨",
+      "blend_sha256": "98b22963453bd29fd7e6ff314fb4af9476e654544930bff29202a2b188ef62ad",
+      "accepted_glb_sha256": "eccf3cf6be4d22c34e52ff67dc6240ed395e44c1c1f3aca7d7f18afe67de1131",
+      "triangles_lod0_to_3": [
+        9990,
+        3550,
+        1050,
+        210
+      ],
+      "hook": "tested"
+    },
+    {
+      "id": "clownfish",
+      "label": "公子小丑鱼",
+      "blend_sha256": "7ce1af667ea005496f6fd308f300cbc1c62b256b8f8ca5787f34439c896ec581",
+      "accepted_glb_sha256": "33052a01e012315dfd6917d675673791a8a5bd89adf066fa50ab843d07a5fc6c",
+      "triangles_lod0_to_3": [
+        3286,
+        496,
+        139,
+        48
+      ],
+      "hook": "tested"
+    }
+  ]
+}

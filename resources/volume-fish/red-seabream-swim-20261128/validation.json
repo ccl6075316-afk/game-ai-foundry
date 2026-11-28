@@ -1,0 +1,209 @@
+{
+  "status": "candidate_for_visual_review",
+  "red_seabream_sha256": "4c9206f434f64f2afcb8c267a351d5cfc9db5f73face776fd9789b71a1c6718a",
+  "collision": {
+    "test": {
+      "frames": 480,
+      "vertices_each": 2685,
+      "fin_triangles": 807,
+      "skin_eye_oral_triangles": 2003,
+      "all_skin_vertices_finite": true,
+      "free_fin_faces_tested": 523,
+      "baseline_contacting_fin_faces": 191,
+      "total_unique_contacting_fin_faces": 257,
+      "new_nonroot_contacts": 0,
+      "max_contacting_free_fin_faces_per_frame": 0,
+      "unique_contacting_free_fin_faces": [],
+      "root_ownership": "reviewed source-domain rest points matched on formal mesh, distance <= 0.18 mm native units. Root-contacting triangles include faces incident to a root vertex.",
+      "shared_edges_verified_by_bind_and_posed_halfplanes": [
+        [
+          62,
+          19
+        ]
+      ]
+    },
+    "tank_pose": {
+      "frames": 480,
+      "vertices_each": 2685,
+      "fin_triangles": 807,
+      "skin_eye_oral_triangles": 2003,
+      "all_skin_vertices_finite": true,
+      "free_fin_faces_tested": 523,
+      "baseline_contacting_fin_faces": 191,
+      "total_unique_contacting_fin_faces": 257,
+      "new_nonroot_contacts": 0,
+      "max_contacting_free_fin_faces_per_frame": 0,
+      "unique_contacting_free_fin_faces": [],
+      "root_ownership": "reviewed source-domain rest points matched on formal mesh, distance <= 0.18 mm native units. Root-contacting triangles include faces incident to a root vertex.",
+      "shared_edges_verified_by_bind_and_posed_halfplanes": [
+        [
+          62,
+          19
+        ]
+      ]
+    },
+    "native": {
+      "frames": 480,
+      "vertices_each": 2685,
+      "fin_triangles": 807,
+      "skin_eye_oral_triangles": 2003,
+      "all_skin_vertices_finite": true,
+      "free_fin_faces_tested": 523,
+      "baseline_contacting_fin_faces": 191,
+      "total_unique_contacting_fin_faces": 226,
+      "new_nonroot_contacts": 0,
+      "max_contacting_free_fin_faces_per_frame": 0,
+      "unique_contacting_free_fin_faces": [],
+      "root_ownership": "reviewed source-domain rest points matched on formal mesh, distance <= 0.18 mm native units. Root-contacting triangles include faces incident to a root vertex.",
+      "shared_edges_verified_by_bind_and_posed_halfplanes": [
+        [
+          62,
+          19
+        ]
+      ]
+    },
+    "extreme": {
+      "frames": 480,
+      "vertices_each": 2685,
+      "fin_triangles": 807,
+      "skin_eye_oral_triangles": 2003,
+      "all_skin_vertices_finite": true,
+      "free_fin_faces_tested": 523,
+      "baseline_contacting_fin_faces": 191,
+      "total_unique_contacting_fin_faces": 262,
+      "new_nonroot_contacts": 0,
+      "max_contacting_free_fin_faces_per_frame": 0,
+      "unique_contacting_free_fin_faces": [],
+      "root_ownership": "reviewed source-domain rest points matched on formal mesh, distance <= 0.18 mm native units. Root-contacting triangles include faces incident to a root vertex.",
+      "shared_edges_verified_by_bind_and_posed_halfplanes": [
+        [
+          62,
+          19
+        ]
+      ]
+    },
+    "switch": {
+      "frames": 360,
+      "vertices_each": 2685,
+      "fin_triangles": 807,
+      "skin_eye_oral_triangles": 2003,
+      "all_skin_vertices_finite": true,
+      "free_fin_faces_tested": 523,
+      "baseline_contacting_fin_faces": 191,
+      "total_unique_contacting_fin_faces": 258,
+      "new_nonroot_contacts": 0,
+      "max_contacting_free_fin_faces_per_frame": 0,
+      "unique_contacting_free_fin_faces": [],
+      "root_ownership": "reviewed source-domain rest points matched on formal mesh, distance <= 0.18 mm native units. Root-contacting triangles include faces incident to a root vertex.",
+      "shared_edges_verified_by_bind_and_posed_halfplanes": [
+        [
+          62,
+          19
+        ]
+      ]
+    },
+    "baseline": {
+      "frames": 480,
+      "vertices_each": 2685,
+      "fin_triangles": 807,
+      "skin_eye_oral_triangles": 2003,
+      "all_skin_vertices_finite": true,
+      "free_fin_faces_tested": 523,
+      "baseline_contacting_fin_faces": 191,
+      "total_unique_contacting_fin_faces": 241,
+      "new_nonroot_contacts": 0,
+      "max_contacting_free_fin_faces_per_frame": 0,
+      "unique_contacting_free_fin_faces": [],
+      "root_ownership": "reviewed source-domain rest points matched on formal mesh, distance <= 0.18 mm native units. Root-contacting triangles include faces incident to a root vertex.",
+      "shared_edges_verified_by_bind_and_posed_halfplanes": [
+        [
+          62,
+          19
+        ]
+      ]
+    }
+  },
+  "runtime": {
+    "cold_display": {
+      "cache_hits_delta": 0,
+      "cache_misses_delta": 1,
+      "loading": {
+        "appearance_ms": 54.854,
+        "controller_ms": 18.011,
+        "model_ms": 90.534,
+        "reused_appearance": false,
+        "species": "red_seabream",
+        "total_ms": 177.919
+      },
+      "single_pbr_surface": true
+    },
+    "exhibit_actions": {
+      "actions": {
+        "Ascend": {
+          "body02_pose_path_m": 0.0219846545223845,
+          "bones_checked_per_frame": 19,
+          "frames": 120
+        },
+        "Dive": {
+          "body02_pose_path_m": 0.0173056522328352,
+          "bones_checked_per_frame": 19,
+          "frames": 120
+        },
+        "Swim": {
+          "body02_pose_path_m": 0.005077350730744,
+          "bones_checked_per_frame": 19,
+          "frames": 120
+        },
+        "Turn": {
+          "body02_pose_path_m": 0.00841187154333056,
+          "bones_checked_per_frame": 19,
+          "frames": 120
+        }
+      },
+      "actual_gallery_buttons": true,
+      "jaw_angle_degrees_at_0_36_72_108_144": [
+        1.13212056602191e-05,
+        5.58905445970062,
+        9.99999826990386,
+        5.08594370253466,
+        0.621886688701531
+      ],
+      "jaw_samples": 145,
+      "max_jaw_trajectory_error_deg": 0.00122864904725582
+    },
+    "fishing": {
+      "actor": "FishingVolumeFish.configure -> create_fishing + bind_upper_lip",
+      "hook_path_length_m": 0.831191171891987,
+      "max_jaw_degrees": 9.99999826990386,
+      "native_vertex_index": 514,
+      "physical_vertex_to_hook_max_mm": 6.6640019724673e-05,
+      "samples": 145,
+      "socket_to_hook_max_mm": 6.00685012841495e-05
+    },
+    "model_sha256": "4c9206f434f64f2afcb8c267a351d5cfc9db5f73face776fd9789b71a1c6718a",
+    "path": "res://assets/models/fish/red_seabream.glb",
+    "pectoral": {
+      "max_sweep": 0.620000118672603,
+      "max_twist": 0.114999970348259,
+      "min_sweep": 0.180000069764298,
+      "min_twist": -0.115000001305928
+    },
+    "warm_cache": {
+      "cache_hits_delta": 1,
+      "cache_misses_delta": 0,
+      "freed_display_nodes": true,
+      "independent_instance": true,
+      "independent_material": true,
+      "loading": {
+        "appearance_ms": 0.002,
+        "controller_ms": 1.907,
+        "model_ms": 11.732,
+        "reused_appearance": true,
+        "species": "red_seabream",
+        "total_ms": 13.647
+      },
+      "shared_pbr_maps": true,
+      "single_pbr_surface": true
+    }
+  }
+}

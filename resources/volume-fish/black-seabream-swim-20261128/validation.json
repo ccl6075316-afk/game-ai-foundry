@@ -1,0 +1,274 @@
+{
+  "status": "candidate_visual_review",
+  "species": "black_seabream",
+  "installed_model_sha256": "e18f9212d8df86036b21d6e43bad32c0667bcb58c5c5e3c4d189d0af7e7e5437",
+  "source_input_sha256": "8533a9e991305afd910ecbfef296832cfb035eec294317485fec476a3d60a757",
+  "candidate_source_sha256": "fb984a1f110f6666de0ecf90c37093363e2a73a67fda914766a0c0662610c49f",
+  "candidate_model_sha256": "1f5a99b6a87f9e245aa9d82efe0ed8545bfeb5ec834f31f7e99fb269761eae0f",
+  "cold_export_sha256": "1f5a99b6a87f9e245aa9d82efe0ed8545bfeb5ec834f31f7e99fb269761eae0f",
+  "candidate_profile_sha256": "5974d30356efd81432fadb0553fe6d3660db2623071022d9259d20d0a09a04fe",
+  "local_shape_reference": {
+    "kind": "related YellowfinSeabream model used in retained head study",
+    "sha256": "7326727f550841c3487ad752915a42e5444a67e9476e2933f678978e2471a564",
+    "faces": 3160
+  },
+  "static_streams_equal": [
+    "mesh attributes and indices",
+    "inverse bind matrices",
+    "rest nodes",
+    "material descriptors",
+    "embedded images"
+  ],
+  "native_clip": {
+    "seconds": 2.2,
+    "rotation_only": true,
+    "channels": {
+      "body_00": 67,
+      "body_01": 67,
+      "body_02": 67,
+      "body_03": 67,
+      "body_04": 67,
+      "body_05": 67,
+      "body_06": 67,
+      "body_07": 67,
+      "body_08": 67,
+      "body_09": 67,
+      "Caudal": 67,
+      "Anal": 67,
+      "Dorsal": 67,
+      "Pectoral_left": 67,
+      "Pectoral_right": 67,
+      "Pelvic_left": 67,
+      "Pelvic_right": 67,
+      "jaw_lower": 67
+    },
+    "max_loop_component_error": 0
+  },
+  "pbr": {
+    "bones": 19,
+    "checks": {
+      "480_frames_4_actions_finite": true,
+      "alpha_mode_mask_05": true,
+      "controller_configure_ok": true,
+      "has_pbr_normal_and_orm": true,
+      "jaw_action_reaches_target_deg": true,
+      "single_mesh_single_material_draw_call_1": true,
+      "upper_lip_hook_anchor_preserved_lt_2mm": true,
+      "vram_within_budget": true
+    },
+    "configure_result": {
+      "computed_skin_envelope_m": 0.349837410851479,
+      "envelope_radius_m": 0.665,
+      "failures": [],
+      "ok": true
+    },
+    "draw_calls": 1,
+    "gpu_vertices": 2314,
+    "jaw_max_rot_deg": 10.0,
+    "model_sha256": "1f5a99b6a87f9e245aa9d82efe0ed8545bfeb5ec834f31f7e99fb269761eae0f",
+    "ok": true,
+    "species": "black_seabream",
+    "triangles": 2852,
+    "upper_lip_err_mm": 0.0,
+    "vram_uncompressed_mip_mb": 8.0
+  },
+  "runtime": {
+    "cold_display": {
+      "cache_hits_delta": 0,
+      "cache_misses_delta": 1,
+      "loading": {
+        "appearance_ms": 8.032,
+        "controller_ms": 13.96,
+        "model_ms": 26.411,
+        "reused_appearance": false,
+        "species": "black_seabream",
+        "total_ms": 52.759
+      },
+      "single_pbr_surface": true
+    },
+    "exhibit_actions": {
+      "actions": {
+        "Ascend": {
+          "body02_pose_path_m": 0.0194135218898737,
+          "bones_checked_per_frame": 19,
+          "frames": 120
+        },
+        "Dive": {
+          "body02_pose_path_m": 0.0169940397911432,
+          "bones_checked_per_frame": 19,
+          "frames": 120
+        },
+        "Swim": {
+          "body02_pose_path_m": 0.00463783444797627,
+          "bones_checked_per_frame": 19,
+          "frames": 120
+        },
+        "Turn": {
+          "body02_pose_path_m": 0.00901050426091388,
+          "bones_checked_per_frame": 19,
+          "frames": 120
+        }
+      },
+      "actual_gallery_buttons": true,
+      "jaw_angle_degrees_at_0_36_72_108_144": [
+        3.41509499211742e-06,
+        5.57115422299342,
+        9.99999826990386,
+        5.29229062541639,
+        0.158747306529725
+      ],
+      "jaw_samples": 145,
+      "max_jaw_trajectory_error_deg": 0.00112871469158375
+    },
+    "fishing": {
+      "actor": "FishingVolumeFish.configure -> create_fishing + bind_upper_lip",
+      "hook_path_length_m": 0.831191164674237,
+      "max_jaw_degrees": 9.99999826990386,
+      "native_vertex_index": 861,
+      "physical_vertex_to_hook_max_mm": 6.82857006495396e-05,
+      "samples": 145,
+      "socket_to_hook_max_mm": 6.6640019724673e-05
+    },
+    "model_sha256": "1f5a99b6a87f9e245aa9d82efe0ed8545bfeb5ec834f31f7e99fb269761eae0f",
+    "path": "res://assets/models/fish/black_seabream.glb",
+    "pectoral": {
+      "max_sweep": 0.599957777899472,
+      "max_twist": 0.124999947100084,
+      "min_sweep": 0.120042331115405,
+      "min_twist": -0.124999954638521
+    },
+    "warm_cache": {
+      "cache_hits_delta": 1,
+      "cache_misses_delta": 0,
+      "freed_display_nodes": true,
+      "independent_instance": true,
+      "independent_material": true,
+      "loading": {
+        "appearance_ms": 0.001,
+        "controller_ms": 1.609,
+        "model_ms": 4.756,
+        "reused_appearance": true,
+        "species": "black_seabream",
+        "total_ms": 6.372
+      },
+      "shared_pbr_maps": true,
+      "single_pbr_surface": true
+    }
+  },
+  "envelope_and_controls": {
+    "samples_per_case": 96,
+    "controller_sha256": "7e72a5f8b97716da8617e3b1350f7f1fcc1acf8725ee23a676a941689de98e69",
+    "results": {
+      "fast_body": {
+        "fin_peak_rad": 0.239875346422195,
+        "neutral_error_rad": 0.0,
+        "pivot_translation_error": 0.0
+      },
+      "fast_fins": {
+        "fin_peak_rad": 0.239875346422195,
+        "neutral_error_rad": 0.0,
+        "pivot_translation_error": 0.0
+      },
+      "low": {
+        "fin_peak_rad": 0.239875346422195,
+        "neutral_error_rad": 0.0,
+        "pivot_translation_error": 0.0
+      },
+      "wide": {
+        "fin_peak_rad": 1.19938504695892,
+        "neutral_error_rad": 0.0,
+        "pivot_translation_error": 0.0
+      },
+      "zero": {
+        "fin_peak_rad": 0.0,
+        "neutral_error_rad": 0.0,
+        "pivot_translation_error": 0.0
+      }
+    },
+    "approved_envelope_m": 0.665
+  },
+  "collision": {
+    "gallery": {
+      "frames": 480,
+      "vertices_each": 2314,
+      "fin_triangles": 930,
+      "skin_eye_oral_triangles": 1922,
+      "all_skin_vertices_finite": true,
+      "free_fin_faces_tested": 544,
+      "baseline_contacting_fin_faces": 233,
+      "total_unique_contacting_fin_faces": 322,
+      "new_nonroot_contacts": 0,
+      "max_contacting_free_fin_faces_per_frame": 0,
+      "unique_contacting_free_fin_faces": [],
+      "root_ownership": "reviewed source-domain rest points matched on formal mesh, distance <= 0.18 mm native units. Root-contacting triangles include faces incident to a root vertex."
+    },
+    "native": {
+      "frames": 480,
+      "vertices_each": 2314,
+      "fin_triangles": 930,
+      "skin_eye_oral_triangles": 1922,
+      "all_skin_vertices_finite": true,
+      "free_fin_faces_tested": 544,
+      "baseline_contacting_fin_faces": 233,
+      "total_unique_contacting_fin_faces": 274,
+      "new_nonroot_contacts": 0,
+      "max_contacting_free_fin_faces_per_frame": 0,
+      "unique_contacting_free_fin_faces": [],
+      "root_ownership": "reviewed source-domain rest points matched on formal mesh, distance <= 0.18 mm native units. Root-contacting triangles include faces incident to a root vertex."
+    },
+    "current_exhibit": {
+      "frames": 480,
+      "vertices_each": 2314,
+      "fin_triangles": 930,
+      "skin_eye_oral_triangles": 1922,
+      "all_skin_vertices_finite": true,
+      "free_fin_faces_tested": 544,
+      "baseline_contacting_fin_faces": 233,
+      "total_unique_contacting_fin_faces": 298,
+      "new_nonroot_contacts": 0,
+      "max_contacting_free_fin_faces_per_frame": 0,
+      "unique_contacting_free_fin_faces": [],
+      "root_ownership": "reviewed source-domain rest points matched on formal mesh, distance <= 0.18 mm native units. Root-contacting triangles include faces incident to a root vertex."
+    },
+    "control_extremes": {
+      "frames": 480,
+      "vertices_each": 2314,
+      "fin_triangles": 930,
+      "skin_eye_oral_triangles": 1922,
+      "all_skin_vertices_finite": true,
+      "free_fin_faces_tested": 544,
+      "baseline_contacting_fin_faces": 233,
+      "total_unique_contacting_fin_faces": 329,
+      "new_nonroot_contacts": 0,
+      "max_contacting_free_fin_faces_per_frame": 0,
+      "unique_contacting_free_fin_faces": [],
+      "root_ownership": "reviewed source-domain rest points matched on formal mesh, distance <= 0.18 mm native units. Root-contacting triangles include faces incident to a root vertex."
+    },
+    "transitions": {
+      "frames": 360,
+      "vertices_each": 2314,
+      "fin_triangles": 930,
+      "skin_eye_oral_triangles": 1922,
+      "all_skin_vertices_finite": true,
+      "free_fin_faces_tested": 544,
+      "baseline_contacting_fin_faces": 233,
+      "total_unique_contacting_fin_faces": 325,
+      "new_nonroot_contacts": 0,
+      "max_contacting_free_fin_faces_per_frame": 0,
+      "unique_contacting_free_fin_faces": [],
+      "root_ownership": "reviewed source-domain rest points matched on formal mesh, distance <= 0.18 mm native units. Root-contacting triangles include faces incident to a root vertex."
+    }
+  },
+  "exhibit": {
+    "PBR": true,
+    "fps": 24,
+    "frames": 480,
+    "model_sha256": "1f5a99b6a87f9e245aa9d82efe0ed8545bfeb5ec834f31f7e99fb269761eae0f",
+    "scene": "res://scenes/current_exhibit.tscn",
+    "tank_speed_BL_per_s_median": {
+      "1-4": 0.20867891231030913,
+      "6.5-9": 0.46200364428641094,
+      "12-15": 0.3786636485813961
+    }
+  }
+}

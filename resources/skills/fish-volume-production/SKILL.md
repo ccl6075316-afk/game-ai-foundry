@@ -9,7 +9,10 @@ description: Build or repair rigged, source-art-based 3D fish in Game AI Foundry
 
 ## 开工入口
 
-新建、重建、返修和批量推广都先读[生产 SOP](references/production-sop.md)及[真鲷跨鱼执行表](references/red-seabream-lowpoly-trial-lessons-20261101.md#跨鱼执行表开工先读)。在原 handoff / 逐鱼清单记录本鱼适用风险、保留区与拟用验证画面，不能只写“已阅读”。SOP 0—10 节是执行顺序；后半日期案例保留历史，不按编号递增试错。
+- **全新物种一步到位制作（2026-11-28 现行首选主流程）**：直接读 [全新海洋生物一步到位单材质 PBR SOP v2.0](references/new-fish-pbr-sop-v2.md) 与 [体长×形态复杂度预算](references/display-length-budget.md)（`cli/fish_budget.py`）。不再先做旧像素低模再二次升级 PBR。
+- **已有旧鱼 PBR 升级与正式装载（硬骨鱼）**：直接读 [通用单材质 PBR 升级与正式装载 SOP v4](../../scripts/fish-pbr-pipeline/README-HANDOFF-GPT-ASTRA-6.2.md)。
+- **鲨鱼类（软骨鱼）单材质 PBR 升级与制作**：直接读 [鲨鱼类单材质 PBR SOP v1.0](../../scripts/fish-pbr-pipeline/README-SHARK-PBR-SOP-v1.md)（1 号过审样板：黑鳍礁鲨 R2；覆盖双髻鲨三姐妹与鲸鲨零拓扑升级）。
+- **旧资产局部返修与历史溯源**：读旧版 [生产 SOP](references/production-sop.md) 及 [真鲷跨鱼执行表](references/red-seabream-lowpoly-trial-lessons-20261101.md#跨鱼执行表开工先读)。在原 handoff / 逐鱼清单记录本鱼适用风险、保留区与拟用验证画面，不能只写“已阅读”。SOP 0—10 节是历史主线；后半日期案例保留历史，不按编号递增试错。
 
 首次用 `volume sop-init` 建逐鱼清单，之后更新原清单。按当前实际功能/运行依赖和本鱼库存选方法，核验源图/归档/接受，不补造生成记录；新鱼先审核二维去鳍底图、实际色相描边、头底鳃纹、像素密度、头身灰模接口及整眼比例。既有动画/生成作业遵循工具箱状态合同。
 
@@ -31,13 +34,13 @@ description: Build or repair rigged, source-art-based 3D fish in Game AI Foundry
 | 逐鱼换材质、白模多视图生色、原UV重烘焙及黑边取样 | [多视图材质烘焙](references/whale-shark-multiview-color.md#现有成品逐鱼换材质保留原-uv-的制作方法)：部位遮挡、真实生成边界、image-only候选及正式源固化 |
 | 控制笼低面 B 新建、无聊天重建交接 | [控制笼](references/reference-cage-body.md)、[完整重建 SOP](references/reference-cage-rebuild-sop.md) |
 | 配置驱动源/部位/冷导出或单 surface | [通用工具及 capabilities](references/portable-finalization-tools.md)、[单材质源固化](references/single-material-source-finalization.md) |
-| 鲨鱼、同族双髻鲨与项目原画来源 | [鲨鱼主线](references/shark-production-lessons.md)、[双髻鲨边界](references/hammerhead-family.md) |
+| 鲨鱼（软骨鱼）PBR 升级、同族双髻鲨与鲸鲨 | [鲨鱼类单材质 PBR SOP v1.0](../../scripts/fish-pbr-pipeline/README-SHARK-PBR-SOP-v1.md)、[鲨鱼主线](references/shark-production-lessons.md)、[双髻鲨边界](references/hammerhead-family.md) |
 | 旧 Godot 静态装配回源的本地检查点 | SOP 0.2 与[次级模型卡](references/static-merge-secondary-model.md)，不用于新鱼、主动修鳍或正式交付 |
 | 实际游戏替换、缓存冷读与性能测量 | [正式替换防遗漏](references/five-fish-width-release-lessons-20261101.md)、[性能审计](references/performance-audit.md) |
 
 部位或验证方法不清，按游戏 `docs/3d-fish/ANATOMY-RESEARCH.md` 查证后转成约束。先核同口径长度/最大体宽及峰位，再核头吻各站与连续轮廓；直接测最终有限网格。2026-11-02允许同属/同科或已审模型作近缘厚度参考，用户指定定稿样板优先；记录物种、来源SHA、部位映射、长度归一化和未知，不冒充同种实测或继承接受。项目已审原画约束主体/鳍形，外部模型用于批准的结构与量测角色，不直接挪扫描轮廓再拉伸皮肤迁就。
 
-[整鱼预算](references/display-length-budget.md)按2026-11-02用户再次确认的展示体长分档：普通≤120cm为1500/2000，>120—300cm为3500/4000，>300—600cm为5500/6000，>600cm为7500/8000（优选/硬上限）；鲨鱼以3000～4000为最低起步预算范围（当前实现3500优选/4000本档上限），>300cm继续升到5500/6000，>600cm升到7500/8000，不能统一封顶4000。正好边界归前档，统计身体/嘴口内/全部鳍两面厚度封边及附层，不凑数加面，不以预算牺牲嘴/原眼/画风/连接/动作。
+[整鱼预算](references/display-length-budget.md)自 2026-11-28 起按面向 5 万条鱼同屏的「体长档 × 形态复杂度（`anatomical_group`）」LOD0 放开标准执行（`cli/fish_budget.py`）：`standard_lateral`（≤120cm `4000/5000`、120–300cm `6500/8000`、300–600cm `8500/10000`、>600cm `12000/15000`）；`shark` 与 `dorsal_complex`（海龟/鳐/蝠鲼/狮子鱼等）起步 `6500/8000` 并随体长升档；`multi_limb`（章鱼/鱿鱼/甲壳等）起步 `8500/10000`。运行时配四级 LOD（LOD1/2/3）与单材质合批（`Draw Call = 1`）。优选不是下限，已有合格少面资产不为凑数加面。
 
 ## 验证与完成
 

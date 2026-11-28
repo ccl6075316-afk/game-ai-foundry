@@ -53,6 +53,13 @@ func _prepare_fin_tracks() -> bool:
             var outward:=Vector3(raw[0],raw[1],raw[2]).normalized()
             var hinge: Vector3=(global_rest.basis.inverse()*global_rest.basis.y.normalized().cross(outward).normalized()).normalized()
             _fin_tracks[-1]["hinge"]=hinge
+            if "pectoral" in label and config.get("native_feather", false):
+                if float(config.minimum_radians) < 0.12: return false
+                _fin_tracks[-1]["native_feather"]=true
+            if config.get("native_scull", false):
+                if not paired or float(config.minimum_radians) < 0.12: return false
+                _fin_tracks[-1]["native_scull"]=true
+                _fin_tracks[-1]["maximum_gain"]=float(config.get("maximum_gain", 2.5))
             _fin_tracks[-1]["minimum"]=float(config.minimum_radians)
             _fin_tracks[-1]["neutral"]=(rest*Quaternion(hinge,float(config.minimum_radians))).normalized()
     for constrained_bone in _profile.get("fin_motion_constraints",{}):
@@ -71,6 +78,29 @@ func _pose_fins() -> void:
         if item.has("hinge"):
             # Abduct/adduct outside the body rather than sweeping a symmetric
             # rotation through the flank. Local pivot and full basal weights stay.
+            if item.get("native_scull", false):
+                # Scale about the safe outward neutral while keeping all authored axes.
+                var floor_angle := float(item.minimum)
+                var neutral := Quaternion(item.hinge, floor_angle)
+                var gain := minf(float(_motion.fin_amplitude), float(item.maximum_gain))
+                var scaled := neutral.slerp(delta, gain).normalized()
+                var span := scaled * Vector3.UP
+                var sweep := atan2(Vector3.UP.cross(span).dot(item.hinge), Vector3.UP.dot(span))
+                var bounded := clampf(sweep, floor_angle, floor_angle + 2.0 * gain * float(item.range))
+                posed = item.rest * Quaternion(item.hinge, bounded - sweep) * scaled
+                _skeleton.set_bone_pose_rotation(item.bone, posed.normalized())
+                continue
+            if item.get("native_feather", false):
+                # Authored swing * local-Y twist. Recover the twist before bounding abduction.
+                var twist_angle := 2.0 * atan2(delta.y, delta.w)
+                var swing := delta * Quaternion(Vector3.UP, -twist_angle)
+                var native_sweep := 2.0 * atan2(Vector3(swing.x, swing.y, swing.z).dot(item.hinge), swing.w)
+                var gain := float(_motion.fin_amplitude)
+                var floor_angle := float(item.minimum)
+                var bounded := floor_angle + gain * clampf(native_sweep - floor_angle, 0.0, 2.0 * float(item.range))
+                posed = item.rest * Quaternion(item.hinge, bounded) * Quaternion(Vector3.UP, gain * twist_angle)
+                _skeleton.set_bone_pose_rotation(item.bone, posed.normalized())
+                continue
             var dominant:=0
             for k in [1,2]:
                 if absf(axis[k])>absf(axis[dominant]):dominant=k
